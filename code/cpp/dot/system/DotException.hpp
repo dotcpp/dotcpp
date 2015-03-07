@@ -30,20 +30,23 @@ namespace dot
     class DotString;
 
     /// <summary>Represents errors that occur during application execution.</summary>
-    class DotException : public std::exception
+    class DOT_SYSTEM DotException : public std::exception
     {
         std::string msg_;
 
     public: // CONSTRUCTORS
 
-        /// <summary>Initializes a new instance of the Exception class with default message.</summary>
+        /// <summary>Create with default message.</summary>
         DotException() : msg_("Exception of type 'System.Exception' was thrown.") {}
 
-        /// <summary>Initializes a new instance of the Exception class with a specified error message.</summary>
+        /// <summary>Create with a specified error message.</summary>
         DotException(const DotString& msg);
 
-        /// <summary>Initializes a new instance of the Exception class with a specified error message.</summary>
+        /// <summary>Create with a specified error message.</summary>
         DotException(const std::string& msg) : msg_(msg) {}
+
+        /// <summary>Create with a specified error message.</summary>
+        DotException(const char* msg) : msg_(msg ? msg : "") {}
 
     public: // METHODS
 
