@@ -42,6 +42,11 @@ namespace dot
         /// <summary>(IDotCollection) Copies the elements of the ICollection(T)
         /// to a DotArray, starting at the specified DotArray index.</summary>
         virtual void copyTo(DotArray<T> array, int arrayIndex) = 0;
+
+    protected:
+        IDotCollection() = default;
+    public:
+        static DotPtr<IDotCollection<T>> create() { throw ClEx("Attempting to create an instance of abstract type."); }
     };
 }
 

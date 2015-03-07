@@ -38,6 +38,11 @@ namespace dot
 
         /// <summary>(IDotEnumerable) Returns an enumerator that iterates through the collection.</summary>
         virtual IDotEnumerator<T> GetEnumerator() = 0;
+
+    protected:
+        IDotEnumerable() = default;
+    public:
+        static DotPtr<IDotEnumerable<T>> create() { throw ClEx("Attempting to create an instance of abstract type."); }
     };
 }
 
