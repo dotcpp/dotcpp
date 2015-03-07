@@ -1,0 +1,109 @@
+﻿/*
+Copyright (C) 2003-2015 CompatibL
+
+This file is part of DotCpp project, an implementation of
+selected .NET class libraries in native C++ available from
+
+    http://github.com/dotcpp/dotcpp (source)
+    http://dotcpp.org (documentation)
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+#ifndef __dot_system_DotString_hpp__
+#define __dot_system_DotString_hpp__
+
+#include <dot/system/declare.hpp>
+
+namespace dot
+{
+    class DotChar;
+    class DotObject;
+    template <class T> class DotArray;
+
+    /// <summary>Immutable string type with unicode support.</summary>
+    class DOT_SYSTEM DotString
+    {
+        std::string value_;
+
+    public: // CONSTANTS
+
+        /// <summary>Empty string.</summary>
+        static const DotString Empty;
+
+    public: // CONSTRUCTORS
+        
+        /// <summary>Create from a single Unicode character.</summary>
+        DotString(const DotChar& value);
+
+        /// <summary>Create from std::string.</summary>
+        DotString(const std::string& value) : value_(value) {}
+
+        /// <summary>Create from const char*, null pointer is converted to to empty value.</summary>
+        DotString(const char* value) : value_(rhs ? value : "") {}
+
+        /// <summary>Create from a single 8-bit character.</summary>
+        DotString(char value) : value_(1, value) {}
+
+    public: // METHODS
+
+        /// <summary>Convert to std::string.</summary>
+        std::string value() const { return value_; }
+
+        /// <summary>Returns the number of 8-bit characters, not the number of Unicode characters.\\
+        /// This number may be different from the number of Unicode characters because each
+        /// Unicode character might be represented by more than one 8-bit character.</summary>
+        int length() const { return static_cast<int>(value_.size()); }
+
+        /// <summary>Returns a new string in which all occurrences of a specified string
+        /// in the current instance are replaced with another specified string.</summary>
+        DotString replace(const DotString& oldValue, const DotString& newValue) const;
+
+        /// <summary>Returns a string array that contains the substrings of the current string
+        /// that are delimited by any of the specified 8-bit characters.</summary>
+        DotArray<DotString> split(char separator) const;
+
+        /// <summary>Returns a string array that contains the substrings in
+        /// this string that are delimited by any of the specified strings.\\
+        /// A parameter specifies whether to return empty array elements.</summary>
+        DotArray<DotString> split(const DotArray<DotString>& separator, const DotStringSplitOptions& options) const;
+
+    public: // OPERATORS
+
+        /// <summary>Assignment of std::string.</summary>
+        DotString& operator=(const std::string& rhs) { value_ = rhs; return *this; }
+
+        /// <summary>Assignment of const char*, null pointer is converted to to empty value.</summary>
+        DotString& operator=(const char* rhs) { if(rhs) value_ = rhs; else value_.clear(); return *this; }
+
+        /// <summary>Assignment of 8-bit character.</summary>
+        DotString& operator=(char rhs) { value_ = std::string(1,rhs); return *this; }
+
+        /// <summary>Equality operator.</summary>
+        bool operator==(const DotString& rhs) const { return value_ == rhs.value_; }
+
+        /// <summary>Inequality operator.</summary>
+        bool operator!=(const DotString& rhs) const { return value_ != rhs.value_; }
+
+    public: // STATIC
+
+        /// <summary>Concatenates the elements of a specified DotString array.</summary>
+        static DotString concat(const DotArray<DotString>& values);
+
+        /// <summary>Replaces the format item (e.g. {0}, {1}, etc.) in a specified string
+        /// with the string representation of a corresponding object in a specified array.</summary>
+        static DotString format(const DotString& format, const DotArray<DotObject>& args);
+    };
+}
+
+#endif  // __dot_system_DotString_hpp__
