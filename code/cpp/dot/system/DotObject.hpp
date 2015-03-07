@@ -51,6 +51,11 @@ namespace dot
 
         /// <summary>Returns a string that represents the current object.</summary>
         virtual DotString toString() const = 0;
+
+    protected:
+        DotObject() = default;
+    public:
+        static DotPtr<DotObject> create() { throw ClEx("Attempting to create an instance of abstract type."); }
     };
 }
 

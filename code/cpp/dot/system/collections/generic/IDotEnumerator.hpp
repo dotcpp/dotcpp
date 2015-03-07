@@ -36,15 +36,20 @@ namespace dot
     public: // METHODS
 
         /// <summary>Gets the element in the collection at the current position of the enumerator.</summary>
-        T current();
+        virtual T current() = 0;
 
         /// <summary>Advances the enumerator to the next element of the collection.\\
         /// Returns true if the enumerator was successfully advanced to the next element;
         /// false if the enumerator has passed the end of the collection.</summary>
-        DotBool moveNext();
+        virtual DotBool moveNext() = 0;
 
         /// <summary>Sets the enumerator to its initial position, which is before the first element in the collection.</summary>
-        void reset();
+        virtual void reset() = 0;
+        
+    protected:
+        IDotEnumerator() = default;
+    public:
+        static DotPtr<IDotEnumerator<T>> create() { throw ClEx("Attempting to create an instance of abstract type."); }
     };
 }
 
