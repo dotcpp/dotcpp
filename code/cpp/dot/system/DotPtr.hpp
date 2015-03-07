@@ -29,7 +29,7 @@ namespace dot
 {
     class DotNull;
 
-    /// <summary>Reference counted smart pointer based on std::shared_ptr<T>
+    /// <summary>Reference counted smart pointer based on std::shared_ptr
     /// with emulation of selected features of .NET references including
     /// type conversion using 'is' and 'as'.</summary>
     template <class T>
@@ -38,7 +38,7 @@ namespace dot
         template<class R> friend class DotPtr;
         std::shared_ptr<T> ptr_;
 
-    public: // PUBLIC CONSTRUCTORS
+    public: // CONSTRUCTORS
 
         /// <summary>Take ownership of raw pointer to template argument type.\\
         /// This also permits construction from null pointer.</summary>
@@ -51,7 +51,7 @@ namespace dot
         /// <summary>Copy constructor. Shares reference count with argument.</summary>
         DotPtr(const DotPtr<T>& rhs);
 
-    public: // PUBLIC OPERATORS
+    public: // OPERATORS
 
         /// <summary>Pointer dereference.</summary>
         T* operator->() const;

@@ -31,8 +31,7 @@ namespace dot
     /// This object cannot be created, therefore any pointer to DotNull is null.</summary>
     class DotNull
     {
-    private: // PRIVATE CONSTRUCTORS
-
+    private:
         DotNull();
     };
 }
