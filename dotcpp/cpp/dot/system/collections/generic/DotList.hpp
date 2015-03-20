@@ -30,6 +30,9 @@ limitations under the License.
 
 namespace dot
 {
+    //!! Should be DotException? Also it is already defined.
+    typedef std::runtime_error Exception;
+
     template <typename Type>
     struct ReadOnlyCollection : detail::empty_type {};
 
@@ -39,8 +42,8 @@ namespace dot
     template <typename, typename >
     struct Converter : detail::empty_type {};
 
-    template <typename >
-    struct Predicate : detail::empty_type {};
+    //template <typename >
+    //struct Predicate : detail::empty_type {};
 
     template <typename >
     struct Action : detail::empty_type { };
@@ -55,13 +58,12 @@ namespace dot
     public:
         typedef detail::std_accessor_<dot::IDotEnumerable<T>
                     , std::deque<T> > base;
+
         typedef dot::IDotEnumerable<T> dot_enumerator_type;
+
         typedef std::deque<T> std_base;
-    private:
-        inline std_base& get_()
-        {
-            return this->c_;
-        }
+
+        typedef T& reference_type;
     public:
 
         List() : base()
@@ -69,16 +71,17 @@ namespace dot
 
         int Capacity; // { get; set; }
 
-        inline int get_Count()
+        inline int get_Count() const
         {
-            return this->get_().size();
+            return this->get().size();
         }
 
-        T& operator[](unsigned int) {   }
+        inline reference_type
+        operator[](unsigned int index) { return *(begin() + index); }
 
         inline void Add(T const& item)
         {
-            this->get_().push_back(item);
+            this->get().push_back(item);
         }
 
         inline void AddRange(IDotEnumerable<T> const& collection);
@@ -92,9 +95,9 @@ namespace dot
         void Clear();
         bool Contains(T item);
 
-        template <typename TOutput>
+        template <typename TOutput, typename Coverter>
         inline List<TOutput>
-            ConvertAll(Converter<T, TOutput> converter);
+        ConvertAll(Converter<T, TOutput> converter);
 
         template <int I>
         void CopyTo(T(&a)[I]);
@@ -109,7 +112,8 @@ namespace dot
                     , end(), match) != end();
         }
 
-        inline List<T> FindAll(Predicate<T> match)
+        template <typename Predicate>
+        inline List<T> FindAll(Predicate match) const
         {
             List<T> result;
             std::for_each(begin(), end()
@@ -123,31 +127,71 @@ namespace dot
             return result;
         }
 
-        int FindIndex(int startIndex, Predicate<T> match);
-
-        int FindIndex(int startIndex, int count, Predicate<T> match);
-
-        T FindLast(Predicate<T> match);
-
-        template<typename Predicate>
-        inline int FindLastIndex(Predicate match)
+        template <typename Predicate>
+        inline int FindIndex(int startIndex, Predicate match) const
         {
-            std_base::iterator where = std::find_if(begin(), end(), comparer);
-            if (where != end())
-                return -1;
+            typename std_base::const_iterator where
+                = std::find_if(begin() + startIndex, end(), match);
 
-            return (where - begin());
+            return where != end() ? where - begin : -1;
         }
 
-        int FindLastIndex(int startIndex, Predicate<T> match);
+        template <typename Predicate>
+        inline int FindIndex(int startIndex, int count, Predicate match)
+        {
+            typename std_base::const_iterator start = begin() + startIndex;
+            typename std_base::const_iterator end = start + count;
 
-        int FindLastIndex(int startIndex, int count, Predicate<T> match);
+            assert(end <= end());
 
-        void ForEach(Action<T> action);
+            typename std_base::const_iterator where
+                = std::find_if(start, end , match);
+
+            return where != end ? where - begin : -1;
+        }
+
+        template <typename Predicate>
+        inline reference_type FindLast(Predicate match)
+        {
+            std_base::reverse_iterator where
+                = std::find_if(get().rbegin(), get().rend(), match);
+
+            if (where == get().rend())
+            {
+                return std::reference_wrapper<T>(*(T*)0);
+            }
+
+            return (*where);
+        }
+
+        template<typename Predicate>
+        inline int FindLastIndex(Predicate match) const
+        {
+            std_base::const_reverse_iterator where
+                = std::find_if(get().rbegin(), get().rend(), match);
+
+            if (where == get().rend())
+                return -1;
+
+            return this->get_Count() - (get().rbegin() - where);
+        }
+
+        template <typename Predicate>
+        inline int FindLastIndex(int startIndex, Predicate match);
+
+        template <typename Predicate>
+        inline int FindLastIndex(int startIndex, int count, Predicate match);
+
+        template <typename Action>
+        inline void ForEach(Action action)
+        {
+            std::for_each(begin(), end(), action);
+        }
 
         typedef dot::IDotEnumerator<T> Enumerator;
 
-        List<T> GetRange(int index, int count);
+        //!! Implement
+        List<T> GetRange(int index, int count) {}
 
         int IndexOf(T item);
 
@@ -167,25 +211,38 @@ namespace dot
 
         bool Remove(T item);
 
-        int RemoveAll(Predicate<T> match);
+        template <typename Predicate>
+        inline int RemoveAll(Predicate match)
+        {
+            unsigned int sizeold = this->get().size();
 
-        void RemoveAt(int index);
+            std::remove_if(begin(), end(), match);
+            return sizeold - this->get().size();
+        }
+
+        void RemoveAt(int index)
+        {
+            assert(this->get().size() > index);
+
+            this->get().erase(begin() + index);
+        }
 
         void RemoveRange(int index, int count);
 
         void Reverse();
 
-        //     System.Collections.Generic.List<T>.
         void Reverse(int index, int count);
 
         void Sort();
 
+        template <typename Comparer>
         void Sort(Comparison<T> comparison);
 
+        template <typename Comparer>
         void Sort(IComparer<T> comparer);
 
-        template <typename Predicate>
-        void Sort(int index, int count, Predicate comparer)
+        template <typename Comparer>
+        void Sort(int index, int count, Comparer comparer)
         {
             std::sort(begin() + index, begin() + index + count, comparer);
         }
@@ -195,7 +252,8 @@ namespace dot
 
         void TrimExcess();
 
-        bool TrueForAll(Predicate<T> match);
+        template <typename Predicate>
+        inline bool TrueForAll(Predicate match);
     };
 
     template <typename T>

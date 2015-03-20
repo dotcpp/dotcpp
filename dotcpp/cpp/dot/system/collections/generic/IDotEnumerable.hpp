@@ -129,31 +129,59 @@ namespace dot
             typedef typename
                 detail::is_collection<Iterable>::type value_type;
 
+            typedef Iterable std_base;
+
             std_accessor_() : Enumerable(std::ref(c_))
             {
 
             }
 
-            //! begin std iterator method
-            //! should return the start pointer to begin collection
+            //! Beginning position of non-constant iterator
             inline typename Iterable::iterator
             begin()
             {
                 return c_.begin();
             }
 
+            //! Ending position of non-constant iterator
             inline typename Iterable::iterator
             end()
             {
                 return c_.end();
             }
 
-            //! Method returns Enumerator contains start iterator
-            //! for std collection
+            //! Beginning position of constant iterator
+            inline typename Iterable::const_iterator
+            begin() const
+            {
+                return c_.begin();
+            }
+
+            //! Ending position of constant iterator
+            inline typename Iterable::const_iterator
+            end() const
+            {
+                return c_.end();
+            }
+
+
+            //! Returns DotEnumerator for the beginning position
             inline dot::IDotEnumerator<value_type >
             GetEnumerator()
             {
                 return dot::IDotEnumerator<value_type>(c_.begin());
+            }
+
+            //! Returns the enclosed STL container as constant reference
+            inline std_base const& get() const
+            {
+                return this->c_;
+            }
+
+            //! Returns the enclosed STL container as non-constant reference
+            inline std_base& get()
+            {
+                return this->c_;
             }
 
             Iterable c_;
