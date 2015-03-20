@@ -34,8 +34,8 @@ limitations under the License.
 
 namespace dot
 {
-    namespace detail {
-
+    namespace detail
+    {
         template <typename T>
         struct std_iterator_base
         {
@@ -112,13 +112,13 @@ namespace dot
             }
 
             virtual std::reference_wrapper<value_type>
-                get()
+            get()
             {
                 return std::reference_wrapper<value_type >(*iter_);
             }
 
             virtual std::reference_wrapper<value_type> const
-                get() const
+            get() const
             {
                 return std::reference_wrapper<value_type >(*iter_);
             }
@@ -128,7 +128,7 @@ namespace dot
                 CHECK_TYPE_CAST(std_iterator<Iterator> const&, cmp);
                 Iterator const& oth = static_cast<std_iterator<Iterator> const&>(cmp).iter_;
                 return only_equals ?
-                    (int)!(oth == this->iter_) : (false/*iter_ > oth*/ ? 1 : -(oth == this->iter_));
+                    (int)!(oth == this->iter_) : (false/*iter_ > oth*/ ? 1 : -((int)(oth == this->iter_)));
             }
 
             Iterator iter_;

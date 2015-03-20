@@ -35,7 +35,7 @@ namespace dot
     {
         struct null_type;
 
-        /// To get value type from collection type 
+        /// To get value type from collection type
         template <typename Collection>
         struct is_collection {
             typedef null_type type;
@@ -43,7 +43,14 @@ namespace dot
         };
 
         template <typename ValueType, typename Allocator>
-        struct is_collection <std::vector<ValueType, Allocator> > 
+        struct is_collection <std::vector<ValueType, Allocator> >
+        {
+            typedef ValueType type;
+            typedef Allocator allocator_type;
+        };
+
+        template <typename ValueType, typename Allocator>
+        struct is_collection <std::deque<ValueType, Allocator> >
         {
             typedef ValueType type;
             typedef Allocator allocator_type;
@@ -55,7 +62,6 @@ namespace dot
             typedef ValueType type;
             typedef Allocator allocator_type;
         };
-
     }
 
     template <class T> class IDotEnumerator;
@@ -64,11 +70,8 @@ namespace dot
     struct std_accessor;
 
     template <typename T>
-    struct std_accessor_base 
+    struct std_accessor_base
     {
-        virtual IDotEnumerator<T> begin() = 0;
-        virtual IDotEnumerator<T> end() = 0;
-
         template <typename CollectionType>
         inline std_accessor<CollectionType >& cast();
     };
@@ -79,27 +82,18 @@ namespace dot
         typedef typename
         detail::is_collection<Collection>::type value_type;
 
-        std_accessor(Collection const& c) : c_(c)   
+        std_accessor(std::reference_wrapper<Collection > const& c)
+                : c_(c)
         {   }
 
-        virtual IDotEnumerator<value_type> begin()
-        {
-            return IDotEnumerator<value_type>(c_.begin());
-        }
-
-        virtual IDotEnumerator<value_type> end()
-        {
-            return IDotEnumerator<value_type>(c_.end());
-        }
-
-        Collection c_;
+        std::reference_wrapper<Collection > c_;
     };
 
     template <typename T>
     template <typename CollectionType>
-    inline std_accessor<CollectionType >& std_accessor_base<T>::cast()  
+    inline std_accessor<CollectionType >& std_accessor_base<T>::cast()
     {
-        typedef typename 
+        typedef typename
             detail::is_collection<CollectionType>::type request_value_type;
 
         static_assert(std::is_same<request_value_type, T>::value, "This is not converted collections type");
@@ -112,33 +106,58 @@ namespace dot
     {
     public: // METHODS
         template <typename Collection>
-        explicit IDotEnumerable(Collection coll) 
+        explicit IDotEnumerable(std::reference_wrapper<Collection > coll)
             : accessor_(new std_accessor<Collection>(coll))
         {}
 
         /// <summary>(IDotEnumerable) Returns an enumerator that iterates through the collection.</summary>
-        virtual IDotEnumerator<T> GetEnumerator() 
-        { 
-            return this->begin(); 
-        }
-
-        /// <summary> To C++ for each support we should have </summary>
-        inline IDotEnumerator<T> begin() 
-        {
-            return accessor_->begin();
-        }
-
-        /// <summary> To C++ for each support we should have </summary>
-        inline IDotEnumerator<T> end() 
-        {
-            return accessor_->end();
-        }
+        virtual dot::IDotEnumerator<T> GetEnumerator() = 0;
 
     protected:
         IDotEnumerable() = default;
     protected:
         std::unique_ptr<std_accessor_base<T > > accessor_;
     };
+
+    namespace detail
+    {
+        template <typename Enumerable, typename Iterable >
+        class std_accessor_ : public Enumerable
+        {
+        public:
+            typedef typename
+                detail::is_collection<Iterable>::type value_type;
+
+            std_accessor_() : Enumerable(std::ref(c_))
+            {
+
+            }
+
+            //! begin std iterator method
+            //! should return the start pointer to begin collection
+            inline typename Iterable::iterator
+            begin()
+            {
+                return c_.begin();
+            }
+
+            inline typename Iterable::iterator
+            end()
+            {
+                return c_.end();
+            }
+
+            //! Method returns Enumerator contains start iterator
+            //! for std collection
+            inline dot::IDotEnumerator<value_type >
+            GetEnumerator()
+            {
+                return dot::IDotEnumerator<value_type>(c_.begin());
+            }
+
+            Iterable c_;
+        };
+    }
 }
 
 #endif  // __dot_IDotEnumerable_hpp__

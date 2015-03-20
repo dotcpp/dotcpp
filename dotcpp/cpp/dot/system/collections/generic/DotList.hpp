@@ -26,6 +26,7 @@ limitations under the License.
 #include <dot/system/collections/generic/IDotCollection.hpp>
 #include <dot/system/collections/generic/IDotEnumerable.hpp>
 #include <dot/system/collections/generic/IDotEnumerator.hpp>
+#include <deque>
 
 namespace dot
 {
@@ -50,33 +51,34 @@ namespace dot
     struct Comparison : detail::empty_type  {};
 
     template <typename T>
-    class List : public dot::IDotEnumerable<T>
+    class List : public detail::std_accessor_<dot::IDotEnumerable<T>
+                            , std::deque<T> >
     {
+    public:
+        typedef detail::std_accessor_<dot::IDotEnumerable<T>
+                    , std::deque<T> > base;
+        typedef dot::IDotEnumerable<T> dot_enumerator_type;
+        typedef std::deque<T> std_base;
     private:
-        inline std::list<T>& get_()
+        inline std_base& get_()
         {
-            //!! Avoid using ASSERT directly
-#if defined DEBUG && defined ASSERT
-            ASSERT(dynamic_cast<std_accessor<std::list<T> >*>(accessor_.get()));
-#endif
-            return static_cast<std_accessor<std::list<T> >*>(accessor_.get())->c_;
+            return this->c_;
         }
     public:
-        typedef dot::IDotEnumerable<T> base;
 
-        List() : base(std::list<T>())
+        List() : base()
         {}
 
         int Capacity; // { get; set; }
 
-        int get_Count()
+        inline int get_Count()
         {
             return this->get_().size();
         }
 
-        T& operator[](unsigned int) {}
+        T& operator[](unsigned int) {   }
 
-        void Add(T const& item)
+        inline void Add(T const& item)
         {
             this->get_().push_back(item);
         }
@@ -90,7 +92,8 @@ namespace dot
         bool Contains(T item);
 
         template <typename TOutput>
-        inline List<TOutput> ConvertAll(Converter<T, TOutput> converter);
+        inline List<TOutput>
+            ConvertAll(Converter<T, TOutput> converter);
 
         template <int I>
         void CopyTo(T(&a)[I]);
