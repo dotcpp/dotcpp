@@ -20,37 +20,223 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __dot_system_collections_generic_IDotEnumerator_hpp__
-#define __dot_system_collections_generic_IDotEnumerator_hpp__
+#ifndef __dot_IDotEnumerator_hpp__
+#define __dot_IDotEnumerator_hpp__
+
+#if defined DEBUG
+#   define CHECK_TYPE_CAST(type_2, expr_from) \
+        ASSERT(dynamic_cast<type_2>(expr_From))
+#else
+#   define CHECK_TYPE_CAST(type_2, expr_from)
+#endif
 
 #include <dot/system/declare.hpp>
 
 namespace dot
 {
-    class DotBool;
+    namespace detail {
+
+        template <typename T>
+        struct std_iterator_base
+        {
+            virtual std_iterator_base& operator++ () = 0;
+
+            virtual std::unique_ptr<std_iterator_base> operator++ (int)
+            {
+                std::unique_ptr<std_iterator_base> old(this->copy());
+                this->operator ++();
+                return old;
+            }
+
+            virtual std::unique_ptr<std_iterator_base> copy() = 0;
+
+            virtual std::reference_wrapper<T>
+                get() = 0;
+
+            virtual std::reference_wrapper<T> const
+                get() const = 0;
+
+            inline bool
+            operator == (std_iterator_base<T> const& iter)
+            {
+                return this->compare(iter) == 0;
+            }
+
+            inline bool
+            operator > (std_iterator_base<T> const& iter)
+            {
+                return this->compare(iter) > 0;
+            }
+
+            inline bool
+            operator < (std_iterator_base<T> const& iter)
+            {
+                return this->compare(iter) < 0;
+            }
+        private:
+            /// this is actually similar compare string if equals = 0
+            /// if this < cmp -> rslt < 0 : this > cmp -> rslt > 0
+            virtual int compare(std_iterator_base<T> const&, bool only_equals = true) = 0;
+        };
+
+        template <typename Iterator>
+        struct std_iterator;
+
+        template <typename Iterator>
+        inline std::unique_ptr<std_iterator_base<typename std_iterator<Iterator>::value_type > >
+            make_iterator(Iterator const& iter);
+
+        template <typename Iterator>
+        struct std_iterator : std_iterator_base<
+                                typename std::remove_reference<decltype(Iterator(). operator*()) >::type
+                            >
+        {
+            typedef typename
+                std::remove_reference<decltype(Iterator(). operator*()) >::type value_type;
+
+            typedef std_iterator_base<value_type> base;
+
+            std_iterator(Iterator const& iter)
+                : iter_(iter)
+            {   }
+
+            virtual std_iterator_base& operator++ ()  {
+                ++iter_;
+                return *this;
+            }
+
+            virtual std::unique_ptr<base> copy()
+            {
+                std::unique_ptr<base> old(make_iterator(iter_));
+                return old;
+            }
+
+            virtual std::reference_wrapper<value_type>
+                get()
+            {
+                return std::reference_wrapper<value_type >(*iter_);
+            }
+
+            virtual std::reference_wrapper<value_type> const
+                get() const
+            {
+                return std::reference_wrapper<value_type >(*iter_);
+            }
+
+            virtual int compare(std_iterator_base<value_type> const& cmp, bool only_equals = true)
+            {
+                CHECK_TYPE_CAST(std_iterator<Iterator> const&, cmp);
+                Iterator const& oth = static_cast<std_iterator<Iterator> const&>(cmp).iter_;
+                return only_equals ?
+                    (int)!(oth == this->iter_) : (false/*iter_ > oth*/ ? 1 : -(oth == this->iter_));
+            }
+
+            Iterator iter_;
+        };
+
+        template <typename Iterator>
+        inline std::unique_ptr<std_iterator_base<typename std_iterator<Iterator>::value_type > >
+        make_iterator(Iterator const& iter)
+        {
+            typedef std::unique_ptr<std_iterator_base<typename std_iterator<Iterator>::value_type > > return_type;
+            return return_type(new std_iterator<Iterator>(iter));
+        }
+    }
+
+    //!! Replace by header inclusion
+    class DotBool {};
 
     /// <summary>Supports a simple iteration over a generic collection.</summary>
     template <class T>
     class IDotEnumerator
+        : std::random_access_iterator_tag
     {
     public: // METHODS
 
+        typedef std::unique_ptr<detail::std_iterator_base<T > > iterator_type;
+
+        template <typename Iterator>
+        explicit IDotEnumerator(Iterator const& iter)
+            : iterator_(detail::make_iterator(iter))
+        {   }
+
         /// <summary>Gets the element in the collection at the current position of the enumerator.</summary>
-        virtual T current() = 0;
+        /// TODO can be reference
+        std::reference_wrapper<T> current()
+        {
+            return iterator_->get();
+        }
 
         /// <summary>Advances the enumerator to the next element of the collection.\\
         /// Returns true if the enumerator was successfully advanced to the next element;
         /// false if the enumerator has passed the end of the collection.</summary>
-        virtual DotBool moveNext() = 0;
+        DotBool moveNext()
+        {
+            return DotBool();
+        }
 
         /// <summary>Sets the enumerator to its initial position, which is before the first element in the collection.</summary>
-        virtual void reset() = 0;
-        
+        void reset()
+        {}
+
+        inline IDotEnumerator<T>& operator ++()
+        {
+            ++(*iterator_);
+            return *this;
+        }
+
+        inline IDotEnumerator<T> operator ++(int)
+        {
+            IDotEnumerator<T> old(iterator_->copy());
+            this->operator ++();
+            return old;
+        }
+
+        std::reference_wrapper<T> operator*()
+        {
+            return iterator_->get();
+        }
+
+        std::reference_wrapper<T> const operator*() const
+        {
+            return iterator_->get();
+        }
+
     protected:
         IDotEnumerator() = default;
+    private:
+        inline detail::std_iterator_base<T > const& i_() const
+        {
+            return
+        }
     public:
-        static DotPtr<IDotEnumerator<T>> create() { throw ClEx("Attempting to create an instance of abstract type."); }
+        /// <summary> </summary>
+        inline bool
+        compare(dot::IDotEnumerator<T> const& c) const
+        {
+            // we should compare
+            if (iterator_ && c.iterator_)
+                return (*iterator_.get() == *c.iterator_.get());
+
+            return false;
+        }
+    public:
+        std::unique_ptr<detail::std_iterator_base<T > > iterator_;
     };
+
+    template <typename Type>
+    inline bool operator == (dot::IDotEnumerator<Type> const& left
+        , dot::IDotEnumerator<Type> const& right)
+    {
+        return left.compare(right);
+    }
+
+    template <typename Type>
+    inline bool operator != (dot::IDotEnumerator<Type> const& left
+        , dot::IDotEnumerator<Type> const& right)
+    {
+        return !(left == right);
+    }
 }
 
-#endif  // __dot_system_collections_generic_IDotEnumerator_hpp__
+#endif  // __dot_IDotEnumerator_hpp__

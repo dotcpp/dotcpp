@@ -20,8 +20,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __dot_system_collections_generic_IDotCollection_hpp__
-#define __dot_system_collections_generic_IDotCollection_hpp__
+#ifndef __dot_IDotCollection_hpp__
+#define __dot_IDotCollection_hpp__
 
 #include <dot/system/declare.hpp>
 #include <dot/system/collections/generic/IDotEnumerable.hpp>
@@ -32,7 +32,7 @@ namespace dot
 
     /// <summary>Generic collection interface.</summary>
     template <class T>
-    class IDotCollection : public IDotEnumerable
+    class IDotCollection : public IDotEnumerable<T>
     {
     public: // METHODS
 
@@ -45,9 +45,7 @@ namespace dot
 
     protected:
         IDotCollection() = default;
-    public:
-        static DotPtr<IDotCollection<T>> create() { throw ClEx("Attempting to create an instance of abstract type."); }
     };
 }
 
-#endif  // __dot_system_collections_generic_IDotCollection_hpp__
+#endif  // __dot_IDotCollection_hpp__
