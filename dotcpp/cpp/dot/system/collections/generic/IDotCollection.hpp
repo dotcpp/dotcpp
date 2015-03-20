@@ -28,6 +28,8 @@ limitations under the License.
 
 namespace dot
 {
+    namespace detail { struct empty_type{}; }
+
     template <class T> class DotArray;
 
     /// <summary>Generic collection interface.</summary>

@@ -33,6 +33,7 @@ namespace dot
 {
     namespace detail
     {
+        struct empty_type {};
         struct null_type;
 
         /// To get value type from collection type

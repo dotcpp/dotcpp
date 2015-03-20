@@ -30,8 +30,6 @@ limitations under the License.
 
 namespace dot
 {
-    namespace detail { struct empty_type{}; }
-
     template <typename Type>
     struct ReadOnlyCollection : detail::empty_type {};
 
@@ -83,10 +81,13 @@ namespace dot
             this->get_().push_back(item);
         }
 
-        void AddRange(IDotEnumerable<T> const& collection);
-        ReadOnlyCollection<T> AsReadOnly();
-        int BinarySearch(T item);
-        int BinarySearch(T item, IComparer<T> comparer);
+        inline void AddRange(IDotEnumerable<T> const& collection);
+
+        inline ReadOnlyCollection<T> AsReadOnly();
+
+        inline int BinarySearch(T item);
+
+        inline int BinarySearch(T item, IComparer<T> comparer);
         int BinarySearch(int index, int count, T item, IComparer<T> comparer);
         void Clear();
         bool Contains(T item);
@@ -101,9 +102,26 @@ namespace dot
 
         void CopyTo(int index, T*& array, int arrayIndex, int count);
 
-        bool Exists(Predicate<T> match);
+        template <typename Predicate>
+        inline bool Exists(Predicate match) const
+        {
+            return std::find_if(begin()
+                    , end(), match) != end();
+        }
 
-        List<T> FindAll(Predicate<T> match);
+        inline List<T> FindAll(Predicate<T> match)
+        {
+            List<T> result;
+            std::for_each(begin(), end()
+                , [&result, &match](T& v)
+                {
+                    if (match)
+                        result.push_back(v);
+                }
+            );
+
+            return result;
+        }
 
         int FindIndex(int startIndex, Predicate<T> match);
 
@@ -111,7 +129,15 @@ namespace dot
 
         T FindLast(Predicate<T> match);
 
-        int FindLastIndex(Predicate<T> match);
+        template<typename Predicate>
+        inline int FindLastIndex(Predicate match)
+        {
+            std_base::iterator where = std::find_if(begin(), end(), comparer);
+            if (where != end())
+                return -1;
+
+            return (where - begin());
+        }
 
         int FindLastIndex(int startIndex, Predicate<T> match);
 
@@ -158,7 +184,11 @@ namespace dot
 
         void Sort(IComparer<T> comparer);
 
-        void Sort(int index, int count, IComparer<T> comparer);
+        template <typename Predicate>
+        void Sort(int index, int count, Predicate comparer)
+        {
+            std::sort(begin() + index, begin() + index + count, comparer);
+        }
 
         //!! Should be dot::Array<T>
         std::vector<T> ToArray();
