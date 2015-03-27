@@ -4,8 +4,8 @@ Copyright (C) 2003-2015 CompatibL
 This file is part of DotCpp project, an implementation of
 selected .NET class libraries in native C++ available from
 
-    http://github.com/dotcpp/dotcpp (source)
-    http://dotcpp.org (documentation)
+    http://github.com/compatibl/dotcpp (source)
+    http://compatibl.com/dotcpp (documentation)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
