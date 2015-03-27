@@ -20,43 +20,43 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __dot_system_DotObject_hpp__
-#define __dot_system_DotObject_hpp__
+#ifndef __cl_system_Object_hpp__
+#define __cl_system_Object_hpp__
 
-#include <dot/system/declare.hpp>
-#include <dot/system/DotFreezeState.hpp>
-#include <dot/system/DotEx.hpp>
+#include <cl/system/declare.hpp>
+#include <cl/system/FreezeState.hpp>
+#include <cl/system/Exception.hpp>
 
-namespace dot
+namespace cl
 {
-    class DotString;
+    class String;
 
     /// <summary>This is the ultimate base class of all classes with reference semantics.
-    /// It works with DotPtr to provide an emulation of reference semantics in C++.\\
+    /// It works with Ptr to provide an emulation of reference semantics in C++.\\
     /// For performance reasons, classes with value semantics are not derived from this type.</summary>
-    class DOT_SYSTEM DotObject
+    class CL_SYSTEM Object
     {
     protected: // CONSTRUCTORS
 
         /// <summary>This constructor is called by constructors in derived classes.</summary>
-        DotObject() {}
+        Object() {}
 
     protected: // DESTRUCTOR
 
         /// <summary>Virtual destructor to ensure that destructor
-        /// of the derived type is called by DotPtr.</summary>
-        virtual ~DotObject() = default;
+        /// of the derived type is called by Ptr.</summary>
+        virtual ~Object() = default;
 
     public: // METHODS
 
         /// <summary>Returns a string that represents the current object.</summary>
-        virtual DotString toString() const = 0;
+        virtual String toString() const = 0;
 
     protected:
-        DotObject() = default;
+        Object() = default;
     public:
-        static DotPtr<DotObject> create() { throw ClEx("Attempting to create an instance of abstract type."); }
+        static Ptr<Object> create() { throw ClEx("Attempting to create an instance of abstract type."); }
     };
 }
 
-#endif  // __dot_system_DotObject_hpp__
+#endif  // __cl_system_Object_hpp__

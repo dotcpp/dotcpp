@@ -20,32 +20,32 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __dot_IDotCollection_hpp__
-#define __dot_IDotCollection_hpp__
+#ifndef __cl_ICollection_hpp__
+#define __cl_ICollection_hpp__
 
-#include <dot/system/declare.hpp>
-#include <dot/system/collections/generic/IDotEnumerable.hpp>
+#include <cl/system/declare.hpp>
+#include <cl/system/collections/generic/IEnumerable.hpp>
 
-namespace dot
+namespace cl
 {
-    template <class T> class DotArray;
+    template <class T> class Array;
 
     /// <summary>Generic collection interface.</summary>
     template <class T>
-    class IDotCollection : public IDotEnumerable<T>
+    class ICollection : public IEnumerable<T>
     {
     public: // METHODS
 
-        /// <summary>(IDotCollection) Number of elements contained in the collection.</summary>
+        /// <summary>(ICollection) Number of elements contained in the collection.</summary>
         virtual int count() = 0;
 
-        /// <summary>(IDotCollection) Copies the elements of the ICollection(T)
-        /// to a DotArray, starting at the specified DotArray index.</summary>
-        virtual void copyTo(DotArray<T> array, int arrayIndex) = 0;
+        /// <summary>(ICollection) Copies the elements of the ICollection(T)
+        /// to a Array, starting at the specified Array index.</summary>
+        virtual void copyTo(Array<T> array, int arrayIndex) = 0;
 
     protected:
-        IDotCollection() = default;
+        ICollection() = default;
     };
 }
 
-#endif  // __dot_IDotCollection_hpp__
+#endif  // __cl_ICollection_hpp__

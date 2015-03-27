@@ -20,17 +20,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __dot_DotList_hpp__
-#define __dot_DotList_hpp__
+#ifndef __cl_List_hpp__
+#define __cl_List_hpp__
 
-#include <dot/system/collections/generic/IDotCollection.hpp>
-#include <dot/system/collections/generic/IDotEnumerable.hpp>
-#include <dot/system/collections/generic/IDotEnumerator.hpp>
+#include <cl/system/collections/generic/ICollection.hpp>
+#include <cl/system/collections/generic/IEnumerable.hpp>
+#include <cl/system/collections/generic/IEnumerator.hpp>
 #include <deque>
 
-namespace dot
+namespace cl
 {
-    //!! Should be DotException? Also it is already defined.
+    //!! Should be Exception? Also it is already defined.
     typedef std::runtime_error Exception;
 
     template <typename Type>
@@ -52,14 +52,14 @@ namespace dot
     struct Comparison : detail::empty_type  {};
 
     template <typename T>
-    class List : public detail::std_accessor_<dot::IDotEnumerable<T>
+    class List : public detail::std_accessor_<cl::IEnumerable<T>
                             , std::deque<T> >
     {
     public:
-        typedef detail::std_accessor_<dot::IDotEnumerable<T>
+        typedef detail::std_accessor_<cl::IEnumerable<T>
                     , std::deque<T> > base;
 
-        typedef dot::IDotEnumerable<T> dot_enumerator_type;
+        typedef cl::IEnumerable<T> cl_enumerator_type;
 
         typedef std::deque<T> std_base;
 
@@ -84,7 +84,7 @@ namespace dot
             this->get().push_back(item);
         }
 
-        inline void AddRange(IDotEnumerable<T> const& collection);
+        inline void AddRange(IEnumerable<T> const& collection);
 
         inline ReadOnlyCollection<T> AsReadOnly();
 
@@ -188,7 +188,7 @@ namespace dot
             std::for_each(begin(), end(), action);
         }
 
-        typedef dot::IDotEnumerator<T> Enumerator;
+        typedef cl::IEnumerator<T> Enumerator;
 
         //!! Implement
         List<T> GetRange(int index, int count) {}
@@ -201,7 +201,7 @@ namespace dot
 
         void Insert(int index, T item);
 
-        void InsertRange(int index, IDotEnumerable<T> const& collection);
+        void InsertRange(int index, IEnumerable<T> const& collection);
 
         int LastIndexOf(T item);
 
@@ -247,7 +247,7 @@ namespace dot
             std::sort(begin() + index, begin() + index + count, comparer);
         }
 
-        //!! Should be dot::Array<T>
+        //!! Should be cl::Array<T>
         std::vector<T> ToArray();
 
         void TrimExcess();
@@ -257,13 +257,13 @@ namespace dot
     };
 
     template <typename T>
-    class Array : public dot::IDotEnumerable<T>
+    class Array : public cl::IEnumerable<T>
     {
     public:
-        typedef dot::IDotEnumerable<T> base;
+        typedef cl::IEnumerable<T> base;
         Array() : base(std::vector<T>())
         {}
     };
 }
 
-#endif // __dot_DotList_hpp__
+#endif // __cl_List_hpp__

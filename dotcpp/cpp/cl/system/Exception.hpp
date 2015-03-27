@@ -20,33 +20,33 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __dot_system_DotException_hpp__
-#define __dot_system_DotException_hpp__
+#ifndef __cl_system_Exception_hpp__
+#define __cl_system_Exception_hpp__
 
-#include <dot/system/declare.hpp>
+#include <cl/system/declare.hpp>
 
-namespace dot
+namespace cl
 {
-    class DotString;
+    class String;
 
     /// <summary>Represents errors that occur during application execution.</summary>
-    class DOT_SYSTEM DotException : public std::exception
+    class CL_SYSTEM Exception : public std::exception
     {
         std::string msg_;
 
     public: // CONSTRUCTORS
 
         /// <summary>Create with default message.</summary>
-        DotException() : msg_("Exception of type 'System.Exception' was thrown.") {}
+        Exception() : msg_("Exception of type 'System.Exception' was thrown.") {}
 
         /// <summary>Create with a specified error message.</summary>
-        DotException(const DotString& msg);
+        Exception(const String& msg);
 
         /// <summary>Create with a specified error message.</summary>
-        DotException(const std::string& msg) : msg_(msg) {}
+        Exception(const std::string& msg) : msg_(msg) {}
 
         /// <summary>Create with a specified error message.</summary>
-        DotException(const char* msg) : msg_(msg ? msg : "") {}
+        Exception(const char* msg) : msg_(msg ? msg : "") {}
 
     public: // METHODS
 
@@ -54,8 +54,8 @@ namespace dot
         virtual const char* what() const { return msg_.c_str(); }
 
         /// <summary>Message that describes the current exception.</summary>
-        virtual DotString message() const;
+        virtual String message() const;
     };
 }
 
-#endif // __dot_system_DotException_hpp__
+#endif // __cl_system_Exception_hpp__

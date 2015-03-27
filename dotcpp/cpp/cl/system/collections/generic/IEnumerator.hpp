@@ -20,8 +20,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __dot_IDotEnumerator_hpp__
-#define __dot_IDotEnumerator_hpp__
+#ifndef __cl_IEnumerator_hpp__
+#define __cl_IEnumerator_hpp__
 
 #if defined DEBUG
 #   define CHECK_TYPE_CAST(type_2, expr_from) \
@@ -30,9 +30,9 @@ limitations under the License.
 #   define CHECK_TYPE_CAST(type_2, expr_from)
 #endif
 
-#include <dot/system/declare.hpp>
+#include <cl/system/declare.hpp>
 
-namespace dot
+namespace cl
 {
     namespace detail
     {
@@ -144,11 +144,11 @@ namespace dot
     }
 
     //!! Replace by header inclusion
-    class DotBool {};
+    class Bool {};
 
     /// <summary>Supports a simple iteration over a generic collection.</summary>
     template <class T>
-    class IDotEnumerator
+    class IEnumerator
         : std::random_access_iterator_tag
     {
     public: // METHODS
@@ -156,7 +156,7 @@ namespace dot
         typedef std::unique_ptr<detail::std_iterator_base<T > > iterator_type;
 
         template <typename Iterator>
-        explicit IDotEnumerator(Iterator const& iter)
+        explicit IEnumerator(Iterator const& iter)
             : iterator_(detail::make_iterator(iter))
         {   }
 
@@ -170,24 +170,24 @@ namespace dot
         /// <summary>Advances the enumerator to the next element of the collection.\\
         /// Returns true if the enumerator was successfully advanced to the next element;
         /// false if the enumerator has passed the end of the collection.</summary>
-        DotBool moveNext()
+        Bool moveNext()
         {
-            return DotBool();
+            return Bool();
         }
 
         /// <summary>Sets the enumerator to its initial position, which is before the first element in the collection.</summary>
         void reset()
         {}
 
-        inline IDotEnumerator<T>& operator ++()
+        inline IEnumerator<T>& operator ++()
         {
             ++(*iterator_);
             return *this;
         }
 
-        inline IDotEnumerator<T> operator ++(int)
+        inline IEnumerator<T> operator ++(int)
         {
-            IDotEnumerator<T> old(iterator_->copy());
+            IEnumerator<T> old(iterator_->copy());
             this->operator ++();
             return old;
         }
@@ -203,7 +203,7 @@ namespace dot
         }
 
     protected:
-        IDotEnumerator() = default;
+        IEnumerator() = default;
     private:
         inline detail::std_iterator_base<T > const& i_() const
         {
@@ -212,7 +212,7 @@ namespace dot
     public:
         /// <summary> </summary>
         inline bool
-        compare(dot::IDotEnumerator<T> const& c) const
+        compare(cl::IEnumerator<T> const& c) const
         {
             // we should compare
             if (iterator_ && c.iterator_)
@@ -225,18 +225,18 @@ namespace dot
     };
 
     template <typename Type>
-    inline bool operator == (dot::IDotEnumerator<Type> const& left
-        , dot::IDotEnumerator<Type> const& right)
+    inline bool operator == (cl::IEnumerator<Type> const& left
+        , cl::IEnumerator<Type> const& right)
     {
         return left.compare(right);
     }
 
     template <typename Type>
-    inline bool operator != (dot::IDotEnumerator<Type> const& left
-        , dot::IDotEnumerator<Type> const& right)
+    inline bool operator != (cl::IEnumerator<Type> const& left
+        , cl::IEnumerator<Type> const& right)
     {
         return !(left == right);
     }
 }
 
-#endif  // __dot_IDotEnumerator_hpp__
+#endif  // __cl_IEnumerator_hpp__

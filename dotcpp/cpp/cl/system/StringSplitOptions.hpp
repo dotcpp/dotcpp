@@ -20,16 +20,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __dot_system_DotStringSplitOptions_hpp__
-#define __dot_system_DotStringSplitOptions_hpp__
+#ifndef __cl_system_StringSplitOptions_hpp__
+#define __cl_system_StringSplitOptions_hpp__
 
-#include <dot/system/declare.hpp>
+#include <cl/system/declare.hpp>
 
-namespace dot
+namespace cl
 {
-    /// <summary>Specifies whether applicable DotString.split(...) method overloads
+    /// <summary>Specifies whether applicable String.split(...) method overloads
     /// include or omit empty substrings from the return value.</summary>
-    enum class DOT_SYSTEM DotStringSplitOptions : int
+    enum class CL_SYSTEM StringSplitOptions : int
     {
         /// <summary>The return value includes array elements that contain an empty string.</summary>
         None,
@@ -39,4 +39,4 @@ namespace dot
     };
 }
 
-#endif  // __dot_system_DotStringSplitOptions_hpp__
+#endif  // __cl_system_StringSplitOptions_hpp__

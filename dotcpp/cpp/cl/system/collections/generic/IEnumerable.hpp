@@ -20,16 +20,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __dot_IDotEnumerable_hpp__
-#define __dot_IDotEnumerable_hpp__
+#ifndef __cl_IEnumerable_hpp__
+#define __cl_IEnumerable_hpp__
 
 #include <vector>
 #include <list>
 
-#include <dot/system/declare.hpp>
-#include <dot/system/collections/generic/IDotEnumerator.hpp>
+#include <cl/system/declare.hpp>
+#include <cl/system/collections/generic/IEnumerator.hpp>
 
-namespace dot
+namespace cl
 {
     namespace detail
     {
@@ -65,7 +65,7 @@ namespace dot
         };
     }
 
-    template <class T> class IDotEnumerator;
+    template <class T> class IEnumerator;
 
     template <typename Collection>
     struct std_accessor;
@@ -103,19 +103,19 @@ namespace dot
     /// <summary>Exposes the enumerator, which supports a simple
     /// iteration over a collection of a specified type.</summary>
     template <class T>
-    class IDotEnumerable
+    class IEnumerable
     {
     public: // METHODS
         template <typename Collection>
-        explicit IDotEnumerable(std::reference_wrapper<Collection > coll)
+        explicit IEnumerable(std::reference_wrapper<Collection > coll)
             : accessor_(new std_accessor<Collection>(coll))
         {}
 
-        /// <summary>(IDotEnumerable) Returns an enumerator that iterates through the collection.</summary>
-        virtual dot::IDotEnumerator<T> GetEnumerator() = 0;
+        /// <summary>(IEnumerable) Returns an enumerator that iterates through the collection.</summary>
+        virtual cl::IEnumerator<T> GetEnumerator() = 0;
 
     protected:
-        IDotEnumerable() = default;
+        IEnumerable() = default;
     protected:
         std::unique_ptr<std_accessor_base<T > > accessor_;
     };
@@ -165,11 +165,11 @@ namespace dot
             }
 
 
-            //! Returns DotEnumerator for the beginning position
-            inline dot::IDotEnumerator<value_type >
+            //! Returns Enumerator for the beginning position
+            inline cl::IEnumerator<value_type >
             GetEnumerator()
             {
-                return dot::IDotEnumerator<value_type>(c_.begin());
+                return cl::IEnumerator<value_type>(c_.begin());
             }
 
             //! Returns the enclosed STL container as constant reference
@@ -189,4 +189,4 @@ namespace dot
     }
 }
 
-#endif  // __dot_IDotEnumerable_hpp__
+#endif  // __cl_IEnumerable_hpp__

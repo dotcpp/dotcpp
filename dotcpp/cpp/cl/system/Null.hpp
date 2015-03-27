@@ -20,20 +20,20 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __dot_system_DotNull_hpp__
-#define __dot_system_DotNull_hpp__
+#ifndef __cl_system_Null_hpp__
+#define __cl_system_Null_hpp__
 
-#include <dot/system/declare.hpp>
+#include <cl/system/declare.hpp>
 
-namespace dot
+namespace cl
 {
     /// <summary>Helper type to enable comparison and assignment to null pointer.
-    /// This object cannot be created, therefore any pointer to DotNull is null.</summary>
-    class DotNull
+    /// This object cannot be created, therefore any pointer to Null is null.</summary>
+    class Null
     {
     private:
-        DotNull();
+        Null();
     };
 }
 
-#endif  // __dot_system_DotNull_hpp__
+#endif  // __cl_system_Null_hpp__
