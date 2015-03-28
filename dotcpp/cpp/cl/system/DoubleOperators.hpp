@@ -25,12 +25,8 @@ limitations under the License.
 
 #include <cl/system/Double.hpp>
 
-#if !defined(TAPE_NO_BOOST)
-#   include <boost/numeric/ublas/fwd.hpp>
-#   include <boost/numeric/ublas/matrix_proxy.hpp>
-#endif
-
-//!! Supporting code for double operators, in progress
+#include <boost/numeric/ublas/fwd.hpp>
+#include <boost/numeric/ublas/matrix_proxy.hpp>
 
 namespace cl
 {
