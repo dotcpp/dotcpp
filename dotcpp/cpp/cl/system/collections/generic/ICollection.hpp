@@ -22,8 +22,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_ICollection_hpp__
-#define __cl_ICollection_hpp__
+#ifndef __cl_system_collections_generic_ICollection_hpp__
+#define __cl_system_collections_generic_ICollection_hpp__
 
 #include <cl/system/declare.hpp>
 #include <cl/system/collections/generic/IEnumerable.hpp>
@@ -50,4 +50,4 @@ namespace cl
     };
 }
 
-#endif  // __cl_ICollection_hpp__
+#endif  // __cl_system_collections_generic_ICollection_hpp__

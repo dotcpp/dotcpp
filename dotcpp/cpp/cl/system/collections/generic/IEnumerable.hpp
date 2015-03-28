@@ -22,8 +22,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_IEnumerable_hpp__
-#define __cl_IEnumerable_hpp__
+#ifndef __cl_system_collections_generic_IEnumerable_hpp__
+#define __cl_system_collections_generic_IEnumerable_hpp__
 
 #include <vector>
 #include <list>
@@ -191,4 +191,4 @@ namespace cl
     }
 }
 
-#endif  // __cl_IEnumerable_hpp__
+#endif  // __cl_system_collections_generic_IEnumerable_hpp__
