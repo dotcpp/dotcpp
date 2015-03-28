@@ -547,7 +547,7 @@ namespace boost { namespace numeric { namespace ublas
            > const& left
         , cl::Double const& right)
     {
-#if defined TAPE_COMPILE_TIME_DEBUG
+#if defined CL_COMPILE_TIME_DEBUG
 #pragma message ("Hook procedure : " __FUNCSIG__)
 #endif
         return (cl::Double)left < right;

@@ -39,9 +39,9 @@ namespace std
 {
     inline cl::Double fabs(cl::Double x)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return CppAD::fabs(x.value());
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::fabs(x.value());
@@ -50,9 +50,9 @@ namespace std
 
     inline cl::Double abs(cl::Double x)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return CppAD::abs(x.value());
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::abs(x.value());
@@ -61,9 +61,9 @@ namespace std
 
     inline cl::Double floor(cl::Double x)
 {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return  cl::Double(std::floor(CppAD::Value(x.value())));  //!!! Review
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::floor(x.value());
@@ -72,9 +72,9 @@ namespace std
 
     inline cl::Double ceil(cl::Double x)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return cl::Double(std::ceil(CppAD::Value(x.value())));  //!!! Review
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::ceil(x.value());
@@ -83,9 +83,9 @@ namespace std
 
     inline cl::Double sqrt(cl::Double x)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return CppAD::sqrt(x.value());
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::sqrt(x.value());
@@ -94,9 +94,9 @@ namespace std
 
     inline cl::Double log(cl::Double x)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return CppAD::log(x.value());
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::log(x.value());
@@ -105,9 +105,9 @@ namespace std
 
     inline cl::Double exp(cl::Double x)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return CppAD::exp(x.value());
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::exp(x.value());
@@ -116,9 +116,9 @@ namespace std
 
     inline cl::Double sin(cl::Double x)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return CppAD::sin(x.value());
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::sin(x.value());
@@ -127,9 +127,9 @@ namespace std
 
     inline cl::Double cos(cl::Double x)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return CppAD::cos(x.value());
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::cos(x.value());
@@ -138,9 +138,9 @@ namespace std
 
     inline cl::Double tan(cl::Double x)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return CppAD::tan(x.value());
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::tan(x.value());
@@ -149,9 +149,9 @@ namespace std
 
     inline cl::Double asin(cl::Double x)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return CppAD::asin(x.value());
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::asin(x.value());
@@ -160,9 +160,9 @@ namespace std
 
     inline cl::Double acos(cl::Double x)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return CppAD::acos(x.value());
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::acos(x.value());
@@ -171,9 +171,9 @@ namespace std
 
     inline cl::Double atan(cl::Double x)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return CppAD::atan(x.value());
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::atan(x.value());
@@ -182,9 +182,9 @@ namespace std
 
     inline cl::Double sinh(cl::Double x)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return CppAD::sinh(x.value());
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::sinh(x.value());
@@ -193,9 +193,9 @@ namespace std
 
     inline cl::Double cosh(cl::Double x)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return CppAD::cosh(x.value());
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::cosh(x.value());
@@ -204,9 +204,9 @@ namespace std
 
     inline cl::Double tanh(cl::Double x)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return CppAD::tanh(x.value());
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::tanh(x.value());
@@ -215,9 +215,9 @@ namespace std
 
     inline cl::Double pow(cl::Double x, cl::Double y)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return CppAD::pow(x.value(), y.value());
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::pow(x.value(), y.value());
@@ -226,9 +226,9 @@ namespace std
 
     inline cl::Double pow(cl::Double x, double y)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return pow(x, cl::Double(y));
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::pow(x.value(), y);
@@ -237,9 +237,9 @@ namespace std
 
     inline cl::Double pow(double x, cl::Double y)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return pow(cl::Double(x), y);
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::pow(x, y.value());
@@ -248,9 +248,9 @@ namespace std
 
     inline cl::Double asinh(cl::Double x)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return log(x + sqrt(cl::Double(1.0) + pow(x, 2.0)));
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented");return x;
 #else
         return std::asinh(x.value());
@@ -259,9 +259,9 @@ namespace std
 
     inline cl::Double acosh(cl::Double x)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return log(x + sqrt(cl::Double(-1.0) + pow(x, 2.0)));
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::acosh(x.value());
@@ -270,9 +270,9 @@ namespace std
 
     inline cl::Double atanh(cl::Double x)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return 0.5* log((cl::Double(1.0) + x) / (cl::Double(1.0) - x));
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::atanh(x.value());
@@ -281,9 +281,9 @@ namespace std
 
     inline bool isnan(cl::Double x)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return CppAD::isnan(x.value());
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::isnan(x.value());
@@ -293,9 +293,9 @@ namespace std
 
     inline cl::Double min(cl::Double x, cl::Double y)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return x < y ? x : y;
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::min(x.value(),y.value());
@@ -304,9 +304,9 @@ namespace std
 
     inline cl::Double min(cl::Double x, double y)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return x < y ? x : y;
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::min(x.value(), y);
@@ -315,9 +315,9 @@ namespace std
 
     inline cl::Double min(double x, cl::Double y)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return x < y ? x : y;
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented");return x;
 #else
         return std::min(x, y.value());
@@ -326,9 +326,9 @@ namespace std
 
     inline cl::Double max(cl::Double x, cl::Double y)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return x > y ? x : y;
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 
 #else
@@ -338,9 +338,9 @@ namespace std
 
     inline cl::Double max(cl::Double x, double y)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return x > y ? x : cl::Double(y);
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::max(x.value(), y);
@@ -349,9 +349,9 @@ namespace std
 
     inline cl::Double max(double x, cl::Double y)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return x > y ? cl::Double(x) : y;
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::max(x, y.value());
@@ -360,9 +360,9 @@ namespace std
 
     inline cl::Double atan2(cl::Double x, cl::Double y)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return CppAD::atan2(x.value(), y.value());
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::atan2(x.value(), y.value());
@@ -371,9 +371,9 @@ namespace std
 
     inline cl::Double atan2(cl::Double x, double y)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return atan2(x, cl::Double(y));
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::atan2(x.value(), y);
@@ -382,9 +382,9 @@ namespace std
 
     inline cl::Double atan2(double x, cl::Double y)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return atan2(cl::Double(x), y);
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::atan2(x, y.value());
@@ -393,9 +393,9 @@ namespace std
 
     inline cl::Double fmod(cl::Double x, cl::Double y)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return x - y * ( x / y > 0 ? floor(x / y) : ceil (x / y));
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::fmod(x.value(), y.value());
@@ -404,9 +404,9 @@ namespace std
 
     inline cl::Double fmod(cl::Double x, double y)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return fmod(x, cl::Double(y));
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 
 #else
@@ -416,9 +416,9 @@ namespace std
 
     inline cl::Double fmod(double x, cl::Double y)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         return fmod(cl::Double(x), y);
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 
 #else
@@ -428,13 +428,13 @@ namespace std
 
     inline cl::Double modf(cl::Double x, cl::Double* iptr)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         double fractpart;
         double intpart;
         fractpart = std::modf(CppAD::Value(x.value()), &intpart);     //!!! Review
         (*iptr) = cl::Double(intpart);
         return cl::Double( fractpart);
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         double fractpart;
@@ -448,7 +448,7 @@ namespace std
     template<class T1, class T2>
     inline cl::Double inner_product(T1 first1, T1 last1, T2 first2, cl::Double value)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         while (first1 != last1)
         {
             value = value + (*first1)*(*first2);
@@ -456,7 +456,7 @@ namespace std
         }
         return cl::Double(value);
 
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return cl::Double(std::inner_product(first1, last1, first2, value.value()));
@@ -465,7 +465,7 @@ namespace std
     template<class T1, class T2>
     inline double inner_product(T1 first1, T1 last1, T2 first2, double value)
     {
-#ifdef TAPE_CPPAD
+#ifdef CL_DOUBLE_CPPAD
         while (first1 != last1)
         {
 
@@ -474,7 +474,7 @@ namespace std
             ++first1; ++first2;
         }
         return value;
-#elif TAPE_ADOLC
+#elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
         return std::inner_product(first1, last1, first2, value);
