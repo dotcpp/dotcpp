@@ -29,7 +29,7 @@ limitations under the License.
 namespace cl
 {
     //!! Replace by header inclusion or avoid returning by value
-    struct DotString {};
+    struct String {};
 
     /// <summary>Immutable double type with AD support designed
     /// to serve as a drop-in replacement to native double.</summary>
@@ -211,7 +211,7 @@ namespace cl
     public: // METHODS
 
         /// <summary>Convert to string.</summary>
-        DotString toString() const;
+        String toString() const;
 
     public: // OPERATORS
 
