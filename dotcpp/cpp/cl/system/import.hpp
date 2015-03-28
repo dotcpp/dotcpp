@@ -24,13 +24,13 @@ limitations under the License.
 #define __cl_system_import_hpp__
 
 // Supports compilation into Windows DLL
-#ifndef DOT_IMPLEMENT
+#ifndef CL_IMPLEMENT
 #   if defined(_WIN32) && !defined(__MINGW32__)
-#       define DOT_IMPLEMENT __declspec(dllexport)
-#       define DOT_DECLARE __declspec(dllimport)
+#       define CL_IMPLEMENT __declspec(dllexport)
+#       define CL_DECLARE __declspec(dllimport)
 #   else
-#       define DOT_IMPLEMENT
-#       define DOT_DECLARE
+#       define CL_IMPLEMENT
+#       define CL_DECLARE
 #   endif
 #endif
 

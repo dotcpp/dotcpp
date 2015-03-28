@@ -26,7 +26,7 @@ limitations under the License.
 #include <cl/system/import.hpp>
 
 #ifndef CL_SYSTEM
-#   define CL_SYSTEM DOT_IMPLEMENT
+#   define CL_SYSTEM CL_IMPLEMENT
 #endif
 
 #endif // __cl_system_implement_hpp__

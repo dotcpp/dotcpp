@@ -26,7 +26,7 @@ limitations under the License.
 #include <cl/system/import.hpp>
 
 #ifndef CL_SYSTEM
-#   define CL_SYSTEM DOT_DECLARE
+#   define CL_SYSTEM CL_DECLARE
 #endif
 
 #endif // __cl_system_declare_hpp__
