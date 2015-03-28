@@ -135,7 +135,7 @@ namespace cl
         template <typename Type>
         inline Type get__(std::true_type, std::false_type) const
         {
-#if defined COMPILE_TIME_DEBUG
+#if defined CL_COMPILE_TIME_DEBUG
 #   pragma message ("get__ std::true_type, std::false_type " __FUNCSIG__)
 #endif
             return static_cast<Type>(ext::Value(this->value_));
@@ -144,7 +144,7 @@ namespace cl
         template <typename Type>
         inline Type get__(std::true_type, std::true_type) const
         {
-#if defined COMPILE_TIME_DEBUG
+#if defined CL_COMPILE_TIME_DEBUG
 #   pragma message ("get__ std::true_type, std::true_type " __FUNCSIG__)
 #endif
             return static_cast<Type>(this->value_);
@@ -154,7 +154,7 @@ namespace cl
         template <typename Type>
         inline Type get__(std::false_type, std::false_type) const
         {
-#if defined COMPILE_TIME_DEBUG
+#if defined CL_COMPILE_TIME_DEBUG
 #   pragma message ("get__ std::false_type, std::false_type " __FUNCSIG__)
 #endif
             // Would cause a recursive call
@@ -165,7 +165,7 @@ namespace cl
         template <typename Type>
         inline Type get__(std::false_type, std::true_type) const
         {
-#if defined COMPILE_TIME_DEBUG
+#if defined CL_COMPILE_TIME_DEBUG
 #   pragma message ("get__ std::false_type, std::true_type " __FUNCSIG__)
 #endif
             return Type(value_);
@@ -177,7 +177,7 @@ namespace cl
         template <typename Type>
         inline explicit operator Type() const
         {
-#if defined COMPILE_TIME_DEBUG
+#if defined CL_COMPILE_TIME_DEBUG
 #   pragma message ("convert compilation for: " __FUNCSIG__)
 #endif
             typedef typename std::remove_volatile<typename std::remove_const<Type>::type >::type native_type;
