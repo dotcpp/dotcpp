@@ -1,13 +1,12 @@
 ﻿/*
 Copyright (C) 2003-2015 CompatibL
 
-This file is part of CompatibL .C++ (DotCpp), an open source
-implementation of selected .NET class library APIs in native C++
-with optional support for adjoint algorithmic differentiation (AAD),
-available from
+This file is part of DotCpp (.C++), an open source implementation of
+selected .NET class library APIs in native C++ with optional support
+for algorithmic differentiation (AD), available from
 
-    http://github.com/compatibl/dotcpp (source)
-    http://compatibl.com/dotcpp (documentation)
+    http://github.com/dotcpp/dotcpp (source)
+    http://dotcpp.org (documentation)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
