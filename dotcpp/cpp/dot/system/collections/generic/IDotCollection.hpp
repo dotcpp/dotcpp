@@ -30,17 +30,17 @@ namespace dot
 {
     template <class T> class DotArray;
 
-    /// <summary>Generic collection interface.</summary>
+    /// Generic collection interface.
     template <class T>
     class IDotCollection : public IDotEnumerable<T>
     {
     public: // METHODS
 
-        /// <summary>(IDotCollection) Number of elements contained in the collection.</summary>
+        /// (IDotCollection) Number of elements contained in the collection.
         virtual int count() = 0;
 
-        /// <summary>(IDotCollection) Copies the elements of the ICollection(T)
-        /// to a DotArray, starting at the specified DotArray index.</summary>
+        /// (IDotCollection) Copies the elements of the ICollection(T)
+        /// to a DotArray, starting at the specified DotArray index.
         virtual void copyTo(DotArray<T> array, int arrayIndex) = 0;
 
     protected:

@@ -25,6 +25,8 @@ limitations under the License.
 
 #include <vector>
 #include <list>
+#include <hash_map>
+#include <hash_set>
 
 #include <dot/system/declare.hpp>
 #include <dot/system/collections/generic/IDotEnumerator.hpp>
@@ -63,13 +65,29 @@ namespace dot
             typedef ValueType type;
             typedef Allocator allocator_type;
         };
-
+		
+		template <typename ValueType, typename Pred, typename Allocator>
+		struct is_collection<stdext::hash_set<ValueType, Pred, Allocator> >
+		{
+			typedef ValueType type;
+			typedef Allocator allocator_type;
+		};
+		
         template <typename Key, typename ValueType, typename Pred, typename Allocator>
         struct is_collection <std::map<Key, ValueType, Pred, Allocator> >
         {
             typedef std::pair<Key const, ValueType> type;
             typedef Allocator allocator_type;
         };
+
+		template <typename Key, typename ValueType, typename Pred, typename Allocator>
+		struct is_collection<stdext::hash_map<Key, ValueType, Pred, Allocator> >
+		{
+			typedef std::pair<Key const, ValueType> type;
+			typedef Allocator allocator_type;
+		};
+
+		
 
         // The holder remover 
         template <typename Type>
@@ -127,8 +145,8 @@ namespace dot
     }
 
 
-    /// <summary>Exposes the enumerator, which supports a simple
-    /// iteration over a collection of a specified type.</summary>
+    /// Exposes the enumerator, which supports a simple
+    /// iteration over a collection of a specified type.
     template <class T>
     class IDotEnumerable
     {
@@ -138,7 +156,7 @@ namespace dot
             : accessor_(new std_accessor<Collection>(coll))
         {  }
 
-        /// <summary>(IDotEnumerable) Returns an enumerator that iterates through the collection.</summary>
+        /// (IDotEnumerable) Returns an enumerator that iterates through the collection.
         virtual dot::IDotEnumerator<T> GetEnumerator() = 0;
 
     protected:
@@ -233,7 +251,7 @@ namespace dot
             Iterable c_;
         };
 
-        /// <summary> The class specialization for dictionary </simmary>
+        ///  The class specialization for dictionary 
         template <typename Enumerable, typename Type, typename Key, typename Pred, typename Allocator>
         class std_accessor_<Enumerable, std::map<Type, Key, Pred, Allocator> > 
                 : public Enumerable
@@ -245,7 +263,7 @@ namespace dot
             typedef Allocator   allocator;
 
             typedef std::map<Type, Key, Pred, Allocator> Iterable;
-            typedef Iterable std_base;
+			typedef Iterable std_base;
 
             // I'll try to return it 
             // typedef decltype(*((Enumerable*)0).GetEnumerator()) enumerator_value_type;
@@ -317,6 +335,91 @@ namespace dot
 
             Iterable c_;
         };
+
+		///  The class specialization for hash_set 
+		template <typename Enumerable, typename Type, typename Pred, typename Allocator>
+		class std_accessor_<Enumerable, stdext::hash_set<Type, Pred, Allocator> >
+			: public Enumerable
+		{
+		public:
+			typedef Type        value_type;
+			typedef Pred        pred_type;
+			typedef Allocator   allocator;
+
+			typedef stdext::hash_set<Type, Pred, Allocator> Iterable;
+			typedef Iterable std_base;
+
+			// I'll try to return it 
+			// typedef decltype(*((Enumerable*)0).GetEnumerator()) enumerator_value_type;
+
+			// Enumerator type 
+			// should be returned by remove holder 
+			typedef dot::IDotEnumerator<typename
+				detail::remove_holder<Enumerable>::type > EnumeratorType;
+
+			static_assert (detail::remove_holder<Enumerable>::value
+				, "This type should contains value base for enumerator");
+
+			std_accessor_() : Enumerable(std::ref(c_))
+			{
+
+			}
+
+			//! begin std iterator method 
+			//! should return the start pointer to begin collection 
+			inline typename Iterable::iterator
+				begin()
+			{
+					return c_.begin();
+				}
+
+			// Last iterator 
+			inline typename Iterable::iterator
+				end()
+			{
+					return c_.end();
+				}
+
+			//! begin std iterator method 
+			//! should return the start pointer to begin collection
+			inline typename Iterable::const_iterator
+				begin() const
+			{
+					return c_.begin();
+				}
+
+			// Last iterator 
+			inline typename Iterable::const_iterator
+				end() const
+			{
+					return c_.end();
+				}
+
+			//! Method returns Enumerator contains start iterator 
+			//! for std collection 
+			inline EnumeratorType
+				GetEnumerator()
+			{
+					return EnumeratorType(c_.begin());
+				}
+
+			//  Should return the instance of std type 
+			// as an constant reference 
+			inline std_base const& get() const
+			{
+				return this->c_;
+			}
+
+			//  Should return the instance of std type 
+			// as an not constant reference 
+			inline std_base& get()
+			{
+				return this->c_;
+			}
+
+			Iterable c_;
+		};
+				
     }
 }
 

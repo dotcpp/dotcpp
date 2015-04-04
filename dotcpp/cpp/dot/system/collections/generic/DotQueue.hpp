@@ -31,6 +31,8 @@ limitations under the License.
 
 namespace dot
 {
+	/// Adapter class from STL deque to .NET Queue.
+	/// std::deque used as container to make possible Conataints(T item) and GetEnumerator() implementation
 	template <typename T>
 	class Queue : public detail::std_accessor_<dot::IDotEnumerable<T>
 		, std::deque<T> >
@@ -39,56 +41,88 @@ namespace dot
 		typedef detail::std_accessor_<dot::IDotEnumerable<T>
 			, std::deque<T> > base;
 		typedef dot::IDotEnumerable<T> dot_enumerator_type;
-		typedef std::deque<T> std_base;
-
-	private:
-		inline std_base& get_()
-		{
-			return this->c_;
-		}
-
+		
 
 	public:
-		Queue() : base() {	}
+		
+		
+		/// Queue constructor that create new empty instance of Queue
+		Queue() : base()
+		{	}
 
+		
+		/// Gets number of elements in List
+		/// <returns>
+		/// Number of elements in List
+		/// </returns>
 		inline int get_Count()
 		{
-			return this->get_().size();
+			return this->get().size();
 		}
 
+		
+		/// Erase all elements from Queue
 		inline void Clear()
 		{
-			get_().clear();
+			get().clear();
 		}
 
+		
+		/// Searches element in Queue
+		/// <param name="item">object to search</param>
+		/// <returns>
+		/// true if the item is found, or false, otherwise
+		/// </returns>
 		inline bool Contains(T item);
 			
+		
+		/// Copies Queue elements to array starting at specified index
+		/// <param name="array">target arra</param>
+		/// <param name="arrayIndex">index in array at which copying begin</param>
 		inline void CopyTo(T*& array, int arrayIndex);
 
 		typedef dot::IDotEnumerator<T> Enumerator;
 
-		//inline dot_enumerator_type GetEnumerator();
-
+		
+		///     Removes and returns the object at the beginning of the Queue
+		/// <returns>
+		///     The object that is removed from the beginning of the Queue
+		/// </returns>
 		inline T Dequeue()
 		{
-			T returnItem = get_().front();
-			get_().pop_front();
+			T returnItem = get().front();
+			get().pop_front();
 			return returnItem;
 		}
 
+		
+		///     Adds an object to the end of the Queue
+		/// <param name="item">the object to add to the Queue</param>
 		inline void Enqueue(T item)
 		{
-			get_().push_back(item);
-		}
-
-		inline T Peek()
-		{
-			return get_().front();
+			
+			get().push_back(item);
 		}
 
 		
+		///     Returns the object at the beginning of the Queue without removing it.
+		/// <returns>
+		///     The object at the beginning of the Queue
+		/// </returns>
+		inline T Peek()
+		{
+			return get().front();
+		}
+
+		
+		///     Copies the elements of the Queue to a new array.
+		/// <returns>
+		///     An array containing copies of the elements of the Queue
+		/// </returns>
 		inline std::vector<T> ToArray();
 
+		
+		///     Sets the capacity to the actual number of elements in the Queue, if that number is less than a threshold value.
 		inline void TrimExcess();
 
 

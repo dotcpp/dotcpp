@@ -31,6 +31,10 @@ limitations under the License.
 
 namespace dot
 {
+	/// Adapter class from STL deque to .NET Stack.
+	/// srd::deque used as container to make possible Conataints(T item) and GetEnumerator() implementation
+	
+	
 	template <typename T>
 	class Stack : public detail::std_accessor_<dot::IDotEnumerable<T>
 		, std::deque<T> >
@@ -42,31 +46,59 @@ namespace dot
 		typedef std::deque<T> std_base;
 
 	public:
+		
+		/// Stack constructor that create new empty instance of Stack
 		Stack() : base() {	}
 		
+		
+		/// Gets number of elements in Stack
+		/// <returns>
+		/// Number of elements in Stack
+		/// </returns>
 		inline int get_Count()
 		{
 			return this->get().size();
 		}
 
+		
+		/// Erase all elements from Stack
 		inline void Clear()
 		{
 			get().clear();
 		}
 
+		
+		/// Searches element in Stack
+		/// <param name="item">object to search</param>
+		/// <returns>
+		/// true if the item is found, or false, otherwise
+		/// </returns>
 		inline bool Contains(T item);
 		
+		
+		/// Copies Stack elements to array starting at specified index
+		/// <param name="array">target arra</param>
+		/// <param name="arrayIndex">index in array at which copying begin</param>
 		inline void CopyTo(T*& array, int arrayIndex);
 
 		typedef dot::IDotEnumerator<T> Enumerator;
 
 		//inline dot_enumerator_type GetEnumerator();
 
+		///     Returns the object at the top of the Stack without removing it.
+		/// <returns>
+		///     The object at the top of the Stack
+		/// </returns>
 		inline T Peek()
 		{
 			return get().back();
 		}
 		
+
+		///     Removes and returns the object at the top of the Stack
+		/// <returns>
+		///     The object that is removed from the beginning of the Stack
+		/// </returns>
 		inline T Pop()
 		{
 			T returnItem = get().top();
@@ -74,14 +106,26 @@ namespace dot
 			return returnItem;
 		}
 
+		
+		///     Adds an object to the top of the Stack
+		/// <param name="item">the object to add to the Stac</param>
 		inline void Push(T item)
 		{
 			get().push_back(item);
 		}
 
+		
+		///     Copies the elements of the Stack to a new array.
+		/// <returns>
+		///     An array containing copies of the elements of the Stack
+		/// </returns>
 		inline dot::Array<T> ToArray();
 
+		
+		
+		///     Sets the capacity to the actual number of elements in the Stack, if that number is less than a threshold value.
 		inline void TrimExcess();
+
 		
 
 	};

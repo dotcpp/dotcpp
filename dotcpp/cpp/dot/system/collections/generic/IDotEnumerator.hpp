@@ -145,8 +145,8 @@ namespace dot
 
     class DotBool {};
 
-    /// <summary>Supports a simple iteration over a generic collection.</summary>
-    template <class T>
+    /// Supports a simple iteration over a generic collection.
+	template <class T>
     class IDotEnumerator
         : std::random_access_iterator_tag
     {
@@ -162,22 +162,22 @@ namespace dot
             : iterator_(detail::make_iterator(iter))
         {   }
 
-        /// <summary>Gets the element in the collection at the current position of the enumerator.</summary>
-        /// TODO can be reference 
+        ///	Gets the element in the collection at the current position of the enumerator.
+		/// TODO can be reference 
         std::reference_wrapper<T> current()
         {  
             return iterator_->get();
         }
 
-        /// <summary>Advances the enumerator to the next element of the collection.\\
+        /// Advances the enumerator to the next element of the collection.\\
         /// Returns true if the enumerator was successfully advanced to the next element;
-        /// false if the enumerator has passed the end of the collection.</summary>
+        /// false if the enumerator has passed the end of the collection.
         DotBool moveNext()
         {
             return DotBool();
         }
 
-        /// <summary>Sets the enumerator to its initial position, which is before the first element in the collection.</summary>
+        /// Sets the enumerator to its initial position, which is before the first element in the collection.
         void reset() 
         {}
         
@@ -210,7 +210,7 @@ namespace dot
             return 
         }
     public:
-        /// <summary> </summary>
+        ///  
         inline bool 
         compare(dot::IDotEnumerator<T> const& c) const
         {
