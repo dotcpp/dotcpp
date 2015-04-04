@@ -100,7 +100,7 @@ namespace cl
 
         /// <summary> The friend class to conversations </summary>
         template <typename, typename, typename, typename, typename, typename, typename, typename >
-        friend struct cl::DoubleConvert;
+        friend struct cl::CppDoubleConvert;
 
     public: // TYPEDEFS
 
@@ -117,14 +117,14 @@ namespace cl
         explicit CppDouble(Type const& rhs)
             : value_()
         {
-            cl::DoubleConvert<Type, value_type>::convert(*this, rhs);
+            cl::CppDoubleConvert<Type, value_type>::convert(*this, rhs);
         }
 
         /// <summary>Assignment from other type.</summary>
         template <typename Type>
         inline CppDouble& operator=(Type const& rhs)
         {
-            cl::DoubleConvert<Type, value_type>::convert(*this, rhs);
+            cl::CppDoubleConvert<Type, value_type>::convert(*this, rhs);
             return *this;
         }
 
