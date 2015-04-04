@@ -48,7 +48,7 @@ namespace cl
     struct operator_traits<Left, Right, struct oper_plus, std::true_type, std::true_type>
     {
         // This ensures correct behavior for classes convertible to double
-        typedef cl::Double type;
+        typedef cl::CppDouble type;
 
         template <typename Left, typename Right>
         inline type operator()(Left const& left, Right const& right)
@@ -67,7 +67,7 @@ namespace cl
     struct operator_traits<Left, Right, struct oper_minus, std::true_type, std::true_type>
     {
         // This ensures correct behavior for classes convertible to double
-        typedef cl::Double type;
+        typedef cl::CppDouble type;
 
         template <typename Left, typename Right>
         inline type operator()(Left const& left, Right const& right)
@@ -83,10 +83,10 @@ namespace cl
     };
 
     template <typename Left, typename RC>
-    struct operator_traits<Left, cl::Double, struct oper_plus, std::true_type, RC>
+    struct operator_traits<Left, cl::CppDouble, struct oper_plus, std::true_type, RC>
     {
         // This ensures correct behavior for classes convertible to double
-        typedef cl::Double type;
+        typedef cl::CppDouble type;
 
         template <typename Left, typename Right>
         inline type operator()(Left const& left, Right const& right)
@@ -102,10 +102,10 @@ namespace cl
     };
 
     template <typename Right, typename LC>
-    struct operator_traits<cl::Double, Right, struct oper_plus, LC, std::true_type>
+    struct operator_traits<cl::CppDouble, Right, struct oper_plus, LC, std::true_type>
     {
         // This ensures correct behavior for classes convertible to double
-        typedef cl::Double type;
+        typedef cl::CppDouble type;
 
         template <typename Left, typename Right>
         inline type operator()(Left const& left, Right const& right)
@@ -121,10 +121,10 @@ namespace cl
     };
 
     template <typename Left, typename RC>
-    struct operator_traits<Left, cl::Double, struct oper_minus, std::true_type, RC>
+    struct operator_traits<Left, cl::CppDouble, struct oper_minus, std::true_type, RC>
     {
         // This ensures correct behavior for classes convertible to double
-        typedef cl::Double type;
+        typedef cl::CppDouble type;
 
         template <typename Left, typename Right>
         inline type operator()(Left const& left, Right const& right)
@@ -140,10 +140,10 @@ namespace cl
     };
 
     template <typename Right, typename LC>
-    struct operator_traits<cl::Double, Right, struct oper_minus, LC, std::true_type>
+    struct operator_traits<cl::CppDouble, Right, struct oper_minus, LC, std::true_type>
     {
         // This ensures correct behavior for classes convertible to double
-        typedef cl::Double type;
+        typedef cl::CppDouble type;
 
         template <typename Left, typename Right>
         inline type operator()(Left const& left, Right const& right)
@@ -185,7 +185,7 @@ namespace cl
     struct operator_traits<Left, Right, struct oper_div, std::true_type, std::true_type>
     {
         // This ensures correct behavior for classes convertible to double
-        typedef cl::Double type;
+        typedef cl::CppDouble type;
 
         template <typename Left, typename Right>
         inline type operator()(Left const& left, Right const& right)
@@ -201,10 +201,10 @@ namespace cl
     };
 
     template <typename Left, typename RC>
-    struct operator_traits<Left, cl::Double, struct oper_div, std::true_type, RC>
+    struct operator_traits<Left, cl::CppDouble, struct oper_div, std::true_type, RC>
     {
         // This ensures correct behavior for classes convertible to double
-        typedef cl::Double type;
+        typedef cl::CppDouble type;
 
         template <typename Left, typename Right>
         inline type operator()(Left const& left, Right const& right)
@@ -220,10 +220,10 @@ namespace cl
     };
 
     template <typename Right, typename LC>
-    struct operator_traits<cl::Double, Right, struct oper_div, LC, std::true_type>
+    struct operator_traits<cl::CppDouble, Right, struct oper_div, LC, std::true_type>
     {
         // This ensures correct behavior for classes convertible to double
-        typedef cl::Double type;
+        typedef cl::CppDouble type;
 
         template <typename Left, typename Right>
         inline type operator()(Left const& left, Right const& right)
@@ -254,7 +254,7 @@ namespace cl
     struct operator_traits<Left, Right, struct oper_mult, std::true_type, std::true_type>
     {
         // This ensures correct behavior for classes convertible to double
-        typedef cl::Double type;
+        typedef cl::CppDouble type;
 
         template <typename Left, typename Right>
         inline type operator()(Left const& left, Right const& right)
@@ -270,10 +270,10 @@ namespace cl
     };
 
     template <typename Left, typename RC>
-    struct operator_traits<Left, cl::Double, struct oper_mult, std::true_type, RC>
+    struct operator_traits<Left, cl::CppDouble, struct oper_mult, std::true_type, RC>
     {
         // This ensures correct behavior for classes convertible to double
-        typedef cl::Double type;
+        typedef cl::CppDouble type;
 
         template <typename Left, typename Right>
         inline type operator()(Left const& left, Right const& right)
@@ -289,10 +289,10 @@ namespace cl
     };
 
     template <typename Right, typename LC>
-    struct operator_traits<cl::Double, Right, struct oper_mult, LC, std::true_type>
+    struct operator_traits<cl::CppDouble, Right, struct oper_mult, LC, std::true_type>
     {
         // This ensures correct behavior for classes convertible to double
-        typedef cl::Double type;
+        typedef cl::CppDouble type;
 
         template <typename Left, typename Right>
         inline type operator()(Left const& left, Right const& right)
@@ -327,13 +327,13 @@ namespace std
     struct plus;
 
     template<>
-    struct plus<cl::Double >
-        : public binary_function<cl::Double, cl::Double, cl::Double >
+    struct plus<cl::CppDouble >
+        : public binary_function<cl::CppDouble, cl::CppDouble, cl::CppDouble >
     {   // functor for operator+
         template<class _Ty1, class _Ty2>
-        cl::Double operator()(_Ty1&& _Left, _Ty2&& _Right) const
+        cl::CppDouble operator()(_Ty1&& _Left, _Ty2&& _Right) const
         {   // transparently apply operator+ to operands
-            typedef decltype(cl::get_instance<cl::Double>() + cl::get_instance<cl::Double>()) real_type;
+            typedef decltype(cl::get_instance<cl::CppDouble>() + cl::get_instance<cl::CppDouble>()) real_type;
             return _Left + _Right;
         }
     };
@@ -341,12 +341,12 @@ namespace std
     template <typename > struct multiplies;
 
     template <>
-    struct multiplies<cl::Double >
-        : public binary_function<cl::Double, cl::Double, typename cl::Double::value_type>
+    struct multiplies<cl::CppDouble >
+        : public binary_function<cl::CppDouble, cl::CppDouble, typename cl::CppDouble::value_type>
     {
         template <typename Left, typename Right>
-        typename cl::Double::value_type operator () (Left const& left, Right const& right) const {
-            return (cl::Double::value_type)(left * right);
+        typename cl::CppDouble::value_type operator () (Left const& left, Right const& right) const {
+            return (cl::CppDouble::value_type)(left * right);
         }
     };
 
@@ -395,12 +395,12 @@ namespace boost { namespace lambda { namespace detail
 
     //!! Translates to native type (currently may cause a runtime error, to be fixed)
     template <>
-    struct promote_code<cl::Double >
+    struct promote_code<cl::CppDouble >
     {
         static const int value = cl::take_value<
                                         boost::lambda::detail::promote_code
                                         <
-                                            typename cl::remove_ad<typename cl::Double::value_type>::type
+                                            typename cl::remove_ad<typename cl::CppDouble::value_type>::type
                                         >
                                         , 600 //!!! See boost promote_code for double, avoid hardcode
                                    >::value;
@@ -414,9 +414,9 @@ namespace boost {  namespace detail
     template<class> class return_type_deduction_failure;
 
     template<>
-    struct return_type_2_arithmetic_phase_3 <cl::Double >
+    struct return_type_2_arithmetic_phase_3 <cl::CppDouble >
     {
-        typedef cl::Double ad_type;
+        typedef cl::CppDouble ad_type;
         typedef ad_type A;
 
         return_type_2_arithmetic_phase_3(ad_type const& ad_v) {   }
@@ -437,9 +437,9 @@ namespace boost { namespace numeric { namespace ublas
     namespace detail {
 
     template <typename Left>
-    inline bool operator < (Left const& left, cl::Double const& right)
+    inline bool operator < (Left const& left, cl::CppDouble const& right)
     {
-        return (cl::Double)left < right;
+        return (cl::CppDouble)left < right;
     }
 
     // This is hooked operator <
@@ -450,48 +450,48 @@ namespace boost { namespace numeric { namespace ublas
                     boost::numeric::ublas::matrix_matrix_binary<
                         boost::numeric::ublas::triangular_adaptor<
                             boost::numeric::ublas::matrix<
-                                cl::Double
+                                cl::CppDouble
                                 , boost::numeric::ublas::basic_row_major<unsigned int, int>
                                 , boost::numeric::ublas::unbounded_array<
                                         DoubleType
-                                        , std::allocator<cl::Double>
+                                        , std::allocator<cl::CppDouble>
                                   >
                             >
                             , boost::numeric::ublas::basic_unit_lower<unsigned int>
                         >
                         , boost::numeric::ublas::triangular_adaptor<
                              boost::numeric::ublas::matrix<
-                                cl::Double
+                                cl::CppDouble
                                 , boost::numeric::ublas::basic_row_major<unsigned int, int>
                                 , boost::numeric::ublas::unbounded_array<
-                                      cl::Double
-                                      , std::allocator<cl::Double>
+                                      cl::CppDouble
+                                      , std::allocator<cl::CppDouble>
                                   > >, struct boost::numeric::ublas::basic_upper<unsigned int>
                           >
                         , boost::numeric::ublas::matrix_matrix_prod<
                                 boost::numeric::ublas::triangular_adaptor<
                                     boost::numeric::ublas::matrix<
-                                        cl::Double
+                                        cl::CppDouble
                                         , boost::numeric::ublas::basic_row_major<unsigned int, int>
-                                        , class boost::numeric::ublas::unbounded_array<class cl::Double, class std::allocator<class cl::Double> >
+                                        , class boost::numeric::ublas::unbounded_array<class cl::CppDouble, class std::allocator<class cl::CppDouble> >
                                     >
                                     , boost::numeric::ublas::basic_unit_lower<unsigned int>
                                 >
                                 , boost::numeric::ublas::triangular_adaptor<
                                     class boost::numeric::ublas::matrix<
-                                        class cl::Double
+                                        class cl::CppDouble
                                         , struct boost::numeric::ublas::basic_row_major<unsigned int, int>
-                                        , class boost::numeric::ublas::unbounded_array<class cl::Double, class std::allocator<class cl::Double> >
+                                        , class boost::numeric::ublas::unbounded_array<class cl::CppDouble, class std::allocator<class cl::CppDouble> >
                                     >, struct boost::numeric::ublas::basic_upper<unsigned int>
                                   >
-                                , cl::Double
+                                , cl::CppDouble
                             >
                     >
                     , boost::numeric::ublas::matrix<
-                        cl::Double, struct boost::numeric::ublas::basic_row_major<unsigned int, int>, class boost::numeric::ublas::unbounded_array<class cl::Double, class std::allocator<class cl::Double> >
+                        cl::CppDouble, struct boost::numeric::ublas::basic_row_major<unsigned int, int>, class boost::numeric::ublas::unbounded_array<class cl::CppDouble, class std::allocator<class cl::CppDouble> >
                       >
                     , boost::numeric::ublas::scalar_minus<
-                            cl::Double, class cl::Double
+                            cl::CppDouble, class cl::CppDouble
                         >
                 >
                 , boost::numeric::ublas::matrix_norm_inf<
@@ -499,55 +499,55 @@ namespace boost { namespace numeric { namespace ublas
                             boost::numeric::ublas::matrix_matrix_binary<
                                 boost::numeric::ublas::triangular_adaptor<
                                         boost::numeric::ublas::matrix<
-                                            cl::Double
+                                            cl::CppDouble
                                             , boost::numeric::ublas::basic_row_major<unsigned int, int>
-                                            , boost::numeric::ublas::unbounded_array<cl::Double, std::allocator<cl::Double> >
+                                            , boost::numeric::ublas::unbounded_array<cl::CppDouble, std::allocator<cl::CppDouble> >
                                         >
                                     , struct boost::numeric::ublas::basic_unit_lower<unsigned int>
                                 >
                                 , boost::numeric::ublas::triangular_adaptor<
                                         boost::numeric::ublas::matrix<
-                                            cl::Double
+                                            cl::CppDouble
                                             , boost::numeric::ublas::basic_row_major<unsigned int, int>
-                                            , boost::numeric::ublas::unbounded_array<cl::Double, std::allocator<class cl::Double> >
+                                            , boost::numeric::ublas::unbounded_array<cl::CppDouble, std::allocator<class cl::CppDouble> >
                                         >
                                         , struct boost::numeric::ublas::basic_upper<unsigned int>
                                   >
                                   , boost::numeric::ublas::matrix_matrix_prod<
                                         boost::numeric::ublas::triangular_adaptor<
                                             boost::numeric::ublas::matrix<
-                                                cl::Double
+                                                cl::CppDouble
                                                 , boost::numeric::ublas::basic_row_major<unsigned int, int>
-                                                , boost::numeric::ublas::unbounded_array<cl::Double, std::allocator<class cl::Double> >
+                                                , boost::numeric::ublas::unbounded_array<cl::CppDouble, std::allocator<class cl::CppDouble> >
                                             >
                                             , boost::numeric::ublas::basic_unit_lower<unsigned int>
                                         >
                                         , boost::numeric::ublas::triangular_adaptor<
                                             boost::numeric::ublas::matrix<
-                                                cl::Double
+                                                cl::CppDouble
                                                 , boost::numeric::ublas::basic_row_major<unsigned int, int>
-                                                , boost::numeric::ublas::unbounded_array<cl::Double, std::allocator<cl::Double> >
+                                                , boost::numeric::ublas::unbounded_array<cl::CppDouble, std::allocator<cl::CppDouble> >
                                             >
                                             , boost::numeric::ublas::basic_upper<unsigned int>
                                         >
-                                        , class cl::Double
+                                        , class cl::CppDouble
                                   >
                             >
                             , boost::numeric::ublas::matrix<
-                                    cl::Double
+                                    cl::CppDouble
                                     , boost::numeric::ublas::basic_row_major<unsigned int, int>
-                                    , boost::numeric::ublas::unbounded_array<cl::Double, std::allocator<cl::Double> >
+                                    , boost::numeric::ublas::unbounded_array<cl::CppDouble, std::allocator<cl::CppDouble> >
                               >
-                            , boost::numeric::ublas::scalar_minus<cl::Double, cl::Double>
+                            , boost::numeric::ublas::scalar_minus<cl::CppDouble, cl::CppDouble>
                         >
                 >
            > const& left
-        , cl::Double const& right)
+        , cl::CppDouble const& right)
     {
 #if defined CL_COMPILE_TIME_DEBUG
 #pragma message ("Hook procedure : " __FUNCSIG__)
 #endif
-        return (cl::Double)left < right;
+        return (cl::CppDouble)left < right;
     }
 
 }}}}
@@ -558,9 +558,9 @@ namespace boost
         template <typename Type> struct is_arithmetic_impl;
 
         template< >
-        struct is_arithmetic_impl<cl::Double>
+        struct is_arithmetic_impl<cl::CppDouble>
         {
-            typedef cl::remove_ad<cl::Double::value_type>::type value_type;
+            typedef cl::remove_ad<cl::CppDouble::value_type>::type value_type;
 #if defined BOOST_STATIC_CONSTANT
             BOOST_STATIC_CONSTANT(bool, value =
                 (::boost::type_traits::ice_or<

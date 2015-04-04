@@ -35,7 +35,7 @@ namespace cl
     template <typename Type
             , typename ValueType
             , typename NativeType = typename std::remove_volatile<typename std::remove_const<Type>::type >::type
-            , typename IsSameType = typename std::is_same<NativeType, Double>::type
+            , typename IsSameType = typename std::is_same<NativeType, CppDouble>::type
             , typename IsArithmetic = typename std::is_arithmetic<NativeType>::type
             , typename IsConvertible = typename std::is_convertible<Type, ValueType>::type
             , typename IsHasOperator = typename cl::detail::is_has_operator_real<NativeType>::type
@@ -132,14 +132,14 @@ namespace cl
                     , Type const&
                     , Type >::type type;
             type v = other_value;
-            this_value = v.operator Double();
+            this_value = v.operator CppDouble();
         }
 
         // If ValueType is a class, constructor should be called
         template <typename ThisType>
         static void convert(ThisType& this_value, Type& other_value)
         {
-            this_value = other_value.operator Double();
+            this_value = other_value.operator CppDouble();
         }
     };
 

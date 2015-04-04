@@ -38,7 +38,7 @@ namespace cl
 
 namespace std
 {
-    inline cl::Double fabs(cl::Double x)
+    inline cl::CppDouble fabs(cl::CppDouble x)
     {
 #ifdef CL_DOUBLE_CPPAD
         return CppAD::fabs(x.value());
@@ -49,7 +49,7 @@ namespace std
 #endif
     }
 
-    inline cl::Double abs(cl::Double x)
+    inline cl::CppDouble abs(cl::CppDouble x)
     {
 #ifdef CL_DOUBLE_CPPAD
         return CppAD::abs(x.value());
@@ -60,10 +60,10 @@ namespace std
 #endif
     }
 
-    inline cl::Double floor(cl::Double x)
+    inline cl::CppDouble floor(cl::CppDouble x)
 {
 #ifdef CL_DOUBLE_CPPAD
-        return  cl::Double(std::floor(CppAD::Value(x.value())));  //!!! Review
+        return  cl::CppDouble(std::floor(CppAD::Value(x.value())));  //!!! Review
 #elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
@@ -71,10 +71,10 @@ namespace std
 #endif
     }
 
-    inline cl::Double ceil(cl::Double x)
+    inline cl::CppDouble ceil(cl::CppDouble x)
     {
 #ifdef CL_DOUBLE_CPPAD
-        return cl::Double(std::ceil(CppAD::Value(x.value())));  //!!! Review
+        return cl::CppDouble(std::ceil(CppAD::Value(x.value())));  //!!! Review
 #elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
@@ -82,7 +82,7 @@ namespace std
 #endif
     }
 
-    inline cl::Double sqrt(cl::Double x)
+    inline cl::CppDouble sqrt(cl::CppDouble x)
     {
 #ifdef CL_DOUBLE_CPPAD
         return CppAD::sqrt(x.value());
@@ -93,7 +93,7 @@ namespace std
 #endif
     }
 
-    inline cl::Double log(cl::Double x)
+    inline cl::CppDouble log(cl::CppDouble x)
     {
 #ifdef CL_DOUBLE_CPPAD
         return CppAD::log(x.value());
@@ -104,7 +104,7 @@ namespace std
 #endif
     }
 
-    inline cl::Double exp(cl::Double x)
+    inline cl::CppDouble exp(cl::CppDouble x)
     {
 #ifdef CL_DOUBLE_CPPAD
         return CppAD::exp(x.value());
@@ -115,7 +115,7 @@ namespace std
 #endif
     }
 
-    inline cl::Double sin(cl::Double x)
+    inline cl::CppDouble sin(cl::CppDouble x)
     {
 #ifdef CL_DOUBLE_CPPAD
         return CppAD::sin(x.value());
@@ -126,7 +126,7 @@ namespace std
 #endif
     }
 
-    inline cl::Double cos(cl::Double x)
+    inline cl::CppDouble cos(cl::CppDouble x)
     {
 #ifdef CL_DOUBLE_CPPAD
         return CppAD::cos(x.value());
@@ -137,7 +137,7 @@ namespace std
 #endif
     }
 
-    inline cl::Double tan(cl::Double x)
+    inline cl::CppDouble tan(cl::CppDouble x)
     {
 #ifdef CL_DOUBLE_CPPAD
         return CppAD::tan(x.value());
@@ -148,7 +148,7 @@ namespace std
 #endif
     }
 
-    inline cl::Double asin(cl::Double x)
+    inline cl::CppDouble asin(cl::CppDouble x)
     {
 #ifdef CL_DOUBLE_CPPAD
         return CppAD::asin(x.value());
@@ -159,7 +159,7 @@ namespace std
 #endif
     }
 
-    inline cl::Double acos(cl::Double x)
+    inline cl::CppDouble acos(cl::CppDouble x)
     {
 #ifdef CL_DOUBLE_CPPAD
         return CppAD::acos(x.value());
@@ -170,7 +170,7 @@ namespace std
 #endif
     }
 
-    inline cl::Double atan(cl::Double x)
+    inline cl::CppDouble atan(cl::CppDouble x)
     {
 #ifdef CL_DOUBLE_CPPAD
         return CppAD::atan(x.value());
@@ -181,7 +181,7 @@ namespace std
 #endif
     }
 
-    inline cl::Double sinh(cl::Double x)
+    inline cl::CppDouble sinh(cl::CppDouble x)
     {
 #ifdef CL_DOUBLE_CPPAD
         return CppAD::sinh(x.value());
@@ -192,7 +192,7 @@ namespace std
 #endif
     }
 
-    inline cl::Double cosh(cl::Double x)
+    inline cl::CppDouble cosh(cl::CppDouble x)
     {
 #ifdef CL_DOUBLE_CPPAD
         return CppAD::cosh(x.value());
@@ -203,7 +203,7 @@ namespace std
 #endif
     }
 
-    inline cl::Double tanh(cl::Double x)
+    inline cl::CppDouble tanh(cl::CppDouble x)
     {
 #ifdef CL_DOUBLE_CPPAD
         return CppAD::tanh(x.value());
@@ -214,7 +214,7 @@ namespace std
 #endif
     }
 
-    inline cl::Double pow(cl::Double x, cl::Double y)
+    inline cl::CppDouble pow(cl::CppDouble x, cl::CppDouble y)
     {
 #ifdef CL_DOUBLE_CPPAD
         return CppAD::pow(x.value(), y.value());
@@ -225,10 +225,10 @@ namespace std
 #endif
     }
 
-    inline cl::Double pow(cl::Double x, double y)
+    inline cl::CppDouble pow(cl::CppDouble x, double y)
     {
 #ifdef CL_DOUBLE_CPPAD
-        return pow(x, cl::Double(y));
+        return pow(x, cl::CppDouble(y));
 #elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
@@ -236,10 +236,10 @@ namespace std
 #endif
     }
 
-    inline cl::Double pow(double x, cl::Double y)
+    inline cl::CppDouble pow(double x, cl::CppDouble y)
     {
 #ifdef CL_DOUBLE_CPPAD
-        return pow(cl::Double(x), y);
+        return pow(cl::CppDouble(x), y);
 #elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
@@ -247,10 +247,10 @@ namespace std
 #endif
     }
 
-    inline cl::Double asinh(cl::Double x)
+    inline cl::CppDouble asinh(cl::CppDouble x)
     {
 #ifdef CL_DOUBLE_CPPAD
-        return log(x + sqrt(cl::Double(1.0) + pow(x, 2.0)));
+        return log(x + sqrt(cl::CppDouble(1.0) + pow(x, 2.0)));
 #elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented");return x;
 #else
@@ -258,10 +258,10 @@ namespace std
 #endif
     }
 
-    inline cl::Double acosh(cl::Double x)
+    inline cl::CppDouble acosh(cl::CppDouble x)
     {
 #ifdef CL_DOUBLE_CPPAD
-        return log(x + sqrt(cl::Double(-1.0) + pow(x, 2.0)));
+        return log(x + sqrt(cl::CppDouble(-1.0) + pow(x, 2.0)));
 #elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
@@ -269,10 +269,10 @@ namespace std
 #endif
     }
 
-    inline cl::Double atanh(cl::Double x)
+    inline cl::CppDouble atanh(cl::CppDouble x)
     {
 #ifdef CL_DOUBLE_CPPAD
-        return 0.5* log((cl::Double(1.0) + x) / (cl::Double(1.0) - x));
+        return 0.5* log((cl::CppDouble(1.0) + x) / (cl::CppDouble(1.0) - x));
 #elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
@@ -280,7 +280,7 @@ namespace std
 #endif
     }
 
-    inline bool isnan(cl::Double x)
+    inline bool isnan(cl::CppDouble x)
     {
 #ifdef CL_DOUBLE_CPPAD
         return CppAD::isnan(x.value());
@@ -292,7 +292,7 @@ namespace std
     }
 
 
-    inline cl::Double min(cl::Double x, cl::Double y)
+    inline cl::CppDouble min(cl::CppDouble x, cl::CppDouble y)
     {
 #ifdef CL_DOUBLE_CPPAD
         return x < y ? x : y;
@@ -303,7 +303,7 @@ namespace std
 #endif
     }
 
-    inline cl::Double min(cl::Double x, double y)
+    inline cl::CppDouble min(cl::CppDouble x, double y)
     {
 #ifdef CL_DOUBLE_CPPAD
         return x < y ? x : y;
@@ -314,7 +314,7 @@ namespace std
 #endif
     }
 
-    inline cl::Double min(double x, cl::Double y)
+    inline cl::CppDouble min(double x, cl::CppDouble y)
     {
 #ifdef CL_DOUBLE_CPPAD
         return x < y ? x : y;
@@ -325,7 +325,7 @@ namespace std
 #endif
     }
 
-    inline cl::Double max(cl::Double x, cl::Double y)
+    inline cl::CppDouble max(cl::CppDouble x, cl::CppDouble y)
     {
 #ifdef CL_DOUBLE_CPPAD
         return x > y ? x : y;
@@ -337,10 +337,10 @@ namespace std
 #endif
     }
 
-    inline cl::Double max(cl::Double x, double y)
+    inline cl::CppDouble max(cl::CppDouble x, double y)
     {
 #ifdef CL_DOUBLE_CPPAD
-        return x > y ? x : cl::Double(y);
+        return x > y ? x : cl::CppDouble(y);
 #elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
@@ -348,10 +348,10 @@ namespace std
 #endif
     }
 
-    inline cl::Double max(double x, cl::Double y)
+    inline cl::CppDouble max(double x, cl::CppDouble y)
     {
 #ifdef CL_DOUBLE_CPPAD
-        return x > y ? cl::Double(x) : y;
+        return x > y ? cl::CppDouble(x) : y;
 #elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
@@ -359,7 +359,7 @@ namespace std
 #endif
     }
 
-    inline cl::Double atan2(cl::Double x, cl::Double y)
+    inline cl::CppDouble atan2(cl::CppDouble x, cl::CppDouble y)
     {
 #ifdef CL_DOUBLE_CPPAD
         return CppAD::atan2(x.value(), y.value());
@@ -370,10 +370,10 @@ namespace std
 #endif
     }
 
-    inline cl::Double atan2(cl::Double x, double y)
+    inline cl::CppDouble atan2(cl::CppDouble x, double y)
     {
 #ifdef CL_DOUBLE_CPPAD
-        return atan2(x, cl::Double(y));
+        return atan2(x, cl::CppDouble(y));
 #elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
@@ -381,10 +381,10 @@ namespace std
 #endif
     }
 
-    inline cl::Double atan2(double x, cl::Double y)
+    inline cl::CppDouble atan2(double x, cl::CppDouble y)
     {
 #ifdef CL_DOUBLE_CPPAD
-        return atan2(cl::Double(x), y);
+        return atan2(cl::CppDouble(x), y);
 #elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
@@ -392,7 +392,7 @@ namespace std
 #endif
     }
 
-    inline cl::Double fmod(cl::Double x, cl::Double y)
+    inline cl::CppDouble fmod(cl::CppDouble x, cl::CppDouble y)
     {
 #ifdef CL_DOUBLE_CPPAD
         return x - y * ( x / y > 0 ? floor(x / y) : ceil (x / y));
@@ -403,10 +403,10 @@ namespace std
 #endif
     }
 
-    inline cl::Double fmod(cl::Double x, double y)
+    inline cl::CppDouble fmod(cl::CppDouble x, double y)
     {
 #ifdef CL_DOUBLE_CPPAD
-        return fmod(x, cl::Double(y));
+        return fmod(x, cl::CppDouble(y));
 #elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 
@@ -415,10 +415,10 @@ namespace std
 #endif
     }
 
-    inline cl::Double fmod(double x, cl::Double y)
+    inline cl::CppDouble fmod(double x, cl::CppDouble y)
     {
 #ifdef CL_DOUBLE_CPPAD
-        return fmod(cl::Double(x), y);
+        return fmod(cl::CppDouble(x), y);
 #elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 
@@ -427,14 +427,14 @@ namespace std
 #endif
     }
 
-    inline cl::Double modf(cl::Double x, cl::Double* iptr)
+    inline cl::CppDouble modf(cl::CppDouble x, cl::CppDouble* iptr)
     {
 #ifdef CL_DOUBLE_CPPAD
         double fractpart;
         double intpart;
         fractpart = std::modf(CppAD::Value(x.value()), &intpart);     //!!! Review
-        (*iptr) = cl::Double(intpart);
-        return cl::Double( fractpart);
+        (*iptr) = cl::CppDouble(intpart);
+        return cl::CppDouble( fractpart);
 #elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
@@ -442,12 +442,12 @@ namespace std
         double intpart;
         fractpart = std::modf(x.value(), &intpart);
         (*iptr) = intpart;
-        return cl::Double( fractpart);
+        return cl::CppDouble( fractpart);
 #endif
     }
 
     template<class T1, class T2>
-    inline cl::Double inner_product(T1 first1, T1 last1, T2 first2, cl::Double value)
+    inline cl::CppDouble inner_product(T1 first1, T1 last1, T2 first2, cl::CppDouble value)
     {
 #ifdef CL_DOUBLE_CPPAD
         while (first1 != last1)
@@ -455,12 +455,12 @@ namespace std
             value = value + (*first1)*(*first2);
             ++first1; ++first2;
         }
-        return cl::Double(value);
+        return cl::CppDouble(value);
 
 #elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
 #else
-        return cl::Double(std::inner_product(first1, last1, first2, value.value()));
+        return cl::CppDouble(std::inner_product(first1, last1, first2, value.value()));
 #endif
     }
     template<class T1, class T2>
@@ -483,100 +483,100 @@ namespace std
     }
 
     // Math functions for std::complex<Real>
-    inline cl::Double real(std::complex<cl::Double> x) {
+    inline cl::CppDouble real(std::complex<cl::CppDouble> x) {
         return x.real();
     }
 
-    inline cl::Double imag(std::complex<cl::Double> x) {
+    inline cl::CppDouble imag(std::complex<cl::CppDouble> x) {
         return x.imag();
     }
 
-    inline std::complex<cl::Double> operator-(const std::complex<cl::Double>& lhs, const std::complex<cl::Double>& rhs){
-        return complex<cl::Double>(lhs.real() - rhs.real(), lhs.imag() - rhs.imag());
+    inline std::complex<cl::CppDouble> operator-(const std::complex<cl::CppDouble>& lhs, const std::complex<cl::CppDouble>& rhs){
+        return complex<cl::CppDouble>(lhs.real() - rhs.real(), lhs.imag() - rhs.imag());
     }
 
-    inline std::complex<cl::Double> operator*(const std::complex<cl::Double>& lhs, const std::complex<cl::Double>& rhs){
-        return complex<cl::Double>(lhs.real()*rhs.real() - lhs.imag()*rhs.imag(), lhs.real()*rhs.imag() + lhs.imag()*rhs.real());
+    inline std::complex<cl::CppDouble> operator*(const std::complex<cl::CppDouble>& lhs, const std::complex<cl::CppDouble>& rhs){
+        return complex<cl::CppDouble>(lhs.real()*rhs.real() - lhs.imag()*rhs.imag(), lhs.real()*rhs.imag() + lhs.imag()*rhs.real());
     }
 
-    inline std::complex<cl::Double> operator/(const std::complex<cl::Double>& lhs, const std::complex<cl::Double>& rhs){
-        return complex<cl::Double>((lhs.real()*rhs.real() + lhs.imag()*rhs.imag()) * std::pow((std::pow(rhs.real(), 2) + std::pow(rhs.imag(), 2)), -1.0),
+    inline std::complex<cl::CppDouble> operator/(const std::complex<cl::CppDouble>& lhs, const std::complex<cl::CppDouble>& rhs){
+        return complex<cl::CppDouble>((lhs.real()*rhs.real() + lhs.imag()*rhs.imag()) * std::pow((std::pow(rhs.real(), 2) + std::pow(rhs.imag(), 2)), -1.0),
             (lhs.imag()*rhs.real() - lhs.real()*rhs.imag()) * std::pow((std::pow(rhs.real(), 2) + std::pow(rhs.imag(), 2)), -1.0));
     }
 
-    inline std::complex<cl::Double> operator+(const std::complex<cl::Double>& lhs, const std::complex<cl::Double>& rhs){
-        return complex<cl::Double>(lhs.real() + rhs.real(), lhs.imag() + rhs.imag());
+    inline std::complex<cl::CppDouble> operator+(const std::complex<cl::CppDouble>& lhs, const std::complex<cl::CppDouble>& rhs){
+        return complex<cl::CppDouble>(lhs.real() + rhs.real(), lhs.imag() + rhs.imag());
     }
 
     // Arithmetics for std::complex<Real>
-    inline std::complex<cl::Double> operator+(const std::complex<cl::Double>& lhs, cl::Double rhs){
-        return complex<cl::Double>(lhs.real() + rhs, lhs.imag());
+    inline std::complex<cl::CppDouble> operator+(const std::complex<cl::CppDouble>& lhs, cl::CppDouble rhs){
+        return complex<cl::CppDouble>(lhs.real() + rhs, lhs.imag());
     }
 
-    inline std::complex<cl::Double> operator-(const std::complex<cl::Double>& lhs, cl::Double rhs){
-        return complex<cl::Double>(lhs.real() - rhs, lhs.imag());
+    inline std::complex<cl::CppDouble> operator-(const std::complex<cl::CppDouble>& lhs, cl::CppDouble rhs){
+        return complex<cl::CppDouble>(lhs.real() - rhs, lhs.imag());
     }
 
-    inline std::complex<cl::Double> operator*(const std::complex<cl::Double>& lhs, cl::Double rhs){
-        return complex<cl::Double>(lhs.real() *rhs, lhs.imag()*rhs);
+    inline std::complex<cl::CppDouble> operator*(const std::complex<cl::CppDouble>& lhs, cl::CppDouble rhs){
+        return complex<cl::CppDouble>(lhs.real() *rhs, lhs.imag()*rhs);
     }
 
-    inline std::complex<cl::Double> operator/(const std::complex<cl::Double>& lhs, cl::Double rhs){
-        return complex<cl::Double>(lhs.real() / rhs, lhs.imag() / rhs);
+    inline std::complex<cl::CppDouble> operator/(const std::complex<cl::CppDouble>& lhs, cl::CppDouble rhs){
+        return complex<cl::CppDouble>(lhs.real() / rhs, lhs.imag() / rhs);
     }
 
-    inline std::complex<cl::Double> operator+(cl::Double lhs, const std::complex<cl::Double>& rhs){
-        return complex<cl::Double>(lhs + rhs.real(), rhs.imag());
+    inline std::complex<cl::CppDouble> operator+(cl::CppDouble lhs, const std::complex<cl::CppDouble>& rhs){
+        return complex<cl::CppDouble>(lhs + rhs.real(), rhs.imag());
     }
 
-    inline std::complex<cl::Double> operator-(cl::Double lhs, const std::complex<cl::Double>& rhs){
-        return complex<cl::Double>(lhs - rhs.real(), -rhs.imag());
+    inline std::complex<cl::CppDouble> operator-(cl::CppDouble lhs, const std::complex<cl::CppDouble>& rhs){
+        return complex<cl::CppDouble>(lhs - rhs.real(), -rhs.imag());
     }
 
-    inline std::complex<cl::Double> operator*(cl::Double lhs, const std::complex<cl::Double>& rhs){
-        return complex<cl::Double>(rhs.real() *lhs, rhs.imag()*lhs);
+    inline std::complex<cl::CppDouble> operator*(cl::CppDouble lhs, const std::complex<cl::CppDouble>& rhs){
+        return complex<cl::CppDouble>(rhs.real() *lhs, rhs.imag()*lhs);
     }
 
-    inline std::complex<cl::Double> operator/(cl::Double lhs, const std::complex<cl::Double>& rhs){
-        return cl::Double(std::pow((std::pow(rhs.real(), 2) + std::pow(rhs.imag(), 2)), -1.0)*lhs)* complex<cl::Double>(rhs.real() - rhs.imag());
+    inline std::complex<cl::CppDouble> operator/(cl::CppDouble lhs, const std::complex<cl::CppDouble>& rhs){
+        return cl::CppDouble(std::pow((std::pow(rhs.real(), 2) + std::pow(rhs.imag(), 2)), -1.0)*lhs)* complex<cl::CppDouble>(rhs.real() - rhs.imag());
     }
 
     // Arithmetics for std::complex<Real>
-    inline std::complex<cl::Double> operator+(const std::complex<cl::Double>& lhs, double rhs) { return lhs + cl::Double(rhs); }
+    inline std::complex<cl::CppDouble> operator+(const std::complex<cl::CppDouble>& lhs, double rhs) { return lhs + cl::CppDouble(rhs); }
 
-    inline std::complex<cl::Double> operator-(const std::complex<cl::Double>& lhs, double rhs) { return lhs - cl::Double(rhs); }
+    inline std::complex<cl::CppDouble> operator-(const std::complex<cl::CppDouble>& lhs, double rhs) { return lhs - cl::CppDouble(rhs); }
 
-    inline std::complex<cl::Double> operator*(const std::complex<cl::Double>& lhs, double rhs) { return lhs * cl::Double(rhs); }
+    inline std::complex<cl::CppDouble> operator*(const std::complex<cl::CppDouble>& lhs, double rhs) { return lhs * cl::CppDouble(rhs); }
 
-    inline std::complex<cl::Double> operator/(const std::complex<cl::Double>& lhs, double rhs) { return lhs / cl::Double(rhs); }
+    inline std::complex<cl::CppDouble> operator/(const std::complex<cl::CppDouble>& lhs, double rhs) { return lhs / cl::CppDouble(rhs); }
 
-    inline std::complex<cl::Double> operator+(double lhs, const std::complex<cl::Double>& rhs) { return cl::Double(lhs) + rhs; }
+    inline std::complex<cl::CppDouble> operator+(double lhs, const std::complex<cl::CppDouble>& rhs) { return cl::CppDouble(lhs) + rhs; }
 
-    inline std::complex<cl::Double> operator-(double lhs, const std::complex<cl::Double>& rhs) { return cl::Double(lhs) - rhs; }
+    inline std::complex<cl::CppDouble> operator-(double lhs, const std::complex<cl::CppDouble>& rhs) { return cl::CppDouble(lhs) - rhs; }
 
-    inline std::complex<cl::Double> operator*(double lhs, const std::complex<cl::Double>& rhs) { return cl::Double(lhs) * rhs; }
+    inline std::complex<cl::CppDouble> operator*(double lhs, const std::complex<cl::CppDouble>& rhs) { return cl::CppDouble(lhs) * rhs; }
 
-    inline std::complex<cl::Double> operator/(double lhs, const std::complex<cl::Double>& rhs) { return cl::Double(lhs) / rhs; }
+    inline std::complex<cl::CppDouble> operator/(double lhs, const std::complex<cl::CppDouble>& rhs) { return cl::CppDouble(lhs) / rhs; }
 
     //!! Providing implementation causes compilation error due to NaN not being defined for Real, to be resolved
     // { return std::complex<cl::Double>(cl::Double(lhs),0.0) / rhs; }
 
-    inline std::complex<cl::Double> sqrt(std::complex<cl::Double> x) {
+    inline std::complex<cl::CppDouble> sqrt(std::complex<cl::CppDouble> x) {
         //!!! Review
-        return cl::Double(std::pow(2.0, -0.5))*std::complex<cl::Double>(std::sqrt(x.real() + std::sqrt(std::pow(x.real(), 2) + std::pow(x.imag(), 2))),
+        return cl::CppDouble(std::pow(2.0, -0.5))*std::complex<cl::CppDouble>(std::sqrt(x.real() + std::sqrt(std::pow(x.real(), 2) + std::pow(x.imag(), 2))),
             (x.imag()>0.0 ? 1.0 : -1.0)*std::sqrt(std::sqrt(std::pow(x.real(), 2) + std::pow(x.imag(), 2)) - x.real()));
     }
 
-    inline std::complex<cl::Double> log(std::complex<cl::Double> x) {
+    inline std::complex<cl::CppDouble> log(std::complex<cl::CppDouble> x) {
         //!!! Review
-        return std::complex<cl::Double>(cl::Double(0.5)*std::log(std::pow(x.real(), 2) + std::pow(x.imag(), 2)),
+        return std::complex<cl::CppDouble>(cl::CppDouble(0.5)*std::log(std::pow(x.real(), 2) + std::pow(x.imag(), 2)),
             std::atan(x.imag() / x.real()));
         //return cl::Double(0.5)* std::complex<cl::Double>(std::pow(x.real(), 2.0) + std::pow(x.imag(), 2.0));
     }
 
-    inline std::complex<cl::Double> exp(std::complex<cl::Double> x) {
+    inline std::complex<cl::CppDouble> exp(std::complex<cl::CppDouble> x) {
         //!!! Review
-        return cl::Double(std::exp(x.real()))*std::complex<cl::Double>(std::cos(x.imag()), std::sin(x.imag()));
+        return cl::CppDouble(std::exp(x.real()))*std::complex<cl::CppDouble>(std::cos(x.imag()), std::sin(x.imag()));
     }
 
 

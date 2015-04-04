@@ -30,7 +30,7 @@ limitations under the License.
 namespace std
 {
     /// <summary>Provides numeric limits for Double.</summary>
-    template<> class numeric_limits<cl::Double>
+    template<> class numeric_limits<cl::CppDouble>
     {
     public:
         static const bool is_specialized = true;

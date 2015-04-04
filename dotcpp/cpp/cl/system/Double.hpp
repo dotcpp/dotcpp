@@ -34,67 +34,67 @@ namespace cl
 
     /// <summary>Immutable double type with AD support designed
     /// to serve as a drop-in replacement to native double.</summary>
-    class CL_SYSTEM Double
+    class CL_SYSTEM CppDouble
     {
         /// <summary>Returns the result of addition of two Double objects.</summary>
-        friend inline Double operator+(const Double& lhs, const Double& rhs) { return lhs.value_ + rhs.value_; }
+        friend inline CppDouble operator+(const CppDouble& lhs, const CppDouble& rhs) { return lhs.value_ + rhs.value_; }
 
         /// <summary>Returns the result of subtraction of two Double objects.</summary>
-        friend inline Double operator-(const Double& lhs, const Double& rhs) { return lhs.value_ - rhs.value_; }
+        friend inline CppDouble operator-(const CppDouble& lhs, const CppDouble& rhs) { return lhs.value_ - rhs.value_; }
 
         /// <summary>Returns the result of multiplication of two Double objects.</summary>
-        friend inline Double operator*(const Double& lhs, const Double& rhs) { return lhs.value_ * rhs.value_; }
+        friend inline CppDouble operator*(const CppDouble& lhs, const CppDouble& rhs) { return lhs.value_ * rhs.value_; }
 
         /// <summary>Returns the result of division of two Double objects.</summary>
-        friend inline Double operator/(const Double& lhs, const Double& rhs) { return lhs.value_ / rhs.value_; }
+        friend inline CppDouble operator/(const CppDouble& lhs, const CppDouble& rhs) { return lhs.value_ / rhs.value_; }
 
         /// <summary>Returns the result of addition of Double and double.</summary>
-        friend inline Double operator+(const Double& lhs, double rhs) { return lhs.value_ + rhs; }
+        friend inline CppDouble operator+(const CppDouble& lhs, double rhs) { return lhs.value_ + rhs; }
 
         /// <summary>Returns the result of subtraction of Double and double.</summary>
-        friend inline Double operator-(const Double& lhs, double rhs) { return lhs.value_ - rhs; }
+        friend inline CppDouble operator-(const CppDouble& lhs, double rhs) { return lhs.value_ - rhs; }
 
         /// <summary>Returns the result of multiplication of Double and double.</summary>
-        friend inline Double operator*(const Double& lhs, double rhs) { return lhs.value_ * rhs; }
+        friend inline CppDouble operator*(const CppDouble& lhs, double rhs) { return lhs.value_ * rhs; }
 
         /// <summary>Returns the result of division of Double and double.</summary>
-        friend inline Double operator/(const Double& lhs, double rhs) { return lhs.value_ / rhs; }
+        friend inline CppDouble operator/(const CppDouble& lhs, double rhs) { return lhs.value_ / rhs; }
 
         /// <summary>Returns the result of addition of double and Double.</summary>
-        friend inline Double operator+(double lhs, const Double& rhs) { return lhs + rhs.value_; }
+        friend inline CppDouble operator+(double lhs, const CppDouble& rhs) { return lhs + rhs.value_; }
 
         /// <summary>Returns the result of subtraction of double and Double.</summary>
-        friend inline Double operator-(double lhs, const Double& rhs) { return lhs - rhs.value_; }
+        friend inline CppDouble operator-(double lhs, const CppDouble& rhs) { return lhs - rhs.value_; }
 
         /// <summary>Returns the result of multiplication of double and Double.</summary>
-        friend inline Double operator*(double lhs, const Double& rhs) { return lhs * rhs.value_; }
+        friend inline CppDouble operator*(double lhs, const CppDouble& rhs) { return lhs * rhs.value_; }
 
         /// <summary>Returns the result of division of double and Double.</summary>
-        friend inline Double operator/(double lhs, const Double& rhs) { return lhs / rhs.value_; }
+        friend inline CppDouble operator/(double lhs, const CppDouble& rhs) { return lhs / rhs.value_; }
 
         /// <summary>Returns true if lhs is equal to rhs.</summary>
-        friend inline bool operator==(double lhs, const Double& rhs) { return lhs == rhs.value_; }
+        friend inline bool operator==(double lhs, const CppDouble& rhs) { return lhs == rhs.value_; }
 
         /// <summary>Returns true if lhs is not equal to rhs.</summary>
-        friend inline bool operator!=(double lhs, const Double& rhs) { return lhs != rhs.value_; }
+        friend inline bool operator!=(double lhs, const CppDouble& rhs) { return lhs != rhs.value_; }
 
         /// <summary>Returns true if lhs is less than rhs.</summary>
-        friend inline bool operator<(double lhs, const Double& rhs) { return lhs < rhs.value_; }
+        friend inline bool operator<(double lhs, const CppDouble& rhs) { return lhs < rhs.value_; }
 
         /// <summary>Returns true if lhs is less than or equal to rhs.</summary>
-        friend inline bool operator<=(double lhs, const Double& rhs) { return lhs <= rhs.value_; }
+        friend inline bool operator<=(double lhs, const CppDouble& rhs) { return lhs <= rhs.value_; }
 
         /// <summary>Returns true if lhs is more than rhs.</summary>
-        friend inline bool operator>(double lhs, const Double& rhs) { return lhs > rhs.value_; }
+        friend inline bool operator>(double lhs, const CppDouble& rhs) { return lhs > rhs.value_; }
 
         /// <summary>Returns true if lhs is more than or equal to rhs.</summary>
-        friend inline bool operator>=(double lhs, const Double& rhs) { return lhs >= rhs.value_; }
+        friend inline bool operator>=(double lhs, const CppDouble& rhs) { return lhs >= rhs.value_; }
 
         /// <summary>Serialize to stream.</summary>
-        friend inline std::ostream& operator<<(std::ostream& output, const Double& value) { output << value.value_; return output; }
+        friend inline std::ostream& operator<<(std::ostream& output, const CppDouble& value) { output << value.value_; return output; }
 
         /// <summary>Deserialize from stream.</summary>
-        friend inline std::istream& operator>>(std::istream& input, Double& value) { input >> value.value_; return input; }
+        friend inline std::istream& operator>>(std::istream& input, CppDouble& value) { input >> value.value_; return input; }
 
     private:
 
@@ -114,7 +114,7 @@ namespace cl
 
         /// <summary>Explicit constructor attempts to convert from any type.</summary>
         template <typename Type>
-        explicit Double(Type const& rhs)
+        explicit CppDouble(Type const& rhs)
             : value_()
         {
             cl::DoubleConvert<Type, value_type>::convert(*this, rhs);
@@ -122,7 +122,7 @@ namespace cl
 
         /// <summary>Assignment from other type.</summary>
         template <typename Type>
-        inline Double& operator=(Type const& rhs)
+        inline CppDouble& operator=(Type const& rhs)
         {
             cl::DoubleConvert<Type, value_type>::convert(*this, rhs);
             return *this;
@@ -204,10 +204,10 @@ namespace cl
 
     public: // CONSTRUCTORS
 
-        inline Double() : value_() {}
+        inline CppDouble() : value_() {}
 
         /// <summary>Implicit constructor from double.</summary>
-        inline Double(ImplType rhs) : value_(rhs) {}
+        inline CppDouble(ImplType rhs) : value_(rhs) {}
 
     public: // METHODS
 
@@ -217,70 +217,70 @@ namespace cl
     public: // OPERATORS
 
         /// <summary>Assignment of native double.</summary>
-        inline Double& operator=(double rhs) { value_ = rhs; return *this; }
+        inline CppDouble& operator=(double rhs) { value_ = rhs; return *this; }
 
         /// <summary>Adds rhs to self.</summary>
-        inline Double& operator+=(const Double& rhs) { value_ += rhs.value_; return *this; }
+        inline CppDouble& operator+=(const CppDouble& rhs) { value_ += rhs.value_; return *this; }
 
         /// <summary>Adds rhs to self.</summary>
-        inline Double& operator+=(double rhs) { value_ += rhs; return *this; }
+        inline CppDouble& operator+=(double rhs) { value_ += rhs; return *this; }
 
         /// <summary>Subtracts rhs from self.</summary>
-        inline Double& operator-=(const Double& rhs) { value_ -= rhs.value_; return *this; }
+        inline CppDouble& operator-=(const CppDouble& rhs) { value_ -= rhs.value_; return *this; }
 
         /// <summary>Subtracts rhs from self.</summary>
-        inline Double& operator-=(double rhs) { value_ -= rhs; return *this; }
+        inline CppDouble& operator-=(double rhs) { value_ -= rhs; return *this; }
 
         /// <summary>Multiplies self by rhs.</summary>
-        inline Double& operator*=(const Double& rhs) { value_ *= rhs.value_; return *this; }
+        inline CppDouble& operator*=(const CppDouble& rhs) { value_ *= rhs.value_; return *this; }
 
         /// <summary>Multiplies self by rhs.</summary>
-        inline Double& operator*=(double rhs) { value_ *= rhs; return *this; }
+        inline CppDouble& operator*=(double rhs) { value_ *= rhs; return *this; }
 
         /// <summary>Divides self by rhs.</summary>
-        inline Double& operator/=(const Double& rhs) { value_ /= rhs.value_; return *this; }
+        inline CppDouble& operator/=(const CppDouble& rhs) { value_ /= rhs.value_; return *this; }
 
         /// <summary>Divides self by rhs.</summary>
-        inline Double& operator/=(double rhs) { value_ /= rhs; return *this; }
+        inline CppDouble& operator/=(double rhs) { value_ /= rhs; return *this; }
 
         /// <summary>Returns a copy if self.</summary>
-        inline Double operator+() const { return Double(value_); }
+        inline CppDouble operator+() const { return CppDouble(value_); }
 
         /// <summary>Returns the negative of self.</summary>
-        inline Double operator-() const { return Double(-value_); }
+        inline CppDouble operator-() const { return CppDouble(-value_); }
 
         /// <summary>Returns true if self is equal to rhs.</summary>
-        inline bool operator==(const Double& rhs) const { return value_ == rhs.value_; }
+        inline bool operator==(const CppDouble& rhs) const { return value_ == rhs.value_; }
 
         /// <summary>Returns true if self is equal to rhs.</summary>
         inline bool operator==(double rhs) const { return value_ == rhs; }
 
         /// <summary>Returns true if self is not equal to rhs.</summary>
-        inline bool operator!=(const Double& rhs) const { return value_ != rhs.value_; }
+        inline bool operator!=(const CppDouble& rhs) const { return value_ != rhs.value_; }
 
         /// <summary>Returns true if self is not equal to rhs.</summary>
         inline bool operator!=(double rhs) const { return value_ != rhs; }
 
         /// <summary>Returns true if self is less than rhs.</summary>
-        inline bool operator<(const Double& rhs) const { return value_ < rhs.value_; }
+        inline bool operator<(const CppDouble& rhs) const { return value_ < rhs.value_; }
 
         /// <summary>Returns true if self is less than rhs.</summary>
         inline bool operator<(double rhs) const { return value_ < rhs; }
 
         /// <summary>Returns true if self is less than or equal to rhs.</summary>
-        inline bool operator<=(const Double& rhs) const { return value_ <= rhs.value_; }
+        inline bool operator<=(const CppDouble& rhs) const { return value_ <= rhs.value_; }
 
         /// <summary>Returns true if self is less than or equal to rhs.</summary>
         inline bool operator<=(double rhs) const { return value_ <= rhs; }
 
         /// <summary>Returns true if self is more than rhs.</summary>
-        inline bool operator>(const Double& rhs) const { return value_ > rhs.value_; }
+        inline bool operator>(const CppDouble& rhs) const { return value_ > rhs.value_; }
 
         /// <summary>Returns true if self is more than rhs.</summary>
         inline bool operator>(double rhs) const { return value_ > rhs; }
 
         /// <summary>Returns true if self is more than or equal to rhs.</summary>
-        inline bool operator>=(const Double& rhs) const { return value_ >= rhs.value_; }
+        inline bool operator>=(const CppDouble& rhs) const { return value_ >= rhs.value_; }
 
         /// <summary>Returns true if self is more than or equal to rhs.</summary>
         inline bool operator>=(double rhs) const { return value_ >= rhs; }
