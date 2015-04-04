@@ -28,7 +28,7 @@ limitations under the License.
 
 namespace cl
 {
-    class Null;
+    class CppNull;
 
     /// <summary>Reference counted smart pointer based on std::shared_ptr
     /// with emulation of selected features of .NET references including
@@ -66,10 +66,10 @@ namespace cl
         bool operator!=(const Ptr<T>& rhs) const;
 
         /// <summary>Supports ptr == nullptr.</summary>
-        bool operator==(Null* rhs) const;
+        bool operator==(CppNull* rhs) const;
 
         /// <summary>Supports ptr != nullptr.</summary>
-        bool operator!=(Null* rhs) const;
+        bool operator!=(CppNull* rhs) const;
 
         /// <summary>Take ownership of raw pointer to template argument type.\\
         /// This also permits assignment of pointer to type derived from T.</summary>
@@ -90,8 +90,8 @@ namespace cl
     template <class T> T* Ptr<T>::operator->() const { T* p = ptr_.get(); if (!p) throw Exception("Pointer is not initialized"); return p; }
     template <class T> bool Ptr<T>::operator==(const Ptr<T>& rhs) const { return ptr_ == rhs.ptr_; }
     template <class T> bool Ptr<T>::operator!=(const Ptr<T>& rhs) const { return ptr_ != rhs.ptr_; }
-    template <class T> bool Ptr<T>::operator==(Null* rhs) const { return ptr_.get() == nullptr; }
-    template <class T> bool Ptr<T>::operator!=(Null* rhs) const { return ptr_.get() != nullptr; }
+    template <class T> bool Ptr<T>::operator==(CppNull* rhs) const { return ptr_.get() == nullptr; }
+    template <class T> bool Ptr<T>::operator!=(CppNull* rhs) const { return ptr_.get() != nullptr; }
     template <class T> Ptr<T>& Ptr<T>::operator=(T* rhs) { ptr_.reset(rhs); return *this; }
     template <class T> template <class R> Ptr<T>& Ptr<T>::operator=(const Ptr<R>& rhs) { ptr_ = rhs.ptr_; return *this; }
     template <class T> Ptr<T>& Ptr<T>::operator=(const Ptr<T>& rhs) { ptr_ = rhs.ptr_; return *this; }

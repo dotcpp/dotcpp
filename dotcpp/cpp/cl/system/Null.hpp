@@ -30,10 +30,10 @@ namespace cl
 {
     /// <summary>Helper type to enable comparison and assignment to null pointer.
     /// This object cannot be created, therefore any pointer to Null is null.</summary>
-    class Null
+    class CppNull
     {
     private:
-        Null();
+        CppNull();
     };
 }
 
