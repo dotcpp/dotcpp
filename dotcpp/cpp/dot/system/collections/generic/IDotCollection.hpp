@@ -32,7 +32,7 @@ namespace dot
 
     /// <summary>Generic collection interface.</summary>
     template <class T>
-    class IDotCollection : public IDotEnumerable
+    class IDotCollection : public IDotEnumerable<T>
     {
     public: // METHODS
 
@@ -46,7 +46,7 @@ namespace dot
     protected:
         IDotCollection() = default;
     public:
-        static DotPtr<IDotCollection<T>> create() { throw ClEx("Attempting to create an instance of abstract type."); }
+        //static DotPtr<IDotCollection<T>> create() { throw ClEx("Attempting to create an instance of abstract type."); }
     };
 }
 
