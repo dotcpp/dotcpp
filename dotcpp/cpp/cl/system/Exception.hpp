@@ -31,23 +31,23 @@ namespace cl
     class CppString;
 
     /// <summary>Represents errors that occur during application execution.</summary>
-    class CL_SYSTEM Exception : public std::exception
+    class CL_SYSTEM CppException : public std::exception
     {
         std::string msg_;
 
     public: // CONSTRUCTORS
 
         /// <summary>Create with default message.</summary>
-        Exception() : msg_("Exception of type 'System.Exception' was thrown.") {}
+        CppException() : msg_("Exception of type 'System.Exception' was thrown.") {}
 
         /// <summary>Create with a specified error message.</summary>
-        Exception(const CppString& msg);
+        CppException(const CppString& msg);
 
         /// <summary>Create with a specified error message.</summary>
-        Exception(const std::string& msg) : msg_(msg) {}
+        CppException(const std::string& msg) : msg_(msg) {}
 
         /// <summary>Create with a specified error message.</summary>
-        Exception(const char* msg) : msg_(msg ? msg : "") {}
+        CppException(const char* msg) : msg_(msg ? msg : "") {}
 
     public: // METHODS
 

@@ -29,11 +29,11 @@ limitations under the License.
 
 namespace cl
 {
-    template <class T> class Array;
+    template <class T> class CppArray;
 
     /// <summary>Generic collection interface.</summary>
     template <class T>
-    class ICollection : public IEnumerable<T>
+    class ICppCollection : public ICppEnumerable<T>
     {
     public: // METHODS
 
@@ -42,10 +42,10 @@ namespace cl
 
         /// <summary>(ICollection) Copies the elements of the ICollection(T)
         /// to a Array, starting at the specified Array index.</summary>
-        virtual void copyTo(Array<T> array, int arrayIndex) = 0;
+        virtual void copyTo(CppArray<T> array, int arrayIndex) = 0;
 
     protected:
-        ICollection() = default;
+        ICppCollection() = default;
     };
 }
 

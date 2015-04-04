@@ -160,11 +160,11 @@ namespace cl
     };
 
     /// <summary>This template and its specializations provide conversion to Double value_type.</summary>
-    template <typename Converter, typename ThisType, typename From>
+    template <typename CppConverter, typename ThisType, typename From>
     inline typename void
     convert(ThisType& this_value, From const& other_value)
     {
-        Converter::convert(this_value, other_value);
+        CppConverter::convert(this_value, other_value);
     };
 }
 

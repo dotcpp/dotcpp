@@ -87,7 +87,7 @@ namespace cl
     template <class T> CppPtr<T>::CppPtr(T* ptr) : ptr_(ptr) {}
     template <class T> template <class R> CppPtr<T>::CppPtr(const CppPtr<R>& rhs) : ptr_(rhs.ptr_) {}
     template <class T> CppPtr<T>::CppPtr(const CppPtr<T>& rhs) : ptr_(rhs.ptr_) {}
-    template <class T> T* CppPtr<T>::operator->() const { T* p = ptr_.get(); if (!p) throw Exception("Pointer is not initialized"); return p; }
+    template <class T> T* CppPtr<T>::operator->() const { T* p = ptr_.get(); if (!p) throw CppException("Pointer is not initialized"); return p; }
     template <class T> bool CppPtr<T>::operator==(const CppPtr<T>& rhs) const { return ptr_ == rhs.ptr_; }
     template <class T> bool CppPtr<T>::operator!=(const CppPtr<T>& rhs) const { return ptr_ != rhs.ptr_; }
     template <class T> bool CppPtr<T>::operator==(CppNull* rhs) const { return ptr_.get() == nullptr; }

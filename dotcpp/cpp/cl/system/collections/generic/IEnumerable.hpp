@@ -66,7 +66,7 @@ namespace cl
         };
     }
 
-    template <class T> class IEnumerator;
+    template <class T> class ICppEnumerator;
 
     template <typename Collection>
     struct std_accessor;
@@ -104,19 +104,19 @@ namespace cl
     /// <summary>Exposes the enumerator, which supports a simple
     /// iteration over a collection of a specified type.</summary>
     template <class T>
-    class IEnumerable
+    class ICppEnumerable
     {
     public: // METHODS
         template <typename Collection>
-        explicit IEnumerable(std::reference_wrapper<Collection > coll)
+        explicit ICppEnumerable(std::reference_wrapper<Collection > coll)
             : accessor_(new std_accessor<Collection>(coll))
         {}
 
         /// <summary>(IEnumerable) Returns an enumerator that iterates through the collection.</summary>
-        virtual cl::IEnumerator<T> GetEnumerator() = 0;
+        virtual cl::ICppEnumerator<T> GetEnumerator() = 0;
 
     protected:
-        IEnumerable() = default;
+        ICppEnumerable() = default;
     protected:
         std::unique_ptr<std_accessor_base<T > > accessor_;
     };
@@ -167,10 +167,10 @@ namespace cl
 
 
             //! Returns Enumerator for the beginning position
-            inline cl::IEnumerator<value_type >
+            inline cl::ICppEnumerator<value_type >
             GetEnumerator()
             {
-                return cl::IEnumerator<value_type>(c_.begin());
+                return cl::ICppEnumerator<value_type>(c_.begin());
             }
 
             //! Returns the enclosed STL container as constant reference

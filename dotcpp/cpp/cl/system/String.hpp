@@ -30,7 +30,7 @@ namespace cl
 {
     class Char;
     class CppObject;
-    template <class T> class Array;
+    template <class T> class CppArray;
 
     /// <summary>Immutable string type with unicode support.</summary>
     class CL_SYSTEM CppString
@@ -72,12 +72,12 @@ namespace cl
 
         /// <summary>Returns a string array that contains the substrings of the current string
         /// that are delimited by any of the specified 8-bit characters.</summary>
-        Array<CppString> split(char separator) const;
+        CppArray<CppString> split(char separator) const;
 
         /// <summary>Returns a string array that contains the substrings in
         /// this string that are delimited by any of the specified strings.\\
         /// A parameter specifies whether to return empty array elements.</summary>
-        Array<CppString> split(const Array<CppString>& separator, const CppStringSplitOptions& options) const;
+        CppArray<CppString> split(const CppArray<CppString>& separator, const CppStringSplitOptions& options) const;
 
     public: // OPERATORS
 
@@ -99,11 +99,11 @@ namespace cl
     public: // STATIC
 
         /// <summary>Concatenates the elements of a specified String array.</summary>
-        static CppString concat(const Array<CppString>& values);
+        static CppString concat(const CppArray<CppString>& values);
 
         /// <summary>Replaces the format item (e.g. {0}, {1}, etc.) in a specified string
         /// with the string representation of a corresponding object in a specified array.</summary>
-        static CppString format(const CppString& format, const Array<CppObject>& args);
+        static CppString format(const CppString& format, const CppArray<CppObject>& args);
     };
 }
 

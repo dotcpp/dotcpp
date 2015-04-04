@@ -32,42 +32,39 @@ limitations under the License.
 namespace cl
 {
     //!! Should be Exception? Also it is already defined.
-    typedef std::runtime_error Exception;
+    typedef std::runtime_error CppException;
 
     template <typename Type>
-    struct ReadOnlyCollection : detail::empty_type {};
+    struct CppReadOnlyCollection : detail::empty_type {};
 
     template <typename >
-    struct IComparer : detail::empty_type {};
+    struct ICppComparer : detail::empty_type {};
 
     template <typename, typename >
-    struct Converter : detail::empty_type {};
-
-    //template <typename >
-    //struct Predicate : detail::empty_type {};
+    struct CppConverter : detail::empty_type {};
 
     template <typename >
-    struct Action : detail::empty_type { };
+    struct CppAction : detail::empty_type { };
 
     template <typename>
-    struct Comparison : detail::empty_type  {};
+    struct CppComparison : detail::empty_type  {};
 
     template <typename T>
-    class List : public detail::std_accessor_<cl::IEnumerable<T>
+    class CppList : public detail::std_accessor_<cl::ICppEnumerable<T>
                             , std::deque<T> >
     {
     public:
-        typedef detail::std_accessor_<cl::IEnumerable<T>
+        typedef detail::std_accessor_<cl::ICppEnumerable<T>
                     , std::deque<T> > base;
 
-        typedef cl::IEnumerable<T> cl_enumerator_type;
+        typedef cl::ICppEnumerable<T> cl_enumerator_type;
 
         typedef std::deque<T> std_base;
 
         typedef T& reference_type;
     public:
 
-        List() : base()
+        CppList() : base()
         {}
 
         int Capacity; // { get; set; }
@@ -85,20 +82,20 @@ namespace cl
             this->get().push_back(item);
         }
 
-        inline void AddRange(IEnumerable<T> const& collection);
+        inline void AddRange(ICppEnumerable<T> const& collection);
 
-        inline ReadOnlyCollection<T> AsReadOnly();
+        inline CppReadOnlyCollection<T> AsReadOnly();
 
         inline int BinarySearch(T item);
 
-        inline int BinarySearch(T item, IComparer<T> comparer);
-        int BinarySearch(int index, int count, T item, IComparer<T> comparer);
+        inline int BinarySearch(T item, ICppComparer<T> comparer);
+        int BinarySearch(int index, int count, T item, ICppComparer<T> comparer);
         void Clear();
         bool Contains(T item);
 
         template <typename TOutput, typename Coverter>
-        inline List<TOutput>
-        ConvertAll(Converter<T, TOutput> converter);
+        inline CppList<TOutput>
+        ConvertAll(CppConverter<T, TOutput> converter);
 
         template <int I>
         void CopyTo(T(&a)[I]);
@@ -114,9 +111,9 @@ namespace cl
         }
 
         template <typename Predicate>
-        inline List<T> FindAll(Predicate match) const
+        inline CppList<T> FindAll(Predicate match) const
         {
-            List<T> result;
+            CppList<T> result;
             std::for_each(begin(), end()
                 , [&result, &match](T& v)
                 {
@@ -183,16 +180,16 @@ namespace cl
         template <typename Predicate>
         inline int FindLastIndex(int startIndex, int count, Predicate match);
 
-        template <typename Action>
-        inline void ForEach(Action action)
+        template <typename CppAction>
+        inline void ForEach(CppAction action)
         {
             std::for_each(begin(), end(), action);
         }
 
-        typedef cl::IEnumerator<T> Enumerator;
+        typedef cl::ICppEnumerator<T> Enumerator;
 
         //!! Implement
-        List<T> GetRange(int index, int count) {}
+        CppList<T> GetRange(int index, int count) {}
 
         int IndexOf(T item);
 
@@ -202,7 +199,7 @@ namespace cl
 
         void Insert(int index, T item);
 
-        void InsertRange(int index, IEnumerable<T> const& collection);
+        void InsertRange(int index, ICppEnumerable<T> const& collection);
 
         int LastIndexOf(T item);
 
@@ -237,10 +234,10 @@ namespace cl
         void Sort();
 
         template <typename Comparer>
-        void Sort(Comparison<T> comparison);
+        void Sort(CppComparison<T> comparison);
 
         template <typename Comparer>
-        void Sort(IComparer<T> comparer);
+        void Sort(ICppComparer<T> comparer);
 
         template <typename Comparer>
         void Sort(int index, int count, Comparer comparer)
@@ -257,12 +254,13 @@ namespace cl
         inline bool TrueForAll(Predicate match);
     };
 
+    //!! Move to a separate file
     template <typename T>
-    class Array : public cl::IEnumerable<T>
+    class CppArray : public cl::ICppEnumerable<T>
     {
     public:
-        typedef cl::IEnumerable<T> base;
-        Array() : base(std::vector<T>())
+        typedef cl::ICppEnumerable<T> base;
+        CppArray() : base(std::vector<T>())
         {}
     };
 }

@@ -149,7 +149,7 @@ namespace cl
 
     /// <summary>Supports a simple iteration over a generic collection.</summary>
     template <class T>
-    class IEnumerator
+    class ICppEnumerator
         : std::random_access_iterator_tag
     {
     public: // METHODS
@@ -157,7 +157,7 @@ namespace cl
         typedef std::unique_ptr<detail::std_iterator_base<T > > iterator_type;
 
         template <typename Iterator>
-        explicit IEnumerator(Iterator const& iter)
+        explicit ICppEnumerator(Iterator const& iter)
             : iterator_(detail::make_iterator(iter))
         {   }
 
@@ -180,15 +180,15 @@ namespace cl
         void reset()
         {}
 
-        inline IEnumerator<T>& operator ++()
+        inline ICppEnumerator<T>& operator ++()
         {
             ++(*iterator_);
             return *this;
         }
 
-        inline IEnumerator<T> operator ++(int)
+        inline ICppEnumerator<T> operator ++(int)
         {
-            IEnumerator<T> old(iterator_->copy());
+            ICppEnumerator<T> old(iterator_->copy());
             this->operator ++();
             return old;
         }
@@ -204,7 +204,7 @@ namespace cl
         }
 
     protected:
-        IEnumerator() = default;
+        ICppEnumerator() = default;
     private:
         inline detail::std_iterator_base<T > const& i_() const
         {
@@ -213,7 +213,7 @@ namespace cl
     public:
         /// <summary> </summary>
         inline bool
-        compare(cl::IEnumerator<T> const& c) const
+        compare(cl::ICppEnumerator<T> const& c) const
         {
             // we should compare
             if (iterator_ && c.iterator_)
@@ -226,15 +226,15 @@ namespace cl
     };
 
     template <typename Type>
-    inline bool operator == (cl::IEnumerator<Type> const& left
-        , cl::IEnumerator<Type> const& right)
+    inline bool operator == (cl::ICppEnumerator<Type> const& left
+        , cl::ICppEnumerator<Type> const& right)
     {
         return left.compare(right);
     }
 
     template <typename Type>
-    inline bool operator != (cl::IEnumerator<Type> const& left
-        , cl::IEnumerator<Type> const& right)
+    inline bool operator != (cl::ICppEnumerator<Type> const& left
+        , cl::ICppEnumerator<Type> const& right)
     {
         return !(left == right);
     }
