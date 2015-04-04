@@ -31,6 +31,7 @@ namespace cl
     class Char;
     class CppObject;
     template <class T> class CppArray;
+    enum class CppStringSplitOptions;
 
     /// <summary>Immutable string type with unicode support.</summary>
     class CL_SYSTEM CppString
@@ -51,7 +52,7 @@ namespace cl
         CppString(const std::string& value) : value_(value) {}
 
         /// <summary>Create from const char*, null pointer is converted to to empty value.</summary>
-        CppString(const char* value) : value_(rhs ? value : "") {}
+        CppString(const char* value) : value_(value ? value : "") {}
 
         /// <summary>Create from a single 8-bit character.</summary>
         CppString(char value) : value_(1, value) {}
