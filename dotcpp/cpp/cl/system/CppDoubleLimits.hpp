@@ -21,10 +21,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_DoubleLimits_hpp__
-#define __cl_system_DoubleLimits_hpp__
+#ifndef __cl_system_CppDoubleLimits_hpp__
+#define __cl_system_CppDoubleLimits_hpp__
 
-#include <cl/system/Double.hpp>
+#include <cl/system/CppDouble.hpp>
 #include <limits>
 
 namespace std
@@ -66,4 +66,4 @@ namespace std
     };
 }
 
-#endif  // __cl_system_DoubleLimits_hpp__
+#endif  // __cl_system_CppDoubleLimits_hpp__

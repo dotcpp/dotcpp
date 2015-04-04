@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_collections_generic_IEnumerator_hpp__
-#define __cl_system_collections_generic_IEnumerator_hpp__
+#ifndef __cl_system_collections_generic_ICppEnumerator_hpp__
+#define __cl_system_collections_generic_ICppEnumerator_hpp__
 
 #if defined DEBUG
 #   define CHECK_TYPE_CAST(type_2, expr_from) \
@@ -240,4 +240,4 @@ namespace cl
     }
 }
 
-#endif  // __cl_system_collections_generic_IEnumerator_hpp__
+#endif  // __cl_system_collections_generic_ICppEnumerator_hpp__

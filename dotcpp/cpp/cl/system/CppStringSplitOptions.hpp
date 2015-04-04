@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_StringSplitOptions_hpp__
-#define __cl_system_StringSplitOptions_hpp__
+#ifndef __cl_system_CppStringSplitOptions_hpp__
+#define __cl_system_CppStringSplitOptions_hpp__
 
 #include <cl/system/declare.hpp>
 
@@ -40,4 +40,4 @@ namespace cl
     };
 }
 
-#endif  // __cl_system_StringSplitOptions_hpp__
+#endif  // __cl_system_CppStringSplitOptions_hpp__

@@ -21,12 +21,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_collections_generic_List_hpp__
-#define __cl_system_collections_generic_List_hpp__
+#ifndef __cl_system_collections_generic_CppList_hpp__
+#define __cl_system_collections_generic_CppList_hpp__
 
-#include <cl/system/collections/generic/ICollection.hpp>
-#include <cl/system/collections/generic/IEnumerable.hpp>
-#include <cl/system/collections/generic/IEnumerator.hpp>
+#include <cl/system/collections/generic/ICppCollection.hpp>
+#include <cl/system/collections/generic/ICppEnumerable.hpp>
+#include <cl/system/collections/generic/ICppEnumerator.hpp>
 #include <deque>
 
 namespace cl
@@ -265,4 +265,4 @@ namespace cl
     };
 }
 
-#endif // __cl_system_collections_generic_List_hpp__
+#endif // __cl_system_collections_generic_CppList_hpp__

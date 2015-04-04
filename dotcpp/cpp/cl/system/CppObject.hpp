@@ -21,12 +21,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_Object_hpp__
-#define __cl_system_Object_hpp__
+#ifndef __cl_system_CppObject_hpp__
+#define __cl_system_CppObject_hpp__
 
 #include <cl/system/declare.hpp>
-#include <cl/system/FreezeState.hpp>
-#include <cl/system/Exception.hpp>
+#include <cl/system/CppFreezeState.hpp>
+#include <cl/system/CppException.hpp>
 
 namespace cl
 {
@@ -60,4 +60,4 @@ namespace cl
     };
 }
 
-#endif  // __cl_system_Object_hpp__
+#endif  // __cl_system_CppObject_hpp__

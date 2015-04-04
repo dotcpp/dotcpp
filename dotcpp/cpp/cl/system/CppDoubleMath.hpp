@@ -21,10 +21,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_DoubleMath_hpp__
-#define __cl_system_DoubleMath_hpp__
+#ifndef __cl_system_CppDoubleMath_hpp__
+#define __cl_system_CppDoubleMath_hpp__
 
-#include <cl/system/Double.hpp>
+#include <cl/system/CppDouble.hpp>
 #include <complex>
 
 //!!! Math in AD mode, in progress
@@ -582,4 +582,4 @@ namespace std
 
 }
 
-#endif  // __cl_system_DoubleMath_hpp__
+#endif  // __cl_system_CppDoubleMath_hpp__

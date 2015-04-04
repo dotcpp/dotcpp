@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_Ptr_hpp__
-#define __cl_system_Ptr_hpp__
+#ifndef __cl_system_CppPtr_hpp__
+#define __cl_system_CppPtr_hpp__
 
 #include <cl/system/declare.hpp>
 
@@ -97,4 +97,4 @@ namespace cl
     template <class T> CppPtr<T>& CppPtr<T>::operator=(const CppPtr<T>& rhs) { ptr_ = rhs.ptr_; return *this; }
 }
 
-#endif  // __cl_system_Ptr_hpp__
+#endif  // __cl_system_CppPtr_hpp__

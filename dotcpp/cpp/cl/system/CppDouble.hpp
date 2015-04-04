@@ -21,11 +21,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_Double_hpp__
-#define __cl_system_Double_hpp__
+#ifndef __cl_system_CppDouble_hpp__
+#define __cl_system_CppDouble_hpp__
 
 #include <cl/system/declare.hpp>
-#include <cl/system/DoubleConverter.hpp>
+#include <cl/system/CppDoubleConverter.hpp>
 
 namespace cl
 {
@@ -297,4 +297,4 @@ namespace cl
     };
 }
 
-#endif  // __cl_system_Double_hpp__
+#endif  // __cl_system_CppDouble_hpp__

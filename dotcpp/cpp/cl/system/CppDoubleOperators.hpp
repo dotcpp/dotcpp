@@ -21,10 +21,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_DoubleOperators_hpp__
-#define __cl_system_DoubleOperators_hpp__
+#ifndef __cl_system_CppDoubleOperators_hpp__
+#define __cl_system_CppDoubleOperators_hpp__
 
-#include <cl/system/Double.hpp>
+#include <cl/system/CppDouble.hpp>
 
 #include <boost/numeric/ublas/fwd.hpp>
 #include <boost/numeric/ublas/matrix_proxy.hpp>
@@ -575,4 +575,4 @@ namespace boost
     }
 }
 
-#endif  // __cl_system_DoubleOperators_hpp__
+#endif  // __cl_system_CppDoubleOperators_hpp__

@@ -21,10 +21,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_DoubleConverter_hpp__
-#define __cl_system_DoubleConverter_hpp__
+#ifndef __cl_system_CppDoubleConverter_hpp__
+#define __cl_system_CppDoubleConverter_hpp__
 
-#include <cl/system/DoubleOperatorCheck.hpp>
+#include <cl/system/CppDoubleOperatorCheck.hpp>
 
 namespace cl
 {

@@ -21,14 +21,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_collections_generic_IEnumerable_hpp__
-#define __cl_system_collections_generic_IEnumerable_hpp__
+#ifndef __cl_system_collections_generic_ICppEnumerable_hpp__
+#define __cl_system_collections_generic_ICppEnumerable_hpp__
 
 #include <vector>
 #include <list>
 
 #include <cl/system/declare.hpp>
-#include <cl/system/collections/generic/IEnumerator.hpp>
+#include <cl/system/collections/generic/ICppEnumerator.hpp>
 
 namespace cl
 {
@@ -190,4 +190,4 @@ namespace cl
     }
 }
 
-#endif  // __cl_system_collections_generic_IEnumerable_hpp__
+#endif  // __cl_system_collections_generic_ICppEnumerable_hpp__
