@@ -28,7 +28,7 @@ limitations under the License.
 
 namespace cl
 {
-    class String;
+    class CppString;
 
     /// <summary>Represents errors that occur during application execution.</summary>
     class CL_SYSTEM Exception : public std::exception
@@ -41,7 +41,7 @@ namespace cl
         Exception() : msg_("Exception of type 'System.Exception' was thrown.") {}
 
         /// <summary>Create with a specified error message.</summary>
-        Exception(const String& msg);
+        Exception(const CppString& msg);
 
         /// <summary>Create with a specified error message.</summary>
         Exception(const std::string& msg) : msg_(msg) {}
@@ -55,7 +55,7 @@ namespace cl
         virtual const char* what() const { return msg_.c_str(); }
 
         /// <summary>Message that describes the current exception.</summary>
-        virtual String message() const;
+        virtual CppString message() const;
     };
 }
 

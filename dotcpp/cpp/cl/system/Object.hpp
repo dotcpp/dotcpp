@@ -30,7 +30,7 @@ limitations under the License.
 
 namespace cl
 {
-    class String;
+    class CppString;
 
     /// <summary>This is the ultimate base class of all classes with reference semantics.
     /// It works with Ptr to provide an emulation of reference semantics in C++.\\
@@ -51,12 +51,12 @@ namespace cl
     public: // METHODS
 
         /// <summary>Returns a string that represents the current object.</summary>
-        virtual String toString() const = 0;
+        virtual CppString toString() const = 0;
 
     protected:
         CppObject() = default;
     public:
-        static Ptr<CppObject> create() { throw ClEx("Attempting to create an instance of abstract type."); }
+        static CppPtr<CppObject> create() { throw ClEx("Attempting to create an instance of abstract type."); }
     };
 }
 

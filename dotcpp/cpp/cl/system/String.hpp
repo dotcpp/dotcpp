@@ -33,28 +33,28 @@ namespace cl
     template <class T> class Array;
 
     /// <summary>Immutable string type with unicode support.</summary>
-    class CL_SYSTEM String
+    class CL_SYSTEM CppString
     {
         std::string value_;
 
     public: // CONSTANTS
 
         /// <summary>Empty string.</summary>
-        static const String Empty;
+        static const CppString Empty;
 
     public: // CONSTRUCTORS
         
         /// <summary>Create from a single Unicode character.</summary>
-        String(const Char& value);
+        CppString(const Char& value);
 
         /// <summary>Create from std::string.</summary>
-        String(const std::string& value) : value_(value) {}
+        CppString(const std::string& value) : value_(value) {}
 
         /// <summary>Create from const char*, null pointer is converted to to empty value.</summary>
-        String(const char* value) : value_(rhs ? value : "") {}
+        CppString(const char* value) : value_(rhs ? value : "") {}
 
         /// <summary>Create from a single 8-bit character.</summary>
-        String(char value) : value_(1, value) {}
+        CppString(char value) : value_(1, value) {}
 
     public: // METHODS
 
@@ -68,42 +68,42 @@ namespace cl
 
         /// <summary>Returns a new string in which all occurrences of a specified string
         /// in the current instance are replaced with another specified string.</summary>
-        String replace(const String& oldValue, const String& newValue) const;
+        CppString replace(const CppString& oldValue, const CppString& newValue) const;
 
         /// <summary>Returns a string array that contains the substrings of the current string
         /// that are delimited by any of the specified 8-bit characters.</summary>
-        Array<String> split(char separator) const;
+        Array<CppString> split(char separator) const;
 
         /// <summary>Returns a string array that contains the substrings in
         /// this string that are delimited by any of the specified strings.\\
         /// A parameter specifies whether to return empty array elements.</summary>
-        Array<String> split(const Array<String>& separator, const StringSplitOptions& options) const;
+        Array<CppString> split(const Array<CppString>& separator, const CppStringSplitOptions& options) const;
 
     public: // OPERATORS
 
         /// <summary>Assignment of std::string.</summary>
-        String& operator=(const std::string& rhs) { value_ = rhs; return *this; }
+        CppString& operator=(const std::string& rhs) { value_ = rhs; return *this; }
 
         /// <summary>Assignment of const char*, null pointer is converted to to empty value.</summary>
-        String& operator=(const char* rhs) { if(rhs) value_ = rhs; else value_.clear(); return *this; }
+        CppString& operator=(const char* rhs) { if(rhs) value_ = rhs; else value_.clear(); return *this; }
 
         /// <summary>Assignment of 8-bit character.</summary>
-        String& operator=(char rhs) { value_ = std::string(1,rhs); return *this; }
+        CppString& operator=(char rhs) { value_ = std::string(1,rhs); return *this; }
 
         /// <summary>Equality operator.</summary>
-        bool operator==(const String& rhs) const { return value_ == rhs.value_; }
+        bool operator==(const CppString& rhs) const { return value_ == rhs.value_; }
 
         /// <summary>Inequality operator.</summary>
-        bool operator!=(const String& rhs) const { return value_ != rhs.value_; }
+        bool operator!=(const CppString& rhs) const { return value_ != rhs.value_; }
 
     public: // STATIC
 
         /// <summary>Concatenates the elements of a specified String array.</summary>
-        static String concat(const Array<String>& values);
+        static CppString concat(const Array<CppString>& values);
 
         /// <summary>Replaces the format item (e.g. {0}, {1}, etc.) in a specified string
         /// with the string representation of a corresponding object in a specified array.</summary>
-        static String format(const String& format, const Array<CppObject>& args);
+        static CppString format(const CppString& format, const Array<CppObject>& args);
     };
 }
 

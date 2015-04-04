@@ -30,7 +30,7 @@ limitations under the License.
 namespace cl
 {
     //!! Replace by header inclusion or avoid returning by value
-    struct String {};
+    struct CppString {};
 
     /// <summary>Immutable double type with AD support designed
     /// to serve as a drop-in replacement to native double.</summary>
@@ -212,7 +212,7 @@ namespace cl
     public: // METHODS
 
         /// <summary>Convert to string.</summary>
-        String toString() const;
+        CppString toString() const;
 
     public: // OPERATORS
 
