@@ -29,7 +29,7 @@ limitations under the License.
 namespace cl
 {
     class Char;
-    class Object;
+    class CppObject;
     template <class T> class Array;
 
     /// <summary>Immutable string type with unicode support.</summary>
@@ -103,7 +103,7 @@ namespace cl
 
         /// <summary>Replaces the format item (e.g. {0}, {1}, etc.) in a specified string
         /// with the string representation of a corresponding object in a specified array.</summary>
-        static String format(const String& format, const Array<Object>& args);
+        static String format(const String& format, const Array<CppObject>& args);
     };
 }
 

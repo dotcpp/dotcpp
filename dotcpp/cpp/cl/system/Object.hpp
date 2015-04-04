@@ -35,18 +35,18 @@ namespace cl
     /// <summary>This is the ultimate base class of all classes with reference semantics.
     /// It works with Ptr to provide an emulation of reference semantics in C++.\\
     /// For performance reasons, classes with value semantics are not derived from this type.</summary>
-    class CL_SYSTEM Object
+    class CL_SYSTEM CppObject
     {
     protected: // CONSTRUCTORS
 
         /// <summary>This constructor is called by constructors in derived classes.</summary>
-        Object() {}
+        CppObject() {}
 
     protected: // DESTRUCTOR
 
         /// <summary>Virtual destructor to ensure that destructor
         /// of the derived type is called by Ptr.</summary>
-        virtual ~Object() = default;
+        virtual ~CppObject() = default;
 
     public: // METHODS
 
@@ -54,9 +54,9 @@ namespace cl
         virtual String toString() const = 0;
 
     protected:
-        Object() = default;
+        CppObject() = default;
     public:
-        static Ptr<Object> create() { throw ClEx("Attempting to create an instance of abstract type."); }
+        static Ptr<CppObject> create() { throw ClEx("Attempting to create an instance of abstract type."); }
     };
 }
 
