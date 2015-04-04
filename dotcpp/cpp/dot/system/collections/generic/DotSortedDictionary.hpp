@@ -20,8 +20,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __dot_system_collections_generic_Dictionary_hpp__
-#define __dot_system_collections_generic_Dictionary_hpp__
+#ifndef __dot_system_collections_generic_SortedDictionary_hpp__
+#define __dot_system_collections_generic_SortedDictionary_hpp__
 
 #include <map>
 
@@ -32,17 +32,17 @@ limitations under the License.
 namespace dot
 {
 	template <typename Key, typename Type >
-	class Dictionary : public detail::std_accessor_<
-                                dot::IDotEnumerable< typename KeyValuePair<Key, Type>::type >
-                                , std::map<Key, Type> >
+	class SortedDictionary : public detail::std_accessor_<
+		dot::IDotEnumerable< typename KeyValuePair<Key, Type>::type >
+		, std::map<Key, Type> >
 	{
-    public:
+	public:
 
-        typedef detail::std_accessor_<
-            dot::IDotEnumerable< typename KeyValuePair<Key, Type>::type >
-            , std::map<Key, Type> > base;
+		typedef detail::std_accessor_<
+			dot::IDotEnumerable< typename KeyValuePair<Key, Type>::type >
+			, std::map<Key, Type> > base;
 
-		Dictionary() : base()
+		SortedDictionary() : base()
 		{   }
 
 		inline int get_Count() const
@@ -64,7 +64,9 @@ namespace dot
 		inline bool ContainsKey(Key key);
 
 		inline bool ContainsValue(Type value);
-
+		
+		inline void CopyTo(typename KeyValuePair<Key, Type>::type *& array, int arrayIndex);
+			
 		inline bool Remove(Key key);
 
 		inline bool TryGetValue(Key key, Type& value);

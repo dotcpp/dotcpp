@@ -67,7 +67,7 @@ namespace dot
         template <typename Key, typename ValueType, typename Pred, typename Allocator>
         struct is_collection <std::map<Key, ValueType, Pred, Allocator> >
         {
-            typedef std::pair<Key, ValueType> type;
+            typedef std::pair<Key const, ValueType> type;
             typedef Allocator allocator_type;
         };
 
@@ -110,10 +110,10 @@ namespace dot
         detail::is_collection<Collection>::type value_type;
 
         std_accessor(std::reference_wrapper<Collection > const& c) 
-                //: c_(c)
+                : c_(c)
         {   }
 
-        //std::reference_wrapper<Collection > c_;
+        std::reference_wrapper<Collection > c_;
     };
 
     template <typename T>
@@ -153,14 +153,14 @@ namespace dot
     // Currenlty we use type to rforward to std::pair 
     // in next step we'll use our type friendly and convertible to pair 
     template <typename Key, typename Value>
-    class KeyValuePair : public std::pair<Key, Value>
+    class KeyValuePair : public std::pair<Key const, Value>
     {
     public:
-        typedef std::pair<Key, Value> base;
+        typedef std::pair<Key const, Value> base;
         KeyValuePair() : base()
         {   }
 
-        typedef std::pair<Key, Value> type;
+        typedef std::pair<Key const, Value> type;
     };
 
     namespace detail
@@ -175,9 +175,7 @@ namespace dot
             typedef Iterable std_base;
 
             std_accessor_() : Enumerable(std::ref(c_))
-            {
-
-            }
+            {}
 
             //! begin std iterator method 
             //! should return the start pointer to begin collection 
@@ -235,6 +233,7 @@ namespace dot
             Iterable c_;
         };
 
+        /// <summary> The class specialization for dictionary </simmary>
         template <typename Enumerable, typename Type, typename Key, typename Pred, typename Allocator>
         class std_accessor_<Enumerable, std::map<Type, Key, Pred, Allocator> > 
                 : public Enumerable
@@ -299,7 +298,6 @@ namespace dot
             inline EnumeratorType
             GetEnumerator()
             {
-                //  typename std::remove_reference<decltype(Iterator(). operator*()) >::type
                 return EnumeratorType(c_.begin());
             }
 

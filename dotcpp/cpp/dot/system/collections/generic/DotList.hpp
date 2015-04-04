@@ -120,7 +120,7 @@ namespace dot
             std::for_each(begin(), end()
                 , [&result, &match](T& v)
                 {
-                    if (match) 
+                    if (match(v)) 
                         result.push_back(v);
                 }
             );
