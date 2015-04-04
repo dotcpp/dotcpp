@@ -32,8 +32,7 @@ limitations under the License.
 namespace dot
 {
 	
-	/// Adapter class from STL has_set
-	/// to .NET HashSet
+	/// Adapter class from STL has_set to .NET HashSet
 	template <typename T>
 	class HashSet : public detail::std_accessor_<dot::IDotEnumerable<T>
 		, stdext::hash_set<T> >

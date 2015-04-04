@@ -52,8 +52,7 @@ namespace dot
     struct Comparison : detail::empty_type  {};
 
     
-	/// Adapter class from STL deque
-	/// to .NET List with access by index
+	/// Adapter class from STL deque to .NET List with access by index
 	template <typename T>
     class List : public detail::std_accessor_<dot::IDotEnumerable<T>
                             , std::deque<T> >

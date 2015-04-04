@@ -145,8 +145,7 @@ namespace dot
     }
 
 
-    /// Exposes the enumerator, which supports a simple
-    /// iteration over a collection of a specified type.
+    /// Exposes the enumerator, which supports a simple iteration over a collection of a specified type.
     template <class T>
     class IDotEnumerable
     {

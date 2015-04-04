@@ -35,8 +35,7 @@ namespace dot
 {
 	
 	
-	/// Adapter class from STL deque
-	/// to .NET SortedList - collection of key/value pairs that are sorted on the key
+	/// Adapter class from STL deque to .NET SortedList - collection of key/value pairs that are sorted on the key
 	template <typename Key, typename Type >
 	class SortedList : public detail::std_accessor_<
 		dot::IDotEnumerable< typename KeyValuePair<Key, Type>::type >

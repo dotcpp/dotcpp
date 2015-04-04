@@ -33,8 +33,7 @@ namespace dot
 {
 	
 	
-	/// Adapter class from STL hash_map
-	/// to .NET Dictionary - collection of keys and values
+	/// Adapter class from STL hash_map to .NET Dictionary - collection of keys and values
 	template <typename Key, typename Type >
 	class Dictionary : public detail::std_accessor_<
                                 dot::IDotEnumerable< typename KeyValuePair<Key, Type>::type >

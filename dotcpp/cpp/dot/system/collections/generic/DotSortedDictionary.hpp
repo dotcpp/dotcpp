@@ -31,10 +31,8 @@ limitations under the License.
 
 namespace dot
 {
-	/// 
-	/// Adapter class from STL map
-	/// to .NET SortedDictionary - collection of key/value pairs that are sorted on the key
 	
+	/// Adapter class from STL map to .NET SortedDictionary - collection of key/value pairs that are sorted on the key
 	template <typename Key, typename Type >
 	class SortedDictionary : public detail::std_accessor_<
 		dot::IDotEnumerable< typename KeyValuePair<Key, Type>::type >

@@ -32,8 +32,7 @@ limitations under the License.
 namespace dot
 {
 	
-	/// Adapter class from STL set
-	/// to .NET SortedSet
+	/// Adapter class from STL set to .NET SortedSet
 	template <typename T>
 	class SortedSet : public detail::std_accessor_<dot::IDotEnumerable<T>
 		, std::set<T> >

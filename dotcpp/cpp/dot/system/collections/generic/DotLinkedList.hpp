@@ -31,7 +31,7 @@ limitations under the License.
 
 namespace dot
 {
-	
+	///Not finished
 	template <typename T>
 	class LinkedListNode
 	{
@@ -41,7 +41,7 @@ namespace dot
 		LinkedListNode(T Value);
 	};
 	
-	
+	///Not finished
 	template <typename T>
 	class LinkedList : public detail::std_accessor_<dot::IDotEnumerable<T>
 		, std::deque<T> >

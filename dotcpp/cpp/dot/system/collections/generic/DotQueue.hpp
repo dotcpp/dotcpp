@@ -31,8 +31,7 @@ limitations under the License.
 
 namespace dot
 {
-	/// Adapter class from STL deque to .NET Queue.
-	/// std::deque used as container to make possible Conataints(T item) and GetEnumerator() implementation
+	/// Adapter class from STL deque to .NET Queue. std::deque used as container to make possible Conataints(T item) and GetEnumerator() implementation
 	template <typename T>
 	class Queue : public detail::std_accessor_<dot::IDotEnumerable<T>
 		, std::deque<T> >
