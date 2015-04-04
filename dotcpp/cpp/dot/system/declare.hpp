@@ -20,13 +20,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __dot_system_declare_hpp__
-#define __dot_system_declare_hpp__
+#ifndef __cl_system_declare_hpp__
+#define __cl_system_declare_hpp__
 
-#include <dot/system/import.hpp>
+#include <cl/system/import.hpp>
 
-#ifndef DOT_SYSTEM
-#   define DOT_SYSTEM DOT_DECLARE
+#ifndef CL_SYSTEM
+#   define CL_SYSTEM CL_DECLARE
 #endif
 
-#endif // __dot_system_declare_hpp__
+#endif // __cl_system_declare_hpp__

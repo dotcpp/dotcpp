@@ -20,34 +20,34 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __dot_system_collections_generic_IDotCollection_hpp__
-#define __dot_system_collections_generic_IDotCollection_hpp__
+#ifndef __cl_system_collections_generic_ICppCollection_hpp__
+#define __cl_system_collections_generic_ICppCollection_hpp__
 
-#include <dot/system/declare.hpp>
-#include <dot/system/collections/generic/IDotEnumerable.hpp>
+#include <cl/system/declare.hpp>
+#include <cl/system/collections/generic/ICppEnumerable.hpp>
 
-namespace dot
+namespace cl
 {
-    template <class T> class DotArray;
+    template <class T> class CppArray;
 
     /// Generic collection interface.
     template <class T>
-    class IDotCollection : public IDotEnumerable<T>
+    class ICppCollection : public ICppEnumerable<T>
     {
     public: // METHODS
 
-        /// (IDotCollection) Number of elements contained in the collection.
+        /// (ICppCollection) Number of elements contained in the collection.
         virtual int count() = 0;
 
-        /// (IDotCollection) Copies the elements of the ICollection(T)
-        /// to a DotArray, starting at the specified DotArray index.
-        virtual void copyTo(DotArray<T> array, int arrayIndex) = 0;
+        /// (ICppCollection) Copies the elements of the ICollection(T)
+        /// to a CppArray, starting at the specified CppArray index.
+        virtual void copyTo(CppArray<T> array, int arrayIndex) = 0;
 
     protected:
-        IDotCollection() = default;
+        ICppCollection() = default;
     public:
-        //static DotPtr<IDotCollection<T>> create() { throw ClEx("Attempting to create an instance of abstract type."); }
+        //static CppPtr<ICppCollection<T>> create() { throw ClEx("Attempting to create an instance of abstract type."); }
     };
 }
 
-#endif  // __dot_system_collections_generic_IDotCollection_hpp__
+#endif  // __cl_system_collections_generic_ICppCollection_hpp__

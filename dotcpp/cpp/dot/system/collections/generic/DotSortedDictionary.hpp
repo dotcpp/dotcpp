@@ -20,27 +20,27 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __dot_system_collections_generic_SortedDictionary_hpp__
-#define __dot_system_collections_generic_SortedDictionary_hpp__
+#ifndef __cl_system_collections_generic_SortedDictionary_hpp__
+#define __cl_system_collections_generic_SortedDictionary_hpp__
 
 #include <map>
 
-#include <dot/system/collections/generic/IDotCollection.hpp>
-#include <dot/system/collections/generic/IDotEnumerable.hpp>
-#include <dot/system/collections/generic/IDotEnumerator.hpp>
+#include <cl/system/collections/generic/ICppCollection.hpp>
+#include <cl/system/collections/generic/ICppEnumerable.hpp>
+#include <cl/system/collections/generic/ICppEnumerator.hpp>
 
-namespace dot
+namespace cl
 {
 	
 	/// Adapter class from STL map to .NET SortedDictionary - collection of key/value pairs that are sorted on the key
 	template <typename Key, typename Type >
 	class SortedDictionary : public detail::std_accessor_<
-		dot::IDotEnumerable< typename KeyValuePair<Key, Type>::type >
+		cl::ICppEnumerable< typename KeyValuePair<Key, Type>::type >
 		, std::map<Key, Type> >
 	{
 	public:
 		typedef detail::std_accessor_<
-			dot::IDotEnumerable< typename KeyValuePair<Key, Type>::type >
+			cl::ICppEnumerable< typename KeyValuePair<Key, Type>::type >
 			, std::map<Key, Type> > base;
 
 		

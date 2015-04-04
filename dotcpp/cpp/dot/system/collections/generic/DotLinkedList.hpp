@@ -20,16 +20,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __dot_system_collections_generic_LinkedList_hpp__
-#define __dot_system_collections_generic_LinkedList_hpp__
+#ifndef __cl_system_collections_generic_LinkedList_hpp__
+#define __cl_system_collections_generic_LinkedList_hpp__
 
 #include <deque>
 
-#include <dot/system/collections/generic/IDotCollection.hpp>
-#include <dot/system/collections/generic/IDotEnumerable.hpp>
-#include <dot/system/collections/generic/IDotEnumerator.hpp>
+#include <cl/system/collections/generic/ICppCollection.hpp>
+#include <cl/system/collections/generic/ICppEnumerable.hpp>
+#include <cl/system/collections/generic/ICppEnumerator.hpp>
 
-namespace dot
+namespace cl
 {
 	///Not finished
 	template <typename T>
@@ -43,14 +43,14 @@ namespace dot
 	
 	///Not finished
 	template <typename T>
-	class LinkedList : public detail::std_accessor_<dot::IDotEnumerable<T>
+	class LinkedList : public detail::std_accessor_<cl::ICppEnumerable<T>
 		, std::deque<T> >
 	{
 	public:
-		typedef detail::std_accessor_<dot::IDotEnumerable<T>
+		typedef detail::std_accessor_<cl::ICppEnumerable<T>
 			, std::deque<T> > base;
 
-		typedef dot::IDotEnumerable<T> dot_enumerator_type;
+		typedef cl::ICppEnumerable<T> cl_enumerator_type;
 
 		typedef std::deque<T> std_base;
 

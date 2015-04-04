@@ -20,40 +20,40 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __dot_system_DotString_hpp__
-#define __dot_system_DotString_hpp__
+#ifndef __cl_system_CppString_hpp__
+#define __cl_system_CppString_hpp__
 
-#include <dot/system/declare.hpp>
+#include <cl/system/declare.hpp>
 
-namespace dot
+namespace cl
 {
-    class DotChar;
-    class DotObject;
-    template <class T> class DotArray;
+    class CppChar;
+    class CppObject;
+    template <class T> class CppArray;
 
     /// <summary>Immutable string type with unicode support.</summary>
-    class DOT_SYSTEM DotString
+    class CL_SYSTEM CppString
     {
         std::string value_;
 
     public: // CONSTANTS
 
         /// <summary>Empty string.</summary>
-        static const DotString Empty;
+        static const CppString Empty;
 
     public: // CONSTRUCTORS
         
         /// <summary>Create from a single Unicode character.</summary>
-        DotString(const DotChar& value);
+        CppString(const CppChar& value);
 
         /// <summary>Create from std::string.</summary>
-        DotString(const std::string& value) : value_(value) {}
+        CppString(const std::string& value) : value_(value) {}
 
         /// <summary>Create from const char*, null pointer is converted to to empty value.</summary>
-        DotString(const char* value) : value_(rhs ? value : "") {}
+        CppString(const char* value) : value_(rhs ? value : "") {}
 
         /// <summary>Create from a single 8-bit character.</summary>
-        DotString(char value) : value_(1, value) {}
+        CppString(char value) : value_(1, value) {}
 
     public: // METHODS
 
@@ -67,43 +67,43 @@ namespace dot
 
         /// <summary>Returns a new string in which all occurrences of a specified string
         /// in the current instance are replaced with another specified string.</summary>
-        DotString replace(const DotString& oldValue, const DotString& newValue) const;
+        CppString replace(const CppString& oldValue, const CppString& newValue) const;
 
         /// <summary>Returns a string array that contains the substrings of the current string
         /// that are delimited by any of the specified 8-bit characters.</summary>
-        DotArray<DotString> split(char separator) const;
+        CppArray<CppString> split(char separator) const;
 
         /// <summary>Returns a string array that contains the substrings in
         /// this string that are delimited by any of the specified strings.\\
         /// A parameter specifies whether to return empty array elements.</summary>
-        DotArray<DotString> split(const DotArray<DotString>& separator, const DotStringSplitOptions& options) const;
+        CppArray<CppString> split(const CppArray<CppString>& separator, const CppStringSplitOptions& options) const;
 
     public: // OPERATORS
 
         /// <summary>Assignment of std::string.</summary>
-        DotString& operator=(const std::string& rhs) { value_ = rhs; return *this; }
+        CppString& operator=(const std::string& rhs) { value_ = rhs; return *this; }
 
         /// <summary>Assignment of const char*, null pointer is converted to to empty value.</summary>
-        DotString& operator=(const char* rhs) { if(rhs) value_ = rhs; else value_.clear(); return *this; }
+        CppString& operator=(const char* rhs) { if(rhs) value_ = rhs; else value_.clear(); return *this; }
 
         /// <summary>Assignment of 8-bit character.</summary>
-        DotString& operator=(char rhs) { value_ = std::string(1,rhs); return *this; }
+        CppString& operator=(char rhs) { value_ = std::string(1,rhs); return *this; }
 
         /// <summary>Equality operator.</summary>
-        bool operator==(const DotString& rhs) const { return value_ == rhs.value_; }
+        bool operator==(const CppString& rhs) const { return value_ == rhs.value_; }
 
         /// <summary>Inequality operator.</summary>
-        bool operator!=(const DotString& rhs) const { return value_ != rhs.value_; }
+        bool operator!=(const CppString& rhs) const { return value_ != rhs.value_; }
 
     public: // STATIC
 
-        /// <summary>Concatenates the elements of a specified DotString array.</summary>
-        static DotString concat(const DotArray<DotString>& values);
+        /// <summary>Concatenates the elements of a specified CppString array.</summary>
+        static CppString concat(const CppArray<CppString>& values);
 
         /// <summary>Replaces the format item (e.g. {0}, {1}, etc.) in a specified string
         /// with the string representation of a corresponding object in a specified array.</summary>
-        static DotString format(const DotString& format, const DotArray<DotObject>& args);
+        static CppString format(const CppString& format, const CppArray<CppObject>& args);
     };
 }
 
-#endif  // __dot_system_DotString_hpp__
+#endif  // __cl_system_CppString_hpp__

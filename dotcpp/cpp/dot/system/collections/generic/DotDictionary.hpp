@@ -20,29 +20,29 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __dot_system_collections_generic_Dictionary_hpp__
-#define __dot_system_collections_generic_Dictionary_hpp__
+#ifndef __cl_system_collections_generic_Dictionary_hpp__
+#define __cl_system_collections_generic_Dictionary_hpp__
 
 #include <hash_map>
 
-#include <dot/system/collections/generic/IDotCollection.hpp>
-#include <dot/system/collections/generic/IDotEnumerable.hpp>
-#include <dot/system/collections/generic/IDotEnumerator.hpp>
+#include <cl/system/collections/generic/ICppCollection.hpp>
+#include <cl/system/collections/generic/ICppEnumerable.hpp>
+#include <cl/system/collections/generic/ICppEnumerator.hpp>
 
-namespace dot
+namespace cl
 {
 	
 	
 	/// Adapter class from STL hash_map to .NET Dictionary - collection of keys and values
 	template <typename Key, typename Type >
 	class Dictionary : public detail::std_accessor_<
-                                dot::IDotEnumerable< typename KeyValuePair<Key, Type>::type >
+                                cl::ICppEnumerable< typename KeyValuePair<Key, Type>::type >
                                 , stdext::hash_map<Key, Type> >
 	{
     public:
 
         typedef detail::std_accessor_<
-            dot::IDotEnumerable< typename KeyValuePair<Key, Type>::type >
+            cl::ICppEnumerable< typename KeyValuePair<Key, Type>::type >
 			, stdext::hash_map<Key, Type> > base;
 
 		

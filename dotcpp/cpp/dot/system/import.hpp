@@ -20,17 +20,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __dot_system_import_hpp__
-#define __dot_system_import_hpp__
+#ifndef __cl_system_import_hpp__
+#define __cl_system_import_hpp__
 
 // Supports compilation into Windows DLL
-#ifndef DOT_IMPLEMENT
+#ifndef CL_IMPLEMENT
 #   if defined(_WIN32) && !defined(__MINGW32__)
-#       define DOT_IMPLEMENT __declspec(dllexport)
-#       define DOT_DECLARE __declspec(dllimport)
+#       define CL_IMPLEMENT __declspec(dllexport)
+#       define CL_DECLARE __declspec(dllimport)
 #   else
-#       define DOT_IMPLEMENT
-#       define DOT_DECLARE
+#       define CL_IMPLEMENT
+#       define CL_DECLARE
 #   endif
 #endif
 
@@ -58,4 +58,4 @@ limitations under the License.
 #include <iomanip>
 #include <algorithm>
 
-#endif // __dot_system_import_hpp__
+#endif // __cl_system_import_hpp__

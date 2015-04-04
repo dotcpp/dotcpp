@@ -20,43 +20,43 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __dot_system_DotObject_hpp__
-#define __dot_system_DotObject_hpp__
+#ifndef __cl_system_CppObject_hpp__
+#define __cl_system_CppObject_hpp__
 
-#include <dot/system/declare.hpp>
-#include <dot/system/DotFreezeState.hpp>
-#include <dot/system/DotEx.hpp>
+#include <cl/system/declare.hpp>
+#include <cl/system/CppFreezeState.hpp>
+#include <cl/system/CppEx.hpp>
 
-namespace dot
+namespace cl
 {
-    class DotString;
+    class CppString;
 
     /// <summary>This is the ultimate base class of all classes with reference semantics.
-    /// It works with DotPtr to provide an emulation of reference semantics in C++.\\
+    /// It works with CppPtr to provide an emulation of reference semantics in C++.\\
     /// For performance reasons, classes with value semantics are not derived from this type.</summary>
-    class DOT_SYSTEM DotObject
+    class CL_SYSTEM CppObject
     {
     protected: // CONSTRUCTORS
 
         /// <summary>This constructor is called by constructors in derived classes.</summary>
-        DotObject() {}
+        CppObject() {}
 
     protected: // DESTRUCTOR
 
         /// <summary>Virtual destructor to ensure that destructor
-        /// of the derived type is called by DotPtr.</summary>
-        virtual ~DotObject() = default;
+        /// of the derived type is called by CppPtr.</summary>
+        virtual ~CppObject() = default;
 
     public: // METHODS
 
         /// <summary>Returns a string that represents the current object.</summary>
-        virtual DotString toString() const = 0;
+        virtual CppString toString() const = 0;
 
     protected:
-        DotObject() = default;
+        CppObject() = default;
     public:
-        static DotPtr<DotObject> create() { throw ClEx("Attempting to create an instance of abstract type."); }
+        static CppPtr<CppObject> create() { throw ClEx("Attempting to create an instance of abstract type."); }
     };
 }
 
-#endif  // __dot_system_DotObject_hpp__
+#endif  // __cl_system_CppObject_hpp__

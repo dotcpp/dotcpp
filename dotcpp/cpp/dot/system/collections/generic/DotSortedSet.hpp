@@ -20,27 +20,27 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __dot_system_collections_generic_SortedSet_hpp__
-#define __dot_system_collections_generic_SortedSet_hpp__
+#ifndef __cl_system_collections_generic_SortedSet_hpp__
+#define __cl_system_collections_generic_SortedSet_hpp__
 
 #include <set>
 
-#include <dot/system/collections/generic/IDotCollection.hpp>
-#include <dot/system/collections/generic/IDotEnumerable.hpp>
-#include <dot/system/collections/generic/IDotEnumerator.hpp>
+#include <cl/system/collections/generic/ICppCollection.hpp>
+#include <cl/system/collections/generic/ICppEnumerable.hpp>
+#include <cl/system/collections/generic/ICppEnumerator.hpp>
 
-namespace dot
+namespace cl
 {
 	
 	/// Adapter class from STL set to .NET SortedSet
 	template <typename T>
-	class SortedSet : public detail::std_accessor_<dot::IDotEnumerable<T>
+	class SortedSet : public detail::std_accessor_<cl::ICppEnumerable<T>
 		, std::set<T> >
 	{
 	public:
-		typedef detail::std_accessor_<dot::IDotEnumerable<T>
+		typedef detail::std_accessor_<cl::ICppEnumerable<T>
 			, std::set<T> > base;
-		typedef dot::IDotEnumerable<T> dot_enumerator_type;
+		typedef cl::ICppEnumerable<T> cl_enumerator_type;
 		typedef std::set<T> std_base;
 
 	public:
@@ -110,12 +110,12 @@ namespace dot
 		
 		///     Removes all elements in the specified collection from the current SortedSet object.
 		/// <param name="other">the collection of items to remove from the SortedSet object</param>
-		inline void ExceptWith(IDotEnumerable<T> &other);
+		inline void ExceptWith(ICppEnumerable<T> &other);
 
 		
 		///     Modifies the current SortedSet to contain only elements that are present in that object and in the specified collection
 		/// <param name="other">the collection to compare to the current SortedSet</param>
-		inline void IntersectWith(IDotEnumerable<T> &other);
+		inline void IntersectWith(ICppEnumerable<T> &other);
 
 		
 		///     Determines whether a SortedSet object is a proper subset of the specified collection.
@@ -123,7 +123,7 @@ namespace dot
 		/// <returns>
 		///     true if the SortedSet object is a proper subset of other; otherwise, false.
 		/// </returns>
-		inline bool IsProperSubsetOf(IDotEnumerable<T> &other);
+		inline bool IsProperSubsetOf(ICppEnumerable<T> &other);
 
 		
 		///     Determines whether a SortedSet is a proper superset of the specified collection.
@@ -131,7 +131,7 @@ namespace dot
 		/// <returns>
 		///     true if the SortedSet is a proper superset other; otherwise, false.
 		/// </returns>
-		inline bool IsProperSupersetOf(IDotEnumerable<T> &other);
+		inline bool IsProperSupersetOf(ICppEnumerable<T> &other);
 
 		
 		///     Determines whether a HashSet is a subset of the specified collection
@@ -139,7 +139,7 @@ namespace dot
 		/// <returns>
 		///     true if the SortedSet is a subset of other; otherwise, false
 		/// </returns>
-		inline bool IsSubsetOf(IDotEnumerable<T> &other);
+		inline bool IsSubsetOf(ICppEnumerable<T> &other);
 
 		
 		///     Determines whether a SortedSet is a superset of the specified collection.
@@ -147,7 +147,7 @@ namespace dot
 		/// <returns>
 		///     true if the SortedSet is a superset of other; otherwise, false.
 		/// </returns>
-		inline bool IsSupersetOf(IDotEnumerable<T> &other);
+		inline bool IsSupersetOf(ICppEnumerable<T> &other);
 
 		
 		///     Determines whether the current SortedSet and a specified collection share common elements.
@@ -155,7 +155,7 @@ namespace dot
 		/// <returns>
 		///     true if the SortedSet object and other share at least one common element; otherwise, false.
 		/// </returns>
-		inline bool Overlaps(IDotEnumerable<T> &other);
+		inline bool Overlaps(ICppEnumerable<T> &other);
 
 		
 		///     Removes the first occurrence of a specific object from the SortedSet
@@ -175,11 +175,11 @@ namespace dot
 		inline int RemoveWhere(Predicate match);
 
 		
-		///     Returns an IDotEnumerable that iterates over the SortedSet in reverse order.
+		///     Returns an ICppEnumerable that iterates over the SortedSet in reverse order.
 		/// <returns>
 		///     An enumerator that iterates over the SortedSet in reverse order.
 		/// </returns>	
-		inline IDotEnumerable<T>& Reverse();
+		inline ICppEnumerable<T>& Reverse();
 
 		
 		///     Determines whether a SortedSet object and the specified collection contain the same elements.
@@ -187,17 +187,17 @@ namespace dot
 		/// <returns>
 		///     true if the SortedSet object is equal to other; otherwise, false.
 		/// </returns>	
-		inline bool SetEquals(IDotEnumerable<T> &other);
+		inline bool SetEquals(ICppEnumerable<T> &other);
 
 		
 		///     Modifies the current SortedSet to contain only elements that are present either in that object or in the specified collection, but not both.
 		/// <param name="other">the collection to compare to the current SortedSet</param>
-		inline void SymmetricExceptWith(IDotEnumerable<T> &other);
+		inline void SymmetricExceptWith(ICppEnumerable<T> &other);
 
 		
 		///     Modifies the current SortedSet to contain all elements that are present in itself and the specified collection
 		/// <param name="other">the collection to compare to the current SortedSet</param>
-		inline void UnionWith(IDotEnumerable<T> &other);
+		inline void UnionWith(ICppEnumerable<T> &other);
 
 
 	};

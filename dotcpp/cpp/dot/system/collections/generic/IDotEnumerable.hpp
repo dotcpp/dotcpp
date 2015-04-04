@@ -20,18 +20,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __dot_system_collections_generic_IDotEnumerable_hpp__
-#define __dot_system_collections_generic_IDotEnumerable_hpp__
+#ifndef __cl_system_collections_generic_ICppEnumerable_hpp__
+#define __cl_system_collections_generic_ICppEnumerable_hpp__
 
 #include <vector>
 #include <list>
 #include <hash_map>
 #include <hash_set>
 
-#include <dot/system/declare.hpp>
-#include <dot/system/collections/generic/IDotEnumerator.hpp>
+#include <cl/system/declare.hpp>
+#include <cl/system/collections/generic/ICppEnumerator.hpp>
 
-namespace dot
+namespace cl
 {
     namespace detail 
     {
@@ -106,7 +106,7 @@ namespace dot
     }
 
 
-    template <class T> class IDotEnumerator;
+    template <class T> class ICppEnumerator;
 
     template <typename Collection>
     struct std_accessor;
@@ -114,8 +114,8 @@ namespace dot
     template <typename T>
     struct std_accessor_base 
     {
-        /*virtual IDotEnumerator<T> begin() = 0;
-        virtual IDotEnumerator<T> end() = 0;*/
+        /*virtual ICppEnumerator<T> begin() = 0;
+        virtual ICppEnumerator<T> end() = 0;*/
 
         template <typename CollectionType>
         inline std_accessor<CollectionType >& cast();
@@ -147,21 +147,21 @@ namespace dot
 
     /// Exposes the enumerator, which supports a simple iteration over a collection of a specified type.
     template <class T>
-    class IDotEnumerable
+    class ICppEnumerable
     {
     public: // METHODS
         template <typename Collection>
-        explicit IDotEnumerable(std::reference_wrapper<Collection > coll)
+        explicit ICppEnumerable(std::reference_wrapper<Collection > coll)
             : accessor_(new std_accessor<Collection>(coll))
         {  }
 
-        /// (IDotEnumerable) Returns an enumerator that iterates through the collection.
-        virtual dot::IDotEnumerator<T> GetEnumerator() = 0;
+        /// (ICppEnumerable) Returns an enumerator that iterates through the collection.
+        virtual cl::ICppEnumerator<T> GetEnumerator() = 0;
 
     protected:
-        IDotEnumerable() = default;
+        ICppEnumerable() = default;
     public:
-        // static DotPtr<IDotEnumerable<T>> create() { throw ClEx("Attempting to create an instance of abstract type."); }
+        // static CppPtr<ICppEnumerable<T>> create() { throw ClEx("Attempting to create an instance of abstract type."); }
     protected:
         std::unique_ptr<std_accessor_base<T > > accessor_;
     };
@@ -227,10 +227,10 @@ namespace dot
 
             //! Method returns Enumerator contains start iterator 
             //! for std collection 
-            inline dot::IDotEnumerator<value_type >
+            inline cl::ICppEnumerator<value_type >
             GetEnumerator()
             {
-                return dot::IDotEnumerator<value_type>(c_.begin());
+                return cl::ICppEnumerator<value_type>(c_.begin());
             }
 
             //  Should return the instance of std type 
@@ -269,7 +269,7 @@ namespace dot
 
             // Enumerator type 
             // should be returned by remove holder 
-            typedef dot::IDotEnumerator<typename
+            typedef cl::ICppEnumerator<typename
                 detail::remove_holder<Enumerable>::type > EnumeratorType;
 
             static_assert (detail::remove_holder<Enumerable>::value
@@ -353,7 +353,7 @@ namespace dot
 
 			// Enumerator type 
 			// should be returned by remove holder 
-			typedef dot::IDotEnumerator<typename
+			typedef cl::ICppEnumerator<typename
 				detail::remove_holder<Enumerable>::type > EnumeratorType;
 
 			static_assert (detail::remove_holder<Enumerable>::value
@@ -422,4 +422,4 @@ namespace dot
     }
 }
 
-#endif  // __dot_system_collections_generic_IDotEnumerable_hpp__
+#endif  // __cl_system_collections_generic_ICppEnumerable_hpp__

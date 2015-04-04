@@ -20,26 +20,26 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __dot_system_collections_generic_Stack_hpp__
-#define __dot_system_collections_generic_Stack_hpp__
+#ifndef __cl_system_collections_generic_Stack_hpp__
+#define __cl_system_collections_generic_Stack_hpp__
 
 #include <deque>
 
-#include <dot/system/collections/generic/IDotCollection.hpp>
-#include <dot/system/collections/generic/IDotEnumerable.hpp>
-#include <dot/system/collections/generic/IDotEnumerator.hpp>
+#include <cl/system/collections/generic/ICppCollection.hpp>
+#include <cl/system/collections/generic/ICppEnumerable.hpp>
+#include <cl/system/collections/generic/ICppEnumerator.hpp>
 
-namespace dot
+namespace cl
 {
 	/// Adapter class from STL deque to .NET Stack. srd::deque used as container to make possible Conataints(T item) and GetEnumerator() implementation
 	template <typename T>
-	class Stack : public detail::std_accessor_<dot::IDotEnumerable<T>
+	class Stack : public detail::std_accessor_<cl::ICppEnumerable<T>
 		, std::deque<T> >
 	{
 	public:
-		typedef detail::std_accessor_<dot::IDotEnumerable<T>
+		typedef detail::std_accessor_<cl::ICppEnumerable<T>
 			, std::deque<T> > base;
-		typedef dot::IDotEnumerable<T> dot_enumerator_type;
+		typedef cl::ICppEnumerable<T> cl_enumerator_type;
 		typedef std::deque<T> std_base;
 
 	public:
@@ -78,9 +78,9 @@ namespace dot
 		/// <param name="arrayIndex">index in array at which copying begin</param>
 		inline void CopyTo(T*& array, int arrayIndex);
 
-		typedef dot::IDotEnumerator<T> Enumerator;
+		typedef cl::ICppEnumerator<T> Enumerator;
 
-		//inline dot_enumerator_type GetEnumerator();
+		//inline cl_enumerator_type GetEnumerator();
 
 		///     Returns the object at the top of the Stack without removing it.
 		/// <returns>
@@ -116,7 +116,7 @@ namespace dot
 		/// <returns>
 		///     An array containing copies of the elements of the Stack
 		/// </returns>
-		inline dot::Array<T> ToArray();
+		inline cl::Array<T> ToArray();
 
 		
 		

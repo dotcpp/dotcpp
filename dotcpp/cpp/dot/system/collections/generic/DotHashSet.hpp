@@ -20,28 +20,28 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __dot_system_collections_generic_HashSet_hpp__
-#define __dot_system_collections_generic_HashSet_hpp__
+#ifndef __cl_system_collections_generic_HashSet_hpp__
+#define __cl_system_collections_generic_HashSet_hpp__
 
 #include <hash_set>
 
-#include <dot/system/collections/generic/IDotCollection.hpp>
-#include <dot/system/collections/generic/IDotEnumerable.hpp>
-#include <dot/system/collections/generic/IDotEnumerator.hpp>
+#include <cl/system/collections/generic/ICppCollection.hpp>
+#include <cl/system/collections/generic/ICppEnumerable.hpp>
+#include <cl/system/collections/generic/ICppEnumerator.hpp>
 
-namespace dot
+namespace cl
 {
 	
 	/// Adapter class from STL has_set to .NET HashSet
 	template <typename T>
-	class HashSet : public detail::std_accessor_<dot::IDotEnumerable<T>
+	class HashSet : public detail::std_accessor_<cl::ICppEnumerable<T>
 		, stdext::hash_set<T> >
 	{
 	public:
-		typedef detail::std_accessor_<dot::IDotEnumerable<T>
+		typedef detail::std_accessor_<cl::ICppEnumerable<T>
 			, std::hash_set<T> > base;
 
-		typedef dot::IDotEnumerable<T> dot_enumerator_type;
+		typedef cl::ICppEnumerable<T> cl_enumerator_type;
 
 		typedef std::hash_set<T> std_base;
 
@@ -119,14 +119,14 @@ namespace dot
 		/// <param name="other">
 		///   The collection of items to remove from the HashSet object.
 		/// </param>
-		inline void ExceptWith(IDotEnumerable<T> &other);
+		inline void ExceptWith(ICppEnumerable<T> &other);
 
 		
 		///     Modifies the current HashSet to contain only elements that are present in that object and in the specified collection
 		/// <param name="other">
 		///   The collection to compare to the current HashSet
 		/// </param>
-		inline void IntersectWith(IDotEnumerable<T> &other);
+		inline void IntersectWith(ICppEnumerable<T> &other);
 
 		
 		///     Determines whether a HashSet object is a proper subset of the specified collection.
@@ -136,7 +136,7 @@ namespace dot
 		/// <returns>
 		///     true if the HashSet object is a proper subset of other; otherwise, false.
 		/// </returns>
-		inline bool IsProperSubsetOf(IDotEnumerable<T> &other);
+		inline bool IsProperSubsetOf(ICppEnumerable<T> &other);
 		
 		
 		///     Determines whether a HashSet is a proper superset of the specified collection.
@@ -146,7 +146,7 @@ namespace dot
 		/// <returns>
 		///     true if the HashSet is a proper superset other; otherwise, false.
 		/// </returns>
-		inline bool IsProperSupersetOf(IDotEnumerable<T> &other);
+		inline bool IsProperSupersetOf(ICppEnumerable<T> &other);
 		
 		
 		///     Determines whether a HashSet is a subset of the specified collection
@@ -156,7 +156,7 @@ namespace dot
 		/// <returns>
 		///     true if the HashSet is a subset of other; otherwise, false
 		/// </returns>
-		inline bool IsSubsetOf(IDotEnumerable<T> &other);
+		inline bool IsSubsetOf(ICppEnumerable<T> &other);
 		
 		
 		///     Determines whether a HashSet is a superset of the specified collection.
@@ -166,7 +166,7 @@ namespace dot
 		/// <returns>
 		///     true if the HashSet is a superset of other; otherwise, false.
 		/// </returns>
-		inline bool IsSupersetOf(IDotEnumerable<T> &other);
+		inline bool IsSupersetOf(ICppEnumerable<T> &other);
 
 		
 		///     Determines whether the current HashSet and a specified collection share common elements.
@@ -176,7 +176,7 @@ namespace dot
 		/// <returns>
 		///     true if the HashSet object and other share at least one common element; otherwise, false.
 		/// </returns>
-		inline bool Overlaps(IDotEnumerable<T> &other);
+		inline bool Overlaps(ICppEnumerable<T> &other);
 
 		
 		///     Removes the first occurrence of a specific object from the HashSet
@@ -207,14 +207,14 @@ namespace dot
 		/// <returns>
 		///     true if the HashSet object is equal to other; otherwise, false.
 		/// </returns>	
-		inline bool SetEquals(IDotEnumerable<T> &other);
+		inline bool SetEquals(ICppEnumerable<T> &other);
 		
 		
 		///     Modifies the current HashSet to contain only elements that are present either in that object or in the specified collection, but not both.
 		/// <param name="other">
 		///   The collection to compare to the current HashSet
 		/// </param>
-		inline void SymmetricExceptWith(IDotEnumerable<T> &other);
+		inline void SymmetricExceptWith(ICppEnumerable<T> &other);
 		
 		
 		///     Sets the capacity to the actual number of elements in the List, if that number is less than a threshold value.
@@ -225,7 +225,7 @@ namespace dot
 		/// <param name="other">
 		///   The collection to compare to the current HashSet
 		/// </param>
-		inline void UnionWith(IDotEnumerable<T> &other);
+		inline void UnionWith(ICppEnumerable<T> &other);
 	};
 
 

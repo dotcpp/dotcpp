@@ -20,16 +20,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __dot_system_collections_generic_List_hpp__
-#define __dot_system_collections_generic_List_hpp__
+#ifndef __cl_system_collections_generic_List_hpp__
+#define __cl_system_collections_generic_List_hpp__
 
 #include <deque>
 
-#include <dot/system/collections/generic/IDotCollection.hpp>
-#include <dot/system/collections/generic/IDotEnumerable.hpp>
-#include <dot/system/collections/generic/IDotEnumerator.hpp>
+#include <cl/system/collections/generic/ICppCollection.hpp>
+#include <cl/system/collections/generic/ICppEnumerable.hpp>
+#include <cl/system/collections/generic/ICppEnumerator.hpp>
 
-namespace dot
+namespace cl
 {
     typedef std::runtime_error Exception;
 
@@ -54,14 +54,14 @@ namespace dot
     
 	/// Adapter class from STL deque to .NET List with access by index
 	template <typename T>
-    class List : public detail::std_accessor_<dot::IDotEnumerable<T>
+    class List : public detail::std_accessor_<cl::ICppEnumerable<T>
                             , std::deque<T> >
     {
     public:
-        typedef detail::std_accessor_<dot::IDotEnumerable<T>
+        typedef detail::std_accessor_<cl::ICppEnumerable<T>
                     , std::deque<T> > base;
 
-        typedef dot::IDotEnumerable<T> dot_enumerator_type;
+        typedef cl::ICppEnumerable<T> cl_enumerator_type;
 
         typedef std::deque<T> std_base;
 
@@ -106,7 +106,7 @@ namespace dot
 		
 		/// Adds the elements from other collection to the end of List
 		/// <param name="collection">Other collection</param>
-		inline void AddRange(IDotEnumerable<T> const& collection);
+		inline void AddRange(ICppEnumerable<T> const& collection);
 
 		/// Returns a read-only collection wrapper around List
 		/// <returns>
@@ -347,7 +347,7 @@ namespace dot
             std::for_each(begin(), end(), action);
         }
 
-        typedef dot::IDotEnumerator<T> Enumerator;
+        typedef cl::ICppEnumerator<T> Enumerator;
 
 		 																												
 		/// Returns sublist																											
@@ -396,7 +396,7 @@ namespace dot
 		///     Inserts the elements of a collection into List at the specified index.
 		/// <param name="index">index at which the new elements should be inserted</param>
 		/// <param name="collection">the collection whose elements should be inserted into the List</param>
-		void InsertRange(int index, IDotEnumerable<T> const& collection);
+		void InsertRange(int index, ICppEnumerable<T> const& collection);
         
 		 
         ///     Searches for the specified object and returns the index of the last occurrence in List
@@ -506,7 +506,7 @@ namespace dot
 		/// <returns>
 		///     An array containing copies of the elements of the List
 		/// </returns>
-		std::vector<T> ToArray(); // Should be dot::Array<T>
+		std::vector<T> ToArray(); // Should be cl::Array<T>
 
 		 
 		///     Sets the capacity to the actual number of elements in the List, if that number is less than a threshold value.
@@ -523,10 +523,10 @@ namespace dot
     };
 
     template <typename T>
-    class Array : public dot::IDotEnumerable<T>
+    class Array : public cl::ICppEnumerable<T>
     {
     public:
-        typedef dot::IDotEnumerable<T> base;
+        typedef cl::ICppEnumerable<T> base;
         Array() : base(std::vector<T>())
         {   }
     };
