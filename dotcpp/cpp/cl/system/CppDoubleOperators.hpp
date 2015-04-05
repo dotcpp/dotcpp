@@ -25,9 +25,92 @@ limitations under the License.
 
 #include <cl/system/CppDouble.hpp>
 
-#include <boost/numeric/ublas/fwd.hpp>
-#include <boost/numeric/ublas/matrix_proxy.hpp>
+#if !defined(CL_NO_BOOST_NUMERIC)
+#   include <boost/numeric/ublas/fwd.hpp>
+#   include <boost/numeric/ublas/matrix_proxy.hpp>
+#endif
 
+//!! Certain tape double operators
+namespace cl
+{
+    namespace detail
+    {
+        template <typename TapeType>
+        inline typename TapeType::value_type const& cvalue(TapeType const& tv)
+        {
+            return tv.value_;
+        }
+
+        template <typename TapeType>
+        inline typename TapeType::value_type& value(TapeType& tv)
+        {
+            return tv.value_;
+        }
+    }
+
+    /// <summary>Returns the result of addition of two CppDouble objects.</summary>
+    inline CppDouble operator+(const CppDouble& lhs, const CppDouble& rhs) { return detail::cvalue(lhs) + detail::cvalue(rhs); }
+
+    /// <summary>Returns the result of subtraction of two CppDouble objects.</summary>
+    inline CppDouble operator-(const CppDouble& lhs, const CppDouble& rhs) { return detail::cvalue(lhs) - detail::cvalue(rhs); }
+
+    /// <summary>Returns the result of multiplication of two CppDouble objects.</summary>
+    inline CppDouble operator*(const CppDouble& lhs, const CppDouble& rhs) { return detail::cvalue(lhs) * detail::cvalue(rhs); }
+
+    /// <summary>Returns the result of division of two CppDouble objects.</summary>
+    inline CppDouble operator/(const CppDouble& lhs, const CppDouble& rhs) { return detail::cvalue(lhs) / detail::cvalue(rhs); }
+
+    /// <summary>Returns the result of addition of CppDouble and double.</summary>
+    inline CppDouble operator+(const CppDouble& lhs, double rhs) { return detail::cvalue(lhs) + rhs; }
+
+    /// <summary>Returns the result of subtraction of CppDouble and double.</summary>
+    inline CppDouble operator-(const CppDouble& lhs, double rhs) { return detail::cvalue(lhs) - rhs; }
+
+    /// <summary>Returns the result of multiplication of CppDouble and double.</summary>
+    inline CppDouble operator*(const CppDouble& lhs, double rhs) { return detail::cvalue(lhs) * rhs; }
+
+    /// <summary>Returns the result of division of CppDouble and double.</summary>
+    inline CppDouble operator/(const CppDouble& lhs, double rhs) { return detail::cvalue(lhs) / rhs; }
+
+    /// <summary>Returns the result of addition of double and CppDouble.</summary>
+    inline CppDouble operator+(double lhs, const CppDouble& rhs) { return lhs + detail::cvalue(rhs); }
+
+    /// <summary>Returns the result of subtraction of double and CppDouble.</summary>
+    inline CppDouble operator-(double lhs, const CppDouble& rhs) { return lhs - detail::cvalue(rhs); }
+
+    /// <summary>Returns the result of multiplication of double and CppDouble.</summary>
+    inline CppDouble operator*(double lhs, const CppDouble& rhs) { return lhs * detail::cvalue(rhs); }
+
+    /// <summary>Returns the result of division of double and CppDouble.</summary>
+    inline CppDouble operator/(double lhs, const CppDouble& rhs) { return lhs / detail::cvalue(rhs); }
+
+    /// <summary>Returns true if lhs is equal to rhs.</summary>
+    inline bool operator==(double lhs, const CppDouble& rhs) { return lhs == detail::cvalue(rhs); }
+
+    /// <summary>Returns true if lhs is not equal to rhs.</summary>
+    inline bool operator!=(double lhs, const CppDouble& rhs) { return lhs != detail::cvalue(rhs); }
+
+    /// <summary>Returns true if lhs is less than rhs.</summary>
+    inline bool operator<(double lhs, const CppDouble& rhs) { return lhs < detail::cvalue(rhs); }
+
+    /// <summary>Returns true if lhs is less than or equal to rhs.</summary>
+    inline bool operator<=(double lhs, const CppDouble& rhs) { return lhs <= detail::cvalue(rhs); }
+
+    /// <summary>Returns true if lhs is more than rhs.</summary>
+    inline bool operator>(double lhs, const CppDouble& rhs) { return lhs > detail::cvalue(rhs); }
+
+    /// <summary>Returns true if lhs is more than or equal to rhs.</summary>
+    inline bool operator>=(double lhs, const CppDouble& rhs) { return lhs >= detail::cvalue(rhs); }
+
+    /// <summary>Serialize to stream.</summary>
+    inline std::ostream& operator<<(std::ostream& output, const CppDouble& v) { output << detail::cvalue(v); return output; }
+
+    /// <summary>Deserialize from stream.</summary>
+    inline std::istream& operator>>(std::istream& input, CppDouble& v) { input >> detail::value(v); return input; }
+
+}
+
+//!! Supporting code for double operators, in progress
 namespace cl
 {
     template <typename _Ty>
@@ -36,15 +119,24 @@ namespace cl
 #pragma message (__FUNCSIG__)
     }
 
+    struct basic_operators;
+
+    template <typename Left, typename Right>
+    struct custom_operator
+    {
+        typedef basic_operators type;
+    };
+
     template <typename Left, typename Right, typename Operator
         , typename left_convertible = typename cl::detail::is_has_operator_real<Left>::type
-        , typename right_convertible = typename cl::detail::is_has_operator_real<Right>::type >
+        , typename right_convertible = typename cl::detail::is_has_operator_real<Right>::type
+        , typename Custom = typename custom_operator<Left, Right>::type >
     struct operator_traits
     {
     };
 
     template <typename Left, typename Right>
-    struct operator_traits<Left, Right, struct oper_plus, std::true_type, std::true_type>
+    struct operator_traits<Left, Right, struct oper_plus, std::true_type, std::true_type, basic_operators>
     {
         // This ensures correct behavior for classes convertible to double
         typedef cl::CppDouble type;
@@ -63,7 +155,7 @@ namespace cl
     };
 
     template <typename Left, typename Right>
-    struct operator_traits<Left, Right, struct oper_minus, std::true_type, std::true_type>
+    struct operator_traits<Left, Right, struct oper_minus, std::true_type, std::true_type, basic_operators>
     {
         // This ensures correct behavior for classes convertible to double
         typedef cl::CppDouble type;
@@ -82,7 +174,7 @@ namespace cl
     };
 
     template <typename Left, typename RC>
-    struct operator_traits<Left, cl::CppDouble, struct oper_plus, std::true_type, RC>
+    struct operator_traits<Left, cl::CppDouble, struct oper_plus, std::true_type, RC, basic_operators>
     {
         // This ensures correct behavior for classes convertible to double
         typedef cl::CppDouble type;
@@ -101,7 +193,7 @@ namespace cl
     };
 
     template <typename Right, typename LC>
-    struct operator_traits<cl::CppDouble, Right, struct oper_plus, LC, std::true_type>
+    struct operator_traits<cl::CppDouble, Right, struct oper_plus, LC, std::true_type, basic_operators>
     {
         // This ensures correct behavior for classes convertible to double
         typedef cl::CppDouble type;
@@ -120,7 +212,7 @@ namespace cl
     };
 
     template <typename Left, typename RC>
-    struct operator_traits<Left, cl::CppDouble, struct oper_minus, std::true_type, RC>
+    struct operator_traits<Left, cl::CppDouble, struct oper_minus, std::true_type, RC, basic_operators>
     {
         // This ensures correct behavior for classes convertible to double
         typedef cl::CppDouble type;
@@ -139,7 +231,7 @@ namespace cl
     };
 
     template <typename Right, typename LC>
-    struct operator_traits<cl::CppDouble, Right, struct oper_minus, LC, std::true_type>
+    struct operator_traits<cl::CppDouble, Right, struct oper_minus, LC, std::true_type, basic_operators>
     {
         // This ensures correct behavior for classes convertible to double
         typedef cl::CppDouble type;
@@ -159,29 +251,29 @@ namespace cl
 
     template <typename Left, typename Right>
     inline typename operator_traits<typename std::remove_const<Left>::type
-            , typename std::remove_const<Right>::type, oper_minus>::type
-    operator - (Left left, Right right)
+        , typename std::remove_const<Right>::type, oper_minus>::type
+        operator - (Left left, Right right)
     {
-        operator_traits<typename std::remove_const<Left>::type
-            , typename std::remove_const<Right>::type, oper_minus> op;
+            operator_traits<typename std::remove_const<Left>::type
+                , typename std::remove_const<Right>::type, oper_minus> op;
 
-        return op(left, right);
+            return op(left, right);
     }
 
     template <typename Left, typename Right>
     inline typename operator_traits<typename std::remove_const<Left>::type
         , typename std::remove_const<Right>::type, oper_plus>::type
-    operator + (Left left, Right right)
+        operator + (Left left, Right right)
     {
         operator_traits<typename std::remove_const<Left>::type
-                , typename std::remove_const<Right>::type, oper_plus> op;
+            , typename std::remove_const<Right>::type, oper_plus> op;
 
         return op(left, right);
     }
 
     // Operator /
     template <typename Left, typename Right>
-    struct operator_traits<Left, Right, struct oper_div, std::true_type, std::true_type>
+    struct operator_traits<Left, Right, struct oper_div, std::true_type, std::true_type, basic_operators>
     {
         // This ensures correct behavior for classes convertible to double
         typedef cl::CppDouble type;
@@ -200,7 +292,7 @@ namespace cl
     };
 
     template <typename Left, typename RC>
-    struct operator_traits<Left, cl::CppDouble, struct oper_div, std::true_type, RC>
+    struct operator_traits<Left, cl::CppDouble, struct oper_div, std::true_type, RC, basic_operators>
     {
         // This ensures correct behavior for classes convertible to double
         typedef cl::CppDouble type;
@@ -219,7 +311,7 @@ namespace cl
     };
 
     template <typename Right, typename LC>
-    struct operator_traits<cl::CppDouble, Right, struct oper_div, LC, std::true_type>
+    struct operator_traits<cl::CppDouble, Right, struct oper_div, LC, std::true_type, basic_operators>
     {
         // This ensures correct behavior for classes convertible to double
         typedef cl::CppDouble type;
@@ -240,17 +332,17 @@ namespace cl
     template <typename Left, typename Right>
     inline typename operator_traits<typename std::remove_const<Left>::type
         , typename std::remove_const<Right>::type, struct oper_div>::type
-    operator / (Left left, Right right)
+        operator / (Left left, Right right)
     {
-            operator_traits<typename std::remove_const<Left>::type
-                , typename std::remove_const<Right>::type, oper_div> op;
+        operator_traits<typename std::remove_const<Left>::type
+            , typename std::remove_const<Right>::type, oper_div> op;
 
-            return op(left, right);
+        return op(left, right);
     }
 
     // Operator *
     template <typename Left, typename Right>
-    struct operator_traits<Left, Right, struct oper_mult, std::true_type, std::true_type>
+    struct operator_traits<Left, Right, struct oper_mult, std::true_type, std::true_type, basic_operators>
     {
         // This ensures correct behavior for classes convertible to double
         typedef cl::CppDouble type;
@@ -269,7 +361,7 @@ namespace cl
     };
 
     template <typename Left, typename RC>
-    struct operator_traits<Left, cl::CppDouble, struct oper_mult, std::true_type, RC>
+    struct operator_traits<Left, cl::CppDouble, struct oper_mult, std::true_type, RC, basic_operators>
     {
         // This ensures correct behavior for classes convertible to double
         typedef cl::CppDouble type;
@@ -288,7 +380,7 @@ namespace cl
     };
 
     template <typename Right, typename LC>
-    struct operator_traits<cl::CppDouble, Right, struct oper_mult, LC, std::true_type>
+    struct operator_traits<cl::CppDouble, Right, struct oper_mult, LC, std::true_type, basic_operators>
     {
         // This ensures correct behavior for classes convertible to double
         typedef cl::CppDouble type;
@@ -311,12 +403,11 @@ namespace cl
         , typename std::remove_const<Right>::type, struct oper_mult>::type
         operator * (Left left, Right right)
     {
-            operator_traits<typename std::remove_const<Left>::type
-                , typename std::remove_const<Right>::type, oper_mult> op;
+        operator_traits<typename std::remove_const<Left>::type
+            , typename std::remove_const<Right>::type, oper_mult> op;
 
-            return op(left, right);
+        return op(left, right);
     }
-
 }
 
 // Operators in AD mode, in progress
@@ -543,7 +634,7 @@ namespace boost { namespace numeric { namespace ublas
            > const& left
         , cl::CppDouble const& right)
     {
-#if defined CL_COMPILE_TIME_DEBUG
+#if defined CL_TAPE_COMPILE_TIME_DEBUG
 #pragma message ("Hook procedure : " __FUNCSIG__)
 #endif
         return (cl::CppDouble)left < right;

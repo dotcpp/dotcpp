@@ -60,7 +60,7 @@ namespace std
     }
 
     inline cl::CppDouble floor(cl::CppDouble x)
-{
+    {
 #ifdef CL_DOUBLE_CPPAD
         return  cl::CppDouble(std::floor(CppAD::Value(x.value())));  //!!! Review
 #elif CL_DOUBLE_ADOLC
@@ -330,7 +330,6 @@ namespace std
         return x > y ? x : y;
 #elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
-
 #else
         return std::max(x.value(), y.value());
 #endif
@@ -408,7 +407,6 @@ namespace std
         return fmod(x, cl::CppDouble(y));
 #elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
-
 #else
         return std::fmod(x.value(), y);
 #endif
@@ -420,7 +418,6 @@ namespace std
         return fmod(cl::CppDouble(x), y);
 #elif CL_DOUBLE_ADOLC
         cl::throw_("Not implemented"); return x;
-
 #else
         return std::fmod(x, y.value());
 #endif
@@ -445,69 +442,23 @@ namespace std
 #endif
     }
 
+//!! Do we need this define if CppDouble is always a class?
+#if defined(CL_DOUBLE_NOAD) || defined(CL_DOUBLE_CPPAD) || defined(CL_DOUBLE_ADOLC)
     template<class T1, class T2>
-    inline cl::CppDouble inner_product(T1 first1, T1 last1, T2 first2, cl::CppDouble value)
+    inline cl::CppDouble inner_product(T1 first1, T1 last1, T2 first2, double value)
     {
-#ifdef CL_DOUBLE_CPPAD
+        cl::CppDouble prod(value);
         while (first1 != last1)
         {
-            value = value + (*first1)*(*first2);
+            prod += (*first1) * (*first2);
             ++first1; ++first2;
         }
-        return cl::CppDouble(value);
-
-#elif CL_DOUBLE_ADOLC
-        cl::throw_("Not implemented"); return x;
-#else
-        return cl::CppDouble(std::inner_product(first1, last1, first2, value.value()));
+        return prod;
+    }
 #endif
-    }
-    template<class T1, class T2>
-    inline double inner_product(T1 first1, T1 last1, T2 first2, double value)
-    {
-#ifdef CL_DOUBLE_CPPAD
-        while (first1 != last1)
-        {
 
-            value = value + CppAD::Value(((*first1)*(*first2)).value());    //!!! Review
+    // Arithmetics for std::complex<cl::CppDouble> and cl::CppDouble
 
-            ++first1; ++first2;
-        }
-        return value;
-#elif CL_DOUBLE_ADOLC
-        cl::throw_("Not implemented"); return x;
-#else
-        return std::inner_product(first1, last1, first2, value);
-#endif
-    }
-
-    // Math functions for std::complex<Real>
-    inline cl::CppDouble real(std::complex<cl::CppDouble> x) {
-        return x.real();
-    }
-
-    inline cl::CppDouble imag(std::complex<cl::CppDouble> x) {
-        return x.imag();
-    }
-
-    inline std::complex<cl::CppDouble> operator-(const std::complex<cl::CppDouble>& lhs, const std::complex<cl::CppDouble>& rhs){
-        return complex<cl::CppDouble>(lhs.real() - rhs.real(), lhs.imag() - rhs.imag());
-    }
-
-    inline std::complex<cl::CppDouble> operator*(const std::complex<cl::CppDouble>& lhs, const std::complex<cl::CppDouble>& rhs){
-        return complex<cl::CppDouble>(lhs.real()*rhs.real() - lhs.imag()*rhs.imag(), lhs.real()*rhs.imag() + lhs.imag()*rhs.real());
-    }
-
-    inline std::complex<cl::CppDouble> operator/(const std::complex<cl::CppDouble>& lhs, const std::complex<cl::CppDouble>& rhs){
-        return complex<cl::CppDouble>((lhs.real()*rhs.real() + lhs.imag()*rhs.imag()) * std::pow((std::pow(rhs.real(), 2) + std::pow(rhs.imag(), 2)), -1.0),
-            (lhs.imag()*rhs.real() - lhs.real()*rhs.imag()) * std::pow((std::pow(rhs.real(), 2) + std::pow(rhs.imag(), 2)), -1.0));
-    }
-
-    inline std::complex<cl::CppDouble> operator+(const std::complex<cl::CppDouble>& lhs, const std::complex<cl::CppDouble>& rhs){
-        return complex<cl::CppDouble>(lhs.real() + rhs.real(), lhs.imag() + rhs.imag());
-    }
-
-    // Arithmetics for std::complex<Real>
     inline std::complex<cl::CppDouble> operator+(const std::complex<cl::CppDouble>& lhs, cl::CppDouble rhs){
         return complex<cl::CppDouble>(lhs.real() + rhs, lhs.imag());
     }
@@ -537,10 +488,11 @@ namespace std
     }
 
     inline std::complex<cl::CppDouble> operator/(cl::CppDouble lhs, const std::complex<cl::CppDouble>& rhs){
-        return cl::CppDouble(std::pow((std::pow(rhs.real(), 2) + std::pow(rhs.imag(), 2)), -1.0)*lhs)* complex<cl::CppDouble>(rhs.real() - rhs.imag());
+        return std::complex<cl::CppDouble>(lhs) / rhs;
     }
 
-    // Arithmetics for std::complex<Real>
+    // Arithmetics for std::complex<cl::CppDouble> and double
+
     inline std::complex<cl::CppDouble> operator+(const std::complex<cl::CppDouble>& lhs, double rhs) { return lhs + cl::CppDouble(rhs); }
 
     inline std::complex<cl::CppDouble> operator-(const std::complex<cl::CppDouble>& lhs, double rhs) { return lhs - cl::CppDouble(rhs); }
@@ -558,27 +510,6 @@ namespace std
     inline std::complex<cl::CppDouble> operator/(double lhs, const std::complex<cl::CppDouble>& rhs) { return cl::CppDouble(lhs) / rhs; }
 
     //!! Providing implementation causes compilation error due to NaN not being defined for Real, to be resolved
-    // { return std::complex<cl::Double>(cl::Double(lhs),0.0) / rhs; }
-
-    inline std::complex<cl::CppDouble> sqrt(std::complex<cl::CppDouble> x) {
-        //!!! Review
-        return cl::CppDouble(std::pow(2.0, -0.5))*std::complex<cl::CppDouble>(std::sqrt(x.real() + std::sqrt(std::pow(x.real(), 2) + std::pow(x.imag(), 2))),
-            (x.imag()>0.0 ? 1.0 : -1.0)*std::sqrt(std::sqrt(std::pow(x.real(), 2) + std::pow(x.imag(), 2)) - x.real()));
-    }
-
-    inline std::complex<cl::CppDouble> log(std::complex<cl::CppDouble> x) {
-        //!!! Review
-        return std::complex<cl::CppDouble>(cl::CppDouble(0.5)*std::log(std::pow(x.real(), 2) + std::pow(x.imag(), 2)),
-            std::atan(x.imag() / x.real()));
-        //return cl::Double(0.5)* std::complex<cl::Double>(std::pow(x.real(), 2.0) + std::pow(x.imag(), 2.0));
-    }
-
-    inline std::complex<cl::CppDouble> exp(std::complex<cl::CppDouble> x) {
-        //!!! Review
-        return cl::CppDouble(std::exp(x.real()))*std::complex<cl::CppDouble>(std::cos(x.imag()), std::sin(x.imag()));
-    }
-
-
 }
 
 #endif  // __cl_system_CppDoubleMath_hpp__

@@ -28,7 +28,7 @@ limitations under the License.
 
 namespace std
 {
-    /// <summary>Provides numeric limits for Double.</summary>
+    /// <summary>Provides numeric limits for CppDouble.</summary>
     template<> class numeric_limits<cl::CppDouble>
     {
     public:

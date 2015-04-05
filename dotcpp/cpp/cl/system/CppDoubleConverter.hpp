@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (C) 2003-2015 CompatibL
 
 This file is part of .C++, an open source implementation of TapeScript
@@ -27,10 +27,21 @@ limitations under the License.
 
 namespace cl
 {
-    template <typename... Comparsion>
-    struct CppConversion;
+    namespace detail
+    {
+        // Returns constant ref value from TapeType
+        template <typename TapeType>
+        inline typename TapeType::value_type const& cvalue(TapeType const& tv);
 
-    /// <summary>This template and its specializations provide conversion to Double value_type.</summary>
+        // Returns ref value from TapeType
+        template <typename TapeType>
+        inline typename TapeType::value_type& value(TapeType& tv);
+    }
+
+    template <typename... Comparsion>
+    struct Conversion;
+
+    /// <summary>This template and its specializations provide conversion to CppDouble value_type.</summary>
     template <typename Type
             , typename ValueType
             , typename NativeType = typename std::remove_volatile<typename std::remove_const<Type>::type >::type
@@ -44,7 +55,7 @@ namespace cl
         typedef ValueType type;
     };
 
-    /// <summary>This template and its specializations provide conversion to Double value_type.</summary>
+    /// <summary>This template and its specializations provide conversion to CppDouble value_type.</summary>
     template <typename Type, typename ValueType, typename NativeType
             , typename IsSame //[ std::true_type] typename IsAriphm, [std::true_type] typename IsConv
             , typename IsHasOper //, [std::false_type] typename IsEnum
@@ -62,7 +73,7 @@ namespace cl
         }
     };
 
-    /// <summary>This template and its specializations provide conversion to Double value_type.</summary>
+    /// <summary>This template and its specializations provide conversion to CppDouble value_type.</summary>
     template <typename Type, typename ValueType, typename NativeType
         , typename IsSame // [std::false_type] typename IsAriphm, [std::true_type] typename IsConv
         , typename IsHasOper // [std::false_type] typename IsEnum
@@ -80,7 +91,7 @@ namespace cl
         }
     };
 
-    /// <summary>This template and its specializations provide conversion to Double value_type.</summary>
+    /// <summary>This template and its specializations provide conversion to CppDouble value_type.</summary>
     template <typename Type, typename ValueType, typename NativeType
                 , typename IsAriphm, typename IsConv, typename IsHasOper, typename IsEnum>
     struct CppDoubleConvert<Type, ValueType, NativeType
@@ -95,7 +106,7 @@ namespace cl
         }
     };
 
-    /// <summary>This template and its specializations provide conversion to Double value_type.</summary>
+    /// <summary>This template and its specializations provide conversion to CppDouble value_type.</summary>
     template <typename Type, typename ValueType, typename NativeType
         , typename IsSame, /*typename IsConv,*/ typename IsHasOper, typename IsEnum>
     struct CppDoubleConvert<Type, ValueType, NativeType
@@ -111,7 +122,7 @@ namespace cl
         }
     };
 
-    /// <summary>This template and its specializations provide conversion to Double value_type.</summary>
+    /// <summary>This template and its specializations provide conversion to CppDouble value_type.</summary>
     template <typename Type, typename ValueType, typename NativeType
         , typename IsSame, typename IsConv, typename IsAriphm, typename IsEnum>
     struct CppDoubleConvert<Type, ValueType, NativeType
@@ -123,8 +134,8 @@ namespace cl
         template <typename ThisType>
         static void convert(ThisType& this_value, Type const& other_value)
         {
-            // If we have const reference we can't use noit constant operator
-            // and we should use addition instance
+            // If we have const reference, non-constant operator cannot be used
+            // and we should use the addition instance instead
             typedef typename
                 detail::if_c<
                     cl::detail::is_has_operator_real<NativeType>::is_const
@@ -142,7 +153,7 @@ namespace cl
         }
     };
 
-    /// <summary>This template and its specializations provide conversion to Double value_type.</summary>
+    /// <summary>This template and its specializations provide conversion to CppDouble value_type.</summary>
     template <typename Type, typename ValueType, typename NativeType
         , typename IsSame, typename IsConv, typename IsAriphm, typename IsHasOper>
     struct CppDoubleConvert<Type, ValueType, NativeType
@@ -158,13 +169,13 @@ namespace cl
         }
     };
 
-    /// <summary>This template and its specializations provide conversion to Double value_type.</summary>
-    template <typename CppConverter, typename ThisType, typename From>
+    /// <summary>This template and its specializations provide conversion to CppDouble value_type.</summary>
+    template <typename Converter, typename ThisType, typename From>
     inline typename void
     convert(ThisType& this_value, From const& other_value)
     {
-        CppConverter::convert(this_value, other_value);
+        Converter::convert(this_value, other_value);
     };
 }
 
-#endif
+#endif // __cl_system_CppDoubleConverter_hpp__

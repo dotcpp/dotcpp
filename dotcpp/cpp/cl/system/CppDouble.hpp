@@ -28,72 +28,21 @@ limitations under the License.
 
 namespace cl
 {
-    //!! Replace by header inclusion or avoid returning by value
-    struct CppString {};
+    struct CppString;
 
     /// <summary>Immutable double type with AD support designed
     /// to serve as a drop-in replacement to native double.</summary>
-    class CL_SYSTEM CppDouble
+    class CppDouble
     {
-        /// <summary>Returns the result of addition of two Double objects.</summary>
-        friend inline CppDouble operator+(const CppDouble& lhs, const CppDouble& rhs) { return lhs.value_ + rhs.value_; }
+    public:
 
-        /// <summary>Returns the result of subtraction of two Double objects.</summary>
-        friend inline CppDouble operator-(const CppDouble& lhs, const CppDouble& rhs) { return lhs.value_ - rhs.value_; }
+        /// <summary>Backend-specific AD implementation type,
+        /// typedef according to this library's naming conventions.</summary>
+        typedef cl::tape_double ImplType;
 
-        /// <summary>Returns the result of multiplication of two Double objects.</summary>
-        friend inline CppDouble operator*(const CppDouble& lhs, const CppDouble& rhs) { return lhs.value_ * rhs.value_; }
-
-        /// <summary>Returns the result of division of two Double objects.</summary>
-        friend inline CppDouble operator/(const CppDouble& lhs, const CppDouble& rhs) { return lhs.value_ / rhs.value_; }
-
-        /// <summary>Returns the result of addition of Double and double.</summary>
-        friend inline CppDouble operator+(const CppDouble& lhs, double rhs) { return lhs.value_ + rhs; }
-
-        /// <summary>Returns the result of subtraction of Double and double.</summary>
-        friend inline CppDouble operator-(const CppDouble& lhs, double rhs) { return lhs.value_ - rhs; }
-
-        /// <summary>Returns the result of multiplication of Double and double.</summary>
-        friend inline CppDouble operator*(const CppDouble& lhs, double rhs) { return lhs.value_ * rhs; }
-
-        /// <summary>Returns the result of division of Double and double.</summary>
-        friend inline CppDouble operator/(const CppDouble& lhs, double rhs) { return lhs.value_ / rhs; }
-
-        /// <summary>Returns the result of addition of double and Double.</summary>
-        friend inline CppDouble operator+(double lhs, const CppDouble& rhs) { return lhs + rhs.value_; }
-
-        /// <summary>Returns the result of subtraction of double and Double.</summary>
-        friend inline CppDouble operator-(double lhs, const CppDouble& rhs) { return lhs - rhs.value_; }
-
-        /// <summary>Returns the result of multiplication of double and Double.</summary>
-        friend inline CppDouble operator*(double lhs, const CppDouble& rhs) { return lhs * rhs.value_; }
-
-        /// <summary>Returns the result of division of double and Double.</summary>
-        friend inline CppDouble operator/(double lhs, const CppDouble& rhs) { return lhs / rhs.value_; }
-
-        /// <summary>Returns true if lhs is equal to rhs.</summary>
-        friend inline bool operator==(double lhs, const CppDouble& rhs) { return lhs == rhs.value_; }
-
-        /// <summary>Returns true if lhs is not equal to rhs.</summary>
-        friend inline bool operator!=(double lhs, const CppDouble& rhs) { return lhs != rhs.value_; }
-
-        /// <summary>Returns true if lhs is less than rhs.</summary>
-        friend inline bool operator<(double lhs, const CppDouble& rhs) { return lhs < rhs.value_; }
-
-        /// <summary>Returns true if lhs is less than or equal to rhs.</summary>
-        friend inline bool operator<=(double lhs, const CppDouble& rhs) { return lhs <= rhs.value_; }
-
-        /// <summary>Returns true if lhs is more than rhs.</summary>
-        friend inline bool operator>(double lhs, const CppDouble& rhs) { return lhs > rhs.value_; }
-
-        /// <summary>Returns true if lhs is more than or equal to rhs.</summary>
-        friend inline bool operator>=(double lhs, const CppDouble& rhs) { return lhs >= rhs.value_; }
-
-        /// <summary>Serialize to stream.</summary>
-        friend inline std::ostream& operator<<(std::ostream& output, const CppDouble& value) { output << value.value_; return output; }
-
-        /// <summary>Deserialize from stream.</summary>
-        friend inline std::istream& operator>>(std::istream& input, CppDouble& value) { input >> value.value_; return input; }
+        /// <summary>Backend-specific AD implementation type,
+        /// alternative typedef required by STL.</summary>
+        typedef ImplType value_type;
 
     private:
 
@@ -101,17 +50,18 @@ namespace cl
         template <typename, typename, typename, typename, typename, typename, typename, typename >
         friend struct cl::CppDoubleConvert;
 
+//!! Should we have this, can break AD when misused; or it could stop recording when invoked
+#ifdef CL_DOUBLE_CAN_GET_VALUE
+        template <typename TapeType>
+        friend inline typename TapeType::value_type const&  cl::detail::cvalue(TapeType const& tapetype);
+
+        template <typename TapeType>
+        friend inline typename TapeType::value_type& cl::detail::value(TapeType& tapetype);
+#endif
+
     public: // TYPEDEFS
 
-        /// <summary>Backend-specific AD implementation type,
-        /// name using this library's naming conventions.</summary>
-        typedef double ImplType;
-
-        /// <summary>Backend-specific AD implementation type,
-        /// name using required STL naming conventions.</summary>
-        typedef ImplType value_type;
-
-        /// <summary>Explicit constructor attempts to convert from any type.</summary>
+        /// <summary>Explicit conversion operator from an arbitrary type.</summary>
         template <typename Type>
         explicit CppDouble(Type const& rhs)
             : value_()
@@ -126,6 +76,14 @@ namespace cl
             cl::CppDoubleConvert<Type, value_type>::convert(*this, rhs);
             return *this;
         }
+
+//!! Should we have this, can break AD when misused; or it could stop recording when invoked
+#ifdef CL_DOUBLE_CAN_GET_VALUE
+        inline value_type value() const
+        {
+            return value_;
+        }
+#endif
 
     private: // PRIVATE
 
@@ -170,8 +128,28 @@ namespace cl
         }
     public:
 
-#ifndef  EXPLICIT_NATIVE_CONVERT
-        // Try to convert explicit if it is arithmetic
+//!! Should we select one option and stay with it?
+#ifndef CL_EXPLICIT_NATIVE_CONVERSION
+
+        // This should skip message
+        template <typename Type>
+        inline void to(std::false_type) const {   }
+
+        // This should show message
+        template <typename Type>
+        inline void to(std::true_type) const
+        {
+#pragma message ("Possible lost adjoint functionality in case: " __FUNCSIG__)
+        }
+
+#if defined CL_DOUBLE_CPPAD
+        inline operator value_type() const
+        {
+            return value_;
+        }
+#endif
+
+        // Try to convert explicitly if this is arithmetic
         template <typename Type>
         inline explicit operator Type() const
         {
@@ -183,11 +161,20 @@ namespace cl
             enum {
                 is_sm = std::is_same<native_type, value_type >::value
                 , is_constructible_from_value = std::is_constructible <native_type, value_type>::value
+                , is_arithmetic_or_contructible =
+                        std::is_arithmetic<Type>::value
+                            || std::is_constructible <native_type, typename cl::remove_ad<value_type>::type >::value
             };
 
             typedef std::integral_constant<bool, is_sm || is_constructible_from_value > is_value_type;
+            typedef std::integral_constant<bool, is_arithmetic_or_contructible > is_arithm_or_contrictible;
 
-            return this->get__<Type>(std::is_arithmetic<Type>::type(), is_value_type());
+            //  We should show message currenlty in cases when we can create
+            // class from double type but not from QlDouble
+            to<Type>(std::integral_constant<bool, is_arithmetic_or_contructible
+                && !std::is_arithmetic<Type>::value >());
+
+            return this->get__<Type>(is_arithm_or_contrictible(), is_value_type());
         }
 #else
         inline explicit operator int() const { return (int)value_; }
@@ -199,14 +186,19 @@ namespace cl
 
     private: // FIELDS
 
-        ImplType value_;
+        value_type value_;
 
     public: // CONSTRUCTORS
 
         inline CppDouble() : value_() {}
 
         /// <summary>Implicit constructor from double.</summary>
-        inline CppDouble(ImplType rhs) : value_(rhs) {}
+        inline CppDouble(value_type rhs) : value_(rhs) {}
+
+//!!! Should this include other CL_DOUBLE_* options?
+#if defined CL_DOUBLE_CPPAD
+        inline CppDouble(double rhs) : value_(rhs) {}
+#endif
 
     public: // METHODS
 
@@ -214,6 +206,9 @@ namespace cl
         CppString toString() const;
 
     public: // OPERATORS
+
+        /// <summary>Negation operator.</summary>
+        inline bool operator!() const { return !ext::Value(value_); }
 
         /// <summary>Assignment of native double.</summary>
         inline CppDouble& operator=(double rhs) { value_ = rhs; return *this; }
@@ -283,6 +278,18 @@ namespace cl
 
         /// <summary>Returns true if self is more than or equal to rhs.</summary>
         inline bool operator>=(double rhs) const { return value_ >= rhs; }
+
+        /// <summary>Prefix incrementation.</summary>
+        inline CppDouble& operator++() {   value_ += 1.0; return *this; }
+
+        /// <summary>Postfix incrementation.</summary>
+        inline CppDouble operator++(int) { CppDouble result(value_); ++(*this);  return result; }
+
+        /// <summary>Prefix decrementation.</summary>
+        inline CppDouble& operator--() { value_ -= 1.0; return *this; }
+
+        /// <summary>Postfix decrementation.</summary>
+        inline CppDouble operator--(int) { CppDouble result(value_); --(*this);  return result; }
 
     private:
 

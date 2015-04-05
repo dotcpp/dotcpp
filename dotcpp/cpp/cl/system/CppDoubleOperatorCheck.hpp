@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (C) 2003-2015 CompatibL
 
 This file is part of .C++, an open source implementation of TapeScript
