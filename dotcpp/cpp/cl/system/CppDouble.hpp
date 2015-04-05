@@ -36,12 +36,16 @@ namespace cl
     {
     public:
 
-        /// <summary>Backend-specific AD implementation type,
-        /// typedef according to this library's naming conventions.</summary>
-        typedef cl::tape_double ImplType;
+        /// <summary>AD implementation type, typedef according to this library's naming conventions.</summary>
+#ifdef CL_DOUBLE_CPPAD
+        typedef CppAD::AD<double> ImplType;
+#elif defined CL_DOUBLE_ADOLC
+        typedef adouble ImplType;
+#else
+        typedef double ImplType;
+#endif
 
-        /// <summary>Backend-specific AD implementation type,
-        /// alternative typedef required by STL.</summary>
+        /// <summary>AD implementation type, alternative typedef required by STL.</summary>
         typedef ImplType value_type;
 
     private:
@@ -208,7 +212,7 @@ namespace cl
     public: // OPERATORS
 
         /// <summary>Negation operator.</summary>
-        inline bool operator!() const { return !ext::Value(value_); }
+        inline bool operator!() const { return value_ == 0.0; } //!! Provide special treatment for AD
 
         /// <summary>Assignment of native double.</summary>
         inline CppDouble& operator=(double rhs) { value_ = rhs; return *this; }
