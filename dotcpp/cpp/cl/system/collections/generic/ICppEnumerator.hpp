@@ -157,7 +157,7 @@ namespace cl
         // should be null
         ICppEnumerator() = default;
 
-        //! Explicit constructor to converable from any other
+        //!! Explicit constructor to converible from any other
         template <typename Iterator>
         explicit ICppEnumerator(Iterator const& iter)
             : iterator_(detail::make_iterator(iter))

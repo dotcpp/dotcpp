@@ -32,103 +32,66 @@ limitations under the License.
 
 namespace cl
 {
-	/// Adapter class from STL deque to .NET Queue. std::deque used as container to make possible Conataints(T item) and GetEnumerator() implementation
-	template <typename T>
-	class Queue : public detail::std_accessor_<cl::ICppEnumerable<T>
-		, std::deque<T> >
-	{
-	public:
-		typedef detail::std_accessor_<cl::ICppEnumerable<T>
-			, std::deque<T> > base;
-		typedef cl::ICppEnumerable<T> cl_enumerator_type;
-		
+    ///!! Provide description Adapter class from STL deque to .NET Queue. std::deque used as container to make possible Conataints(T item) and GetEnumerator() implementation
+    template <typename T>
+    class CppQueue : public detail::std_accessor_<cl::ICppEnumerable<T>, std::deque<T> >
+    {
+    public:
 
-	public:
-		
-		
-		/// Queue constructor that create new empty instance of Queue
-		Queue() : base()
-		{	}
+        typedef detail::std_accessor_<cl::ICppEnumerable<T>, std::deque<T> > base;
+        typedef cl::ICppEnumerable<T> cl_enumerator_type;
 
-		
-		/// Gets number of elements in List
-		/// <returns>
-		/// Number of elements in List
-		/// </returns>
-		inline int get_Count()
-		{
-			return this->get().size();
-		}
+    public:
 
-		
-		/// Erase all elements from Queue
-		inline void Clear()
-		{
-			get().clear();
-		}
+        /// <summary>Queue constructor that create new empty instance of Queue.</summary>
+        CppQueue() : base()
+        {
+        }
 
-		
-		/// Searches element in Queue
-		/// <param name="item">object to search</param>
-		/// <returns>
-		/// true if the item is found, or false, otherwise
-		/// </returns>
-		inline bool Contains(T item);
-			
-		
-		/// Copies Queue elements to array starting at specified index
-		/// <param name="array">target arra</param>
-		/// <param name="arrayIndex">index in array at which copying begin</param>
-		inline void CopyTo(T*& array, int arrayIndex);
+        /// <summary>Gets number of elements in collection.</summary>
+        inline int getCount() const
+        {
+            return this->get().size();
+        }
 
-		typedef cl::ICppEnumerator<T> Enumerator;
+        /// <summary>Erase all elements from Queue.</summary>
+        inline void clear()
+        {
+            get().clear();
+        }
 
-		
-		///     Removes and returns the object at the beginning of the Queue
-		/// <returns>
-		///     The object that is removed from the beginning of the Queue
-		/// </returns>
-		inline T Dequeue()
-		{
-			T returnItem = get().front();
-			get().pop_front();
-			return returnItem;
-		}
+        /// <summary>Searches for an element in Queue.</summary>
+        inline bool contains(const T& item) const;
 
-		
-		///     Adds an object to the end of the Queue
-		/// <param name="item">the object to add to the Queue</param>
-		inline void Enqueue(T item)
-		{
-			
-			get().push_back(item);
-		}
+        /// <summary>Copies Queue elements to array starting at specified index.</summary>
+        inline void copyTo(Array<T>& arr, int arrIndex) const;
 
-		
-		///     Returns the object at the beginning of the Queue without removing it.
-		/// <returns>
-		///     The object at the beginning of the Queue
-		/// </returns>
-		inline T Peek()
-		{
-			return get().front();
-		}
+        /// <summary>Removes and returns the object at the beginning of the Queue.</summary>
+        inline T dequeue()
+        {
+            T returnItem = get().front();
+            get().pop_front();
+            return returnItem;
+        }
 
-		
-		///     Copies the elements of the Queue to a new array.
-		/// <returns>
-		///     An array containing copies of the elements of the Queue
-		/// </returns>
-		inline std::vector<T> ToArray();
+        /// <summary>Adds an object to the end of the Queue.</summary>
+        inline void enqueue(T item)
+        {
+            get().push_back(item);
+        }
 
-		
-		///     Sets the capacity to the actual number of elements in the Queue, if that number is less than a threshold value.
-		inline void TrimExcess();
+        /// <summary>Returns the object at the beginning of the Queue without removing it.</summary>
+        inline T peek() const
+        {
+            return get().front();
+        }
 
+        /// <summary>Copies the elements of the Queue to a new array.</summary>
+        inline Array<T> toArray() const;
 
-	};
-
-
+        /// <summary>Sets the capacity to the actual number of elements in the Queue, if that number is less than a threshold value.</summary>
+        inline void trimExcess();
+    };
 }
 
 #endif

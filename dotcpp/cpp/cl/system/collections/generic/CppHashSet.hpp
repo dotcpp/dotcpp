@@ -32,204 +32,90 @@ limitations under the License.
 
 namespace cl
 {
-	
-	/// Adapter class from STL has_set to .NET HashSet
-	template <typename T>
-	class HashSet : public detail::std_accessor_<cl::ICppEnumerable<T>
-		, stdext::hash_set<T> >
-	{
-	public:
-		typedef detail::std_accessor_<cl::ICppEnumerable<T>
-			, std::hash_set<T> > base;
+    template <typename T> class CppArray;
 
-		typedef cl::ICppEnumerable<T> cl_enumerator_type;
+    /// Adapter class from STL has_set to .NET HashSet
+    template <typename T>
+    class CppHashSet : public detail::std_accessor_<cl::ICppEnumerable<T>, stdext::hash_set<T> >
+    {
+    public:
 
-		typedef std::hash_set<T> std_base;
+        typedef detail::std_accessor_<cl::ICppEnumerable<T>, std::hash_set<T> > base;
+        typedef cl::ICppEnumerable<T> cl_enumerator_type;
+        typedef std::hash_set<T> std_base;
+        typedef T& reference_type;
 
-		typedef T& reference_type;
-	public:
-		
-		
-		///     Initializes a new instance of the HashSet
-		HashSet() : base()
-		{   }
+    public:
 
-		
-		/// Gets number of elements in HashSet
-		/// <returns>
-		/// Number of elements in HashSet
-		/// </returns>
-		inline int get_Count() const
-		{
-			return this->get().size();
-		}
+        /// <summary>Initializes a new instance of the HashSet.</summary>
+        CppHashSet() : base()
+        {
+        }
 
-		
-		///   Adds the specified element to the HashSet
-		/// <param name="item">
-		///   The element to add to the set.
-		/// </param>
-		inline bool Add(T item);
+        /// <summary>Gets number of elements in HashSet.</summary>
+        inline int getCount() const
+        {
+            return this->get().size();
+        }
 
-		
-		///     Removes all keys and values from the HashSet
-		inline void Clear();
+        /// <summary>Adds the specified element to the HashSet.</summary>
+        inline bool add(T item);
 
-		
-		/// Searches element in HashSet
-		/// <param name="item">
-		///   The element to search.
-		/// </param>
-		/// <returns>
-		/// true if the item is found, or false, otherwise
-		/// </returns>
-		inline bool Contains(T item);
+        /// <summary>Removes all keys and values from the HashSet.</summary>
+        inline void clear();
 
-		
-		/// Copies HashSet elements to array starting at then begining of arrray
-		/// <param name="array">
-		/// Target array
-		/// </param>
-		void CopyTo(T*& array);
+        /// <summary>Searches element in HashSet.</summary>
+        inline bool contains(const T& item) const;
 
-		
-		/// Copies HashSet elements to array starting at specified index
-		/// <param name="array">
-		/// Target array
-		/// </param>
-		/// <param name="arrayIndex">
-		/// Index in array at which copying begins
-		/// </param>
-		void CopyTo(T*& array, int arrayIndex);
+        /// <summary>Copies HashSet elements to array starting at then begining of arrray.</summary>
+        void copyTo(CppArray<T>& arr) const;
 
-		
-		/// Copies range of HashSet elements to array starting at specified index
-		/// <param name="array">
-		/// Target array
-		/// </param>
-		/// <param name="arrayIndex">
-		/// Index in array at which copying begins
-		/// </param>
-		/// <param name="count">
-		/// Number of elements to copy
-		/// </param>
-		void CopyTo(T*& array, int arrayIndex, int count);
+        /// <summary>Copies HashSet elements to array starting at specified index.</summary>
+        void copyTo(CppArray<T>& arr, int arrIndex) const;
 
-		
-		///     Removes all elements in the specified collection from the current HashSet object.
-		/// <param name="other">
-		///   The collection of items to remove from the HashSet object.
-		/// </param>
-		inline void ExceptWith(ICppEnumerable<T> &other);
+        /// <summary>Copies range of HashSet elements to array starting at specified index.</summary>
+        void copyTo(CppArray<T>& arr, int arrIndex, int count) const;
 
-		
-		///     Modifies the current HashSet to contain only elements that are present in that object and in the specified collection
-		/// <param name="other">
-		///   The collection to compare to the current HashSet
-		/// </param>
-		inline void IntersectWith(ICppEnumerable<T> &other);
+        /// <summary>Removes all elements in the specified collection from the current HashSet object.</summary>
+        inline void exceptWith(const ICppEnumerable<T>& other);
 
-		
-		///     Determines whether a HashSet object is a proper subset of the specified collection.
-		/// <param name="other">
-		///   The collection to compare to the current HashSet
-		/// </param>
-		/// <returns>
-		///     true if the HashSet object is a proper subset of other; otherwise, false.
-		/// </returns>
-		inline bool IsProperSubsetOf(ICppEnumerable<T> &other);
-		
-		
-		///     Determines whether a HashSet is a proper superset of the specified collection.
-		/// <param name="other">
-		///   The collection to compare to the current HashSet
-		/// </param>
-		/// <returns>
-		///     true if the HashSet is a proper superset other; otherwise, false.
-		/// </returns>
-		inline bool IsProperSupersetOf(ICppEnumerable<T> &other);
-		
-		
-		///     Determines whether a HashSet is a subset of the specified collection
-		/// <param name="other">
-		///   The collection to compare to the current HashSet
-		/// </param>
-		/// <returns>
-		///     true if the HashSet is a subset of other; otherwise, false
-		/// </returns>
-		inline bool IsSubsetOf(ICppEnumerable<T> &other);
-		
-		
-		///     Determines whether a HashSet is a superset of the specified collection.
-		/// <param name="other">
-		///   The collection to compare to the current HashSet
-		/// </param>
-		/// <returns>
-		///     true if the HashSet is a superset of other; otherwise, false.
-		/// </returns>
-		inline bool IsSupersetOf(ICppEnumerable<T> &other);
+        /// <summary>Modifies the current HashSet to contain only elements that are present in that object and in the specified collection.</summary>
+        inline void intersectWith(const ICppEnumerable<T>& other);
 
-		
-		///     Determines whether the current HashSet and a specified collection share common elements.
-		/// <param name="other">
-		///   The collection to compare to the current HashSet
-		/// </param>
-		/// <returns>
-		///     true if the HashSet object and other share at least one common element; otherwise, false.
-		/// </returns>
-		inline bool Overlaps(ICppEnumerable<T> &other);
+        /// <summary>Determines whether a HashSet object is a proper subset of the specified collection.</summary>
+        inline bool isProperSubsetOf(const ICppEnumerable<T>& other) const;
 
-		
-		///     Removes the first occurrence of a specific object from the HashSet
-		/// <param name="item">
-		///   The element to remove
-		/// </param>																										
-		/// <returns>
-		///     true if item is successfully removed; otherwise, false
-		/// </returns>													
-		inline bool Remove(T item);
+        /// <summary>Determines whether a HashSet is a proper superset of the specified collection.</summary>
+        inline bool isProperSupersetOf(const ICppEnumerable<T>& other) const;
 
-		
-		///     Removes all the elements that match the predicate conditions
-		/// <param name="match">
-		///		Predicate that accepts element from HashSet as argument and returns a value convertible to bool.
-		/// </param>																										
-		/// <returns>
-		///     The number of elements removed from the HashSet
-		/// </returns>	
-		template <typename Predicate>
-		inline int RemoveWhere(Predicate match);
+        /// <summary>Determines whether a HashSet is a subset of the specified collection.</summary>
+        inline bool isSubsetOf(const ICppEnumerable<T>& other) const;
 
-		
-		///     Determines whether a HashSet object and the specified collection contain the same elements.
-		/// <param name="other">
-		///   The collection to compare to the current HashSet
-		/// </param>																										
-		/// <returns>
-		///     true if the HashSet object is equal to other; otherwise, false.
-		/// </returns>	
-		inline bool SetEquals(ICppEnumerable<T> &other);
-		
-		
-		///     Modifies the current HashSet to contain only elements that are present either in that object or in the specified collection, but not both.
-		/// <param name="other">
-		///   The collection to compare to the current HashSet
-		/// </param>
-		inline void SymmetricExceptWith(ICppEnumerable<T> &other);
-		
-		
-		///     Sets the capacity to the actual number of elements in the List, if that number is less than a threshold value.
-		inline void TrimExcess();
-		
-		
-		///     Modifies the current HashSet to contain all elements that are present in itself and the specified collection
-		/// <param name="other">
-		///   The collection to compare to the current HashSet
-		/// </param>
-		inline void UnionWith(ICppEnumerable<T> &other);
-	};
+        /// <summary>Determines whether a HashSet is a superset of the specified collection.</summary>
+        inline bool isSupersetOf(const ICppEnumerable<T>& other) const;
 
+        /// <summary>Determines whether the current HashSet and a specified collection share common elements.</summary>
+        inline bool overlaps(const ICppEnumerable<T>& other) const;
 
+        /// <summary>Removes the first occurrence of a specific object from the HashSet.</summary>
+        inline bool remove(const T& item);
+
+        /// <summary>Removes all the elements that match the predicate conditions.</summary>
+        template <typename Predicate>
+        inline int removeWhere(Predicate match);
+
+        /// <summary>Determines whether a HashSet object and the specified collection contain the same elements.</summary>
+        inline bool setEquals(const ICppEnumerable<T>& other) const;
+
+        /// <summary>Modifies the current HashSet to contain only elements that are present either in that object or in the specified collection, but not both.</summary>
+        inline void symmetricExceptWith(const ICppEnumerable<T>& other);
+
+        /// <summary>Sets the capacity to the actual number of elements in the List, if that number is less than a threshold value.</summary>
+        inline void trimExcess();
+
+        /// <summary>Modifies the current HashSet to contain all elements that are present in itself and the specified collection.</summary>
+        inline void unionWith(const ICppEnumerable<T>& other);
+    };
 }
 
 #endif

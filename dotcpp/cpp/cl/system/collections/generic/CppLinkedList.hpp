@@ -32,43 +32,36 @@ limitations under the License.
 
 namespace cl
 {
-	///Not finished
-	template <typename T>
-	class LinkedListNode
-	{
-	private:
+    ///!!! Not finished
+    template <typename T>
+    class CppLinkedListNode
+    {
+    private:
 
-	public:
-		LinkedListNode(T Value);
-	};
-	
-	///Not finished
-	template <typename T>
-	class LinkedList : public detail::std_accessor_<cl::ICppEnumerable<T>
-		, std::deque<T> >
-	{
-	public:
-		typedef detail::std_accessor_<cl::ICppEnumerable<T>
-			, std::deque<T> > base;
+    public:
+        CppLinkedListNode(T Value);
+    };
 
-		typedef cl::ICppEnumerable<T> cl_enumerator_type;
+    ///!!! Not finished
+    template <typename T>
+    class CppLinkedList : public detail::std_accessor_<cl::ICppEnumerable<T>
+        , std::deque<T> >
+    {
+    public:
+        typedef detail::std_accessor_<cl::ICppEnumerable<T>
+            , std::deque<T> > base;
+        typedef cl::ICppEnumerable<T> cl_enumerator_type;
+        typedef std::deque<T> std_base;
+        typedef T& reference_type;
 
-		typedef std::deque<T> std_base;
+        CppLinkedList() : base()
+        {}
 
-		typedef T& reference_type;
-
-		LinkedList() : base()
-		{ }
-
-		inline int get_Count() const
-		{
-			return this->get().size();
-		}
-
-
-	
-	};
-
+        inline int get_Count() const
+        {
+            return this->get().size();
+        }
+    };
 }
 
 #endif

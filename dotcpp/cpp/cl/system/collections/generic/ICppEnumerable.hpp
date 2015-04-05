@@ -169,11 +169,11 @@ namespace cl
     // Currenlty we use type to rforward to std::pair
     // in next step we'll use our type friendly and convertible to pair
     template <typename Key, typename Value>
-    class KeyValuePair : public std::pair<Key const, Value>
+    class CppKeyValuePair : public std::pair<Key const, Value>
     {
     public:
         typedef std::pair<Key const, Value> base;
-        KeyValuePair() : base()
+        CppKeyValuePair() : base()
         {   }
 
         typedef std::pair<Key const, Value> type;

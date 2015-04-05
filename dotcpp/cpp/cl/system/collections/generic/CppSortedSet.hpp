@@ -32,178 +32,96 @@ limitations under the License.
 
 namespace cl
 {
-	
-	/// Adapter class from STL set to .NET SortedSet
-	template <typename T>
-	class SortedSet : public detail::std_accessor_<cl::ICppEnumerable<T>
-		, std::set<T> >
-	{
-	public:
-		typedef detail::std_accessor_<cl::ICppEnumerable<T>
-			, std::set<T> > base;
-		typedef cl::ICppEnumerable<T> cl_enumerator_type;
-		typedef std::set<T> std_base;
+    template <typename T> class Array;
 
-	public:
-		
-		/// SortedSet constructor that create new empty instance of SortedSet
-		SortedSet() : base() {	}
+    ///!!! Provide .NET description Adapter class from STL set to .NET SortedSet
+    template <typename T>
+    class CppSortedSet : public detail::std_accessor_<cl::ICppEnumerable<T>, std::set<T> >
+    {
+    public:
 
-		
-		/// Gets number of elements in SortedList
-		/// <returns>
-		/// Number of elements in SortedList
-		/// </returns>
-		inline int get_Count()
-		{
-			return this->get().size();
-		}
+        typedef detail::std_accessor_<cl::ICppEnumerable<T>, std::set<T> > base;
+        typedef cl::ICppEnumerable<T> cl_enumerator_type;
+        typedef std::set<T> std_base;
 
-		
-		///     Gets the maximum value in SortedSet
-		/// <returns>
-		///     The maximum value in the set.
-		/// </returns>
-		inline T get_Max();
+    public:
 
-		
-		///     Gets the minimum value in SortedSet
-		/// <returns>
-		///     The minimum value in the set.
-		/// </returns>
-		inline T get_Min();
+        /// <summary>Creates new empty instance of SortedSet.</summary>
+        CppSortedSet() : base() {  }
 
-		
-		///     Adds the specified key and value to the SortedSet
-		/// <param name="key">the key of the element to add</param>
-		/// <param name="value">the value of the element to add</param>
-		inline bool Add(T item);
+        /// <summary>Gets number of elements in SortedList.</summary>
+        inline int count() const
+        {
+            return this->get().size();
+        }
 
-		
-		///     Removes all keys and values from the SortedSet
-		inline void Clear();
+        /// <summary>Gets the maximum value in SortedSet.</summary>
+        inline T getMax() const;
 
-		
-		/// Searches element in SortedSet
-		/// <param name="item">object to search</param>
-		/// <returns>
-		/// true if the item is found, or false, otherwise
-		/// </returns>
-		inline bool Contains(T item);
+        /// <summary>Gets the minimum value in SortedSet.</summary>
+        inline T getMin() const;
 
-		
-		/// Copies SortedSet elements to array starting at then begining of arrray
-		/// <param name="array">target array</param>
-		void CopyTo(T*& array);
+        /// <summary>Adds the specified key and value to the SortedSet.</summary>
+        inline bool add(const T& item);
 
-		/// Copies SortedSet elements to array starting at specified index
-		/// <param name="array">target array</param>
-		/// <param name="arrayIndex">index in array at which copying begins</param>
-		void CopyTo(T*& array, int arrayIndex);
+        /// <summary>Removes all keys and values from the SortedSet.</summary>
+        inline void clear();
 
+        /// <summary>Searches element in SortedSet.</summary>
+        inline bool contains(const T& item);
 
-		/// Copies a specified number of SortedSet elements to array starting at specified index
-		/// <param name="array">target array</param>
-		/// <param name="arrayIndex">index in array at which copying begins</param>
-		/// <param name="count">number of elements to copy</param>
-		void CopyTo(T*& array, int arrayIndex, int count);
+        /// <summary>Copies SortedSet elements to array starting at then begining of array.</summary>
+        void copyTo(Array<T>& arr);
 
-		
-		///     Removes all elements in the specified collection from the current SortedSet object.
-		/// <param name="other">the collection of items to remove from the SortedSet object</param>
-		inline void ExceptWith(ICppEnumerable<T> &other);
+        /// <summary>Copies SortedSet elements to array starting at specified index.</summary>
+        void copyTo(Array<T>& arr, int index);
 
-		
-		///     Modifies the current SortedSet to contain only elements that are present in that object and in the specified collection
-		/// <param name="other">the collection to compare to the current SortedSet</param>
-		inline void IntersectWith(ICppEnumerable<T> &other);
+        /// <summary>Copies a specified number of SortedSet elements to array starting at specified index.</summary>
+        void copyTo(Array<T>& arr, int index, int count);
 
-		
-		///     Determines whether a SortedSet object is a proper subset of the specified collection.
-		/// <param name="other">the collection to compare to the current SortedSet</param>
-		/// <returns>
-		///     true if the SortedSet object is a proper subset of other; otherwise, false.
-		/// </returns>
-		inline bool IsProperSubsetOf(ICppEnumerable<T> &other);
+        /// <summary>Removes all elements in the specified collection from the current SortedSet object.</summary>
+        inline void exceptWith(const ICppEnumerable<T>& other);
 
-		
-		///     Determines whether a SortedSet is a proper superset of the specified collection.
-		/// <param name="other">the collection to compare to the current SortedSet</param>
-		/// <returns>
-		///     true if the SortedSet is a proper superset other; otherwise, false.
-		/// </returns>
-		inline bool IsProperSupersetOf(ICppEnumerable<T> &other);
+        /// <summary>Modifies the current SortedSet to contain only elements that
+        /// are present in that object and in the specified collection.</summary>
+        inline void intersectWith(const ICppEnumerable<T>& other);
 
-		
-		///     Determines whether a HashSet is a subset of the specified collection
-		/// <param name="other">the collection to compare to the current SortedSet</param>
-		/// <returns>
-		///     true if the SortedSet is a subset of other; otherwise, false
-		/// </returns>
-		inline bool IsSubsetOf(ICppEnumerable<T> &other);
+        /// <summary>Determines whether a SortedSet object is a proper subset of the specified collection.</summary>
+        inline bool isProperSubsetOf(const ICppEnumerable<T>& other);
 
-		
-		///     Determines whether a SortedSet is a superset of the specified collection.
-		/// <param name="other">the collection to compare to the current SortedSet</param>
-		/// <returns>
-		///     true if the SortedSet is a superset of other; otherwise, false.
-		/// </returns>
-		inline bool IsSupersetOf(ICppEnumerable<T> &other);
+        /// <summary>Determines whether a SortedSet is a proper superset of the specified collection.</summary>
+        inline bool isProperSupersetOf(const ICppEnumerable<T>& other);
 
-		
-		///     Determines whether the current SortedSet and a specified collection share common elements.
-		/// <param name="other">other collection to compare to the current SortedSet</param>
-		/// <returns>
-		///     true if the SortedSet object and other share at least one common element; otherwise, false.
-		/// </returns>
-		inline bool Overlaps(ICppEnumerable<T> &other);
+        /// <summary>Determines whether a HashSet is a subset of the specified collection.</summary>
+        inline bool isSubsetOf(const ICppEnumerable<T>& other);
 
-		
-		///     Removes the first occurrence of a specific object from the SortedSet
-		/// <param name="item">The object to remove </param>
-		/// <returns>
-		///     true if item is successfully removed; otherwise, false
-		/// </returns>	
-		inline bool Remove(T item);
+        /// <summary>Determines whether a SortedSet is a superset of the specified collection.</summary>
+        inline bool isSupersetOf(const ICppEnumerable<T>& other);
 
-		
-		///     Removes all the elements that match the predicate conditions
-		/// <param name="match">predicate that accepts element from SortedSet as argument and returns a value convertible to bool</param>
-		/// <returns>
-		///     The number of elements removed from the SortedSet
-		/// </returns>	
-		template <typename Predicate>
-		inline int RemoveWhere(Predicate match);
+        /// <summary>Determines whether the current SortedSet and a specified collection share common elements.</summary>
+        inline bool overlaps(const ICppEnumerable<T>& other);
 
-		
-		///     Returns an ICppEnumerable that iterates over the SortedSet in reverse order.
-		/// <returns>
-		///     An enumerator that iterates over the SortedSet in reverse order.
-		/// </returns>	
-		inline ICppEnumerable<T>& Reverse();
+        /// <summary>Removes the first occurrence of a specific object from the SortedSet.</summary>
+        inline bool remove(const T& item);
 
-		
-		///     Determines whether a SortedSet object and the specified collection contain the same elements.
-		/// <param name="other">the collection to compare to the current SortedSet</param>
-		/// <returns>
-		///     true if the SortedSet object is equal to other; otherwise, false.
-		/// </returns>	
-		inline bool SetEquals(ICppEnumerable<T> &other);
+        /// <summary>Removes all the elements that match the predicate conditions.</summary>
+        template <typename Predicate>
+        inline int removeWhere(Predicate match);
 
-		
-		///     Modifies the current SortedSet to contain only elements that are present either in that object or in the specified collection, but not both.
-		/// <param name="other">the collection to compare to the current SortedSet</param>
-		inline void SymmetricExceptWith(ICppEnumerable<T> &other);
+        /// <summary>Returns an ICppEnumerable that iterates over the SortedSet in reverse order.</summary>
+        inline ICppEnumerable<T>& reverse();
 
-		
-		///     Modifies the current SortedSet to contain all elements that are present in itself and the specified collection
-		/// <param name="other">the collection to compare to the current SortedSet</param>
-		inline void UnionWith(ICppEnumerable<T> &other);
+        /// <summary>Determines whether a SortedSet object and the specified collection contain the same elements.</summary>
+        inline bool setEquals(const ICppEnumerable<T>& other) const;
 
+        /// <summary>Modifies the current SortedSet to contain only elements that are present
+        /// either in that object or in the specified collection, but not both.</summary>
+        inline void symmetricExceptWith(const ICppEnumerable<T>& other);
 
-	};
-
-
+        /// <summary>Modifies the current SortedSet to contain all elements
+        /// that are present in itself and the specified collection.</summary>
+        inline void unionWith(const ICppEnumerable<T>& other);
+    };
 }
 
 #endif

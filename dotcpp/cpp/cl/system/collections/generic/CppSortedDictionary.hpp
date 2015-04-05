@@ -32,107 +32,59 @@ limitations under the License.
 
 namespace cl
 {
-	
-	/// Adapter class from STL map to .NET SortedDictionary - collection of key/value pairs that are sorted on the key
-	template <typename Key, typename Type >
-	class SortedDictionary : public detail::std_accessor_<
-		cl::ICppEnumerable< typename KeyValuePair<Key, Type>::type >
-		, std::map<Key, Type> >
-	{
-	public:
-		typedef detail::std_accessor_<
-			cl::ICppEnumerable< typename KeyValuePair<Key, Type>::type >
-			, std::map<Key, Type> > base;
+    template <class T> class CppArray;
 
-		
-		/// SortedDictionary constructor that create new empty instance of SortedDictionary
-		SortedDictionary() : base()
-		{   }
+    ///!!! Provide .NET description Adapter class from STL map to .NET SortedDictionary - collection of key/value pairs that are sorted on the key
+    template <typename Key, typename Type >
+    class CppSortedDictionary : public detail::std_accessor_<
+        cl::ICppEnumerable< typename KeyValuePair<Key, Type>::type >
+        , std::map<Key, Type> >
+    {
+    public:
+        typedef detail::std_accessor_<
+            cl::ICppEnumerable< typename KeyValuePair<Key, Type>::type >
+            , std::map<Key, Type> > base;
 
-		
-		/// Gets number of elements in List
-		/// <returns>
-		/// Number of elements in List
-		/// </returns>
-		inline int get_Count() const
-		{
-			return this->get().size();
-		}
+        /// <summary>Creates a new empty instance of SortedDictionary.</summary>
+        CppSortedDictionary() : base()
+        {}
 
-		
-		/// Gets List of keys
-		/// <returns>
-		/// List of keys
-		/// </returns>
-		inline List<Key> get_Keys();
+        /// <summary>Gets number of elements in CppList.</summary>
+        inline int getCount() const
+        {
+            return this->get().size();
+        }
 
-		
-		/// Gets List of values
-		/// <returns>
-		/// List of values
-		/// </returns>
-		inline List<Type> get_Values();
+        /// <summary>Gets List of keys.</summary>
+        inline List<Key> getKeys();
 
+        /// <summary>Gets List of values.</summary>
+        inline List<Type> getValues();
 
-		
-		///     Gets value reference associated with the specified key
-		/// <param name="key">key of the valu</param>
-		/// <returns>
-		///     reference associated with the specified key
-		/// </returns>
-		inline Type& operator[] (Key key);
+        /// <summary>Gets value reference associated with the specified key.</summary>
+        inline Type& operator[] (Key key);
 
-		
-		///     Adds the specified key and value to the SortedDictionary
-		/// <param name="key">the key of the element to ad</param>
-		/// <param name="value">the value of the element to ad</param>
-		inline void Add(Key key, Type value);
+        /// <summary>Adds the specified key and value to the SortedDictionary.</summary>
+        inline void add(Key key, Type value);
 
-		
-		///     Removes all keys and values from the SortedDictionary
-		inline void Clear();
+        /// <summary>Removes all keys and values from the SortedDictionary
+        inline void clear();
 
-		
-		///     Determines whether the Dictionary contains the specified key.
-		/// <param name="key">the key to search in the SortedDictionar</param>
-		/// <returns>
-		///     true if the SortedDictionary contains an element with the specified key; otherwise, false.
-		/// </returns>
-		inline bool ContainsKey(Key key);
+        /// <summary>Determines whether the Dictionary contains the specified key.</summary>
+        inline bool containsKey(Key key);
 
-		
-		///     Determines whether the SortedDictionary contains the specified value.
-		/// <param name="value">the value to search in the Dictionar</param>
-		/// <returns>
-		///     true if the SortedDictionary contains an element with the specified value; otherwise, false.
-		/// </returns>
-		inline bool ContainsValue(Type value);
-		
-		
-		/// Copies SortedDictionary elements to array starting at specified index
-		/// <param name="array">target arra</param>
-		/// <param name="arrayIndex">index in array at which copying begin</param>
-		inline void CopyTo(typename KeyValuePair<Key, Type>::type *& array, int arrayIndex);
-			
-		
-		///     Removes the value with the specified key from the SortedDictionary
-		/// <param name="key">the key of the element to remov</param>
-		/// <returns>
-		///     true if the element is successfully found and removed; otherwise, false.
-		/// </returns>
-		inline bool Remove(Key key);
+        /// <summary>Determines whether the SortedDictionary contains the specified value.</summary>
+        inline bool containsValue(Type value);
 
-		
-		///     Gets the value associated with the specified key.
-		/// <param name="key">the key of the value to ge</param>.
-		/// <param name="value">when this method return</param>, contains the value associated with the specified key, if the key is found; otherwise, the default value 
-		/// <returns>
-		///     true if the SortedDictionary contains an element with the specified key; otherwise, false.
-		/// </returns>
-		inline bool TryGetValue(Key key, Type& value);
-	};
+        /// <summary>Copies SortedDictionary elements to array starting at specified index.</summary>
+        inline void copyTo(Array<typename KeyValuePair<Key, Type>::type>& arr, int arrIndex) const;
 
+        /// <summary>Removes the value with the specified key from the SortedDictionary.</summary>
+        inline bool remove(Key key);
 
+        /// <summary>Gets the value associated with the specified key.</summary>
+        inline bool tryGetValue(Key key, Type& value) const;
+    };
 }
 
 #endif

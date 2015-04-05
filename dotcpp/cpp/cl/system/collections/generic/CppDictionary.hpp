@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_collections_generic_Dictionary_hpp__
-#define __cl_system_collections_generic_Dictionary_hpp__
+#ifndef __cl_system_collections_generic_CppDictionary_hpp__
+#define __cl_system_collections_generic_CppDictionary_hpp__
 
 #include <hash_map>
 
@@ -32,119 +32,55 @@ limitations under the License.
 
 namespace cl
 {
-	
-	
-	/// Adapter class from STL hash_map to .NET Dictionary - collection of keys and values
-	template <typename Key, typename Type >
-	class Dictionary : public detail::std_accessor_<
-                                cl::ICppEnumerable< typename KeyValuePair<Key, Type>::type >
-                                , stdext::hash_map<Key, Type> >
-	{
+    ///!!! Provide .NET description Adapter class from STL hash_map to .NET Dictionary - collection of keys and values
+    template <typename Key, typename Type >
+    class Dictionary : public detail::std_accessor_<
+        cl::ICppEnumerable<typename KeyValuePair<Key, Type>::type>, stdext::hash_map<Key, Type> >
+    {
     public:
 
         typedef detail::std_accessor_<
-            cl::ICppEnumerable< typename KeyValuePair<Key, Type>::type >
-			, stdext::hash_map<Key, Type> > base;
+            cl::ICppEnumerable< typename KeyValuePair<Key, Type>::type >, stdext::hash_map<Key, Type> >
+            base;
 
-		
-		///     Initializes a new instance of the Dictionary
-		Dictionary() : base()
-		{   }
+        /// <summary>Initializes a new instance of CppDictionary.</summary>
+        Dictionary() : base()
+        {
+        }
 
-		
-		/// Gets number of elements in Dictionary
-		/// <returns>
-		/// Number of elements in Dictionary
-		/// </returns>
-		inline int get_Count() const
-		{
-			return this->get().size();
-		}
+        /// <summary>Gets number of elements in Dictionary.</summary>
+        inline int getCount() const
+        {
+            return this->get().size();
+        }
 
-		 
-		/// Gets List of keys
-		/// <returns>
-		/// List of keys
-		/// </returns>
-		inline List<Key> get_Keys();
+        /// <summary>Gets List of keys.</summary>
+        inline List<Key> getKeys() const;
 
-		
-		/// Gets List of values
-		/// <returns>
-		/// List of values
-		/// </returns>
-		inline List<Type> get_Values();
+        /// <summary>Gets List of values.</summary>
+        inline List<Type> getValues() const;
 
+        /// <summary>Gets value reference associated with the specified key.</summary>
+        inline Type& operator[] (Key key);
 
-		
-		///     Gets value reference associated with the specified key
-		/// <param name="key">
-		///   The key of the value
-		/// </param>
-		/// <returns>
-		///     Reference associated with the specified key
-		/// </returns>
-		inline Type& operator[] (Key key);
+        /// <summary>Adds the specified key and value to the Dictionary.</summary>
+        inline void add(Key key, Type value);
 
-		
-		///     Adds the specified key and value to the Dictionary
-		/// <param name="key">
-		///   The key of the element to add
-		/// </param>
-		/// <param name="value">
-		///   The value of the element to add
-		/// </param>
-		inline void Add(Key key, Type value);
+        /// <summary>Removes all keys and values from the Dictionary.</summary>
+        inline void clear();
 
-		/// 
-		///     Removes all keys and values from the Dictionary
-		
-		inline void Clear();
+        /// <summary>Determines whether the Dictionary contains the specified key.</summary>
+        inline bool containsKey(Key key) const;
 
-		
-		///     Determines whether the Dictionary contains the specified key.
-		/// <param name="key">
-		///   The key of the element to search
-		/// </param>
-		/// <returns>
-		///     true if the Dictionary contains an element with the specified key; otherwise, false.
-		/// </returns>
-		inline bool ContainsKey(Key key);
+        /// <summary>Determines whether the Dictionary contains the specified value.</summary>
+        inline bool containsValue(const Type& value) const;
 
-		
-		///     Determines whether the Dictionary contains the specified value.
-		/// <param name="value">
-		///   The value of the element to search
-		/// </param>
-		/// <returns>
-		///     true if the Dictionary contains an element with the specified value; otherwise, false.
-		/// </returns>
-		inline bool ContainsValue(Type value);
+        /// <summary>Removes the value with the specified key from the Dictionary.</summary>
+        inline bool remove(Key key);
 
-		
-		///     Removes the value with the specified key from the Dictionary
-		/// <param name="key">
-		///   The key of the element to remove
-		/// </param>
-		/// <returns>
-		///     true if the element is successfully found and removed; otherwise, false.
-		/// </returns>
-		inline bool Remove(Key key);
-
-		///     Gets the value associated with the specified key.
-		/// <param name="key">
-		///   The key of the element to get
-		/// </param>
-		/// <param name="value">
-		///   When this method returns, contains the value associated with the specified key, if the key is found; otherwise, the default value 
-		/// </param>
-		/// <returns>
-		///     true if the Dictionary contains an element with the specified key; otherwise, false.
-		/// </returns>
-		inline bool TryGetValue(Key key, Type& value);
-	};
-
-
+        /// <summary>Gets the value associated with the specified key.</summary>
+        inline bool TryGetValue(Key key, Type& value);
+    };
 }
 
-#endif
+#endif // __cl_system_collections_generic_CppDictionary_hpp__
