@@ -21,35 +21,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_CppObject_hpp__
-#define __cl_system_CppObject_hpp__
-
-#include <cl/system/declare.hpp>
+#include <cl/system/implement.hpp>
 #include <cl/system/CppException.hpp>
+#include <cl/system/CppString.hpp>
 
 namespace cl
 {
-    class CppString;
-
-    /// <summary>This is the ultimate base class of all classes with reference semantics.
-    /// It works with CppPtr to provide an emulation of reference semantics in C++.\\
-    /// For performance reasons, classes with value semantics are not derived from this type.</summary>
-    class CL_SYSTEM CppObject
+    CppString CppException::message() const
     {
-    protected: // DESTRUCTOR
-
-        /// <summary>Virtual destructor to ensure that destructor
-        /// of the derived type is called by CppPtr.</summary>
-        virtual ~CppObject() = default;
-
-    public: // METHODS
-
-        /// <summary>Returns a string that represents the current object.</summary>
-        virtual CppString toString() const = 0;
-
-    protected:
-        CppObject() = default;
-    };
+        return CppString(msg_);
+    }
 }
-
-#endif  // __cl_system_CppObject_hpp__

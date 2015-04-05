@@ -221,11 +221,9 @@ namespace cl
 
             return false;
         }
-    public:
-        //static CppPtr<ICppEnumerator<T>> create() { throw ClEx("Attempting to create an instance of abstract type."); }
 
+    private:
         std::unique_ptr<detail::std_iterator_base<T > > iterator_;
-
     };
 
     template <typename Type>

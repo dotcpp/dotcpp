@@ -161,8 +161,6 @@ namespace cl
 
     protected:
         ICppEnumerable() = default;
-    public:
-        // static CppPtr<ICppEnumerable<T>> create() { throw ClEx("Attempting to create an instance of abstract type."); }
     protected:
         std::unique_ptr<std_accessor_base<T > > accessor_;
     };
