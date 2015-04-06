@@ -1,8 +1,9 @@
 /*
 Copyright (C) 2003-2015 CompatibL
 
-This file is part of .C++, an open source implementation of TapeScript
-in native C++ using .NET class library conventions, available from
+This file is part of .C++, a native C++ implementation of
+selected .NET class library APIs with built-in support for
+algorithmic differentiation (AD), available from
 
     http://github.com/dotcpp/dotcpp (source)
     http://dotcpp.org (documentation)
