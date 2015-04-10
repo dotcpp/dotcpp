@@ -56,23 +56,36 @@ namespace cl
         CppString(const CppChar& value);
 
         /// <summary>Create from std::string.</summary>
-        CppString(const std::string& value) : value_(value) {}
+        CppString(const std::string& value);
 
         /// <summary>Create from const char*, null pointer is converted to to empty value.</summary>
-        CppString(const char* value) : value_(value ? value : "") {}
+        CppString(const char* value);
 
         /// <summary>Create from a single 8-bit character.</summary>
-        CppString(char value) : value_(1, value) {}
+        CppString(char value);
+
+        /// <summary>Create a copy of CppString.</summary>
+        CppString(const CppString& value);
 
     public: // METHODS
 
+        /// <summary>Compares this instance with a specified Object and indicates whether
+        /// this instance precedes, follows, or appears in the same position in the sort
+        /// order as the specified Object.</summary>
+        int compareTo(const CppObject& value) const;
+
+        /// <summary>Compares this instance with a specified String object and indicates
+        /// whether this instance precedes, follows, or appears in the same position
+        /// in the sort order as the specified String.</summary>
+        int compareTo(const CppString& strB) const;
+
         /// <summary>Convert to std::string.</summary>
-        std::string value() const { return value_; }
+        std::string value() const;
 
         /// <summary>Returns the number of 8-bit characters, not the number of Unicode characters.\\
         /// This number may be different from the number of Unicode characters because each
         /// Unicode character might be represented by more than one 8-bit character.</summary>
-        int length() const { return static_cast<int>(value_.size()); }
+        int length() const;
 
         /// <summary>Returns a new string in which all occurrences of a specified string
         /// in the current instance are replaced with another specified string.</summary>
@@ -86,37 +99,27 @@ namespace cl
         /// this string that are delimited by any of the specified strings.\\
         /// A parameter specifies whether to return empty array elements.</summary>
         CppArray<CppString> split(const CppArray<CppString>& separator, const CppStringSplitOptions& options) const;
-
+        
     public: // OPERATORS
 
         /// <summary>Assignment of std::string.</summary>
-        CppString& operator=(const std::string& rhs) { value_ = rhs; return *this; }
+        CppString& operator=(const std::string& rhs);
 
         /// <summary>Assignment of const char*, null pointer is converted to to empty value.</summary>
-        CppString& operator=(const char* rhs) { if(rhs) value_ = rhs; else value_.clear(); return *this; }
+        CppString& operator=(const char* rhs);
 
         /// <summary>Assignment of 8-bit character.</summary>
-        CppString& operator=(char rhs) { value_ = std::string(1,rhs); return *this; }
+        CppString& operator=(char rhs);
 
         /// <summary>Equality operator.</summary>
-        bool operator==(const CppString& rhs) const { return value_ == rhs.value_; }
+        bool operator==(const CppString& rhs) const;
 
         /// <summary>Inequality operator.</summary>
-        bool operator!=(const CppString& rhs) const { return value_ != rhs.value_; }
+        bool operator!=(const CppString& rhs) const; 
 
         /// <summary>Gets the Char object at a specified position in the current String object.</summary>
         CppChar operator[](int index) const;
-
-        /// <summary>Compares this instance with a specified Object and indicates whether
-        /// this instance precedes, follows, or appears in the same position in the sort
-        /// order as the specified Object.</summary>
-        int compareTo(const CppObject& value) const;
-
-        /// <summary>Compares this instance with a specified String object and indicates
-        /// whether this instance precedes, follows, or appears in the same position
-        /// in the sort order as the specified String.</summary>
-        int compareTo(const CppString& strB) const;
-
+        
     public: // STATIC
 
         /// <summary>Compares two specified String objects and returns an integer that
@@ -217,11 +220,11 @@ namespace cl
         static CppString copy(const CppString& str);
 
         /// <summary>Determines whether two specified System.String objects have the same value.</summary>
-        static bool equals(const CppString& a, const CppString& b);
+        static bool equals(const CppString& strA, const CppString& strB);
 
         /// <summary>Determines whether two specified System.String objects have the same value.
         /// A parameter specifies the culture, case, and sort rules used in the comparison.</summary>
-        static bool equals(const CppString& a, const CppString& b, const CppStringComparison& comparisonType);
+        static bool equals(const CppString& strA, const CppString& strB, const CppStringComparison& comparisonType);
 
         /// <summary>Replaces one or more format items in a specified string with the string representation
         /// of a specified object.</summary>
@@ -245,11 +248,11 @@ namespace cl
         static CppString format(const CppString& format, const CppObject& arg0, const CppObject& arg1, const CppObject& arg2);
 
         /// <summary>Indicates whether the specified string is an empty string.</summary>
-        static bool isEmpty(const CppString& value);
+        static bool isEmpty(const CppString& str);
 
         /// <summary>Indicates whether a specified string is empty or consists only of
         /// white-space characters.</summary>
-        static bool isEmptyOrWhiteSpace(const CppString& value);
+        static bool isEmptyOrWhiteSpace(const CppString& str);
 
         /// <summary>Concatenates the members of a constructed ICppEnumerable<T>
         /// collection of type String, using the specified separator between each
