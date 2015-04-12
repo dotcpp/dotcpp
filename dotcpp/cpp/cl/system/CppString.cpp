@@ -32,7 +32,7 @@ namespace cl
     { }
 
     CppString::CppString(const char* value)
-        : value_(value ? value : "") 
+        : value_(value ? value : "")
     { }
 
     CppString::CppString(char value)
@@ -42,10 +42,10 @@ namespace cl
     CppString::CppString(const CppString& value)
         : value_(value.value_)
     { }
-    
+
     int CppString::compareTo(const CppObject& value) const
     {
-        return compareTo(value.toString);
+        return compareTo(value.toString());
     }
 
     int CppString::compareTo(const CppString& strB) const
@@ -57,7 +57,7 @@ namespace cl
     {
         return value_;
     }
-       
+
     int CppString::length() const
     {
         return static_cast<int>(value_.size());
@@ -76,30 +76,30 @@ namespace cl
         }
         return CppString(s);
     }
-    
+
     CppString& CppString::operator=(const std::string& rhs)
     {
         value_ = rhs; return *this;
     }
-        
+
     CppString& CppString::operator=(const char* rhs)
     {
         if (rhs) value_ = rhs;
         else value_.clear();
         return *this;
     }
-       
+
     CppString& CppString::operator=(char rhs)
     {
         value_ = std::string(1, rhs);
-        return *this; 
+        return *this;
     }
-        
+
     bool CppString::operator==(const CppString& rhs) const
     {
         return value_ == rhs.value_;
     }
-        
+
     bool CppString::operator!=(const CppString& rhs) const
     {
         return value_ != rhs.value_;
@@ -110,7 +110,7 @@ namespace cl
         //return CppChar(value_[index]); //!!!! static_cast<CppChar>(value_[index]);
         return CppChar();
     }
-  
+
     int CppString::compare(const CppString& strA, const CppString& strB)
     {
         return strA.value_.compare(strB.value_);
