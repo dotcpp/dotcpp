@@ -44,13 +44,17 @@ namespace cl
     class CL_SYSTEM CppString
     {
         std::string value_;
-
+        friend class StringBuilder;
     public: // CONSTANTS
 
         /// <summary>Empty string.</summary>
         static const CppString Empty;
 
     public: // CONSTRUCTORS
+
+        /// <summary>Create from a single Unicode character.</summary>
+        CppString() : value_()
+        {}
 
         /// <summary>Create from a single Unicode character.</summary>
         CppString(const CppChar& value);
@@ -100,6 +104,12 @@ namespace cl
         /// A parameter specifies whether to return empty array elements.</summary>
         CppArray<CppString> split(const CppArray<CppString>& separator, const CppStringSplitOptions& options) const;
         
+        ///<summary> </summary>
+        inline bool contains(cl::CppString const& s) const
+        {
+            return value_.find(s.value_) != std::string::npos;
+        }
+
     public: // OPERATORS
 
         /// <summary>Assignment of std::string.</summary>
