@@ -255,6 +255,11 @@ namespace CL_EXTERNAL_NAMESPACE
         , typename std::remove_const<Right>::type, oper_minus>::type
         operator - (Left left, Right right)
     {
+
+#if defined CL_COMPILE_TIME_DEBUG
+#	pragma message ("overload operator - : " __FUNCSIG__)
+#endif
+
             operator_traits<typename std::remove_const<Left>::type
                 , typename std::remove_const<Right>::type, oper_minus> op;
 
@@ -266,6 +271,11 @@ namespace CL_EXTERNAL_NAMESPACE
         , typename std::remove_const<Right>::type, oper_plus>::type
         operator + (Left left, Right right)
     {
+
+#if defined CL_COMPILE_TIME_DEBUG
+#	pragma message ("overload operator + : " __FUNCSIG__)
+#endif
+
         operator_traits<typename std::remove_const<Left>::type
             , typename std::remove_const<Right>::type, oper_plus> op;
 
@@ -335,6 +345,11 @@ namespace CL_EXTERNAL_NAMESPACE
         , typename std::remove_const<Right>::type, struct oper_div>::type
         operator / (Left left, Right right)
     {
+
+#if defined CL_COMPILE_TIME_DEBUG
+#	pragma message ("overload operator / : " __FUNCSIG__)
+#endif
+
         operator_traits<typename std::remove_const<Left>::type
             , typename std::remove_const<Right>::type, oper_div> op;
 
@@ -404,6 +419,9 @@ namespace CL_EXTERNAL_NAMESPACE
         , typename std::remove_const<Right>::type, struct oper_mult>::type
         operator * (Left left, Right right)
     {
+#if defined CL_COMPILE_TIME_DEBUG
+#	pragma message ("overload operator * : " __FUNCSIG__)
+#endif
         operator_traits<typename std::remove_const<Left>::type
             , typename std::remove_const<Right>::type, oper_mult> op;
 
@@ -436,8 +454,13 @@ namespace std
         : public binary_function<cl::CppDouble, cl::CppDouble, typename cl::CppDouble::value_type>
     {
         template <typename Left, typename Right>
-        typename cl::CppDouble::value_type operator () (Left const& left, Right const& right) const {
+        typename cl::CppDouble::value_type operator () (Left const& left, Right const& right) const
+		{
+#if defined CL_DOUBLE_CPPAD
+            return (left * right).value();
+#else
             return (cl::CppDouble::value_type)(left * right);
+#endif
         }
     };
 
@@ -530,6 +553,9 @@ namespace boost { namespace numeric { namespace ublas
     template <typename Left>
     inline bool operator < (Left const& left, cl::CppDouble const& right)
     {
+#if defined CL_COMPILE_TIME_DEBUG
+#pragma message ("overload operator < : " __FUNCSIG__)
+#endif
         return (cl::CppDouble)left < right;
     }
 
@@ -635,13 +661,13 @@ namespace boost { namespace numeric { namespace ublas
            > const& left
         , cl::CppDouble const& right)
     {
-#if defined CL_TAPE_COMPILE_TIME_DEBUG
-#pragma message ("Hook procedure : " __FUNCSIG__)
+#if defined CL_COMPILE_TIME_DEBUG
+#pragma message ("overload operator < : " __FUNCSIG__)
 #endif
         return (cl::CppDouble)left < right;
     }
-
-}}}}
+}
+}}}
 
 namespace boost
 {
