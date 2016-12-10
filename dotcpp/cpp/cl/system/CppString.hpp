@@ -26,6 +26,7 @@ limitations under the License.
 
 #include <cl/system/declare.hpp>
 #include <cl/system/CppObject.hpp>
+#include <cl/system/CppPtr.hpp>
 
 namespace cl
 {
@@ -271,6 +272,9 @@ namespace cl
         /// <summary>Concatenates the specified elements of a string array, using the specified
         /// separator between each element.</summary>
         static CppString join(const CppString& separator, const CppArray<CppString>& value, int startIndex, int count);
+
+        /// <summary>static create methods to create instance which can't call from other scope </summary>
+        static CppPtr<CppString> create()   {  return CppPtr<CppString>(new CppString("")); }
     };
 }
 
