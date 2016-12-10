@@ -24,9 +24,11 @@ limitations under the License.
 #ifndef __cl_system_collections_generic_CppList_hpp__
 #define __cl_system_collections_generic_CppList_hpp__
 
+#include <cl/system/CppPtr.hpp>
 #include <cl/system/collections/generic/ICppCollection.hpp>
 #include <cl/system/collections/generic/ICppEnumerable.hpp>
 #include <cl/system/collections/generic/ICppEnumerator.hpp>
+
 #include <deque>
 
 namespace cl
@@ -93,7 +95,7 @@ namespace cl
         inline void addRange(const ICppEnumerable<T>& collection);
 
         /// <summary>Returns a read-only collection wrapper around List.</summary>
-        inline readOnlyCollection<T> asReadOnly();
+        // inline readOnlyCollection<T> asReadOnly();
 
         /// <summary>Searches element in sorted List using default comparer.</summary>
         inline int binarySearch(const T& item);
@@ -298,6 +300,11 @@ namespace cl
         /// the conditions defined by the specified predicate.</summary>
         template <typename Predicate>
         inline bool trueForAll(Predicate match);
+
+        static CppPtr<CppList<T> > create()
+        { 
+            return CppPtr<CppList<T> >(new CppList<T>());
+        }
     };
 }
 

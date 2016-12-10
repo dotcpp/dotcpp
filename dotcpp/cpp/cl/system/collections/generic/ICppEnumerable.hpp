@@ -26,6 +26,7 @@ limitations under the License.
 
 #include <vector>
 #include <list>
+#include <deque>
 #include <hash_map>
 #include <hash_set>
 
