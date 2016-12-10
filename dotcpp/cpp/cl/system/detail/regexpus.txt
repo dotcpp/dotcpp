@@ -1,0 +1,10 @@
+
+to insert CL_CLASS:
+(CL_RUNTIME|CL_FRAMEWORK) (\w*) (\:(\w|\t|\s|:|<|>|,|\n)*)?{
+->
+$1 $2 $3{\n\t\tHL_CLASS($2);\n
+
+remove HL_CLASS from enum:
+enum class (CL_RUNTIME|CL_FRAMEWORK) (\w*) (\:(\w|\t|\s|:|<|>|,|\n)*)?{\r\n\t\tHL_CLASS\(\w*\);\r\n
+->
+enum class $1 $2 $3{\n\t\t
