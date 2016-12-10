@@ -39,15 +39,15 @@ namespace cl
     ///!!! Provide .NET description Adapter class from STL deque to .NET SortedList - collection of key/value pairs that are sorted on the key
     template <typename Key, typename Type >
     class CppSortedList : public detail::std_accessor_<
-        cl::ICppEnumerable< typename KeyValuePair<Key, Type>::type >
-        , std::deque< typename KeyValuePair<Key, Type>::type > >
+        cl::ICppEnumerable< typename CppKeyValuePair<Key, Type>::type >
+        , std::deque< typename CppKeyValuePair<Key, Type>::type > >
     {
     public:
 
         //!!!! Why in public section?
         typedef detail::std_accessor_<
-            cl::ICppEnumerable< typename KeyValuePair<Key, Type>::type >
-            , std::deque< typename KeyValuePair<Key, Type>::type > > base;
+            cl::ICppEnumerable< typename CppKeyValuePair<Key, Type>::type >
+            , std::deque< typename CppKeyValuePair<Key, Type>::type > > base;
 
         /// <summary>SortedList constructor that create new empty instance of SortedList.</summary>
         CppSortedList() : base()

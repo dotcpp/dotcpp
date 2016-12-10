@@ -29,6 +29,7 @@ limitations under the License.
 #include <cl/system/collections/generic/ICppCollection.hpp>
 #include <cl/system/collections/generic/ICppEnumerable.hpp>
 #include <cl/system/collections/generic/ICppEnumerator.hpp>
+#include <cl/system/collections/generic/CppList.hpp>
 
 namespace cl
 {
@@ -37,12 +38,12 @@ namespace cl
     ///!!! Provide .NET description Adapter class from STL map to .NET SortedDictionary - collection of key/value pairs that are sorted on the key
     template <typename Key, typename Type >
     class CppSortedDictionary : public detail::std_accessor_<
-        cl::ICppEnumerable< typename KeyValuePair<Key, Type>::type >
+        cl::ICppEnumerable< typename CppKeyValuePair<Key, Type>::type >
         , std::map<Key, Type> >
     {
     public:
         typedef detail::std_accessor_<
-            cl::ICppEnumerable< typename KeyValuePair<Key, Type>::type >
+            cl::ICppEnumerable< typename CppKeyValuePair<Key, Type>::type >
             , std::map<Key, Type> > base;
 
         /// <summary>Creates a new empty instance of SortedDictionary.</summary>
@@ -50,40 +51,105 @@ namespace cl
         {}
 
         /// <summary>Gets number of elements in CppList.</summary>
-        inline int getCount() const
+        inline int count() const
         {
             return this->get().size();
         }
 
         /// <summary>Gets List of keys.</summary>
-        inline List<Key> getKeys();
+        inline CppList<Key> keys()
+        {
+            CppList<Key> keys;
+            std::for_each(this->get().begin(), this->get().end(), [&keys] (std::pair<Key, Type> const& pair) { keys.add(pair.first); });
+            return keys;
+        }
 
         /// <summary>Gets List of values.</summary>
-        inline List<Type> getValues();
+        inline CppList<Type> values()
+        {
+            CppList<Type> values;
+            std::for_each(this->get().begin(), this->get().end(), [&values] (std::pair<Key, Type> const& pair) { values.add(pair.second); });
+            return values;
+        }
 
         /// <summary>Gets value reference associated with the specified key.</summary>
-        inline Type& operator[] (Key key);
+        inline Type& operator[] (Key key)
+        {
+            return this->get()[key];
+        }
+
+        /// <summary>Gets value reference associated with the specified key.</summary>
+        inline Type const& operator[] (Key key) const
+        {
+            return this->get()[key];
+        }
 
         /// <summary>Adds the specified key and value to the SortedDictionary.</summary>
-        inline void add(Key key, Type value);
+        inline void add(Key key, Type value)
+        {
+            this->get().insert(std::pair<Key, Type>(key, value));
+        }
 
         /// <summary>Removes all keys and values from the SortedDictionary
-        inline void clear();
+        inline void clear()
+        {
+            this->get().clear();
+        }
 
         /// <summary>Determines whether the Dictionary contains the specified key.</summary>
-        inline bool containsKey(Key key);
+        inline bool containsKey(Key key) const
+        {
+            return this->get().find(key) != this->get().end();
+        }
 
         /// <summary>Determines whether the SortedDictionary contains the specified value.</summary>
-        inline bool containsValue(Type value);
+        inline bool containsValue(Type value) const
+        {
+            for (auto it = this->get().begin(); it < this->get().end(); it++)
+            {
+                if ((*it).second == value) return true;
+            }
+            return false;
+        }
 
         /// <summary>Copies SortedDictionary elements to array starting at specified index.</summary>
-        inline void copyTo(Array<typename KeyValuePair<Key, Type>::type>& arr, int arrIndex) const;
+        inline void copyTo(CppArray<typename CppKeyValuePair<Key, Type>::type>& arr, int arrIndex) const
+        {
+            /*if (arrIndex +  this->get().count() > arr.length())
+                throw CppExeption();*/
+            for (auto it = this->get().begin(), int i = arrIndex; it < this->get().end(); it++, i++)
+            {
+                arr[i] = *it;
+            }
+        }
 
         /// <summary>Removes the value with the specified key from the SortedDictionary.</summary>
-        inline bool remove(Key key);
+        inline bool remove(Key key)
+        {
+            auto it = this->get().find(key);
+            if (it != this->get().end())
+            {
+                this->get().erase(it);
+                return true;
+            }
+            return false; 
+        }
 
         /// <summary>Gets the value associated with the specified key.</summary>
-        inline bool tryGetValue(Key key, Type& value) const;
+        inline bool tryGetValue(Key key, Type& value)
+        {
+            auto it = this->get().find(key);
+            if (it != this->get().end())
+            {
+                value = (*it).second;
+                return true;
+            }
+            else
+            {
+                value = Type();
+                return false;
+            }
+        }
     };
 }
 

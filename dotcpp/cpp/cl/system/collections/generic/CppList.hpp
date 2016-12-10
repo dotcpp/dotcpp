@@ -72,11 +72,16 @@ namespace cl
         {
         }
 
+        CppList(int capacity)
+        {
+            c_ = std::shared_ptr<std::deque<T>>(new std::deque<T>(capacity));
+        }
+
         //!! Why public?
         int Capacity;// { get; set; }
 
         /// <summary>Gets number of elements in List.</summary>
-        inline int getCount() const
+        inline int count() const
         {
             return this->get().size();
         }
@@ -84,6 +89,10 @@ namespace cl
         /// <summary>Gets element reference by index.</summary>
         inline reference_type
         operator[](unsigned int index) { return *(begin() + index); }
+
+        /// <summary>Gets element reference by index.</summary>
+        inline T const&
+        operator[](unsigned int index) const { return *(begin() + index); }
 
         /// <summary>Adds the new element to the end of List.</summary>
         inline void add(T item)
@@ -302,7 +311,7 @@ namespace cl
         inline bool trueForAll(Predicate match);
 
         static CppPtr<CppList<T> > create()
-        { 
+        {
             return CppPtr<CppList<T> >(new CppList<T>());
         }
     };

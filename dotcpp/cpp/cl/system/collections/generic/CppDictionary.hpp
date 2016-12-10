@@ -29,57 +29,114 @@ limitations under the License.
 #include <cl/system/collections/generic/ICppCollection.hpp>
 #include <cl/system/collections/generic/ICppEnumerable.hpp>
 #include <cl/system/collections/generic/ICppEnumerator.hpp>
+#include <cl/system/collections/generic/CppList.hpp>
 
 namespace cl
 {
-    ///!!! Provide .NET description Adapter class from STL hash_map to .NET Dictionary - collection of keys and values
+    template<typename Key, typename Type>
+    using map_type = stdext::hash_map<Key, Type>;
+
+    ///!!! Provide .NET description Adapter class from STL hash_map to .NET CppDictionary - collection of keys and values
     template <typename Key, typename Type >
-    class Dictionary : public detail::std_accessor_<
-        cl::ICppEnumerable<typename KeyValuePair<Key, Type>::type>, stdext::hash_map<Key, Type> >
+    class CppDictionary : public detail::std_accessor_<
+        cl::ICppEnumerable<typename CppKeyValuePair<Key, Type>::type>, map_type<Key, Type> >
     {
     public:
 
+        // Iterator type
+        typedef typename
+            map_type<Key, Type>::iterator iterator;
+
+        // Const iterator
+        typedef typename
+            map_type<Key, Type>::const_iterator const_iterator;
+
         typedef detail::std_accessor_<
-            cl::ICppEnumerable< typename KeyValuePair<Key, Type>::type >, stdext::hash_map<Key, Type> >
-            base;
+            cl::ICppEnumerable< 
+                typename CppKeyValuePair<Key, Type>::type 
+            >, map_type<Key, Type> > base;
 
         /// <summary>Initializes a new instance of CppDictionary.</summary>
-        Dictionary() : base()
+        CppDictionary() : base()
         {
         }
-
-        /// <summary>Gets number of elements in Dictionary.</summary>
-        inline int getCount() const
+        
+        /// <summary>Gets number of elements in CppDictionary.</summary>
+        inline int count() const
         {
             return this->get().size();
         }
 
-        /// <summary>Gets List of keys.</summary>
-        inline List<Key> getKeys() const;
+        /// <summary>Gets CppList of keys.</summary>
+        inline CppList<Key> keys() 
+        {
+            CppList<Key> keys;
+            std::for_each(this->get().begin(), this->get().end(), [&keys](std::pair<Key, Type> const& value){ keys.add(value.first); });
+            return keys;
+        }
 
-        /// <summary>Gets List of values.</summary>
-        inline List<Type> getValues() const;
+        /// <summary>Gets CppList of values.</summary>
+        inline CppList<Type> values()
+        {
+            CppList<Type> values;
+            std::for_each(this->get().begin(), this->get().end(), [&values](std::pair<Key, Type> const& value){ values.add(value.second); });
+            return values;
+        }
 
         /// <summary>Gets value reference associated with the specified key.</summary>
-        inline Type& operator[] (Key key);
+        inline Type& operator[] (Key const& key)
+        {
+            return this->get()[key];
+        }
 
-        /// <summary>Adds the specified key and value to the Dictionary.</summary>
-        inline void add(Key key, Type value);
+        /// <summary>Adds the specified key and value to the CppDictionary.</summary>
+        inline void add(Key const& key, Type const& value)
+        {
+            this->get().insert(std::pair<Key, Type>(key, value));
+        }
 
-        /// <summary>Removes all keys and values from the Dictionary.</summary>
-        inline void clear();
+        /// <summary>Removes all keys and values from the CppDictionary.</summary>
+        inline void clear()
+        {
+            this->get().clear();
+        }
 
-        /// <summary>Determines whether the Dictionary contains the specified key.</summary>
-        inline bool containsKey(Key key) const;
+        /// <summary>Determines whether the CppDictionary contains the specified key.</summary>
+        inline bool containsKey(Key const& key) const
+        {
+            return (this->get().find(key) != this->get().end());
+        }
 
-        /// <summary>Determines whether the Dictionary contains the specified value.</summary>
-        inline bool containsValue(const Type& value) const;
+        /// <summary>Determines whether the CppDictionary contains the specified value.</summary>
+        inline bool containsValue(const Type& value) const
+        {
+            for (map_type<Key, Type>::iterator iter = this->get().begin(); iter != this->get().end(); iter++)
+            {
+                if (iter->second == value)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
-        /// <summary>Removes the value with the specified key from the Dictionary.</summary>
-        inline bool remove(Key key);
+        /// <summary>Removes the value with the specified key from the CppDictionary.</summary>
+        inline bool remove(Key const& key)
+        {
+            this->get().erase(key);
+        }
 
         /// <summary>Gets the value associated with the specified key.</summary>
-        inline bool TryGetValue(Key key, Type& value);
+        inline bool tryGetValue(Key const& key, Type& value) 
+        {
+            iterator iter = this->get().find(key);
+            if (iter != this->get().end())
+            {
+                value = iter->second;
+                return true;
+            }
+            return false;
+        }
     };
 }
 
