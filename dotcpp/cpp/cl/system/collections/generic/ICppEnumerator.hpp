@@ -219,6 +219,10 @@ namespace cl
             if (iterator_ && c.iterator_)
                 return (*iterator_.get() == *c.iterator_.get());
 
+            // TODO if both is null return true
+            if (!iterator_ && !c.iterator_)
+                return true;
+
             return false;
         }
 

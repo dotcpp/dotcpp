@@ -42,7 +42,7 @@ namespace cl
 
         /// We should get value type from collection type
         template <typename Collection>
-        struct is_container 
+        struct is_container
         {
             typedef null_type type;
             typedef null_type allocator_type;
@@ -52,15 +52,15 @@ namespace cl
         struct container_traits
         {
             typedef Container container_type;
-            typedef typename 
+            typedef typename
                 container_type::iterator iterator_type;
 
-            typedef typename 
+            typedef typename
                 container_type::const_iterator const_iterator_type;
         };
 
         template <typename ValueType, typename Allocator>
-        struct is_container <std::vector<ValueType, Allocator> > 
+        struct is_container <std::vector<ValueType, Allocator> >
             : container_traits<std::vector<ValueType, Allocator>>
         {
             typedef ValueType type;
@@ -68,7 +68,7 @@ namespace cl
         };
 
         template <typename ValueType, typename Allocator>
-        struct is_container <std::deque<ValueType, Allocator> > 
+        struct is_container <std::deque<ValueType, Allocator> >
             : container_traits<std::deque<ValueType, Allocator> >
         {
             typedef ValueType type;
@@ -76,7 +76,7 @@ namespace cl
         };
 
         template <typename ValueType, typename Allocator>
-        struct is_container <std::list<ValueType, typename Allocator> > 
+        struct is_container <std::list<ValueType, typename Allocator> >
             : container_traits<std::list<ValueType, Allocator> >
         {
             typedef ValueType type;
@@ -92,7 +92,7 @@ namespace cl
         };
 
         template <typename Key, typename ValueType, typename Pred, typename Allocator>
-        struct is_container <std::map<Key, ValueType, Pred, Allocator> > 
+        struct is_container <std::map<Key, ValueType, Pred, Allocator> >
             : container_traits<std::map<ValueType, Allocator> >
         {
             typedef std::pair<Key const, ValueType> type;
@@ -164,15 +164,23 @@ namespace cl
     class ICppEnumerable
     {
     public: // METHODS
+        struct ref_counter_functional {};
+                
+        template <typename Other_>
+        ICppEnumerable(Other_) {}
 
         template <typename Container>
-        inline void 
+        inline void
         set_container(std::shared_ptr<Container > cnt)
         {
         }
 
         /// (ICppEnumerable) Returns an enumerator that iterates through the Container.
-        virtual cl::ICppEnumerator<T> GetEnumerator() = 0;
+        virtual cl::ICppEnumerator<T> getEnumerator()
+        {
+            throw std::runtime_error("Not implemented.");
+        }
+
         virtual ~ICppEnumerable()   { }
     protected:
         ICppEnumerable() = default;
@@ -215,17 +223,17 @@ namespace cl
             ///<summary> Method returns Enumerator contains start iterator
             /// for std Container </summary>
             inline cl::ICppEnumerator<value_type >
-            GetEnumerator()
+            getEnumerator()
             {
-                // accessory to the base std accessor class 
-                // we need save it to provide releasable iterators  
+                // accessory to the base std accessor class
+                // we need save it to provide releasable iterators
                 return cl::ICppEnumerator<value_type>(c_->begin());
             }
 
-            //   Native functionality implementation 
+            //   Native functionality implementation
             // we should implement it for functionality like std::for_each for each etc
-            // also we should provide ratainable functionality 
-            
+            // also we should provide ratainable functionality
+
             ///<summary> begin std iterator method
             /// should return the start pointer to begin Container </summary>
             inline typename Iterable::iterator
@@ -386,47 +394,45 @@ namespace cl
                 , "This type should contains value base for enumerator");
 
             std_accessor_() : Enumerable(std::ref(c_))
-            {
-
-            }
+            {}
 
             //! begin std iterator method
             //! should return the start pointer to begin Container
             inline typename Iterable::iterator
                 begin()
             {
-                    return c_.begin();
-                }
+                return c_.begin();
+            }
 
             // Last iterator
             inline typename Iterable::iterator
                 end()
             {
-                    return c_.end();
-                }
+                return c_.end();
+            }
 
             //! begin std iterator method
             //! should return the start pointer to begin Container
             inline typename Iterable::const_iterator
                 begin() const
             {
-                    return c_.begin();
-                }
+                return c_.begin();
+            }
 
             // Last iterator
             inline typename Iterable::const_iterator
                 end() const
             {
-                    return c_.end();
-                }
+                return c_.end();
+            }
 
             //! Method returns Enumerator contains start iterator
             //! for std collection
             inline EnumeratorType
                 GetEnumerator()
             {
-                    return EnumeratorType(c_.begin());
-                }
+                return EnumeratorType(c_.begin());
+            }
 
             //  Should return the instance of std type
             // as an constant reference
