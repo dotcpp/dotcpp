@@ -42,27 +42,42 @@ namespace cl
 
         /// We should get value type from collection type
         template <typename Collection>
-        struct is_collection {
+        struct is_collection 
+        {
             typedef null_type type;
             typedef null_type allocator_type;
         };
 
+        template <typename Container>
+        struct container_traits
+        {
+            typedef Container container_type;
+            typedef typename 
+                container_type::iterator iterator_type;
+
+            typedef typename 
+                container_type::const_iterator const_iterator_type;
+        };
+
         template <typename ValueType, typename Allocator>
-        struct is_collection <std::vector<ValueType, Allocator> >
+        struct is_collection <std::vector<ValueType, Allocator> > 
+            : container_traits<std::vector<ValueType, Allocator>>
         {
             typedef ValueType type;
             typedef Allocator allocator_type;
         };
 
         template <typename ValueType, typename Allocator>
-        struct is_collection <std::deque<ValueType, Allocator> >
+        struct is_collection <std::deque<ValueType, Allocator> > 
+            : container_traits<std::deque<ValueType, Allocator> >
         {
             typedef ValueType type;
             typedef Allocator allocator_type;
         };
 
         template <typename ValueType, typename Allocator>
-        struct is_collection <std::list<ValueType, typename Allocator> >
+        struct is_collection <std::list<ValueType, typename Allocator> > 
+            : container_traits<std::list<ValueType, Allocator> >
         {
             typedef ValueType type;
             typedef Allocator allocator_type;
@@ -70,13 +85,15 @@ namespace cl
 
         template <typename ValueType, typename Pred, typename Allocator>
         struct is_collection<stdext::hash_set<ValueType, Pred, Allocator> >
+            : container_traits<std::hash_set<ValueType, Allocator> >
         {
             typedef ValueType type;
             typedef Allocator allocator_type;
         };
 
         template <typename Key, typename ValueType, typename Pred, typename Allocator>
-        struct is_collection <std::map<Key, ValueType, Pred, Allocator> >
+        struct is_collection <std::map<Key, ValueType, Pred, Allocator> > 
+            : container_traits<std::map<ValueType, Allocator> >
         {
             typedef std::pair<Key const, ValueType> type;
             typedef Allocator allocator_type;
@@ -84,6 +101,7 @@ namespace cl
 
         template <typename Key, typename ValueType, typename Pred, typename Allocator>
         struct is_collection<stdext::hash_map<Key, ValueType, Pred, Allocator> >
+            : container_traits<std::hash_map<ValueType, Allocator> >
         {
             typedef std::pair<Key const, ValueType> type;
             typedef Allocator allocator_type;
@@ -159,11 +177,11 @@ namespace cl
 
         /// (ICppEnumerable) Returns an enumerator that iterates through the collection.
         virtual cl::ICppEnumerator<T> GetEnumerator() = 0;
-
+        virtual ~ICppEnumerable()   { }
     protected:
         ICppEnumerable() = default;
     protected:
-        std::unique_ptr<std_accessor_base<T > > accessor_;
+        std::shared_ptr<std_accessor_base<T > > accessor_;
     };
 
     //! The key value type
@@ -183,11 +201,14 @@ namespace cl
     namespace detail
     {
         template <typename Enumerable, typename Iterable >
-        class std_accessor_ : public Enumerable
+        class std_accessor_ : public Enumerable, public is_collection<Iterable >
         {
         public:
             typedef typename
                 detail::is_collection<Iterable>::type value_type;
+
+            typedef typename
+                detail::is_collection<Iterable>::iterator_type iterator;
 
             typedef Iterable std_base;
 

@@ -43,7 +43,7 @@ namespace cl
 
         /// <summary>Take ownership of raw pointer to template argument type.\\
         /// This also permits construction from null pointer.</summary>
-        CppPtr(T* ptr);
+        CppPtr(T* ptr = 0);
 
         /// <summary>Create from pointer to template argument base type.\\
         /// Shares reference count with argument.</summary>
