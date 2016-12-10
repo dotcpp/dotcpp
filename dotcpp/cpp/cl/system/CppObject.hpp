@@ -33,7 +33,7 @@ namespace cl
     class CppString;
 
     /// <summary>This is the ultimate base class of all classes with reference semantics.
-    /// It works with Ptr to provide an emulation of reference semantics in C++.\\
+    /// It works with CppPtr to provide an emulation of reference semantics in C++.\\
     /// For performance reasons, classes with value semantics are not derived from this type.</summary>
     class CL_SYSTEM CppObject
     {
@@ -45,7 +45,7 @@ namespace cl
     protected: // DESTRUCTOR
 
         /// <summary>Virtual destructor to ensure that destructor
-        /// of the derived type is called by Ptr.</summary>
+        /// of the derived type is called by CppPtr.</summary>
         virtual ~CppObject() = default;
 
     public: // METHODS

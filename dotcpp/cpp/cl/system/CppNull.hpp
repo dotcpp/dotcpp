@@ -29,7 +29,7 @@ limitations under the License.
 namespace cl
 {
     /// <summary>Helper type to enable comparison and assignment to null pointer.
-    /// This object cannot be created, therefore any pointer to Null is null.</summary>
+    /// This object cannot be created, therefore any pointer to CppNull is null.</summary>
     class CppNull
     {
     private:

@@ -25,7 +25,7 @@ limitations under the License.
 #define __cl_system_collections_generic_ICppEnumerator_hpp__
 
 #if defined DEBUG
-#   define CHECK_TYPE_CAST(type_2, expr_from) \
+#   define CHECK_TYPE_CAST(type_2, expr_from)       \
         ASSERT(dynamic_cast<type_2>(expr_From))
 #else
 #   define CHECK_TYPE_CAST(type_2, expr_from)
@@ -35,8 +35,8 @@ limitations under the License.
 
 namespace cl
 {
-    namespace detail
-    {
+    namespace detail {
+
         template <typename T>
         struct std_iterator_base
         {
@@ -144,39 +144,41 @@ namespace cl
         }
     }
 
-    //!! Replace by header inclusion
-    class Bool {};
+    class CppBool {};
 
-    /// <summary>Supports a simple iteration over a generic collection.</summary>
+    /// Supports a simple iteration over a generic collection.
     template <class T>
     class ICppEnumerator
         : std::random_access_iterator_tag
     {
     public: // METHODS
-
         typedef std::unique_ptr<detail::std_iterator_base<T > > iterator_type;
 
+        // should be null
+        ICppEnumerator() = default;
+
+        //! Explicit constructor to converable from any other
         template <typename Iterator>
         explicit ICppEnumerator(Iterator const& iter)
             : iterator_(detail::make_iterator(iter))
         {   }
 
-        /// <summary>Gets the element in the collection at the current position of the enumerator.</summary>
+        /// Gets the element in the collection at the current position of the enumerator.
         /// TODO can be reference
         std::reference_wrapper<T> current()
         {
             return iterator_->get();
         }
 
-        /// <summary>Advances the enumerator to the next element of the collection.\\
+        /// Advances the enumerator to the next element of the collection.\\
         /// Returns true if the enumerator was successfully advanced to the next element;
-        /// false if the enumerator has passed the end of the collection.</summary>
-        Bool moveNext()
+        /// false if the enumerator has passed the end of the collection.
+        CppBool moveNext()
         {
-            return Bool();
+            return CppBool();
         }
 
-        /// <summary>Sets the enumerator to its initial position, which is before the first element in the collection.</summary>
+        /// Sets the enumerator to its initial position, which is before the first element in the collection.
         void reset()
         {}
 
@@ -203,15 +205,13 @@ namespace cl
             return iterator_->get();
         }
 
-    protected:
-        ICppEnumerator() = default;
     private:
         inline detail::std_iterator_base<T > const& i_() const
         {
             return
         }
     public:
-        /// <summary> </summary>
+        ///
         inline bool
         compare(cl::ICppEnumerator<T> const& c) const
         {
@@ -222,7 +222,10 @@ namespace cl
             return false;
         }
     public:
+        //static CppPtr<ICppEnumerator<T>> create() { throw ClEx("Attempting to create an instance of abstract type."); }
+
         std::unique_ptr<detail::std_iterator_base<T > > iterator_;
+
     };
 
     template <typename Type>

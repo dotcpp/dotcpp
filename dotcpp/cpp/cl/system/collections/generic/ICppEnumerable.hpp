@@ -26,6 +26,8 @@ limitations under the License.
 
 #include <vector>
 #include <list>
+#include <hash_map>
+#include <hash_set>
 
 #include <cl/system/declare.hpp>
 #include <cl/system/collections/generic/ICppEnumerator.hpp>
@@ -34,10 +36,10 @@ namespace cl
 {
     namespace detail
     {
-        struct empty_type {};
+        struct empty_type{};
         struct null_type;
 
-        /// To get value type from collection type
+        /// We should get value type from collection type
         template <typename Collection>
         struct is_collection {
             typedef null_type type;
@@ -64,7 +66,46 @@ namespace cl
             typedef ValueType type;
             typedef Allocator allocator_type;
         };
+
+        template <typename ValueType, typename Pred, typename Allocator>
+        struct is_collection<stdext::hash_set<ValueType, Pred, Allocator> >
+        {
+            typedef ValueType type;
+            typedef Allocator allocator_type;
+        };
+
+        template <typename Key, typename ValueType, typename Pred, typename Allocator>
+        struct is_collection <std::map<Key, ValueType, Pred, Allocator> >
+        {
+            typedef std::pair<Key const, ValueType> type;
+            typedef Allocator allocator_type;
+        };
+
+        template <typename Key, typename ValueType, typename Pred, typename Allocator>
+        struct is_collection<stdext::hash_map<Key, ValueType, Pred, Allocator> >
+        {
+            typedef std::pair<Key const, ValueType> type;
+            typedef Allocator allocator_type;
+        };
+
+
+
+        // The holder remover
+        template <typename Type>
+        struct remove_holder
+        {
+            typedef Type type;
+            enum { value = 0 };
+        };
+
+        template <template <typename > class Holder, typename Type>
+        struct remove_holder <Holder<Type> >
+        {
+            typedef Type type;
+            enum { value = 1 };
+        };
     }
+
 
     template <class T> class ICppEnumerator;
 
@@ -74,6 +115,9 @@ namespace cl
     template <typename T>
     struct std_accessor_base
     {
+        /*virtual ICppEnumerator<T> begin() = 0;
+        virtual ICppEnumerator<T> end() = 0;*/
+
         template <typename CollectionType>
         inline std_accessor<CollectionType >& cast();
     };
@@ -101,8 +145,8 @@ namespace cl
         static_assert(std::is_same<request_value_type, T>::value, "This is not converted collections type");
     }
 
-    /// <summary>Exposes the enumerator, which supports a simple
-    /// iteration over a collection of a specified type.</summary>
+
+    /// Exposes the enumerator, which supports a simple iteration over a collection of a specified type.
     template <class T>
     class ICppEnumerable
     {
@@ -110,15 +154,31 @@ namespace cl
         template <typename Collection>
         explicit ICppEnumerable(std::reference_wrapper<Collection > coll)
             : accessor_(new std_accessor<Collection>(coll))
-        {}
+        {  }
 
-        /// <summary>(IEnumerable) Returns an enumerator that iterates through the collection.</summary>
+        /// (ICppEnumerable) Returns an enumerator that iterates through the collection.
         virtual cl::ICppEnumerator<T> GetEnumerator() = 0;
 
     protected:
         ICppEnumerable() = default;
+    public:
+        // static CppPtr<ICppEnumerable<T>> create() { throw ClEx("Attempting to create an instance of abstract type."); }
     protected:
         std::unique_ptr<std_accessor_base<T > > accessor_;
+    };
+
+    //! The key value type
+    // Currenlty we use type to rforward to std::pair
+    // in next step we'll use our type friendly and convertible to pair
+    template <typename Key, typename Value>
+    class KeyValuePair : public std::pair<Key const, Value>
+    {
+    public:
+        typedef std::pair<Key const, Value> base;
+        KeyValuePair() : base()
+        {   }
+
+        typedef std::pair<Key const, Value> type;
     };
 
     namespace detail
@@ -133,32 +193,32 @@ namespace cl
             typedef Iterable std_base;
 
             std_accessor_() : Enumerable(std::ref(c_))
-            {
+            {}
 
-            }
-
-            //! Beginning position of non-constant iterator
+            //! begin std iterator method
+            //! should return the start pointer to begin collection
             inline typename Iterable::iterator
             begin()
             {
                 return c_.begin();
             }
 
-            //! Ending position of non-constant iterator
+            // Last iterator
             inline typename Iterable::iterator
             end()
             {
                 return c_.end();
             }
 
-            //! Beginning position of constant iterator
+            //! begin std iterator method
+            //! should return the start pointer to begin collection
             inline typename Iterable::const_iterator
             begin() const
             {
                 return c_.begin();
             }
 
-            //! Ending position of constant iterator
+            // Last iterator
             inline typename Iterable::const_iterator
             end() const
             {
@@ -166,20 +226,23 @@ namespace cl
             }
 
 
-            //! Returns Enumerator for the beginning position
+            //! Method returns Enumerator contains start iterator
+            //! for std collection
             inline cl::ICppEnumerator<value_type >
             GetEnumerator()
             {
                 return cl::ICppEnumerator<value_type>(c_.begin());
             }
 
-            //! Returns the enclosed STL container as constant reference
+            //  Should return the instance of std type
+            // as an constant reference
             inline std_base const& get() const
             {
                 return this->c_;
             }
 
-            //! Returns the enclosed STL container as non-constant reference
+            //  Should return the instance of std type
+            // as an not constant reference
             inline std_base& get()
             {
                 return this->c_;
@@ -187,6 +250,176 @@ namespace cl
 
             Iterable c_;
         };
+
+        ///  The class specialization for dictionary
+        template <typename Enumerable, typename Type, typename Key, typename Pred, typename Allocator>
+        class std_accessor_<Enumerable, std::map<Type, Key, Pred, Allocator> >
+                : public Enumerable
+        {
+        public:
+            typedef Type        value_type;
+            typedef Key         key_type;
+            typedef Pred        pred_type;
+            typedef Allocator   allocator;
+
+            typedef std::map<Type, Key, Pred, Allocator> Iterable;
+            typedef Iterable std_base;
+
+            // I'll try to return it
+            // typedef decltype(*((Enumerable*)0).GetEnumerator()) enumerator_value_type;
+
+            // Enumerator type
+            // should be returned by remove holder
+            typedef cl::ICppEnumerator<typename
+                detail::remove_holder<Enumerable>::type > EnumeratorType;
+
+            static_assert (detail::remove_holder<Enumerable>::value
+                , "This type should contains value base for enumerator");
+
+            std_accessor_() : Enumerable(std::ref(c_))
+            {
+
+            }
+
+            //! begin std iterator method
+            //! should return the start pointer to begin collection
+            inline typename Iterable::iterator
+            begin()
+            {
+                return c_.begin();
+            }
+
+            // Last iterator
+            inline typename Iterable::iterator
+            end()
+            {
+                return c_.end();
+            }
+
+            //! begin std iterator method
+            //! should return the start pointer to begin collection
+            inline typename Iterable::const_iterator
+            begin() const
+            {
+                return c_.begin();
+            }
+
+            // Last iterator
+            inline typename Iterable::const_iterator
+            end() const
+            {
+                return c_.end();
+            }
+
+            //! Method returns Enumerator contains start iterator
+            //! for std collection
+            inline EnumeratorType
+            GetEnumerator()
+            {
+                return EnumeratorType(c_.begin());
+            }
+
+            //  Should return the instance of std type
+            // as an constant reference
+            inline std_base const& get() const
+            {
+                return this->c_;
+            }
+
+            //  Should return the instance of std type
+            // as an not constant reference
+            inline std_base& get()
+            {
+                return this->c_;
+            }
+
+            Iterable c_;
+        };
+
+        ///  The class specialization for hash_set
+        template <typename Enumerable, typename Type, typename Pred, typename Allocator>
+        class std_accessor_<Enumerable, stdext::hash_set<Type, Pred, Allocator> >
+            : public Enumerable
+        {
+        public:
+            typedef Type        value_type;
+            typedef Pred        pred_type;
+            typedef Allocator   allocator;
+
+            typedef stdext::hash_set<Type, Pred, Allocator> Iterable;
+            typedef Iterable std_base;
+
+            // I'll try to return it
+            // typedef decltype(*((Enumerable*)0).GetEnumerator()) enumerator_value_type;
+
+            // Enumerator type
+            // should be returned by remove holder
+            typedef cl::ICppEnumerator<typename
+                detail::remove_holder<Enumerable>::type > EnumeratorType;
+
+            static_assert (detail::remove_holder<Enumerable>::value
+                , "This type should contains value base for enumerator");
+
+            std_accessor_() : Enumerable(std::ref(c_))
+            {
+
+            }
+
+            //! begin std iterator method
+            //! should return the start pointer to begin collection
+            inline typename Iterable::iterator
+                begin()
+            {
+                    return c_.begin();
+                }
+
+            // Last iterator
+            inline typename Iterable::iterator
+                end()
+            {
+                    return c_.end();
+                }
+
+            //! begin std iterator method
+            //! should return the start pointer to begin collection
+            inline typename Iterable::const_iterator
+                begin() const
+            {
+                    return c_.begin();
+                }
+
+            // Last iterator
+            inline typename Iterable::const_iterator
+                end() const
+            {
+                    return c_.end();
+                }
+
+            //! Method returns Enumerator contains start iterator
+            //! for std collection
+            inline EnumeratorType
+                GetEnumerator()
+            {
+                    return EnumeratorType(c_.begin());
+                }
+
+            //  Should return the instance of std type
+            // as an constant reference
+            inline std_base const& get() const
+            {
+                return this->c_;
+            }
+
+            //  Should return the instance of std type
+            // as an not constant reference
+            inline std_base& get()
+            {
+                return this->c_;
+            }
+
+            Iterable c_;
+        };
+
     }
 }
 

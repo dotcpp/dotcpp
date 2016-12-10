@@ -28,7 +28,7 @@ limitations under the License.
 
 namespace cl
 {
-    class Char;
+    class CppChar;
     class CppObject;
     template <class T> class CppArray;
     enum class CppStringSplitOptions;
@@ -46,7 +46,7 @@ namespace cl
     public: // CONSTRUCTORS
         
         /// <summary>Create from a single Unicode character.</summary>
-        CppString(const Char& value);
+        CppString(const CppChar& value);
 
         /// <summary>Create from std::string.</summary>
         CppString(const std::string& value) : value_(value) {}
@@ -99,7 +99,7 @@ namespace cl
 
     public: // STATIC
 
-        /// <summary>Concatenates the elements of a specified String array.</summary>
+        /// <summary>Concatenates the elements of a specified CppString array.</summary>
         static CppString concat(const CppArray<CppString>& values);
 
         /// <summary>Replaces the format item (e.g. {0}, {1}, etc.) in a specified string

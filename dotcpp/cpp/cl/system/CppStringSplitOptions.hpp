@@ -28,7 +28,7 @@ limitations under the License.
 
 namespace cl
 {
-    /// <summary>Specifies whether applicable String.split(...) method overloads
+    /// <summary>Specifies whether applicable CppString.split(...) method overloads
     /// include or omit empty substrings from the return value.</summary>
     enum class CL_SYSTEM CppStringSplitOptions : int
     {
