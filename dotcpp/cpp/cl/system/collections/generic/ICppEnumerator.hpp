@@ -24,7 +24,7 @@ limitations under the License.
 #ifndef __cl_system_collections_generic_ICppEnumerator_hpp__
 #define __cl_system_collections_generic_ICppEnumerator_hpp__
 
-#if defined DEBUG 
+#if defined DEBUG
 #   define CHECK_TYPE_CAST(type_2, expr_from)       \
         ASSERT(dynamic_cast<type_2>(expr_From))
 #else
@@ -35,7 +35,7 @@ limitations under the License.
 
 namespace cl
 {
-    namespace detail {  
+    namespace detail {
 
         template <typename T>
         struct std_iterator_base
@@ -57,25 +57,25 @@ namespace cl
             virtual std::reference_wrapper<T> const
                 get() const = 0;
 
-            inline bool 
+            inline bool
             operator == (std_iterator_base<T> const& iter)
             {
                 return this->compare(iter) == 0;
             }
 
-            inline bool 
+            inline bool
             operator > (std_iterator_base<T> const& iter)
             {
                 return this->compare(iter) > 0;
             }
 
-            inline bool 
+            inline bool
             operator < (std_iterator_base<T> const& iter)
             {
                 return this->compare(iter) < 0;
             }
         private:
-            /// this is actually similar compare string if equals = 0  
+            /// this is actually similar compare string if equals = 0
             /// if this < cmp -> rslt < 0 : this > cmp -> rslt > 0
             virtual int compare(std_iterator_base<T> const&, bool only_equals = true) = 0;
         };
@@ -89,32 +89,32 @@ namespace cl
 
         template <typename Iterator>
         struct std_iterator : std_iterator_base<
-                                typename std::remove_reference<decltype(Iterator(). operator*()) >::type 
+                                typename std::remove_reference<decltype(Iterator(). operator*()) >::type
                             >
         {
-            typedef typename 
+            typedef typename
                 std::remove_reference<decltype(Iterator(). operator*()) >::type value_type;
 
             typedef std_iterator_base<value_type> base;
 
-            std_iterator(Iterator const& iter) 
+            std_iterator(Iterator const& iter)
                 : iter_(iter)
             {   }
 
-            virtual std_iterator_base& operator++ ()  { 
+            virtual std_iterator_base& operator++ ()  {
                 ++iter_;
                 return *this;
             }
 
-            virtual std::unique_ptr<base> copy() 
+            virtual std::unique_ptr<base> copy()
             {
                 std::unique_ptr<base> old(make_iterator(iter_));
                 return old;
             }
 
             virtual std::reference_wrapper<value_type>
-            get() 
-            { 
+            get()
+            {
                 return std::reference_wrapper<value_type >(*iter_);
             }
 
@@ -128,7 +128,7 @@ namespace cl
             {
                 CHECK_TYPE_CAST(std_iterator<Iterator> const&, cmp);
                 Iterator const& oth = static_cast<std_iterator<Iterator> const&>(cmp).iter_;
-                return only_equals ? 
+                return only_equals ?
                     (int)!(oth == this->iter_) : (false/*iter_ > oth*/ ? 1 : -((int)(oth == this->iter_)));
             }
 
@@ -147,7 +147,7 @@ namespace cl
     class CppBool {};
 
     /// Supports a simple iteration over a generic collection.
-	template <class T>
+    template <class T>
     class ICppEnumerator
         : std::random_access_iterator_tag
     {
@@ -157,16 +157,16 @@ namespace cl
         // should be null
         ICppEnumerator() = default;
 
-        //! Explicit constructor to converable from any other 
+        //! Explicit constructor to converable from any other
         template <typename Iterator>
         explicit ICppEnumerator(Iterator const& iter)
             : iterator_(detail::make_iterator(iter))
         {   }
 
-        ///	Gets the element in the collection at the current position of the enumerator.
-		/// TODO can be reference 
+        /// Gets the element in the collection at the current position of the enumerator.
+        /// TODO can be reference
         std::reference_wrapper<T> current()
-        {  
+        {
             return iterator_->get();
         }
 
@@ -179,25 +179,25 @@ namespace cl
         }
 
         /// Sets the enumerator to its initial position, which is before the first element in the collection.
-        void reset() 
+        void reset()
         {}
-        
+
         inline ICppEnumerator<T>& operator ++()
         {
             ++(*iterator_);
             return *this;
         }
 
-        inline ICppEnumerator<T> operator ++(int) 
-        { 
+        inline ICppEnumerator<T> operator ++(int)
+        {
             ICppEnumerator<T> old(iterator_->copy());
             this->operator ++();
-            return old; 
+            return old;
         }
-        
-        std::reference_wrapper<T> operator*() 
-        { 
-            return iterator_->get(); 
+
+        std::reference_wrapper<T> operator*()
+        {
+            return iterator_->get();
         }
 
         std::reference_wrapper<T> const operator*() const
@@ -206,16 +206,16 @@ namespace cl
         }
 
     private:
-        inline detail::std_iterator_base<T > const& i_() const  
+        inline detail::std_iterator_base<T > const& i_() const
         {
-            return 
+            return
         }
     public:
-        ///  
-        inline bool 
+        ///
+        inline bool
         compare(cl::ICppEnumerator<T> const& c) const
         {
-            // we should compare 
+            // we should compare
             if (iterator_ && c.iterator_)
                 return (*iterator_.get() == *c.iterator_.get());
 
@@ -230,7 +230,7 @@ namespace cl
 
     template <typename Type>
     inline bool operator == (cl::ICppEnumerator<Type> const& left
-        , cl::ICppEnumerator<Type> const& right)   
+        , cl::ICppEnumerator<Type> const& right)
     {
         return left.compare(right);
     }

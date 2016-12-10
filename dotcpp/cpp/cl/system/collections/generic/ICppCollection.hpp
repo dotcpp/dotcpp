@@ -31,23 +31,21 @@ namespace cl
 {
     template <class T> class CppArray;
 
-    /// Generic collection interface.
+    /// <summary>Generic collection interface.</summary>
     template <class T>
     class ICppCollection : public ICppEnumerable<T>
     {
     public: // METHODS
 
-        /// (ICppCollection) Number of elements contained in the collection.
+        /// <summary>(ICollection) Number of elements contained in the collection.</summary>
         virtual int count() = 0;
 
-        /// (ICppCollection) Copies the elements of the ICollection(T)
-        /// to a CppArray, starting at the specified CppArray index.
+        /// <summary>(ICollection) Copies the elements of the ICollection(T)
+        /// to a Array, starting at the specified Array index.</summary>
         virtual void copyTo(CppArray<T> array, int arrayIndex) = 0;
 
     protected:
         ICppCollection() = default;
-    public:
-        //static CppPtr<ICppCollection<T>> create() { throw ClEx("Attempting to create an instance of abstract type."); }
     };
 }
 
