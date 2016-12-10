@@ -116,8 +116,9 @@ namespace cl
         return strA.value_.compare(strB.value_);
     }
 
-    int CppString::compare(const CppString& strA, int indexA, const CppString& strB, int indexB, int length)
+    int CppString::compare(CppString const& strA, int indexA, const CppString& strB, int indexB, int length)
     {
+#pragma message ("Fix recursive call: CppString (char ) callable from int indexA call itself, should be value_.compare")
         return strA.compare(indexA, length, strB, indexB, length);
     }
 
