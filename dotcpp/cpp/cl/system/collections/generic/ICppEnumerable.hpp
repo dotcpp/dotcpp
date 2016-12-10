@@ -42,7 +42,7 @@ namespace cl
 
         /// We should get value type from collection type
         template <typename Collection>
-        struct is_collection 
+        struct is_container 
         {
             typedef null_type type;
             typedef null_type allocator_type;
@@ -60,7 +60,7 @@ namespace cl
         };
 
         template <typename ValueType, typename Allocator>
-        struct is_collection <std::vector<ValueType, Allocator> > 
+        struct is_container <std::vector<ValueType, Allocator> > 
             : container_traits<std::vector<ValueType, Allocator>>
         {
             typedef ValueType type;
@@ -68,7 +68,7 @@ namespace cl
         };
 
         template <typename ValueType, typename Allocator>
-        struct is_collection <std::deque<ValueType, Allocator> > 
+        struct is_container <std::deque<ValueType, Allocator> > 
             : container_traits<std::deque<ValueType, Allocator> >
         {
             typedef ValueType type;
@@ -76,7 +76,7 @@ namespace cl
         };
 
         template <typename ValueType, typename Allocator>
-        struct is_collection <std::list<ValueType, typename Allocator> > 
+        struct is_container <std::list<ValueType, typename Allocator> > 
             : container_traits<std::list<ValueType, Allocator> >
         {
             typedef ValueType type;
@@ -84,7 +84,7 @@ namespace cl
         };
 
         template <typename ValueType, typename Pred, typename Allocator>
-        struct is_collection<stdext::hash_set<ValueType, Pred, Allocator> >
+        struct is_container<stdext::hash_set<ValueType, Pred, Allocator> >
             : container_traits<std::hash_set<ValueType, Allocator> >
         {
             typedef ValueType type;
@@ -92,7 +92,7 @@ namespace cl
         };
 
         template <typename Key, typename ValueType, typename Pred, typename Allocator>
-        struct is_collection <std::map<Key, ValueType, Pred, Allocator> > 
+        struct is_container <std::map<Key, ValueType, Pred, Allocator> > 
             : container_traits<std::map<ValueType, Allocator> >
         {
             typedef std::pair<Key const, ValueType> type;
@@ -100,7 +100,7 @@ namespace cl
         };
 
         template <typename Key, typename ValueType, typename Pred, typename Allocator>
-        struct is_collection<stdext::hash_map<Key, ValueType, Pred, Allocator> >
+        struct is_container<stdext::hash_map<Key, ValueType, Pred, Allocator> >
             : container_traits<std::hash_map<ValueType, Allocator> >
         {
             typedef std::pair<Key const, ValueType> type;
@@ -134,32 +134,26 @@ namespace cl
     template <typename T>
     struct std_accessor_base
     {
-        /*virtual ICppEnumerator<T> begin() = 0;
-        virtual ICppEnumerator<T> end() = 0;*/
-
         template <typename CollectionType>
         inline std_accessor<CollectionType >& cast();
     };
 
     template <typename Collection>
-    struct std_accessor : std_accessor_base <typename detail::is_collection<Collection>::type>
+    struct std_accessor : std_accessor_base <typename detail::is_container<Collection>::type>
     {
         typedef typename
-        detail::is_collection<Collection>::type value_type;
+        detail::is_container<Collection>::type value_type;
 
-        std_accessor(std::reference_wrapper<Collection > const& c)
-                : c_(c)
+        std_accessor()
         {   }
-
-        std::reference_wrapper<Collection > c_;
     };
 
     template <typename T>
-    template <typename CollectionType>
-    inline std_accessor<CollectionType >& std_accessor_base<T>::cast()
+    template <typename Conatiner>
+    inline std_accessor<Conatiner >& std_accessor_base<T>::cast()
     {
         typedef typename
-            detail::is_collection<CollectionType>::type request_value_type;
+            detail::is_container<Conatiner>::type request_value_type;
 
         static_assert(std::is_same<request_value_type, T>::value, "This is not converted collections type");
     }
@@ -170,18 +164,18 @@ namespace cl
     class ICppEnumerable
     {
     public: // METHODS
-        template <typename Collection>
-        explicit ICppEnumerable(std::reference_wrapper<Collection > coll)
-            : accessor_(new std_accessor<Collection>(coll))
-        {  }
 
-        /// (ICppEnumerable) Returns an enumerator that iterates through the collection.
+        template <typename Container>
+        inline void 
+        set_container(std::shared_ptr<Container > cnt)
+        {
+        }
+
+        /// (ICppEnumerable) Returns an enumerator that iterates through the Container.
         virtual cl::ICppEnumerator<T> GetEnumerator() = 0;
         virtual ~ICppEnumerable()   { }
     protected:
         ICppEnumerable() = default;
-    protected:
-        std::shared_ptr<std_accessor_base<T > > accessor_;
     };
 
     //! The key value type
@@ -201,74 +195,85 @@ namespace cl
     namespace detail
     {
         template <typename Enumerable, typename Iterable >
-        class std_accessor_ : public Enumerable, public is_collection<Iterable >
+        class std_accessor_ : public Enumerable, public is_container<Iterable >
         {
         public:
             typedef typename
-                detail::is_collection<Iterable>::type value_type;
+                detail::is_container<Iterable>::type value_type;
 
             typedef typename
-                detail::is_collection<Iterable>::iterator_type iterator;
+                detail::is_container<Iterable>::iterator_type iterator;
 
             typedef Iterable std_base;
 
-            std_accessor_() : Enumerable(std::ref(c_))
-            {}
+            std_accessor_() : Enumerable()
+                , c_(new Iterable())
+            {
+                Enumerable::set_container(c_);
+            }
 
-            //! begin std iterator method
-            //! should return the start pointer to begin collection
+            ///<summary> Method returns Enumerator contains start iterator
+            /// for std Container </summary>
+            inline cl::ICppEnumerator<value_type >
+            GetEnumerator()
+            {
+                // accessory to the base std accessor class 
+                // we need save it to provide releasable iterators  
+                return cl::ICppEnumerator<value_type>(c_->begin());
+            }
+
+            //   Native functionality implementation 
+            // we should implement it for functionality like std::for_each for each etc
+            // also we should provide ratainable functionality 
+            
+            ///<summary> begin std iterator method
+            /// should return the start pointer to begin Container </summary>
             inline typename Iterable::iterator
             begin()
             {
-                return c_.begin();
+                return get().begin();
             }
 
             // Last iterator
             inline typename Iterable::iterator
             end()
             {
-                return c_.end();
+                return get().end();
             }
 
             //! begin std iterator method
-            //! should return the start pointer to begin collection
+            //! should return the start pointer to begin Container
             inline typename Iterable::const_iterator
             begin() const
             {
-                return c_.begin();
+                return get().begin();
             }
 
             // Last iterator
             inline typename Iterable::const_iterator
             end() const
             {
-                return c_.end();
+                return get().end();
             }
 
-
-            //! Method returns Enumerator contains start iterator
-            //! for std collection
-            inline cl::ICppEnumerator<value_type >
-            GetEnumerator()
-            {
-                return cl::ICppEnumerator<value_type>(c_.begin());
-            }
 
             //  Should return the instance of std type
             // as an constant reference
             inline std_base const& get() const
             {
-                return this->c_;
+                assert(this->c_);
+                return *this->c_.get();
             }
 
             //  Should return the instance of std type
             // as an not constant reference
             inline std_base& get()
             {
-                return this->c_;
+                assert(this->c_);
+                return *this->c_.get();
             }
 
-            Iterable c_;
+            std::shared_ptr<Iterable> c_;
         };
 
         ///  The class specialization for dictionary
@@ -302,7 +307,7 @@ namespace cl
             }
 
             //! begin std iterator method
-            //! should return the start pointer to begin collection
+            //! should return the start pointer to begin Container
             inline typename Iterable::iterator
             begin()
             {
@@ -317,7 +322,7 @@ namespace cl
             }
 
             //! begin std iterator method
-            //! should return the start pointer to begin collection
+            //! should return the start pointer to begin Container
             inline typename Iterable::const_iterator
             begin() const
             {
@@ -332,7 +337,7 @@ namespace cl
             }
 
             //! Method returns Enumerator contains start iterator
-            //! for std collection
+            //! for std Container
             inline EnumeratorType
             GetEnumerator()
             {
@@ -386,7 +391,7 @@ namespace cl
             }
 
             //! begin std iterator method
-            //! should return the start pointer to begin collection
+            //! should return the start pointer to begin Container
             inline typename Iterable::iterator
                 begin()
             {
@@ -401,7 +406,7 @@ namespace cl
                 }
 
             //! begin std iterator method
-            //! should return the start pointer to begin collection
+            //! should return the start pointer to begin Container
             inline typename Iterable::const_iterator
                 begin() const
             {
