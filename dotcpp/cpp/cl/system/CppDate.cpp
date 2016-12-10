@@ -90,6 +90,7 @@ namespace cl
             tm notNormedTM = *value_;
             notNormedTM.tm_year += years;
             normalize(notNormedTM);
+            return CppDate();
         }
 
         /// <summary>Add month (returns result, the object itself remains unchanged).</summary>
@@ -98,6 +99,7 @@ namespace cl
             tm notNormedTM = *value_;
             notNormedTM.tm_mon += months;
             normalize(notNormedTM);
+            return CppDate();
         }
 
         /// <summary>Add days (returns result, the object itself remains unchanged).</summary>
@@ -106,6 +108,7 @@ namespace cl
             tm notNormedTM = *value_;
             notNormedTM.tm_mday += days;
             normalize(notNormedTM);
+            return CppDate();
         }
     
         /// <summary>Days from the specified date. Error message if zero or negative.</summary>
@@ -121,6 +124,7 @@ namespace cl
             int secondsInDay = 60 * 60 * 24;
             if (this_time - from_time > 0) return (this_time - from_time) / secondsInDay;
                 else throw cl::CppException("CppDate.DaysFrom() function should not be used when the argument date is after or equal this date");
+                return 0;
         }
 
     };

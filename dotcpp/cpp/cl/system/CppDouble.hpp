@@ -29,7 +29,7 @@ limitations under the License.
 
 namespace cl
 {
-    struct CppString;
+    class CppString;
 
     /// <summary>Immutable double type with AD support designed
     /// to serve as a drop-in replacement to native double.</summary>

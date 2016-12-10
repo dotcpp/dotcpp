@@ -112,7 +112,7 @@ namespace cl
 }
 
 //!! Supporting code for double operators, in progress
-namespace cl
+namespace CL_EXTERNAL_NAMESPACE
 {
     template <typename _Ty>
     inline void print_type()

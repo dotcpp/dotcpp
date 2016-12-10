@@ -137,15 +137,6 @@ namespace cl
         typedef std::true_type type;
     };
 
-    template <typename Type>
-    struct remove_ad { typedef Type type; };
-
-#if defined CL_DOUBLE_CPPAD
-    template <typename Type>
-    struct remove_ad<CppAD::AD<Type> >
-    { typedef Type type; };
-#endif
-
     namespace detail
     {
         template <bool V, typename Then, typename Else>
