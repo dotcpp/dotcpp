@@ -27,6 +27,7 @@ limitations under the License.
 #include <cl/system/declare.hpp>
 #include <cl/system/CppObject.hpp>
 #include <cl/system/CppPtr.hpp>
+#include <xhash>
 
 namespace cl
 {
@@ -43,7 +44,6 @@ namespace cl
     /// <summary>Immutable string type with unicode support.</summary>
     class CL_SYSTEM CppString
     {
-        std::string value_;
         friend class StringBuilder;
     public: // CONSTANTS
 
@@ -70,6 +70,42 @@ namespace cl
 
         /// <summary>Create a copy of CppString.</summary>
         CppString(const CppString& value);
+    public:
+
+        ///<summary>
+        /// The C# string methods functionality
+        ///</summary>
+        int getHashCode() const
+        {
+            return std::hash<std::string>()(value_);
+        }
+        
+        bool EndsWith(CppString const& value)
+        {
+            int p = value_.length() - value.value_.length();
+            if (p >= 0 && value_.substr(p, value.value_.length())
+                == value.value_)
+                return true;
+            return false;
+        }
+
+        bool StartsWith(CppString const& value)
+        {
+            int p = value_.length() - value.value_.length();
+            if (p >= 0 && value_.substr(0, value.value_.length()) == value.value_)
+                return true;
+            return false;
+        }
+
+        CppString Substring(int startIndex, int length)
+        {
+            return value_.substr(startIndex, length);
+        }
+
+        int Length()
+        {
+            return value_.length();
+        }
 
     public: // METHODS
 
@@ -103,7 +139,7 @@ namespace cl
         /// this string that are delimited by any of the specified strings.\\
         /// A parameter specifies whether to return empty array elements.</summary>
         CppArray<CppString> split(const CppArray<CppString>& separator, const CppStringSplitOptions& options) const;
-        
+
         ///<summary> </summary>
         inline bool contains(cl::CppString const& s) const
         {
@@ -125,11 +161,14 @@ namespace cl
         bool operator==(const CppString& rhs) const;
 
         /// <summary>Inequality operator.</summary>
-        bool operator!=(const CppString& rhs) const; 
+        bool operator!=(const CppString& rhs) const;
 
         /// <summary>Gets the Char object at a specified position in the current String object.</summary>
         CppChar operator[](int index) const;
-        
+
+        /// <summary>Returns a string containing characters from lhs followed by the characters from rhs.</summary>
+        friend CppString operator+(const CppString& lhs, const CppString& rhs);
+
     public: // STATIC
 
         /// <summary>Compares two specified String objects and returns an integer that
@@ -288,7 +327,22 @@ namespace cl
 
         /// <summary>static create methods to create instance which can't call from other scope </summary>
         static CppPtr<CppString> create()   {  return CppPtr<CppString>(new CppString("")); }
+    public: //!! Make private
+        std::string value_;
     };
+        
+    typedef CppString string;
+
+    /// <summary>Returns a string containing characters from lhs followed by the characters from rhs.</summary>
+    inline CppString operator+(const CppString& lhs, const CppString& rhs) { return lhs.value_ + rhs.value_; }
+
+    inline bool operator<(const CppString& lhs, const CppString& rhs) { return lhs.value_ < rhs.value_; }
+       
+    inline size_t hash_value(const cl::CppString& _Keyval)
+    {
+        return stdext::hash_value(_Keyval.value());
+    }
+
 }
 
 #endif  // __cl_system_CppString_hpp__
