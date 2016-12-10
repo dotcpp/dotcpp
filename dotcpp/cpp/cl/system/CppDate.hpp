@@ -43,7 +43,7 @@ namespace cl
     class CppDate
     {
     private:
-        
+
         std::shared_ptr<CppDate> impl_;
 
     public: //  CONSTANTS
@@ -62,14 +62,14 @@ namespace cl
         /// <summary>Constructor from int.</summary>
         CppDate(int year, int month, int day);
 
-        
+
         /// <summary>Constructor from variant.</summary>
         template <typename Type>
         CppDate(Type value)
         {
             *this = value.ToDate();
         }
-        
+
 
     public: //  METHODS
 
@@ -78,14 +78,14 @@ namespace cl
 
 
         /// <summary>Convert atomic type to value.</summary>
-        virtual CppDate& value() const { return *(impl_.get()); }   
+        virtual CppDate& value() const { return *(impl_.get()); }
 
         /// <summary>Year.</summary>
         virtual int year() const { return impl_->year(); }
 
         /// <summary>Month.</summary>
         virtual int month() const { return impl_->month(); }
-        
+
         /// <summary>Day.</summary>
         virtual int day() const { return impl_->day(); }
 
@@ -127,7 +127,7 @@ namespace cl
         /// <summary>Compare the current instance with another of the same type</summary>
         template<typename Type>
         int compareTo(Type other) const
-        { 
+        {
             if (!other) return isNull() ? 0 : 1;
             else throw cl::CppException("Attempting to compare ClDate with a different data type");
         }
@@ -143,7 +143,7 @@ namespace cl
         {
             return false; // Method always returns false because Type != CppData
         }
-        
+
         /// <summary>Checks equality using tolerance-based comparison without causing an exception even if the object is not set.
         /// Two empty objects are considered equal.</summary>
         virtual bool equals(CppDate other) const { return compareTo(other) == 0; }
@@ -151,7 +151,7 @@ namespace cl
         /// <summary>Equality operator. Returns true if arguments are equal
         /// or both empty and false if only one of the arguments is empty.</summary>
         virtual bool operator ==(CppDate rhs) const { return equals(rhs); }
-        
+
         /// <summary>Inequality operator. Returns false if arguments are equal
         /// or both empty and true if only one of the arguments is empty.</summary>
         virtual bool operator !=(CppDate rhs) const { return !(equals(rhs)); }
@@ -164,25 +164,25 @@ namespace cl
 
         /// <summary>Parse string in ISO format (YYYY-MM-DD).</summary>
         static CppDate parse(CppString s) { return CppDate(s); }
-        
+
     private:
-        
+
         /// <summary>Error message if the date is empty.</summary>
         void checkSet() const { if (isNull()) throw new cl::CppException("ClError.Core.NotSet"); }
 
         /// <summary>Error message if the argument is not a valid date in ISO format (YYYYMMDD).</summary>
         virtual void checkValid() const { impl_->checkValid(); }
-    
+
     };
 
 
     class CppDateEx
     {
-        
+
     public:
         static CppDate max(CppList<CppDate> src)
         {
-            if (src.getCount() == 0) throw cl::CppException("ClError.Core.ZeroSize");
+            if (src.count() == 0) throw cl::CppException("ClError.Core.ZeroSize");
             CppDate result;
             for each(CppDate value in src)
             {
@@ -194,7 +194,7 @@ namespace cl
 
         static CppDate min(CppList<CppDate> src)
         {
-            if (src.getCount() == 0) throw cl::CppException("ClError.Core.ZeroSize");
+            if (src.count() == 0) throw cl::CppException("ClError.Core.ZeroSize");
             CppDate result;
             for each(CppDate value in src)
             {

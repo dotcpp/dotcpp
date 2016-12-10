@@ -1,13 +1,11 @@
-#include <cl/system/CppDate.hpp>
 #include <math.h>
 #include <time.h>
 
+#include <cl/system/implement.hpp>
+#include <cl/system/CppDate.hpp>
+
 namespace cl
 {
-
-
-
-
     class CppDateImpl : public CppDate
     {
     private:
@@ -43,7 +41,7 @@ namespace cl
             if (strstream >> year >> delimiter >> month >> delimiter >> day)
             {
                 tm notNormedTM = { 0 };
-                notNormedTM.tm_year = year - 1900; // Years since 1900 
+                notNormedTM.tm_year = year - 1900; // Years since 1900
                 notNormedTM.tm_mon = month - 1; //Months sinsce January (0-based)
                 notNormedTM.tm_mday = day; // 1-based
                 notNormedTM.tm_isdst = -1;
@@ -59,7 +57,7 @@ namespace cl
         CppDateImpl(int year, int month, int day)
         {
             tm notNormedTM = { 0 };
-            notNormedTM.tm_year = year - 1900; // Years since 1900 
+            notNormedTM.tm_year = year - 1900; // Years since 1900
             notNormedTM.tm_mon = month - 1; //Months sinsce January (0-based)
             notNormedTM.tm_mday = day; // 1-based
             notNormedTM.tm_isdst = -1;
@@ -149,12 +147,12 @@ namespace cl
         /// <summary>Convert to int using ISO format (YYYYMMDD). Empty date is converted to empty int.</summary>
         virtual int toIsoInt() const
         {
-            return  (!isNull()) ? 10000 * year() + 100 * month() + day() : 0; //review empty value of int 
+            return  (!isNull()) ? 10000 * year() + 100 * month() + day() : 0; //review empty value of int
         }
 
         /// <summary>Hash code.</summary>
         virtual int getHashCode() const
-        { 
+        {
             time_t ticks = mktime(value_);
             return (((int)ticks) ^ ((int)(ticks >> 32))); //formula from C# DateTime
         }
@@ -162,7 +160,7 @@ namespace cl
         /// <summary>Compare the current instance with another of the same type.
         /// Null is considered to be less than any other value.</summary>
         virtual int compareTo(CppDate other)
-        { 
+        {
             time_t this_time = mktime(value_);
             tm from_date = { 0 };
             from_date.tm_year = other.year();
@@ -175,7 +173,7 @@ namespace cl
 
         /// <summary>Error message if the argument is not a valid date in ISO format (YYYYMMDD).</summary>
         virtual void checkValid()
-        { 
+        {
             if ((value_->tm_hour != 0) || (value_->tm_min != 0) || (value_->tm_sec != 0))
                 throw cl::CppException("To be converted to CppDate, time must be set to UTC midnight");
         }
