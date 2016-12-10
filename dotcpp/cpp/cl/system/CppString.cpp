@@ -24,6 +24,7 @@ limitations under the License.
 #include <cl/system/implement.hpp>
 #include <cl/system/CppString.hpp>
 #include <cl/system/CppChar.hpp>
+#include <locale>
 
 namespace cl
 {
@@ -97,12 +98,12 @@ namespace cl
 
     bool CppString::operator==(const CppString& rhs) const
     {
-        return value_ == rhs.value_;
+        return compareTo(rhs) == 0;
     }
 
     bool CppString::operator!=(const CppString& rhs) const
     {
-        return value_ != rhs.value_;
+        return compareTo(rhs) != 0;
     }
 
     CppChar CppString::operator[](int index) const
@@ -110,16 +111,42 @@ namespace cl
         //return CppChar(value_[index]); //!!!! static_cast<CppChar>(value_[index]);
         return CppChar();
     }
-
+    
     int CppString::compare(const CppString& strA, const CppString& strB)
     {
-        return strA.value_.compare(strB.value_);
+        return strA.compareTo(strB);
+    }
+
+    static int compare(const CppString& strA, const CppString& strB, bool ignoreCase)
+    {
+        if (!ignoreCase)
+            return strA.compareTo(strB);
+        
+        auto itA = strA.value_.cbegin(),
+            itB = strB.value_.cbegin(),
+            endA = strA.value_.cend(),
+            endB = strA.value_.cend();
+        for (; (itA != endA) && (itB != endB); ++itA, ++itB)
+        {
+            std::locale loc;
+            char a = std::tolower(*itA, loc);
+            char b = std::tolower(*itB, loc);
+            if (a < b)
+                return -1;
+            else if (a > b)
+                return 1;
+        }
+        if (itA != endA)
+            return 1;
+        else if (itB != endB)
+            return -1;
+        else
+            return 0;
     }
 
     int CppString::compare(CppString const& strA, int indexA, const CppString& strB, int indexB, int length)
     {
-#pragma message ("Fix recursive call: CppString (char ) callable from int indexA call itself, should be value_.compare")
-        return strA.compare(indexA, length, strB, indexB, length);
+        return strA.value_.compare(indexA, length, strB.value_, indexB, length);
     }
 
     CppString CppString::concat(const CppObject& arg0)
@@ -188,7 +215,7 @@ namespace cl
 
     bool CppString::equals(const CppString& strA, const CppString& strB)
     {
-        return strA.value_ == strB.value_;
+        return strA.compareTo(strB) == 0;
     }
 
     bool CppString::isEmpty(const CppString& str)
@@ -203,6 +230,5 @@ namespace cl
             if (*it != ' ') return false;
         return true;
     }
-
 }
 
