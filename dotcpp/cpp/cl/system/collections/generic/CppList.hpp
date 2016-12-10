@@ -171,7 +171,7 @@ namespace cl
         {
             typename std_base::const_iterator start = begin() + startIndex;
             typename std_base::const_iterator end = start + count;
-            assert(end <= end());
+            //!! assert(end <= end());
             typename std_base::const_iterator where
                 = std::find_if(start, end , match);
             return where != end ? where - begin : -1;
@@ -258,7 +258,7 @@ namespace cl
         /// <summary>Removes the element at the specified index of the List.</summary>
         void removeAt(int index)
         {
-            assert(this->get().size() > index);
+            //!! assert(this->get().size() > index);
             this->get().erase(begin() + index);
         }
 

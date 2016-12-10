@@ -261,7 +261,7 @@ namespace cl
             // as an constant reference
             inline std_base const& get() const
             {
-                assert(this->c_);
+                //!! assert(this->c_);
                 return *this->c_.get();
             }
 
@@ -269,7 +269,7 @@ namespace cl
             // as an not constant reference
             inline std_base& get()
             {
-                assert(this->c_);
+                //!! assert(this->c_);
                 return *this->c_.get();
             }
 
