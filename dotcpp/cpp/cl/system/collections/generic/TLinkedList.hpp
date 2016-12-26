@@ -26,35 +26,35 @@ limitations under the License.
 
 #include <deque>
 
-#include <cl/system/collections/generic/ICppCollection.hpp>
-#include <cl/system/collections/generic/ICppEnumerable.hpp>
-#include <cl/system/collections/generic/ICppEnumerator.hpp>
+#include <cl/system/collections/generic/ITCollection.hpp>
+#include <cl/system/collections/generic/ITEnumerable.hpp>
+#include <cl/system/collections/generic/ITEnumerator.hpp>
 
 namespace cl
 {
     ///!!! Not finished
     template <typename T>
-    class CppLinkedListNode
+    class TLinkedListNode
     {
     private:
 
     public:
-        CppLinkedListNode(T Value);
+        TLinkedListNode(T Value);
     };
 
     ///!!! Not finished
     template <typename T>
-    class CppLinkedList : public detail::std_accessor_<cl::ICppEnumerable<T>
+    class TLinkedList : public detail::std_accessor_<cl::ITEnumerable<T>
         , std::deque<T> >
     {
     public:
-        typedef detail::std_accessor_<cl::ICppEnumerable<T>
+        typedef detail::std_accessor_<cl::ITEnumerable<T>
             , std::deque<T> > base;
-        typedef cl::ICppEnumerable<T> cl_enumerator_type;
+        typedef cl::ITEnumerable<T> cl_enumerator_type;
         typedef std::deque<T> std_base;
         typedef T& reference_type;
 
-        CppLinkedList() : base()
+        TLinkedList() : base()
         {}
 
         inline int get_Count() const

@@ -21,15 +21,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_CppDoubleTests_hpp__
-#define __cl_system_CppDoubleTests_hpp__
+#ifndef __cl_system_TDoubleTests_hpp__
+#define __cl_system_TDoubleTests_hpp__
 
-#include <cl/system/CppDouble.hpp>
+#include <cl/system/TDouble.hpp>
 
 namespace cl
 {
     /// <summary>String tests.</summary>
-    class CL_SYSTEM CppDoubleTests
+    class CL_SYSTEM TDoubleTests
     {
     public: // METHODS
 
@@ -38,4 +38,4 @@ namespace cl
     };
 }
 
-#endif  // __cl_system_CppDoubleTests_hpp__
+#endif  // __cl_system_TDoubleTests_hpp__

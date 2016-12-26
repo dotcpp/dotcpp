@@ -22,12 +22,45 @@ limitations under the License.
 */
 
 #include <cl/system/implement.hpp>
-#include <cl/system/CppPtrTests.hpp>
+#include <cl/system/TPtrTests.hpp>
+#include <cl/system/collections/generic/TDictionary.hpp>
+#include <cl/system/TString.hpp>
 
 namespace cl
 {
-    void CppPtrTests::testCreate()
+    template <typename Key, typename Value>
+    class ClDictionary : public TDictionary<Key, Value>
+        , public TObject
     {
-        std::cout << "Hello world" << std::endl;
+    public:
+
+        virtual TString toString() const
+        {
+            return TString();
+        }
+
+        static TPtr<ClDictionary<Key, Value>> create() { return TPtr<ClDictionary<Key, Value>>(new ClDictionary<Key, Value>()); }
+    };
+
+    template <typename Key, typename Value>
+    using Dictionary = TPtr<ClDictionary<Key, Value>>;
+
+
+    void TPtrTests::testCreate()
+    {
+        Dictionary<TString, double> dict
+            = new Dictionary<TString, double>();
+
+        dict["Va"] = 56.;
+
+        BOOST_CHECK(dict->containsKey("Va"));
+        BOOST_CHECK(dict["Va"] == 56.);
+    }
+
+    test_suite* TPtrTests::TPtrTestSuite()
+    {
+        test_suite* suite = BOOST_TEST_SUITE("TString test");
+        suite->add(BOOST_TEST_CASE(&TPtrTests::testCreate));
+        return suite;
     }
 }

@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_collections_generic_ICppEnumerable_hpp__
-#define __cl_system_collections_generic_ICppEnumerable_hpp__
+#ifndef __cl_system_collections_generic_ITEnumerable_hpp__
+#define __cl_system_collections_generic_ITEnumerable_hpp__
 
 #include <vector>
 #include <list>
@@ -31,7 +31,7 @@ limitations under the License.
 #include <hash_set>
 
 #include <cl/system/declare.hpp>
-#include <cl/system/collections/generic/ICppEnumerator.hpp>
+#include <cl/system/collections/generic/ITEnumerator.hpp>
 
 namespace cl
 {
@@ -126,7 +126,7 @@ namespace cl
     }
 
 
-    template <class T> class ICppEnumerator;
+    template <class T> class ITEnumerator;
 
     template <typename Collection>
     struct std_accessor;
@@ -161,13 +161,13 @@ namespace cl
 
     /// Exposes the enumerator, which supports a simple iteration over a collection of a specified type.
     template <class T>
-    class ICppEnumerable
+    class ITEnumerable
     {
     public: // METHODS
         struct ref_counter_functional {};
                 
         template <typename Other_>
-        ICppEnumerable(Other_) {}
+        ITEnumerable(Other_) {}
 
         template <typename Container>
         inline void
@@ -175,26 +175,26 @@ namespace cl
         {
         }
 
-        /// (ICppEnumerable) Returns an enumerator that iterates through the Container.
-        virtual cl::ICppEnumerator<T> getEnumerator()
+        /// (ITEnumerable) Returns an enumerator that iterates through the Container.
+        virtual cl::ITEnumerator<T> getEnumerator()
         {
             throw std::runtime_error("Not implemented.");
         }
 
-        virtual ~ICppEnumerable()   { }
+        virtual ~ITEnumerable()   { }
     protected:
-        ICppEnumerable() = default;
+        ITEnumerable() = default;
     };
 
     //! The key value type
     // Currenlty we use type to rforward to std::pair
     // in next step we'll use our type friendly and convertible to pair
     template <typename Key, typename Value>
-    class CppKeyValuePair : public std::pair<Key const, Value>
+    class TKeyValuePair : public std::pair<Key const, Value>
     {
     public:
         typedef std::pair<Key const, Value> base;
-        CppKeyValuePair() : base()
+        TKeyValuePair() : base()
         {   }
 
         typedef std::pair<Key const, Value> type;
@@ -222,12 +222,12 @@ namespace cl
 
             ///<summary> Method returns Enumerator contains start iterator
             /// for std Container </summary>
-            inline cl::ICppEnumerator<value_type >
+            inline cl::ITEnumerator<value_type >
             getEnumerator()
             {
                 // accessory to the base std accessor class
                 // we need save it to provide releasable iterators
-                return cl::ICppEnumerator<value_type>(c_->begin());
+                return cl::ITEnumerator<value_type>(c_->begin());
             }
 
             //   Native functionality implementation
@@ -303,7 +303,7 @@ namespace cl
 
             // Enumerator type
             // should be returned by remove holder
-            typedef cl::ICppEnumerator<typename
+            typedef cl::ITEnumerator<typename
                 detail::remove_holder<Enumerable>::type > EnumeratorType;
 
             static_assert (detail::remove_holder<Enumerable>::value
@@ -387,7 +387,7 @@ namespace cl
 
             // Enumerator type
             // should be returned by remove holder
-            typedef cl::ICppEnumerator<typename
+            typedef cl::ITEnumerator<typename
                 detail::remove_holder<Enumerable>::type > EnumeratorType;
 
             static_assert (detail::remove_holder<Enumerable>::value
@@ -454,4 +454,4 @@ namespace cl
     }
 }
 
-#endif  // __cl_system_collections_generic_ICppEnumerable_hpp__
+#endif  // __cl_system_collections_generic_ITEnumerable_hpp__

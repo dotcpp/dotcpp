@@ -21,16 +21,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_CppStringSplitOptions_hpp__
-#define __cl_system_CppStringSplitOptions_hpp__
+#ifndef __cl_system_TStringSplitOptions_hpp__
+#define __cl_system_TStringSplitOptions_hpp__
 
 #include <cl/system/declare.hpp>
 
 namespace cl
 {
-    /// <summary>Specifies whether applicable CppString.split(...) method overloads
+    /// <summary>Specifies whether applicable TString.split(...) method overloads
     /// include or omit empty substrings from the return value.</summary>
-    enum class CL_SYSTEM CppStringSplitOptions : int
+    enum class CL_SYSTEM TStringSplitOptions : int
     {
         /// <summary>The return value includes array elements that contain an empty string.</summary>
         None,
@@ -40,4 +40,4 @@ namespace cl
     };
 }
 
-#endif  // __cl_system_CppStringSplitOptions_hpp__
+#endif  // __cl_system_TStringSplitOptions_hpp__

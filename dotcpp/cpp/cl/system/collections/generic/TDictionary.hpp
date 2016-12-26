@@ -21,25 +21,25 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_collections_generic_CppDictionary_hpp__
-#define __cl_system_collections_generic_CppDictionary_hpp__
+#ifndef __cl_system_collections_generic_TDictionary_hpp__
+#define __cl_system_collections_generic_TDictionary_hpp__
 
 #include <hash_map>
 
-#include <cl/system/collections/generic/ICppCollection.hpp>
-#include <cl/system/collections/generic/ICppEnumerable.hpp>
-#include <cl/system/collections/generic/ICppEnumerator.hpp>
-#include <cl/system/collections/generic/CppList.hpp>
+#include <cl/system/collections/generic/ITCollection.hpp>
+#include <cl/system/collections/generic/ITEnumerable.hpp>
+#include <cl/system/collections/generic/ITEnumerator.hpp>
+#include <cl/system/collections/generic/TList.hpp>
 
 namespace cl
 {
     template<typename Key, typename Type>
     using map_type = stdext::hash_map<Key, Type>;
 
-    ///!!! Provide .NET description Adapter class from STL hash_map to .NET CppDictionary - collection of keys and values
+    ///!!! Provide .NET description Adapter class from STL hash_map to .NET TDictionary - collection of keys and values
     template <typename Key, typename Type >
-    class CppDictionary : public detail::std_accessor_<
-        cl::ICppEnumerable<typename CppKeyValuePair<Key, Type>::type>, map_type<Key, Type> >
+    class TDictionary : public detail::std_accessor_<
+        cl::ITEnumerable<typename TKeyValuePair<Key, Type>::type>, map_type<Key, Type> >
     {
     public:
 
@@ -52,33 +52,33 @@ namespace cl
             map_type<Key, Type>::const_iterator const_iterator;
 
         typedef detail::std_accessor_<
-            cl::ICppEnumerable< 
-                typename CppKeyValuePair<Key, Type>::type 
+            cl::ITEnumerable< 
+                typename TKeyValuePair<Key, Type>::type 
             >, map_type<Key, Type> > base;
 
-        /// <summary>Initializes a new instance of CppDictionary.</summary>
-        CppDictionary() : base()
+        /// <summary>Initializes a new instance of TDictionary.</summary>
+        TDictionary() : base()
         {
         }
         
-        /// <summary>Gets number of elements in CppDictionary.</summary>
+        /// <summary>Gets number of elements in TDictionary.</summary>
         inline int count() const
         {
             return this->get().size();
         }
 
-        /// <summary>Gets CppList of keys.</summary>
-        inline CppList<Key> keys() 
+        /// <summary>Gets TList of keys.</summary>
+        inline TList<Key> keys() 
         {
-            CppList<Key> keys;
+            TList<Key> keys;
             std::for_each(this->get().begin(), this->get().end(), [&keys](std::pair<Key, Type> const& value){ keys.add(value.first); });
             return keys;
         }
 
-        /// <summary>Gets CppList of values.</summary>
-        inline CppList<Type> values()
+        /// <summary>Gets TList of values.</summary>
+        inline TList<Type> values()
         {
-            CppList<Type> values;
+            TList<Type> values;
             std::for_each(this->get().begin(), this->get().end(), [&values](std::pair<Key, Type> const& value){ values.add(value.second); });
             return values;
         }
@@ -89,25 +89,25 @@ namespace cl
             return this->get()[key];
         }
 
-        /// <summary>Adds the specified key and value to the CppDictionary.</summary>
+        /// <summary>Adds the specified key and value to the TDictionary.</summary>
         inline void add(Key const& key, Type const& value)
         {
             this->get().insert(std::pair<Key, Type>(key, value));
         }
 
-        /// <summary>Removes all keys and values from the CppDictionary.</summary>
+        /// <summary>Removes all keys and values from the TDictionary.</summary>
         inline void clear()
         {
             this->get().clear();
         }
 
-        /// <summary>Determines whether the CppDictionary contains the specified key.</summary>
+        /// <summary>Determines whether the TDictionary contains the specified key.</summary>
         inline bool containsKey(Key const& key) const
         {
             return (this->get().find(key) != this->get().end());
         }
 
-        /// <summary>Determines whether the CppDictionary contains the specified value.</summary>
+        /// <summary>Determines whether the TDictionary contains the specified value.</summary>
         inline bool containsValue(const Type& value) const
         {
             for (map_type<Key, Type>::iterator iter = this->get().begin(); iter != this->get().end(); iter++)
@@ -120,7 +120,7 @@ namespace cl
             return false;
         }
 
-        /// <summary>Removes the value with the specified key from the CppDictionary.</summary>
+        /// <summary>Removes the value with the specified key from the TDictionary.</summary>
         inline bool remove(Key const& key)
         {
             this->get().erase(key);
@@ -140,4 +140,4 @@ namespace cl
     };
 }
 
-#endif // __cl_system_collections_generic_CppDictionary_hpp__
+#endif // __cl_system_collections_generic_TDictionary_hpp__

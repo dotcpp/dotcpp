@@ -21,16 +21,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_collections_generic_CppSortedList_hpp__
-#define __cl_system_collections_generic_CppSortedList_hpp__
+#ifndef __cl_system_collections_generic_TSortedList_hpp__
+#define __cl_system_collections_generic_TSortedList_hpp__
 
-#include <cl/system/generic/CppList.hpp>
+#include <cl/system/collections/generic/TList.hpp>
 #include <deque>
 #include <hash_map>
 
-#include <cl/system/collections/generic/ICppCollection.hpp>
-#include <cl/system/collections/generic/ICppEnumerable.hpp>
-#include <cl/system/collections/generic/ICppEnumerator.hpp>
+#include <cl/system/collections/generic/ITCollection.hpp>
+#include <cl/system/collections/generic/ITEnumerable.hpp>
+#include <cl/system/collections/generic/ITEnumerator.hpp>
 
 namespace cl
 {
@@ -38,19 +38,19 @@ namespace cl
 
     ///!!! Provide .NET description Adapter class from STL deque to .NET SortedList - collection of key/value pairs that are sorted on the key
     template <typename Key, typename Type >
-    class CppSortedList : public detail::std_accessor_<
-        cl::ICppEnumerable< typename CppKeyValuePair<Key, Type>::type >
-        , std::deque< typename CppKeyValuePair<Key, Type>::type > >
+    class TSortedList : public detail::std_accessor_<
+        cl::ITEnumerable< typename TKeyValuePair<Key, Type>::type >
+        , std::deque< typename TKeyValuePair<Key, Type>::type > >
     {
     public:
 
         //!!!! Why in public section?
         typedef detail::std_accessor_<
-            cl::ICppEnumerable< typename CppKeyValuePair<Key, Type>::type >
-            , std::deque< typename CppKeyValuePair<Key, Type>::type > > base;
+            cl::ITEnumerable< typename TKeyValuePair<Key, Type>::type >
+            , std::deque< typename TKeyValuePair<Key, Type>::type > > base;
 
         /// <summary>SortedList constructor that create new empty instance of SortedList.</summary>
-        CppSortedList() : base()
+        TSortedList() : base()
         {
         }
 
@@ -101,4 +101,4 @@ namespace cl
     };
 }
 
-#endif // __cl_system_collections_generic_CppSortedList_hpp__
+#endif // __cl_system_collections_generic_TSortedList_hpp__

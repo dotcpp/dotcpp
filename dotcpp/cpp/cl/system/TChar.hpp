@@ -21,19 +21,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_CppChar_hpp__
-#define __cl_system_CppChar_hpp__
+#ifndef __cl_system_TChar_hpp__
+#define __cl_system_TChar_hpp__
 
 #include <cl/system/declare.hpp>
-#include <cl/system/CppException.hpp>
+#include <cl/system/TException.hpp>
 
 namespace cl
 {
     //!! Provide detailed comment
     /// <summary>TODO</summary>
-    class CL_SYSTEM CppChar
+    class CL_SYSTEM TChar
     {
     };
 }
 
-#endif  // __cl_system_CppChar_hpp__
+#endif  // __cl_system_TChar_hpp__

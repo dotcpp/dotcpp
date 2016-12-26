@@ -21,33 +21,33 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_collections_generic_CppStack_hpp__
-#define __cl_system_collections_generic_CppStack_hpp__
+#ifndef __cl_system_collections_generic_TStack_hpp__
+#define __cl_system_collections_generic_TStack_hpp__
 
 #include <deque>
 
-#include <cl/system/collections/generic/ICppCollection.hpp>
-#include <cl/system/collections/generic/ICppEnumerable.hpp>
-#include <cl/system/collections/generic/ICppEnumerator.hpp>
+#include <cl/system/collections/generic/ITCollection.hpp>
+#include <cl/system/collections/generic/ITEnumerable.hpp>
+#include <cl/system/collections/generic/ITEnumerator.hpp>
 
 namespace cl
 {
-    template <class T> class CppArray;
+    template <class T> class TArray;
 
     ///!!! Provide .NET description Adapter class from STL deque to .NET Stack. srd::deque used as container to make possible Conataints(T item) and GetEnumerator() implementation
     template <typename T>
-    class CppStack : public detail::std_accessor_< cl::ICppEnumerable<T>, std::deque<T> >
+    class TStack : public detail::std_accessor_< cl::ITEnumerable<T>, std::deque<T> >
     {
     public:
 
-        typedef detail::std_accessor_< cl::ICppEnumerable<T>, std::deque<T> > base;
-        typedef cl::ICppEnumerable<T> cl_enumerator_type;
+        typedef detail::std_accessor_< cl::ITEnumerable<T>, std::deque<T> > base;
+        typedef cl::ITEnumerable<T> cl_enumerator_type;
         typedef std::deque<T> std_base;
 
     public:
 
         /// <summary>Creates new empty instance of Stack.</summary>
-        CppStack() : base()
+        TStack() : base()
         {
         }
 
@@ -66,8 +66,8 @@ namespace cl
         /// <summary>Searches element in Stack.</summary>
         inline bool contains(T item) const;
 
-        /// <summary>Copies CppStack elements to array starting at specified index.</summary>
-        inline void copyTo(CppArray<T>& arr, int arrIndex) const;
+        /// <summary>Copies TStack elements to array starting at specified index.</summary>
+        inline void copyTo(TArray<T>& arr, int arrIndex) const;
 
         /// <summary>Returns the object at the top of the Stack without removing it.</summary>
         inline T peek() const
@@ -90,7 +90,7 @@ namespace cl
         }
 
         /// <summary>Copies the elements of the Stack to a new array.</summary>
-        inline CppArray<T> toArray() const;
+        inline TArray<T> toArray() const;
 
         /// <summary>Sets the capacity to the actual number of elements
         /// in the Stack, if that number is less than a threshold value.</summary>
@@ -98,4 +98,4 @@ namespace cl
     };
 }
 
-#endif // __cl_system_collections_generic_CppStack_hpp__
+#endif // __cl_system_collections_generic_TStack_hpp__

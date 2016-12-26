@@ -21,35 +21,37 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_CppObject_hpp__
-#define __cl_system_CppObject_hpp__
+#ifndef __cl_system_TObject_hpp__
+#define __cl_system_TObject_hpp__
 
 #include <cl/system/declare.hpp>
-#include <cl/system/CppException.hpp>
+#include <cl/system/detail/ref_counter.hpp>
+#include <cl/system/TException.hpp>
+
 
 namespace cl
 {
-    class CppString;
+    class TString;
 
     /// <summary>This is the ultimate base class of all classes with reference semantics.
-    /// It works with CppPtr to provide an emulation of reference semantics in C++.\\
+    /// It works with TPtr to provide an emulation of reference semantics in C++.\\
     /// For performance reasons, classes with value semantics are not derived from this type.</summary>
-    class CL_SYSTEM CppObject
+    class CL_SYSTEM TObject : public RefCounter
     {
-    protected: // DESTRUCTOR
+    public:
 
         /// <summary>Virtual destructor to ensure that destructor
-        /// of the derived type is called by CppPtr.</summary>
-        virtual ~CppObject() = default;
+        /// of the derived type is called by TPtr.</summary>
+        virtual ~TObject() = default;
 
     public: // METHODS
 
         /// <summary>Returns a string that represents the current object.</summary>
-        virtual CppString toString() const = 0;
+        virtual TString toString() const = 0;
 
     protected:
-        CppObject() = default;
+        TObject() = default;
     };
 }
 
-#endif  // __cl_system_CppObject_hpp__
+#endif  // __cl_system_TObject_hpp__

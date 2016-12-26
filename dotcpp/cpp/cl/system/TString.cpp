@@ -22,49 +22,49 @@ limitations under the License.
 */
 
 #include <cl/system/implement.hpp>
-#include <cl/system/CppString.hpp>
-#include <cl/system/CppChar.hpp>
+#include <cl/system/TString.hpp>
+#include <cl/system/TChar.hpp>
 #include <locale>
 
 namespace cl
 {
-    CppString::CppString(const std::string& value)
+    TString::TString(const std::string& value)
         : value_(value)
     { }
 
-    CppString::CppString(const char* value)
+    TString::TString(const char* value)
         : value_(value ? value : "")
     { }
 
-    CppString::CppString(char value)
+    TString::TString(char value)
         : value_(1, value)
     { }
 
-    CppString::CppString(const CppString& value)
+    TString::TString(const TString& value)
         : value_(value.value_)
     { }
 
-    int CppString::compareTo(const CppObject& value) const
+    int TString::compareTo(const TObject& value) const
     {
         return compareTo(value.toString());
     }
 
-    int CppString::compareTo(const CppString& strB) const
+    int TString::compareTo(const TString& strB) const
     {
         return value_.compare(strB.value_);
     }
 
-    std::string CppString::value() const
+    std::string TString::value() const
     {
         return value_;
     }
 
-    int CppString::length() const
+    int TString::length() const
     {
         return static_cast<int>(value_.size());
     }
 
-    CppString CppString::replace(const CppString& oldValue, const CppString& newValue) const
+    TString TString::replace(const TString& oldValue, const TString& newValue) const
     {
         std::string s = value_;
         std::size_t pos = 0,
@@ -75,49 +75,49 @@ namespace cl
             s.replace(pos, count, newValue.value_);
             pos += ncount;
         }
-        return CppString(s);
+        return TString(s);
     }
 
-    CppString& CppString::operator=(const std::string& rhs)
+    TString& TString::operator=(const std::string& rhs)
     {
         value_ = rhs; return *this;
     }
 
-    CppString& CppString::operator=(const char* rhs)
+    TString& TString::operator=(const char* rhs)
     {
         if (rhs) value_ = rhs;
         else value_.clear();
         return *this;
     }
 
-    CppString& CppString::operator=(char rhs)
+    TString& TString::operator=(char rhs)
     {
         value_ = std::string(1, rhs);
         return *this;
     }
 
-    bool CppString::operator==(const CppString& rhs) const
+    bool TString::operator==(const TString& rhs) const
     {
         return compareTo(rhs) == 0;
     }
 
-    bool CppString::operator!=(const CppString& rhs) const
+    bool TString::operator!=(const TString& rhs) const
     {
         return compareTo(rhs) != 0;
     }
 
-    CppChar CppString::operator[](int index) const
+    TChar TString::operator[](int index) const
     {
-        //return CppChar(value_[index]); //!!!! static_cast<CppChar>(value_[index]);
-        return CppChar();
+        //return TChar(value_[index]); //!!!! static_cast<TChar>(value_[index]);
+        return TChar();
     }
     
-    int CppString::compare(const CppString& strA, const CppString& strB)
+    int TString::compare(const TString& strA, const TString& strB)
     {
         return strA.compareTo(strB);
     }
 
-    static int compare(const CppString& strA, const CppString& strB, bool ignoreCase)
+    static int compare(const TString& strA, const TString& strB, bool ignoreCase)
     {
         if (!ignoreCase)
             return strA.compareTo(strB);
@@ -144,86 +144,86 @@ namespace cl
             return 0;
     }
 
-    int CppString::compare(CppString const& strA, int indexA, const CppString& strB, int indexB, int length)
+    int TString::compare(TString const& strA, int indexA, const TString& strB, int indexB, int length)
     {
         return strA.value_.compare(indexA, length, strB.value_, indexB, length);
     }
 
-    CppString CppString::concat(const CppObject& arg0)
+    TString TString::concat(const TObject& arg0)
     {
         return arg0.toString();
     }
 
-    CppString CppString::concat(const CppObject& arg0, const CppObject& arg1)
+    TString TString::concat(const TObject& arg0, const TObject& arg1)
     {
         std::string s;
         s.append(arg0.toString().value_);
         s.append(arg1.toString().value_);
-        return CppString(s);
+        return TString(s);
     }
 
-    CppString CppString::concat(const CppString& str0, const CppString& str1)
+    TString TString::concat(const TString& str0, const TString& str1)
     {
         std::string s;
         s.append(str0.value_);
         s.append(str1.value_);
-        return CppString(s);
+        return TString(s);
     }
 
-    CppString CppString::concat(const CppObject& arg0, const CppObject& arg1, const CppObject& arg2)
+    TString TString::concat(const TObject& arg0, const TObject& arg1, const TObject& arg2)
     {
         std::string s;
         s.append(arg0.toString().value_);
         s.append(arg1.toString().value_);
         s.append(arg2.toString().value_);
-        return CppString(s);
+        return TString(s);
     }
 
-    CppString CppString::concat(const CppString& str0, const CppString& str1, const CppString& str2)
+    TString TString::concat(const TString& str0, const TString& str1, const TString& str2)
     {
         std::string s;
         s.append(str0.value_);
         s.append(str1.value_);
         s.append(str2.value_);
-        return CppString(s);
+        return TString(s);
     }
 
-    CppString CppString::concat(const CppObject& arg0, const CppObject& arg1, const CppObject& arg2, const CppObject& arg3)
+    TString TString::concat(const TObject& arg0, const TObject& arg1, const TObject& arg2, const TObject& arg3)
     {
         std::string s;
         s.append(arg0.toString().value_);
         s.append(arg1.toString().value_);
         s.append(arg2.toString().value_);
         s.append(arg3.toString().value_);
-        return CppString(s);
+        return TString(s);
     }
 
-    CppString CppString::concat(const CppString& str0, const CppString& str1, const CppString& str2, const CppString& str3)
+    TString TString::concat(const TString& str0, const TString& str1, const TString& str2, const TString& str3)
     {
         std::string s;
         s.append(str0.value_);
         s.append(str1.value_);
         s.append(str2.value_);
         s.append(str3.value_);
-        return CppString(s);
+        return TString(s);
     }
 
-    CppString CppString::copy(const CppString& str)
+    TString TString::copy(const TString& str)
     {
-        return CppString(str);
+        return TString(str);
     }
 
-    bool CppString::equals(const CppString& strA, const CppString& strB)
+    bool TString::equals(const TString& strA, const TString& strB)
     {
         return strA.compareTo(strB) == 0;
     }
 
-    bool CppString::isEmpty(const CppString& str)
+    bool TString::isEmpty(const TString& str)
     {
         return str.value_.empty();
     }
 
-    bool CppString::isEmptyOrWhiteSpace(const CppString& str)
+    bool TString::isEmptyOrWhiteSpace(const TString& str)
     {
         const std::string& s = str.value_;
         for (auto it = s.begin(); it != s.end(); ++it)

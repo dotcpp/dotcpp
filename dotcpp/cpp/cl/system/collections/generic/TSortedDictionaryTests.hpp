@@ -21,16 +21,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_collections_generic_CppSortedDictionaryTests_hpp__
-#define __cl_system_collections_generic_CppSortedDictionaryTests_hpp__
+#ifndef __cl_system_collections_generic_TSortedDictionaryTests_hpp__
+#define __cl_system_collections_generic_TSortedDictionaryTests_hpp__
 
-#include <cl/system/collections/generic/CppSortedDictionary.hpp>
+#include <cl/system/collections/generic/TSortedDictionary.hpp>
 
 namespace cl {
     typedef std::string String;
 }
 
-BOOST_AUTO_TEST_SUITE(CppSortedDictionaryTests)
+BOOST_AUTO_TEST_SUITE(TSortedDictionaryTests)
 
 BOOST_AUTO_TEST_CASE(iteration)
 {
@@ -41,4 +41,4 @@ BOOST_AUTO_TEST_CASE(iteration)
 BOOST_AUTO_TEST_SUITE_END()
 
 
-#endif // __cl_system_collections_generic_CppSortedDictionaryTests_hpp__
+#endif // __cl_system_collections_generic_TSortedDictionaryTests_hpp__

@@ -21,14 +21,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_CppDoubleOperatorCheck_hpp__
-#define __cl_system_CppDoubleOperatorCheck_hpp__
+#ifndef __cl_system_TDoubleOperatorCheck_hpp__
+#define __cl_system_TDoubleOperatorCheck_hpp__
 
 //!! Supporting code for double operators, in progress
 
 namespace cl
 {
-    class CppDouble;
+    class TDouble;
 
     struct empty_type {};
 
@@ -72,7 +72,7 @@ namespace cl
         };
 
         // Typedef is not visible outside the detail namespace
-        typedef cl::CppDouble double_type;
+        typedef cl::TDouble double_type;
 
         template <typename Type, typename V = dummy>
         struct is_has_operator_real
@@ -81,7 +81,7 @@ namespace cl
             typedef std::integral_constant<bool, value > type;
         };
 
-        typedef cl::CppDouble double_type;
+        typedef cl::TDouble double_type;
 
         // This is partial specialization of SFINAE
         // when we have a operator to convert to Double

@@ -21,32 +21,45 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_collections_generic_CppQueueTests_hpp__
-#define __cl_system_collections_generic_CppQueueTests_hpp__
+#ifndef __cl_system_collections_generic_TQueueTests_hpp__
+#define __cl_system_collections_generic_TQueueTests_hpp__
 
-#include <cl/system/collections/generic/CppQueue.hpp>
+#include <cl/system/collections/generic/TQueue.hpp>
 
 namespace cl {
     typedef std::string String;
 }
 
-BOOST_AUTO_TEST_SUITE(CppQueueTests)
-
-BOOST_AUTO_TEST_CASE(iteration)
+class CL_SYSTEM TQueueTests
 {
-    cl::Queue<cl::String> stringQueue;
-    stringQueue.Enqueue("111");
-    stringQueue.Enqueue("222");
-    BOOST_REQUIRE_EQUAL(stringQueue.get_Count(), 2);
-    for each (cl::String str in stringQueue)
+public:
+
+    static void iteration()
     {
-        std::cout << str.c_str() << std::endl;
+        cl::TQueue<cl::String> stringQueue;
+        stringQueue.enqueue("111");
+        stringQueue.enqueue("222");
+        BOOST_CHECK(stringQueue.getCount() == 2);
+
+        for each (cl::String str in stringQueue)
+        {
+            std::cout << str << " ";
+        }
+        std::cout << std::endl;
+        BOOST_CHECK(stringQueue.peek() == "111");
+        stringQueue.dequeue();
+        stringQueue.dequeue();
+        BOOST_CHECK(stringQueue.getCount() == 0);
     }
-    stringQueue.Dequeue();
-    stringQueue.Dequeue();
-    BOOST_REQUIRE_EQUAL(stringQueue.get_Count(), 0);
-}
 
-BOOST_AUTO_TEST_SUITE_END()
+    static test_suite* TQueueTestSuite()
+    {
+        test_suite* suite = BOOST_TEST_SUITE("TQueue test");
+        suite->add(BOOST_TEST_CASE(&TQueueTests::iteration));
+        return suite;
+    }
 
-#endif // __cl_system_collections_generic_CppQueueTests_hpp__
+
+};
+
+#endif // __cl_system_collections_generic_TQueueTests_hpp__

@@ -22,13 +22,23 @@ limitations under the License.
 */
 
 #include <cl/system/implement.hpp>
-#include <cl/system/CppStringTests.hpp>
+#include <cl/system/TStringTests.hpp>
+#include <cl/system/collections/generic/TDictionary.hpp>
+#include <cl/system/TException.hpp>
 
 namespace cl
 {
-    void CppStringTests::testCreate()
+    void TStringTests::testCreate()
     {
-        std::cout << "Hello world" << std::endl;
     }
+
+
+    test_suite* TStringTests::TStringTestSuite()
+    {
+        test_suite* suite = BOOST_TEST_SUITE("TString test");
+        suite->add(BOOST_TEST_CASE(&TStringTests::testCreate));
+        return suite;
+    }
+
 }
 

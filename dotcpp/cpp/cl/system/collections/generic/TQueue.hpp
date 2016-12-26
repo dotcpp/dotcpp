@@ -26,25 +26,25 @@ limitations under the License.
 
 #include <deque>
 
-#include <cl/system/collections/generic/ICppCollection.hpp>
-#include <cl/system/collections/generic/ICppEnumerable.hpp>
-#include <cl/system/collections/generic/ICppEnumerator.hpp>
+#include <cl/system/collections/generic/ITCollection.hpp>
+#include <cl/system/collections/generic/ITEnumerable.hpp>
+#include <cl/system/collections/generic/ITEnumerator.hpp>
 
 namespace cl
 {
     ///!! Provide description Adapter class from STL deque to .NET Queue. std::deque used as container to make possible Conataints(T item) and GetEnumerator() implementation
     template <typename T>
-    class CppQueue : public detail::std_accessor_<cl::ICppEnumerable<T>, std::deque<T> >
+    class TQueue : public detail::std_accessor_<cl::ITEnumerable<T>, std::deque<T> >
     {
     public:
 
-        typedef detail::std_accessor_<cl::ICppEnumerable<T>, std::deque<T> > base;
-        typedef cl::ICppEnumerable<T> cl_enumerator_type;
+        typedef detail::std_accessor_<cl::ITEnumerable<T>, std::deque<T> > base;
+        typedef cl::ITEnumerable<T> cl_enumerator_type;
 
     public:
 
         /// <summary>Queue constructor that create new empty instance of Queue.</summary>
-        CppQueue() : base()
+        TQueue() : base()
         {
         }
 
@@ -64,7 +64,7 @@ namespace cl
         inline bool contains(const T& item) const;
 
         /// <summary>Copies Queue elements to array starting at specified index.</summary>
-        inline void copyTo(Array<T>& arr, int arrIndex) const;
+        inline void copyTo(TArray<T>& arr, int arrIndex) const;
 
         /// <summary>Removes and returns the object at the beginning of the Queue.</summary>
         inline T dequeue()
@@ -87,7 +87,7 @@ namespace cl
         }
 
         /// <summary>Copies the elements of the Queue to a new array.</summary>
-        inline Array<T> toArray() const;
+        inline TArray<T> toArray() const;
 
         /// <summary>Sets the capacity to the actual number of elements in the Queue, if that number is less than a threshold value.</summary>
         inline void trimExcess();

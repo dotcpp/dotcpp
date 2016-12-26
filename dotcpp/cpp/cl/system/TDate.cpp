@@ -2,11 +2,11 @@
 #include <time.h>
 
 #include <cl/system/implement.hpp>
-#include <cl/system/CppDate.hpp>
+#include <cl/system/TDate.hpp>
 
 namespace cl
 {
-    class CppDateImpl : public CppDate
+    class TDateImpl : public TDate
     {
     private:
         struct tm * value_;
@@ -23,14 +23,14 @@ namespace cl
     public:
 
         /// <summary>Create with empty value.</summary>
-        CppDateImpl()
+        TDateImpl()
         {
             value_ = new tm();
             *value_ = { 0 };
         }
 
         /// <summary>Create from string in ISO format (YYYY-MM-DD).</summary>
-        CppDateImpl(cl::CppString value)
+        TDateImpl(cl::TString value)
         {
 
             std::istringstream strstream(value.value());
@@ -50,11 +50,11 @@ namespace cl
                 *value_ = normalize(notNormedTM);
 
             }
-            else throw cl::CppException("date is invalid");
+            else throw cl::TException("date is invalid");
         }
 
         /// <summary>Constructor from int.</summary>
-        CppDateImpl(int year, int month, int day)
+        TDateImpl(int year, int month, int day)
         {
             tm notNormedTM = { 0 };
             notNormedTM.tm_year = year - 1900; // Years since 1900
@@ -74,7 +74,7 @@ namespace cl
         }
 
         /// <summary>Convert atomic type to value.</summary>
-        virtual CppDate& value() { return *this; }
+        virtual TDate& value() { return *this; }
 
         /// <summary>Year.</summary>
         virtual int year() const { return value_->tm_year + 1900; }
@@ -86,34 +86,34 @@ namespace cl
         virtual int day() const { return value_->tm_mday; }
 
         /// <summary>Add years (returns result, the object itself remains unchanged).</summary>
-        virtual CppDate plusYears(int years) const
+        virtual TDate plusYears(int years) const
         {
             tm notNormedTM = *value_;
             notNormedTM.tm_year += years;
             tm normedTM = normalize(notNormedTM);
-            return CppDate(normedTM.tm_year + 1900, normedTM.tm_mon + 1, normedTM.tm_mday);
+            return TDate(normedTM.tm_year + 1900, normedTM.tm_mon + 1, normedTM.tm_mday);
         }
 
         /// <summary>Add month (returns result, the object itself remains unchanged).</summary>
-        virtual CppDate plusMonths(int months)const
+        virtual TDate plusMonths(int months)const
         {
             tm notNormedTM = *value_;
             notNormedTM.tm_mon += months;
             tm normedTM = normalize(notNormedTM);
-            return CppDate(normedTM.tm_year + 1900, normedTM.tm_mon + 1, normedTM.tm_mday);
+            return TDate(normedTM.tm_year + 1900, normedTM.tm_mon + 1, normedTM.tm_mday);
         }
 
         /// <summary>Add days (returns result, the object itself remains unchanged).</summary>
-        virtual CppDate plusDays(int days)const
+        virtual TDate plusDays(int days)const
         {
             tm notNormedTM = *value_;
             notNormedTM.tm_mday += days;
             tm normedTM = normalize(notNormedTM);
-            return CppDate(normedTM.tm_year + 1900, normedTM.tm_mon + 1, normedTM.tm_mday);
+            return TDate(normedTM.tm_year + 1900, normedTM.tm_mon + 1, normedTM.tm_mday);
         }
 
         /// <summary>Days from the specified date. Error message if zero or negative.</summary>
-        virtual int daysFrom(CppDate fromDate) const
+        virtual int daysFrom(TDate fromDate) const
         {
             time_t this_time = mktime(value_);
             tm from_date = { 0 };
@@ -124,24 +124,24 @@ namespace cl
 
             __int64 secondsInDay = 60 * 60 * 24;
             if (this_time - from_time > 0) return (int)((this_time - from_time) / secondsInDay);
-            else throw cl::CppException("CppDate.daysFrom() function should not be used when the argument date is after or equal this date");
+            else throw cl::TException("TDate.daysFrom() function should not be used when the argument date is after or equal this date");
             return 0;
         }
 
         /// <summary>Convert to string.</summary>
-        virtual CppString toString() const
+        virtual TString toString() const
         {
-            //return CppString::format("{0:0000}-{1:00}-{2:00}", year(), month(), day());  //review this
+            //return TString::format("{0:0000}-{1:00}-{2:00}", year(), month(), day());  //review this
 
             char buffer[10]; //10 - length of date in ISO format (YYYY-MM-DD)
             sprintf_s(buffer, "%4d-%2d-%2d", year(), month(), day());
-            return CppString(buffer);
+            return TString(buffer);
         }
 
         /// <summary>Convert to int using Excel format. Empty date is converted to empty int.</summary>
         virtual int toExcelInt() const
         {
-            return  (!isNull()) ? daysFrom(CppDate(1899, 12, 30)) : 0; //review, maybe 1900, 1, 1 and empty value of int
+            return  (!isNull()) ? daysFrom(TDate(1899, 12, 30)) : 0; //review, maybe 1900, 1, 1 and empty value of int
         }
 
         /// <summary>Convert to int using ISO format (YYYYMMDD). Empty date is converted to empty int.</summary>
@@ -159,7 +159,7 @@ namespace cl
 
         /// <summary>Compare the current instance with another of the same type.
         /// Null is considered to be less than any other value.</summary>
-        virtual int compareTo(CppDate other)
+        virtual int compareTo(TDate other)
         {
             time_t this_time = mktime(value_);
             tm from_date = { 0 };
@@ -175,15 +175,15 @@ namespace cl
         virtual void checkValid()
         {
             if ((value_->tm_hour != 0) || (value_->tm_min != 0) || (value_->tm_sec != 0))
-                throw cl::CppException("To be converted to CppDate, time must be set to UTC midnight");
+                throw cl::TException("To be converted to TDate, time must be set to UTC midnight");
         }
 
     };
 
 
-    CppDate::CppDate() : impl_(new CppDateImpl()) {}
+    TDate::TDate() : impl_(new TDateImpl()) {}
 
-    CppDate::CppDate(cl::CppString value) : impl_(new CppDateImpl(value)) {}
+    TDate::TDate(cl::TString value) : impl_(new TDateImpl(value)) {}
 
-    CppDate::CppDate(int year, int month, int day) : impl_(new CppDateImpl(year, month, day)) {}
+    TDate::TDate(int year, int month, int day) : impl_(new TDateImpl(year, month, day)) {}
 }

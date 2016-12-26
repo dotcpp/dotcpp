@@ -26,48 +26,48 @@ limitations under the License.
 
 #include <map>
 
-#include <cl/system/collections/generic/ICppCollection.hpp>
-#include <cl/system/collections/generic/ICppEnumerable.hpp>
-#include <cl/system/collections/generic/ICppEnumerator.hpp>
-#include <cl/system/collections/generic/CppList.hpp>
+#include <cl/system/collections/generic/ITCollection.hpp>
+#include <cl/system/collections/generic/ITEnumerable.hpp>
+#include <cl/system/collections/generic/ITEnumerator.hpp>
+#include <cl/system/collections/generic/TList.hpp>
 
 namespace cl
 {
-    template <class T> class CppArray;
+    template <class T> class TArray;
 
     ///!!! Provide .NET description Adapter class from STL map to .NET SortedDictionary - collection of key/value pairs that are sorted on the key
     template <typename Key, typename Type >
-    class CppSortedDictionary : public detail::std_accessor_<
-        cl::ICppEnumerable< typename CppKeyValuePair<Key, Type>::type >
+    class TSortedDictionary : public detail::std_accessor_<
+        cl::ITEnumerable< typename TKeyValuePair<Key, Type>::type >
         , std::map<Key, Type> >
     {
     public:
         typedef detail::std_accessor_<
-            cl::ICppEnumerable< typename CppKeyValuePair<Key, Type>::type >
+            cl::ITEnumerable< typename TKeyValuePair<Key, Type>::type >
             , std::map<Key, Type> > base;
 
         /// <summary>Creates a new empty instance of SortedDictionary.</summary>
-        CppSortedDictionary() : base()
+        TSortedDictionary() : base()
         {}
 
-        /// <summary>Gets number of elements in CppList.</summary>
+        /// <summary>Gets number of elements in TList.</summary>
         inline int count() const
         {
             return this->get().size();
         }
 
         /// <summary>Gets List of keys.</summary>
-        inline CppList<Key> keys()
+        inline TList<Key> keys()
         {
-            CppList<Key> keys;
+            TList<Key> keys;
             std::for_each(this->get().begin(), this->get().end(), [&keys] (std::pair<Key, Type> const& pair) { keys.add(pair.first); });
             return keys;
         }
 
         /// <summary>Gets List of values.</summary>
-        inline CppList<Type> values()
+        inline TList<Type> values()
         {
-            CppList<Type> values;
+            TList<Type> values;
             std::for_each(this->get().begin(), this->get().end(), [&values] (std::pair<Key, Type> const& pair) { values.add(pair.second); });
             return values;
         }
@@ -113,10 +113,10 @@ namespace cl
         }
 
         /// <summary>Copies SortedDictionary elements to array starting at specified index.</summary>
-        inline void copyTo(CppArray<typename CppKeyValuePair<Key, Type>::type>& arr, int arrIndex) const
+        inline void copyTo(TArray<typename TKeyValuePair<Key, Type>::type>& arr, int arrIndex) const
         {
             /*if (arrIndex +  this->get().count() > arr.length())
-                throw CppExeption();*/
+                throw TExeption();*/
             for (auto it = this->get().begin(), int i = arrIndex; it < this->get().end(); it++, i++)
             {
                 arr[i] = *it;

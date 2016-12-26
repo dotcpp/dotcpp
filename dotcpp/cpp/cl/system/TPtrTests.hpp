@@ -21,21 +21,27 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_CppPtrTests_hpp__
-#define __cl_system_CppPtrTests_hpp__
+#ifndef __cl_system_TPtrTests_hpp__
+#define __cl_system_TPtrTests_hpp__
 
-#include <cl/system/CppPtr.hpp>
+#include <boost/test/unit_test.hpp>
+
+using namespace boost::unit_test_framework;
+
+#include <cl/system/TPtr.hpp>
 
 namespace cl
 {
     /// <summary>String tests.</summary>
-    class CL_SYSTEM CppPtrTests
+    class CL_SYSTEM TPtrTests
     {
     public: // METHODS
 
         /// <summary>Test create methods.</summary>
-        void testCreate();
+        static void testCreate();
+
+        static test_suite* TPtrTestSuite();
     };
 }
 
-#endif  // __cl_system_CppPtrTests_hpp__
+#endif  // __cl_system_TPtrTests_hpp__

@@ -21,10 +21,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_CppDoubleConverter_hpp__
-#define __cl_system_CppDoubleConverter_hpp__
+#ifndef __cl_system_TDoubleConverter_hpp__
+#define __cl_system_TDoubleConverter_hpp__
 
-#include <cl/system/CppDoubleOperatorCheck.hpp>
+#include <cl/system/TDoubleOperatorCheck.hpp>
 
 namespace cl
 {
@@ -42,26 +42,26 @@ namespace cl
     template <typename... Comparsion>
     struct Conversion;
 
-    /// <summary>This template and its specializations provide conversion to CppDouble value_type.</summary>
+    /// <summary>This template and its specializations provide conversion to TDouble value_type.</summary>
     template <typename Type
             , typename ValueType
             , typename NativeType = typename std::remove_volatile<typename std::remove_const<Type>::type >::type
-            , typename IsSameType = typename std::is_same<NativeType, CppDouble>::type
+            , typename IsSameType = typename std::is_same<NativeType, TDouble>::type
             , typename IsArithmetic = typename std::is_arithmetic<NativeType>::type
             , typename IsConvertible = typename std::is_convertible<Type, ValueType>::type
             , typename IsHasOperator = typename cl::detail::is_has_operator_real<NativeType>::type
             , typename IsEnum = typename std::is_enum<NativeType>::type  >
-    struct CppDoubleConvert
+    struct TDoubleConvert
     {
         typedef ValueType type;
     };
 
-    /// <summary>This template and its specializations provide conversion to CppDouble value_type.</summary>
+    /// <summary>This template and its specializations provide conversion to TDouble value_type.</summary>
     template <typename Type, typename ValueType, typename NativeType
             , typename IsSame //[ std::true_type] typename IsAriphm, [std::true_type] typename IsConv
             , typename IsHasOper //, [std::false_type] typename IsEnum
         >
-    struct CppDoubleConvert<Type, ValueType, NativeType
+    struct TDoubleConvert<Type, ValueType, NativeType
         , IsSame, std::true_type, std::true_type, IsHasOper, std::false_type>
     {
         typedef ValueType type;
@@ -74,12 +74,12 @@ namespace cl
         }
     };
 
-    /// <summary>This template and its specializations provide conversion to CppDouble value_type.</summary>
+    /// <summary>This template and its specializations provide conversion to TDouble value_type.</summary>
     template <typename Type, typename ValueType, typename NativeType
         , typename IsSame // [std::false_type] typename IsAriphm, [std::true_type] typename IsConv
         , typename IsHasOper // [std::false_type] typename IsEnum
     >
-    struct CppDoubleConvert<Type, ValueType, NativeType
+    struct TDoubleConvert<Type, ValueType, NativeType
         , IsSame, std::false_type, std::true_type, IsHasOper, std::false_type>
     {
         typedef ValueType type;
@@ -92,10 +92,10 @@ namespace cl
         }
     };
 
-    /// <summary>This template and its specializations provide conversion to CppDouble value_type.</summary>
+    /// <summary>This template and its specializations provide conversion to TDouble value_type.</summary>
     template <typename Type, typename ValueType, typename NativeType
                 , typename IsAriphm, typename IsConv, typename IsHasOper, typename IsEnum>
-    struct CppDoubleConvert<Type, ValueType, NativeType
+    struct TDoubleConvert<Type, ValueType, NativeType
         , std::true_type, IsAriphm, IsConv, IsHasOper, IsEnum>
     {
         typedef ValueType type;
@@ -107,10 +107,10 @@ namespace cl
         }
     };
 
-    /// <summary>This template and its specializations provide conversion to CppDouble value_type.</summary>
+    /// <summary>This template and its specializations provide conversion to TDouble value_type.</summary>
     template <typename Type, typename ValueType, typename NativeType
         , typename IsSame, /*typename IsConv,*/ typename IsHasOper, typename IsEnum>
-    struct CppDoubleConvert<Type, ValueType, NativeType
+    struct TDoubleConvert<Type, ValueType, NativeType
         , IsSame, std::true_type, std::false_type, IsHasOper, IsEnum>
     {
         typedef ValueType type;
@@ -123,10 +123,10 @@ namespace cl
         }
     };
 
-    /// <summary>This template and its specializations provide conversion to CppDouble value_type.</summary>
+    /// <summary>This template and its specializations provide conversion to TDouble value_type.</summary>
     template <typename Type, typename ValueType, typename NativeType
         , typename IsSame, typename IsConv, typename IsAriphm, typename IsEnum>
-    struct CppDoubleConvert<Type, ValueType, NativeType
+    struct TDoubleConvert<Type, ValueType, NativeType
         , IsSame, IsAriphm, IsConv, std::true_type, IsEnum>
     {
         typedef ValueType type;
@@ -143,21 +143,21 @@ namespace cl
                     , Type const&
                     , Type >::type type;
             type v = other_value;
-            this_value = v.operator CppDouble();
+            this_value = v.operator TDouble();
         }
 
         // If ValueType is a class, constructor should be called
         template <typename ThisType>
         static void convert(ThisType& this_value, Type& other_value)
         {
-            this_value = other_value.operator CppDouble();
+            this_value = other_value.operator TDouble();
         }
     };
 
-    /// <summary>This template and its specializations provide conversion to CppDouble value_type.</summary>
+    /// <summary>This template and its specializations provide conversion to TDouble value_type.</summary>
     template <typename Type, typename ValueType, typename NativeType
         , typename IsSame, typename IsConv, typename IsAriphm, typename IsHasOper>
-    struct CppDoubleConvert<Type, ValueType, NativeType
+    struct TDoubleConvert<Type, ValueType, NativeType
         , IsSame, IsAriphm, IsConv, IsHasOper, std::true_type>
     {
         typedef ValueType type;
@@ -170,7 +170,7 @@ namespace cl
         }
     };
 
-    /// <summary>This template and its specializations provide conversion to CppDouble value_type.</summary>
+    /// <summary>This template and its specializations provide conversion to TDouble value_type.</summary>
     template <typename Converter, typename ThisType, typename From>
     inline typename void
     convert(ThisType& this_value, From const& other_value)
@@ -179,4 +179,4 @@ namespace cl
     };
 }
 
-#endif // __cl_system_CppDoubleConverter_hpp__
+#endif // __cl_system_TDoubleConverter_hpp__

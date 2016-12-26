@@ -21,30 +21,42 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_collections_generic_CppStackTests_hpp__
-#define __cl_system_collections_generic_CppStackTests_hpp__
+#ifndef __cl_system_collections_generic_TStackTests_hpp__
+#define __cl_system_collections_generic_TStackTests_hpp__
 
-#include <cl/system/collections/generic/CppStack.hpp>
+#include <cl/system/collections/generic/TStack.hpp>
 
 namespace cl {
     typedef std::string String;
 }
 
-BOOST_AUTO_TEST_SUITE(CppStackTests)
-
-BOOST_AUTO_TEST_CASE(iteration)
+class TStackTests
 {
-    cl::Stack<cl::String> stringStack;
-    stringStack.Push("111");
-    stringStack.Push("222");
-    BOOST_REQUIRE_EQUAL(stringStack.get_Count(), 2);
-    for each (cl::String str in stringStack)
+public:
+
+    static void iteration()
     {
-        std::cout << str.c_str() << std::endl;
+        cl::TStack<cl::String> stringStack;
+        stringStack.push("111");
+        stringStack.push("222");
+        BOOST_CHECK(stringStack.count() == 2);
+
+        for each (cl::String str in stringStack)
+        {
+            std::cout << str << " ";
+        }
+
+        std::cout << std::endl;
     }
 
-}
+    static test_suite* TStackTestSuite()
+    {
+        test_suite* suite = BOOST_TEST_SUITE("TStack test");
+        suite->add(BOOST_TEST_CASE(&TStackTests::iteration));
+        return suite;
+    }
 
-BOOST_AUTO_TEST_SUITE_END()
 
-#endif // __cl_system_collections_generic_CppStackTests_hpp__
+};
+
+#endif // __cl_system_collections_generic_TStackTests_hpp__

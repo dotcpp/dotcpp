@@ -21,21 +21,27 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_CppStringTests_hpp__
-#define __cl_system_CppStringTests_hpp__
+#ifndef __cl_system_TStringTests_hpp__
+#define __cl_system_TStringTests_hpp__
 
-#include <cl/system/CppString.hpp>
+#include <boost/test/unit_test.hpp>
+
+using namespace boost::unit_test_framework;
+
+#include <cl/system/TString.hpp>
 
 namespace cl
 {
     /// <summary>String tests.</summary>
-    class CL_SYSTEM CppStringTests
+    class CL_SYSTEM TStringTests
     {
     public: // METHODS
 
         /// <summary>Test create methods.</summary>
-        void testCreate();
+        static void testCreate();
+
+        static test_suite* TStringTestSuite();
     };
 }
 
-#endif  // __cl_system_CppStringTests_hpp__
+#endif  // __cl_system_TStringTests_hpp__

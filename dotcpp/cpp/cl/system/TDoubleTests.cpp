@@ -22,11 +22,11 @@ limitations under the License.
 */
 
 #include <cl/system/implement.hpp>
-#include <cl/system/CppDoubleTests.hpp>
+#include <cl/system/TDoubleTests.hpp>
 
 namespace cl
 {
-    void CppDoubleTests::testCreate()
+    void TDoubleTests::testCreate()
     {
         std::cout << "Hello world" << std::endl;
     }

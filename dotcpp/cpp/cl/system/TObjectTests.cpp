@@ -22,11 +22,11 @@ limitations under the License.
 */
 
 #include <cl/system/implement.hpp>
-#include <cl/system/CppObjectTests.hpp>
+#include <cl/system/TObjectTests.hpp>
 
 namespace cl
 {
-    void CppObjectTests::testCreate()
+    void TObjectTests::testCreate()
     {
         std::cout << "Hello world" << std::endl;
     }

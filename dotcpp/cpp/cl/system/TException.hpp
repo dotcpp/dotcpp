@@ -21,33 +21,33 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_CppException_hpp__
-#define __cl_system_CppException_hpp__
+#ifndef __cl_system_TException_hpp__
+#define __cl_system_TException_hpp__
 
 #include <cl/system/declare.hpp>
 
 namespace cl
 {
-    class CppString;
+    class TString;
 
     /// <summary>Represents errors that occur during application execution.</summary>
-    class CL_SYSTEM CppException : public std::exception
+    class CL_SYSTEM TException : public std::exception
     {
         std::string msg_;
 
     public: // CONSTRUCTORS
 
         /// <summary>Create with default message.</summary>
-        CppException() : msg_("Exception of type 'System.Exception' was thrown.") {}
+        TException() : msg_("Exception of type 'System.Exception' was thrown.") {}
 
         /// <summary>Create with a specified error message.</summary>
-        CppException(const CppString& msg);
+        TException(const TString& msg);
 
         /// <summary>Create with a specified error message.</summary>
-        CppException(const std::string& msg) : msg_(msg) {}
+        TException(const std::string& msg) : msg_(msg) {}
 
         /// <summary>Create with a specified error message.</summary>
-        CppException(const char* msg) : msg_(msg ? msg : "") {}
+        TException(const char* msg) : msg_(msg ? msg : "") {}
 
     public: // METHODS
 
@@ -55,8 +55,8 @@ namespace cl
         virtual const char* what() const { return msg_.c_str(); }
 
         /// <summary>Message that describes the current exception.</summary>
-        virtual CppString message() const;
+        virtual TString message() const;
     };
 }
 
-#endif // __cl_system_CppException_hpp__
+#endif // __cl_system_TException_hpp__

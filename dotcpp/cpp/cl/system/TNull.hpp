@@ -21,20 +21,20 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_CppNull_hpp__
-#define __cl_system_CppNull_hpp__
+#ifndef __cl_system_TNull_hpp__
+#define __cl_system_TNull_hpp__
 
 #include <cl/system/declare.hpp>
 
 namespace cl
 {
     /// <summary>Helper type to enable comparison and assignment to null pointer.
-    /// This object cannot be created, therefore any pointer to CppNull is null.</summary>
-    class CppNull
+    /// This object cannot be created, therefore any pointer to TNull is null.</summary>
+    class CL_SYSTEM TNull
     {
     private:
-        CppNull();
+        TNull();
     };
 }
 
-#endif  // __cl_system_CppNull_hpp__
+#endif  // __cl_system_TNull_hpp__

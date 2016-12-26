@@ -21,58 +21,58 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_collections_generic_CppList_hpp__
-#define __cl_system_collections_generic_CppList_hpp__
+#ifndef __cl_system_collections_generic_TList_hpp__
+#define __cl_system_collections_generic_TList_hpp__
 
-#include <cl/system/CppPtr.hpp>
-#include <cl/system/collections/generic/ICppCollection.hpp>
-#include <cl/system/collections/generic/ICppEnumerable.hpp>
-#include <cl/system/collections/generic/ICppEnumerator.hpp>
+#include <cl/system/TPtr.hpp>
+#include <cl/system/collections/generic/ITCollection.hpp>
+#include <cl/system/collections/generic/ITEnumerable.hpp>
+#include <cl/system/collections/generic/ITEnumerator.hpp>
 
 #include <deque>
 
 namespace cl
 {
-    template <typename T> class CppArray;
+    template <typename T> class TArray;
 
     typedef std::runtime_error Exception;
 
     template <typename Type>
-    struct CppReadOnlyCollection : detail::empty_type {};
+    struct TReadOnlyCollection : detail::empty_type {};
 
     template <typename >
-    struct ICppComparer : detail::empty_type {};
+    struct ITComparer : detail::empty_type {};
 
     template <typename, typename >
-    struct CppConverter : detail::empty_type {};
+    struct TConverter : detail::empty_type {};
 
     template <typename >
-    struct CppAction : detail::empty_type {};
+    struct TAction : detail::empty_type {};
 
     template <typename>
-    struct CppComparison : detail::empty_type {};
+    struct TComparison : detail::empty_type {};
 
     /// Adapter class from STL deque to .NET List with access by index
     template <typename T>
-    class CppList : public detail::std_accessor_<cl::ICppEnumerable<T>, std::deque<T> >
+    class TList : public detail::std_accessor_<cl::ITEnumerable<T>, std::deque<T> >
     {
     public:
 
         //!! Why in public scope
-        typedef cl::ICppEnumerator<T> Enumerator;
-        typedef detail::std_accessor_<cl::ICppEnumerable<T>, std::deque<T> > base;
-        typedef cl::ICppEnumerable<T> cl_enumerator_type;
+        typedef cl::ITEnumerator<T> Enumerator;
+        typedef detail::std_accessor_<cl::ITEnumerable<T>, std::deque<T> > base;
+        typedef cl::ITEnumerable<T> cl_enumerator_type;
         typedef std::deque<T> std_base;
         typedef T& reference_type;
 
     public:
 
         /// <summary>Creates new empty instance of List.</summary>
-        CppList() : base()
+        TList() : base()
         {
         }
 
-        CppList(int capacity)
+        TList(int capacity)
         {
             c_ = std::shared_ptr<std::deque<T>>(new std::deque<T>(capacity));
         }
@@ -101,20 +101,20 @@ namespace cl
         }
 
         /// <summary>Adds the elements from other collection to the end of List.</summary>
-        inline void addRange(const ICppEnumerable<T>& collection);
+        inline void addRange(const ITEnumerable<T>& collection);
 
         /// <summary>Returns a read-only collection wrapper around List.</summary>
-        // inline readOnlyCollection<T> asReadOnly();
+        inline TReadOnlyCollection<T> asReadOnly();
 
         /// <summary>Searches element in sorted List using default comparer.</summary>
         inline int binarySearch(const T& item);
 
         /// <summary>Searches element in sorted List using specified comparer.</summary>
-        inline int binarySearch(const T& item, ICppComparer<T> comparer);
+        inline int binarySearch(const T& item, ITComparer<T> comparer);
 
         /// <summary>Searches element in sorted List in specifien range using
         /// specified comparer and returns index of that element.</summary>
-        int binarySearch(int index, int count, const T& item, ICppComparer<T> comparer);
+        int binarySearch(int index, int count, const T& item, ITComparer<T> comparer);
 
         /// <summary>Erase all elements from List.</summary>
         void clear();
@@ -125,16 +125,16 @@ namespace cl
         /// <summary>Converts elemetn of List from type T to type TOutput
         /// using converter.</summary>
         template <typename TOutput, typename Coverter>
-        inline CppList<TOutput> convertAll(CppConverter<T, TOutput> converter);
+        inline TList<TOutput> convertAll(TConverter<T, TOutput> converter);
 
         /// <summary>Copies List elements to array starting at then begining of arrray.</summary>
-        void copyTo(CppArray<T>& arr) const;
+        void copyTo(TArray<T>& arr) const;
 
         /// <summary>Copies List elements to array starting at specified index.</summary>
-        void copyTo(CppArray<T>& arr, int index) const;
+        void copyTo(TArray<T>& arr, int index) const;
 
         /// <summary>Copies range of List elements to array starting at specified index.</summary>
-        void copyTo(int index, CppArray<T>& arr, int arrIndex, int count) const;
+        void copyTo(int index, TArray<T>& arr, int arrIndex, int count) const;
 
         /// <summary>Looks for elements in List that match predicate condition and returns bool.</summary>
         template <typename Predicate>
@@ -149,9 +149,9 @@ namespace cl
 
         /// <summary>Looks for elements in List that match predicate condition and returns it in new List.</summary>
         template <typename Predicate>
-        inline CppList<T> findAll(Predicate match) const
+        inline TList<T> findAll(Predicate match) const
         {
-            CppList<T> result;
+            TList<T> result;
             std::for_each(begin(), end(), [&result, &match](T& v)
                 {
                     if (match(v))
@@ -180,7 +180,7 @@ namespace cl
         {
             typename std_base::const_iterator start = begin() + startIndex;
             typename std_base::const_iterator end = start + count;
-            //!! assert(end <= end());
+            assert(end <= end());
             typename std_base::const_iterator where
                 = std::find_if(start, end , match);
             return where != end ? where - begin : -1;
@@ -207,7 +207,8 @@ namespace cl
                 = std::find_if(get().rbegin(), get().rend(), match);
             if (where == get().rend())
                 return -1;
-            return this->get_Count() - (get().rbegin() - where);
+            //!! Check if C# version has property Count or method Count(), if property then use GetCount()
+            return int(this->count() - (where - get().rbegin()) - 1);
         }
 
         /// <summary>Looks for element in List starting at specified index that match predicate condition and returns it index in List.</summary>
@@ -219,14 +220,14 @@ namespace cl
         inline int findLastIndex(int startIndex, int count, Predicate match) const;
 
         /// <summary>Apples action to each element in List.</summary>
-        template <typename CppAction>
-        inline void forEach(CppAction action)
+        template <typename TAction>
+        inline void forEach(TAction action)
         {
             std::for_each(begin(), end(), action);
         }
 
         /// <summary>Returns a sublist.</summary>
-        CppList<T> getRange(int index, int count) const;
+        TList<T> getRange(int index, int count) const;
 
         /// <summary>Searches for the specified object and returns the index of the first entire in List.</summary>
         int indexOf(const T& item) const;
@@ -241,7 +242,7 @@ namespace cl
         void insert(int index, T item);
 
         /// <summary>Inserts the elements of a collection into List at the specified index.</summary>
-        void insertRange(int index, ICppEnumerable<T> const& collection);
+        void insertRange(int index, ITEnumerable<T> const& collection);
 
         /// <summary>Searches for the specified object and returns the index of the last occurrence in List.</summary>
         int lastIndexOf(const T& item);
@@ -267,7 +268,7 @@ namespace cl
         /// <summary>Removes the element at the specified index of the List.</summary>
         void removeAt(int index)
         {
-            //!! assert(this->get().size() > index);
+            assert(this->get().size() > index);
             this->get().erase(begin() + index);
         }
 
@@ -285,11 +286,11 @@ namespace cl
 
         /// <summary>Sorts the elements in the List the specified comparsion.</summary>
         template <typename Comparer>
-        void sort(CppComparison<T> comparison);
+        void sort(TComparison<T> comparison);
 
         /// <summary>Sorts the elements in the List the specified IComparer.</summary>
         template <typename Comparer>
-        void sort(ICppComparer<T> comparer);
+        void sort(ITComparer<T> comparer);
 
         /// <summary>Sorts the elements in a range of elements in List using the specified comparer.</summary>
         template <typename Comparer>
@@ -299,7 +300,7 @@ namespace cl
         }
 
         /// <summary>Copies the elements of the List to a new array.</summary>
-        CppArray<T> toArray() const;
+        TArray<T> toArray() const;
 
         /// <summary>Sets the capacity to the actual number of elements in the List,
         /// if that number is less than a threshold value.</summary>
@@ -310,11 +311,11 @@ namespace cl
         template <typename Predicate>
         inline bool trueForAll(Predicate match);
 
-        static CppPtr<CppList<T> > create()
+        static TPtr<TList<T> > create()
         {
-            return CppPtr<CppList<T> >(new CppList<T>());
+            return TPtr<TList<T> >(new TList<T>());
         }
     };
 }
 
-#endif // __cl_system_collections_generic_CppList_hpp__
+#endif // __cl_system_collections_generic_TList_hpp__

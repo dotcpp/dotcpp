@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_collections_generic_ICppEnumerator_hpp__
-#define __cl_system_collections_generic_ICppEnumerator_hpp__
+#ifndef __cl_system_collections_generic_ITEnumerator_hpp__
+#define __cl_system_collections_generic_ITEnumerator_hpp__
 
 #if defined DEBUG
 #   define CHECK_TYPE_CAST(type_2, expr_from)       \
@@ -144,22 +144,22 @@ namespace cl
         }
     }
 
-    class CppBool {};
+    class TBool {};
 
     /// Supports a simple iteration over a generic collection.
     template <class T>
-    class ICppEnumerator
+    class ITEnumerator
         : std::random_access_iterator_tag
     {
     public: // METHODS
         typedef std::unique_ptr<detail::std_iterator_base<T > > iterator_type;
 
         // should be null
-        ICppEnumerator() = default;
+        ITEnumerator() = default;
 
         //!! Explicit constructor to converible from any other
         template <typename Iterator>
-        explicit ICppEnumerator(Iterator const& iter)
+        explicit ITEnumerator(Iterator const& iter)
             : iterator_(detail::make_iterator(iter))
         {   }
 
@@ -173,24 +173,24 @@ namespace cl
         /// Advances the enumerator to the next element of the collection.\\
         /// Returns true if the enumerator was successfully advanced to the next element;
         /// false if the enumerator has passed the end of the collection.
-        CppBool moveNext()
+        TBool moveNext()
         {
-            return CppBool();
+            return TBool();
         }
 
         /// Sets the enumerator to its initial position, which is before the first element in the collection.
         void reset()
         {}
 
-        inline ICppEnumerator<T>& operator ++()
+        inline ITEnumerator<T>& operator ++()
         {
             ++(*iterator_);
             return *this;
         }
 
-        inline ICppEnumerator<T> operator ++(int)
+        inline ITEnumerator<T> operator ++(int)
         {
-            ICppEnumerator<T> old(iterator_->copy());
+            ITEnumerator<T> old(iterator_->copy());
             this->operator ++();
             return old;
         }
@@ -213,7 +213,7 @@ namespace cl
     public:
         ///
         inline bool
-        compare(cl::ICppEnumerator<T> const& c) const
+        compare(cl::ITEnumerator<T> const& c) const
         {
             // we should compare
             if (iterator_ && c.iterator_)
@@ -231,18 +231,18 @@ namespace cl
     };
 
     template <typename Type>
-    inline bool operator == (cl::ICppEnumerator<Type> const& left
-        , cl::ICppEnumerator<Type> const& right)
+    inline bool operator == (cl::ITEnumerator<Type> const& left
+        , cl::ITEnumerator<Type> const& right)
     {
         return left.compare(right);
     }
 
     template <typename Type>
-    inline bool operator != (cl::ICppEnumerator<Type> const& left
-        , cl::ICppEnumerator<Type> const& right)
+    inline bool operator != (cl::ITEnumerator<Type> const& left
+        , cl::ITEnumerator<Type> const& right)
     {
         return !(left == right);
     }
 }
 
-#endif  // __cl_system_collections_generic_ICppEnumerator_hpp__
+#endif  // __cl_system_collections_generic_ITEnumerator_hpp__

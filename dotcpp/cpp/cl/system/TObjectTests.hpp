@@ -21,15 +21,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_CppObjectTests_hpp__
-#define __cl_system_CppObjectTests_hpp__
+#ifndef __cl_system_TObjectTests_hpp__
+#define __cl_system_TObjectTests_hpp__
 
-#include <cl/system/CppObject.hpp>
+#include <cl/system/TObject.hpp>
 
 namespace cl
 {
     /// <summary>String tests.</summary>
-    class CL_SYSTEM CppObjectTests
+    class CL_SYSTEM TObjectTests
     {
     public: // METHODS
 
@@ -38,4 +38,4 @@ namespace cl
     };
 }
 
-#endif  // __cl_system_CppObjectTests_hpp__
+#endif  // __cl_system_TObjectTests_hpp__

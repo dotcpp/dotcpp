@@ -21,64 +21,52 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_CppDate_hpp__
-#define __cl_system_CppDate_hpp__
-
+#ifndef __cl_system_TDate_hpp__
+#define __cl_system_TDate_hpp__
 
 #include <cl/system/declare.hpp>
-#include <cl/system/CppString.hpp>
-#include <cl/system/collections/generic/CppList.hpp>
-
-/*
-#include <cl/system/ClObject.hpp>
-#include <cl/system/IClvalue.hpp>
-#include <cl/system/collections/ClFieldInfo.hpp>
-#include <cl/system/collections/ClFieldType.hpp>
-*/
-
+#include <cl/system/TString.hpp>
+#include <cl/system/collections/generic/TList.hpp>
 
 namespace cl
 {
-
-    class CppDate
+    class CL_SYSTEM TDate
     {
     private:
 
-        std::shared_ptr<CppDate> impl_;
+        std::shared_ptr<TDate> impl_;
 
     public: //  CONSTANTS
 
         /// <summary>Empty value.</summary>
-        static const CppDate Empty;
+        static const TDate Empty;
 
     public: //  CONSTRUCTORS
 
         /// <summary>Create with empty value.</summary>
-        CppDate();
+        TDate();
 
         /// <summary>Create from string in ISO format (YYYY-MM-DD).</summary>
-        CppDate(cl::CppString value);
+        TDate(cl::TString value);
 
         /// <summary>Constructor from int.</summary>
-        CppDate(int year, int month, int day);
+        TDate(int year, int month, int day);
 
 
         /// <summary>Constructor from variant.</summary>
         template <typename Type>
-        CppDate(Type value)
+        TDate(Type value)
         {
             *this = value.ToDate();
         }
-
 
     public: //  METHODS
 
         /// <summary>Returns true if the object is empty.</summary>
         virtual bool isNull() const { return impl_->isNull(); }
 
-
         /// <summary>Convert atomic type to value.</summary>
-        virtual CppDate& value() const { return *(impl_.get()); }
+        virtual TDate& value() const { return *(impl_.get()); }
 
         /// <summary>Year.</summary>
         virtual int year() const { return impl_->year(); }
@@ -90,19 +78,19 @@ namespace cl
         virtual int day() const { return impl_->day(); }
 
         /// <summary>Add years (returns result, the object itself remains unchanged).</summary>
-        virtual CppDate plusYears(int years) const { return impl_->plusYears(years); }
+        virtual TDate plusYears(int years) const { return impl_->plusYears(years); }
 
         /// <summary>Add month (returns result, the object itself remains unchanged).</summary>
-        virtual CppDate plusMonths(int months) const { return impl_->plusMonths(months); }
+        virtual TDate plusMonths(int months) const { return impl_->plusMonths(months); }
 
         /// <summary>Add days (returns result, the object itself remains unchanged).</summary>
-        virtual CppDate plusDays(int days) const { return impl_->plusDays(days); }
+        virtual TDate plusDays(int days) const { return impl_->plusDays(days); }
 
         /// <summary>Days from the specified date. Error message if zero or negative.</summary>
-        virtual int daysFrom(CppDate fromDate) const { return impl_->daysFrom(fromDate); }
+        virtual int daysFrom(TDate fromDate) const { return impl_->daysFrom(fromDate); }
 
         /// <summary>Convert to string.</summary>
-        virtual CppString toString() const { return impl_->toString(); }
+        virtual TString toString() const { return impl_->toString(); }
 
         /// <summary>Convert to int using Excel format. Empty date is converted to empty int.</summary>
         virtual int toExcelInt() const { return impl_->toExcelInt(); }
@@ -111,14 +99,14 @@ namespace cl
         virtual int toIsoInt() const { return impl_->toIsoInt(); }
 
         /// <summary>Convert from int using ISO format (YYYYMMDD). Empty int is converted to empty date.</summary>
-        static CppDate fromIsoInt(int value)
+        static TDate fromIsoInt(int value)
         {
             int year = value / 10000;
             int remainder = value - 10000 * year;
             int month = remainder / 100;
             int day = remainder - 100 * month;
 
-            return CppDate(year, month, day);
+            return TDate(year, month, day);
         }
 
         /// <summary>Hash code.</summary>
@@ -129,76 +117,73 @@ namespace cl
         int compareTo(Type other) const
         {
             if (!other) return isNull() ? 0 : 1;
-            else throw cl::CppException("Attempting to compare ClDate with a different data type");
+            else throw cl::TException("Attempting to compare ClDate with a different data type");
         }
 
         /// <summary>Compare the current instance with another of the same type.
         /// Null is considered to be less than any other value.</summary>
-        virtual int compareTo(CppDate other) const { return impl_->compareTo(other); }
+        virtual int compareTo(TDate other) const { return impl_->compareTo(other); }
 
         /// <summary>Checks equality using tolerance-based comparison without causing an exception even if the object is not set.
         /// Two empty objects are considered equal.</summary>
         template<typename Type>
         bool equals(Type other) const
         {
-            return false; // Method always returns false because Type != CppData
+            return false; // Method always returns false because Type != TData
         }
 
         /// <summary>Checks equality using tolerance-based comparison without causing an exception even if the object is not set.
         /// Two empty objects are considered equal.</summary>
-        virtual bool equals(CppDate other) const { return compareTo(other) == 0; }
+        virtual bool equals(TDate other) const { return compareTo(other) == 0; }
 
         /// <summary>Equality operator. Returns true if arguments are equal
         /// or both empty and false if only one of the arguments is empty.</summary>
-        virtual bool operator ==(CppDate rhs) const { return equals(rhs); }
+        virtual bool operator ==(TDate rhs) const { return equals(rhs); }
 
         /// <summary>Inequality operator. Returns false if arguments are equal
         /// or both empty and true if only one of the arguments is empty.</summary>
-        virtual bool operator !=(CppDate rhs) const { return !(equals(rhs)); }
+        virtual bool operator !=(TDate rhs) const { return !(equals(rhs)); }
 
         /// <summary>Operator less. Error message if either of the arguments is empty.</summary>
-        virtual bool operator <(CppDate rhs) const { return compareTo(rhs) == -1; }
+        virtual bool operator <(TDate rhs) const { return compareTo(rhs) == -1; }
 
         /// <summary>Operator more. Error message if either of the arguments is empty.</summary>
-        virtual bool operator >(CppDate rhs) const { return compareTo(rhs) == 1; }
+        virtual bool operator >(TDate rhs) const { return compareTo(rhs) == 1; }
 
         /// <summary>Parse string in ISO format (YYYY-MM-DD).</summary>
-        static CppDate parse(CppString s) { return CppDate(s); }
+        static TDate parse(TString s) { return TDate(s); }
 
     private:
 
         /// <summary>Error message if the date is empty.</summary>
-        void checkSet() const { if (isNull()) throw new cl::CppException("ClError.Core.NotSet"); }
+        void checkSet() const { if (isNull()) throw new cl::TException("ClError.Core.NotSet"); }
 
         /// <summary>Error message if the argument is not a valid date in ISO format (YYYYMMDD).</summary>
         virtual void checkValid() const { impl_->checkValid(); }
-
     };
 
-
-    class CppDateEx
+    class CL_SYSTEM TDateEx
     {
-
     public:
-        static CppDate max(CppList<CppDate> src)
+        static TDate max(TList<TDate> src)
         {
-            if (src.count() == 0) throw cl::CppException("ClError.Core.ZeroSize");
-            CppDate result;
-            for each(CppDate value in src)
+            if (src.count() == 0) throw cl::TException("ClError.Core.ZeroSize");
+            TDate result;
+            for each(TDate value in src)
             {
-                if (value.isNull()) throw cl::CppException("ClError.Core.NotSet");
+                if (value.isNull()) throw cl::TException("ClError.Core.NotSet");
                 if (result.isNull() || result < value) result = value;
             }
             return result;
         }
 
-        static CppDate min(CppList<CppDate> src)
+        static TDate min(TList<TDate> src)
         {
-            if (src.count() == 0) throw cl::CppException("ClError.Core.ZeroSize");
-            CppDate result;
-            for each(CppDate value in src)
+            if (src.count() == 0) throw cl::TException("ClError.Core.ZeroSize");
+            TDate result;
+            for each(TDate value in src)
             {
-                if (value.isNull()) throw cl::CppException("ClError.Core.NotSet");
+                if (value.isNull()) throw cl::TException("ClError.Core.NotSet");
                 if (result.isNull() || result > value) result = value;
             }
             return result;
@@ -206,5 +191,4 @@ namespace cl
     };
 }
 
-
-#endif  // __cl_system_CppDate_hpp__
+#endif  // __cl_system_TDate_hpp__

@@ -22,13 +22,17 @@ limitations under the License.
 */
 
 #include <cl/system/implement.hpp>
-#include <cl/system/CppException.hpp>
-#include <cl/system/CppString.hpp>
+#include <cl/system/TException.hpp>
+#include <cl/system/TString.hpp>
 
 namespace cl
 {
-    CppString CppException::message() const
+    TException::TException(const TString& msg) : msg_(msg.value())
     {
-        return CppString(msg_);
+    }
+
+    TString TException::message() const
+    {
+        return TString(msg_);
     }
 }

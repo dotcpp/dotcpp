@@ -21,16 +21,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_CppDoubleLimits_hpp__
-#define __cl_system_CppDoubleLimits_hpp__
+#ifndef __cl_system_TDoubleLimits_hpp__
+#define __cl_system_TDoubleLimits_hpp__
 
-#include <cl/system/CppDouble.hpp>
+#include <cl/system/TDouble.hpp>
 #include <limits>
 
 namespace std
 {
-    /// <summary>Provides numeric limits for CppDouble.</summary>
-    template<> class numeric_limits<cl::CppDouble>
+    /// <summary>Provides numeric limits for TDouble.</summary>
+    template<> class numeric_limits<cl::TDouble>
     {
     public:
         static const bool is_specialized = true;
@@ -66,4 +66,4 @@ namespace std
     };
 }
 
-#endif  // __cl_system_CppDoubleLimits_hpp__
+#endif  // __cl_system_TDoubleLimits_hpp__
