@@ -24,13 +24,6 @@ limitations under the License.
 #ifndef cl_system_collections_generic_ITEnumerator_hpp
 #define cl_system_collections_generic_ITEnumerator_hpp
 
-#if defined DEBUG
-#   define CHECK_TYPE_CAST(type_2, expr_from)       \
-        ASSERT(dynamic_cast<type_2>(expr_From))
-#else
-#   define CHECK_TYPE_CAST(type_2, expr_from)
-#endif
-
 #include <cl/system/declare.hpp>
 
 namespace cl
