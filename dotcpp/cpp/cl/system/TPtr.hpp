@@ -107,9 +107,9 @@ namespace cl
 
     public: //  METHODS
 
-        /// <summary>(ITObject) Perform dynamic cast to the specified interface.
+        /// <summary>Perform dynamic cast to the specified interface.
         /// This method returns null pointer if the cast fails.</summary>
-        //template <class R> TPtr<R> as() const;
+        // template <class R> TPtr<R> as() const;
 
     public: //  OPERATORS
 
