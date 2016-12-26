@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_TNull_hpp__
-#define __cl_system_TNull_hpp__
+#ifndef cl_system_TNull_hpp
+#define cl_system_TNull_hpp
 
 #include <cl/system/declare.hpp>
 
@@ -37,4 +37,4 @@ namespace cl
     };
 }
 
-#endif  // __cl_system_TNull_hpp__
+#endif // cl_system_TNull_hpp

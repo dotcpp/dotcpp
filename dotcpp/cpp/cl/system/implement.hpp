@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_implement_hpp__
-#define __cl_system_implement_hpp__
+#ifndef cl_system_implement_hpp
+#define cl_system_implement_hpp
 
 #include <cl/system/import.hpp>
 
@@ -30,4 +30,4 @@ limitations under the License.
 #   define CL_SYSTEM CL_IMPLEMENT
 #endif
 
-#endif // __cl_system_implement_hpp__
+#endif // cl_system_implement_hpp

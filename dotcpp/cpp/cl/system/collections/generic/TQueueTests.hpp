@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_collections_generic_TQueueTests_hpp__
-#define __cl_system_collections_generic_TQueueTests_hpp__
+#ifndef cl_system_collections_generic_TQueueTests_hpp
+#define cl_system_collections_generic_TQueueTests_hpp
 
 #include <cl/system/collections/generic/TQueue.hpp>
 
@@ -62,4 +62,4 @@ public:
 
 };
 
-#endif // __cl_system_collections_generic_TQueueTests_hpp__
+#endif // cl_system_collections_generic_TQueueTests_hpp

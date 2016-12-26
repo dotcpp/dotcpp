@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_TString_hpp__
-#define __cl_system_TString_hpp__
+#ifndef cl_system_TString_hpp
+#define cl_system_TString_hpp
 
 #include <cl/system/declare.hpp>
 #include <cl/system/TObject.hpp>
@@ -346,4 +346,4 @@ namespace cl
 
 }
 
-#endif  // __cl_system_TString_hpp__
+#endif // cl_system_TString_hpp

@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_import_hpp__
-#define __cl_system_import_hpp__
+#ifndef cl_system_import_hpp
+#define cl_system_import_hpp
 
 // Supports compilation into Windows DLL
 #ifndef CL_IMPLEMENT
@@ -59,4 +59,4 @@ limitations under the License.
 #include <iomanip>
 #include <algorithm>
 
-#endif // __cl_system_import_hpp__
+#endif // cl_system_import_hpp

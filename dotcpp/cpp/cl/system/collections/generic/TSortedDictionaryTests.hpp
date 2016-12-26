@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef __cl_system_collections_generic_TSortedDictionaryTests_hpp__
-#define __cl_system_collections_generic_TSortedDictionaryTests_hpp__
+#ifndef cl_system_collections_generic_TSortedDictionaryTests_hpp
+#define cl_system_collections_generic_TSortedDictionaryTests_hpp
 
 #include <cl/system/collections/generic/TSortedDictionary.hpp>
 
@@ -41,4 +41,4 @@ BOOST_AUTO_TEST_CASE(iteration)
 BOOST_AUTO_TEST_SUITE_END()
 
 
-#endif // __cl_system_collections_generic_TSortedDictionaryTests_hpp__
+#endif // cl_system_collections_generic_TSortedDictionaryTests_hpp
