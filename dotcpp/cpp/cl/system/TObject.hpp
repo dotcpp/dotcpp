@@ -36,7 +36,7 @@ namespace cl
     /// <summary>This is the ultimate base class of all classes with reference semantics.
     /// It works with TPtr to provide an emulation of reference semantics in C++.\\
     /// For performance reasons, classes with value semantics are not derived from this type.</summary>
-    class CL_SYSTEM TObject : public RefCounter
+    class CL_SYSTEM TObject : public TRefCounter
     {
     public:
 
