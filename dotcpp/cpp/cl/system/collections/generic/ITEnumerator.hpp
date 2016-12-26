@@ -26,13 +26,6 @@ limitations under the License.
 
 #include <cl/system/declare.hpp>
 
-#if defined DEBUG
-#   define CL_CHECK_TYPE_CAST(type_2, expr_from)       \
-        //!!! Use exception rather than assert ASSERT(dynamic_cast<type_2>(expr_from))
-#else
-#   define CL_CHECK_TYPE_CAST(type_2, expr_from)
-#endif
-
 namespace cl
 {
     namespace detail {
@@ -126,7 +119,7 @@ namespace cl
 
             virtual int compare(std_iterator_base<value_type> const& cmp, bool only_equals = true)
             {
-                CL_CHECK_TYPE_CAST(std_iterator<Iterator> const&, cmp);
+                CHECK_TYPE_CAST(std_iterator<Iterator> const&, cmp);
                 Iterator const& oth = static_cast<std_iterator<Iterator> const&>(cmp).iter_;
                 return only_equals ?
                     (int)!(oth == this->iter_) : (false/*iter_ > oth*/ ? 1 : -((int)(oth == this->iter_)));
