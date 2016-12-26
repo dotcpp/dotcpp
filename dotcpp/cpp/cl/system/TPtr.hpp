@@ -41,7 +41,7 @@ namespace cl
     };
 
     /// <summary>Reference counted smart pointer type.
-    /// T must inherit from IClObject.</summary>
+    /// T must inherit from TObject.</summary>
     template <class T>
     class TPtr
         : public ::cl::type_operators_resolver<T>::type
@@ -88,7 +88,7 @@ namespace cl
         TPtr(const TPtr<T>& rhs);
 
         /// <summary>Associate with the specified field in a data structure.</summary>
-        TPtr(const ClFieldInfo& fieldInfo);
+        TPtr(const TFieldInfo& fieldInfo);
 
         inline T* check_(bool enable_default_ctor = true);
 
@@ -107,7 +107,7 @@ namespace cl
 
     public: //  METHODS
 
-        /// <summary>(IClObject) Perform dynamic cast to the specified interface.
+        /// <summary>(ITObject) Perform dynamic cast to the specified interface.
         /// This method returns null pointer if the cast fails.</summary>
         //template <class R> TPtr<R> as() const;
 
@@ -123,10 +123,10 @@ namespace cl
         bool operator!=(const TPtr<T>& rhs) const;
 
         /// <summary>Supports ptr == nullptr.</summary>
-        bool operator==(ClNull* rhs) const;
+        bool operator==(TNull* rhs) const;
 
         /// <summary>Supports ptr != nullptr.</summary>
-        bool operator!=(ClNull* rhs) const;
+        bool operator!=(TNull* rhs) const;
 
         /// <summary>Take ownership of raw pointer to template argument type.</summary>
         /// This also permits assignment of pointer to type derived from T.</summary>
@@ -238,12 +238,12 @@ namespace cl
     template <class T> TPtr<T>::TPtr(const TPtr<T>& rhs)
         : ptr_(rhs.createIfField().ptr_) {}
 
-    template <class T> TPtr<T>::TPtr(const ClFieldInfo& fieldInfo) : isField_(true) { fieldInfo.registerField(this); }
+    template <class T> TPtr<T>::TPtr(const TFieldInfo& fieldInfo) : isField_(true) { fieldInfo.registerField(this); }
     template <class T> T* TPtr<T>::operator->() const { createIfField(); T* p = ptr_.get(); if (!p) throw std::exception("Pointer is not initialized"); return p; }
     template <class T> bool TPtr<T>::operator==(const TPtr<T>& rhs) const { return ptr_ == rhs.ptr_; }
     template <class T> bool TPtr<T>::operator!=(const TPtr<T>& rhs) const { return ptr_ != rhs.ptr_; }
-    template <class T> bool TPtr<T>::operator==(ClNull* rhs) const { return ptr_.get() == nullptr; }
-    template <class T> bool TPtr<T>::operator!=(ClNull* rhs) const { return ptr_.get() != nullptr; }
+    template <class T> bool TPtr<T>::operator==(TNull* rhs) const { return ptr_.get() == nullptr; }
+    template <class T> bool TPtr<T>::operator!=(TNull* rhs) const { return ptr_.get() != nullptr; }
     template <class T> TPtr<T>& TPtr<T>::operator=(T* rhs) { ptr_.reset(rhs); return *this; }
     template <class T> template <class R> TPtr<T>& TPtr<T>::operator=(const TPtr<R>& rhs) { ptr_ = rhs.createIfField().ptr_; return *this; }
     template <class T> TPtr<T>& TPtr<T>::operator=(const TPtr<T>& rhs) { ptr_ = rhs.createIfField().ptr_; return *this; }
@@ -319,7 +319,7 @@ namespace cl
             }
         }
 
-        TPtr(ClFieldInfo const& instance);
+        TPtr(TFieldInfo const& instance);
 
         inline InterfaceType* check_(bool enable_default_ctor = true);
 
@@ -468,7 +468,7 @@ namespace cl
 
     template <template <typename... Ts_> class Interface
         , typename... Ts_>
-        TPtr<Interface<Ts_...>>::TPtr(ClFieldInfo const& instance)
+        TPtr<Interface<Ts_...>>::TPtr(TFieldInfo const& instance)
         : ptr_(create__<Interface<Ts_...> >(instance, std::is_abstract<Interface<Ts_...>>()))
     {
     }
