@@ -29,7 +29,7 @@ limitations under the License.
 namespace cl
 {
     template <typename Key, typename Value>
-    class ClDictionary : public TDictionary<Key, Value>
+    class TTestDictionary : public TDictionary<Key, Value>
         , public TObject
     {
     public:
@@ -39,11 +39,11 @@ namespace cl
             return TString();
         }
 
-        static TPtr<ClDictionary<Key, Value>> create() { return TPtr<ClDictionary<Key, Value>>(new ClDictionary<Key, Value>()); }
+        static TPtr<TTestDictionary<Key, Value>> create() { return TPtr<TTestDictionary<Key, Value>>(new TTestDictionary<Key, Value>()); }
     };
 
     template <typename Key, typename Value>
-    using Dictionary = TPtr<ClDictionary<Key, Value>>;
+    using Dictionary = TPtr<TTestDictionary<Key, Value>>;
 
 
     void TPtrTests::testCreate()

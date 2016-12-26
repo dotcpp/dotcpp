@@ -117,7 +117,7 @@ namespace cl
         int compareTo(Type other) const
         {
             if (!other) return isNull() ? 0 : 1;
-            else throw cl::TException("Attempting to compare ClDate with a different data type");
+            else throw cl::TException("Attempting to compare TDate with a different data type");
         }
 
         /// <summary>Compare the current instance with another of the same type.
@@ -156,7 +156,7 @@ namespace cl
     private:
 
         /// <summary>Error message if the date is empty.</summary>
-        void checkSet() const { if (isNull()) throw new cl::TException("ClError.Core.NotSet"); }
+        void checkSet() const { if (isNull()) throw new cl::TException("TError.Core.NotSet"); }
 
         /// <summary>Error message if the argument is not a valid date in ISO format (YYYYMMDD).</summary>
         virtual void checkValid() const { impl_->checkValid(); }
@@ -167,11 +167,11 @@ namespace cl
     public:
         static TDate max(TList<TDate> src)
         {
-            if (src.count() == 0) throw cl::TException("ClError.Core.ZeroSize");
+            if (src.count() == 0) throw cl::TException("TError.Core.ZeroSize");
             TDate result;
             for each(TDate value in src)
             {
-                if (value.isNull()) throw cl::TException("ClError.Core.NotSet");
+                if (value.isNull()) throw cl::TException("TError.Core.NotSet");
                 if (result.isNull() || result < value) result = value;
             }
             return result;
@@ -179,11 +179,11 @@ namespace cl
 
         static TDate min(TList<TDate> src)
         {
-            if (src.count() == 0) throw cl::TException("ClError.Core.ZeroSize");
+            if (src.count() == 0) throw cl::TException("TError.Core.ZeroSize");
             TDate result;
             for each(TDate value in src)
             {
-                if (value.isNull()) throw cl::TException("ClError.Core.NotSet");
+                if (value.isNull()) throw cl::TException("TError.Core.NotSet");
                 if (result.isNull() || result > value) result = value;
             }
             return result;
