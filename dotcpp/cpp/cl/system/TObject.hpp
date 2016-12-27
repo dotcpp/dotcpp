@@ -47,7 +47,7 @@ namespace cl
     public: // METHODS
 
         /// <summary>Returns a string that represents the current object.</summary>
-        virtual TString toString() const = 0;
+        virtual TString toString() const;
 
     protected:
         TObject() = default;
