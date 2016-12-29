@@ -346,4 +346,16 @@ namespace cl
 
 }
 
+namespace std
+{
+    template<>
+    struct hash<cl::TString> : public unary_function<cl::TString, size_t>
+    {
+        size_t operator()(const cl::TString value)
+        {
+            return value.getHashCode();
+        }
+    };
+}
+
 #endif // cl_system_TString_hpp
