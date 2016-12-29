@@ -88,14 +88,15 @@ namespace cl
         TPtr(const TPtr<T>& rhs);
 
         /// <summary>Associate with the specified field in a data structure.</summary>
-        TPtr(const TFieldInfo& fieldInfo);
+        template <class FieldInfoType>
+        TPtr(FieldInfoType const& fieldInfo, typename std::enable_if<cl::is_field_info<FieldInfoType>::value, cl::dummy>::type* = 0);
 
         inline T* check_(bool enable_default_ctor = true);
 
         void* operator new(size_t size);
 
-        template <typename... Arg>
-        TPtr(Arg... args);
+        template <class Arg0, class... Arg>
+        TPtr(Arg0 a0, Arg... args);
 
         TPtr(TPtr<T>* p);
 
@@ -199,14 +200,16 @@ namespace cl
     }
 
     template <class T>
-    template <typename... Arg>
-    TPtr<T>::TPtr(Arg... args) : ptr_(check_(), false)
+    template <class Arg0, class... Arg>
+    TPtr<T>::TPtr(Arg0 a0, Arg... args) : ptr_(check_(), false)
     {
         static_assert(sizeof(typename detail::take_type_ptr<T>::type) < sizeof(T) || std::is_abstract<T>::value
             , "Can not use this type for TPtr.");
 
         T* ptr = (T*)this;
-        new (ptr)T(args...);
+
+        // call placed ctor with requirements
+        ::cl::detail::ctor__(ptr, a0, args...);
     }
 
     template <class T>
@@ -238,7 +241,14 @@ namespace cl
     template <class T> TPtr<T>::TPtr(const TPtr<T>& rhs)
         : ptr_(rhs.createIfField().ptr_) {}
 
-    template <class T> TPtr<T>::TPtr(const TFieldInfo& fieldInfo) : isField_(true) { fieldInfo.registerField(this); }
+    template <class T>
+    template <class FieldInfoType>
+    TPtr<T>::TPtr(FieldInfoType const& fieldInfo, typename std::enable_if<cl::is_field_info<FieldInfoType>::value, dummy>::type* /*= 0*/)
+        : isField_(true)
+    {
+        cl::detail::register_field(fieldInfo, this);
+    }
+
     template <class T> T* TPtr<T>::operator->() const { createIfField(); T* p = ptr_.get(); if (!p) throw std::exception("Pointer is not initialized"); return p; }
     template <class T> bool TPtr<T>::operator==(const TPtr<T>& rhs) const { return ptr_ == rhs.ptr_; }
     template <class T> bool TPtr<T>::operator!=(const TPtr<T>& rhs) const { return ptr_ != rhs.ptr_; }
@@ -266,7 +276,9 @@ namespace cl
         typename std::enable_if<!cl::ref_countable<T>::value, void>::type
         create_TPtr(TPtr<T> const* c)
         {
-#	pragma message(false, "Not completed field is create :" __FUNCSIG__);
+#           if defined CL_COMPILE_TIME_DEBUG_ON
+#               pragma message(false, "Not completed field is create :" __FUNCSIG__);
+#           endif
         }
 
     }
@@ -284,237 +296,6 @@ namespace cl
         }
         return *this;
     }
-
-    template <template <typename... Ts_> class Interface
-        , typename... Ts_>
-    class TPtr<Interface<Ts_...>>
-        : public type_operators_resolver<Interface<Ts_...>>::type
-    {
-    public:
-        typedef Interface<Ts_...> InterfaceType;
-
-        TPtr();
-
-        template <template <typename... Tys_> class other_Interface>
-        TPtr(TPtr<other_Interface<Ts_...>> const& instance);
-
-        TPtr(InterfaceType* instance) : ptr_(instance) {}
-
-        template <typename Toth_>
-        TPtr(Toth_* instance);
-
-        template <typename Toth_>
-        TPtr(TPtr<Toth_ > const& instance);
-
-        TPtr(TPtr<InterfaceType > const& instance)
-            : ptr_(instance.ptr_)
-        {}
-
-        __if_exists(cl::finalizable_reference)
-        {
-            template <typename Toth_>
-            TPtr(cl::finalizable_reference<Toth_> ref)
-                : ptr_(ref.get().ptr_.get())
-            {
-            }
-        }
-
-        TPtr(TFieldInfo const& instance);
-
-        inline InterfaceType* check_(bool enable_default_ctor = true);
-
-        void* operator new(size_t size);
-
-        template <typename A0, typename... Arg>
-        TPtr(A0 a, Arg... args);
-
-        TPtr(TPtr<InterfaceType>* p);
-
-        template <class R> TPtr(TPtr<R> * rhs);
-
-
-        Interface<Ts_...>* operator->() const;
-
-        Interface<Ts_...>* get() const;
-
-        template <typename Ty_>
-        inline TPtr& operator = (Ty_ const& v)
-        {
-            ptr_ = boost::intrusive_ptr<Interface<Ts_...> >(v);
-
-            return *this;
-        }
-
-        void SetIsField(bool isField)
-        {
-            isField_ = isField;
-        }
-
-        /// <summary>Create on demand if self is marked as a field, do nothing otherwise.</summary>
-        TPtr<InterfaceType> const& createIfField() const;
-
-        /// Use intrusive ptr for types which is derived from object ref counter
-        mutable typename detail::take_type_ptr<Interface<Ts_...>>::type ptr_;
-
-        bool isField_ = false;
-    };
-
-
-    template <template <typename... Ts_> class Interface
-        , typename... Ts_>
-    inline Interface<Ts_...>* TPtr<Interface<Ts_... >>::check_(bool enable_default_ctor/* = true*/)
-    {
-        bool is_new_used = *(reinterpret_cast<__int64*>(this)) == traits_ptr::PointerTag;
-
-        if (!enable_default_ctor && !is_new_used)
-           cl::throw_("Check error, m\b allocated on a stack.");
-
-        return reinterpret_cast<Interface<Ts_... >*>(is_new_used ? traits_ptr::PointerTag : 0);
-    }
-
-    template <template <typename... Ts_> class Interface
-        , typename... Ts_>
-    void* TPtr<Interface<Ts_...>>::operator new(size_t size)
-    {
-        //TODO: m\b indentyifier set vefore,
-        //and return pointer after id
-        //like return ptr + sizeof(ID);
-        //it means we will able to check id of object by ptr
-        void* ptr = malloc(sizeof(Interface<Ts_...>));
-        *(__int64 *)ptr = traits_ptr::PointerTag;
-
-        return ptr;
-    }
-
-    namespace detail
-    {
-        template <typename T, typename... Args>
-        typename std::enable_if<!std::is_abstract<T>::value, void>::type
-        ctor__(T* p, Args... args)
-        {
-            new (p) T(args...);
-        }
-
-        template <typename T, typename... Args>
-        typename std::enable_if<std::is_abstract<T>::value, void>::type
-        ctor__(T* p, Args... args)
-        {
-#           pragma message ("Can not create abstract class :" __FUNCSIG__)
-        }
-    }
-
-    template <template <typename... Ts_> class Interface
-        , typename... Ts_>
-    template <typename A0, typename... Arg>
-    TPtr<Interface<Ts_...>>::TPtr(A0 a0, Arg... args) : ptr_(check_())
-    {
-        static_assert(sizeof(typename detail::take_type_ptr<type>::type) < sizeof(type) || std::is_abstract<type>::value
-            , "Can not use this type for TPtr.");
-
-        detail::ctor__((Interface<Ts_...>*)this, a0, args...);
-    }
-
-    template <template <typename... Ts_> class Interface
-        , typename... Ts_>
-    TPtr<Interface<Ts_...>>::TPtr(TPtr<Interface<Ts_...>>* p) : ptr_((Interface<Ts_...>*)p)
-    {}
-
-    template <template <typename... Ts_> class Interface
-        , typename... Ts_>
-    template <class R>
-    TPtr<Interface<Ts_...>>::TPtr(TPtr<R> * rhs)
-        : ptr_(boost::dynamic_pointer_cast<Interface<Ts_...>>((Interface<Ts_...>*)rhs))
-    {
-    }
-
-
-    template <template <typename... Ts_> class Interface
-        , typename... Ts_>
-        TPtr<Interface<Ts_...>>::TPtr()
-        : ptr_(check_(), false)
-    {
-        if (*((__int64*)this) == traits_ptr::PointerTag)
-            detail::ctor__((Interface<Ts_...>*)this);
-        else ptr_ = nullptr;
-    }
-
-    template <template <typename... Ts_> class Interface
-        , typename... Ts_>
-        template <template <typename... Tys_> class other_Interface>
-    TPtr<Interface<Ts_...>>::TPtr(TPtr<other_Interface<Ts_...>> const& instance)
-        : ptr_(instance.ptr_)
-    {
-    }
-
-    template <template <typename... Ts_> class Interface
-        , typename... Ts_>
-        template <typename Toth_>
-    TPtr<Interface<Ts_...>>::TPtr(Toth_* instance)
-        : ptr_(dynamic_cast<type* >(instance))
-    {
-    }
-
-    template <typename Tiy_, typename Argi>
-    static Tiy_* create__(Argi const&, std::integral_constant<bool, true>)
-    {
-#           pragma message ("Abstract type can not be created in :" __FUNCSIG__)
-        return nullptr;
-    }
-
-    template <typename Tiy_, typename Argi> static Tiy_* create__(Argi const& a, std::integral_constant<bool, false>)
-    {
-        return new Tiy_(a);
-    }
-
-    template <template <typename... Ts_> class Interface
-        , typename... Ts_>
-        TPtr<Interface<Ts_...>>::TPtr(TFieldInfo const& instance)
-        : ptr_(create__<Interface<Ts_...> >(instance, std::is_abstract<Interface<Ts_...>>()))
-    {
-    }
-
-    template <template <typename... Ts_> class Interface
-        , typename... Ts_>
-        template <typename Toth_>
-    TPtr<Interface<Ts_...>>::TPtr(TPtr<Toth_ > const& instance)
-        : ptr_(dynamic_cast<Interface<Ts_...>*>(instance.ptr_.get()))
-    {
-        CL_ASSERT(instance.ptr_.get() ? (bool)ptr_.get() : true, "Can not convert to targed type.");
-    }
-
-    template <template <typename... Ts_> class Interface
-        , typename... Ts_>
-        Interface<Ts_...>* TPtr<Interface<Ts_...>>::operator->() const
-    {
-        typedef Interface<Ts_...> type;
-        if (!ptr_ && isField_)
-        {
-            ptr_ = detail::create_<type>(std::is_abstract<type>()).ptr_;
-        }
-        return ptr_.get();
-    }
-
-    template <template <typename... Ts_> class Interface
-        , typename... Ts_>
-        Interface<Ts_...>* TPtr<Interface<Ts_...>>::get() const
-    {
-        return ptr_.get();
-    }
-
-    template <template <typename... Ts_> class Interface
-        , typename... Ts_>
-        TPtr<Interface<Ts_...>> const& TPtr<Interface<Ts_...>>::createIfField() const
-    {
-        if (isField_ && !ptr_.get())
-        {
-            //    Try to create object, if it is abstract will throw exception
-            // no call create in compile time
-            // also we should check is it possible compile version with TPtr this case
-            ptr_ = boost::dynamic_pointer_cast<Interface<Ts_...>>(detail::create_<Interface<Ts_...>>(std::is_abstract<Interface<Ts_...>>()).ptr_);
-        }
-        return *this;
-    }
-
 
     namespace detail
     {
@@ -603,7 +384,7 @@ namespace cl
         inline typename std::enable_if<!has_meta<Ty_>::value, TPtr<Ty_>>::type
         create_(std::integral_constant<bool, false>)
         {
-            return Ty_::create();
+            return new Ty_();
         }
 
         template <typename Ty_>
