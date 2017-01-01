@@ -31,6 +31,7 @@ limitations under the License.
 # include <cl/system/detail/ref_counter.hpp>
 # include <cl/system/detail/intrusive_ptr_reliable.hpp>
 
+# define CL_COMPILE_TIME_DEBUG_ON
 
 namespace cl
 {
@@ -74,8 +75,7 @@ namespace cl
         /// <summary>
         ///   Empty value created
         /// </summary>
-        TPtr() : ptr_()
-        {}
+        TPtr();
 
         /// <summary>Take ownership of raw pointer to template argument type.
         /// This also permits construction from null pointer.</summary>
@@ -103,8 +103,6 @@ namespace cl
         template <class R> TPtr(TPtr<R> * rhs);
 
         TPtr(nullptr_t);
-
-        virtual ~TPtr() = default;
 
     public: //  METHODS
 
@@ -172,7 +170,7 @@ namespace cl
         /// <summary>
         ///   is field traits
         /// </summary>
-        bool isField_ = false;
+        bool isField_;
     };
 
     template <class T> 
@@ -216,6 +214,18 @@ namespace cl
     TPtr<T>::TPtr(TPtr<T>* p) : ptr_((T*)p)
     {
     }
+
+    template <typename T>
+    TPtr<T>::TPtr()
+        : ptr_(check_(), false)
+        , isField_(false)
+    {
+        if (*((__int64*)this) == traits_ptr::PointerTag)
+            detail::ctor__((T*)this);
+
+        else ptr_ = nullptr;
+    }
+
 
     template <class T>
     template <class R>
@@ -281,6 +291,21 @@ namespace cl
 #           endif
         }
 
+        template <typename T, typename... Args>
+        typename std::enable_if<!std::is_abstract<T>::value, void>::type
+        ctor__(T* p, Args const&... args)
+        {
+            new (p) T(args...);
+        }
+
+        template <typename T, typename... Args>
+        typename std::enable_if<std::is_abstract<T>::value, void>::type
+        ctor__(T* p, Args const&... args)
+        {
+#           if defined CL_COMPILE_TIME_DEBUG_ON
+#               pragma message ("Can not create abstract class :" __FUNCSIG__)
+#           endif
+        }
     }
 
     template <class T>
