@@ -31,7 +31,7 @@ limitations under the License.
 # include <cl/system/detail/ref_counter.hpp>
 # include <cl/system/detail/intrusive_ptr_reliable.hpp>
 
-//# define CL_COMPILE_TIME_DEBUG_ON
+# define CL_COMPILE_TIME_DEBUG_ON
 
 namespace cl
 {
@@ -288,27 +288,13 @@ namespace cl
         {
 #           if defined CL_COMPILE_TIME_DEBUG_ON
 #               pragma message(false, "Not completed field is create :" __FUNCSIG__);
-#           else
-                throw TException("Not completed field is create : " __FUNCSIG__);
 #           endif
-        }
-
-        template <typename T>
-        inline bool is_custom_memory__(T* p)
-        { return *reinterpret_cast<__int64*>(p) == traits_ptr::PointerTag; }
-
-        template <typename T>
-        inline void clear__(T* p)
-        {
-            if (is_custom_memory__(p))
-                *reinterpret_cast<__int64*>(p) = 0;
         }
 
         template <typename T, typename... Args>
         typename std::enable_if<!std::is_abstract<T>::value, void>::type
         ctor__(T* p, Args const&... args)
         {
-            clear__(p);
             new (p) T(args...);
         }
 
@@ -316,11 +302,8 @@ namespace cl
         typename std::enable_if<std::is_abstract<T>::value, void>::type
         ctor__(T* p, Args const&... args)
         {
-            clear__(p);
 #           if defined CL_COMPILE_TIME_DEBUG_ON
 #               pragma message ("Can not create abstract class :" __FUNCSIG__)
-#           else
-                throw TException("Can not create abstract class :" __FUNCSIG__);
 #           endif
         }
     }
@@ -379,7 +362,7 @@ namespace cl
 #           else
                 // We should notify it, there are no classes
                 // we can create this place. Need to modify Vadim's team.
-                throw TException(false, "The class is not complete.");
+                CL_ASSERT(false, "The class is not complete.");
 #           endif
             return T();
         }
