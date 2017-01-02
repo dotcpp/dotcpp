@@ -55,6 +55,8 @@ namespace cl
         static std::vector<void *>  fields_;
     };
 
+	std::vector<void *> FieldInfoMy::fields_;
+
     namespace detail
     {
         template <typename FieldInfoType, typename Class>
