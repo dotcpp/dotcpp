@@ -157,10 +157,14 @@ namespace cl
 
         /// <summary>Set field from fields lookup.</summary>
         void SetIsField(bool isField) { isField_ = isField; }
+
     private: // PRIVATE METHODS
 
         /// <summary>Create on demand if self is marked as a field, do nothing otherwise.</summary>
-        TPtr<T> const& createIfField() const;
+        inline TPtr<T> const& createIfField() const;
+
+        /// <summary>Create on demand if self is marked as a field, do nothing otherwise.</summary>
+        inline TPtr<T>& createIfField();
 
     public:
         /// <summary> private fields </summary>
@@ -170,7 +174,7 @@ namespace cl
         /// <summary>
         ///   is field traits
         /// </summary>
-        bool isField_;
+        mutable bool isField_;
     };
 
     template <class T> 
@@ -199,7 +203,7 @@ namespace cl
 
     template <class T>
     template <class Arg0, class... Arg>
-    TPtr<T>::TPtr(Arg0 a0, Arg... args) : ptr_(check_(), false)
+    TPtr<T>::TPtr(Arg0 a0, Arg... args) : ptr_(check_(), false), isField_(false)
     {
         static_assert(sizeof(typename detail::take_type_ptr<T>::type) < sizeof(T) || std::is_abstract<T>::value
             , "Can not use this type for TPtr.");
@@ -211,7 +215,7 @@ namespace cl
     }
 
     template <class T>
-    TPtr<T>::TPtr(TPtr<T>* p) : ptr_((T*)p)
+    TPtr<T>::TPtr(TPtr<T>* rhs) : ptr_((T*)rhs), isField_(false)
     {
     }
 
@@ -230,36 +234,45 @@ namespace cl
     template <class T>
     template <class R>
     TPtr<T>::TPtr(TPtr<R> * rhs)
-        : ptr_(boost::dynamic_pointer_cast<T>((T*)rhs))
+        : ptr_(boost::dynamic_pointer_cast<T>(rhs ? rhs->ptr_ : 0)), isField(rhs ? rhs->isField_ : false)
     {
     }
 
     template <class T>
-    TPtr<T>::TPtr(nullptr_t) : ptr_(nullptr)
+    TPtr<T>::TPtr(nullptr_t) : ptr_(nullptr), isField_(false)
     {
     }
 
     template <class T> TPtr<T>::TPtr(T* ptr)
-        : ptr_(ptr)
+        : ptr_(ptr), isField_(false)
     {
     }
 
     template <class T> template <class R> TPtr<T>::TPtr(const TPtr<R>& rhs)
-        : ptr_(boost::dynamic_pointer_cast<T>(rhs.createIfField().ptr_))
+        : ptr_(boost::dynamic_pointer_cast<T>(rhs.createIfField().ptr_)), isField_(rhs.isField_)
     {}
 
     template <class T> TPtr<T>::TPtr(const TPtr<T>& rhs)
-        : ptr_(rhs.createIfField().ptr_) {}
+        : ptr_(rhs.createIfField().ptr_), isField_(rhs.isField_) {}
 
     template <class T>
     template <class FieldInfoType>
     TPtr<T>::TPtr(FieldInfoType const& fieldInfo, typename std::enable_if<cl::is_field_info<FieldInfoType>::value, dummy>::type* /*= 0*/)
-        : isField_(true)
+        : ptr_(), isField_(true)
     {
         cl::detail::register_field(fieldInfo, this);
     }
 
-    template <class T> T* TPtr<T>::operator->() const { createIfField(); T* p = ptr_.get(); if (!p) throw std::exception("Pointer is not initialized"); return p; }
+    template <class T> T* TPtr<T>::operator->() const
+    {
+        createIfField();
+        T* p = ptr_.get();
+        if (!p)
+        {
+            throw TException("Pointer is not initialized");
+        }
+        return p;
+    }
     template <class T> bool TPtr<T>::operator==(const TPtr<T>& rhs) const { return ptr_ == rhs.ptr_; }
     template <class T> bool TPtr<T>::operator!=(const TPtr<T>& rhs) const { return ptr_ != rhs.ptr_; }
     template <class T> bool TPtr<T>::operator==(TNull* rhs) const { return ptr_.get() == nullptr; }
@@ -295,7 +308,9 @@ namespace cl
 
         template <typename T>
         inline bool is_custom_memory__(T* p)
-        { return *reinterpret_cast<__int64*>(p) == traits_ptr::PointerTag; }
+        {
+            return *reinterpret_cast<__int64*>(p) == traits_ptr::PointerTag;
+        }
 
         template <typename T>
         inline void clear__(T* p)
@@ -317,10 +332,10 @@ namespace cl
         ctor__(T* p, Args const&... args)
         {
             clear__(p);
-#           if defined CL_COMPILE_TIME_DEBUG_ON
-#               pragma message ("Can not create abstract class :" __FUNCSIG__)
+#           if !defined CL_COMPILE_TIME_DEBUG_ON
+               throw TException("Can not create abstract class :" __FUNCSIG__);
 #           else
-                throw TException("Can not create abstract class :" __FUNCSIG__);
+#              pragma message ("Can not create abstract class :" __FUNCSIG__)
 #           endif
         }
     }
@@ -330,18 +345,34 @@ namespace cl
     {
         if (isField_ && !ptr_.get())
         {
+            //  Try to create object, if it is abstract will throw exception
+            //no call create in compile time
+            //also we should check is it possible compile version with TPtr this case
+            //ptr_ = boost::dynamic_pointer_cast<T>(detail::create_<T>(std::is_abstract<T>()).ptr_);
+            detail::create_TPtr(this);
+        }
+    
+        return *this;
+    }
+
+    template <class T>
+    inline TPtr<T>& TPtr<T>::createIfField()
+    {
+        if (isField_ && !ptr_.get())
+        {
             //    Try to create object, if it is abstract will throw exception
             // no call create in compile time
             // also we should check is it possible compile version with TPtr this case
             //ptr_ = boost::dynamic_pointer_cast<T>(detail::create_<T>(std::is_abstract<T>()).ptr_);
             detail::create_TPtr(this);
         }
+
         return *this;
     }
 
+
     namespace detail
     {
-
         template <typename T>
         struct is_holder : std::false_type{ typedef T held_type; };
 
