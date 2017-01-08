@@ -29,9 +29,11 @@ limitations under the License.
 
 namespace cl
 {
-    class TDouble; using tdouble = TDouble;
+    using TDouble = double; using tdouble = double; //!!! Temporary, later define as TapeLib tdouble
+    // class TDouble; using tdouble = TDouble;
     class TString; using tstring = TString;
 
+/*
     /// <summary>Immutable double type with AD support designed
     /// to serve as a drop-in replacement to native double.</summary>
     class CL_SYSTEM TDouble
@@ -307,6 +309,7 @@ namespace cl
         inline static ImplType
         Value(Type const& obj, std::false_type) { return static_cast<ImplType>(obj); }
     };
+*/
 }
 
 #endif // cl_system_TDouble_hpp

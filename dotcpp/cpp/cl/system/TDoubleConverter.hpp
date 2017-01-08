@@ -24,7 +24,7 @@ limitations under the License.
 #ifndef cl_system_TDoubleConverter_hpp
 #define cl_system_TDoubleConverter_hpp
 
-#include <cl/system/TDoubleOperatorCheck.hpp>
+//!!! #include <cl/system/TDoubleOperatorCheck.hpp> - consider to uncomment when switching to TapeLib TDouble
 
 namespace cl
 {
