@@ -31,6 +31,8 @@ limitations under the License.
 
 namespace cl
 {
+    class TString; using tstring = TString;
+
     template <class T> class ITEnumerable;
     template <class T> class TArray;
     enum class TCompareOptions;

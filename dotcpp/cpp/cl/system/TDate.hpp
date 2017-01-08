@@ -30,6 +30,9 @@ limitations under the License.
 
 namespace cl
 {
+    class TDate; using tdate = TDate;
+    class TString; using tstring = TString;
+
     class CL_SYSTEM TDate
     {
     private:

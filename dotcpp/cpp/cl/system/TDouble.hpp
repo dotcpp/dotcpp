@@ -29,7 +29,8 @@ limitations under the License.
 
 namespace cl
 {
-    class TString;
+    class TDouble; using tdouble = TDouble;
+    class TString; using tstring = TString;
 
     /// <summary>Immutable double type with AD support designed
     /// to serve as a drop-in replacement to native double.</summary>

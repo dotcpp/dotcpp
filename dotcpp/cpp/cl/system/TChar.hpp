@@ -29,6 +29,9 @@ limitations under the License.
 
 namespace cl
 {
+    class TChar; using tchar = TChar;
+    class TString; using tstring = TString;
+
     //!! Provide detailed comment
     /// <summary>TODO</summary>
     class CL_SYSTEM TChar
