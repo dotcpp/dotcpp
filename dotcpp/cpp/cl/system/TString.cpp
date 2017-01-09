@@ -54,10 +54,6 @@ namespace cl
         return value_.compare(strB.value_);
     }
 
-    std::string TString::value() const
-    {
-        return value_;
-    }
 
     int TString::length() const
     {
@@ -111,17 +107,17 @@ namespace cl
         //return TChar(value_[index]); //!!!! static_cast<TChar>(value_[index]);
         return TChar();
     }
-    
+
     int TString::compare(const TString& strA, const TString& strB)
     {
         return strA.compareTo(strB);
     }
 
-    static int compare(const TString& strA, const TString& strB, bool ignoreCase)
+    int TString::compare(const TString& strA, const TString& strB, bool ignoreCase)
     {
         if (!ignoreCase)
             return strA.compareTo(strB);
-        
+
         auto itA = strA.value_.cbegin(),
             itB = strB.value_.cbegin(),
             endA = strA.value_.cend(),

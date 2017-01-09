@@ -43,10 +43,12 @@ namespace cl
     class TObject;
     class ITFormatProvider;
 
-    /// <summary>Immutable string type with unicode support.</summary>
+    /// <summary>Immutable string type with Unicode support.</summary>
     class CL_SYSTEM TString
     {
-        friend class StringBuilder;
+        friend class TStringBuilder;
+
+        std::string value_;
 
     public: // CONSTANTS
 
@@ -73,11 +75,13 @@ namespace cl
 
         /// <summary>Create a copy of TString.</summary>
         TString(const TString& value);
+
     public:
 
-        ///<summary>
-        /// The C# string methods functionality
-        ///</summary>
+        ///<summary>Convert to std::string.</summary>
+        std::string value() const { return value_; }
+
+        ///<summary>Hash code.</summary>
         int getHashCode() const
         {
             return std::hash<std::string>()(value_);
@@ -121,9 +125,6 @@ namespace cl
         /// whether this instance precedes, follows, or appears in the same position
         /// in the sort order as the specified String.</summary>
         int compareTo(const TString& strB) const;
-
-        /// <summary>Convert to std::string.</summary>
-        std::string value() const;
 
         /// <summary>Returns the number of 8-bit characters, not the number of Unicode characters.\\
         /// This number may be different from the number of Unicode characters because each
@@ -171,6 +172,9 @@ namespace cl
 
         /// <summary>Returns a string containing characters from lhs followed by the characters from rhs.</summary>
         friend TString operator+(const TString& lhs, const TString& rhs);
+
+        /// <summary>Returns a string containing characters from lhs followed by the characters from rhs.</summary>
+        friend bool operator<(const TString& lhs, const TString& rhs);
 
     public: // STATIC
 
@@ -330,18 +334,16 @@ namespace cl
 
         /// <summary>static create methods to create instance which can't call from other scope </summary>
         static TString create()   {  return TString(""); }
-    public:
-        std::string value_; //!!! Why is this field public?
     };
 
-    typedef TString string;
+    //!!!!!! typedef TString string;
 
     /// <summary>Returns a string containing characters from lhs followed by the characters from rhs.</summary>
     inline TString operator+(const TString& lhs, const TString& rhs) { return lhs.value_ + rhs.value_; }
 
     inline bool operator<(const TString& lhs, const TString& rhs) { return lhs.value_ < rhs.value_; }
 
-    inline size_t hash_value(const cl::TString& _Keyval)
+    inline size_t hash_value(const cl::TString& _Keyval) //!!!! Why do we need this?
     {
         return stdext::hash_value(_Keyval.value());
     }
@@ -353,7 +355,7 @@ namespace std
     template<>
     struct hash<cl::TString> : public unary_function<cl::TString, size_t>
     {
-        size_t operator()(const cl::TString value)
+        size_t operator()(const cl::TString value) //!!!! Why do we need this?
         {
             return value.getHashCode();
         }
