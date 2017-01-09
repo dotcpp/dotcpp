@@ -211,7 +211,7 @@ namespace cl
     public: // METHODS
 
         /// <summary>Convert to string.</summary>
-        TString toString() const;
+        tstring ToString() const;
 
     public: // OPERATORS
 

@@ -331,7 +331,7 @@ namespace cl
         /// <summary>static create methods to create instance which can't call from other scope </summary>
         static TString create()   {  return TString(""); }
     public:
-        std::string value_;
+        std::string value_; //!!! Why is this field public?
     };
 
     typedef TString string;

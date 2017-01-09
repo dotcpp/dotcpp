@@ -28,10 +28,9 @@ limitations under the License.
 #include <cl/system/detail/ref_counter.hpp>
 #include <cl/system/TException.hpp>
 
-
 namespace cl
 {
-    class TString;
+    class TString; using tstring = TString;
 
     /// <summary>This is the ultimate base class of all classes with reference semantics.
     /// It works with TPtr to provide an emulation of reference semantics in C++.\\
@@ -47,7 +46,7 @@ namespace cl
     public: // METHODS
 
         /// <summary>Returns a string that represents the current object.</summary>
-        virtual TString toString() const;
+        virtual tstring ToString() const;
 
     protected:
         TObject() = default;

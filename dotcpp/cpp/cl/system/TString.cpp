@@ -44,9 +44,9 @@ namespace cl
         : value_(value.value_)
     { }
 
-    int TString::compareTo(const TObject& value) const
+    int TString::compareTo(const TObject& value) const //!! Is this the behavior in C#?
     {
-        return compareTo(value.toString());
+        return compareTo(value.ToString());
     }
 
     int TString::compareTo(const TString& strB) const
@@ -151,14 +151,14 @@ namespace cl
 
     TString TString::concat(const TObject& arg0)
     {
-        return arg0.toString();
+        return arg0.ToString();
     }
 
     TString TString::concat(const TObject& arg0, const TObject& arg1)
     {
         std::string s;
-        s.append(arg0.toString().value_);
-        s.append(arg1.toString().value_);
+        s.append(arg0.ToString().value_);
+        s.append(arg1.ToString().value_);
         return TString(s);
     }
 
@@ -173,9 +173,9 @@ namespace cl
     TString TString::concat(const TObject& arg0, const TObject& arg1, const TObject& arg2)
     {
         std::string s;
-        s.append(arg0.toString().value_);
-        s.append(arg1.toString().value_);
-        s.append(arg2.toString().value_);
+        s.append(arg0.ToString().value_);
+        s.append(arg1.ToString().value_);
+        s.append(arg2.ToString().value_);
         return TString(s);
     }
 
@@ -191,10 +191,10 @@ namespace cl
     TString TString::concat(const TObject& arg0, const TObject& arg1, const TObject& arg2, const TObject& arg3)
     {
         std::string s;
-        s.append(arg0.toString().value_);
-        s.append(arg1.toString().value_);
-        s.append(arg2.toString().value_);
-        s.append(arg3.toString().value_);
+        s.append(arg0.ToString().value_);
+        s.append(arg1.ToString().value_);
+        s.append(arg2.ToString().value_);
+        s.append(arg3.ToString().value_);
         return TString(s);
     }
 

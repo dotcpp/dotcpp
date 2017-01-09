@@ -37,7 +37,7 @@ namespace cl
     {
     private:
 
-        std::shared_ptr<TDate> impl_;
+        std::shared_ptr<TDate> impl_; //!! Should it be pointer to self or a separate Impl class?
 
     public: //  CONSTANTS
 
@@ -93,7 +93,7 @@ namespace cl
         virtual int daysFrom(TDate fromDate) const { return impl_->daysFrom(fromDate); }
 
         /// <summary>Convert to string.</summary>
-        virtual TString toString() const { return impl_->toString(); }
+        virtual tstring ToString() const { return impl_->ToString(); }
 
         /// <summary>Convert to int using Excel format. Empty date is converted to empty int.</summary>
         virtual int toExcelInt() const { return impl_->toExcelInt(); }

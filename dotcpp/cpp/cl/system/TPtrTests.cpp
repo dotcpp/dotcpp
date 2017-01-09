@@ -34,7 +34,7 @@ namespace cl
     {
     public:
 
-        virtual TString toString() const
+        virtual tstring ToString() const
         {
             return TString();
         }
