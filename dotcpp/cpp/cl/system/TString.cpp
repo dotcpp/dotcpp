@@ -54,13 +54,12 @@ namespace cl
         return value_.compare(strB.value_);
     }
 
-
-    int TString::length() const
+    int TString::byteCount() const
     {
         return static_cast<int>(value_.size());
     }
 
-    TString TString::replace(const TString& oldValue, const TString& newValue) const
+    TString TString::Replace(const TString& oldValue, const TString& newValue) const
     {
         std::string s = value_;
         std::size_t pos = 0,
@@ -108,12 +107,12 @@ namespace cl
         return TChar();
     }
 
-    int TString::compare(const TString& strA, const TString& strB)
+    int TString::Compare(const TString& strA, const TString& strB)
     {
         return strA.compareTo(strB);
     }
 
-    int TString::compare(const TString& strA, const TString& strB, bool ignoreCase)
+    int TString::Compare(const TString& strA, const TString& strB, bool ignoreCase)
     {
         if (!ignoreCase)
             return strA.compareTo(strB);
@@ -140,17 +139,17 @@ namespace cl
             return 0;
     }
 
-    int TString::compare(TString const& strA, int indexA, const TString& strB, int indexB, int length)
+    int TString::Compare(TString const& strA, int indexA, const TString& strB, int indexB, int length)
     {
         return strA.value_.compare(indexA, length, strB.value_, indexB, length);
     }
 
-    TString TString::concat(const TObject& arg0)
+    TString TString::Concat(const TObject& arg0)
     {
         return arg0.ToString();
     }
 
-    TString TString::concat(const TObject& arg0, const TObject& arg1)
+    TString TString::Concat(const TObject& arg0, const TObject& arg1)
     {
         std::string s;
         s.append(arg0.ToString().value_);
@@ -158,7 +157,7 @@ namespace cl
         return TString(s);
     }
 
-    TString TString::concat(const TString& str0, const TString& str1)
+    TString TString::Concat(const TString& str0, const TString& str1)
     {
         std::string s;
         s.append(str0.value_);
@@ -166,7 +165,7 @@ namespace cl
         return TString(s);
     }
 
-    TString TString::concat(const TObject& arg0, const TObject& arg1, const TObject& arg2)
+    TString TString::Concat(const TObject& arg0, const TObject& arg1, const TObject& arg2)
     {
         std::string s;
         s.append(arg0.ToString().value_);
@@ -175,7 +174,7 @@ namespace cl
         return TString(s);
     }
 
-    TString TString::concat(const TString& str0, const TString& str1, const TString& str2)
+    TString TString::Concat(const TString& str0, const TString& str1, const TString& str2)
     {
         std::string s;
         s.append(str0.value_);
@@ -184,7 +183,7 @@ namespace cl
         return TString(s);
     }
 
-    TString TString::concat(const TObject& arg0, const TObject& arg1, const TObject& arg2, const TObject& arg3)
+    TString TString::Concat(const TObject& arg0, const TObject& arg1, const TObject& arg2, const TObject& arg3)
     {
         std::string s;
         s.append(arg0.ToString().value_);
@@ -194,7 +193,7 @@ namespace cl
         return TString(s);
     }
 
-    TString TString::concat(const TString& str0, const TString& str1, const TString& str2, const TString& str3)
+    TString TString::Concat(const TString& str0, const TString& str1, const TString& str2, const TString& str3)
     {
         std::string s;
         s.append(str0.value_);
@@ -214,13 +213,14 @@ namespace cl
         return strA.compareTo(strB) == 0;
     }
 
-    bool TString::isEmpty(const TString& str)
+    bool TString::IsNullOrEmpty(const TString& str)
     {
-        return str.value_.empty();
+        return str.value_.empty(); //!! Consider null in implementation
     }
 
-    bool TString::isEmptyOrWhiteSpace(const TString& str)
+    bool TString::IsNullOrWhiteSpace(const TString& str)
     {
+        //!! Consider null in implementation
         const std::string& s = str.value_;
         for (auto it = s.begin(); it != s.end(); ++it)
             if (*it != ' ') return false;

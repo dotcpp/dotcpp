@@ -58,8 +58,7 @@ namespace cl
     public: // CONSTRUCTORS
 
         /// <summary>Create from a single Unicode character.</summary>
-        TString() : value_()
-        {}
+        TString() : value_() {}
 
         /// <summary>Create from a single Unicode character.</summary>
         TString(const TChar& value);
@@ -76,10 +75,17 @@ namespace cl
         /// <summary>Create a copy of TString.</summary>
         TString(const TString& value);
 
-    public:
+    public: // METHODS
 
         ///<summary>Convert to std::string.</summary>
         std::string value() const { return value_; }
+
+        /// <summary>Returns the number of 8-bit characters, not the number of Unicode characters.\\
+        /// This number may be different from the number of Unicode characters because each
+        /// Unicode character might be represented by more than one 8-bit character.</summary>
+        int byteCount() const;
+
+    public: // METHODS
 
         ///<summary>Hash code.</summary>
         int getHashCode() const
@@ -87,6 +93,8 @@ namespace cl
             return std::hash<std::string>()(value_);
         }
 
+        /// <summary>Determines whether the end of this
+        /// string matches the specified string.</summary>
         bool EndsWith(TString const& value)
         {
             int p = value_.length() - value.value_.length();
@@ -96,6 +104,8 @@ namespace cl
             return false;
         }
 
+        /// <summary>Determines whether the beginning of this
+        /// string matches the specified string.</summary>
         bool StartsWith(TString const& value)
         {
             int p = value_.length() - value.value_.length();
@@ -104,17 +114,19 @@ namespace cl
             return false;
         }
 
+        /// <summary>Retrieves a substring which starts at the specified
+        /// character position and has the specified length.</summary>
         TString Substring(int startIndex, int length)
         {
             return value_.substr(startIndex, length);
         }
 
-        int Length()
+        /// <summary>Gets the number of characters in the current string.
+        /// Note that for Unicode this is not the same as the number of bytes.</summary>
+        int getLength()
         {
-            return value_.length();
+            return value_.length(); //!!! This has to be corrected for Unicode
         }
-
-    public: // METHODS
 
         /// <summary>Compares this instance with a specified Object and indicates whether
         /// this instance precedes, follows, or appears in the same position in the sort
@@ -126,26 +138,21 @@ namespace cl
         /// in the sort order as the specified String.</summary>
         int compareTo(const TString& strB) const;
 
-        /// <summary>Returns the number of 8-bit characters, not the number of Unicode characters.\\
-        /// This number may be different from the number of Unicode characters because each
-        /// Unicode character might be represented by more than one 8-bit character.</summary>
-        int length() const;
-
         /// <summary>Returns a new string in which all occurrences of a specified string
         /// in the current instance are replaced with another specified string.</summary>
-        TString replace(const TString& oldValue, const TString& newValue) const;
+        TString Replace(const TString& oldValue, const TString& newValue) const;
 
         /// <summary>Returns a string array that contains the substrings of the current string
         /// that are delimited by any of the specified 8-bit characters.</summary>
-        TArray<TString> split(char separator) const;
+        TArray<TString> Split(char separator) const;
 
         /// <summary>Returns a string array that contains the substrings in
         /// this string that are delimited by any of the specified strings.\\
         /// A parameter specifies whether to return empty array elements.</summary>
-        TArray<TString> split(const TArray<TString>& separator, const TStringSplitOptions& options) const;
+        TArray<TString> Split(const TArray<TString>& separator, const TStringSplitOptions& options) const;
 
-        ///<summary> </summary>
-        inline bool contains(cl::TString const& s) const
+        ///<summary>Indicates whether the argument occurs within this string.</summary>
+        inline bool Contains(cl::TString const& s) const
         {
             return value_.find(s.value_) != std::string::npos;
         }
@@ -180,97 +187,97 @@ namespace cl
 
         /// <summary>Compares two specified String objects and returns an integer that
         /// indicates their relative position in the sort order.</summary>
-        static int compare(const TString& strA, const TString& strB);
+        static int Compare(const TString& strA, const TString& strB);
 
         /// <summary>Compares two specified String objects, ignoring or honoring their
         /// case, and returns an integer that indicates their relative position in the
         /// sort order.</summary>
-        static int compare(const TString& strA, const TString& strB, bool ignoreCase);
+        static int Compare(const TString& strA, const TString& strB, bool ignoreCase);
 
         /// <summary>Compares two specified String objects using the specified rules, and
         /// returns an integer that indicates their relative position in the sort order.</summary>
-        static int compare(const TString& strA, const TString& strB, const TStringComparison& comparisonType);
+        static int Compare(const TString& strA, const TString& strB, const TStringComparison& comparisonType);
 
         /// <summary>Compares two specified String objects, ignoring or honoring their
         /// case, and using culture-specific information to influence the comparison,
         /// and returns an integer that indicates their relative position in the sort
         /// order.</summary>
-        static int compare(const TString& strA, const TString& strB, bool ignoreCase, const TCultureInfo& culture);
+        static int Compare(const TString& strA, const TString& strB, bool ignoreCase, const TCultureInfo& culture);
 
         /// <summary>Compares two specified String objects using the specified comparison
         /// options and culture-specific information to influence the comparison, and
         /// returns an integer that indicates the relationship of the two strings to
         /// each other in the sort order.</summary>
-        static int compare(const TString& strA, const TString& strB, const TCultureInfo& culture, TCompareOptions options);
+        static int Compare(const TString& strA, const TString& strB, const TCultureInfo& culture, TCompareOptions options);
 
         /// <summary>Compares substrings of two specified String objects and returns an
         /// integer that indicates their relative position in the sort order.</summary>
-        static int compare(const TString& strA, int indexA, const TString& strB, int indexB, int length);
+        static int Compare(const TString& strA, int indexA, const TString& strB, int indexB, int length);
 
         /// <summary>Compares substrings of two specified String objects, ignoring or honoring
         /// their case, and returns an integer that indicates their relative position
         /// in the sort order.</summary>
-        static int compare(const TString& strA, int indexA, const TString& strB, int indexB, int length, bool ignoreCase);
+        static int Compare(const TString& strA, int indexA, const TString& strB, int indexB, int length, bool ignoreCase);
 
         /// <summary>Compares substrings of two specified String objects using the specified
         /// rules, and returns an integer that indicates their relative position in the
         /// sort order.</summary>
-        static int compare(const TString& strA, int indexA, const TString& strB, int indexB, int length, const TStringComparison& comparisonType);
+        static int Compare(const TString& strA, int indexA, const TString& strB, int indexB, int length, const TStringComparison& comparisonType);
 
         /// <summary>Compares substrings of two specified String objects, ignoring or honoring
         /// their case and using culture-specific information to influence the comparison,
         /// and returns an integer that indicates their relative position in the sort
         /// order.</summary>
-        static int compare(const TString& strA, int indexA, const TString& strB, int indexB, int length, bool ignoreCase, const TCultureInfo& culture);
+        static int Compare(const TString& strA, int indexA, const TString& strB, int indexB, int length, bool ignoreCase, const TCultureInfo& culture);
 
         /// <summary>Compares substrings of two specified String objects using the specified
         /// comparison options and culture-specific information to influence the comparison,
         /// and returns an integer that indicates the relationship of the two substrings
         /// to each other in the sort order.</summary>
-        static int compare(const TString& strA, int indexA, const TString& strB, int indexB, int length, const TCultureInfo& culture, const TCompareOptions& options);
+        static int Compare(const TString& strA, int indexA, const TString& strB, int indexB, int length, const TCultureInfo& culture, const TCompareOptions& options);
 
         /// <summary>Compares two specified String objects by evaluating the numeric values
         /// of the corresponding Char objects in each string.</summary>
-        static int compareOrdinal(const TString& strA, const TString& strB);
+        static int CompareOrdinal(const TString& strA, const TString& strB);
 
         /// <summary>Compares substrings of two specified String objects by evaluating
         /// the numeric values of the corresponding Char objects in each substring.</summary>
-        static int compareOrdinal(const TString& strA, int indexA, const TString& strB, int indexB, int length);
+        static int CompareOrdinal(const TString& strA, int indexA, const TString& strB, int indexB, int length);
 
         /// <summary>Concatenates the elements of a specified TString array.</summary>
-        static TString concat(const ITEnumerable<TString>& values);
+        static TString Concat(const ITEnumerable<TString>& values);
 
         /// <summary>Concatenates the members of an ITEnumerable<T> implementation.</summary>
         template <class T>
-        static TString concat(const ITEnumerable<T>& values);
+        static TString Concat(const ITEnumerable<T>& values);
 
         /// <summary>Creates the string representation of a specified object.</summary>
-        static TString concat(const TObject& arg0);
+        static TString Concat(const TObject& arg0);
 
         /// <summary>Concatenates the string representations of the elements in a specified Object array.</summary>
-        static TString concat(const TArray<TObject>& args);
+        static TString Concat(const TArray<TObject>& args);
 
         /// <summary>Concatenates the elements of a specified String array.</summary>
-        static TString concat(const TArray<TString>& values);
+        static TString Concat(const TArray<TString>& values);
 
         /// <summary>Concatenates the string representations of two specified objects.</summary>
-        static TString concat(const TObject& arg0, const TObject& arg1);
+        static TString Concat(const TObject& arg0, const TObject& arg1);
 
         /// <summary>Concatenates two specified instances of String.</summary>
-        static TString concat(const TString& str0, const TString& str1);
+        static TString Concat(const TString& str0, const TString& str1);
 
         /// <summary>Concatenates the string representations of three specified objects.</summary>
-        static TString concat(const TObject& arg0, const TObject& arg1, const TObject& arg2);
+        static TString Concat(const TObject& arg0, const TObject& arg1, const TObject& arg2);
 
         /// <summary>Concatenates three specified instances of String.</summary>
-        static TString concat(const TString& str0, const TString& str1, const TString& str2);
+        static TString Concat(const TString& str0, const TString& str1, const TString& str2);
 
         /// <summary>Concatenates the string representations of four specified objects and any
         /// objects specified in an optional variable length parameter list.</summary>
-        static TString concat(const TObject& arg0, const TObject& arg1, const TObject& arg2, const TObject& arg3);
+        static TString Concat(const TObject& arg0, const TObject& arg1, const TObject& arg2, const TObject& arg3);
 
         /// <summary>Concatenates four specified instances of System.String.</summary>
-        static TString concat(const TString& str0, const TString& str1, const TString& str2, const TString& str3);
+        static TString Concat(const TString& str0, const TString& str1, const TString& str2, const TString& str3);
 
         /// <summary>Creates a new instance of System.String with the same value as a specified String.</summary>
         static TString copy(const TString& str);
@@ -284,56 +291,55 @@ namespace cl
 
         /// <summary>Replaces one or more format items in a specified string with the string representation
         /// of a specified object.</summary>
-        static TString format(const TString& format, const TObject& arg0);
+        static TString Format(const TString& format, const TObject& arg0);
 
         /// <summary>Replaces the format item (e.g. {0}, {1}, etc.) in a specified string
         /// with the string representation of a corresponding object in a specified array.</summary>
-        static TString format(const TString& format, const TArray<TObject>& args);
+        static TString Format(const TString& format, const TArray<TObject>& args);
 
         /// <summary>Replaces the format item in a specified string with the string representation
         /// of a corresponding object in a specified array. A specified parameter supplies
         /// culture-specific formatting information.</summary>
-        static TString format(const ITFormatProvider& provider, const TString& format, const TArray<TObject>& args);
+        static TString Format(const ITFormatProvider& provider, const TString& format, const TArray<TObject>& args);
 
         /// <summary>Replaces the format items in a specified string with the string representation
         /// of two specified objects.</summary>
-        static TString format(const TString& format, const TObject& arg0, const TObject& arg1);
+        static TString Format(const TString& format, const TObject& arg0, const TObject& arg1);
 
         /// <summary>Replaces the format items in a specified string with the string representation
         /// of three specified objects.</summary>
-        static TString format(const TString& format, const TObject& arg0, const TObject& arg1, const TObject& arg2);
+        static TString Format(const TString& format, const TObject& arg0, const TObject& arg1, const TObject& arg2);
 
-        /// <summary>Indicates whether the specified string is an empty string.</summary>
-        static bool isEmpty(const TString& str);
+        /// <summary>Indicates whether the specified string is null or empty.
+        /// Note that null string and empty string are not the same.</summary>
+        static bool IsNullOrEmpty(const TString& str);
 
-        /// <summary>Indicates whether a specified string is empty or consists only of
-        /// white-space characters.</summary>
-        static bool isEmptyOrWhiteSpace(const TString& str);
+        /// <summary>Indicates whether a specified string is null,
+        /// empty, or consists only of white-space characters.
+        /// Note that null string and empty string are not the same.</summary>
+        static bool IsNullOrWhiteSpace(const TString& str);
 
         /// <summary>Concatenates the members of a constructed ITEnumerable<T>
         /// collection of type String, using the specified separator between each
         /// member.</summary>
-        static TString join(const TString& separator, const ITEnumerable<TString>& values);
+        static TString Join(const TString& separator, const ITEnumerable<TString>& values);
 
         /// <summary>Concatenates the members of a collection, using the specified separator between
         /// each member.</summary>
         template<class T>
-        static TString join(const TString& separator, const ITEnumerable<T>& values);
+        static TString Join(const TString& separator, const ITEnumerable<T>& values);
 
         /// <summary>Concatenates the elements of an object array, using the specified separator
         /// between each element.</summary>
-        static TString join(const TString& separator, const TArray<TObject>& values);
+        static TString Join(const TString& separator, const TArray<TObject>& values);
 
         /// <summary>Concatenates all the elements of a string array, using the specified separator
         /// between each element.</summary>
-        static TString join(const TString& separator, const TArray<TString>& value);
+        static TString Join(const TString& separator, const TArray<TString>& value);
 
         /// <summary>Concatenates the specified elements of a string array, using the specified
         /// separator between each element.</summary>
-        static TString join(const TString& separator, const TArray<TString>& value, int startIndex, int count);
-
-        /// <summary>static create methods to create instance which can't call from other scope </summary>
-        static TString create()   {  return TString(""); }
+        static TString Join(const TString& separator, const TArray<TString>& value, int startIndex, int count);
     };
 
     //!!!!!! typedef TString string;
