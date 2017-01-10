@@ -77,8 +77,25 @@ namespace cl
 
     TString TString::ToLower() const
     {
+        return ToLowerInvariant(); //!!! Fix - needs UTF-8 conversion
+    }
+
+    TString TString::ToLowerInvariant() const
+    {
         std::string result = value_;
         std::transform(result.begin(), result.end(), result.begin(), ::tolower);
+        return TString(result);
+    }
+
+    TString TString::ToUpper() const
+    {
+        return ToUpperInvariant(); //!!! Fix - needs UTF-8 conversion
+    }
+
+    TString TString::ToUpperInvariant() const
+    {
+        std::string result = value_;
+        std::transform(result.begin(), result.end(), result.begin(), ::toupper);
         return TString(result);
     }
 

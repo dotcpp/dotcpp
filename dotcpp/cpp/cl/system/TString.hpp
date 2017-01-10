@@ -157,8 +157,17 @@ namespace cl
             return value_.find(s.value_) != std::string::npos;
         }
 
-        ///<summary>Returns converted lowercase copy.</summary>
+        ///<summary>Returns a copy of this string converted to lowercase.</summary>
         TString ToLower() const;
+
+        ///<summary>Returns a copy of this System.String object converted to lowercase using the casing rules of the invariant culture.</summary>
+        TString ToLowerInvariant() const;
+
+        ///<summary>Returns a copy of this string converted to uppercase.</summary>
+        TString ToUpper() const;
+
+        ///<summary>Returns a copy of this System.String object converted to uppercase using the casing rules of the invariant culture.</summary>
+        TString ToUpperInvariant() const;
 
     public: // OPERATORS
 
