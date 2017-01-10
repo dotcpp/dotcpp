@@ -31,10 +31,11 @@ limitations under the License.
 namespace cl
 {
     class TString; using tstring = TString;
+    class TType;
 
-    /// <summary>This is the ultimate base class of all classes with reference semantics.
-    /// It works with TPtr to provide an emulation of reference semantics in C++.\\
-    /// For performance reasons, classes with value semantics are not derived from this type.</summary>
+    /// <summary>All classes with reference semantics should derive from this type.
+    /// It works with TPtr to provide an emulation of reference semantics in C++.
+    /// Classes with value semantics should not derive from this type.</summary>
     class CL_SYSTEM TObject : public TRefCounter
     {
     public:
@@ -45,7 +46,11 @@ namespace cl
 
     public: // METHODS
 
-        /// <summary>Returns a string that represents the current object.</summary>
+        /// <summary>Gets the type of the current instance.</summary>
+        virtual TType GetType() const;
+
+        /// <summary>Returns a string that represents the current object.
+        /// Default implementation uses full name of the class.</summary>
         virtual tstring ToString() const;
 
     protected:
