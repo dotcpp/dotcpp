@@ -157,6 +157,9 @@ namespace cl
             return value_.find(s.value_) != std::string::npos;
         }
 
+        ///<summary>Returns converted lowercase copy.</summary>
+        TString ToLower() const;
+
     public: // OPERATORS
 
         /// <summary>Assignment of std::string.</summary>

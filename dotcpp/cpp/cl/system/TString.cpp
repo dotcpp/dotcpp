@@ -28,6 +28,8 @@ limitations under the License.
 
 namespace cl
 {
+    const TString TString::Empty = TString("");
+
     TString::TString(const std::string& value)
         : value_(value)
     { }
@@ -71,6 +73,13 @@ namespace cl
             pos += ncount;
         }
         return TString(s);
+    }
+
+    TString TString::ToLower() const
+    {
+        std::string result = value_;
+        std::transform(result.begin(), result.end(), result.begin(), ::tolower);
+        return TString(result);
     }
 
     TString& TString::operator=(const std::string& rhs)
