@@ -13,13 +13,9 @@
   <ItemGroup>
     <ClCompile Include="TDate.cpp" />
     <ClCompile Include="TObject.cpp" />
-    <ClCompile Include="TString.cpp" />
-    <ClCompile Include="TType.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="all.hpp" />
-    <ClInclude Include="collections\generic\TQueue.hpp" />
-    <ClInclude Include="collections\generic\ITCollection.hpp" />
     <ClInclude Include="detail\any2str.hpp" />
     <ClInclude Include="detail\assert.hpp" />
     <ClInclude Include="detail\sfinae.hpp" />
@@ -31,8 +27,6 @@
     <ClInclude Include="TNull.hpp" />
     <ClInclude Include="TObject.hpp" />
     <ClInclude Include="TPtr.hpp" />
-    <ClInclude Include="TString.hpp" />
-    <ClInclude Include="TStringSplitOptions.hpp" />
     <ClInclude Include="declare.hpp" />
     <ClInclude Include="detail\check_operators.hpp" />
     <ClInclude Include="detail\intrusive_ptr_reliable.hpp" />
@@ -40,7 +34,6 @@
     <ClInclude Include="detail\sfinae\sfinae.hpp" />
     <ClInclude Include="implement.hpp" />
     <ClInclude Include="import.hpp" />
-    <ClInclude Include="TType.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7FA068EC-B443-4DB9-93AF-56CBC7110408}</ProjectGuid>
