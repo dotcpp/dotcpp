@@ -25,7 +25,7 @@ limitations under the License.
 
 #if !defined MSVC_2013_ENABLED
 #   include <boost/noncopyable.hpp>
-# endif
+#endif
 
 #include <cl/system/detail/archive/serializable_types.hpp>
 
@@ -38,7 +38,7 @@ limitations under the License.
 #   if defined CL_COMPILE_TIME_FILE_DEBUG
 #       pragma message ("Unmanaged compilation: " __FILE__)
 #   endif
-# endif
+#endif
 
 #ifndef BOOST_SERIALIZATION_NO_LIB
 #   define BOOST_SERIALIZATION_NO_LIB
@@ -330,7 +330,7 @@ namespace cl
 			}
 #if !defined NDEBUG && defined CL_TRACE_ENABLE
             std::cout << v << " ";
-# endif
+#endif
             return *this;
         }
 
@@ -347,7 +347,7 @@ namespace cl
             chain_processing(Traits_chain(), nc, *this);
 #if !defined NDEBUG && defined CL_TRACE_ENABLE
             std::cout << v << " ";
-# endif
+#endif
             return *this;
         }
 
@@ -363,7 +363,7 @@ namespace cl
 
 #if !defined NDEBUG && defined CL_TRACE_ENABLE
             std::cout << v << " ";
-# endif
+#endif
             return *this;
         }
 
@@ -477,7 +477,7 @@ namespace cl
             ss_ & v;
 #if !defined NDEBUG
             //std::cout << v << " ";
-# endif
+#endif
             return *this;
         }
 
@@ -768,6 +768,6 @@ namespace CppAD
 
 # if defined _MANAGED
 #   pragma managed (pop)
-# endif
+#endif
 
-# endif
+#endif
