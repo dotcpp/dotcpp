@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_system_collections_generic_TListTests_hpp
-#define cl_system_collections_generic_TListTests_hpp
+#ifndef cl_system_test_collections_generic_TListTests_hpp
+#define cl_system_test_collections_generic_TListTests_hpp
 
 #include <cl/system/collections/generic/TList.hpp>
 #include <cl/system/collections/generic/TDictionary.hpp>
@@ -104,4 +104,4 @@ public:
     }
 };
 
-#endif // cl_system_collections_generic_TListTests_hpp
+#endif // cl_system_test_collections_generic_TListTests_hpp

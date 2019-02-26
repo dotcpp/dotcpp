@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_system_TDoubleConverter_hpp
-#define cl_system_TDoubleConverter_hpp
+#ifndef cl_system_api_TDoubleConverter_hpp
+#define cl_system_api_TDoubleConverter_hpp
 
 //!!! #include <cl/system/TDoubleOperatorCheck.hpp> - consider to uncomment when switching to TapeLib TDouble
 
@@ -179,4 +179,4 @@ namespace cl
     };
 }
 
-#endif // cl_system_TDoubleConverter_hpp
+#endif // cl_system_api_TDoubleConverter_hpp

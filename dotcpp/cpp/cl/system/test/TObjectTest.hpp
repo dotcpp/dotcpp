@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_system_TObjectTests_hpp
-#define cl_system_TObjectTests_hpp
+#ifndef cl_system_test_TObjectTests_hpp
+#define cl_system_test_TObjectTests_hpp
 
 #include <cl/system/TObject.hpp>
 
@@ -38,4 +38,4 @@ namespace cl
     };
 }
 
-#endif // cl_system_TObjectTests_hpp
+#endif // cl_system_test_TObjectTests_hpp

@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_system_collections_generic_LinkedList_hpp
-#define cl_system_collections_generic_LinkedList_hpp
+#ifndef cl_system_api_collections_generic_LinkedList_hpp
+#define cl_system_api_collections_generic_LinkedList_hpp
 
 #include <deque>
 
@@ -64,4 +64,4 @@ namespace cl
     };
 }
 
-#endif // cl_system_collections_generic_LinkedList_hpp
+#endif // cl_system_api_collections_generic_LinkedList_hpp

@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_system_TPtr_hpp
-#define cl_system_TPtr_hpp
+#ifndef cl_system_api_TPtr_hpp
+#define cl_system_api_TPtr_hpp
 
 # include <boost/shared_ptr.hpp>
 # include <boost/intrusive_ptr.hpp>
@@ -484,4 +484,4 @@ namespace std
 
 }
 
-#endif // cl_system_TPtr_hpp
+#endif // cl_system_api_TPtr_hpp

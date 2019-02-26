@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_system_collections_generic_TSortedListTests_hpp
-#define cl_system_collections_generic_TSortedListTests_hpp
+#ifndef cl_system_test_collections_generic_TSortedListTests_hpp
+#define cl_system_test_collections_generic_TSortedListTests_hpp
 
 #include <cl/system/collections/generic/TSortedList.hpp>
 
@@ -40,4 +40,4 @@ BOOST_AUTO_TEST_CASE(iteration)
 
 BOOST_AUTO_TEST_SUITE_END()
 
-#endif // cl_system_collections_generic_TSortedListTests_hpp
+#endif // cl_system_test_collections_generic_TSortedListTests_hpp

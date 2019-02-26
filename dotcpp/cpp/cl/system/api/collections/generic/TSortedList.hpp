@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_system_collections_generic_TSortedList_hpp
-#define cl_system_collections_generic_TSortedList_hpp
+#ifndef cl_system_api_collections_generic_TSortedList_hpp
+#define cl_system_api_collections_generic_TSortedList_hpp
 
 #include <cl/system/collections/generic/TList.hpp>
 #include <deque>
@@ -101,4 +101,4 @@ namespace cl
     };
 }
 
-#endif // cl_system_collections_generic_TSortedList_hpp
+#endif // cl_system_api_collections_generic_TSortedList_hpp

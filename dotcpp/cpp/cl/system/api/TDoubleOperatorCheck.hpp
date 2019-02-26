@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_system_TDoubleOperatorCheck_hpp
-#define cl_system_TDoubleOperatorCheck_hpp
+#ifndef cl_system_api_TDoubleOperatorCheck_hpp
+#define cl_system_api_TDoubleOperatorCheck_hpp
 
 //!! Supporting code for double operators, in progress
 
@@ -156,4 +156,4 @@ namespace cl
     }
 }
 
-#endif // cl_system_TDoubleOperatorCheck_hpp
+#endif // cl_system_api_TDoubleOperatorCheck_hpp
