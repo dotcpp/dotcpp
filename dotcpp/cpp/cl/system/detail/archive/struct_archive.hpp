@@ -34,7 +34,7 @@ limitations under the License.
 #   if defined CL_COMPILE_TIME_FILE_DEBUG
 #       pragma message ("Managed compilation: " __FILE__)
 #   endif
-# else
+#else
 #   if defined CL_COMPILE_TIME_FILE_DEBUG
 #       pragma message ("Unmanaged compilation: " __FILE__)
 #   endif
