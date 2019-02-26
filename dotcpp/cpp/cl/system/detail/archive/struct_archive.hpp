@@ -27,7 +27,7 @@ limitations under the License.
 #   include <boost/noncopyable.hpp>
 # endif
 
-# include <cl/system/detail/archive/serializable_types.hpp>
+#include <cl/system/detail/archive/serializable_types.hpp>
 
 # if defined _MANAGED
 #   pragma managed (push, off)
@@ -44,20 +44,20 @@ limitations under the License.
 #   define BOOST_SERIALIZATION_NO_LIB
 #endif
 
-# include <iostream>
-# include <fstream>
-# include <cstdint>
+#include <iostream>
+#include <fstream>
+#include <cstdint>
 
-# include <boost/archive/binary_oarchive.hpp>
-# include <boost/archive/binary_iarchive.hpp>
-# include <boost/archive/impl/basic_binary_oprimitive.ipp>
-# include <boost/archive/impl/archive_serializer_map.ipp>
-# include <boost/archive/impl/basic_binary_iarchive.ipp>
-# include <boost/archive/impl/basic_binary_iprimitive.ipp>
-# include <boost/archive/impl/basic_binary_oarchive.ipp>
-# include <boost/serialization/map.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/impl/basic_binary_oprimitive.ipp>
+#include <boost/archive/impl/archive_serializer_map.ipp>
+#include <boost/archive/impl/basic_binary_iarchive.ipp>
+#include <boost/archive/impl/basic_binary_iprimitive.ipp>
+#include <boost/archive/impl/basic_binary_oarchive.ipp>
+#include <boost/serialization/map.hpp>
 
-# include <cl/system/detail/archive/archive_traits.hpp>
+#include <cl/system/detail/archive/archive_traits.hpp>
 
 //TODO
 #include <valarray>

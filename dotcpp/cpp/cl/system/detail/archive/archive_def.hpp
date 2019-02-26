@@ -23,11 +23,11 @@ limitations under the License.
 # if !defined cl_tape_impl_struct_archive_archive_def_hpp
 #	  define  cl_tape_impl_struct_archive_archive_def_hpp
 
-# include <xtr1common>
+#include <xtr1common>
 
-# include <cl/system/detail/sfinae.hpp>
+#include <cl/system/detail/sfinae.hpp>
 
-# include <cl/system/detail/reflection/mem_access.hpp>
+#include <cl/system/detail/reflection/mem_access.hpp>
 
 namespace cl
 {
