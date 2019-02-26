@@ -1,43 +1,69 @@
 # Using glob syntax
 syntax: glob
 
+# Build artifacts
+**/.vs
+**/CMakeFiles
+**/bin/Debug*
+**/bin/Release*
+**/obj/Debug*
+**/obj/Release*
+**/x64/Debug*
+**/x64/Release*
+**/x86/Debug*
+**/x86/Release*
 /bin
-**/bin/Debug
-**/bin/Release
-**/obj/Debug
-**/obj/Release
-**/x64/Debug
-**/x64/Release
+build/*
+packages/*
 
-*.user
-*.suo
-*.sdf
-*.opensdf
-*.pdb
-*.pch
-*.ipch
+# Ignored files and folders
+!paket.exe
+**/CMakeFiles
+*.FileListAbsolute.txt
+*.aux
+*.bi
+*.cache
 *.class
-*.metadata
+*.ent
+*.idb
 *.idea
+*.ipch
+*.lastbuildstate
+*.lic
+*.log
+*.metadata
+*.nav
+*.ncrunchproject
+*.ncrunchsolution
+*.obj
+*.opensdf
+*.orig
+*.out
+*.pch
+*.pdb
+*.png
+*.pyd
+*.sdf
+*.snm
+*.stackdump
+*.suo
+*.svg
+*.synctex.gz
+*.tlog
+*.toc
+*.unsuccessfulbuild
+*.user
 *.userprefs
 *.vshost.*
-_ReSharper.*
+*VC.db
+*VC.opendb
+.DS_Store
+CMakeCache.txt
+Makefile
 _NCrunch_*
-*.aux
-*.ent
-*.log
-*.nav
-*.out
-*.snm
-*.synctex.gz
-*.toc
-*.tlog
-*.idb
-*.unsuccessfulbuild
-*.lastbuildstate
-*.obj
-*.cache
-*.FileListAbsolute.txt
+_ReSharper*
+cmake_install.cmake
+testCaseCollection.xml
 
 # Using regexp syntax
 syntax: regexp
