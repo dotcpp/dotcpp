@@ -11,25 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TDoubleTests.cpp" />
-    <ClCompile Include="TObjectTests.cpp" />
-    <ClCompile Include="TPtrTests.cpp" />
-    <ClCompile Include="TStringTests.cpp" />
-    <ClCompile Include="test.cpp" />
+    <ClCompile Include="**\*Tests.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="collections\generic\TDictionaryTests.hpp" />
-    <ClInclude Include="collections\generic\THashSetTests.hpp" />
-    <ClInclude Include="collections\generic\TListTests.hpp" />
-    <ClInclude Include="collections\generic\TQueueTests.hpp" />
-    <ClInclude Include="collections\generic\TSortedDictionaryTests.hpp" />
-    <ClInclude Include="collections\generic\TSortedListTests.hpp" />
-    <ClInclude Include="collections\generic\TSortedSetTests.hpp" />
-    <ClInclude Include="collections\generic\TStackTests.hpp" />
-    <ClInclude Include="TDoubleTests.hpp" />
-    <ClInclude Include="TObjectTests.hpp" />
-    <ClInclude Include="TPtrTests.hpp" />
-    <ClInclude Include="TStringTests.hpp" />
+    <ClInclude Include="**\**Tests.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{04199C2F-0C9B-43F1-968F-5D7329204EF6}</ProjectGuid>

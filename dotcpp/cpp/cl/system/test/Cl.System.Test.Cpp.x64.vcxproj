@@ -63,7 +63,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..;..\..\..\..\runtime\cpp;..\..\..\..\dotcpp\cpp;..\..\..\..\tapescript\cpp;..\..\..\..\dependencies\cpp</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..;..\..\..\..\runtime\cpp;..\..\..\..\dotcpp\cpp;..\..\..\..\dependencies\cpp</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>cl/console/precompiled.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>precompiled.pch</PrecompiledHeaderOutputFile>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
@@ -85,7 +85,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..;..\..\..\..\runtime\cpp;..\..\..\..\dotcpp\cpp;..\..\..\..\tapescript\cpp;..\..\..\..\dependencies\cpp</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..;..\..\..\..\runtime\cpp;..\..\..\..\dotcpp\cpp;..\..\..\..\dependencies\cpp</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>cl/console/precompiled.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>precompiled.pch</PrecompiledHeaderOutputFile>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>

@@ -11,22 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TDate.cpp" />
-    <ClCompile Include="TObject.cpp" />
+    <ClCompile Include="**\*.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="all.hpp" />
-    <ClInclude Include="TChar.hpp" />
-    <ClInclude Include="TDate.hpp" />
-    <ClInclude Include="TDouble.hpp" />
-    <ClInclude Include="TFieldGet.hpp" />
-    <ClInclude Include="TFieldGetSet.hpp" />
-    <ClInclude Include="TNull.hpp" />
-    <ClInclude Include="TObject.hpp" />
-    <ClInclude Include="TPtr.hpp" />
-    <ClInclude Include="declare.hpp" />
-    <ClInclude Include="implement.hpp" />
-    <ClInclude Include="import.hpp" />
+    <ClInclude Include="**\*.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7FA068EC-B443-4DB9-93AF-56CBC7110408}</ProjectGuid>
@@ -70,7 +58,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..;..\..\..\..\tapescript\cpp;..\..\..\..\dependencies\cpp</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..;..\..\..\..\dependencies\cpp</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
@@ -90,7 +78,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..;..\..\..\..\tapescript\cpp;..\..\..\..\dependencies\cpp</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..;..\..\..\..\dependencies\cpp</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
