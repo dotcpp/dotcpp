@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (C) 2003-2015 CompatibL
 
 This file is part of .C++, a native C++ implementation of
@@ -21,18 +21,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_system_api_TPtr_hpp
-#define cl_system_api_TPtr_hpp
+#ifndef cl_system_TPtr_hpp
+#define cl_system_TPtr_hpp
 
-#include <boost/shared_ptr.hpp>
-#include <boost/intrusive_ptr.hpp>
-#include <cl/system/detail/assert.hpp>
-#include <cl/system/detail/sfinae.hpp>
-#include <cl/system/detail/ref_counter.hpp>
-#include <cl/system/detail/intrusive_ptr_reliable.hpp>
-#include <cl/system/api/TNull.hpp>
-#include <boost/type_traits.hpp>
-#include <cl/system/detail/check_operators.hpp>
+# include <boost/shared_ptr.hpp>
+# include <boost/intrusive_ptr.hpp>
+# include <cl/system/detail/assert.hpp>
+# include <cl/system/detail/check_operators.hpp>
+# include <cl/system/detail/ref_counter.hpp>
+# include <cl/system/detail/intrusive_ptr_reliable.hpp>
+
 //# define CL_COMPILE_TIME_DEBUG_ON
 
 namespace cl
@@ -43,11 +41,11 @@ namespace cl
         static const size_t PointerTag = 0x270926F50F90F486;
     };
 
-
     /// <summary>Reference counted smart pointer type.
     /// T must inherit from TObject.</summary>
     template <class T>
-    class TPtr : public ::cl::type_operators_resolver<T>::type
+    class TPtr
+        : public ::cl::type_operators_resolver<T>::type
     {
         template<class R> friend class TPtr;
 
@@ -66,7 +64,7 @@ namespace cl
         friend class cl::TPtr;
 
         template <typename Type>
-        using InnerPtr = typename cl::detail::take_type_ptr<Type>::type;
+        using InnerPtr = typename detail::take_type_ptr<Type>::type;
 
         TPtr(InnerPtr<T> const& ptr)
             : ptr_(ptr)
@@ -402,29 +400,6 @@ namespace cl
             return TPtr<Type>(boost::dynamic_pointer_cast<Type>(ptr.ptr_));
         }
 
-        template <typename T>
-        inline typename std::enable_if<!boost::has_trivial_constructor<T>::value
-            , T>::type
-        alloc__()
-        {
-#           if defined CL_COMPILE_TIME_DEBUG_ON
-#               pragma message ("The class is not completed useful.: " __FUNCSIG__)
-#           else
-                // We should notify it, there are no classes
-                // we can create this place. Need to modify Vadim's team.
-                throw TException(false, "The class is not complete.");
-#           endif
-            return T();
-        }
-
-        template <typename T>
-        inline typename std::enable_if<boost::has_trivial_constructor<T>::value
-            , T>::type
-        alloc__()
-        {
-            return T(new cl::detail::is_holder<T>::held_type());
-        }
-
         template <typename Ty_>
         inline Ty_ construct__(std::true_type)
         {
@@ -484,4 +459,4 @@ namespace std
 
 }
 
-#endif // cl_system_api_TPtr_hpp
+#endif // cl_system_TPtr_hpp
