@@ -41,6 +41,10 @@ namespace cl
 
     public: // CONSTRUCTORS
 
+    	/// <summary>Take ownership of raw pointer to template argument type.\\
+        /// This also permits construction from null pointer.</summary>
+		TPtr() {}
+
         /// <summary>Take ownership of raw pointer to template argument type.\\
         /// This also permits construction from null pointer.</summary>
         TPtr(T* ptr);
