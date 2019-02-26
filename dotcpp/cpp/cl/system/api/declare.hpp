@@ -24,7 +24,7 @@ limitations under the License.
 #ifndef cl_system_api_declare_hpp
 #define cl_system_api_declare_hpp
 
-#include <cl/system/import.hpp>
+#include <cl/system/api/import.hpp>
 
 #ifndef CL_SYSTEM
 #   define CL_SYSTEM CL_DECLARE

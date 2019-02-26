@@ -21,9 +21,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include <cl/system/implement.hpp>
-#include <cl/system/TException.hpp>
-#include <cl/system/TString.hpp>
+#include <cl/system/api/implement.hpp>
+#include <cl/system/api/TException.hpp>
+#include <cl/system/api/TString.hpp>
 
 namespace cl
 {

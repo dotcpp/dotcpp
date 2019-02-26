@@ -24,7 +24,7 @@ limitations under the License.
 #ifndef cl_system_test_collections_generic_THashSetTests_hpp
 #define cl_system_test_collections_generic_THashSetTests_hpp
 
-#include <cl/system/collections/generic/THashSet.hpp>
+#include <cl/system/api/collections/generic/THashSet.hpp>
 namespace cl {
     typedef std::string String;
 }

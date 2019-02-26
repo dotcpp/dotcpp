@@ -24,7 +24,7 @@ limitations under the License.
 #ifndef cl_system_test_collections_generic_TQueueTests_hpp
 #define cl_system_test_collections_generic_TQueueTests_hpp
 
-#include <cl/system/collections/generic/TQueue.hpp>
+#include <cl/system/api/collections/generic/TQueue.hpp>
 
 namespace cl {
     typedef std::string String;

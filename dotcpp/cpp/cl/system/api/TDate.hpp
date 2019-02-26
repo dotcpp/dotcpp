@@ -24,9 +24,9 @@ limitations under the License.
 #ifndef cl_system_api_TDate_hpp
 #define cl_system_api_TDate_hpp
 
-#include <cl/system/declare.hpp>
-#include <cl/system/TString.hpp>
-#include <cl/system/collections/generic/TList.hpp>
+#include <cl/system/api/declare.hpp>
+#include <cl/system/api/TString.hpp>
+#include <cl/system/api/collections/generic/TList.hpp>
 
 namespace cl
 {

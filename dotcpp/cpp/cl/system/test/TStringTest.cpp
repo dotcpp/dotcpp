@@ -21,10 +21,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include <cl/system/implement.hpp>
+#include <cl/system/api/implement.hpp>
 #include <cl/system/test/TStringTest.hpp>
-#include <cl/system/collections/generic/TDictionary.hpp>
-#include <cl/system/TException.hpp>
+#include <cl/system/api/collections/generic/TDictionary.hpp>
+#include <cl/system/api/TException.hpp>
 
 namespace cl
 {

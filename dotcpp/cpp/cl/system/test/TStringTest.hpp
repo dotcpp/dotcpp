@@ -28,7 +28,7 @@ limitations under the License.
 
 using namespace boost::unit_test_framework;
 
-#include <cl/system/TString.hpp>
+#include <cl/system/api/TString.hpp>
 
 namespace cl
 {

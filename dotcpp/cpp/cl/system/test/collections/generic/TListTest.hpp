@@ -24,8 +24,8 @@ limitations under the License.
 #ifndef cl_system_test_collections_generic_TListTests_hpp
 #define cl_system_test_collections_generic_TListTests_hpp
 
-#include <cl/system/collections/generic/TList.hpp>
-#include <cl/system/collections/generic/TDictionary.hpp>
+#include <cl/system/api/collections/generic/TList.hpp>
+#include <cl/system/api/collections/generic/TDictionary.hpp>
 
 namespace std {
     ::std::ostream& operator << (::std::ostream& stg, std::string const& s)  {

@@ -24,8 +24,8 @@ limitations under the License.
 #ifndef cl_system_api_TChar_hpp
 #define cl_system_api_TChar_hpp
 
-#include <cl/system/declare.hpp>
-#include <cl/system/TException.hpp>
+#include <cl/system/api/declare.hpp>
+#include <cl/system/api/TException.hpp>
 
 namespace cl
 {

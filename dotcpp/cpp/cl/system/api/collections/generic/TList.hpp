@@ -24,10 +24,10 @@ limitations under the License.
 #ifndef cl_system_api_collections_generic_TList_hpp
 #define cl_system_api_collections_generic_TList_hpp
 
-#include <cl/system/TPtr.hpp>
-#include <cl/system/collections/generic/ITCollection.hpp>
-#include <cl/system/collections/generic/ITEnumerable.hpp>
-#include <cl/system/collections/generic/ITEnumerator.hpp>
+#include <cl/system/api/TPtr.hpp>
+#include <cl/system/api/collections/generic/ITCollection.hpp>
+#include <cl/system/api/collections/generic/ITEnumerable.hpp>
+#include <cl/system/api/collections/generic/ITEnumerator.hpp>
 
 #include <deque>
 

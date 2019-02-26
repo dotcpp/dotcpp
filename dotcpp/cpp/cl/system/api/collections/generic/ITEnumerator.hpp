@@ -24,7 +24,7 @@ limitations under the License.
 #ifndef cl_system_api_collections_generic_ITEnumerator_hpp
 #define cl_system_api_collections_generic_ITEnumerator_hpp
 
-#include <cl/system/declare.hpp>
+#include <cl/system/api/declare.hpp>
 
 namespace cl
 {

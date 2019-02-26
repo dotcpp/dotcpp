@@ -24,7 +24,7 @@ limitations under the License.
 #ifndef cl_system_test_TDoubleTests_hpp
 #define cl_system_test_TDoubleTests_hpp
 
-#include <cl/system/TDouble.hpp>
+#include <cl/system/api/TDouble.hpp>
 
 namespace cl
 {

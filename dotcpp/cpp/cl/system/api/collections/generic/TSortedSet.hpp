@@ -26,9 +26,9 @@ limitations under the License.
 
 #include <set>
 
-#include <cl/system/collections/generic/ITCollection.hpp>
-#include <cl/system/collections/generic/ITEnumerable.hpp>
-#include <cl/system/collections/generic/ITEnumerator.hpp>
+#include <cl/system/api/collections/generic/ITCollection.hpp>
+#include <cl/system/api/collections/generic/ITEnumerable.hpp>
+#include <cl/system/api/collections/generic/ITEnumerator.hpp>
 
 namespace cl
 {

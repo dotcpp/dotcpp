@@ -24,7 +24,7 @@ limitations under the License.
 #ifndef cl_system_api_TDoubleLimits_hpp
 #define cl_system_api_TDoubleLimits_hpp
 
-#include <cl/system/TDouble.hpp>
+#include <cl/system/api/TDouble.hpp>
 #include <limits>
 
 namespace std

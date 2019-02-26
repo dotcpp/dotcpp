@@ -24,8 +24,8 @@ limitations under the License.
 #ifndef cl_system_api_TDouble_hpp
 #define cl_system_api_TDouble_hpp
 
-#include <cl/system/declare.hpp>
-#include <cl/system/TDoubleConverter.hpp>
+#include <cl/system/api/declare.hpp>
+#include <cl/system/api/TDoubleConverter.hpp>
 
 namespace cl
 {

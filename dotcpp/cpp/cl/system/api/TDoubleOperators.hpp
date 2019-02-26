@@ -24,7 +24,7 @@ limitations under the License.
 #ifndef cl_system_api_TDoubleOperators_hpp
 #define cl_system_api_TDoubleOperators_hpp
 
-#include <cl/system/TDouble.hpp>
+#include <cl/system/api/TDouble.hpp>
 
 #if !defined(CL_NO_BOOST_NUMERIC)
 #   include <boost/numeric/ublas/fwd.hpp>

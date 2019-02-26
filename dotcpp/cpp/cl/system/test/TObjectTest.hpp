@@ -24,7 +24,7 @@ limitations under the License.
 #ifndef cl_system_test_TObjectTests_hpp
 #define cl_system_test_TObjectTests_hpp
 
-#include <cl/system/TObject.hpp>
+#include <cl/system/api/TObject.hpp>
 
 namespace cl
 {

@@ -24,9 +24,9 @@ limitations under the License.
 #ifndef cl_system_api_TString_hpp
 #define cl_system_api_TString_hpp
 
-#include <cl/system/declare.hpp>
-#include <cl/system/TObject.hpp>
-#include <cl/system/TPtr.hpp>
+#include <cl/system/api/declare.hpp>
+#include <cl/system/api/TObject.hpp>
+#include <cl/system/api/TPtr.hpp>
 #include <xhash>
 
 namespace cl

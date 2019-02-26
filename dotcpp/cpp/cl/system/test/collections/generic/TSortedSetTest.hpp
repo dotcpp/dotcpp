@@ -24,7 +24,7 @@ limitations under the License.
 #ifndef cl_system_test_collections_generic_TSortedSetTests_hpp
 #define cl_system_test_collections_generic_TSortedSetTests_hpp
 
-#include <cl/system/collections/generic/TSortedSet.hpp>
+#include <cl/system/api/collections/generic/TSortedSet.hpp>
 
 namespace cl {
     typedef std::string String;

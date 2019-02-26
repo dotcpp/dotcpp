@@ -30,7 +30,7 @@ limitations under the License.
 #include <cl/system/detail/sfinae.hpp>
 #include <cl/system/detail/ref_counter.hpp>
 #include <cl/system/detail/intrusive_ptr_reliable.hpp>
-#include <cl/system/TNull.hpp>
+#include <cl/system/api/TNull.hpp>
 #include <boost/type_traits.hpp>
 #include <cl/system/detail/check_operators.hpp>
 //# define CL_COMPILE_TIME_DEBUG_ON
