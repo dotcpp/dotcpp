@@ -124,4 +124,4 @@ namespace cl
     };
 }
 
-#endif
+#endif // cl_system_collections_generic_SortedSet_hpp

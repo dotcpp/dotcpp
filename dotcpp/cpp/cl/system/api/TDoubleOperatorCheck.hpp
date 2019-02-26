@@ -156,4 +156,4 @@ namespace cl
     }
 }
 
-#endif
+#endif // cl_system_TDoubleOperatorCheck_hpp

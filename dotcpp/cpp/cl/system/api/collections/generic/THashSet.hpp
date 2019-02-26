@@ -118,4 +118,4 @@ namespace cl
     };
 }
 
-#endif
+#endif // cl_system_collections_generic_HashSet_hpp
