@@ -11,65 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="**/*.cpp" Exclude="**/test/*.cpp" />
+    <ClCompile Include="**/*.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="all.hpp" />
-    <ClInclude Include="collections\generic\ITCollection.hpp" />
-    <ClInclude Include="collections\generic\ITEnumerable.hpp" />
-    <ClInclude Include="collections\generic\ITEnumerator.hpp" />
-    <ClInclude Include="collections\generic\TDictionary.hpp" />
-    <ClInclude Include="collections\generic\THashSet.hpp" />
-    <ClInclude Include="collections\generic\TLinkedList.hpp" />
-    <ClInclude Include="collections\generic\TList.hpp" />
-    <ClInclude Include="collections\generic\TQueue.hpp" />
-    <ClInclude Include="collections\generic\TSortedDictionary.hpp" />
-    <ClInclude Include="collections\generic\TSortedList.hpp" />
-    <ClInclude Include="collections\generic\TSortedSet.hpp" />
-    <ClInclude Include="collections\generic\TStack.hpp" />
-    <ClInclude Include="core.hpp" />
-    <ClInclude Include="declare.hpp" />
-    <ClInclude Include="detail\any2str.hpp" />
-    <ClInclude Include="detail\archive\archive_def.hpp" />
-    <ClInclude Include="detail\archive\archive_traits.hpp" />
-    <ClInclude Include="detail\archive\json\converters.hpp" />
-    <ClInclude Include="detail\archive\json\json_archiver.hpp" />
-    <ClInclude Include="detail\archive\serializable_types.hpp" />
-    <ClInclude Include="detail\archive\std_archive.hpp" />
-    <ClInclude Include="detail\archive\struct_archive.hpp" />
-    <ClInclude Include="detail\assert.hpp" />
-    <ClInclude Include="detail\intrusive_ptr_reliable.hpp" />
-    <ClInclude Include="detail\mem_access.hpp" />
-    <ClInclude Include="detail\primitives\primitives.hpp" />
-    <ClInclude Include="detail\reflection\mem_access.hpp" />
-    <ClInclude Include="detail\reflection\meta_class.hpp" />
-    <ClInclude Include="detail\reflection\tokens_naming.hpp" />
-    <ClInclude Include="detail\ref_counter.hpp" />
-    <ClInclude Include="detail\sfinae.hpp" />
-    <ClInclude Include="implement.hpp" />
-    <ClInclude Include="import.hpp" />
-    <ClInclude Include="TAutoGet.hpp" />
-    <ClInclude Include="TAutoSet.hpp" />
-    <ClInclude Include="TChar.hpp" />
-    <ClInclude Include="TDate.hpp" />
-    <ClInclude Include="TDouble.hpp" />
-    <ClInclude Include="TDoubleConverter.hpp" />
-    <ClInclude Include="TDoubleLimits.hpp" />
-    <ClInclude Include="TDoubleMath.hpp" />
-    <ClInclude Include="TDoubleOperatorCheck.hpp" />
-    <ClInclude Include="TDoubleOperators.hpp" />
-    <ClInclude Include="TException.hpp" />
-    <ClInclude Include="TNull.hpp" />
-    <ClInclude Include="TObject.hpp" />
-    <ClInclude Include="TPropGet.hpp" />
-    <ClInclude Include="TPropSet.hpp" />
-    <ClInclude Include="TPtr.hpp" />
-    <ClInclude Include="TStaticGet.hpp" />
-    <ClInclude Include="TStaticSet.hpp" />
-    <ClInclude Include="TString.hpp" />
-    <ClInclude Include="TStringSplitOptions.hpp" />
-    <ClInclude Include="TTest.hpp" />
-    <ClInclude Include="TType.hpp" />
+    <ClInclude Include="**/*.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7FA068EC-B443-4DB9-93AF-56CBC7110408}</ProjectGuid>
@@ -114,7 +59,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..;..\..\..\..\tapescript\cpp;..\..\..\..\dependencies\cpp</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..;..\..\..\..\..\tapescript\cpp;..\..\..\..\..\dependencies\cpp</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
@@ -134,7 +79,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..;..\..\..\..\tapescript\cpp;..\..\..\..\dependencies\cpp</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..;..\..\..\..\..\tapescript\cpp;..\..\..\..\..\dependencies\cpp</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
