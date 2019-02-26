@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (C) 2003-2015 CompatibL
 
 This file is part of .C++, a native C++ implementation of
@@ -21,11 +21,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_system_api_TDouble_hpp
-#define cl_system_api_TDouble_hpp
+#ifndef cl_system_TDouble_hpp
+#define cl_system_TDouble_hpp
 
-#include <cl/system/api/declare.hpp>
-#include <cl/system/api/TDoubleConverter.hpp>
+#include <cl/system/declare.hpp>
 
 namespace cl
 {
@@ -312,4 +311,4 @@ namespace cl
 */
 }
 
-#endif // cl_system_api_TDouble_hpp
+#endif // cl_system_TDouble_hpp

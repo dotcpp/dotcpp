@@ -53,11 +53,6 @@
     <ClInclude Include="TChar.hpp" />
     <ClInclude Include="TDate.hpp" />
     <ClInclude Include="TDouble.hpp" />
-    <ClInclude Include="TDoubleConverter.hpp" />
-    <ClInclude Include="TDoubleLimits.hpp" />
-    <ClInclude Include="TDoubleMath.hpp" />
-    <ClInclude Include="TDoubleOperatorCheck.hpp" />
-    <ClInclude Include="TDoubleOperators.hpp" />
     <ClInclude Include="TException.hpp" />
     <ClInclude Include="TNull.hpp" />
     <ClInclude Include="TObject.hpp" />
