@@ -86,6 +86,12 @@ namespace cl
         /// <summary>Assign pointer of the same type.\\
         /// Shares reference count with argument.</summary>
         TPtr<T>& operator=(const TPtr<T>& rhs);
+
+        /// <summary>Const indexer operator for arrays.</summary>
+        auto operator[](int i) const;
+
+        /// <summary>Non-const ndexer operator for arrays.</summary>
+        auto operator[](int i);
     };
 
     template <class T> TPtr<T>::TPtr(T* ptr) : ptr_(ptr) {}
@@ -99,6 +105,8 @@ namespace cl
     template <class T> TPtr<T>& TPtr<T>::operator=(T* rhs) { ptr_.reset(rhs); return *this; }
     template <class T> template <class R> TPtr<T>& TPtr<T>::operator=(const TPtr<R>& rhs) { ptr_ = rhs.ptr_; return *this; }
     template <class T> TPtr<T>& TPtr<T>::operator=(const TPtr<T>& rhs) { ptr_ = rhs.ptr_; return *this; }
+    template <class T> auto TPtr<T>::operator[](int i) const { return (*ptr_)[i]; }
+    template <class T> auto TPtr<T>::operator[](int i) { return (*ptr_)[i]; }
 }
 
 #endif  // cl_system_TPtr_hpp
