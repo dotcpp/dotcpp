@@ -20,7 +20,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-# if !defined cl_tape_impl_struct_archive_archive_def_hpp
+#if !defined cl_tape_impl_struct_archive_archive_def_hpp
 #	  define  cl_tape_impl_struct_archive_archive_def_hpp
 
 #include <xtr1common>

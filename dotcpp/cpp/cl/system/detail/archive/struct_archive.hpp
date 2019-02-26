@@ -20,10 +20,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-# if !defined cl_tape_impl_struct_archive_struct_archive_hpp
+#if !defined cl_tape_impl_struct_archive_struct_archive_hpp
 # define cl_tape_impl_struct_archive_struct_archive_hpp
 
-# if!defined MSVC_2013_ENABLED
+#if !defined MSVC_2013_ENABLED
 #   include <boost/noncopyable.hpp>
 # endif
 
@@ -328,7 +328,7 @@ namespace cl
                     (*this)(where->second);
             	}
 			}
-# if !defined NDEBUG && defined CL_TRACE_ENABLE
+#if !defined NDEBUG && defined CL_TRACE_ENABLE
             std::cout << v << " ";
 # endif
             return *this;
@@ -345,7 +345,7 @@ namespace cl
             this->ss_ & nc;
 
             chain_processing(Traits_chain(), nc, *this);
-# if !defined NDEBUG && defined CL_TRACE_ENABLE
+#if !defined NDEBUG && defined CL_TRACE_ENABLE
             std::cout << v << " ";
 # endif
             return *this;
@@ -361,7 +361,7 @@ namespace cl
             nc_type& nc = const_cast<nc_type&>(v);
             this->ss_ & nc;
 
-# if !defined NDEBUG && defined CL_TRACE_ENABLE
+#if !defined NDEBUG && defined CL_TRACE_ENABLE
             std::cout << v << " ";
 # endif
             return *this;
@@ -475,7 +475,7 @@ namespace cl
         this_type& io_(Ty_& v, std::true_type)
         {
             ss_ & v;
-# if !defined NDEBUG
+#if !defined NDEBUG
             //std::cout << v << " ";
 # endif
             return *this;
