@@ -29,23 +29,19 @@ limitations under the License.
 
 # include <cl/system/detail/archive/serializable_types.hpp>
 
-//TODO
-//[Hlib] What should be put here? 
-//# include <cl/system/detail/detail/conversion/operator_traits.hpp>
-
 # if defined _MANAGED
 #   pragma managed (push, off)
 #   if defined CL_COMPILE_TIME_FILE_DEBUG
-#       pragma message ("Managed compiling: " __FILE__)
+#       pragma message ("Managed compilation: " __FILE__)
 #   endif
 # else
 #   if defined CL_COMPILE_TIME_FILE_DEBUG
-#       pragma message ("Unmaged compiling: " __FILE__)
+#       pragma message ("Unmanaged compilation: " __FILE__)
 #   endif
 # endif
 
 #ifndef BOOST_SERIALIZATION_NO_LIB
-# define BOOST_SERIALIZATION_NO_LIB
+#   define BOOST_SERIALIZATION_NO_LIB
 #endif
 
 # include <iostream>
