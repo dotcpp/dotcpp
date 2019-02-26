@@ -178,8 +178,8 @@ namespace cl
     TString TString::Concat(const TObject& arg0, const TObject& arg1)
     {
         std::string s;
-        s.append(arg0.ToString().value_);
-        s.append(arg1.ToString().value_);
+        s.append(arg0.ToString());
+        s.append(arg1.ToString());
         return TString(s);
     }
 
@@ -194,9 +194,9 @@ namespace cl
     TString TString::Concat(const TObject& arg0, const TObject& arg1, const TObject& arg2)
     {
         std::string s;
-        s.append(arg0.ToString().value_);
-        s.append(arg1.ToString().value_);
-        s.append(arg2.ToString().value_);
+        s.append(arg0.ToString());
+        s.append(arg1.ToString());
+        s.append(arg2.ToString());
         return TString(s);
     }
 
@@ -212,10 +212,10 @@ namespace cl
     TString TString::Concat(const TObject& arg0, const TObject& arg1, const TObject& arg2, const TObject& arg3)
     {
         std::string s;
-        s.append(arg0.ToString().value_);
-        s.append(arg1.ToString().value_);
-        s.append(arg2.ToString().value_);
-        s.append(arg3.ToString().value_);
+        s.append(arg0.ToString());
+        s.append(arg1.ToString());
+        s.append(arg2.ToString());
+        s.append(arg3.ToString());
         return TString(s);
     }
 
