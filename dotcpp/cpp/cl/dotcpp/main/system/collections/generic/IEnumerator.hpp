@@ -119,7 +119,7 @@ namespace cl
 
             virtual int compare(std_iterator_base<value_type> const& cmp, bool only_equals = true)
             {
-                CHECK_TYPE_CAST(std_iterator<Iterator> const&, cmp);
+                // TODO CHECK_TYPE_CAST(std_iterator<Iterator> const&, cmp);
                 Iterator const& oth = static_cast<std_iterator<Iterator> const&>(cmp).iter_;
                 return only_equals ?
                     (int)!(oth == this->iter_) : (false/*iter_ > oth*/ ? 1 : -((int)(oth == this->iter_)));
