@@ -73,7 +73,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Cl.Runtime.Cpp.2013.x64.lib;Cl.System.Cpp.2013.x64.lib;libboost_unit_test_framework-vc141-mt-gd-1_57.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Cl.Runtime.Cpp.2013.x64.lib;Cl.System.Cpp.2013.x64.lib;libboost_unit_test_framework-vc140-mt-gd-1_57.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -97,7 +97,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Cl.Runtime.Cpp.2013.x64.lib;Cl.System.Cpp.2013.x64.lib;libboost_unit_test_framework-vc141-mt-1_57.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Cl.Runtime.Cpp.2013.x64.lib;Cl.System.Cpp.2013.x64.lib;libboost_unit_test_framework-vc140-mt-1_57.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

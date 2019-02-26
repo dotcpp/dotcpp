@@ -48,12 +48,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\bin\vc141-x64-debug\</OutDir>
-    <TargetName>libboost_unit_test_framework-vc141-mt-gd-1_57</TargetName>
+    <TargetName>libboost_unit_test_framework-vc140-mt-gd-1_57</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)\bin\vc141-x64-release\</OutDir>
-    <TargetName>libboost_unit_test_framework-vc141-mt-1_57</TargetName>
+    <TargetName>libboost_unit_test_framework-vc140-mt-1_57</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
