@@ -370,10 +370,11 @@ namespace cl
 
 namespace std
 {
+    // FIXME Provide detailed explanation of where this is needed and how it works
     template<>
     struct hash<cl::TString> : public unary_function<cl::TString, size_t>
     {
-        size_t operator()(const cl::TString value) const //!!!! Why do we need this?
+        size_t operator()(const cl::TString value) const
         {
             return value.getHashCode();
         }
