@@ -56,7 +56,10 @@ namespace cl
         bool isEmpty() const { return value_ == Empty; }
 
         /// <summary>Convert to string.</summary>
-        std::string toString() const;
+        std::string toString() const
+        {
+            return value_ != Empty ? std::to_string(value_) : "";
+        }
 
         /// <summary>Returns true if not empty.</summary>
         bool IsSet() const { return value_ != Empty; }
