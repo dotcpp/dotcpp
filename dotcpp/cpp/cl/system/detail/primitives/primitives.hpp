@@ -27,6 +27,29 @@ limitations under the License.
 
 namespace cl
 {
+	namespace detail
+	{
+		// this class is base for props base classes
+		class object_base {};
+
+		// this notifier about that class
+		// case base_class_type
+		struct has_base_class {};
+
+		// This class used for define that it is
+		// has a base class fields
+		template <typename Base>
+		struct base_class : has_base_class
+		{
+			typedef Base base_class_type;
+		};
+	}
+
+	class Object : public detail::object_base {};
+}
+
+namespace cl
+{
     struct dummy {};
     struct empty_type {};
     struct null_type;
