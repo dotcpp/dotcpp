@@ -22,7 +22,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cl.System.Test.Cpp.x64", "d
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Console", "Console", "{5DEC12C0-3448-4656-B991-36A5ACF4CC48}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cl.Console.Cpp.x64", "console\cpp\cl\console\Cl.Console.Cpp.x64.vcxproj", "{561C0F8E-7C0F-45DA-BA14-B68283E0FE9F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cl.DotCpp.Console.Cpp.x64", "dotcpp\cpp\cl\system\console\Cl.DotCpp.Console.Cpp.x64.vcxproj", "{561C0F8E-7C0F-45DA-BA14-B68283E0FE9F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{05FCBA2D-EBAF-4265-94E6-CB33526C758F} = {05FCBA2D-EBAF-4265-94E6-CB33526C758F}
 		{04199C2F-0C9B-43F1-968F-5D7329204EF6} = {04199C2F-0C9B-43F1-968F-5D7329204EF6}
