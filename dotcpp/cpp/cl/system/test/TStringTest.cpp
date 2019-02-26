@@ -22,7 +22,7 @@ limitations under the License.
 */
 
 #include <cl/system/implement.hpp>
-#include <cl/system/TStringTests.hpp>
+#include <cl/system/test/TStringTest.hpp>
 #include <cl/system/collections/generic/TDictionary.hpp>
 #include <cl/system/TException.hpp>
 

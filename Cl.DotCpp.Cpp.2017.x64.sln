@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2017
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{7F5FEF56-F3EB-4498-9F90-DD0AB389E5DC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DotCpp", "DotCpp", "{39369386-2822-4EF1-AF43-ADC22FC1F7EB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cl.System.Cpp.2013.x64", "dotcpp\cpp\cl\system\Cl.System.Cpp.2013.x64.vcxproj", "{7FA068EC-B443-4DB9-93AF-56CBC7110408}"
+	ProjectSection(ProjectDependencies) = postProject
+		{05FCBA2D-EBAF-4265-94E6-CB33526C758F} = {05FCBA2D-EBAF-4265-94E6-CB33526C758F}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Boost.Cpp.2013.x64", "dependencies\cpp\boost\Boost.Cpp.2013.x64.vcxproj", "{05FCBA2D-EBAF-4265-94E6-CB33526C758F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cl.System.Cpp.Test.2013.x64", "dotcpp\cpp\cl\system\Cl.System.Cpp.Test.2013.x64.vcxproj", "{04199C2F-0C9B-43F1-968F-5D7329204EF6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{05FCBA2D-EBAF-4265-94E6-CB33526C758F} = {05FCBA2D-EBAF-4265-94E6-CB33526C758F}
+		{7FA068EC-B443-4DB9-93AF-56CBC7110408} = {7FA068EC-B443-4DB9-93AF-56CBC7110408}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Console", "Console", "{5DEC12C0-3448-4656-B991-36A5ACF4CC48}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cl.Console.Cpp.2013.x64", "console\cpp\cl\console\Cl.Console.Cpp.2013.x64.vcxproj", "{561C0F8E-7C0F-45DA-BA14-B68283E0FE9F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{05FCBA2D-EBAF-4265-94E6-CB33526C758F} = {05FCBA2D-EBAF-4265-94E6-CB33526C758F}
+		{04199C2F-0C9B-43F1-968F-5D7329204EF6} = {04199C2F-0C9B-43F1-968F-5D7329204EF6}
+		{7FA068EC-B443-4DB9-93AF-56CBC7110408} = {7FA068EC-B443-4DB9-93AF-56CBC7110408}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7FA068EC-B443-4DB9-93AF-56CBC7110408}.Debug|x64.ActiveCfg = Debug|x64
+		{7FA068EC-B443-4DB9-93AF-56CBC7110408}.Debug|x64.Build.0 = Debug|x64
+		{7FA068EC-B443-4DB9-93AF-56CBC7110408}.Release|x64.ActiveCfg = Release|x64
+		{7FA068EC-B443-4DB9-93AF-56CBC7110408}.Release|x64.Build.0 = Release|x64
+		{05FCBA2D-EBAF-4265-94E6-CB33526C758F}.Debug|x64.ActiveCfg = Debug|x64
+		{05FCBA2D-EBAF-4265-94E6-CB33526C758F}.Debug|x64.Build.0 = Debug|x64
+		{05FCBA2D-EBAF-4265-94E6-CB33526C758F}.Release|x64.ActiveCfg = Release|x64
+		{05FCBA2D-EBAF-4265-94E6-CB33526C758F}.Release|x64.Build.0 = Release|x64
+		{04199C2F-0C9B-43F1-968F-5D7329204EF6}.Debug|x64.ActiveCfg = Debug|x64
+		{04199C2F-0C9B-43F1-968F-5D7329204EF6}.Debug|x64.Build.0 = Debug|x64
+		{04199C2F-0C9B-43F1-968F-5D7329204EF6}.Release|x64.ActiveCfg = Release|x64
+		{04199C2F-0C9B-43F1-968F-5D7329204EF6}.Release|x64.Build.0 = Release|x64
+		{561C0F8E-7C0F-45DA-BA14-B68283E0FE9F}.Debug|x64.ActiveCfg = Debug|x64
+		{561C0F8E-7C0F-45DA-BA14-B68283E0FE9F}.Debug|x64.Build.0 = Debug|x64
+		{561C0F8E-7C0F-45DA-BA14-B68283E0FE9F}.Release|x64.ActiveCfg = Release|x64
+		{561C0F8E-7C0F-45DA-BA14-B68283E0FE9F}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7FA068EC-B443-4DB9-93AF-56CBC7110408} = {39369386-2822-4EF1-AF43-ADC22FC1F7EB}
+		{05FCBA2D-EBAF-4265-94E6-CB33526C758F} = {7F5FEF56-F3EB-4498-9F90-DD0AB389E5DC}
+		{04199C2F-0C9B-43F1-968F-5D7329204EF6} = {39369386-2822-4EF1-AF43-ADC22FC1F7EB}
+		{561C0F8E-7C0F-45DA-BA14-B68283E0FE9F} = {5DEC12C0-3448-4656-B991-36A5ACF4CC48}
+	EndGlobalSection
+EndGlobal
