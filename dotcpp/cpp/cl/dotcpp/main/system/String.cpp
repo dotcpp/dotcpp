@@ -28,40 +28,40 @@ limitations under the License.
 
 namespace cl
 {
-    const TString TString::Empty = TString("");
+    const String String::Empty = String("");
 
-    TString::TString(const std::string& value)
+    String::String(const std::string& value)
         : value_(value)
     { }
 
-    TString::TString(const char* value)
+    String::String(const char* value)
         : value_(value ? value : "")
     { }
 
-    TString::TString(char value)
+    String::String(char value)
         : value_(1, value)
     { }
 
-    TString::TString(const TString& value)
+    String::String(const String& value)
         : value_(value.value_)
     { }
 
-    int TString::compareTo(const TObject& value) const //!! Is this the behavior in C#?
+    int String::compareTo(const Object& value) const //!! Is this the behavior in C#?
     {
         return compareTo(value.ToString());
     }
 
-    int TString::compareTo(const TString& strB) const
+    int String::compareTo(const String& strB) const
     {
         return value_.compare(strB.value_);
     }
 
-    int TString::byteCount() const
+    int String::byteCount() const
     {
         return static_cast<int>(value_.size());
     }
 
-    TString TString::Replace(const TString& oldValue, const TString& newValue) const
+    String String::Replace(const String& oldValue, const String& newValue) const
     {
         std::string s = value_;
         std::size_t pos = 0,
@@ -72,73 +72,73 @@ namespace cl
             s.replace(pos, count, newValue.value_);
             pos += ncount;
         }
-        return TString(s);
+        return String(s);
     }
 
-    TString TString::ToLower() const
+    String String::ToLower() const
     {
         return ToLowerInvariant(); //!!! Fix - needs UTF-8 conversion
     }
 
-    TString TString::ToLowerInvariant() const
+    String String::ToLowerInvariant() const
     {
         std::string result = value_;
         std::transform(result.begin(), result.end(), result.begin(), ::tolower);
-        return TString(result);
+        return String(result);
     }
 
-    TString TString::ToUpper() const
+    String String::ToUpper() const
     {
         return ToUpperInvariant(); //!!! Fix - needs UTF-8 conversion
     }
 
-    TString TString::ToUpperInvariant() const
+    String String::ToUpperInvariant() const
     {
         std::string result = value_;
         std::transform(result.begin(), result.end(), result.begin(), ::toupper);
-        return TString(result);
+        return String(result);
     }
 
-    TString& TString::operator=(const std::string& rhs)
+    String& String::operator=(const std::string& rhs)
     {
         value_ = rhs; return *this;
     }
 
-    TString& TString::operator=(const char* rhs)
+    String& String::operator=(const char* rhs)
     {
         if (rhs) value_ = rhs;
         else value_.clear();
         return *this;
     }
 
-    TString& TString::operator=(char rhs)
+    String& String::operator=(char rhs)
     {
         value_ = std::string(1, rhs);
         return *this;
     }
 
-    bool TString::operator==(const TString& rhs) const
+    bool String::operator==(const String& rhs) const
     {
         return compareTo(rhs) == 0;
     }
 
-    bool TString::operator!=(const TString& rhs) const
+    bool String::operator!=(const String& rhs) const
     {
         return compareTo(rhs) != 0;
     }
 
-    TChar TString::operator[](int index) const
+    Char String::operator[](int index) const
     {
-        //return TChar(value_[index]); //!!!! static_cast<TChar>(value_[index]);
-        return TChar();
+        //return Char(value_[index]); //!!!! static_cast<Char>(value_[index]);
+        return Char();
     }
 
-    int TString::Compare(const TString& strA, const TString& strB)
+    int String::Compare(const String& strA, const String& strB)
     {
         return strA.compareTo(strB);
     }
 
-    int TString::Compare(const TString& strA, const TString& strB, bool ignoreCase)
+    int String::Compare(const String& strA, const String& strB, bool ignoreCase)
     {
         if (!ignoreCase)
             return strA.compareTo(strB);
@@ -165,86 +165,86 @@ namespace cl
             return 0;
     }
 
-    int TString::Compare(TString const& strA, int indexA, const TString& strB, int indexB, int length)
+    int String::Compare(String const& strA, int indexA, const String& strB, int indexB, int length)
     {
         return strA.value_.compare(indexA, length, strB.value_, indexB, length);
     }
 
-    TString TString::Concat(const TObject& arg0)
+    String String::Concat(const Object& arg0)
     {
         return arg0.ToString();
     }
 
-    TString TString::Concat(const TObject& arg0, const TObject& arg1)
+    String String::Concat(const Object& arg0, const Object& arg1)
     {
         std::string s;
         s.append(arg0.ToString());
         s.append(arg1.ToString());
-        return TString(s);
+        return String(s);
     }
 
-    TString TString::Concat(const TString& str0, const TString& str1)
+    String String::Concat(const String& str0, const String& str1)
     {
         std::string s;
         s.append(str0.value_);
         s.append(str1.value_);
-        return TString(s);
+        return String(s);
     }
 
-    TString TString::Concat(const TObject& arg0, const TObject& arg1, const TObject& arg2)
+    String String::Concat(const Object& arg0, const Object& arg1, const Object& arg2)
     {
         std::string s;
         s.append(arg0.ToString());
         s.append(arg1.ToString());
         s.append(arg2.ToString());
-        return TString(s);
+        return String(s);
     }
 
-    TString TString::Concat(const TString& str0, const TString& str1, const TString& str2)
+    String String::Concat(const String& str0, const String& str1, const String& str2)
     {
         std::string s;
         s.append(str0.value_);
         s.append(str1.value_);
         s.append(str2.value_);
-        return TString(s);
+        return String(s);
     }
 
-    TString TString::Concat(const TObject& arg0, const TObject& arg1, const TObject& arg2, const TObject& arg3)
+    String String::Concat(const Object& arg0, const Object& arg1, const Object& arg2, const Object& arg3)
     {
         std::string s;
         s.append(arg0.ToString());
         s.append(arg1.ToString());
         s.append(arg2.ToString());
         s.append(arg3.ToString());
-        return TString(s);
+        return String(s);
     }
 
-    TString TString::Concat(const TString& str0, const TString& str1, const TString& str2, const TString& str3)
+    String String::Concat(const String& str0, const String& str1, const String& str2, const String& str3)
     {
         std::string s;
         s.append(str0.value_);
         s.append(str1.value_);
         s.append(str2.value_);
         s.append(str3.value_);
-        return TString(s);
+        return String(s);
     }
 
-    TString TString::copy(const TString& str)
+    String String::copy(const String& str)
     {
-        return TString(str);
+        return String(str);
     }
 
-    bool TString::equals(const TString& strA, const TString& strB)
+    bool String::equals(const String& strA, const String& strB)
     {
         return strA.compareTo(strB) == 0;
     }
 
-    bool TString::IsNullOrEmpty(const TString& str)
+    bool String::IsNullOrEmpty(const String& str)
     {
         return str.value_.empty(); //!! Consider null in implementation
     }
 
-    bool TString::IsNullOrWhiteSpace(const TString& str)
+    bool String::IsNullOrWhiteSpace(const String& str)
     {
         //!! Consider null in implementation
         const std::string& s = str.value_;

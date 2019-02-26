@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_main_ITEnumerable_hpp
-#define cl_dotcpp_main_ITEnumerable_hpp
+#ifndef cl_dotcpp_main_IEnumerable_hpp
+#define cl_dotcpp_main_IEnumerable_hpp
 
 #include <assert.h>
 
@@ -128,7 +128,7 @@ namespace cl
     }
 
 
-    template <class T> class ITEnumerator;
+    template <class T> class IEnumerator;
 
     template <typename Collection>
     struct std_accessor;
@@ -163,13 +163,13 @@ namespace cl
 
     /// Exposes the enumerator, which supports a simple iteration over a collection of a specified type.
     template <class T>
-    class ITEnumerable
+    class IEnumerable
     {
     public: // METHODS
         struct ref_counter_functional {};
                 
         template <typename Other_>
-        ITEnumerable(Other_) {}
+        IEnumerable(Other_) {}
 
         template <typename Container>
         inline void
@@ -177,26 +177,26 @@ namespace cl
         {
         }
 
-        /// (ITEnumerable) Returns an enumerator that iterates through the Container.
-        virtual cl::ITEnumerator<T> getEnumerator()
+        /// (IEnumerable) Returns an enumerator that iterates through the Container.
+        virtual cl::IEnumerator<T> getEnumerator()
         {
             throw std::runtime_error("Not implemented.");
         }
 
-        virtual ~ITEnumerable()   { }
+        virtual ~IEnumerable()   { }
     protected:
-        ITEnumerable() = default;
+        IEnumerable() = default;
     };
 
     //! The key value type
     // Currenlty we use type to rforward to std::pair
     // in next step we'll use our type friendly and convertible to pair
     template <typename Key, typename Value>
-    class TKeyValuePair : public std::pair<Key const, Value>
+    class KeyValuePair : public std::pair<Key const, Value>
     {
     public:
         typedef std::pair<Key const, Value> base;
-        TKeyValuePair() : base()
+        KeyValuePair() : base()
         {   }
 
         typedef std::pair<Key const, Value> type;
@@ -224,12 +224,12 @@ namespace cl
 
             ///<summary> Method returns Enumerator contains start iterator
             /// for std Container </summary>
-            inline cl::ITEnumerator<value_type >
+            inline cl::IEnumerator<value_type >
             getEnumerator()
             {
                 // accessory to the base std accessor class
                 // we need save it to provide releasable iterators
-                return cl::ITEnumerator<value_type>(c_->begin());
+                return cl::IEnumerator<value_type>(c_->begin());
             }
 
             //   Native functionality implementation
@@ -305,7 +305,7 @@ namespace cl
 
             // Enumerator type
             // should be returned by remove holder
-            typedef cl::ITEnumerator<typename
+            typedef cl::IEnumerator<typename
                 detail::remove_holder<Enumerable>::type > EnumeratorType;
 
             static_assert (detail::remove_holder<Enumerable>::value
@@ -389,7 +389,7 @@ namespace cl
 
             // Enumerator type
             // should be returned by remove holder
-            typedef cl::ITEnumerator<typename
+            typedef cl::IEnumerator<typename
                 detail::remove_holder<Enumerable>::type > EnumeratorType;
 
             static_assert (detail::remove_holder<Enumerable>::value
@@ -456,4 +456,4 @@ namespace cl
     }
 }
 
-#endif // cl_dotcpp_main_ITEnumerable_hpp
+#endif // cl_dotcpp_main_IEnumerable_hpp

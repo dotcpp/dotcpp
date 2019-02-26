@@ -28,9 +28,9 @@ limitations under the License.
 
 namespace cl
 {
-    /// <summary>Specifies whether applicable TString.split(...) method overloads
+    /// <summary>Specifies whether applicable String.split(...) method overloads
     /// include or omit empty substrings from the return value.</summary>
-    enum class CL_DOTCPP_MAIN TStringSplitOptions : int
+    enum class CL_DOTCPP_MAIN StringSplitOptions : int
     {
         /// <summary>The return value includes array elements that contain an empty string.</summary>
         None,

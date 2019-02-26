@@ -21,19 +21,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_main_ITCollection_hpp
-#define cl_dotcpp_main_ITCollection_hpp
+#ifndef cl_dotcpp_main_ICollection_hpp
+#define cl_dotcpp_main_ICollection_hpp
 
 #include <cl/dotcpp/main/declare.hpp>
 #include <cl/dotcpp/main/system/collections/generic/IEnumerable.hpp>
 
 namespace cl
 {
-    template <class T> class TArray;
+    template <class T> class Array;
 
     /// <summary>Generic collection interface.</summary>
     template <class T>
-    class ITCollection : public ITEnumerable<T>
+    class ICollection : public IEnumerable<T>
     {
     public: // METHODS
 
@@ -42,11 +42,11 @@ namespace cl
 
         /// <summary>(ICollection) Copies the elements of the ICollection(T)
         /// to a Array, starting at the specified Array index.</summary>
-        virtual void copyTo(TArray<T> array, int arrayIndex) = 0;
+        virtual void copyTo(Array<T> array, int arrayIndex) = 0;
 
     protected:
-        ITCollection() = default;
+        ICollection() = default;
     };
 }
 
-#endif // cl_dotcpp_main_ITCollection_hpp
+#endif // cl_dotcpp_main_ICollection_hpp

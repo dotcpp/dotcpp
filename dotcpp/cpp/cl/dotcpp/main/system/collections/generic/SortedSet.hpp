@@ -36,18 +36,18 @@ namespace cl
 
     ///!!! Provide .NET description Adapter class from STL set to .NET SortedSet
     template <typename T>
-    class TSortedSet : public detail::std_accessor_<cl::ITEnumerable<T>, std::set<T> >
+    class SortedSet : public detail::std_accessor_<cl::IEnumerable<T>, std::set<T> >
     {
     public:
 
-        typedef detail::std_accessor_<cl::ITEnumerable<T>, std::set<T> > base;
-        typedef cl::ITEnumerable<T> cl_enumerator_type;
+        typedef detail::std_accessor_<cl::IEnumerable<T>, std::set<T> > base;
+        typedef cl::IEnumerable<T> cl_enumerator_type;
         typedef std::set<T> std_base;
 
     public:
 
         /// <summary>Creates new empty instance of SortedSet.</summary>
-        TSortedSet() : base() {  }
+        SortedSet() : base() {  }
 
         /// <summary>Gets number of elements in SortedList.</summary>
         inline int count() const
@@ -80,26 +80,26 @@ namespace cl
         void copyTo(Array<T>& arr, int index, int count);
 
         /// <summary>Removes all elements in the specified collection from the current SortedSet object.</summary>
-        inline void exceptWith(const ITEnumerable<T>& other);
+        inline void exceptWith(const IEnumerable<T>& other);
 
         /// <summary>Modifies the current SortedSet to contain only elements that
         /// are present in that object and in the specified collection.</summary>
-        inline void intersectWith(const ITEnumerable<T>& other);
+        inline void intersectWith(const IEnumerable<T>& other);
 
         /// <summary>Determines whether a SortedSet object is a proper subset of the specified collection.</summary>
-        inline bool isProperSubsetOf(const ITEnumerable<T>& other);
+        inline bool isProperSubsetOf(const IEnumerable<T>& other);
 
         /// <summary>Determines whether a SortedSet is a proper superset of the specified collection.</summary>
-        inline bool isProperSupersetOf(const ITEnumerable<T>& other);
+        inline bool isProperSupersetOf(const IEnumerable<T>& other);
 
         /// <summary>Determines whether a HashSet is a subset of the specified collection.</summary>
-        inline bool isSubsetOf(const ITEnumerable<T>& other);
+        inline bool isSubsetOf(const IEnumerable<T>& other);
 
         /// <summary>Determines whether a SortedSet is a superset of the specified collection.</summary>
-        inline bool isSupersetOf(const ITEnumerable<T>& other);
+        inline bool isSupersetOf(const IEnumerable<T>& other);
 
         /// <summary>Determines whether the current SortedSet and a specified collection share common elements.</summary>
-        inline bool overlaps(const ITEnumerable<T>& other);
+        inline bool overlaps(const IEnumerable<T>& other);
 
         /// <summary>Removes the first occurrence of a specific object from the SortedSet.</summary>
         inline bool remove(const T& item);
@@ -108,19 +108,19 @@ namespace cl
         template <typename Predicate>
         inline int removeWhere(Predicate match);
 
-        /// <summary>Returns an ITEnumerable that iterates over the SortedSet in reverse order.</summary>
-        inline ITEnumerable<T>& reverse();
+        /// <summary>Returns an IEnumerable that iterates over the SortedSet in reverse order.</summary>
+        inline IEnumerable<T>& reverse();
 
         /// <summary>Determines whether a SortedSet object and the specified collection contain the same elements.</summary>
-        inline bool setEquals(const ITEnumerable<T>& other) const;
+        inline bool setEquals(const IEnumerable<T>& other) const;
 
         /// <summary>Modifies the current SortedSet to contain only elements that are present
         /// either in that object or in the specified collection, but not both.</summary>
-        inline void symmetricExceptWith(const ITEnumerable<T>& other);
+        inline void symmetricExceptWith(const IEnumerable<T>& other);
 
         /// <summary>Modifies the current SortedSet to contain all elements
         /// that are present in itself and the specified collection.</summary>
-        inline void unionWith(const ITEnumerable<T>& other);
+        inline void unionWith(const IEnumerable<T>& other);
     };
 }
 

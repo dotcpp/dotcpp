@@ -34,27 +34,27 @@ namespace cl
 {
     ///!!! Not finished
     template <typename T>
-    class TLinkedListNode
+    class LinkedListNode
     {
     private:
 
     public:
-        TLinkedListNode(T Value);
+        LinkedListNode(T Value);
     };
 
     ///!!! Not finished
     template <typename T>
-    class TLinkedList : public detail::std_accessor_<cl::ITEnumerable<T>
+    class LinkedList : public detail::std_accessor_<cl::IEnumerable<T>
         , std::deque<T> >
     {
     public:
-        typedef detail::std_accessor_<cl::ITEnumerable<T>
+        typedef detail::std_accessor_<cl::IEnumerable<T>
             , std::deque<T> > base;
-        typedef cl::ITEnumerable<T> cl_enumerator_type;
+        typedef cl::IEnumerable<T> cl_enumerator_type;
         typedef std::deque<T> std_base;
         typedef T& reference_type;
 
-        TLinkedList() : base()
+        LinkedList() : base()
         {}
 
         inline int get_Count() const

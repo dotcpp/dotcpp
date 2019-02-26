@@ -30,19 +30,19 @@ limitations under the License.
 
 namespace cl
 {
-    class TString; using tstring = TString;
-    class TType;
+    class String; using tstring = String;
+    class Type;
 
     /// <summary>All classes with reference semantics should derive from this type.
-    /// It works with TPtr to provide an emulation of reference semantics in C++.
+    /// It works with Ptr to provide an emulation of reference semantics in C++.
     /// Classes with value semantics should not derive from this type.</summary>
-    class CL_DOTCPP_MAIN TObject
+    class CL_DOTCPP_MAIN Object
     {
     public:
 
         /// <summary>Virtual destructor to ensure that destructor
-        /// of the derived type is called by TPtr.</summary>
-        virtual ~TObject() = default;
+        /// of the derived type is called by Ptr.</summary>
+        virtual ~Object() = default;
 
     public: // METHODS
 
@@ -51,7 +51,7 @@ namespace cl
         virtual std::string ToString() const { return "Object"; }
 
     protected:
-        TObject() = default;
+        Object() = default;
     };
 }
 

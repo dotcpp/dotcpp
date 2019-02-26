@@ -36,10 +36,10 @@ namespace cl
     template<typename Key, typename Type>
     using map_type = std::unordered_map<Key, Type>;
 
-    ///!!! Provide .NET description Adapter class from STL hash_map to .NET TDictionary - collection of keys and values
+    ///!!! Provide .NET description Adapter class from STL hash_map to .NET Dictionary - collection of keys and values
     template <typename Key, typename Type >
-    class TDictionary : public detail::std_accessor_<
-        cl::ITEnumerable<typename TKeyValuePair<Key, Type>::type>, map_type<Key, Type> >
+    class Dictionary : public detail::std_accessor_<
+        cl::IEnumerable<typename KeyValuePair<Key, Type>::type>, map_type<Key, Type> >
     {
     public:
 
@@ -52,33 +52,33 @@ namespace cl
             map_type<Key, Type>::const_iterator const_iterator;
 
         typedef detail::std_accessor_<
-            cl::ITEnumerable< 
-                typename TKeyValuePair<Key, Type>::type 
+            cl::IEnumerable< 
+                typename KeyValuePair<Key, Type>::type 
             >, map_type<Key, Type> > base;
 
-        /// <summary>Initializes a new instance of TDictionary.</summary>
-        TDictionary() : base()
+        /// <summary>Initializes a new instance of Dictionary.</summary>
+        Dictionary() : base()
         {
         }
         
-        /// <summary>Gets number of elements in TDictionary.</summary>
+        /// <summary>Gets number of elements in Dictionary.</summary>
         inline int count() const
         {
             return this->get().size();
         }
 
-        /// <summary>Gets TList of keys.</summary>
-        inline TList<Key> keys() 
+        /// <summary>Gets List of keys.</summary>
+        inline List<Key> keys() 
         {
-            TList<Key> keys;
+            List<Key> keys;
             std::for_each(this->get().begin(), this->get().end(), [&keys](std::pair<Key, Type> const& value){ keys.add(value.first); });
             return keys;
         }
 
-        /// <summary>Gets TList of values.</summary>
-        inline TList<Type> values()
+        /// <summary>Gets List of values.</summary>
+        inline List<Type> values()
         {
-            TList<Type> values;
+            List<Type> values;
             std::for_each(this->get().begin(), this->get().end(), [&values](std::pair<Key, Type> const& value){ values.add(value.second); });
             return values;
         }
@@ -89,25 +89,25 @@ namespace cl
             return this->get()[key];
         }
 
-        /// <summary>Adds the specified key and value to the TDictionary.</summary>
+        /// <summary>Adds the specified key and value to the Dictionary.</summary>
         inline void add(Key const& key, Type const& value)
         {
             this->get().insert(std::pair<Key, Type>(key, value));
         }
 
-        /// <summary>Removes all keys and values from the TDictionary.</summary>
+        /// <summary>Removes all keys and values from the Dictionary.</summary>
         inline void clear()
         {
             this->get().clear();
         }
 
-        /// <summary>Determines whether the TDictionary contains the specified key.</summary>
+        /// <summary>Determines whether the Dictionary contains the specified key.</summary>
         inline bool containsKey(Key const& key) const
         {
             return (this->get().find(key) != this->get().end());
         }
 
-        /// <summary>Determines whether the TDictionary contains the specified value.</summary>
+        /// <summary>Determines whether the Dictionary contains the specified value.</summary>
         inline bool containsValue(const Type& value) const
         {
             for (map_type<Key, Type>::iterator iter = this->get().begin(); iter != this->get().end(); iter++)
@@ -120,7 +120,7 @@ namespace cl
             return false;
         }
 
-        /// <summary>Removes the value with the specified key from the TDictionary.</summary>
+        /// <summary>Removes the value with the specified key from the Dictionary.</summary>
         inline bool remove(Key const& key)
         {
             this->get().erase(key);

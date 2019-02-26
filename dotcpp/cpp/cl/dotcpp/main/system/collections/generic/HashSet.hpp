@@ -32,23 +32,23 @@ limitations under the License.
 
 namespace cl
 {
-    template <typename T> class TArray;
+    template <typename T> class Array;
 
     /// Adapter class from STL has_set to .NET HashSet
     template <typename T>
-    class THashSet : public detail::std_accessor_<cl::ITEnumerable<T>, std::unordered_set<Type> >
+    class HashSet : public detail::std_accessor_<cl::IEnumerable<T>, std::unordered_set<Type> >
     {
     public:
 
-        typedef detail::std_accessor_<cl::ITEnumerable<T>, std::unordered_set<Type> > base;
-        typedef cl::ITEnumerable<T> cl_enumerator_type;
+        typedef detail::std_accessor_<cl::IEnumerable<T>, std::unordered_set<Type> > base;
+        typedef cl::IEnumerable<T> cl_enumerator_type;
         typedef std::unordered_set<Type> std_base;
         typedef T& reference_type;
 
     public:
 
         /// <summary>Initializes a new instance of the HashSet.</summary>
-        THashSet() : base()
+        HashSet() : base()
         {
         }
 
@@ -68,34 +68,34 @@ namespace cl
         inline bool contains(const T& item) const;
 
         /// <summary>Copies HashSet elements to array starting at then begining of arrray.</summary>
-        void copyTo(TArray<T>& arr) const;
+        void copyTo(Array<T>& arr) const;
 
         /// <summary>Copies HashSet elements to array starting at specified index.</summary>
-        void copyTo(TArray<T>& arr, int arrIndex) const;
+        void copyTo(Array<T>& arr, int arrIndex) const;
 
         /// <summary>Copies range of HashSet elements to array starting at specified index.</summary>
-        void copyTo(TArray<T>& arr, int arrIndex, int count) const;
+        void copyTo(Array<T>& arr, int arrIndex, int count) const;
 
         /// <summary>Removes all elements in the specified collection from the current HashSet object.</summary>
-        inline void exceptWith(const ITEnumerable<T>& other);
+        inline void exceptWith(const IEnumerable<T>& other);
 
         /// <summary>Modifies the current HashSet to contain only elements that are present in that object and in the specified collection.</summary>
-        inline void intersectWith(const ITEnumerable<T>& other);
+        inline void intersectWith(const IEnumerable<T>& other);
 
         /// <summary>Determines whether a HashSet object is a proper subset of the specified collection.</summary>
-        inline bool isProperSubsetOf(const ITEnumerable<T>& other) const;
+        inline bool isProperSubsetOf(const IEnumerable<T>& other) const;
 
         /// <summary>Determines whether a HashSet is a proper superset of the specified collection.</summary>
-        inline bool isProperSupersetOf(const ITEnumerable<T>& other) const;
+        inline bool isProperSupersetOf(const IEnumerable<T>& other) const;
 
         /// <summary>Determines whether a HashSet is a subset of the specified collection.</summary>
-        inline bool isSubsetOf(const ITEnumerable<T>& other) const;
+        inline bool isSubsetOf(const IEnumerable<T>& other) const;
 
         /// <summary>Determines whether a HashSet is a superset of the specified collection.</summary>
-        inline bool isSupersetOf(const ITEnumerable<T>& other) const;
+        inline bool isSupersetOf(const IEnumerable<T>& other) const;
 
         /// <summary>Determines whether the current HashSet and a specified collection share common elements.</summary>
-        inline bool overlaps(const ITEnumerable<T>& other) const;
+        inline bool overlaps(const IEnumerable<T>& other) const;
 
         /// <summary>Removes the first occurrence of a specific object from the HashSet.</summary>
         inline bool remove(const T& item);
@@ -105,16 +105,16 @@ namespace cl
         inline int removeWhere(Predicate match);
 
         /// <summary>Determines whether a HashSet object and the specified collection contain the same elements.</summary>
-        inline bool setEquals(const ITEnumerable<T>& other) const;
+        inline bool setEquals(const IEnumerable<T>& other) const;
 
         /// <summary>Modifies the current HashSet to contain only elements that are present either in that object or in the specified collection, but not both.</summary>
-        inline void symmetricExceptWith(const ITEnumerable<T>& other);
+        inline void symmetricExceptWith(const IEnumerable<T>& other);
 
         /// <summary>Sets the capacity to the actual number of elements in the List, if that number is less than a threshold value.</summary>
         inline void trimExcess();
 
         /// <summary>Modifies the current HashSet to contain all elements that are present in itself and the specified collection.</summary>
-        inline void unionWith(const ITEnumerable<T>& other);
+        inline void unionWith(const IEnumerable<T>& other);
     };
 }
 

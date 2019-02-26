@@ -29,11 +29,11 @@ limitations under the License.
 namespace cl
 {
     /// <summary>Helper type to enable comparison and assignment to null pointer.
-    /// This object cannot be created, therefore any pointer to TNull is null.</summary>
-    class CL_DOTCPP_MAIN TNull
+    /// This object cannot be created, therefore any pointer to Null is null.</summary>
+    class CL_DOTCPP_MAIN Null
     {
     private:
-        TNull();
+        Null();
     };
 }
 

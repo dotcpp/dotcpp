@@ -38,19 +38,19 @@ namespace cl
 
     ///!!! Provide .NET description Adapter class from STL deque to .NET SortedList - collection of key/value pairs that are sorted on the key
     template <typename Key, typename Type >
-    class TSortedList : public detail::std_accessor_<
-        cl::ITEnumerable< typename TKeyValuePair<Key, Type>::type >
-        , std::deque< typename TKeyValuePair<Key, Type>::type > >
+    class SortedList : public detail::std_accessor_<
+        cl::IEnumerable< typename KeyValuePair<Key, Type>::type >
+        , std::deque< typename KeyValuePair<Key, Type>::type > >
     {
     public:
 
         //!!!! Why in public section?
         typedef detail::std_accessor_<
-            cl::ITEnumerable< typename TKeyValuePair<Key, Type>::type >
-            , std::deque< typename TKeyValuePair<Key, Type>::type > > base;
+            cl::IEnumerable< typename KeyValuePair<Key, Type>::type >
+            , std::deque< typename KeyValuePair<Key, Type>::type > > base;
 
         /// <summary>SortedList constructor that create new empty instance of SortedList.</summary>
-        TSortedList() : base()
+        SortedList() : base()
         {
         }
 

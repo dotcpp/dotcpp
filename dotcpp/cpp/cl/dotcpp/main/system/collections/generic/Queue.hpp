@@ -34,17 +34,17 @@ namespace cl
 {
     ///!! Provide description Adapter class from STL deque to .NET Queue. std::deque used as container to make possible Conataints(T item) and GetEnumerator() implementation
     template <typename T>
-    class TQueue : public detail::std_accessor_<cl::ITEnumerable<T>, std::deque<T> >
+    class Queue : public detail::std_accessor_<cl::IEnumerable<T>, std::deque<T> >
     {
     public:
 
-        typedef detail::std_accessor_<cl::ITEnumerable<T>, std::deque<T> > base;
-        typedef cl::ITEnumerable<T> cl_enumerator_type;
+        typedef detail::std_accessor_<cl::IEnumerable<T>, std::deque<T> > base;
+        typedef cl::IEnumerable<T> cl_enumerator_type;
 
     public:
 
         /// <summary>Queue constructor that create new empty instance of Queue.</summary>
-        TQueue() : base()
+        Queue() : base()
         {
         }
 
@@ -64,7 +64,7 @@ namespace cl
         inline bool contains(const T& item) const;
 
         /// <summary>Copies Queue elements to array starting at specified index.</summary>
-        inline void copyTo(TArray<T>& arr, int arrIndex) const;
+        inline void copyTo(Array<T>& arr, int arrIndex) const;
 
         /// <summary>Removes and returns the object at the beginning of the Queue.</summary>
         inline T dequeue()
@@ -87,7 +87,7 @@ namespace cl
         }
 
         /// <summary>Copies the elements of the Queue to a new array.</summary>
-        inline TArray<T> toArray() const;
+        inline Array<T> toArray() const;
 
         /// <summary>Sets the capacity to the actual number of elements in the Queue, if that number is less than a threshold value.</summary>
         inline void trimExcess();

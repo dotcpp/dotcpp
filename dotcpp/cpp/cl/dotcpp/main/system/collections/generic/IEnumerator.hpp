@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_main_ITEnumerator_hpp
-#define cl_dotcpp_main_ITEnumerator_hpp
+#ifndef cl_dotcpp_main_IEnumerator_hpp
+#define cl_dotcpp_main_IEnumerator_hpp
 
 #include <cl/dotcpp/main/declare.hpp>
 
@@ -141,18 +141,18 @@ namespace cl
 
     /// Supports a simple iteration over a generic collection.
     template <class T>
-    class ITEnumerator
+    class IEnumerator
         : std::random_access_iterator_tag
     {
     public: // METHODS
         typedef std::unique_ptr<detail::std_iterator_base<T > > iterator_type;
 
         // should be null
-        ITEnumerator() = default;
+        IEnumerator() = default;
 
         //!! Explicit constructor to converible from any other
         template <typename Iterator>
-        explicit ITEnumerator(Iterator const& iter)
+        explicit IEnumerator(Iterator const& iter)
             : iterator_(detail::make_iterator(iter))
         {   }
 
@@ -175,15 +175,15 @@ namespace cl
         void reset()
         {}
 
-        inline ITEnumerator<T>& operator ++()
+        inline IEnumerator<T>& operator ++()
         {
             ++(*iterator_);
             return *this;
         }
 
-        inline ITEnumerator<T> operator ++(int)
+        inline IEnumerator<T> operator ++(int)
         {
-            ITEnumerator<T> old(iterator_->copy());
+            IEnumerator<T> old(iterator_->copy());
             this->operator ++();
             return old;
         }
@@ -206,7 +206,7 @@ namespace cl
     public:
         ///
         inline bool
-        compare(cl::ITEnumerator<T> const& c) const
+        compare(cl::IEnumerator<T> const& c) const
         {
             // we should compare
             if (iterator_ && c.iterator_)
@@ -224,18 +224,18 @@ namespace cl
     };
 
     template <typename Type>
-    inline bool operator == (cl::ITEnumerator<Type> const& left
-        , cl::ITEnumerator<Type> const& right)
+    inline bool operator == (cl::IEnumerator<Type> const& left
+        , cl::IEnumerator<Type> const& right)
     {
         return left.compare(right);
     }
 
     template <typename Type>
-    inline bool operator != (cl::ITEnumerator<Type> const& left
-        , cl::ITEnumerator<Type> const& right)
+    inline bool operator != (cl::IEnumerator<Type> const& left
+        , cl::IEnumerator<Type> const& right)
     {
         return !(left == right);
     }
 }
 
-#endif // cl_dotcpp_main_ITEnumerator_hpp
+#endif // cl_dotcpp_main_IEnumerator_hpp

@@ -33,7 +33,7 @@ limitations under the License.
 
 namespace cl
 {
-    template <typename T> class TArray;
+    template <typename T> class Array;
 
     typedef std::runtime_error Exception;
 
@@ -54,25 +54,25 @@ namespace cl
 
     /// Adapter class from STL deque to .NET List with access by index
     template <typename T>
-    class TList : public detail::std_accessor_<cl::ITEnumerable<T>, std::deque<T> >
+    class List : public detail::std_accessor_<cl::IEnumerable<T>, std::deque<T> >
     {
     public:
 
         //!! Why in public scope
-        typedef cl::ITEnumerator<T> Enumerator;
-        typedef detail::std_accessor_<cl::ITEnumerable<T>, std::deque<T> > base;
-        typedef cl::ITEnumerable<T> cl_enumerator_type;
+        typedef cl::IEnumerator<T> Enumerator;
+        typedef detail::std_accessor_<cl::IEnumerable<T>, std::deque<T> > base;
+        typedef cl::IEnumerable<T> cl_enumerator_type;
         typedef std::deque<T> std_base;
         typedef T& reference_type;
 
     public:
 
         /// <summary>Creates new empty instance of List.</summary>
-        TList() : base()
+        List() : base()
         {
         }
 
-        TList(int capacity)
+        List(int capacity)
         {
             c_ = std::shared_ptr<std::deque<T>>(new std::deque<T>(capacity));
         }
@@ -101,7 +101,7 @@ namespace cl
         }
 
         /// <summary>Adds the elements from other collection to the end of List.</summary>
-        inline void addRange(const ITEnumerable<T>& collection);
+        inline void addRange(const IEnumerable<T>& collection);
 
         /// <summary>Returns a read-only collection wrapper around List.</summary>
         inline TReadOnlyCollection<T> asReadOnly();
@@ -125,16 +125,16 @@ namespace cl
         /// <summary>Converts elemetn of List from type T to type TOutput
         /// using converter.</summary>
         template <typename TOutput, typename Coverter>
-        inline TList<TOutput> convertAll(TConverter<T, TOutput> converter);
+        inline List<TOutput> convertAll(TConverter<T, TOutput> converter);
 
         /// <summary>Copies List elements to array starting at then begining of arrray.</summary>
-        void copyTo(TArray<T>& arr) const;
+        void copyTo(Array<T>& arr) const;
 
         /// <summary>Copies List elements to array starting at specified index.</summary>
-        void copyTo(TArray<T>& arr, int index) const;
+        void copyTo(Array<T>& arr, int index) const;
 
         /// <summary>Copies range of List elements to array starting at specified index.</summary>
-        void copyTo(int index, TArray<T>& arr, int arrIndex, int count) const;
+        void copyTo(int index, Array<T>& arr, int arrIndex, int count) const;
 
         /// <summary>Looks for elements in List that match predicate condition and returns bool.</summary>
         template <typename Predicate>
@@ -149,9 +149,9 @@ namespace cl
 
         /// <summary>Looks for elements in List that match predicate condition and returns it in new List.</summary>
         template <typename Predicate>
-        inline TList<T> findAll(Predicate match) const
+        inline List<T> findAll(Predicate match) const
         {
-            TList<T> result;
+            List<T> result;
             std::for_each(begin(), end(), [&result, &match](T& v)
                 {
                     if (match(v))
@@ -227,7 +227,7 @@ namespace cl
         }
 
         /// <summary>Returns a sublist.</summary>
-        TList<T> getRange(int index, int count) const;
+        List<T> getRange(int index, int count) const;
 
         /// <summary>Searches for the specified object and returns the index of the first entire in List.</summary>
         int indexOf(const T& item) const;
@@ -242,7 +242,7 @@ namespace cl
         void insert(int index, T item);
 
         /// <summary>Inserts the elements of a collection into List at the specified index.</summary>
-        void insertRange(int index, ITEnumerable<T> const& collection);
+        void insertRange(int index, IEnumerable<T> const& collection);
 
         /// <summary>Searches for the specified object and returns the index of the last occurrence in List.</summary>
         int lastIndexOf(const T& item);
@@ -300,7 +300,7 @@ namespace cl
         }
 
         /// <summary>Copies the elements of the List to a new array.</summary>
-        TArray<T> toArray() const;
+        Array<T> toArray() const;
 
         /// <summary>Sets the capacity to the actual number of elements in the List,
         /// if that number is less than a threshold value.</summary>
@@ -311,9 +311,9 @@ namespace cl
         template <typename Predicate>
         inline bool trueForAll(Predicate match);
 
-        static TPtr<TList<T> > create()
+        static Ptr<List<T> > create()
         {
-            return TPtr<TList<T> >(new TList<T>());
+            return Ptr<List<T> >(new List<T>());
         }
     };
 }

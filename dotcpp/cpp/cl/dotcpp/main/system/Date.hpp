@@ -30,35 +30,35 @@ limitations under the License.
 
 namespace cl
 {
-    class TDate; using tdate = TDate;
-    class TString; using tstring = TString;
+    class LocalDate; using tdate = LocalDate;
+    class String; using tstring = String;
 
-    class CL_DOTCPP_MAIN TDate
+    class CL_DOTCPP_MAIN LocalDate
     {
     private:
 
-        std::shared_ptr<TDate> impl_; //!! Should it be pointer to self or a separate Impl class?
+        std::shared_ptr<LocalDate> impl_; //!! Should it be pointer to self or a separate Impl class?
 
     public: //  CONSTANTS
 
         /// <summary>Empty value.</summary>
-        static const TDate Empty;
+        static const LocalDate Empty;
 
     public: //  CONSTRUCTORS
 
         /// <summary>Create with empty value.</summary>
-        TDate();
+        LocalDate();
 
         /// <summary>Create from string in ISO format (YYYY-MM-DD).</summary>
-        TDate(cl::TString value);
+        LocalDate(cl::String value);
 
         /// <summary>Constructor from int.</summary>
-        TDate(int year, int month, int day);
+        LocalDate(int year, int month, int day);
 
 
         /// <summary>Constructor from variant.</summary>
         template <typename Type>
-        TDate(Type value)
+        LocalDate(Type value)
         {
             *this = value.ToDate();
         }
@@ -69,7 +69,7 @@ namespace cl
         virtual bool isNull() const { return impl_->isNull(); }
 
         /// <summary>Convert atomic type to value.</summary>
-        virtual TDate& value() const { return *(impl_.get()); }
+        virtual LocalDate& value() const { return *(impl_.get()); }
 
         /// <summary>Year.</summary>
         virtual int year() const { return impl_->year(); }
@@ -81,16 +81,16 @@ namespace cl
         virtual int day() const { return impl_->day(); }
 
         /// <summary>Add years (returns result, the object itself remains unchanged).</summary>
-        virtual TDate plusYears(int years) const { return impl_->plusYears(years); }
+        virtual LocalDate plusYears(int years) const { return impl_->plusYears(years); }
 
         /// <summary>Add month (returns result, the object itself remains unchanged).</summary>
-        virtual TDate plusMonths(int months) const { return impl_->plusMonths(months); }
+        virtual LocalDate plusMonths(int months) const { return impl_->plusMonths(months); }
 
         /// <summary>Add days (returns result, the object itself remains unchanged).</summary>
-        virtual TDate plusDays(int days) const { return impl_->plusDays(days); }
+        virtual LocalDate plusDays(int days) const { return impl_->plusDays(days); }
 
         /// <summary>Days from the specified date. Error message if zero or negative.</summary>
-        virtual int daysFrom(TDate fromDate) const { return impl_->daysFrom(fromDate); }
+        virtual int daysFrom(LocalDate fromDate) const { return impl_->daysFrom(fromDate); }
 
         /// <summary>Convert to string.</summary>
         virtual tstring ToString() const { return impl_->ToString(); }
@@ -102,14 +102,14 @@ namespace cl
         virtual int toIsoInt() const { return impl_->toIsoInt(); }
 
         /// <summary>Convert from int using ISO format (YYYYMMDD). Empty int is converted to empty date.</summary>
-        static TDate fromIsoInt(int value)
+        static LocalDate fromIsoInt(int value)
         {
             int year = value / 10000;
             int remainder = value - 10000 * year;
             int month = remainder / 100;
             int day = remainder - 100 * month;
 
-            return TDate(year, month, day);
+            return LocalDate(year, month, day);
         }
 
         /// <summary>Hash code.</summary>
@@ -120,12 +120,12 @@ namespace cl
         int compareTo(Type other) const
         {
             if (!other) return isNull() ? 0 : 1;
-            else throw std::exception("Attempting to compare TDate with a different data type");
+            else throw std::exception("Attempting to compare LocalDate with a different data type");
         }
 
         /// <summary>Compare the current instance with another of the same type.
         /// Null is considered to be less than any other value.</summary>
-        virtual int compareTo(TDate other) const { return impl_->compareTo(other); }
+        virtual int compareTo(LocalDate other) const { return impl_->compareTo(other); }
 
         /// <summary>Checks equality using tolerance-based comparison without causing an exception even if the object is not set.
         /// Two empty objects are considered equal.</summary>
@@ -137,24 +137,24 @@ namespace cl
 
         /// <summary>Checks equality using tolerance-based comparison without causing an exception even if the object is not set.
         /// Two empty objects are considered equal.</summary>
-        virtual bool equals(TDate other) const { return compareTo(other) == 0; }
+        virtual bool equals(LocalDate other) const { return compareTo(other) == 0; }
 
         /// <summary>Equality operator. Returns true if arguments are equal
         /// or both empty and false if only one of the arguments is empty.</summary>
-        virtual bool operator ==(TDate rhs) const { return equals(rhs); }
+        virtual bool operator ==(LocalDate rhs) const { return equals(rhs); }
 
         /// <summary>Inequality operator. Returns false if arguments are equal
         /// or both empty and true if only one of the arguments is empty.</summary>
-        virtual bool operator !=(TDate rhs) const { return !(equals(rhs)); }
+        virtual bool operator !=(LocalDate rhs) const { return !(equals(rhs)); }
 
         /// <summary>Operator less. Error message if either of the arguments is empty.</summary>
-        virtual bool operator <(TDate rhs) const { return compareTo(rhs) == -1; }
+        virtual bool operator <(LocalDate rhs) const { return compareTo(rhs) == -1; }
 
         /// <summary>Operator more. Error message if either of the arguments is empty.</summary>
-        virtual bool operator >(TDate rhs) const { return compareTo(rhs) == 1; }
+        virtual bool operator >(LocalDate rhs) const { return compareTo(rhs) == 1; }
 
         /// <summary>Parse string in ISO format (YYYY-MM-DD).</summary>
-        static TDate parse(TString s) { return TDate(s); }
+        static LocalDate parse(String s) { return LocalDate(s); }
 
     private:
 
@@ -165,28 +165,28 @@ namespace cl
         virtual void checkValid() const { impl_->checkValid(); }
     };
 
-    class CL_DOTCPP_MAIN TDateEx
+    class CL_DOTCPP_MAIN LocalDateEx
     {
     public:
-        static TDate max(TList<TDate> src)
+        static LocalDate max(List<LocalDate> src)
         {
-            if (src.count() == 0) throw cl::TException("TError.Core.ZeroSize");
-            TDate result;
-            for each(TDate value in src)
+            if (src.count() == 0) throw cl::Exception("TError.Core.ZeroSize");
+            LocalDate result;
+            for each(LocalDate value in src)
             {
-                if (value.isNull()) throw cl::TException("TError.Core.NotSet");
+                if (value.isNull()) throw cl::Exception("TError.Core.NotSet");
                 if (result.isNull() || result < value) result = value;
             }
             return result;
         }
 
-        static TDate min(TList<TDate> src)
+        static LocalDate min(List<LocalDate> src)
         {
-            if (src.count() == 0) throw cl::TException("TError.Core.ZeroSize");
-            TDate result;
-            for each(TDate value in src)
+            if (src.count() == 0) throw cl::Exception("TError.Core.ZeroSize");
+            LocalDate result;
+            for each(LocalDate value in src)
             {
-                if (value.isNull()) throw cl::TException("TError.Core.NotSet");
+                if (value.isNull()) throw cl::Exception("TError.Core.NotSet");
                 if (result.isNull() || result > value) result = value;
             }
             return result;

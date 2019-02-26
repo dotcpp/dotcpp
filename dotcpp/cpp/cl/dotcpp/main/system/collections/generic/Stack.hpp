@@ -32,22 +32,22 @@ limitations under the License.
 
 namespace cl
 {
-    template <class T> class TArray;
+    template <class T> class Array;
 
     ///!!! Provide .NET description Adapter class from STL deque to .NET Stack. srd::deque used as container to make possible Conataints(T item) and GetEnumerator() implementation
     template <typename T>
-    class TStack : public detail::std_accessor_< cl::ITEnumerable<T>, std::deque<T> >
+    class Stack : public detail::std_accessor_< cl::IEnumerable<T>, std::deque<T> >
     {
     public:
 
-        typedef detail::std_accessor_< cl::ITEnumerable<T>, std::deque<T> > base;
-        typedef cl::ITEnumerable<T> cl_enumerator_type;
+        typedef detail::std_accessor_< cl::IEnumerable<T>, std::deque<T> > base;
+        typedef cl::IEnumerable<T> cl_enumerator_type;
         typedef std::deque<T> std_base;
 
     public:
 
         /// <summary>Creates new empty instance of Stack.</summary>
-        TStack() : base()
+        Stack() : base()
         {
         }
 
@@ -66,8 +66,8 @@ namespace cl
         /// <summary>Searches element in Stack.</summary>
         inline bool contains(T item) const;
 
-        /// <summary>Copies TStack elements to array starting at specified index.</summary>
-        inline void copyTo(TArray<T>& arr, int arrIndex) const;
+        /// <summary>Copies Stack elements to array starting at specified index.</summary>
+        inline void copyTo(Array<T>& arr, int arrIndex) const;
 
         /// <summary>Returns the object at the top of the Stack without removing it.</summary>
         inline T peek() const
@@ -90,7 +90,7 @@ namespace cl
         }
 
         /// <summary>Copies the elements of the Stack to a new array.</summary>
-        inline TArray<T> toArray() const;
+        inline Array<T> toArray() const;
 
         /// <summary>Sets the capacity to the actual number of elements
         /// in the Stack, if that number is less than a threshold value.</summary>

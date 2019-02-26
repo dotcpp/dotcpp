@@ -29,12 +29,12 @@ limitations under the License.
 
 namespace cl
 {
-    class TChar; using tchar = TChar;
-    class TString; using tstring = TString;
+    class Char; using tchar = Char;
+    class String; using tstring = String;
 
     //!! Provide detailed comment
     /// <summary>TODO</summary>
-    class CL_DOTCPP_MAIN TChar
+    class CL_DOTCPP_MAIN Char
     {
     };
 }

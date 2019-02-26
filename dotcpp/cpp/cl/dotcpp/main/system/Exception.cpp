@@ -27,12 +27,12 @@ limitations under the License.
 
 namespace cl
 {
-    TException::TException(const TString& msg) : msg_(msg.value())
+    Exception::Exception(const String& msg) : msg_(msg.value())
     {
     }
 
-    TString TException::message() const
+    String Exception::message() const
     {
-        return TString(msg_);
+        return String(msg_);
     }
 }

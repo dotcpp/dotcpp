@@ -6,7 +6,7 @@
 
 namespace cl
 {
-    class TDateImpl : public TDate
+    class LocalDateImpl : public LocalDate
     {
     private:
         struct tm * value_;
@@ -23,14 +23,14 @@ namespace cl
     public:
 
         /// <summary>Create with empty value.</summary>
-        TDateImpl()
+        LocalDateImpl()
         {
             value_ = new tm();
             *value_ = { 0 };
         }
 
         /// <summary>Create from string in ISO format (YYYY-MM-DD).</summary>
-        TDateImpl(cl::TString value)
+        LocalDateImpl(cl::String value)
         {
 
             std::istringstream strstream(value.value());
@@ -54,7 +54,7 @@ namespace cl
         }
 
         /// <summary>Constructor from int.</summary>
-        TDateImpl(int year, int month, int day)
+        LocalDateImpl(int year, int month, int day)
         {
             tm notNormedTM = { 0 };
             notNormedTM.tm_year = year - 1900; // Years since 1900
@@ -74,7 +74,7 @@ namespace cl
         }
 
         /// <summary>Convert atomic type to value.</summary>
-        virtual TDate& value() { return *this; }
+        virtual LocalDate& value() { return *this; }
 
         /// <summary>Year.</summary>
         virtual int year() const { return value_->tm_year + 1900; }
@@ -86,34 +86,34 @@ namespace cl
         virtual int day() const { return value_->tm_mday; }
 
         /// <summary>Add years (returns result, the object itself remains unchanged).</summary>
-        virtual TDate plusYears(int years) const
+        virtual LocalDate plusYears(int years) const
         {
             tm notNormedTM = *value_;
             notNormedTM.tm_year += years;
             tm normedTM = normalize(notNormedTM);
-            return TDate(normedTM.tm_year + 1900, normedTM.tm_mon + 1, normedTM.tm_mday);
+            return LocalDate(normedTM.tm_year + 1900, normedTM.tm_mon + 1, normedTM.tm_mday);
         }
 
         /// <summary>Add month (returns result, the object itself remains unchanged).</summary>
-        virtual TDate plusMonths(int months)const
+        virtual LocalDate plusMonths(int months)const
         {
             tm notNormedTM = *value_;
             notNormedTM.tm_mon += months;
             tm normedTM = normalize(notNormedTM);
-            return TDate(normedTM.tm_year + 1900, normedTM.tm_mon + 1, normedTM.tm_mday);
+            return LocalDate(normedTM.tm_year + 1900, normedTM.tm_mon + 1, normedTM.tm_mday);
         }
 
         /// <summary>Add days (returns result, the object itself remains unchanged).</summary>
-        virtual TDate plusDays(int days)const
+        virtual LocalDate plusDays(int days)const
         {
             tm notNormedTM = *value_;
             notNormedTM.tm_mday += days;
             tm normedTM = normalize(notNormedTM);
-            return TDate(normedTM.tm_year + 1900, normedTM.tm_mon + 1, normedTM.tm_mday);
+            return LocalDate(normedTM.tm_year + 1900, normedTM.tm_mon + 1, normedTM.tm_mday);
         }
 
         /// <summary>Days from the specified date. Error message if zero or negative.</summary>
-        virtual int daysFrom(TDate fromDate) const
+        virtual int daysFrom(LocalDate fromDate) const
         {
             time_t this_time = mktime(value_);
             tm from_date = { 0 };
@@ -124,24 +124,24 @@ namespace cl
 
             __int64 secondsInDay = 60 * 60 * 24;
             if (this_time - from_time > 0) return (int)((this_time - from_time) / secondsInDay);
-            else throw std::exception("TDate.daysFrom() function should not be used when the argument date is after or equal this date");
+            else throw std::exception("LocalDate.daysFrom() function should not be used when the argument date is after or equal this date");
             return 0;
         }
 
         /// <summary>Convert to string.</summary>
         virtual tstring ToString() const
         {
-            //return TString::format("{0:0000}-{1:00}-{2:00}", year(), month(), day());  //review this
+            //return String::format("{0:0000}-{1:00}-{2:00}", year(), month(), day());  //review this
 
             char buffer[10]; //10 - length of date in ISO format (YYYY-MM-DD)
             sprintf_s(buffer, "%4d-%2d-%2d", year(), month(), day());
-            return TString(buffer);
+            return String(buffer);
         }
 
         /// <summary>Convert to int using Excel format. Empty date is converted to empty int.</summary>
         virtual int toExcelInt() const
         {
-            return  (!isNull()) ? daysFrom(TDate(1899, 12, 30)) : 0; //review, maybe 1900, 1, 1 and empty value of int
+            return  (!isNull()) ? daysFrom(LocalDate(1899, 12, 30)) : 0; //review, maybe 1900, 1, 1 and empty value of int
         }
 
         /// <summary>Convert to int using ISO format (YYYYMMDD). Empty date is converted to empty int.</summary>
@@ -159,7 +159,7 @@ namespace cl
 
         /// <summary>Compare the current instance with another of the same type.
         /// Null is considered to be less than any other value.</summary>
-        virtual int compareTo(TDate other)
+        virtual int compareTo(LocalDate other)
         {
             time_t this_time = mktime(value_);
             tm from_date = { 0 };
@@ -175,15 +175,15 @@ namespace cl
         virtual void checkValid()
         {
             if ((value_->tm_hour != 0) || (value_->tm_min != 0) || (value_->tm_sec != 0))
-                throw std::exception("To be converted to TDate, time must be set to UTC midnight");
+                throw std::exception("To be converted to LocalDate, time must be set to UTC midnight");
         }
 
     };
 
 
-    TDate::TDate() : impl_(new TDateImpl()) {}
+    LocalDate::LocalDate() : impl_(new LocalDateImpl()) {}
 
-    TDate::TDate(cl::TString value) : impl_(new TDateImpl(value)) {}
+    LocalDate::LocalDate(cl::String value) : impl_(new LocalDateImpl(value)) {}
 
-    TDate::TDate(int year, int month, int day) : impl_(new TDateImpl(year, month, day)) {}
+    LocalDate::LocalDate(int year, int month, int day) : impl_(new LocalDateImpl(year, month, day)) {}
 }

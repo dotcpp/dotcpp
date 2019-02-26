@@ -28,26 +28,26 @@ limitations under the License.
 
 namespace cl
 {
-    class TString;
+    class String;
 
     /// <summary>Represents errors that occur during application execution.</summary>
-    class CL_DOTCPP_MAIN TException : public std::exception
+    class CL_DOTCPP_MAIN Exception : public std::exception
     {
         std::string msg_;
 
     public: // CONSTRUCTORS
 
         /// <summary>Create with default message.</summary>
-        TException() : msg_("Exception of type 'System.Exception' was thrown.") {}
+        Exception() : msg_("Exception of type 'System.Exception' was thrown.") {}
 
         /// <summary>Create with a specified error message.</summary>
-        TException(const TString& msg);
+        Exception(const String& msg);
 
         /// <summary>Create with a specified error message.</summary>
-        TException(const std::string& msg) : msg_(msg) {}
+        Exception(const std::string& msg) : msg_(msg) {}
 
         /// <summary>Create with a specified error message.</summary>
-        TException(const char* msg) : msg_(msg ? msg : "") {}
+        Exception(const char* msg) : msg_(msg ? msg : "") {}
 
     public: // METHODS
 
@@ -55,7 +55,7 @@ namespace cl
         virtual const char* what() const { return msg_.c_str(); }
 
         /// <summary>Message that describes the current exception.</summary>
-        virtual TString message() const;
+        virtual String message() const;
     };
 }
 
