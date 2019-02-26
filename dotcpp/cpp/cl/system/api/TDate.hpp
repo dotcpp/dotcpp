@@ -120,7 +120,7 @@ namespace cl
         int compareTo(Type other) const
         {
             if (!other) return isNull() ? 0 : 1;
-            else throw cl::TException("Attempting to compare TDate with a different data type");
+            else throw std::exception("Attempting to compare TDate with a different data type");
         }
 
         /// <summary>Compare the current instance with another of the same type.
@@ -159,7 +159,7 @@ namespace cl
     private:
 
         /// <summary>Error message if the date is empty.</summary>
-        void checkSet() const { if (isNull()) throw new cl::TException("TError.Core.NotSet"); }
+        void checkSet() const { if (isNull()) throw new std::exception("TError.Core.NotSet"); }
 
         /// <summary>Error message if the argument is not a valid date in ISO format (YYYYMMDD).</summary>
         virtual void checkValid() const { impl_->checkValid(); }

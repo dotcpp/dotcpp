@@ -50,7 +50,7 @@ namespace cl
                 *value_ = normalize(notNormedTM);
 
             }
-            else throw cl::TException("date is invalid");
+            else throw std::exception("date is invalid");
         }
 
         /// <summary>Constructor from int.</summary>
@@ -124,7 +124,7 @@ namespace cl
 
             __int64 secondsInDay = 60 * 60 * 24;
             if (this_time - from_time > 0) return (int)((this_time - from_time) / secondsInDay);
-            else throw cl::TException("TDate.daysFrom() function should not be used when the argument date is after or equal this date");
+            else throw std::exception("TDate.daysFrom() function should not be used when the argument date is after or equal this date");
             return 0;
         }
 
@@ -175,7 +175,7 @@ namespace cl
         virtual void checkValid()
         {
             if ((value_->tm_hour != 0) || (value_->tm_min != 0) || (value_->tm_sec != 0))
-                throw cl::TException("To be converted to TDate, time must be set to UTC midnight");
+                throw std::exception("To be converted to TDate, time must be set to UTC midnight");
         }
 
     };
