@@ -32,6 +32,7 @@ limitations under the License.
 # include <cl/system/detail/intrusive_ptr_reliable.hpp>
 # include <cl/system/TNull.hpp>
 # include <boost/type_traits.hpp>
+# include <cl/system/detail/check_operators.hpp>
 //# define CL_COMPILE_TIME_DEBUG_ON
 
 namespace cl
@@ -46,7 +47,7 @@ namespace cl
     /// <summary>Reference counted smart pointer type.
     /// T must inherit from TObject.</summary>
     template <class T>
-    class TPtr
+    class TPtr : public ::cl::type_operators_resolver<T>::type
     {
         template<class R> friend class TPtr;
 
