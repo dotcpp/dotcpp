@@ -37,10 +37,10 @@ namespace cl
     public: //  CONSTANTS
 
         /// <summary>Empty value.</summary>
-        static const double Empty;
+        static constexpr double Empty = -1e100;
 
         /// <summary>Tolerance used in comparison of doubles.</summary>
-        static const double Tolerance;
+        static constexpr double Tolerance = 1e-10;
 
     public: //  CONSTRUCTORS
 
