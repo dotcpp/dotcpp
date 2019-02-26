@@ -16,9 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="all.hpp" />
-    <ClInclude Include="detail\any2str.hpp" />
-    <ClInclude Include="detail\assert.hpp" />
-    <ClInclude Include="detail\sfinae.hpp" />
     <ClInclude Include="TChar.hpp" />
     <ClInclude Include="TDate.hpp" />
     <ClInclude Include="TDouble.hpp" />
@@ -28,8 +25,6 @@
     <ClInclude Include="TObject.hpp" />
     <ClInclude Include="TPtr.hpp" />
     <ClInclude Include="declare.hpp" />
-    <ClInclude Include="detail\check_operators.hpp" />
-    <ClInclude Include="detail\sfinae\sfinae.hpp" />
     <ClInclude Include="implement.hpp" />
     <ClInclude Include="import.hpp" />
   </ItemGroup>
