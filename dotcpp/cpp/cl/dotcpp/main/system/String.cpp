@@ -21,9 +21,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include <cl/system/api/implement.hpp>
-#include <cl/system/api/TString.hpp>
-#include <cl/system/api/TChar.hpp>
+#include <cl/dotcpp/main/implement.hpp>
+#include <cl/dotcpp/main/system/String.hpp>
+#include <cl/dotcpp/main/system/Char.hpp>
 #include <locale>
 
 namespace cl

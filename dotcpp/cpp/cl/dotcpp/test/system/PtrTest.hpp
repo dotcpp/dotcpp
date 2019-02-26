@@ -28,7 +28,7 @@ limitations under the License.
 
 using namespace boost::unit_test_framework;
 
-#include <cl/system/api/TPtr.hpp>
+#include <cl/dotcpp/main/system/Ptr.hpp>
 
 namespace cl
 {

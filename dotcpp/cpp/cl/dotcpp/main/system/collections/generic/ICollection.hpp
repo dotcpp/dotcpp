@@ -24,8 +24,8 @@ limitations under the License.
 #ifndef cl_dotcpp_main_ITCollection_hpp
 #define cl_dotcpp_main_ITCollection_hpp
 
-#include <cl/system/api/declare.hpp>
-#include <cl/system/api/collections/generic/ITEnumerable.hpp>
+#include <cl/dotcpp/main/declare.hpp>
+#include <cl/dotcpp/main/system/collections/generic/IEnumerable.hpp>
 
 namespace cl
 {

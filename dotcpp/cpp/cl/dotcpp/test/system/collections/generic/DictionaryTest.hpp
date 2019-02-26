@@ -24,7 +24,7 @@ limitations under the License.
 #ifndef cl_dotcpp_test_DictionaryTests_hpp
 #define cl_dotcpp_test_DictionaryTests_hpp
 
-#include <cl/system/api/collections/generic/TDictionary.hpp>
+#include <cl/dotcpp/main/system/collections/generic/Dictionary.hpp>
 
 namespace cl {
     //!! Do we need this typedef?

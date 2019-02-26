@@ -24,7 +24,7 @@ limitations under the License.
 #ifndef cl_dotcpp_test_SortedDictionaryTests_hpp
 #define cl_dotcpp_test_SortedDictionaryTests_hpp
 
-#include <cl/system/api/collections/generic/TSortedDictionary.hpp>
+#include <cl/dotcpp/main/system/collections/generic/SortedDictionary.hpp>
 
 namespace cl {
     typedef std::string String;

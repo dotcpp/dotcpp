@@ -24,9 +24,9 @@ limitations under the License.
 #ifndef cl_dotcpp_main_Date_hpp
 #define cl_dotcpp_main_Date_hpp
 
-#include <cl/system/api/declare.hpp>
-#include <cl/system/api/TString.hpp>
-#include <cl/system/api/collections/generic/TList.hpp>
+#include <cl/dotcpp/main/declare.hpp>
+#include <cl/dotcpp/main/system/String.hpp>
+#include <cl/dotcpp/main/system/collections/generic/List.hpp>
 
 namespace cl
 {

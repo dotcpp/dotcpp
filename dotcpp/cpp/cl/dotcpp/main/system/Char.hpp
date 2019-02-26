@@ -24,8 +24,8 @@ limitations under the License.
 #ifndef cl_dotcpp_main_Char_hpp
 #define cl_dotcpp_main_Char_hpp
 
-#include <cl/system/api/declare.hpp>
-#include <cl/system/api/TException.hpp>
+#include <cl/dotcpp/main/declare.hpp>
+#include <cl/dotcpp/main/system/Exception.hpp>
 
 namespace cl
 {

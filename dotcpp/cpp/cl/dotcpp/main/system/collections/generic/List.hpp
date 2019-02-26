@@ -24,10 +24,10 @@ limitations under the License.
 #ifndef cl_dotcpp_main_List_hpp
 #define cl_dotcpp_main_List_hpp
 
-#include <cl/system/api/TPtr.hpp>
-#include <cl/system/api/collections/generic/ITCollection.hpp>
-#include <cl/system/api/collections/generic/ITEnumerable.hpp>
-#include <cl/system/api/collections/generic/ITEnumerator.hpp>
+#include <cl/dotcpp/main/system/Ptr.hpp>
+#include <cl/dotcpp/main/system/collections/generic/ICollection.hpp>
+#include <cl/dotcpp/main/system/collections/generic/IEnumerable.hpp>
+#include <cl/dotcpp/main/system/collections/generic/IEnumerator.hpp>
 
 #include <deque>
 

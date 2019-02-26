@@ -24,8 +24,8 @@ limitations under the License.
 #ifndef cl_dotcpp_test_ListTests_hpp
 #define cl_dotcpp_test_ListTests_hpp
 
-#include <cl/system/api/collections/generic/TList.hpp>
-#include <cl/system/api/collections/generic/TDictionary.hpp>
+#include <cl/dotcpp/main/system/collections/generic/List.hpp>
+#include <cl/dotcpp/main/system/collections/generic/Dictionary.hpp>
 
 namespace std {
     ::std::ostream& operator << (::std::ostream& stg, std::string const& s)  {

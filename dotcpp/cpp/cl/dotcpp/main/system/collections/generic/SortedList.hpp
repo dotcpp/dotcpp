@@ -24,13 +24,13 @@ limitations under the License.
 #ifndef cl_dotcpp_main_SortedList_hpp
 #define cl_dotcpp_main_SortedList_hpp
 
-#include <cl/system/api/collections/generic/TList.hpp>
+#include <cl/dotcpp/main/system/collections/generic/List.hpp>
 #include <deque>
 #include <hash_map>
 
-#include <cl/system/api/collections/generic/ITCollection.hpp>
-#include <cl/system/api/collections/generic/ITEnumerable.hpp>
-#include <cl/system/api/collections/generic/ITEnumerator.hpp>
+#include <cl/dotcpp/main/system/collections/generic/ICollection.hpp>
+#include <cl/dotcpp/main/system/collections/generic/IEnumerable.hpp>
+#include <cl/dotcpp/main/system/collections/generic/IEnumerator.hpp>
 
 namespace cl
 {

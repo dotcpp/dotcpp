@@ -21,10 +21,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include <cl/system/api/implement.hpp>
-#include <cl/system/test/TPtrTest.hpp>
-#include <cl/system/api/collections/generic/TDictionary.hpp>
-#include <cl/system/api/TString.hpp>
+#include <cl/dotcpp/main/implement.hpp>
+#include <cl/dotcpp/test/system/PtrTest.hpp>
+#include <cl/dotcpp/main/system/collections/generic/Dictionary.hpp>
+#include <cl/dotcpp/main/system/String.hpp>
 
 namespace cl
 {

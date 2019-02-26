@@ -24,7 +24,7 @@ limitations under the License.
 #ifndef cl_dotcpp_main_Ptr_hpp
 #define cl_dotcpp_main_Ptr_hpp
 
-#include <cl/system/declare.hpp>
+#include <cl/dotcpp/main/declare.hpp>
 
 namespace cl
 {

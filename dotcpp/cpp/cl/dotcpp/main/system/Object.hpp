@@ -24,10 +24,9 @@ limitations under the License.
 #ifndef cl_dotcpp_main_Object_hpp
 #define cl_dotcpp_main_Object_hpp
 
-#include <cl/system/api/declare.hpp>
-#include <cl/system/detail/ref_counter.hpp>
-#include <cl/system/api/TPtr.hpp>
-#include <cl/system/api/TException.hpp>
+#include <cl/dotcpp/main/declare.hpp>
+#include <cl/dotcpp/main/system/Ptr.hpp>
+#include <cl/dotcpp/main/system/Exception.hpp>
 
 namespace cl
 {

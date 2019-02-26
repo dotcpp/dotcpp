@@ -24,7 +24,7 @@ limitations under the License.
 #ifndef cl_dotcpp_test_ObjectTests_hpp
 #define cl_dotcpp_test_ObjectTests_hpp
 
-#include <cl/system/api/TObject.hpp>
+#include <cl/dotcpp/main/system/Object.hpp>
 
 namespace cl
 {

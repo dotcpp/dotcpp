@@ -24,7 +24,7 @@ limitations under the License.
 #ifndef cl_system_api_implement_hpp
 #define cl_system_api_implement_hpp
 
-#include <cl/system/api/import.hpp>
+#include <cl/dotcpp/main/import.hpp>
 
 #ifndef CL_SYSTEM
 #   define CL_SYSTEM CL_IMPLEMENT

@@ -24,7 +24,7 @@ limitations under the License.
 #ifndef cl_dotcpp_test_HashSetTests_hpp
 #define cl_dotcpp_test_HashSetTests_hpp
 
-#include <cl/system/api/collections/generic/THashSet.hpp>
+#include <cl/dotcpp/main/system/collections/generic/HashSet.hpp>
 namespace cl {
     typedef std::string String;
 }

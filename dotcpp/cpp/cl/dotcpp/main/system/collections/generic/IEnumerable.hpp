@@ -32,8 +32,8 @@ limitations under the License.
 #include <unordered_map>
 #include <unordered_set>
 
-#include <cl/system/api/declare.hpp>
-#include <cl/system/api/collections/generic/ITEnumerator.hpp>
+#include <cl/dotcpp/main/declare.hpp>
+#include <cl/dotcpp/main/system/collections/generic/IEnumerator.hpp>
 
 namespace cl
 {

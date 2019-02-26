@@ -24,7 +24,7 @@ limitations under the License.
 #ifndef cl_dotcpp_test_StackTests_hpp
 #define cl_dotcpp_test_StackTests_hpp
 
-#include <cl/system/api/collections/generic/TStack.hpp>
+#include <cl/dotcpp/main/system/collections/generic/Stack.hpp>
 
 namespace cl {
     typedef std::string String;

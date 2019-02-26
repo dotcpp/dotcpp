@@ -24,7 +24,7 @@ limitations under the License.
 #ifndef cl_dotcpp_test_QueueTests_hpp
 #define cl_dotcpp_test_QueueTests_hpp
 
-#include <cl/system/api/collections/generic/TQueue.hpp>
+#include <cl/dotcpp/main/system/collections/generic/Queue.hpp>
 
 namespace cl {
     typedef std::string String;

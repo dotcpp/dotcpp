@@ -26,10 +26,10 @@ limitations under the License.
 
 #include <map>
 
-#include <cl/system/api/collections/generic/ITCollection.hpp>
-#include <cl/system/api/collections/generic/ITEnumerable.hpp>
-#include <cl/system/api/collections/generic/ITEnumerator.hpp>
-#include <cl/system/api/collections/generic/TList.hpp>
+#include <cl/dotcpp/main/system/collections/generic/ICollection.hpp>
+#include <cl/dotcpp/main/system/collections/generic/IEnumerable.hpp>
+#include <cl/dotcpp/main/system/collections/generic/IEnumerator.hpp>
+#include <cl/dotcpp/main/system/collections/generic/List.hpp>
 
 namespace cl
 {

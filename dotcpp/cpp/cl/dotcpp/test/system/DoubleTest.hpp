@@ -24,7 +24,7 @@ limitations under the License.
 #ifndef cl_dotcpp_test_DoubleTests_hpp
 #define cl_dotcpp_test_DoubleTests_hpp
 
-#include <cl/system/api/TDouble.hpp>
+#include <cl/dotcpp/main/system/Double.hpp>
 
 namespace cl
 {

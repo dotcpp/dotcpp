@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include <cl/system/api/implement.hpp>
-#include <cl/system/test/TDoubleTest.hpp>
+#include <cl/dotcpp/main/implement.hpp>
+#include <cl/dotcpp/test/system/DoubleTest.hpp>
 
 namespace cl
 {

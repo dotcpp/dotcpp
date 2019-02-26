@@ -24,9 +24,9 @@ limitations under the License.
 #ifndef cl_dotcpp_main_String_hpp
 #define cl_dotcpp_main_String_hpp
 
-#include <cl/system/api/declare.hpp>
-#include <cl/system/api/TObject.hpp>
-#include <cl/system/api/TPtr.hpp>
+#include <cl/dotcpp/main/declare.hpp>
+#include <cl/dotcpp/main/system/Object.hpp>
+#include <cl/dotcpp/main/system/Ptr.hpp>
 #include <xhash>
 
 namespace cl
