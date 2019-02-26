@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_system_api_declare_hpp
-#define cl_system_api_declare_hpp
+#ifndef cl_dotcpp_main_declare_hpp
+#define cl_dotcpp_main_declare_hpp
 
 #include <cl/dotcpp/main/import.hpp>
 
@@ -30,4 +30,4 @@ limitations under the License.
 #   define CL_SYSTEM CL_DECLARE
 #endif
 
-#endif // cl_system_api_declare_hpp
+#endif // cl_dotcpp_main_declare_hpp
