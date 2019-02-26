@@ -36,7 +36,7 @@ namespace cl
     /// <summary>All classes with reference semantics should derive from this type.
     /// It works with TPtr to provide an emulation of reference semantics in C++.
     /// Classes with value semantics should not derive from this type.</summary>
-    class CL_SYSTEM TObject : public TRefCounter
+    class CL_DOTCPP_MAIN TObject : public TRefCounter
     {
     public:
 

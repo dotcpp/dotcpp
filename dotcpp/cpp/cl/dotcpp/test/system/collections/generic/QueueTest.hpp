@@ -30,7 +30,7 @@ namespace cl {
     typedef std::string String;
 }
 
-class CL_SYSTEM TQueueTests
+class CL_DOTCPP_TEST TQueueTests
 {
 public:
 

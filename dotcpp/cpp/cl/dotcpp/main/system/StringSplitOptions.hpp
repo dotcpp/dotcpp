@@ -30,7 +30,7 @@ namespace cl
 {
     /// <summary>Specifies whether applicable TString.split(...) method overloads
     /// include or omit empty substrings from the return value.</summary>
-    enum class CL_SYSTEM TStringSplitOptions : int
+    enum class CL_DOTCPP_MAIN TStringSplitOptions : int
     {
         /// <summary>The return value includes array elements that contain an empty string.</summary>
         None,

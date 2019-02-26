@@ -31,7 +31,7 @@ namespace cl
     class TString;
 
     /// <summary>Represents errors that occur during application execution.</summary>
-    class CL_SYSTEM TException : public std::exception
+    class CL_DOTCPP_MAIN TException : public std::exception
     {
         std::string msg_;
 

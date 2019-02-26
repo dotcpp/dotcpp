@@ -33,7 +33,7 @@ using namespace boost::unit_test_framework;
 namespace cl
 {
     /// <summary>String tests.</summary>
-    class CL_SYSTEM TStringTests
+    class CL_DOTCPP_TEST TStringTests
     {
     public: // METHODS
 

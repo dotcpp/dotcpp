@@ -29,7 +29,7 @@ limitations under the License.
 namespace cl
 {
     /// <summary>String tests.</summary>
-    class CL_SYSTEM TObjectTests
+    class CL_DOTCPP_TEST TObjectTests
     {
     public: // METHODS
 

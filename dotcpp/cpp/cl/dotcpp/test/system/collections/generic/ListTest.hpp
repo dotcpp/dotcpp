@@ -38,7 +38,7 @@ namespace cl {
     typedef std::string String; //!! Remove typedef and use the class directly
 }
 
-class CL_SYSTEM TListTests
+class CL_DOTCPP_TEST TListTests
 {
 public:
 

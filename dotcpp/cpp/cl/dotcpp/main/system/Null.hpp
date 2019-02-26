@@ -30,7 +30,7 @@ namespace cl
 {
     /// <summary>Helper type to enable comparison and assignment to null pointer.
     /// This object cannot be created, therefore any pointer to TNull is null.</summary>
-    class CL_SYSTEM TNull
+    class CL_DOTCPP_MAIN TNull
     {
     private:
         TNull();

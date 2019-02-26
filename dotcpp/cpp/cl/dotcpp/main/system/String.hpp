@@ -44,7 +44,7 @@ namespace cl
     class ITFormatProvider;
 
     /// <summary>Immutable string type with Unicode support.</summary>
-    class CL_SYSTEM TString
+    class CL_DOTCPP_MAIN TString
     {
         friend class TStringBuilder;
 

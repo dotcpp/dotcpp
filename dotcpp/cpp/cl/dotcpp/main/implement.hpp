@@ -26,8 +26,8 @@ limitations under the License.
 
 #include <cl/dotcpp/main/import.hpp>
 
-#ifndef CL_SYSTEM
-#   define CL_SYSTEM CL_IMPLEMENT
+#ifndef CL_DOTCPP_MAIN
+#   define CL_DOTCPP_MAIN CL_IMPLEMENT
 #endif
 
 #endif // cl_dotcpp_main_implement_hpp

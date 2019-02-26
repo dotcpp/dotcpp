@@ -34,7 +34,7 @@ namespace cl
 
     //!! Provide detailed comment
     /// <summary>TODO</summary>
-    class CL_SYSTEM TChar
+    class CL_DOTCPP_MAIN TChar
     {
     };
 }

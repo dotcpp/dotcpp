@@ -33,7 +33,7 @@ namespace cl
     class TDate; using tdate = TDate;
     class TString; using tstring = TString;
 
-    class CL_SYSTEM TDate
+    class CL_DOTCPP_MAIN TDate
     {
     private:
 
@@ -165,7 +165,7 @@ namespace cl
         virtual void checkValid() const { impl_->checkValid(); }
     };
 
-    class CL_SYSTEM TDateEx
+    class CL_DOTCPP_MAIN TDateEx
     {
     public:
         static TDate max(TList<TDate> src)
