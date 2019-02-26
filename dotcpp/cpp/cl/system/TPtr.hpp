@@ -27,10 +27,11 @@ limitations under the License.
 # include <boost/shared_ptr.hpp>
 # include <boost/intrusive_ptr.hpp>
 # include <cl/system/detail/assert.hpp>
-# include <cl/system/detail/check_operators.hpp>
+# include <cl/system/detail/sfinae.hpp>
 # include <cl/system/detail/ref_counter.hpp>
 # include <cl/system/detail/intrusive_ptr_reliable.hpp>
-
+# include <cl/system/TNull.hpp>
+# include <boost/type_traits.hpp>
 //# define CL_COMPILE_TIME_DEBUG_ON
 
 namespace cl
@@ -41,11 +42,11 @@ namespace cl
         static const size_t PointerTag = 0x270926F50F90F486;
     };
 
+
     /// <summary>Reference counted smart pointer type.
     /// T must inherit from TObject.</summary>
     template <class T>
     class TPtr
-        : public ::cl::type_operators_resolver<T>::type
     {
         template<class R> friend class TPtr;
 
@@ -64,7 +65,7 @@ namespace cl
         friend class cl::TPtr;
 
         template <typename Type>
-        using InnerPtr = typename detail::take_type_ptr<Type>::type;
+        using InnerPtr = typename cl::detail::take_type_ptr<Type>::type;
 
         TPtr(InnerPtr<T> const& ptr)
             : ptr_(ptr)
@@ -401,7 +402,7 @@ namespace cl
         }
 
         template <typename T>
-        inline typename std::enable_if<!std::has_trivial_constructor<T>::value
+        inline typename std::enable_if<!boost::has_trivial_constructor<T>::value
             , T>::type
         alloc__()
         {
@@ -416,7 +417,7 @@ namespace cl
         }
 
         template <typename T>
-        inline typename std::enable_if<std::has_trivial_constructor<T>::value
+        inline typename std::enable_if<boost::has_trivial_constructor<T>::value
             , T>::type
         alloc__()
         {

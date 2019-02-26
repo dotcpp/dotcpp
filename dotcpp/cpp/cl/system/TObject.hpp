@@ -26,6 +26,7 @@ limitations under the License.
 
 #include <cl/system/declare.hpp>
 #include <cl/system/detail/ref_counter.hpp>
+#include <cl/system/TPtr.hpp>
 #include <cl/system/TException.hpp>
 
 namespace cl

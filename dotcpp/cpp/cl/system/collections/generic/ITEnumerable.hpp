@@ -24,11 +24,13 @@ limitations under the License.
 #ifndef cl_system_collections_generic_ITEnumerable_hpp
 #define cl_system_collections_generic_ITEnumerable_hpp
 
+#include <assert.h>
+
 #include <vector>
 #include <list>
 #include <deque>
-#include <hash_map>
-#include <hash_set>
+#include <unordered_map>
+#include <unordered_set>
 
 #include <cl/system/declare.hpp>
 #include <cl/system/collections/generic/ITEnumerator.hpp>
@@ -83,9 +85,9 @@ namespace cl
             typedef Allocator allocator_type;
         };
 
-        template <typename ValueType, typename Pred, typename Allocator>
-        struct is_container<stdext::hash_set<ValueType, Pred, Allocator> >
-            : container_traits<std::hash_set<ValueType, Allocator> >
+        template <typename ValueType, typename Hash,  typename Pred, typename Allocator>
+        struct is_container<std::unordered_set<ValueType, Hash, Pred, Allocator> >
+            : container_traits<std::unordered_set<ValueType, Hash, Pred, Allocator> >
         {
             typedef ValueType type;
             typedef Allocator allocator_type;
@@ -93,15 +95,15 @@ namespace cl
 
         template <typename Key, typename ValueType, typename Pred, typename Allocator>
         struct is_container <std::map<Key, ValueType, Pred, Allocator> >
-            : container_traits<std::map<ValueType, Allocator> >
+            : container_traits<std::map<Key, ValueType, Pred, Allocator> >
         {
             typedef std::pair<Key const, ValueType> type;
             typedef Allocator allocator_type;
         };
 
-        template <typename Key, typename ValueType, typename Pred, typename Allocator>
-        struct is_container<stdext::hash_map<Key, ValueType, Pred, Allocator> >
-            : container_traits<std::hash_map<ValueType, Allocator> >
+        template <typename Key, typename ValueType, typename Hash, typename Pred, typename Allocator>
+        struct is_container<std::unordered_map<Key, ValueType, Hash, Pred, Allocator> >
+            : container_traits<std::unordered_map<Key, ValueType, Hash, Pred, Allocator> >
         {
             typedef std::pair<Key const, ValueType> type;
             typedef Allocator allocator_type;
@@ -269,7 +271,7 @@ namespace cl
             // as an constant reference
             inline std_base const& get() const
             {
-                //!! assert(this->c_);
+                assert(this->c_);
                 return *this->c_.get();
             }
 
@@ -277,7 +279,7 @@ namespace cl
             // as an not constant reference
             inline std_base& get()
             {
-                //!! assert(this->c_);
+                assert(this->c_);
                 return *this->c_.get();
             }
 
@@ -370,8 +372,8 @@ namespace cl
         };
 
         ///  The class specialization for hash_set
-        template <typename Enumerable, typename Type, typename Pred, typename Allocator>
-        class std_accessor_<Enumerable, stdext::hash_set<Type, Pred, Allocator> >
+        template <typename Enumerable, typename Type, typename Hash, typename Pred, typename Allocator>
+        class std_accessor_<Enumerable, std::unordered_set<Type, Hash, Pred, Allocator> >
             : public Enumerable
         {
         public:
@@ -379,7 +381,7 @@ namespace cl
             typedef Pred        pred_type;
             typedef Allocator   allocator;
 
-            typedef stdext::hash_set<Type, Pred, Allocator> Iterable;
+            typedef std::unordered_set<Type, Hash, Pred, Allocator> Iterable;
             typedef Iterable std_base;
 
             // I'll try to return it

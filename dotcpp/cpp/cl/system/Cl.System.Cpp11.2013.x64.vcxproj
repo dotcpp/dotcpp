@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -11,26 +11,82 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="**\*.cpp" />
+    <ClCompile Include="**/*.cpp" Exclude="**/test/*.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="**\*.hpp" />
+    <ClInclude Include="all.hpp" />
+    <ClInclude Include="collections\generic\ITCollection.hpp" />
+    <ClInclude Include="collections\generic\ITEnumerable.hpp" />
+    <ClInclude Include="collections\generic\ITEnumerator.hpp" />
+    <ClInclude Include="collections\generic\TDictionary.hpp" />
+    <ClInclude Include="collections\generic\THashSet.hpp" />
+    <ClInclude Include="collections\generic\TLinkedList.hpp" />
+    <ClInclude Include="collections\generic\TList.hpp" />
+    <ClInclude Include="collections\generic\TQueue.hpp" />
+    <ClInclude Include="collections\generic\TSortedDictionary.hpp" />
+    <ClInclude Include="collections\generic\TSortedList.hpp" />
+    <ClInclude Include="collections\generic\TSortedSet.hpp" />
+    <ClInclude Include="collections\generic\TStack.hpp" />
+    <ClInclude Include="core.hpp" />
+    <ClInclude Include="declare.hpp" />
+    <ClInclude Include="detail\any2str.hpp" />
+    <ClInclude Include="detail\archive\archive_def.hpp" />
+    <ClInclude Include="detail\archive\archive_traits.hpp" />
+    <ClInclude Include="detail\archive\json\converters.hpp" />
+    <ClInclude Include="detail\archive\json\json_archiver.hpp" />
+    <ClInclude Include="detail\archive\serializable_types.hpp" />
+    <ClInclude Include="detail\archive\std_archive.hpp" />
+    <ClInclude Include="detail\archive\struct_archive.hpp" />
+    <ClInclude Include="detail\assert.hpp" />
+    <ClInclude Include="detail\intrusive_ptr_reliable.hpp" />
+    <ClInclude Include="detail\mem_access.hpp" />
+    <ClInclude Include="detail\primitives\primitives.hpp" />
+    <ClInclude Include="detail\reflection\mem_access.hpp" />
+    <ClInclude Include="detail\reflection\meta_class.hpp" />
+    <ClInclude Include="detail\reflection\tokens_naming.hpp" />
+    <ClInclude Include="detail\ref_counter.hpp" />
+    <ClInclude Include="detail\sfinae.hpp" />
+    <ClInclude Include="implement.hpp" />
+    <ClInclude Include="import.hpp" />
+    <ClInclude Include="TAutoGet.hpp" />
+    <ClInclude Include="TAutoSet.hpp" />
+    <ClInclude Include="TChar.hpp" />
+    <ClInclude Include="TDate.hpp" />
+    <ClInclude Include="TDouble.hpp" />
+    <ClInclude Include="TDoubleConverter.hpp" />
+    <ClInclude Include="TDoubleLimits.hpp" />
+    <ClInclude Include="TDoubleMath.hpp" />
+    <ClInclude Include="TDoubleOperatorCheck.hpp" />
+    <ClInclude Include="TDoubleOperators.hpp" />
+    <ClInclude Include="TException.hpp" />
+    <ClInclude Include="TNull.hpp" />
+    <ClInclude Include="TObject.hpp" />
+    <ClInclude Include="TPropGet.hpp" />
+    <ClInclude Include="TPropSet.hpp" />
+    <ClInclude Include="TPtr.hpp" />
+    <ClInclude Include="TStaticGet.hpp" />
+    <ClInclude Include="TStaticSet.hpp" />
+    <ClInclude Include="TString.hpp" />
+    <ClInclude Include="TStringSplitOptions.hpp" />
+    <ClInclude Include="TTest.hpp" />
+    <ClInclude Include="TType.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7FA068EC-B443-4DB9-93AF-56CBC7110408}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -46,11 +102,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)\bin\vc120-x64-debug\</OutDir>
+    <OutDir>$(SolutionDir)\bin\vc141-x64-debug\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)\bin\vc120-x64-release\</OutDir>
+    <OutDir>$(SolutionDir)\bin\vc141-x64-release\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -58,16 +114,16 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..;..\..\..\..\dependencies\cpp</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..;..\..\..\..\tapescript\cpp;..\..\..\..\dependencies\cpp</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>NotSet</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Boost.Cpp11.2013.x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libboost_unit_test_framework-vc141-mt-gd-1_57.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -78,18 +134,18 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..;..\..\..\..\dependencies\cpp</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..;..\..\..\..\tapescript\cpp;..\..\..\..\dependencies\cpp</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>NotSet</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Boost.Cpp11.2013.x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libboost_unit_test_framework-vc141-mt-1_57.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

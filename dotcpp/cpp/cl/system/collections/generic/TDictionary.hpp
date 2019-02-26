@@ -24,7 +24,7 @@ limitations under the License.
 #ifndef cl_system_collections_generic_TDictionary_hpp
 #define cl_system_collections_generic_TDictionary_hpp
 
-#include <hash_map>
+#include <unordered_map>
 
 #include <cl/system/collections/generic/ITCollection.hpp>
 #include <cl/system/collections/generic/ITEnumerable.hpp>
@@ -34,7 +34,7 @@ limitations under the License.
 namespace cl
 {
     template<typename Key, typename Type>
-    using map_type = stdext::hash_map<Key, Type>;
+    using map_type = std::unordered_map<Key, Type>;
 
     ///!!! Provide .NET description Adapter class from STL hash_map to .NET TDictionary - collection of keys and values
     template <typename Key, typename Type >

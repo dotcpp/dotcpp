@@ -45,28 +45,6 @@ namespace cl
     template <typename Key, typename Value>
     using Dictionary = TPtr<TTestDictionary<Key, Value>>;
 
-    struct FieldInfoMy : cl::detail::custom_ptr_initializer<FieldInfoMy> {
-        struct FieldInfoTag {};
-        template <typename T>
-        inline void registerField(T* ptr)
-        {
-            fields_.push_back(ptr);
-        }
-        static std::vector<void *>  fields_;
-    };
-
-	std::vector<void *> FieldInfoMy::fields_;
-
-    namespace detail
-    {
-        template <typename FieldInfoType, typename Class>
-        inline void register_field(cl::detail::custom_ptr_initializer<FieldInfoType> f, Class* ptr)
-        {
-#           pragma message (__FUNCSIG__)
-            static_cast<FieldInfoMy&> (f).registerField(ptr);
-        }
-    }
-
     class my_class : public cl::detail::ref_counter
     {
     public:
@@ -76,17 +54,15 @@ namespace cl
 
     void TPtrTests::testCreate()
     {
-        FieldInfoMy f;
-        TPtr<my_class> p = TPtr<my_class>(f);
         TPtr<my_class> p0 = TPtr<my_class>(std::string(), (int)2, (long)3);
 
         Dictionary<TString, double> dict
             = new Dictionary<TString, double>();
 
-        dict["Va"] = 56.;
+        //dict["Va"] = 56.;
 
-        BOOST_CHECK(dict->containsKey("Va"));
-        BOOST_CHECK(dict["Va"] == 56.);
+        //BOOST_CHECK(dict->containsKey("Va"));
+        //BOOST_CHECK(dict["Va"] == 56.);
     }
 
     test_suite* TPtrTests::TPtrTestSuite()

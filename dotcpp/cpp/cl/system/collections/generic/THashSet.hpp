@@ -24,7 +24,7 @@ limitations under the License.
 #ifndef cl_system_collections_generic_HashSet_hpp
 #define cl_system_collections_generic_HashSet_hpp
 
-#include <hash_set>
+#include <unordered_set>
 
 #include <cl/system/collections/generic/ITCollection.hpp>
 #include <cl/system/collections/generic/ITEnumerable.hpp>
@@ -36,13 +36,13 @@ namespace cl
 
     /// Adapter class from STL has_set to .NET HashSet
     template <typename T>
-    class THashSet : public detail::std_accessor_<cl::ITEnumerable<T>, stdext::hash_set<T> >
+    class THashSet : public detail::std_accessor_<cl::ITEnumerable<T>, std::unordered_set<Type> >
     {
     public:
 
-        typedef detail::std_accessor_<cl::ITEnumerable<T>, std::hash_set<T> > base;
+        typedef detail::std_accessor_<cl::ITEnumerable<T>, std::unordered_set<Type> > base;
         typedef cl::ITEnumerable<T> cl_enumerator_type;
-        typedef std::hash_set<T> std_base;
+        typedef std::unordered_set<Type> std_base;
         typedef T& reference_type;
 
     public:
