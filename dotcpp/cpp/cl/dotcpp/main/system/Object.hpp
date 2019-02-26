@@ -36,7 +36,7 @@ namespace cl
     /// <summary>All classes with reference semantics should derive from this type.
     /// It works with TPtr to provide an emulation of reference semantics in C++.
     /// Classes with value semantics should not derive from this type.</summary>
-    class CL_DOTCPP_MAIN TObject : public TRefCounter
+    class CL_DOTCPP_MAIN TObject
     {
     public:
 
@@ -46,12 +46,9 @@ namespace cl
 
     public: // METHODS
 
-        /// <summary>Gets the type of the current instance.</summary>
-        virtual TType GetType() const;
-
         /// <summary>Returns a string that represents the current object.
         /// Default implementation uses full name of the class.</summary>
-        virtual tstring ToString() const;
+        virtual std::string ToString() const { return "Object"; }
 
     protected:
         TObject() = default;
