@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_system_test_TPtrTests_hpp
-#define cl_system_test_TPtrTests_hpp
+#ifndef cl_dotcpp_test_PtrTests_hpp
+#define cl_dotcpp_test_PtrTests_hpp
 
 #include <boost/test/unit_test.hpp>
 
@@ -44,4 +44,4 @@ namespace cl
     };
 }
 
-#endif // cl_system_test_TPtrTests_hpp
+#endif // cl_dotcpp_test_PtrTests_hpp

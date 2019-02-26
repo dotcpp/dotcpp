@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_system_test_TDoubleTests_hpp
-#define cl_system_test_TDoubleTests_hpp
+#ifndef cl_dotcpp_test_DoubleTests_hpp
+#define cl_dotcpp_test_DoubleTests_hpp
 
 #include <cl/system/api/TDouble.hpp>
 
@@ -38,4 +38,4 @@ namespace cl
     };
 }
 
-#endif // cl_system_test_TDoubleTests_hpp
+#endif // cl_dotcpp_test_DoubleTests_hpp

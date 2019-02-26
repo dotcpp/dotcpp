@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_system_api_collections_generic_ITCollection_hpp
-#define cl_system_api_collections_generic_ITCollection_hpp
+#ifndef cl_dotcpp_main_ITCollection_hpp
+#define cl_dotcpp_main_ITCollection_hpp
 
 #include <cl/system/api/declare.hpp>
 #include <cl/system/api/collections/generic/ITEnumerable.hpp>
@@ -49,4 +49,4 @@ namespace cl
     };
 }
 
-#endif // cl_system_api_collections_generic_ITCollection_hpp
+#endif // cl_dotcpp_main_ITCollection_hpp

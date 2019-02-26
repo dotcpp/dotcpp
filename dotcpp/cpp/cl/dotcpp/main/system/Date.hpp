@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_system_api_TDate_hpp
-#define cl_system_api_TDate_hpp
+#ifndef cl_dotcpp_main_Date_hpp
+#define cl_dotcpp_main_Date_hpp
 
 #include <cl/system/api/declare.hpp>
 #include <cl/system/api/TString.hpp>
@@ -194,4 +194,4 @@ namespace cl
     };
 }
 
-#endif // cl_system_api_TDate_hpp
+#endif // cl_dotcpp_main_Date_hpp

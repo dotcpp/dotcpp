@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_system_TPtr_hpp
-#define cl_system_TPtr_hpp
+#ifndef cl_dotcpp_main_Ptr_hpp
+#define cl_dotcpp_main_Ptr_hpp
 
 #include <cl/system/declare.hpp>
 
@@ -109,4 +109,4 @@ namespace cl
     template <class T> auto TPtr<T>::operator[](int i) { return (*ptr_)[i]; }
 }
 
-#endif  // cl_system_TPtr_hpp
+#endif  // cl_dotcpp_main_Ptr_hpp

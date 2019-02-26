@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_system_api_collections_generic_TDictionary_hpp
-#define cl_system_api_collections_generic_TDictionary_hpp
+#ifndef cl_dotcpp_main_Dictionary_hpp
+#define cl_dotcpp_main_Dictionary_hpp
 
 #include <unordered_map>
 
@@ -140,4 +140,4 @@ namespace cl
     };
 }
 
-#endif // cl_system_api_collections_generic_TDictionary_hpp
+#endif // cl_dotcpp_main_Dictionary_hpp
