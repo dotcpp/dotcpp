@@ -29,8 +29,6 @@
     <ClInclude Include="TPtr.hpp" />
     <ClInclude Include="declare.hpp" />
     <ClInclude Include="detail\check_operators.hpp" />
-    <ClInclude Include="detail\intrusive_ptr_reliable.hpp" />
-    <ClInclude Include="detail\ref_counter.hpp" />
     <ClInclude Include="detail\sfinae\sfinae.hpp" />
     <ClInclude Include="implement.hpp" />
     <ClInclude Include="import.hpp" />
