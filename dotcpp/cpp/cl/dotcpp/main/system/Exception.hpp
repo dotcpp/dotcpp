@@ -32,29 +32,21 @@ namespace cl
     /// <summary>Represents errors that occur during application execution.</summary>
     class Exception : public std::exception
     {
-        std::string msg_;
-
     public: // CONSTRUCTORS
 
         /// <summary>Create with default message.</summary>
-        Exception() : msg_("Exception of type 'System.Exception' was thrown.") {}
+        Exception() : std::exception("Exception of type 'System.Exception' was thrown.") {}
 
         /// <summary>Create with a specified error message.</summary>
-        Exception(const String& msg) : msg_(msg.value()) {}
+        Exception(const std::string& msg) : std::exception(msg.c_str()) {}
 
         /// <summary>Create with a specified error message.</summary>
-        Exception(const std::string& msg) : msg_(msg) {}
-
-        /// <summary>Create with a specified error message.</summary>
-        Exception(const char* msg) : msg_(msg ? msg : "") {}
+        Exception(const char* msg) : std::exception(msg ? msg : "") {}
 
     public: // METHODS
 
-        /// <summary>Pointer to a null-terminated string with explanatory information.</summary>
-        virtual const char* what() const { return msg_.c_str(); }
-
         /// <summary>Message that describes the current exception.</summary>
-        virtual String message() const { return String(msg_); }
+        virtual String Message() const { return String(what()); }
     };
 }
 

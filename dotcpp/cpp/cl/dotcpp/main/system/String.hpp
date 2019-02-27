@@ -21,60 +21,45 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_main_String_hpp
-#define cl_dotcpp_main_String_hpp
+#pragma once
 
 #include <cl/dotcpp/main/declare.hpp>
-#include <xhash>
+#include <string>
 
 namespace cl
 {
-    template <class T> class IEnumerable;
-    template <class T> class Array;
-    enum class TCompareOptions;
     enum class StringSplitOptions;
-    enum class StringComparison;
     class Char;
-    class TCultureInfo;
-    class Object;
-    class ITFormatProvider;
+    class Comparer;
+    template <typename T> class Array;
+    class StringComparer;
 
     /// <summary>Immutable string type with Unicode support.</summary>
-    class CL_DOTCPP_MAIN String
+    class String : public std::string
     {
-        friend class StringBuilder;
-
-        std::string value_;
-
     public: // CONSTANTS
 
         /// <summary>Empty string.</summary>
-        static const String Empty;
+        static constexpr const char* Empty = "";
 
     public: // CONSTRUCTORS
 
-        /// <summary>Create from a single Unicode character.</summary>
-        String() : value_() {}
+        /// <summary>Creates an empty string.</summary>
+        String() {}
 
         /// <summary>Create from a single Unicode character.</summary>
         String(const Char& value);
 
         /// <summary>Create from std::string.</summary>
-        String(const std::string& value);
+        String(const std::string& value) : std::string(value) {}
 
         /// <summary>Create from const char*, null pointer is converted to to empty value.</summary>
-        String(const char* value);
+        String(const char* value) : std::string(value) {}
 
         /// <summary>Create from a single 8-bit character.</summary>
-        String(char value);
-
-        /// <summary>Create a copy of String.</summary>
-        String(const String& value);
+        String(char value) : std::string(std::to_string(value)) {}
 
     public: // METHODS
-
-        ///<summary>Convert to std::string.</summary>
-        std::string value() const { return value_; }
 
         /// <summary>Returns the number of 8-bit characters, not the number of Unicode characters.\\
         /// This number may be different from the number of Unicode characters because each
@@ -83,19 +68,13 @@ namespace cl
 
     public: // METHODS
 
-        ///<summary>Hash code.</summary>
-        int getHashCode() const
-        {
-            return std::hash<std::string>()(value_);
-        }
-
         /// <summary>Determines whether the end of this
         /// string matches the specified string.</summary>
-        bool EndsWith(String const& value)
+        bool EndsWith(const std::string& value)
         {
-            int p = value_.length() - value.value_.length();
-            if (p >= 0 && value_.substr(p, value.value_.length())
-                == value.value_)
+            int p = length() - value.length();
+            if (p >= 0 && substr(p, value.length())
+                == value)
                 return true;
             return false;
         }
@@ -104,8 +83,8 @@ namespace cl
         /// string matches the specified string.</summary>
         bool StartsWith(String const& value)
         {
-            int p = value_.length() - value.value_.length();
-            if (p >= 0 && value_.substr(0, value.value_.length()) == value.value_)
+            int p = length() - value.length();
+            if (p >= 0 && substr(0, value.length()) == value)
                 return true;
             return false;
         }
@@ -114,20 +93,15 @@ namespace cl
         /// character position and has the specified length.</summary>
         String Substring(int startIndex, int length)
         {
-            return value_.substr(startIndex, length);
+            return substr(startIndex, length);
         }
 
         /// <summary>Gets the number of characters in the current string.
         /// Note that for Unicode this is not the same as the number of bytes.</summary>
         int getLength()
         {
-            return value_.length(); //!!! This has to be corrected for Unicode
+            return length(); //!!! This has to be corrected for Unicode
         }
-
-        /// <summary>Compares this instance with a specified Object and indicates whether
-        /// this instance precedes, follows, or appears in the same position in the sort
-        /// order as the specified Object.</summary>
-        int compareTo(const Object& value) const;
 
         /// <summary>Compares this instance with a specified String object and indicates
         /// whether this instance precedes, follows, or appears in the same position
@@ -150,7 +124,7 @@ namespace cl
         ///<summary>Indicates whether the argument occurs within this string.</summary>
         inline bool Contains(cl::String const& s) const
         {
-            return value_.find(s.value_) != std::string::npos;
+            return find(s) != std::string::npos;
         }
 
         ///<summary>Returns a copy of this string converted to lowercase.</summary>
@@ -192,6 +166,8 @@ namespace cl
         friend bool operator<(const String& lhs, const String& rhs);
 
     public: // STATIC
+
+        /* TODO
 
         /// <summary>Compares two specified String objects and returns an integer that
         /// indicates their relative position in the sort order.</summary>
@@ -348,33 +324,11 @@ namespace cl
         /// <summary>Concatenates the specified elements of a string array, using the specified
         /// separator between each element.</summary>
         static String Join(const String& separator, const Array<String>& value, int startIndex, int count);
-    };
 
-    //!!!!!! typedef String string;
+        */
+    };
 
     /// <summary>Returns a string containing characters from lhs followed by the characters from rhs.</summary>
-    inline String operator+(const String& lhs, const String& rhs) { return lhs.value_ + rhs.value_; }
-
-    inline bool operator<(const String& lhs, const String& rhs) { return lhs.value_ < rhs.value_; }
-
-    inline size_t hash_value(const cl::String& _Keyval) //!!!! Why do we need this?
-    {
-        return stdext::hash_value(_Keyval.value());
-    }
+    inline String operator+(const String& lhs, const String& rhs) { return String(lhs + rhs); }
 
 }
-
-namespace std
-{
-    // FIXME Provide detailed explanation of where this is needed and how it works
-    template<>
-    struct hash<cl::String> : public unary_function<cl::String, size_t>
-    {
-        size_t operator()(const cl::String value) const
-        {
-            return value.getHashCode();
-        }
-    };
-}
-
-#endif // cl_dotcpp_main_String_hpp
