@@ -21,8 +21,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_main_List_hpp
-#define cl_dotcpp_main_List_hpp
+#pragma once
 
 #include <cl/dotcpp/main/system/Ptr.hpp>
 #include <cl/dotcpp/main/system/collections/generic/ICollection.hpp>
@@ -33,99 +32,35 @@ limitations under the License.
 
 namespace cl
 {
-    template <typename T> class Array;
-
-    template <typename Type>
-    struct TReadOnlyCollection : detail::empty_type {};
-
-    template <typename >
-    struct ITComparer : detail::empty_type {};
-
-    template <typename, typename >
-    struct TConverter : detail::empty_type {};
-
-    template <typename >
-    struct TAction : detail::empty_type {};
-
-    template <typename>
-    struct TComparison : detail::empty_type {};
-
-    /// Adapter class from STL deque to .NET List with access by index
+    /// <summary>
+    /// Implements C# List API in derived class of std::vector.
+    /// </summary>
     template <typename T>
-    class List : public detail::std_accessor_<cl::IEnumerable<T>, std::deque<T> >
+    class List : public std::vector<T>
     {
-    public:
+    public: // CONSTRUCTORS
 
-        //!! Why in public scope
-        typedef cl::IEnumerator<T> Enumerator;
-        typedef detail::std_accessor_<cl::IEnumerable<T>, std::deque<T> > base;
-        typedef cl::IEnumerable<T> cl_enumerator_type;
-        typedef std::deque<T> std_base;
-        typedef T& reference_type;
+        /// <summary>Creates a new empty instance of List.</summary>
+        List() : base() {}
 
-    public:
+    public: // METHODS
 
-        /// <summary>Creates new empty instance of List.</summary>
-        List() : base()
-        {
-        }
+        /// <summary>Number of elements.</summary>
+        int Count() const { return size(); }
 
-        List(int capacity)
-        {
-            c_ = std::shared_ptr<std::deque<T>>(new std::deque<T>(capacity));
-        }
+        /// <summary>Add the new element to the end of list.</summary>
+        void Add(const T& item) { push_back(item); }
 
-        //!! Why public?
-        int Capacity;// { get; set; }
+        /// <summary>Adds the elements from other collection to the end of the list.</summary>
+        // TODO void AddRange(const IEnumerable<T>& collection);
 
-        /// <summary>Gets number of elements in List.</summary>
-        inline int count() const
-        {
-            return this->get().size();
-        }
+        /// <summary>Erase all elements from the list.</summary>
+        void Clear() { clear(); }
 
-        /// <summary>Gets element reference by index.</summary>
-        inline reference_type
-        operator[](unsigned int index) { return *(begin() + index); }
+        /// <summary>Search for an element in the list.</summary>
+        bool Contains(const T& item);
 
-        /// <summary>Gets element reference by index.</summary>
-        inline T const&
-        operator[](unsigned int index) const { return *(begin() + index); }
-
-        /// <summary>Adds the new element to the end of List.</summary>
-        inline void add(T item)
-        {
-            this->get().push_back(item);
-        }
-
-        /// <summary>Adds the elements from other collection to the end of List.</summary>
-        inline void addRange(const IEnumerable<T>& collection);
-
-        /// <summary>Returns a read-only collection wrapper around List.</summary>
-        inline TReadOnlyCollection<T> asReadOnly();
-
-        /// <summary>Searches element in sorted List using default comparer.</summary>
-        inline int binarySearch(const T& item);
-
-        /// <summary>Searches element in sorted List using specified comparer.</summary>
-        inline int binarySearch(const T& item, ITComparer<T> comparer);
-
-        /// <summary>Searches element in sorted List in specifien range using
-        /// specified comparer and returns index of that element.</summary>
-        int binarySearch(int index, int count, const T& item, ITComparer<T> comparer);
-
-        /// <summary>Erase all elements from List.</summary>
-        void clear();
-
-        /// <summary>Searches element in List.</summary>
-        bool contains(const T& item);
-
-        /// <summary>Converts elemetn of List from type T to type TOutput
-        /// using converter.</summary>
-        template <typename TOutput, typename Coverter>
-        inline List<TOutput> convertAll(TConverter<T, TOutput> converter);
-
-        /// <summary>Copies List elements to array starting at then begining of arrray.</summary>
+        /// <summary>Copies list elements to array starting at then begining of arrray.</summary>
         void copyTo(Array<T>& arr) const;
 
         /// <summary>Copies List elements to array starting at specified index.</summary>
@@ -133,81 +68,6 @@ namespace cl
 
         /// <summary>Copies range of List elements to array starting at specified index.</summary>
         void copyTo(int index, Array<T>& arr, int arrIndex, int count) const;
-
-        /// <summary>Looks for elements in List that match predicate condition and returns bool.</summary>
-        template <typename Predicate>
-        inline bool exists(Predicate match) const
-        {
-            return std::find_if(begin(), end(), match) != end();
-        }
-
-        /// <summary>Looks for elements in List that match predicate condition and returns element.</summary>
-        template <typename Predicate>
-        inline reference_type find(Predicate match) const;
-
-        /// <summary>Looks for elements in List that match predicate condition and returns it in new List.</summary>
-        template <typename Predicate>
-        inline List<T> findAll(Predicate match) const
-        {
-            List<T> result;
-            std::for_each(begin(), end(), [&result, &match](T& v)
-                {
-                    if (match(v))
-                        result.push_back(v);
-                }
-            );
-            return result;
-        }
-
-        /// <summary>Looks for element in List that match predicate condition and returns it index in List.</summary>
-        template <typename Predicate>
-        int findIndex(Predicate match) const;
-
-        /// <summary>Looks for element in List starting at specified index that match predicate condition and returns it index in List.</summary>
-        template <typename Predicate>
-        inline int findIndex(int startIndex, Predicate match) const
-        {
-            typename std_base::const_iterator where
-                = std::find_if(begin() + startIndex, end(), match);
-            return where != end() ? where - begin : -1;
-        }
-
-        /// <summary>Looks for element in ranghe of elements in List that match predicate condition and returns it index in List.</summary>
-        template <typename Predicate>
-        inline int findIndex(int startIndex, int count, Predicate match)
-        {
-            typename std_base::const_iterator start = begin() + startIndex;
-            typename std_base::const_iterator end = start + count;
-            assert(end <= end());
-            typename std_base::const_iterator where
-                = std::find_if(start, end , match);
-            return where != end ? where - begin : -1;
-        }
-
-        /// <summary>Looks for element in List that match predicate condition and returns it index in List.</summary>
-        template <typename Predicate>
-        inline reference_type findLast(Predicate match)
-        {
-            std_base::reverse_iterator where
-                = std::find_if(get().rbegin(), get().rend(), match);
-            if (where == get().rend())
-            {
-                return std::reference_wrapper<T>(*(T*)0);
-            }
-            return (*where);
-        }
-
-        /// <summary>Looks for element in List that match predicate condition and returns it index in List.</summary>
-        template<typename Predicate>
-        inline int findLastIndex(Predicate match) const
-        {
-            std_base::const_reverse_iterator where
-                = std::find_if(get().rbegin(), get().rend(), match);
-            if (where == get().rend())
-                return -1;
-            //!! Check if C# version has property Count or method Count(), if property then use GetCount()
-            return int(this->count() - (where - get().rbegin()) - 1);
-        }
 
         /// <summary>Looks for element in List starting at specified index that match predicate condition and returns it index in List.</summary>
         template <typename Predicate>
@@ -228,7 +88,7 @@ namespace cl
         List<T> getRange(int index, int count) const;
 
         /// <summary>Searches for the specified object and returns the index of the first entire in List.</summary>
-        int indexOf(const T& item) const;
+        int IndexOf(const T& item) const;
 
         /// <summary>Searches for the specified object and returns index of the first occurrence in List.</summary>
         int indexOf(const T& item, int index) const;
@@ -279,16 +139,8 @@ namespace cl
         /// <summary>Reverses the order of the elements in the specified range.</summary>
         void reverse(int index, int count);
 
-        /// <summary>Sorts the elements in the List the default comparer.</summary>
-        void sort();
-
-        /// <summary>Sorts the elements in the List the specified comparsion.</summary>
-        template <typename Comparer>
-        void sort(TComparison<T> comparison);
-
-        /// <summary>Sorts the elements in the List the specified IComparer.</summary>
-        template <typename Comparer>
-        void sort(ITComparer<T> comparer);
+        /// <summary>Sorts the elements in the list using the default comparer.</summary>
+        void Sort();
 
         /// <summary>Sorts the elements in a range of elements in List using the specified comparer.</summary>
         template <typename Comparer>
@@ -297,23 +149,7 @@ namespace cl
             std::sort(begin() + index, begin() + index + count, comparer);
         }
 
-        /// <summary>Copies the elements of the List to a new array.</summary>
-        Array<T> toArray() const;
-
-        /// <summary>Sets the capacity to the actual number of elements in the List,
-        /// if that number is less than a threshold value.</summary>
-        void trimExcess();
-
-        /// <summary>Determines whether every element in the List matches
-        /// the conditions defined by the specified predicate.</summary>
-        template <typename Predicate>
-        inline bool trueForAll(Predicate match);
-
-        static Ptr<List<T> > create()
-        {
-            return Ptr<List<T> >(new List<T>());
-        }
+        /// <summary>Copies list elements to an array.</summary>
+        Array<T> ToArray() const;
     };
 }
-
-#endif // cl_dotcpp_main_List_hpp

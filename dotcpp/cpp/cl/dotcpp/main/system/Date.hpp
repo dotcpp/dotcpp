@@ -167,7 +167,7 @@ namespace cl
     public:
         static LocalDate max(List<LocalDate> src)
         {
-            if (src.count() == 0) throw cl::Exception("TError.Core.ZeroSize");
+            if (src.Count() == 0) throw cl::Exception("TError.Core.ZeroSize");
             LocalDate result;
             for each(LocalDate value in src)
             {
@@ -179,7 +179,7 @@ namespace cl
 
         static LocalDate min(List<LocalDate> src)
         {
-            if (src.count() == 0) throw cl::Exception("TError.Core.ZeroSize");
+            if (src.Count() == 0) throw cl::Exception("TError.Core.ZeroSize");
             LocalDate result;
             for each(LocalDate value in src)
             {
