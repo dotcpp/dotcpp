@@ -21,16 +21,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_test_DictionaryTests_hpp
-#define cl_dotcpp_test_DictionaryTests_hpp
+#pragma once
 
 #include <cl/dotcpp/test/declare.hpp>
+#include <boost/test/unit_test_suite.hpp>
+#include <boost/test/test_tools.hpp>
 #include <cl/dotcpp/main/system/collections/generic/Dictionary.hpp>
-
-namespace cl {
-    //!! Do we need this typedef?
-    typedef std::string String;
-}
 
 BOOST_AUTO_TEST_SUITE(TDictionaryTests)
 
@@ -42,4 +38,3 @@ BOOST_AUTO_TEST_CASE(iteration)
 
 BOOST_AUTO_TEST_SUITE_END()
 
-#endif // cl_dotcpp_test_DictionaryTests_hpp

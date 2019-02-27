@@ -28,7 +28,8 @@ limitations under the License.
 #include <boost/test/test_tools.hpp>
 #include <cl/dotcpp/main/system/collections/generic/HashSet.hpp>
 
-BOOST_AUTO_TEST_SUITE(THashSetTests)
+BOOST_AUTO_TEST_SUITE(HashSetTest)
+
 
 BOOST_AUTO_TEST_CASE(iteration)
 {

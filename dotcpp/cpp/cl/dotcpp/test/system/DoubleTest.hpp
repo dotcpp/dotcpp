@@ -31,11 +31,11 @@ limitations under the License.
 namespace cl
 {
     /// <summary>String tests.</summary>
-    class CL_DOTCPP_TEST TDoubleTest
+    class CL_DOTCPP_TEST DoubleTest
     {
     public: // METHODS
 
-        /// <summary>Test create methods.</summary>
-        void testCreate();
+        /// <summary>Smoke test for double.</summary>
+        void Smoke();
     };
 }

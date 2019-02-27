@@ -28,15 +28,15 @@ limitations under the License.
 
 namespace cl
 {
-    void StringTest::testCreate()
+    void StringTest::Create()
     {
     }
 
 
-    boost::unit_test::test_suite* StringTest::TStringTestSuite()
+    boost::unit_test::test_suite* StringTest::StringTestSuite()
     {
         boost::unit_test::test_suite* suite = BOOST_TEST_SUITE("TString test");
-        suite->add(BOOST_TEST_CASE(&StringTest::testCreate));
+        suite->add(BOOST_TEST_CASE(&StringTest::Create));
         return suite;
     }
 

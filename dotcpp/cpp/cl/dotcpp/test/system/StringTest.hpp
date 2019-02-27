@@ -25,7 +25,6 @@ limitations under the License.
 
 #include <cl/dotcpp/test/declare.hpp>
 #include <cl/dotcpp/test/declare.hpp>
-
 #include <cl/dotcpp/main/system/String.hpp>
 #include <boost/test/unit_test_suite.hpp>
 
@@ -37,8 +36,8 @@ namespace cl
     public: // METHODS
 
         /// <summary>Test create methods.</summary>
-        static void testCreate();
+        static void Create();
 
-        static boost::unit_test::test_suite* TStringTestSuite();
+        static boost::unit_test::test_suite* StringTestSuite();
     };
 }

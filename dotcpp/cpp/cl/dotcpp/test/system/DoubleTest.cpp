@@ -26,7 +26,7 @@ limitations under the License.
 
 namespace cl
 {
-    void TDoubleTest::testCreate()
+    void DoubleTest::Smoke()
     {
         std::cout << "Hello world" << std::endl;
     }

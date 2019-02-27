@@ -26,14 +26,14 @@ limitations under the License.
 
 namespace cl
 {
-    void PtrTest::testCreate()
+    void PtrTest::Inheritance()
     {
     }
 
-    test_suite* PtrTest::TPtrTestSuite()
+    test_suite* PtrTest::PtrTestSuite()
     {
-        test_suite* suite = BOOST_TEST_SUITE("TString test");
-        suite->add(BOOST_TEST_CASE(&PtrTest::testCreate));
+        test_suite* suite = BOOST_TEST_SUITE("Ptr test");
+        suite->add(BOOST_TEST_CASE(&PtrTest::Inheritance));
         return suite;
     }
 }

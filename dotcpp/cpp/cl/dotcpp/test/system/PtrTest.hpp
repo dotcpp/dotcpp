@@ -39,9 +39,9 @@ namespace cl
     {
     public: // METHODS
 
-        /// <summary>Test create methods.</summary>
-        static void testCreate();
+        /// <summary>Test inheriance support in pointer.</summary>
+        static void Inheritance();
 
-        static test_suite* TPtrTestSuite();
+        static test_suite* PtrTestSuite();
     };
 }
