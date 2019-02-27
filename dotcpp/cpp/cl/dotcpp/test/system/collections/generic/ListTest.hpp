@@ -27,80 +27,66 @@ limitations under the License.
 #include <boost/test/unit_test_suite.hpp>
 #include <boost/test/test_tools.hpp>
 #include <cl/dotcpp/main/system/collections/generic/List.hpp>
-#include <cl/dotcpp/main/system/collections/generic/Dictionary.hpp>
+#include <cl/dotcpp/main/system/String.hpp>
 
-namespace std {
-    ::std::ostream& operator << (::std::ostream& stg, std::string const& s)  {
-        stg << s.c_str();
-        return stg;
-    }
-}
-
-namespace cl {
-    typedef std::string String; //!! Remove typedef and use the class directly
-}
-
-class CL_DOTCPP_TEST TListTests
+namespace cl
 {
-public:
-
-    static void iteration()
+    class CL_DOTCPP_TEST ListTest
     {
-        cl::TList<cl::String> stringList;
-        stringList.add("111");
-        stringList.add("222");
-        stringList.add("333");
-        BOOST_CHECK(stringList.count() == 3);
+    public:
 
-        for each (cl::String str in stringList)
+        static void iteration()
         {
-            std::cout << str << " ";
+            List<String> stringList;
+            stringList.Add("111");
+            stringList.Add("222");
+            stringList.Add("333");
+            BOOST_CHECK(stringList.Count() == 3);
+
+            for each (String str in stringList)
+            {
+                std::cout << str << " ";
+            }
+
+            stringList[1] = "555";
+
+            BOOST_CHECK(stringList[1] == "555");
         }
-        std::cout << std::endl;
-        cl::String& ss =
-            stringList.findLast([](std::string const& s)
+
+        static void findLast()
         {
-            return s == "222";
-        });
+            cl::List<String> stringList;
+            stringList.add("111");
+            stringList.add("222");
+            stringList.add("222");
+            stringList.add("222");
+            stringList.add("333");
+            BOOST_CHECK(stringList.count() == 5);
 
-        const_cast<cl::String& >(ss) = "57";
+            stringList.findLast([](std::string const& s) { return s == "222"; }) = "57";
 
-        BOOST_CHECK(stringList[1] == "57");
-    }
+            BOOST_CHECK(stringList[3] == "57");
+        }
 
-    static void findLast()
-    {
-        cl::TList<cl::String> stringList;
-        stringList.add("111");
-        stringList.add("222");
-        stringList.add("222");
-        stringList.add("222");
-        stringList.add("333");
-        BOOST_CHECK(stringList.count() == 5);
+        static void findLastIndex()
+        {
+            List<String> stringList;
+            stringList.Add("111");
+            stringList.Add("222");
+            stringList.Add("222");
+            stringList.Add("333");
+            BOOST_CHECK(stringList.Count() == 4);
 
-        stringList.findLast([](std::string const& s){ return s == "222"; }) = "57";
+            // TODO BOOST_CHECK(stringList.findLastIndex([](std::string const& s) { return s == "222"; }) == 2);
+        }
 
-        BOOST_CHECK(stringList[3] == "57");
-    }
-
-    static void findLastIndex()
-    {
-        cl::TList<cl::String> stringList;
-        stringList.add("111");
-        stringList.add("222");
-        stringList.add("222");
-        stringList.add("333");
-        BOOST_CHECK(stringList.count() == 4);
-
-        BOOST_CHECK(stringList.findLastIndex([](std::string const& s){ return s == "222"; }) == 2);
-    }
-
-    static test_suite* TListTestSuite()
-    {
-        boost::unit_test::test_suite* suite = BOOST_TEST_SUITE("TList test");
-        suite->add(BOOST_TEST_CASE(&TListTests::iteration));
-        suite->add(BOOST_TEST_CASE(&TListTests::findLast));
-        suite->add(BOOST_TEST_CASE(&TListTests::findLastIndex));
-        return suite;
-    }
-};
+        static boost::unit_test::test_suite* TListTestSuite()
+        {
+            boost::unit_test::test_suite* suite = BOOST_TEST_SUITE("TList test");
+            suite->add(BOOST_TEST_CASE(&TListTests::iteration));
+            suite->add(BOOST_TEST_CASE(&TListTests::findLast));
+            suite->add(BOOST_TEST_CASE(&TListTests::findLastIndex));
+            return suite;
+        }
+    };
+}

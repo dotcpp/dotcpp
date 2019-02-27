@@ -150,12 +150,6 @@ namespace cl
         /// <summary>Assignment of 8-bit character.</summary>
         String& operator=(char rhs);
 
-        /// <summary>Equality operator.</summary>
-        bool operator==(const String& rhs) const;
-
-        /// <summary>Inequality operator.</summary>
-        bool operator!=(const String& rhs) const;
-
         /// <summary>Gets the Char object at a specified position in the current String object.</summary>
         Char operator[](int index) const;
 
