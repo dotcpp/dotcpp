@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_main_Double_hpp
-#define cl_dotcpp_main_Double_hpp
+#ifndef cl_dotcpp_main_NullableDouble_hpp
+#define cl_dotcpp_main_NullableDouble_hpp
 
 #include <cl/dotcpp/main/declare.hpp>
 
@@ -30,7 +30,7 @@ namespace cl
 {
     /// <summary>Nullable double type with arithmetics support.
     /// In AD mode, this class contains a tape pointer.</summary>
-    class tdouble
+    class NullableDouble
     {
         double value_ = Empty;
 
@@ -45,10 +45,10 @@ namespace cl
     public: //  CONSTRUCTORS
 
         /// <summary>Create with empty value.</summary>
-        tdouble() : value_(Empty) {}
+        NullableDouble() : value_(Empty) {}
 
         /// <summary>Explicit constructor from double.</summary>
-        tdouble(double rhs) : value_(rhs) {}
+        NullableDouble(double rhs) : value_(rhs) {}
 
     public: //  METHODS
 
@@ -70,9 +70,9 @@ namespace cl
         operator double() const { return value_; }
 
         /// <summary>Assignment of native double.</summary>
-        tdouble& operator=(double rhs) { value_ = rhs; return *this; }
+        NullableDouble& operator=(double rhs) { value_ = rhs; return *this; }
     };
 
 }
 
-#endif // cl_dotcpp_main_Double_hpp
+#endif // cl_dotcpp_main_NullableDouble_hpp
