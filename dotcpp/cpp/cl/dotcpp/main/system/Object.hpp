@@ -30,9 +30,6 @@ limitations under the License.
 
 namespace cl
 {
-    class String; using tstring = String;
-    class Type;
-
     /// <summary>All classes with reference semantics should derive from this type.
     /// It works with Ptr to provide an emulation of reference semantics in C++.
     /// Classes with value semantics should not derive from this type.</summary>

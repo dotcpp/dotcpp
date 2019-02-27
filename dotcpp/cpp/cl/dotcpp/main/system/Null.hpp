@@ -21,20 +21,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_main_Null_hpp
-#define cl_dotcpp_main_Null_hpp
+#pragma once
 
 #include <cl/dotcpp/main/declare.hpp>
 
 namespace cl
 {
-    /// <summary>Helper type to enable comparison and assignment to null pointer.
-    /// This object cannot be created, therefore any pointer to Null is null.</summary>
+    /// <summary>
+    /// Helper type to enable comparison and assignment to nullptr.
+    /// This object cannot be created, therefore any pointer to Null is null.
+    /// </summary>
     class CL_DOTCPP_MAIN Null
     {
     private:
         Null();
     };
 }
-
-#endif // cl_dotcpp_main_Null_hpp

@@ -21,8 +21,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_main_Date_hpp
-#define cl_dotcpp_main_Date_hpp
+#pragma once
 
 #include <cl/dotcpp/main/declare.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
@@ -191,5 +190,3 @@ namespace cl
         }
     };
 }
-
-#endif // cl_dotcpp_main_Date_hpp
