@@ -24,6 +24,7 @@ limitations under the License.
 #include <cl/dotcpp/main/implement.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
 #include <cl/dotcpp/main/system/Char.hpp>
+#include <cl/dotcpp/main/system/Object.hpp>
 #include <locale>
 
 namespace cl

@@ -35,8 +35,6 @@ namespace cl
 {
     template <typename T> class Array;
 
-    typedef std::runtime_error Exception;
-
     template <typename Type>
     struct TReadOnlyCollection : detail::empty_type {};
 

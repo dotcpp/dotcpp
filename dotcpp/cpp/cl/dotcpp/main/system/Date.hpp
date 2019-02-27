@@ -27,12 +27,10 @@ limitations under the License.
 #include <cl/dotcpp/main/declare.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
 #include <cl/dotcpp/main/system/collections/generic/List.hpp>
+#include "Exception.hpp"
 
 namespace cl
 {
-    class LocalDate; using tdate = LocalDate;
-    class String; using tstring = String;
-
     class CL_DOTCPP_MAIN LocalDate
     {
     private:
@@ -93,7 +91,7 @@ namespace cl
         virtual int daysFrom(LocalDate fromDate) const { return impl_->daysFrom(fromDate); }
 
         /// <summary>Convert to string.</summary>
-        virtual tstring ToString() const { return impl_->ToString(); }
+        virtual String ToString() const { return impl_->ToString(); }
 
         /// <summary>Convert to int using Excel format. Empty date is converted to empty int.</summary>
         virtual int toExcelInt() const { return impl_->toExcelInt(); }

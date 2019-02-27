@@ -25,14 +25,10 @@ limitations under the License.
 #define cl_dotcpp_main_String_hpp
 
 #include <cl/dotcpp/main/declare.hpp>
-#include <cl/dotcpp/main/system/Object.hpp>
-#include <cl/dotcpp/main/system/Ptr.hpp>
 #include <xhash>
 
 namespace cl
 {
-    class String; using tstring = String;
-
     template <class T> class IEnumerable;
     template <class T> class Array;
     enum class TCompareOptions;

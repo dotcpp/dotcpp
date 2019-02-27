@@ -129,7 +129,7 @@ namespace cl
         }
 
         /// <summary>Convert to string.</summary>
-        virtual tstring ToString() const
+        virtual String ToString() const
         {
             //return String::format("{0:0000}-{1:00}-{2:00}", year(), month(), day());  //review this
 
