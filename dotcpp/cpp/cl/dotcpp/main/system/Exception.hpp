@@ -25,13 +25,12 @@ limitations under the License.
 #define cl_dotcpp_main_Exception_hpp
 
 #include <cl/dotcpp/main/declare.hpp>
+#include <cl/dotcpp/main/system/String.hpp>
 
 namespace cl
 {
-    class String;
-
     /// <summary>Represents errors that occur during application execution.</summary>
-    class CL_DOTCPP_MAIN Exception : public std::exception
+    class Exception : public std::exception
     {
         std::string msg_;
 
@@ -41,7 +40,7 @@ namespace cl
         Exception() : msg_("Exception of type 'System.Exception' was thrown.") {}
 
         /// <summary>Create with a specified error message.</summary>
-        Exception(const String& msg);
+        Exception(const String& msg) : msg_(msg.value()) {}
 
         /// <summary>Create with a specified error message.</summary>
         Exception(const std::string& msg) : msg_(msg) {}
@@ -55,7 +54,7 @@ namespace cl
         virtual const char* what() const { return msg_.c_str(); }
 
         /// <summary>Message that describes the current exception.</summary>
-        virtual String message() const;
+        virtual String message() const { return String(msg_); }
     };
 }
 
