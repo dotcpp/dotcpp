@@ -28,17 +28,13 @@ limitations under the License.
 namespace cl
 {
     /// <summary>
-    /// Provides constants and static methods for double type.
+    /// Provides constants and static methods for bool type.
     /// </summary>
-    class Double
+    class Bool
     {
     public: //  CONSTANTS
 
         /// <summary>Sentinel value representing uninitialized state.</summary>
-        static constexpr double Empty = -1e100;
-
-        /// <summary>Tolerance used in comparison.</summary>
-        static constexpr double Tolerance = 1e-10;
+        static constexpr int Empty = std::numeric_limits<int>::min();
     };
 }
-
