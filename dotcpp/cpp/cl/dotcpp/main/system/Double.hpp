@@ -21,58 +21,24 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_main_NullableDouble_hpp
-#define cl_dotcpp_main_NullableDouble_hpp
+#pragma once
 
 #include <cl/dotcpp/main/declare.hpp>
 
 namespace cl
 {
-    /// <summary>Nullable double type with arithmetics support.
-    /// In AD mode, this class contains a tape pointer.</summary>
-    class NullableDouble
+    /// <summary>
+    /// Provides values for Empty and Tolerance.
+    /// </summary>
+    class Double
     {
-        double value_ = Empty;
-
     public: //  CONSTANTS
 
-        /// <summary>Empty value.</summary>
+        /// <summary>Sentinel value representing uninitialized state.</summary>
         static constexpr double Empty = -1e100;
 
-        /// <summary>Tolerance used in comparison of doubles.</summary>
+        /// <summary>Tolerance used in comparison.</summary>
         static constexpr double Tolerance = 1e-10;
-
-    public: //  CONSTRUCTORS
-
-        /// <summary>Create with empty value.</summary>
-        NullableDouble() : value_(Empty) {}
-
-        /// <summary>Explicit constructor from double.</summary>
-        NullableDouble(double rhs) : value_(rhs) {}
-
-    public: //  METHODS
-
-        /// <summary>Returns true if the field is empty.</summary>
-        bool isEmpty() const { return value_ == Empty; }
-
-        /// <summary>Convert to string.</summary>
-        std::string toString() const
-        {
-            return value_ != Empty ? std::to_string(value_) : "";
-        }
-
-        /// <summary>Returns true if not empty.</summary>
-        bool IsSet() const { return value_ != Empty; }
-
-    public: //  OPERATORS
-
-        /// <summary>Conversion operator.</summary>
-        operator double() const { return value_; }
-
-        /// <summary>Assignment of native double.</summary>
-        NullableDouble& operator=(double rhs) { value_ = rhs; return *this; }
     };
-
 }
 
-#endif // cl_dotcpp_main_NullableDouble_hpp
