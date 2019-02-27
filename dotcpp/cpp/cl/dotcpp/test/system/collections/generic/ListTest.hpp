@@ -21,9 +21,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_test_ListTests_hpp
-#define cl_dotcpp_test_ListTests_hpp
+#pragma once
 
+#include <cl/dotcpp/test/declare.hpp>
+#include <boost/test/unit_test_suite.hpp>
+#include <boost/test/test_tools.hpp>
 #include <cl/dotcpp/main/system/collections/generic/List.hpp>
 #include <cl/dotcpp/main/system/collections/generic/Dictionary.hpp>
 
@@ -44,7 +46,6 @@ public:
 
     static void iteration()
     {
-
         cl::TList<cl::String> stringList;
         stringList.add("111");
         stringList.add("222");
@@ -96,12 +97,10 @@ public:
 
     static test_suite* TListTestSuite()
     {
-        test_suite* suite = BOOST_TEST_SUITE("TList test");
+        boost::unit_test::test_suite* suite = BOOST_TEST_SUITE("TList test");
         suite->add(BOOST_TEST_CASE(&TListTests::iteration));
         suite->add(BOOST_TEST_CASE(&TListTests::findLast));
         suite->add(BOOST_TEST_CASE(&TListTests::findLastIndex));
         return suite;
     }
 };
-
-#endif // cl_dotcpp_test_ListTests_hpp

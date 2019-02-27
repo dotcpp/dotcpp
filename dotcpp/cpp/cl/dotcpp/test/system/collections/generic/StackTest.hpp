@@ -21,42 +21,42 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_test_StackTests_hpp
-#define cl_dotcpp_test_StackTests_hpp
+#pragma once
 
+#include <cl/dotcpp/test/declare.hpp>
+#include <boost/test/unit_test_suite.hpp>
+#include <boost/test/test_tools.hpp>
 #include <cl/dotcpp/main/system/collections/generic/Stack.hpp>
+#include <cl/dotcpp/main/system/String.hpp>
 
-namespace cl {
-    typedef std::string String;
-}
-
-class TStackTests
+namespace cl
 {
-public:
-
-    static void iteration()
+    class StackTest
     {
-        cl::TStack<cl::String> stringStack;
-        stringStack.push("111");
-        stringStack.push("222");
-        BOOST_CHECK(stringStack.count() == 2);
+    public:
 
-        for each (cl::String str in stringStack)
+        static void iteration()
         {
-            std::cout << str << " ";
+            Stack<String> stringStack;
+            stringStack.push("111");
+            stringStack.push("222");
+            BOOST_CHECK(stringStack.count() == 2);
+
+            for each (cl::String str in stringStack)
+            {
+                std::cout << str << " ";
+            }
+
+            std::cout << std::endl;
         }
 
-        std::cout << std::endl;
-    }
-
-    static test_suite* TStackTestSuite()
-    {
-        test_suite* suite = BOOST_TEST_SUITE("TStack test");
-        suite->add(BOOST_TEST_CASE(&TStackTests::iteration));
-        return suite;
-    }
+        static boost::unit_test::test_suite* TStackTestSuite()
+        {
+            boost::unit_test::test_suite* suite = BOOST_TEST_SUITE("TStack test");
+            suite->add(BOOST_TEST_CASE(&TStackTests::iteration));
+            return suite;
+        }
 
 
-};
-
-#endif // cl_dotcpp_test_StackTests_hpp
+    };
+}

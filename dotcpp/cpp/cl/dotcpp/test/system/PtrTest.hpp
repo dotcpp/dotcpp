@@ -21,9 +21,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_test_PtrTests_hpp
-#define cl_dotcpp_test_PtrTests_hpp
+#pragma once
 
+#include <cl/dotcpp/test/declare.hpp>
+#include <boost/test/unit_test_suite.hpp>
+#include <boost/test/test_tools.hpp>
 #include <boost/test/unit_test.hpp>
 
 using namespace boost::unit_test_framework;
@@ -32,8 +34,8 @@ using namespace boost::unit_test_framework;
 
 namespace cl
 {
-    /// <summary>String tests.</summary>
-    class CL_DOTCPP_TEST TPtrTests
+    /// <summary>Pointer test.</summary>
+    class CL_DOTCPP_TEST PtrTest
     {
     public: // METHODS
 
@@ -43,5 +45,3 @@ namespace cl
         static test_suite* TPtrTestSuite();
     };
 }
-
-#endif // cl_dotcpp_test_PtrTests_hpp

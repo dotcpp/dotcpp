@@ -21,27 +21,24 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_test_StringTests_hpp
-#define cl_dotcpp_test_StringTests_hpp
+#pragma once
 
-#include <boost/test/unit_test.hpp>
-
-using namespace boost::unit_test_framework;
+#include <cl/dotcpp/test/declare.hpp>
+#include <cl/dotcpp/test/declare.hpp>
 
 #include <cl/dotcpp/main/system/String.hpp>
+#include <boost/test/unit_test_suite.hpp>
 
 namespace cl
 {
     /// <summary>String tests.</summary>
-    class CL_DOTCPP_TEST TStringTests
+    class CL_DOTCPP_TEST StringTest
     {
     public: // METHODS
 
         /// <summary>Test create methods.</summary>
         static void testCreate();
 
-        static test_suite* TStringTestSuite();
+        static boost::unit_test::test_suite* TStringTestSuite();
     };
 }
-
-#endif // cl_dotcpp_test_StringTests_hpp

@@ -21,54 +21,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include <cl/dotcpp/main/implement.hpp>
+#include <cl/dotcpp/test/implement.hpp>
 #include <cl/dotcpp/test/system/PtrTest.hpp>
-#include <cl/dotcpp/main/system/collections/generic/Dictionary.hpp>
-#include <cl/dotcpp/main/system/String.hpp>
 
 namespace cl
 {
-    template <typename Key, typename Value>
-    class TTestDictionary : public TDictionary<Key, Value>
-        , public TObject
+    void PtrTest::testCreate()
     {
-    public:
-
-        virtual tstring ToString() const
-        {
-            return TString();
-        }
-
-        static TPtr<TTestDictionary<Key, Value>> create() { return TPtr<TTestDictionary<Key, Value>>(new TTestDictionary<Key, Value>()); }
-    };
-
-    template <typename Key, typename Value>
-    using Dictionary = TPtr<TTestDictionary<Key, Value>>;
-
-    class my_class : public cl::detail::ref_counter
-    {
-    public:
-        struct Meta_class_type {};
-        my_class() = default; template <typename A, typename ...Args> my_class(A, Args...) {}
-    };
-
-    void TPtrTests::testCreate()
-    {
-        TPtr<my_class> p0 = TPtr<my_class>(std::string(), (int)2, (long)3);
-
-        Dictionary<TString, double> dict
-            = new Dictionary<TString, double>();
-
-        //dict["Va"] = 56.;
-
-        //BOOST_CHECK(dict->containsKey("Va"));
-        //BOOST_CHECK(dict["Va"] == 56.);
     }
 
-    test_suite* TPtrTests::TPtrTestSuite()
+    test_suite* PtrTest::TPtrTestSuite()
     {
         test_suite* suite = BOOST_TEST_SUITE("TString test");
-        suite->add(BOOST_TEST_CASE(&TPtrTests::testCreate));
+        suite->add(BOOST_TEST_CASE(&PtrTest::testCreate));
         return suite;
     }
 }

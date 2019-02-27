@@ -21,12 +21,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include <cl/dotcpp/main/implement.hpp>
+#include <cl/dotcpp/test/implement.hpp>
 #include <cl/dotcpp/test/system/DoubleTest.hpp>
 
 namespace cl
 {
-    void TDoubleTests::testCreate()
+    void TDoubleTest::testCreate()
     {
         std::cout << "Hello world" << std::endl;
     }

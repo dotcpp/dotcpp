@@ -21,15 +21,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_test_ObjectTests_hpp
-#define cl_dotcpp_test_ObjectTests_hpp
+#pragma once
 
+#include <cl/dotcpp/test/declare.hpp>
+#include <boost/test/unit_test_suite.hpp>
+#include <boost/test/test_tools.hpp>
 #include <cl/dotcpp/main/system/Object.hpp>
 
 namespace cl
 {
     /// <summary>String tests.</summary>
-    class CL_DOTCPP_TEST TObjectTests
+    class CL_DOTCPP_TEST TObjectTest
     {
     public: // METHODS
 
@@ -37,5 +39,3 @@ namespace cl
         void testCreate();
     };
 }
-
-#endif // cl_dotcpp_test_ObjectTests_hpp

@@ -21,45 +21,43 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_test_QueueTests_hpp
-#define cl_dotcpp_test_QueueTests_hpp
+#pragma once
 
+#include <cl/dotcpp/test/declare.hpp>
+#include <boost/test/unit_test_suite.hpp>
+#include <boost/test/test_tools.hpp>
 #include <cl/dotcpp/main/system/collections/generic/Queue.hpp>
+#include <cl/dotcpp/main/system/String.hpp>
 
-namespace cl {
-    typedef std::string String;
-}
-
-class CL_DOTCPP_TEST TQueueTests
+namespace cl
 {
-public:
-
-    static void iteration()
+    class CL_DOTCPP_TEST QueueTest
     {
-        cl::TQueue<cl::String> stringQueue;
-        stringQueue.enqueue("111");
-        stringQueue.enqueue("222");
-        BOOST_CHECK(stringQueue.getCount() == 2);
+    public:
 
-        for each (cl::String str in stringQueue)
+        static void iteration()
         {
-            std::cout << str << " ";
+            cl::Queue<String> stringQueue;
+            stringQueue.enqueue("111");
+            stringQueue.enqueue("222");
+            BOOST_CHECK(stringQueue.getCount() == 2);
+
+            for each (String str in stringQueue)
+            {
+               // TODO Implement << for String std::cout << str << " ";
+            }
+            std::cout << std::endl;
+            BOOST_CHECK(stringQueue.peek() == "111");
+            stringQueue.dequeue();
+            stringQueue.dequeue();
+            BOOST_CHECK(stringQueue.getCount() == 0);
         }
-        std::cout << std::endl;
-        BOOST_CHECK(stringQueue.peek() == "111");
-        stringQueue.dequeue();
-        stringQueue.dequeue();
-        BOOST_CHECK(stringQueue.getCount() == 0);
-    }
 
-    static test_suite* TQueueTestSuite()
-    {
-        test_suite* suite = BOOST_TEST_SUITE("TQueue test");
-        suite->add(BOOST_TEST_CASE(&TQueueTests::iteration));
-        return suite;
-    }
-
-
-};
-
-#endif // cl_dotcpp_test_QueueTests_hpp
+        static boost::unit_test::test_suite* TQueueTestSuite()
+        {
+            boost::unit_test::test_suite* suite = BOOST_TEST_SUITE("TQueue test");
+            suite->add(BOOST_TEST_CASE(&TQueueTests::iteration));
+            return suite;
+        }
+    };
+}

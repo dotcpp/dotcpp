@@ -21,15 +21,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_test_DoubleTests_hpp
-#define cl_dotcpp_test_DoubleTests_hpp
+#pragma once
 
+#include <cl/dotcpp/test/declare.hpp>
+#include <boost/test/unit_test_suite.hpp>
+#include <boost/test/test_tools.hpp>
 #include <cl/dotcpp/main/system/Double.hpp>
 
 namespace cl
 {
     /// <summary>String tests.</summary>
-    class CL_DOTCPP_TEST TDoubleTests
+    class CL_DOTCPP_TEST TDoubleTest
     {
     public: // METHODS
 
@@ -37,5 +39,3 @@ namespace cl
         void testCreate();
     };
 }
-
-#endif // cl_dotcpp_test_DoubleTests_hpp

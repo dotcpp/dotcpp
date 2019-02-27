@@ -21,22 +21,22 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include <cl/dotcpp/main/implement.hpp>
+#include <cl/dotcpp/test/implement.hpp>
 #include <cl/dotcpp/test/system/StringTest.hpp>
 #include <cl/dotcpp/main/system/collections/generic/Dictionary.hpp>
 #include <cl/dotcpp/main/system/Exception.hpp>
 
 namespace cl
 {
-    void TStringTests::testCreate()
+    void StringTest::testCreate()
     {
     }
 
 
-    test_suite* TStringTests::TStringTestSuite()
+    boost::unit_test::test_suite* StringTest::TStringTestSuite()
     {
-        test_suite* suite = BOOST_TEST_SUITE("TString test");
-        suite->add(BOOST_TEST_CASE(&TStringTests::testCreate));
+        boost::unit_test::test_suite* suite = BOOST_TEST_SUITE("TString test");
+        suite->add(BOOST_TEST_CASE(&StringTest::testCreate));
         return suite;
     }
 

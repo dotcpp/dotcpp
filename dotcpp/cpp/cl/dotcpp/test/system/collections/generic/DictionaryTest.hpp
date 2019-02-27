@@ -24,6 +24,7 @@ limitations under the License.
 #ifndef cl_dotcpp_test_DictionaryTests_hpp
 #define cl_dotcpp_test_DictionaryTests_hpp
 
+#include <cl/dotcpp/test/declare.hpp>
 #include <cl/dotcpp/main/system/collections/generic/Dictionary.hpp>
 
 namespace cl {
