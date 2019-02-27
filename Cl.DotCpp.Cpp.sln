@@ -15,6 +15,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cl.DotCpp.Main.Cpp", "dotcp
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cl.DotCpp.Test.Cpp", "dotcpp\cpp\cl\dotcpp\test\Cl.DotCpp.Test.Cpp.vcxproj", "{04199C2F-0C9B-43F1-968F-5D7329204EF6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{05FCBA2D-EBAF-4265-94E6-CB33526C758F} = {05FCBA2D-EBAF-4265-94E6-CB33526C758F}
+		{7FA068EC-B443-4DB9-93AF-56CBC7110408} = {7FA068EC-B443-4DB9-93AF-56CBC7110408}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
