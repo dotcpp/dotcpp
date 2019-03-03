@@ -33,7 +33,8 @@ limitations under the License.
 namespace cl
 {
     /// <summary>
-    /// Implements C# List API in derived class of std::vector.
+    /// Represents a strongly typed list of objects that can be accessed by index.
+    /// Provides methods to search, sort, and manipulate lists.
     /// </summary>
     template <typename T>
     class List : public std::vector<T>
@@ -47,19 +48,19 @@ namespace cl
 
     public: // METHODS
 
-        /// <summary>Number of elements.</summary>
+        /// <summary>The number of elements contained in the list.</summary>
         int Count() const { return size(); }
 
-        /// <summary>Add the new element to the end of list.</summary>
+        /// <summary>Adds an object to the end of the list.</summary>
         void Add(const T& item) { push_back(item); }
 
-        /// <summary>Adds the elements from other collection to the end of the list.</summary>
+        /// <summary>Adds the elements of the specified collection to the end of the list.</summary>
         // TODO void AddRange(const IEnumerable<T>& collection);
 
-        /// <summary>Erase all elements from the list.</summary>
+        /// <summary>Removes all elements from the list.</summary>
         void Clear() { clear(); }
 
-        /// <summary>Search for an element in the list.</summary>
+        /// <summary>Determines whether an element is in the list.</summary>
         bool Contains(const T& item);
 
         /// <summary>Copies list elements to array starting at then begining of arrray.</summary>
