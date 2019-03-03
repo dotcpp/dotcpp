@@ -37,6 +37,8 @@ namespace cl
     /// <summary>Immutable string type with Unicode support.</summary>
     class String : public std::string
     {
+        typedef std::string base;
+
     public: // CONSTANTS
 
         /// <summary>Empty string.</summary>
@@ -51,13 +53,13 @@ namespace cl
         String(const Char& value);
 
         /// <summary>Create from std::string.</summary>
-        String(const std::string& value) : std::string(value) {}
+        String(const std::string& value) : base(value) {}
 
         /// <summary>Create from const char*, null pointer is converted to to empty value.</summary>
-        String(const char* value) : std::string(value) {}
+        String(const char* value) : base(value) {}
 
         /// <summary>Create from a single 8-bit character.</summary>
-        String(char value) : std::string(std::to_string(value)) {}
+        String(char value) : base(std::to_string(value)) {}
 
     public: // METHODS
 
@@ -145,7 +147,18 @@ namespace cl
         String& operator=(const std::string& rhs);
 
         /// <summary>Assignment of const char*, null pointer is converted to to empty value.</summary>
-        String& operator=(const char* rhs);
+        String& operator=(const char* rhs)
+        {
+            if (rhs)
+            {
+                base::operator=(rhs);
+            }
+            else
+            {
+                base::operator=(Empty);
+            }
+            return *this;
+        }
 
         /// <summary>Assignment of 8-bit character.</summary>
         String& operator=(char rhs);
@@ -324,5 +337,4 @@ namespace cl
 
     /// <summary>Returns a string containing characters from lhs followed by the characters from rhs.</summary>
     inline String operator+(const String& lhs, const String& rhs) { return String(lhs + rhs); }
-
 }

@@ -38,6 +38,8 @@ namespace cl
     template <typename T>
     class List : public std::vector<T>
     {
+        typedef std::vector<T> base;
+
     public: // CONSTRUCTORS
 
         /// <summary>Creates a new empty instance of List.</summary>

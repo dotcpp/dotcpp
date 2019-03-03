@@ -26,7 +26,6 @@ limitations under the License.
 
 #include <cl/dotcpp/main/system/collections/generic/List.hpp>
 #include <deque>
-#include <hash_map>
 
 #include <cl/dotcpp/main/system/collections/generic/ICollection.hpp>
 #include <cl/dotcpp/main/system/collections/generic/IEnumerable.hpp>

@@ -53,10 +53,10 @@ namespace cl
             BOOST_CHECK(stringQueue.getCount() == 0);
         }
 
-        static boost::unit_test::test_suite* TQueueTestSuite()
+        static boost::unit_test::test_suite* QueueTestSuite()
         {
-            boost::unit_test::test_suite* suite = BOOST_TEST_SUITE("TQueue test");
-            suite->add(BOOST_TEST_CASE(&TQueueTests::iteration));
+            boost::unit_test::test_suite* suite = BOOST_TEST_SUITE("QueueTest");
+            suite->add(BOOST_TEST_CASE(&QueueTest::iteration));
             return suite;
         }
     };

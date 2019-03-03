@@ -28,10 +28,6 @@ limitations under the License.
 #include <boost/test/test_tools.hpp>
 #include <cl/dotcpp/main/system/collections/generic/SortedSet.hpp>
 
-namespace cl {
-    typedef std::string String;
-}
-
 BOOST_AUTO_TEST_SUITE(TSortedSetTests)
 
 BOOST_AUTO_TEST_CASE(iteration)

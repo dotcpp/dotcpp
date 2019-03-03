@@ -36,14 +36,11 @@ namespace cl
 
     /// Adapter class from STL has_set to .NET HashSet
     template <typename T>
-    class HashSet : public detail::std_accessor_<cl::IEnumerable<T>, std::unordered_set<Type> >
+    class HashSet : public std::unordered_set<T>
     {
     public:
 
-        typedef detail::std_accessor_<cl::IEnumerable<T>, std::unordered_set<Type> > base;
-        typedef cl::IEnumerable<T> cl_enumerator_type;
-        typedef std::unordered_set<Type> std_base;
-        typedef T& reference_type;
+        typedef std::unordered_set<T> base;
 
     public:
 

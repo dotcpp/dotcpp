@@ -28,7 +28,13 @@ namespace cl
 {
     void DoubleTest::Smoke()
     {
-        std::cout << "Hello world" << std::endl;
+        std::cout << "Hello from DoubleTest::Smoke" << std::endl;
+    }
+
+    boost::unit_test::test_suite* DoubleTest::DoubleTestSuite()
+    {
+        boost::unit_test::test_suite* suite = BOOST_TEST_SUITE("DoubleTest");
+        suite->add(BOOST_TEST_CASE(&DoubleTest::Smoke));
+        return suite;
     }
 }
-

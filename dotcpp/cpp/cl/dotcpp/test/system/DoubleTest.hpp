@@ -36,6 +36,8 @@ namespace cl
     public: // METHODS
 
         /// <summary>Smoke test for double.</summary>
-        void Smoke();
+        static void Smoke();
+
+        static boost::unit_test::test_suite* DoubleTestSuite();
     };
 }

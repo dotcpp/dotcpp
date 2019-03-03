@@ -47,6 +47,7 @@ namespace cl
             {
                 std::cout << str << " ";
             }
+            std::cout << std::endl;
 
             stringList[1] = "555";
 
@@ -56,12 +57,12 @@ namespace cl
         static void findLast()
         {
             cl::List<String> stringList;
-            stringList.add("111");
-            stringList.add("222");
-            stringList.add("222");
-            stringList.add("222");
-            stringList.add("333");
-            BOOST_CHECK(stringList.count() == 5);
+            stringList.Add("111");
+            stringList.Add("222");
+            stringList.Add("222");
+            stringList.Add("222");
+            stringList.Add("333");
+            BOOST_CHECK(stringList.Count() == 5);
 
             stringList.findLast([](std::string const& s) { return s == "222"; }) = "57";
 
@@ -77,15 +78,15 @@ namespace cl
             stringList.Add("333");
             BOOST_CHECK(stringList.Count() == 4);
 
-            // TODO BOOST_CHECK(stringList.findLastIndex([](std::string const& s) { return s == "222"; }) == 2);
+            BOOST_CHECK(stringList.findLastIndex([](std::string const& s) { return s == "111"; }) == 0);
         }
 
-        static boost::unit_test::test_suite* TListTestSuite()
+        static boost::unit_test::test_suite* ListTestSuite()
         {
-            boost::unit_test::test_suite* suite = BOOST_TEST_SUITE("TList test");
-            suite->add(BOOST_TEST_CASE(&TListTests::iteration));
-            suite->add(BOOST_TEST_CASE(&TListTests::findLast));
-            suite->add(BOOST_TEST_CASE(&TListTests::findLastIndex));
+            boost::unit_test::test_suite* suite = BOOST_TEST_SUITE("ListTest");
+            suite->add(BOOST_TEST_CASE(&ListTest::iteration));
+            suite->add(BOOST_TEST_CASE(&ListTest::findLast));
+            suite->add(BOOST_TEST_CASE(&ListTest::findLastIndex));
             return suite;
         }
     };

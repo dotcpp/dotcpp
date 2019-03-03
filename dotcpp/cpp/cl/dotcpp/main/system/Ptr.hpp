@@ -41,9 +41,9 @@ namespace cl
 
     public: // CONSTRUCTORS
 
-    	/// <summary>Take ownership of raw pointer to template argument type.\\
+        /// <summary>Take ownership of raw pointer to template argument type.\\
         /// This also permits construction from null pointer.</summary>
-		Ptr() {}
+        Ptr() {}
 
         /// <summary>Take ownership of raw pointer to template argument type.\\
         /// This also permits construction from null pointer.</summary>
