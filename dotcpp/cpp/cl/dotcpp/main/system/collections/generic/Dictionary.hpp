@@ -25,7 +25,6 @@ limitations under the License.
 #define cl_dotcpp_main_Dictionary_hpp
 
 #include <unordered_map>
-
 #include <cl/dotcpp/main/system/collections/generic/ICollection.hpp>
 #include <cl/dotcpp/main/system/collections/generic/IEnumerable.hpp>
 #include <cl/dotcpp/main/system/collections/generic/IEnumerator.hpp>
@@ -33,42 +32,22 @@ limitations under the License.
 
 namespace cl
 {
-    template<typename Key, typename Type>
-    using map_type = std::unordered_map<Key, Type>;
-
-    ///!!! Provide .NET description Adapter class from STL hash_map to .NET Dictionary - collection of keys and values
+    /// <summary>Represents a collection of keys and values.</summary>
     template <typename Key, typename Type >
-    class Dictionary : public detail::std_accessor_<
-        cl::IEnumerable<typename KeyValuePair<Key, Type>::type>, map_type<Key, Type> >
+    class Dictionary : public std::unordered_map<Key, Type>
     {
-    public:
+        typedef std::unordered_map<Key, Type> base;
 
-        // Iterator type
-        typedef typename
-            map_type<Key, Type>::iterator iterator;
-
-        // Const iterator
-        typedef typename
-            map_type<Key, Type>::const_iterator const_iterator;
-
-        typedef detail::std_accessor_<
-            cl::IEnumerable< 
-                typename KeyValuePair<Key, Type>::type 
-            >, map_type<Key, Type> > base;
+    public: // CONSTRUCTORS
 
         /// <summary>Initializes a new instance of Dictionary.</summary>
-        Dictionary() : base()
-        {
-        }
-        
-        /// <summary>Gets number of elements in Dictionary.</summary>
-        inline int count() const
-        {
-            return this->get().size();
-        }
+        Dictionary() : base() {}
+
+        /// <summary>Gets number of elements in dictionary.</summary>
+        int Count() const { return size(); }
 
         /// <summary>Gets List of keys.</summary>
-        inline List<Key> keys() 
+        inline List<Key> keys()
         {
             List<Key> keys;
             std::for_each(this->get().begin(), this->get().end(), [&keys](std::pair<Key, Type> const& value){ keys.add(value.first); });
@@ -127,7 +106,7 @@ namespace cl
         }
 
         /// <summary>Gets the value associated with the specified key.</summary>
-        inline bool tryGetValue(Key const& key, Type& value) 
+        inline bool tryGetValue(Key const& key, Type& value)
         {
             iterator iter = this->get().find(key);
             if (iter != this->get().end())
