@@ -37,11 +37,11 @@ namespace cl
 
         static void iteration()
         {
-            List<String> stringList;
-            stringList.Add("111");
-            stringList.Add("222");
-            stringList.Add("333");
-            BOOST_CHECK(stringList.Count() == 3);
+            List<String> stringList = new_List<String>();
+            stringList->Add("111");
+            stringList->Add("222");
+            stringList->Add("333");
+            BOOST_CHECK(stringList->Count() == 3);
 
             for (String str : stringList)
             {
@@ -56,13 +56,13 @@ namespace cl
 
         static void findLast()
         {
-            cl::List<String> stringList;
-            stringList.Add("000");
-            stringList.Add("111");
-            stringList.Add("222");
-            stringList.Add("333");
-            stringList.Add("444");
-            BOOST_CHECK(stringList.Count() == 5);
+            cl::List<String> stringList = new_List<String>();
+            stringList->Add("000");
+            stringList->Add("111");
+            stringList->Add("222");
+            stringList->Add("333");
+            stringList->Add("444");
+            BOOST_CHECK(stringList->Count() == 5);
 
             // TODO stringList.findLast([](std::string const& s) { return s == "222"; }) = "57";
 
@@ -71,12 +71,12 @@ namespace cl
 
         static void findLastIndex()
         {
-            List<String> stringList;
-            stringList.Add("111");
-            stringList.Add("222");
-            stringList.Add("222");
-            stringList.Add("333");
-            BOOST_CHECK(stringList.Count() == 4);
+            List<String> stringList = new_List<String>();
+            stringList->Add("111");
+            stringList->Add("222");
+            stringList->Add("222");
+            stringList->Add("333");
+            BOOST_CHECK(stringList->Count() == 4);
 
             // TODO BOOST_CHECK(stringList.findLastIndex([](std::string const& s) { return s == "111"; }) == 0);
         }

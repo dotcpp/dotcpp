@@ -32,23 +32,25 @@ limitations under the License.
 
 namespace cl
 {
+    template <class T> class ListImpl; template <class T> using List = Ptr<ListImpl<T>>;
+
     /// <summary>
     /// Represents a strongly typed list of objects that can be accessed by index.
     /// Provides methods to search, sort, and manipulate lists.
     /// </summary>
     template <typename T>
-    class List : public std::vector<T>
+    class ListImpl : public std::vector<T>
     {
         typedef std::vector<T> base;
 
-    public: // CONSTRUCTORS
+    private: // CONSTRUCTORS
 
         /// <summary>
         /// Initializes a new instance of the list that is empty and has the default initial capacity.
         ///
         /// This constructor is private. Use new_List() function instead.
         /// </summary>
-        List() : base() {}
+        ListImpl() : base() {}
 
     public: // METHODS
 
@@ -191,6 +193,6 @@ namespace cl
     /// This constructor is private. Use new_List() function instead.
     /// </summary>
     template <typename T>
-    List<T> new_List() { return new List<T>(); }
+    List<T> new_List() { return new ListImpl<T>(); }
 
 }

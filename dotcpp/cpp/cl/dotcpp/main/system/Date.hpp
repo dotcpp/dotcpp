@@ -162,16 +162,16 @@ namespace cl
         virtual void checkValid() const { impl_->checkValid(); }
     };
 
-    class CL_DOTCPP_MAIN LocalDateEx
+    class CL_DOTCPP_MAIN LocalDateEx // TODO Refactor for C++
     {
     public:
-        static LocalDate max(List<LocalDate> src)
+        static LocalDate Max(List<LocalDate> src)
         {
-            if (src.Count() == 0) throw cl::Exception("TError.Core.ZeroSize");
+            if (src->Count() == 0) throw std::exception("Cannot get max value of a zero size List<Date>.");
             LocalDate result;
             for (LocalDate value : src)
             {
-                if (value.isNull()) throw cl::Exception("TError.Core.NotSet");
+                if (value.isNull()) throw std::exception("Empty date encountered when taking max value of List<Date>.");
                 if (result.isNull() || result < value) result = value;
             }
             return result;
@@ -179,11 +179,11 @@ namespace cl
 
         static LocalDate min(List<LocalDate> src)
         {
-            if (src.Count() == 0) throw cl::Exception("TError.Core.ZeroSize");
+            if (src->Count() == 0) throw std::exception("Cannot get min value of a zero size List<Date>.");
             LocalDate result;
             for (LocalDate value : src)
             {
-                if (value.isNull()) throw cl::Exception("TError.Core.NotSet");
+                if (value.isNull()) throw std::exception("Empty date encountered when taking min value of List<Date>.");
                 if (result.isNull() || result > value) result = value;
             }
             return result;

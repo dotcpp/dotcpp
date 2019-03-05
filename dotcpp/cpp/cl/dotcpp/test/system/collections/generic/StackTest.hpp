@@ -50,10 +50,10 @@ namespace cl
             std::cout << std::endl;
         }
 
-        static boost::unit_test::test_suite* TStackTestSuite()
+        static boost::unit_test::test_suite* StackTestSuite()
         {
-            boost::unit_test::test_suite* suite = BOOST_TEST_SUITE("TStack test");
-            suite->add(BOOST_TEST_CASE(&TStackTests::iteration));
+            boost::unit_test::test_suite* suite = BOOST_TEST_SUITE("StackTest");
+            suite->add(BOOST_TEST_CASE(&StackTest::iteration));
             return suite;
         }
 
