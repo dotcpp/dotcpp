@@ -30,10 +30,10 @@ using namespace boost::unit_test_framework;
 
 struct pause
 {
-	~pause()
-	{
-		system("PAUSE");
-	}
+    ~pause()
+    {
+        system("PAUSE");
+    }
 };
 
 static pause pause_;
@@ -41,18 +41,18 @@ static pause pause_;
 
 test_suite* init_unit_test_suite(int, char*[])
 {
-	std::string header =
-		"Testing Cl.DotCpp";
-	std::string rule = std::string(35, '=');
+    std::string header =
+        "Testing Cl.DotCpp";
+    std::string rule = std::string(35, '=');
 
-	BOOST_TEST_MESSAGE(rule);
-	BOOST_TEST_MESSAGE(header);
-	BOOST_TEST_MESSAGE(rule);
-	test_suite* test = BOOST_TEST_SUITE("Cl DotCpp test suite");
+    BOOST_TEST_MESSAGE(rule);
+    BOOST_TEST_MESSAGE(header);
+    BOOST_TEST_MESSAGE(rule);
+    test_suite* test = BOOST_TEST_SUITE("Cl DotCpp test suite");
 
-	test->add(cl::ListTest::ListTestSuite());
-	test->add(cl::DoubleTest::DoubleTestSuite());
+    test->add(cl::ListTest::ListTestSuite());
+    test->add(cl::DoubleTest::DoubleTestSuite());
 
-	return test;
+    return test;
 }
 
