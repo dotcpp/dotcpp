@@ -43,7 +43,11 @@ namespace cl
 
     public: // CONSTRUCTORS
 
-        /// <summary>Creates a new empty instance of List.</summary>
+        /// <summary>
+        /// Initializes a new instance of the list that is empty and has the default initial capacity.
+        ///
+        /// This constructor is private. Use new_List() function instead.
+        /// </summary>
         List() : base() {}
 
     public: // METHODS
@@ -62,6 +66,8 @@ namespace cl
 
         /// <summary>Determines whether an element is in the list.</summary>
         bool Contains(const T& item);
+
+        /*
 
         /// <summary>Copies list elements to array starting at then begining of arrray.</summary>
         void copyTo(Array<T>& arr) const;
@@ -175,5 +181,16 @@ namespace cl
 
         /// <summary>Copies list elements to an array.</summary>
         Array<T> ToArray() const;
+
+        */
     };
+
+    /// <summary>
+    /// Initializes a new instance of the list that is empty and has the default initial capacity.
+    ///
+    /// This constructor is private. Use new_List() function instead.
+    /// </summary>
+    template <typename T>
+    List<T> new_List() { return new List<T>(); }
+
 }
