@@ -43,6 +43,9 @@ namespace cl
     {
         typedef std::vector<T> base;
 
+        template <typename T>
+        friend List<T> new_List();
+
     private: // CONSTRUCTORS
 
         /// <summary>
@@ -194,5 +197,21 @@ namespace cl
     /// </summary>
     template <typename T>
     List<T> new_List() { return new ListImpl<T>(); }
+
+}
+
+namespace std
+{
+    template <typename T>
+    auto begin(cl::List<T> & list)
+    {
+        return list->begin();
+    }
+
+    template <typename T>
+    auto end(cl::List<T> & list)
+    {
+        return list->end();
+    }
 
 }
