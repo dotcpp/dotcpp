@@ -94,7 +94,7 @@ namespace cl
                 : iter_(iter)
             {   }
 
-            virtual std_iterator_base& operator++ ()  {
+            virtual base& operator++ ()  {
                 ++iter_;
                 return *this;
             }
@@ -198,11 +198,6 @@ namespace cl
             return iterator_->get();
         }
 
-    private:
-        inline detail::std_iterator_base<T > const& i_() const
-        {
-            return
-        }
     public:
         ///
         inline bool

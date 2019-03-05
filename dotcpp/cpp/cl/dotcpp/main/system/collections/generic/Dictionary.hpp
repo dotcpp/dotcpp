@@ -89,7 +89,7 @@ namespace cl
         /// <summary>Determines whether the Dictionary contains the specified value.</summary>
         inline bool containsValue(const Type& value) const
         {
-            for (map_type<Key, Type>::iterator iter = this->get().begin(); iter != this->get().end(); iter++)
+            for (typename map_type<Key, Type>::iterator iter = this->get().begin(); iter != this->get().end(); iter++)
             {
                 if (iter->second == value)
                 {

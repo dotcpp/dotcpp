@@ -30,18 +30,18 @@ limitations under the License.
 namespace cl
 {
     /// <summary>Represents errors that occur during application execution.</summary>
-    class Exception : public std::exception
+    class Exception : public std::runtime_error
     {
     public: // CONSTRUCTORS
 
         /// <summary>Create with default message.</summary>
-        Exception() : std::exception("Exception of type 'System.Exception' was thrown.") {}
+        Exception() : std::runtime_error("Exception of type 'System.Exception' was thrown.") {}
 
         /// <summary>Create with a specified error message.</summary>
-        Exception(const std::string& msg) : std::exception(msg.c_str()) {}
+        Exception(const std::string& msg) : std::runtime_error(msg.c_str()) {}
 
         /// <summary>Create with a specified error message.</summary>
-        Exception(const char* msg) : std::exception(msg ? msg : "") {}
+        Exception(const char* msg) : std::runtime_error(msg ? msg : "") {}
 
     public: // METHODS
 

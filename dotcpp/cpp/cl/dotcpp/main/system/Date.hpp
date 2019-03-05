@@ -117,7 +117,7 @@ namespace cl
         int compareTo(Type other) const
         {
             if (!other) return isNull() ? 0 : 1;
-            else throw std::exception("Attempting to compare LocalDate with a different data type");
+            else throw std::runtime_error("Attempting to compare LocalDate with a different data type");
         }
 
         /// <summary>Compare the current instance with another of the same type.
@@ -156,7 +156,7 @@ namespace cl
     private:
 
         /// <summary>Error message if the date is empty.</summary>
-        void checkSet() const { if (isNull()) throw new std::exception("TError.Core.NotSet"); }
+        void checkSet() const { if (isNull()) throw std::runtime_error("TError.Core.NotSet"); }
 
         /// <summary>Error message if the argument is not a valid date in ISO format (YYYYMMDD).</summary>
         virtual void checkValid() const { impl_->checkValid(); }
@@ -169,7 +169,7 @@ namespace cl
         {
             if (src.Count() == 0) throw cl::Exception("TError.Core.ZeroSize");
             LocalDate result;
-            for each(LocalDate value in src)
+            for (LocalDate value : src)
             {
                 if (value.isNull()) throw cl::Exception("TError.Core.NotSet");
                 if (result.isNull() || result < value) result = value;
@@ -181,7 +181,7 @@ namespace cl
         {
             if (src.Count() == 0) throw cl::Exception("TError.Core.ZeroSize");
             LocalDate result;
-            for each(LocalDate value in src)
+            for (LocalDate value : src)
             {
                 if (value.isNull()) throw cl::Exception("TError.Core.NotSet");
                 if (result.isNull() || result > value) result = value;

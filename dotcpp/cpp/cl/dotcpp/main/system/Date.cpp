@@ -14,10 +14,9 @@ namespace cl
         /// <summary>Normalize parameter and set value_</summary>
         tm normalize(tm notNormedTM) const
         {
+			// TODO change Date implementation to boost gregorian date
             time_t normed = mktime(&notNormedTM);
-            tm normedTM = { 0 };
-            gmtime_s(&normedTM, &normed);
-            return normedTM;
+            return *gmtime(&normed);
         }
 
     public:
@@ -49,7 +48,7 @@ namespace cl
                 *value_ = normalize(notNormedTM);
 
             }
-            else throw std::exception("date is invalid");
+            else throw std::runtime_error("Date is invalid.");
         }
 
         /// <summary>Constructor from int.</summary>
@@ -121,9 +120,9 @@ namespace cl
             from_date.tm_mday = fromDate.day();
             time_t from_time = mktime(&from_date);
 
-            __int64 secondsInDay = 60 * 60 * 24;
+            int64_t secondsInDay = 60 * 60 * 24;
             if (this_time - from_time > 0) return (int)((this_time - from_time) / secondsInDay);
-            else throw std::exception("LocalDate.daysFrom() function should not be used when the argument date is after or equal this date");
+            else throw std::runtime_error("LocalDate.daysFrom() function should not be used when the argument date is after or equal this date");
             return 0;
         }
 
@@ -133,7 +132,7 @@ namespace cl
             //return String::format("{0:0000}-{1:00}-{2:00}", year(), month(), day());  //review this
 
             char buffer[10]; //10 - length of date in ISO format (YYYY-MM-DD)
-            sprintf_s(buffer, "%4d-%2d-%2d", year(), month(), day());
+            sprintf(buffer, "%4d-%2d-%2d", year(), month(), day());
             return String(buffer);
         }
 
@@ -174,7 +173,7 @@ namespace cl
         virtual void checkValid()
         {
             if ((value_->tm_hour != 0) || (value_->tm_min != 0) || (value_->tm_sec != 0))
-                throw std::exception("To be converted to LocalDate, time must be set to UTC midnight");
+                throw std::runtime_error("To be converted to LocalDate, time must be set to UTC midnight");
         }
 
     };

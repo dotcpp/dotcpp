@@ -78,7 +78,7 @@ namespace cl
         };
 
         template <typename ValueType, typename Allocator>
-        struct is_container <std::list<ValueType, typename Allocator> >
+        struct is_container <std::list<ValueType, Allocator> >
             : container_traits<std::list<ValueType, Allocator> >
         {
             typedef ValueType type;
@@ -167,7 +167,7 @@ namespace cl
     {
     public: // METHODS
         struct ref_counter_functional {};
-                
+
         template <typename Other_>
         IEnumerable(Other_) {}
 

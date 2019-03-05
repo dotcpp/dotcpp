@@ -49,16 +49,16 @@ namespace cl
     public: // METHODS
 
         /// <summary>The number of elements contained in the list.</summary>
-        int Count() const { return size(); }
+        int Count() const { return this->size(); }
 
         /// <summary>Adds an object to the end of the list.</summary>
-        void Add(const T& item) { push_back(item); }
+        void Add(const T& item) { this->push_back(item); }
 
         /// <summary>Adds the elements of the specified collection to the end of the list.</summary>
         // TODO void AddRange(const IEnumerable<T>& collection);
 
         /// <summary>Removes all elements from the list.</summary>
-        void Clear() { clear(); }
+        void Clear() { this->clear(); }
 
         /// <summary>Determines whether an element is in the list.</summary>
         bool Contains(const T& item);
@@ -76,7 +76,7 @@ namespace cl
         template <typename Predicate>
         inline int findLastIndex(Predicate match) const
         {
-            return std::distance(begin(), std::find_if(rbegin(), rend(), match).base() - 1);
+            return std::distance(this->begin(), std::find_if(this->rbegin(), this->rend(), match).base() - 1);
         }
 
         /// <summary>Looks for element in List starting at specified index that match predicate condition and returns it index in List.</summary>
@@ -91,21 +91,21 @@ namespace cl
         template <typename Predicate>
         inline T const & findLast(Predicate match) const
         {
-            return *std::find_if(rbegin(), rend(), match);
+            return *std::find_if(this->rbegin(), this->rend(), match);
         }
 
         /// <summary>Returns element in List that matches predicate condition.</summary>
         template <typename Predicate>
         inline T& findLast(Predicate match)
         {
-            return *std::find_if(rbegin(), rend(), match);
+            return *std::find_if(this->rbegin(), this->rend(), match);
         }
 
         /// <summary>Apples action to each element in List.</summary>
         template <typename TAction>
         inline void forEach(TAction action)
         {
-            std::for_each(begin(), end(), action);
+            std::for_each(this->begin(), this->end(), action);
         }
 
         /// <summary>Returns a sublist.</summary>
@@ -143,7 +143,7 @@ namespace cl
         inline int removeAll(Predicate match)
         {
             unsigned int sizeold = this->get().size();
-            std::remove_if(begin(), end(), match);
+            std::remove_if(this->begin(), this->end(), match);
             return sizeold - this->get().size();
         }
 
@@ -151,7 +151,7 @@ namespace cl
         void removeAt(int index)
         {
             assert(this->get().size() > index);
-            this->get().erase(begin() + index);
+            this->get().erase(this->begin() + index);
         }
 
         /// <summary>Removes a range of elements from the List.</summary>
@@ -170,7 +170,7 @@ namespace cl
         template <typename Comparer>
         void sort(int index, int count, Comparer comparer)
         {
-            std::sort(begin() + index, begin() + index + count, comparer);
+            std::sort(this->begin() + index, this->begin() + index + count, comparer);
         }
 
         /// <summary>Copies list elements to an array.</summary>

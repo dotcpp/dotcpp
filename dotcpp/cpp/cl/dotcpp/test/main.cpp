@@ -27,7 +27,7 @@ license from CompatibL and with the inclusion of this copyright notice.
 
 using namespace boost::unit_test_framework;
 
-
+#if defined _MSC_VER
 struct pause
 {
     ~pause()
@@ -37,7 +37,7 @@ struct pause
 };
 
 static pause pause_;
-
+#endif
 
 test_suite* init_unit_test_suite(int, char*[])
 {

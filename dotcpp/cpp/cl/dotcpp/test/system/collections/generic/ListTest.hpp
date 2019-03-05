@@ -43,7 +43,7 @@ namespace cl
             stringList.Add("333");
             BOOST_CHECK(stringList.Count() == 3);
 
-            for each (String str in stringList)
+            for (String str : stringList)
             {
                 std::cout << str << " ";
             }
