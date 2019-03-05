@@ -72,6 +72,13 @@ namespace cl
         /// <summary>Copies range of List elements to array starting at specified index.</summary>
         void copyTo(int index, Array<T>& arr, int arrIndex, int count) const;
 
+        /// <summary>Looks for element in List that matches predicate condition and returns its index.</summary>
+        template <typename Predicate>
+        inline int findLastIndex(Predicate match) const
+        {
+            return std::distance(begin(), std::find_if(rbegin(), rend(), match).base() - 1);
+        }
+
         /// <summary>Looks for element in List starting at specified index that match predicate condition and returns it index in List.</summary>
         template <typename Predicate>
         inline int findLastIndex(int startIndex, Predicate match) const;
@@ -79,6 +86,20 @@ namespace cl
         /// <summary>Looks for element in ranghe of elements in List that match predicate condition and returns it index in List.</summary>
         template <typename Predicate>
         inline int findLastIndex(int startIndex, int count, Predicate match) const;
+
+        /// <summary>Returns element in List that matches predicate condition.</summary>
+        template <typename Predicate>
+        inline T const & findLast(Predicate match) const
+        {
+            return *std::find_if(rbegin(), rend(), match);
+        }
+
+        /// <summary>Returns element in List that matches predicate condition.</summary>
+        template <typename Predicate>
+        inline T& findLast(Predicate match)
+        {
+            return *std::find_if(rbegin(), rend(), match);
+        }
 
         /// <summary>Apples action to each element in List.</summary>
         template <typename TAction>
