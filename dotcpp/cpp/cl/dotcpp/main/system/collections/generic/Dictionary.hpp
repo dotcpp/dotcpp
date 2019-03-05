@@ -44,7 +44,7 @@ namespace cl
         Dictionary() : base() {}
 
         /// <summary>Gets number of elements in dictionary.</summary>
-        int Count() const { return size(); }
+        int Count() const { return this->size(); }
 
         /// <summary>Gets List of keys.</summary>
         inline List<Key> keys()
@@ -89,7 +89,7 @@ namespace cl
         /// <summary>Determines whether the Dictionary contains the specified value.</summary>
         inline bool containsValue(const Type& value) const
         {
-            for (typename map_type<Key, Type>::iterator iter = this->get().begin(); iter != this->get().end(); iter++)
+            for (typename base::iterator iter = this->get().begin(); iter != this->get().end(); iter++)
             {
                 if (iter->second == value)
                 {
@@ -108,7 +108,7 @@ namespace cl
         /// <summary>Gets the value associated with the specified key.</summary>
         inline bool tryGetValue(Key const& key, Type& value)
         {
-            iterator iter = this->get().find(key);
+            typename base::iterator iter = this->get().find(key);
             if (iter != this->get().end())
             {
                 value = iter->second;
