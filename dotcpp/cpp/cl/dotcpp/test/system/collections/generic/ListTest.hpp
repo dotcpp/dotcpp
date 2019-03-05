@@ -38,9 +38,9 @@ namespace cl
         static void iteration()
         {
             List<String> stringList = new_List<String>();
+            stringList->Add("000");
             stringList->Add("111");
             stringList->Add("222");
-            stringList->Add("333");
             BOOST_CHECK(stringList->Count() == 3);
 
             for (String str : stringList)
