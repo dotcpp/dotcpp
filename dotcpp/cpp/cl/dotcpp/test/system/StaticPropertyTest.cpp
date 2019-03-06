@@ -40,14 +40,16 @@ namespace cl
     std::string StaticPropertySample::value_ = "abc";
     StaticProperty<std::string> StaticPropertySample::Value = StaticProperty<std::string>(StaticPropertySample::getValue, StaticPropertySample::setValue);
 
-    void StaticPropertyTest::Test()
+    /// <summary>Smoke test.</summary>
+    void StaticPropertyTest::SmokeTest()
     {
     }
 
-    test_suite* StaticPropertyTest::StaticPropertyTestSuite()
+    /// <summary>Includes all test methods in this class.</summary>
+    test_suite* StaticPropertyTest::GetTestSuite()
     {
-        test_suite* suite = BOOST_TEST_SUITE("StaticPropertyTestSuite");
-        suite->add(BOOST_TEST_CASE(&StaticPropertyTest::Test));
+        test_suite* suite = BOOST_TEST_SUITE("StaticPropertyTest");
+        suite->add(BOOST_TEST_CASE(&StaticPropertyTest::SmokeTest));
         return suite;
     }
 }

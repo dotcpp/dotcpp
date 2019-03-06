@@ -28,28 +28,37 @@ namespace cl
 {
     class PropertySample
     {
-        std::string value_ = "abc";
+        std::string value_;
+
+    private: // METHODS
+
+        /// <summary>Method used for property get.</summary>
         static std::string getValue(PropertySample& obj) { return obj.value_; }
+
+        /// <summary>Method used for property set.</summary>
         static void setValue(PropertySample& obj, const std::string& value) { obj.value_ = value; }
 
-    public:
+    public: // METHOD
+
         /// <summary>Test property.</summary>
         Property<PropertySample, std::string> Value = Property<PropertySample, std::string>(*this, getValue, setValue);
     };
 
-
-    void PropertyTest::Test()
+    /// <summary>Smoke test.</summary>
+    void PropertyTest::SmokeTest()
     {
         PropertySample sample;
+        sample.Value = "abc";
         std::string v1 = sample.Value;
         sample.Value = "def";
         std::string v2 = sample.Value;
     }
 
-    test_suite* PropertyTest::PropertyTestSuite()
+    /// <summary>Includes all test methods in this class.</summary>
+    test_suite* PropertyTest::GetTestSuite()
     {
-        test_suite* suite = BOOST_TEST_SUITE("PropertyTestSuite");
-        suite->add(BOOST_TEST_CASE(&PropertyTest::Test));
+        test_suite* suite = BOOST_TEST_SUITE("PropertyTest");
+        suite->add(BOOST_TEST_CASE(&PropertyTest::SmokeTest));
         return suite;
     }
 }

@@ -7,25 +7,19 @@ license from CompatibL and with the inclusion of this copyright notice.
 */
 
 #include <cl/dotcpp/test/implement.hpp>
-
-//#include <cl/dotcpp/test/system/collections/generic/DictionaryTest.hpp>
-//#include <cl/dotcpp/test/system/collections/generic/HashSetTest.hpp>
-#include <cl/dotcpp/test/system/collections/generic/ListTest.hpp>
-//#include <cl/dotcpp/test/system/collections/generic/QueueTest.hpp>
-//#include <cl/dotcpp/test/system/collections/generic/SortedDictionaryTest.hpp>
-//#include <cl/dotcpp/test/system/collections/generic/SortedListTest.hpp>
-//#include <cl/dotcpp/test/system/collections/generic/SortedSetTest.hpp>
-//#include <cl/dotcpp/test/system/collections/generic/StackTest.hpp>
-
+#include <boost/test/unit_test.hpp>
+#include <boost/test/impl/unit_test_main.ipp>
 #include <cl/dotcpp/test/system/DoubleTest.hpp>
 #include <cl/dotcpp/test/system/ObjectTest.hpp>
 #include <cl/dotcpp/test/system/PtrTest.hpp>
 #include <cl/dotcpp/test/system/StringTest.hpp>
+#include <cl/dotcpp/test/system/collections/generic/ListTest.hpp>
+#include <cl/dotcpp/test/system/PropertyTest.hpp>
+#include <cl/dotcpp/test/system/ReadOnlyPropertyTest.hpp>
+#include <cl/dotcpp/test/system/StaticPropertyTest.hpp>
+#include <cl/dotcpp/test/system/ReadOnlyStaticPropertyTest.hpp>
 
-#include <boost/test/unit_test.hpp>
-#include <boost/test/impl/unit_test_main.ipp>
-
-using namespace boost::unit_test_framework;
+// using namespace boost::unit_test_framework;
 
 #if defined _MSC_VER
 struct pause
@@ -41,18 +35,22 @@ static pause pause_;
 
 test_suite* init_unit_test_suite(int, char*[])
 {
-    std::string header =
-        "Testing Cl.DotCpp";
+    std::string header = "Cl.DotCpp.Test";
     std::string rule = std::string(35, '=');
 
     BOOST_TEST_MESSAGE(rule);
     BOOST_TEST_MESSAGE(header);
     BOOST_TEST_MESSAGE(rule);
-    test_suite* test = BOOST_TEST_SUITE("Cl DotCpp test suite");
+    test_suite* allTests = BOOST_TEST_SUITE(header);
 
-    test->add(cl::ListTest::ListTestSuite());
-    test->add(cl::DoubleTest::DoubleTestSuite());
+    allTests->add(cl::ListTest::ListTestSuite());
+    allTests->add(cl::DoubleTest::DoubleTestSuite());
+    allTests->add(cl::PropertyTest::GetTestSuite());
+    allTests->add(cl::ReadOnlyPropertyTest::GetTestSuite());
+    allTests->add(cl::StaticPropertyTest::GetTestSuite());
+    allTests->add(cl::ReadOnlyStaticPropertyTest::GetTestSuite());
 
-    return test;
+
+    return allTests;
 }
 

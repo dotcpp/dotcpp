@@ -34,14 +34,15 @@ using namespace boost::unit_test_framework;
 
 namespace cl
 {
-    /// <summary>Read only property test.</summary>
+    /// <summary>Test for ReadOnlyProperty.</summary>
     class CL_DOTCPP_TEST ReadOnlyPropertyTest
     {
     public: // METHODS
 
-        /// <summary>Run test.</summary>
-        static void Test();
+        /// <summary>Smoke test.</summary>
+        static void SmokeTest();
 
-        static test_suite* ReadOnlyPropertyTestSuite();
+        /// <summary>Includes all test methods in this class.</summary>
+        static test_suite* GetTestSuite();
     };
 }

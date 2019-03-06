@@ -39,14 +39,16 @@ namespace cl
     std::string ReadOnlyStaticPropertySample::value_ = "abc";
     ReadOnlyStaticProperty<std::string> ReadOnlyStaticPropertySample::Value = ReadOnlyStaticProperty<std::string>(ReadOnlyStaticPropertySample::getValue);
 
-    void ReadOnlyStaticPropertyTest::Test()
+    /// <summary>Smoke test.</summary>
+    void ReadOnlyStaticPropertyTest::SmokeTest()
     {
     }
 
-    test_suite* ReadOnlyStaticPropertyTest::ReadOnlyStaticPropertyTestSuite()
+    /// <summary>Includes all test methods in this class.</summary>
+    test_suite* ReadOnlyStaticPropertyTest::GetTestSuite()
     {
-        test_suite* suite = BOOST_TEST_SUITE("ReadOnlyStaticPropertyTestSuite");
-        suite->add(BOOST_TEST_CASE(&ReadOnlyStaticPropertyTest::Test));
+        test_suite* suite = BOOST_TEST_SUITE("ReadOnlyStaticPropertyTest");
+        suite->add(BOOST_TEST_CASE(&ReadOnlyStaticPropertyTest::SmokeTest));
         return suite;
     }
 }

@@ -36,14 +36,16 @@ namespace cl
         ReadOnlyProperty<ReadOnlyPropertySample, std::string> Value = ReadOnlyProperty<ReadOnlyPropertySample, std::string>(*this, getValue);
     };
 
-    void ReadOnlyPropertyTest::Test()
+    /// <summary>Smoke test.</summary>
+    void ReadOnlyPropertyTest::SmokeTest()
     {
     }
 
-    test_suite* ReadOnlyPropertyTest::ReadOnlyPropertyTestSuite()
+    /// <summary>Includes all test methods in this class.</summary>
+    test_suite* ReadOnlyPropertyTest::GetTestSuite()
     {
-        test_suite* suite = BOOST_TEST_SUITE("ReadOnlyPropertyTestSuite");
-        suite->add(BOOST_TEST_CASE(&ReadOnlyPropertyTest::Test));
+        test_suite* suite = BOOST_TEST_SUITE("ReadOnlyPropertyTest");
+        suite->add(BOOST_TEST_CASE(&ReadOnlyPropertyTest::SmokeTest));
         return suite;
     }
 }
