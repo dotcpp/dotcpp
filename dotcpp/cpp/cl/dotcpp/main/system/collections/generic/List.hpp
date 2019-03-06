@@ -58,7 +58,10 @@ namespace cl
     public: // METHODS
 
         /// <summary>The number of elements contained in the list.</summary>
-        int Count() const { return this->size(); }
+        PROPERTY(ListImpl, int, Count, { return this->size(); })
+
+        /// <summary>The total number of elements the internal data structure can hold without resizing.</summary>
+        PROPERTY(ListImpl, int, Capacity, { return this->capacity(); }, { this->reserve(value); });
 
         /// <summary>Adds an object to the end of the list.</summary>
         void Add(const T& item) { this->push_back(item); }
