@@ -21,8 +21,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_main_Ptr_hpp
-#define cl_dotcpp_main_Ptr_hpp
+#pragma once
 
 #include <cl/dotcpp/main/declare.hpp>
 
@@ -30,31 +29,59 @@ namespace cl
 {
     class Null;
 
-    /// <summary>Reference counted smart pointer based on std::shared_ptr
+    /// <summary>
+    /// Reference counted smart pointer based on std::shared_ptr
     /// with emulation of selected features of .NET references including
-    /// type conversion using 'is' and 'as'.</summary>
+    /// type conversion using 'is' and 'as'.
+    /// </summary>
     template <class T>
     class Ptr
     {
         template<class R> friend class Ptr;
         std::shared_ptr<T> ptr_;
 
+        typedef T element_type;
+        typedef std::shared_ptr<T> pointer_type;
+
     public: // CONSTRUCTORS
 
-        /// <summary>Take ownership of raw pointer to template argument type.\\
-        /// This also permits construction from null pointer.</summary>
+        /// <summary>
+        /// Take ownership of raw pointer to template argument type.
+        /// This also permits construction from null pointer.
+        /// </summary>
         Ptr() {}
 
-        /// <summary>Take ownership of raw pointer to template argument type.\\
-        /// This also permits construction from null pointer.</summary>
+        /// <summary>
+        /// Take ownership of raw pointer to template argument type.
+        /// This also permits construction from null pointer.
+        /// </summary>
         Ptr(T* ptr);
 
-        /// <summary>Create from pointer to template argument base type.\\
-        /// Shares reference count with argument.</summary>
+        /// <summary>
+        /// Create from pointer to template argument base type.
+        /// Shares reference count with argument.
+        /// </summary>
         template <class R> Ptr(const Ptr<R>& rhs);
 
         /// <summary>Copy constructor. Shares reference count with argument.</summary>
         Ptr(const Ptr<T>& rhs);
+
+        /// <summary>Create from shared_ptr. Shares reference count with argument.</summary>
+        Ptr(const pointer_type& ptr);
+
+    public: // METHODS
+
+        /// <summary>Dynamic cast to type R, returns 0 if the cast fails.</summary>
+        template <typename R>
+        R as() const;
+
+        /// <summary>Dynamic cast to type R, throws exception if the cast fails.</summary>
+        template <typename R>
+        R cast() const;
+
+        /// <summary>Returns true if pointer holds object of type R, and false otherwise.</summary>
+        template <typename R>
+        bool is() const;
 
     public: // OPERATORS
 
@@ -75,28 +102,37 @@ namespace cl
         /// <summary>Supports ptr != nullptr.</summary>
         bool operator!=(Null* rhs) const;
 
-        /// <summary>Take ownership of raw pointer to template argument type.\\
-        /// This also permits assignment of pointer to type derived from T.</summary>
+        /// <summary>
+        /// Take ownership of raw pointer to template argument type.
+        /// This also permits assignment of pointer to type derived from T.
+        /// </summary>
         Ptr<T>& operator=(T* rhs);
 
-        /// <summary>Assign pointer to template argument base type.
-        /// Shares reference count with argument.</summary>
+        /// <summary>
+        /// Assign pointer to template argument base type.
+        /// Shares reference count with argument.
+        /// </summary>
         template <class R> Ptr<T>& operator=(const Ptr<R>& rhs);
 
-        /// <summary>Assign pointer of the same type.\\
-        /// Shares reference count with argument.</summary>
+        /// <summary>
+        /// Assign pointer of the same type.
+        /// Shares reference count with argument.
+        /// </summary>
         Ptr<T>& operator=(const Ptr<T>& rhs);
 
         /// <summary>Const indexer operator for arrays.</summary>
         decltype(auto) operator[](int i) const;
 
-        /// <summary>Non-const ndexer operator for arrays.</summary>
+        /// <summary>Non-const indexer operator for arrays.</summary>
         decltype(auto) operator[](int i);
     };
 
     template <class T> Ptr<T>::Ptr(T* ptr) : ptr_(ptr) {}
     template <class T> template <class R> Ptr<T>::Ptr(const Ptr<R>& rhs) : ptr_(rhs.ptr_) {}
     template <class T> Ptr<T>::Ptr(const Ptr<T>& rhs) : ptr_(rhs.ptr_) {}
+    template <class T> Ptr<T>::Ptr(const pointer_type & ptr) : ptr_(ptr) {}
+    template <typename T> template <typename R> R Ptr<T>::as() const { return std::dynamic_pointer_cast<typename R::element_type>(ptr_); }
+    template <typename T> template <typename R> bool Ptr<T>::is() const { if (!ptr_) return false; return typeid(*ptr_) == typeid(R::element_type); }
     template <class T> T* Ptr<T>::operator->() const { T* p = ptr_.get(); if (!p) throw std::runtime_error("Pointer is not initialized"); return p; }
     template <class T> bool Ptr<T>::operator==(const Ptr<T>& rhs) const { return ptr_ == rhs.ptr_; }
     template <class T> bool Ptr<T>::operator!=(const Ptr<T>& rhs) const { return ptr_ != rhs.ptr_; }
@@ -107,6 +143,16 @@ namespace cl
     template <class T> Ptr<T>& Ptr<T>::operator=(const Ptr<T>& rhs) { ptr_ = rhs.ptr_; return *this; }
     template <class T> decltype(auto) Ptr<T>::operator[](int i) const { return (*ptr_)[i]; }
     template <class T> decltype(auto) Ptr<T>::operator[](int i) { return (*ptr_)[i]; }
+
+    template <typename T> 
+    template <typename R> 
+    R Ptr<T>::cast() const 
+    {
+        typename R::pointer_type ret = std::dynamic_pointer_cast<typename R::element_type>(ptr_);
+        if (ret) 
+            return ret;
+        else 
+            throw std::runtime_error("Cast cannot be performed.");
+    }
 }
 
-#endif  // cl_dotcpp_main_Ptr_hpp

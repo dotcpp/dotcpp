@@ -42,6 +42,9 @@ namespace cl
         /// <summary>Test inheriance support in pointer.</summary>
         static void Inheritance();
 
-        static test_suite* PtrTestSuite();
+        /// <summary>Test dynamic casts.</summary>
+        static void Cast();
+
+        static test_suite* GetTestSuite();
     };
 }

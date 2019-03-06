@@ -26,14 +26,91 @@ limitations under the License.
 
 namespace cl
 {
+    class BaseImpl
+    {
+    public:
+
+        virtual ~BaseImpl() {}
+
+        virtual std::string foo()
+        {
+            return "Base";
+        }
+    };
+
+    using Base = Ptr<BaseImpl>;
+    Base new_Base() { return new BaseImpl; }
+
+    class DerivedImpl : public BaseImpl
+    {
+    public:
+        virtual ~DerivedImpl() {}
+
+        virtual std::string foo()
+        {
+            return "Derived";
+        }
+
+    };
+
+    using Derived = Ptr<DerivedImpl>;
+    Derived new_Derived() { return new DerivedImpl; }
+
     void PtrTest::Inheritance()
     {
+        Base b = new_Base();
+        BOOST_CHECK(b->foo() == "Base");
+
+        // Check assignment operator
+        b = new_Derived();
+        BOOST_CHECK(b->foo() == "Derived");
+
+        // Check ctor from derived
+        Base d = new_Derived();
+        BOOST_CHECK(d->foo() == "Derived");
     }
 
-    test_suite* PtrTest::PtrTestSuite()
+    void PtrTest::Cast()
     {
-        test_suite* suite = BOOST_TEST_SUITE("Ptr test");
+        Base b = new_Base();
+
+        BOOST_CHECK(b.is<Base>() == true);
+        BOOST_CHECK(b.is<Derived>() == false);
+
+        BOOST_CHECK(b.as<Base>() != nullptr);
+        BOOST_CHECK(b.as<Derived>() == nullptr);
+
+        BOOST_CHECK(b.cast<Base>() != nullptr);
+        BOOST_CHECK_THROW(b.cast<Derived>(), std::runtime_error);
+
+        Base bd = new_Derived();
+
+        BOOST_CHECK(bd.is<Base>() == false);
+        BOOST_CHECK(bd.is<Derived>() == true);
+
+        BOOST_CHECK(bd.as<Base>() != nullptr);
+        BOOST_CHECK(bd.as<Derived>() != nullptr);
+
+        BOOST_CHECK(bd.cast<Base>() != nullptr);
+        BOOST_CHECK(bd.cast<Derived>() != nullptr);
+
+        Derived d = new_Derived();
+
+        BOOST_CHECK(d.is<Base>() == false);
+        BOOST_CHECK(d.is<Derived>() == true);
+
+        BOOST_CHECK(d.as<Base>() != nullptr);
+        BOOST_CHECK(d.as<Derived>() != nullptr);
+
+        BOOST_CHECK(d.cast<Base>() != nullptr);
+        BOOST_CHECK(d.cast<Derived>() != nullptr);
+    }
+
+    test_suite* PtrTest::GetTestSuite()
+    {
+        test_suite* suite = BOOST_TEST_SUITE("PtrTest");
         suite->add(BOOST_TEST_CASE(&PtrTest::Inheritance));
+        suite->add(BOOST_TEST_CASE(&PtrTest::Cast));
         return suite;
     }
 }

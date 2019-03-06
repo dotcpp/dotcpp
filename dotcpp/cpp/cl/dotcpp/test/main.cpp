@@ -49,6 +49,7 @@ test_suite* init_unit_test_suite(int, char*[])
     allTests->add(cl::ReadOnlyPropertyTest::GetTestSuite());
     allTests->add(cl::StaticPropertyTest::GetTestSuite());
     allTests->add(cl::ReadOnlyStaticPropertyTest::GetTestSuite());
+    allTests->add(cl::PtrTest::GetTestSuite());
 
 
     return allTests;
