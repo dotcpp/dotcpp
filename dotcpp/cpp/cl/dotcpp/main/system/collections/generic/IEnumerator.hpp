@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (C) 2003-present CompatibL
 
 This file is part of .C++, a native C++ implementation of
@@ -21,216 +21,43 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_main_IEnumerator_hpp
-#define cl_dotcpp_main_IEnumerator_hpp
+#pragma once
 
-#include <cl/dotcpp/main/declare.hpp>
+#include <cl/dotcpp/main/system/Ptr.hpp>
 
 namespace cl
 {
-    namespace detail {
+    template <class T> class IEnumeratorImpl; template <class T> using IEnumerator = Ptr<IEnumeratorImpl<T>>;
 
-        template <typename T>
-        struct std_iterator_base
-        {
-            virtual std_iterator_base& operator++ () = 0;
-
-            virtual std::unique_ptr<std_iterator_base> operator++ (int)
-            {
-                std::unique_ptr<std_iterator_base> old(this->copy());
-                this->operator ++();
-                return old;
-            }
-
-            virtual std::unique_ptr<std_iterator_base> copy() = 0;
-
-            virtual std::reference_wrapper<T>
-                get() = 0;
-
-            virtual std::reference_wrapper<T> const
-                get() const = 0;
-
-            inline bool
-            operator == (std_iterator_base<T> const& iter)
-            {
-                return this->compare(iter) == 0;
-            }
-
-            inline bool
-            operator > (std_iterator_base<T> const& iter)
-            {
-                return this->compare(iter) > 0;
-            }
-
-            inline bool
-            operator < (std_iterator_base<T> const& iter)
-            {
-                return this->compare(iter) < 0;
-            }
-        private:
-            /// this is actually similar compare string if equals = 0
-            /// if this < cmp -> rslt < 0 : this > cmp -> rslt > 0
-            virtual int compare(std_iterator_base<T> const&, bool only_equals = true) = 0;
-        };
-
-        template <typename Iterator>
-        struct std_iterator;
-
-        template <typename Iterator>
-        inline std::unique_ptr<std_iterator_base<typename std_iterator<Iterator>::value_type > >
-            make_iterator(Iterator const& iter);
-
-        template <typename Iterator>
-        struct std_iterator : std_iterator_base<
-                                typename std::remove_reference<decltype(Iterator(). operator*()) >::type
-                            >
-        {
-            typedef typename
-                std::remove_reference<decltype(Iterator(). operator*()) >::type value_type;
-
-            typedef std_iterator_base<value_type> base;
-
-            std_iterator(Iterator const& iter)
-                : iter_(iter)
-            {   }
-
-            virtual base& operator++ ()  {
-                ++iter_;
-                return *this;
-            }
-
-            virtual std::unique_ptr<base> copy()
-            {
-                std::unique_ptr<base> old(make_iterator(iter_));
-                return old;
-            }
-
-            virtual std::reference_wrapper<value_type>
-            get()
-            {
-                return std::reference_wrapper<value_type >(*iter_);
-            }
-
-            virtual std::reference_wrapper<value_type> const
-            get() const
-            {
-                return std::reference_wrapper<value_type >(*iter_);
-            }
-
-            virtual int compare(std_iterator_base<value_type> const& cmp, bool only_equals = true)
-            {
-                // TODO CHECK_TYPE_CAST(std_iterator<Iterator> const&, cmp);
-                Iterator const& oth = static_cast<std_iterator<Iterator> const&>(cmp).iter_;
-                return only_equals ?
-                    (int)!(oth == this->iter_) : (false/*iter_ > oth*/ ? 1 : -((int)(oth == this->iter_)));
-            }
-
-            Iterator iter_;
-        };
-
-        template <typename Iterator>
-        inline std::unique_ptr<std_iterator_base<typename std_iterator<Iterator>::value_type > >
-        make_iterator(Iterator const& iter)
-        {
-            typedef std::unique_ptr<std_iterator_base<typename std_iterator<Iterator>::value_type > > return_type;
-            return return_type(new std_iterator<Iterator>(iter));
-        }
-    }
-
-    class TBool {};
-
+    /// <summary>
     /// Supports a simple iteration over a generic collection.
-    template <class T>
-    class IEnumerator
-        : std::random_access_iterator_tag
+    /// </summary>
+    template <typename T>
+    class IEnumeratorImpl
     {
     public: // METHODS
-        typedef std::unique_ptr<detail::std_iterator_base<T > > iterator_type;
 
-        // should be null
-        IEnumerator() = default;
+        /// <summary>
+        /// Gets the element in the collection at the current position of the enumerator (const version).</summary>
+        virtual const T& getCurrent() const = 0;
 
-        //!! Explicit constructor to converible from any other
-        template <typename Iterator>
-        explicit IEnumerator(Iterator const& iter)
-            : iterator_(detail::make_iterator(iter))
-        {   }
+        /// <summary>
+        /// Gets the element in the collection at the current position of the enumerator (non-const version).
+        /// </summary>
+        virtual T& getCurrent() = 0;
 
-        /// Gets the element in the collection at the current position of the enumerator.
-        /// TODO can be reference
-        std::reference_wrapper<T> current()
-        {
-            return iterator_->get();
-        }
-
-        /// Advances the enumerator to the next element of the collection.\\
+        /// <summary>
+        /// Advances the enumerator to the next element of the collection.
+        ///
         /// Returns true if the enumerator was successfully advanced to the next element;
         /// false if the enumerator has passed the end of the collection.
-        TBool moveNext()
-        {
-            return TBool();
-        }
+        /// </summary>
+        virtual bool MoveNext() = 0;
 
-        /// Sets the enumerator to its initial position, which is before the first element in the collection.
-        void reset()
-        {}
-
-        inline IEnumerator<T>& operator ++()
-        {
-            ++(*iterator_);
-            return *this;
-        }
-
-        inline IEnumerator<T> operator ++(int)
-        {
-            IEnumerator<T> old(iterator_->copy());
-            this->operator ++();
-            return old;
-        }
-
-        std::reference_wrapper<T> operator*()
-        {
-            return iterator_->get();
-        }
-
-        std::reference_wrapper<T> const operator*() const
-        {
-            return iterator_->get();
-        }
-
-    public:
-        ///
-        inline bool
-        compare(cl::IEnumerator<T> const& c) const
-        {
-            // we should compare
-            if (iterator_ && c.iterator_)
-                return (*iterator_.get() == *c.iterator_.get());
-
-            // TODO if both is null return true
-            if (!iterator_ && !c.iterator_)
-                return true;
-
-            return false;
-        }
-
-    private:
-        std::unique_ptr<detail::std_iterator_base<T > > iterator_;
+        /// <summary>
+        /// Sets the enumerator to its initial position, which is
+        /// before the first element in the collection.
+        /// </summary>
+        virtual void Reset() = 0;
     };
-
-    template <typename Type>
-    inline bool operator == (cl::IEnumerator<Type> const& left
-        , cl::IEnumerator<Type> const& right)
-    {
-        return left.compare(right);
-    }
-
-    template <typename Type>
-    inline bool operator != (cl::IEnumerator<Type> const& left
-        , cl::IEnumerator<Type> const& right)
-    {
-        return !(left == right);
-    }
 }
-
-#endif // cl_dotcpp_main_IEnumerator_hpp

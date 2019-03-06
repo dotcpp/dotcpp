@@ -41,7 +41,7 @@ namespace cl
             stringList->Add("000");
             stringList->Add("111");
             stringList->Add("222");
-            BOOST_CHECK(stringList->Count == 3);
+            BOOST_CHECK(stringList->getCount() == 3);
 
             for (String str : stringList)
             {
@@ -62,7 +62,7 @@ namespace cl
             stringList->Add("222");
             stringList->Add("333");
             stringList->Add("444");
-            BOOST_CHECK(stringList->Count == 5);
+            BOOST_CHECK(stringList->getCount() == 5);
 
             // TODO stringList.findLast([](std::string const& s) { return s == "222"; }) = "57";
 
@@ -74,10 +74,10 @@ namespace cl
             List<String> stringList = new_List<String>();
             stringList->Add("111");
             stringList->Add("222");
-            BOOST_CHECK(stringList->Count == 2);
+            BOOST_CHECK(stringList->getCount() == 2);
             stringList->Add("222");
             stringList->Add("333");
-            BOOST_CHECK(stringList->Count == 4);
+            BOOST_CHECK(stringList->getCount() == 4);
 
             // TODO BOOST_CHECK(stringList.findLastIndex([](std::string const& s) { return s == "111"; }) == 0);
         }

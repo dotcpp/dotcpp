@@ -23,25 +23,24 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/system/Ptr.hpp>
-#include <cl/dotcpp/main/system/collections/generic/IEnumerator.hpp>
-
-#include <deque>
+#include <cl/dotcpp/main/system/collections/generic/ICollection.hpp>
 
 namespace cl
 {
-    template <class T> class IEnumerableImpl; template <class T> using IEnumerable = Ptr<IEnumerableImpl<T>>;
-    template <class T> class IEnumeratorImpl; template <class T> using IEnumerator = Ptr<IEnumeratorImpl<T>>;
+    template <class T> class IListImpl; template <class T> using IList = Ptr<IListImpl<T>>;
 
     /// <summary>
-    /// Exposes the enumerator, which supports a simple iteration over a collection of a specified type.
+    /// Represents a collection of objects that can be individually accessed by index.
     /// </summary>
     template <typename T>
-    class IEnumerableImpl
+    class IListImpl : ICollectionImpl<T>
     {
-    public: // METHODS
+    public: // OPERATORS
 
-        /// <summary>Returns an enumerator that iterates through the collection.</summary>
-        virtual IEnumerator<T> GetEnumerator() = 0;
+        /// <summary>Gets or sets the element at the specified index (const version).</summary>
+        virtual const T& operator[](int i) const = 0;
+
+        /// <summary>Gets or sets the element at the specified index (non-const version).</summary>
+        virtual T& operator[](int i) = 0;
     };
 }

@@ -23,10 +23,7 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/system/Ptr.hpp>
-#include <cl/dotcpp/main/system/collections/generic/ICollection.hpp>
-#include <cl/dotcpp/main/system/collections/generic/IEnumerable.hpp>
-#include <cl/dotcpp/main/system/collections/generic/IEnumerator.hpp>
+#include <cl/dotcpp/main/system/collections/generic/IList.hpp>
 
 #include <deque>
 
@@ -39,7 +36,7 @@ namespace cl
     /// Provides methods to search, sort, and manipulate lists.
     /// </summary>
     template <typename T>
-    class ListImpl : public std::vector<T>
+    class ListImpl : public IListImpl<T>, public std::vector<T>
     {
         typedef std::vector<T> base;
 
@@ -53,27 +50,38 @@ namespace cl
         ///
         /// This constructor is private. Use new_List() function instead.
         /// </summary>
-        ListImpl() : base() {}
+        ListImpl() {}
 
     public: // METHODS
 
-        /// <summary>The number of elements contained in the list.</summary>
-        PROPERTY(ListImpl, int, Count, { return this->size(); })
+        /// <summary>Returns an enumerator that iterates through the collection.</summary>
+        virtual IEnumerator<T> GetEnumerator() { return nullptr; } // TODO - implement
+
+        /// <summary>The number of items contained in the list.</summary>
+        virtual int getCount() { return this->size(); }
 
         /// <summary>The total number of elements the internal data structure can hold without resizing.</summary>
         PROPERTY(ListImpl, int, Capacity, { return this->capacity(); }, { this->reserve(value); });
 
         /// <summary>Adds an object to the end of the list.</summary>
-        void Add(const T& item) { this->push_back(item); }
+        virtual void Add(const T& item) { this->push_back(item); }
 
         /// <summary>Adds the elements of the specified collection to the end of the list.</summary>
         // TODO void AddRange(const IEnumerable<T>& collection);
 
         /// <summary>Removes all elements from the list.</summary>
-        void Clear() { this->clear(); }
+        virtual void Clear() { this->clear(); }
 
         /// <summary>Determines whether an element is in the list.</summary>
-        bool Contains(const T& item);
+        virtual bool Contains(const T& item) { return false; } // TODO - implement
+
+    public: // OPERATORS
+
+        /// <summary>Gets or sets the element at the specified index (const version).</summary>
+        virtual const T& operator[](int i) const { return base::operator[](i); }
+
+        /// <summary>Gets or sets the element at the specified index (non-const version).</summary>
+        virtual T& operator[](int i) { return base::operator[](i); }
 
         /*
 

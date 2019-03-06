@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (C) 2003-present CompatibL
 
 This file is part of .C++, a native C++ implementation of
@@ -21,32 +21,32 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_main_ICollection_hpp
-#define cl_dotcpp_main_ICollection_hpp
+#pragma once
 
-#include <cl/dotcpp/main/declare.hpp>
 #include <cl/dotcpp/main/system/collections/generic/IEnumerable.hpp>
 
 namespace cl
 {
-    template <class T> class Array;
+    template <class T> class ICollectionImpl; template <class T> using ICollection = Ptr<ICollectionImpl<T>>;
 
-    /// <summary>Generic collection interface.</summary>
-    template <class T>
-    class ICollection : public IEnumerable<T>
+    /// <summary>
+    /// Defines methods to manipulate generic collections.
+    /// </summary>
+    template <typename T>
+    class ICollectionImpl : public IEnumerableImpl<T>
     {
     public: // METHODS
 
-        /// <summary>(ICollection) Number of elements contained in the collection.</summary>
-        virtual int count() = 0;
+        /// <summary>The number of items contained in the list.</summary>
+        virtual int getCount() = 0;
 
-        /// <summary>(ICollection) Copies the elements of the ICollection(T)
-        /// to a Array, starting at the specified Array index.</summary>
-        virtual void copyTo(Array<T> array, int arrayIndex) = 0;
+        /// <summary>Adds an item to the end of the lisIt.</summary>
+        virtual void Add(const T& item) = 0;
 
-    protected:
-        ICollection() = default;
+        /// <summary>Removes all items from the list.</summary>
+        virtual void Clear() = 0;
+
+        /// <summary>Determines whether the list contains a specific value.</summary>
+        virtual bool Contains(const T& item) = 0;
     };
 }
-
-#endif // cl_dotcpp_main_ICollection_hpp
