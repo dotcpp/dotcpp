@@ -2,7 +2,7 @@
 Copyright (C) 2003-present CompatibL
 
 This file is part of .C++, a native C++ implementation of
-popular .NET class library APIs developed to faciliate
+popular .NET class library APIs developed to facilitate
 code reuse between C# and C++.
 
     http://github.com/dotcpp/dotcpp (source)
