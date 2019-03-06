@@ -59,4 +59,7 @@ limitations under the License.
 #include <iomanip>
 #include <algorithm>
 
+// DotCpp detail includes
+#include <cl/dotcpp/main/detail/property.hpp>
+
 #endif // cl_dotcpp_main_import_hpp
