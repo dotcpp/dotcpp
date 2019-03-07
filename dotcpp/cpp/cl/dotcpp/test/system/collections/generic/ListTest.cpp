@@ -23,6 +23,7 @@ limitations under the License.
 
 #include <cl/dotcpp/test/implement.hpp>
 #include <cl/dotcpp/test/system/collections/generic/ListTest.hpp>
+#include <cl/dotcpp/main/system/String.hpp>
 
 namespace cl
 {
@@ -49,11 +50,50 @@ namespace cl
         BOOST_CHECK(b->getCount() == 3);
     }
 
+    void ListTest::Iterators()
+    {
+        List<String> stringList = new_List<String>();
+        stringList->Add("000");
+        stringList->Add("111");
+        stringList->Add("222");
+        BOOST_CHECK(stringList->getCount() == 3);
+
+        int i = 0;
+        for (String str : stringList)
+        {
+            BOOST_CHECK(stringList[i++] == str);
+        }
+    }
+
+    void ListTest::Capacity()
+    {
+        List<String> stringList = new_List<String>();
+        stringList->Capacity = 100;
+        BOOST_CHECK(stringList->Capacity == 100);
+        BOOST_CHECK(stringList->capacity() == 100);
+    }
+
+    void ListTest::Find()
+    {
+        cl::List<String> stringList = new_List<String>();
+        stringList->Add("000");
+        stringList->Add("111");
+        stringList->Add("222");
+        stringList->Add("333");
+        stringList->Add("444");
+
+        // TODO stringList.findLast([](std::string const& s) { return s == "222"; }) = "57";
+        // TODO BOOST_CHECK(stringList.findLastIndex([](std::string const& s) { return s == "111"; }) == 0);
+    }
+
     test_suite* ListTest::GetTestSuite()
     {
         test_suite* suite = BOOST_TEST_SUITE("ListTest");
         suite->add(BOOST_TEST_CASE(&ListTest::Smoke));
         suite->add(BOOST_TEST_CASE(&ListTest::Interfaces));
+        suite->add(BOOST_TEST_CASE(&ListTest::Iterators));
+        suite->add(BOOST_TEST_CASE(&ListTest::Capacity));
+        suite->add(BOOST_TEST_CASE(&ListTest::Find));
         return suite;
     }
 }

@@ -23,12 +23,14 @@ limitations under the License.
 
 #include <cl/dotcpp/test/implement.hpp>
 #include <cl/dotcpp/test/system/DoubleTest.hpp>
+#include <cl/dotcpp/main/system/NullableDouble.hpp>
 
 namespace cl
 {
     void DoubleTest::Smoke()
     {
-        std::cout << "Hello from DoubleTest::Smoke" << std::endl;
+        NullableDouble x;
+        BOOST_CHECK(x.IsEmpty() == true);
     }
 
     boost::unit_test::test_suite* DoubleTest::DoubleTestSuite()

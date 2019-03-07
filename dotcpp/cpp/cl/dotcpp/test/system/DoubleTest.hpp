@@ -26,6 +26,7 @@ limitations under the License.
 #include <cl/dotcpp/test/declare.hpp>
 #include <boost/test/unit_test_suite.hpp>
 #include <boost/test/test_tools.hpp>
+#include <boost/test/unit_test.hpp>
 #include <cl/dotcpp/main/system/Double.hpp>
 
 namespace cl

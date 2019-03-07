@@ -45,81 +45,15 @@ namespace cl
         /// <summary>Test interfaces.</summary>
         static void Interfaces();
 
+        /// <summary>Test iterators.</summary>
+        static void Iterators();
+
+        /// <summary>Test capacity.</summary>
+        static void Capacity();
+
+        /// <summary>Test find methods.</summary>
+        static void Find();
+
         static test_suite* GetTestSuite();
     };
 }
-
-/*
-namespace cl
-{
-    class CL_DOTCPP_TEST ListTest
-    {
-    public:
-
-        static void iteration()
-        {
-            List<String> stringList = new_List<String>();
-            stringList->Add("000");
-            stringList->Add("111");
-            stringList->Add("222");
-            BOOST_CHECK(stringList->getCount() == 3);
-
-            for (String str : stringList)
-            {
-                std::cout << str << " ";
-            }
-            std::cout << std::endl;
-
-            stringList[1] = "555";
-
-            BOOST_CHECK(stringList[1] == "555");
-        }
-
-        static void findLast()
-        {
-            cl::List<String> stringList = new_List<String>();
-            stringList->Add("000");
-            stringList->Add("111");
-            stringList->Add("222");
-            stringList->Add("333");
-            stringList->Add("444");
-            BOOST_CHECK(stringList->getCount() == 5);
-
-            // TODO stringList.findLast([](std::string const& s) { return s == "222"; }) = "57";
-
-            BOOST_CHECK(stringList[3] == "333");
-        }
-
-        static void findLastIndex()
-        {
-            List<String> stringList = new_List<String>();
-            stringList->Add("111");
-            stringList->Add("222");
-            BOOST_CHECK(stringList->getCount() == 2);
-            stringList->Add("222");
-            stringList->Add("333");
-            BOOST_CHECK(stringList->getCount() == 4);
-
-            // TODO BOOST_CHECK(stringList.findLastIndex([](std::string const& s) { return s == "111"; }) == 0);
-        }
-
-        static void capacity()
-        {
-            List<String> stringList = new_List<String>();
-            stringList->Capacity = 100;
-            BOOST_CHECK(stringList->Capacity == 100);
-            BOOST_CHECK(stringList->capacity() == 100);
-        }
-
-        static boost::unit_test::test_suite* ListTestSuite()
-        {
-            boost::unit_test::test_suite* suite = BOOST_TEST_SUITE("ListTest");
-            suite->add(BOOST_TEST_CASE(&ListTest::capacity));
-            suite->add(BOOST_TEST_CASE(&ListTest::iteration));
-            suite->add(BOOST_TEST_CASE(&ListTest::findLast));
-            suite->add(BOOST_TEST_CASE(&ListTest::findLastIndex));
-            return suite;
-        }
-    };
-}
-*/
