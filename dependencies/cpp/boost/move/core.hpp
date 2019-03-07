@@ -16,7 +16,18 @@
 #ifndef BOOST_MOVE_CORE_HPP
 #define BOOST_MOVE_CORE_HPP
 
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 #include <boost/move/detail/config_begin.hpp>
+#include <boost/move/detail/workaround.hpp>
+
+// @cond
 
 //boost_move_no_copy_constructor_or_assign typedef
 //used to detect noncopyable types for other Boost libraries.
@@ -40,19 +51,19 @@
    //
 #endif   //BOOST_NO_CXX11_DELETED_FUNCTIONS
 
+// @endcond
+
 #if defined(BOOST_NO_CXX11_RVALUE_REFERENCES) && !defined(BOOST_MOVE_DOXYGEN_INVOKED)
 
-   #include <boost/move/detail/meta_utils.hpp>
+   #include <boost/move/detail/type_traits.hpp>
+
+   #define BOOST_MOVE_TO_RV_CAST(RV_TYPE, ARG) reinterpret_cast<RV_TYPE>(ARG)
 
    //Move emulation rv breaks standard aliasing rules so add workarounds for some compilers
-   #if defined(__GNUC__) && (__GNUC__ >= 4) && \
-      (\
-         defined(BOOST_GCC) ||   \
-         (defined(BOOST_INTEL) && (BOOST_INTEL_CXX_VERSION >= 1300)) \
-      )
-      #define BOOST_MOVE_ATTRIBUTE_MAY_ALIAS __attribute__((__may_alias__))
+   #if defined(BOOST_GCC) && (BOOST_GCC >= 40400) && (BOOST_GCC < 40500)
+   #define BOOST_RV_ATTRIBUTE_MAY_ALIAS BOOST_MAY_ALIAS
    #else
-      #define BOOST_MOVE_ATTRIBUTE_MAY_ALIAS
+   #define BOOST_RV_ATTRIBUTE_MAY_ALIAS 
    #endif
 
    namespace boost {
@@ -63,9 +74,9 @@
    //
    //////////////////////////////////////////////////////////////////////////////
    template <class T>
-   class rv
+   class BOOST_RV_ATTRIBUTE_MAY_ALIAS rv
       : public ::boost::move_detail::if_c
-         < ::boost::move_detail::is_class_or_union<T>::value
+         < ::boost::move_detail::is_class<T>::value
          , T
          , ::boost::move_detail::nat
          >::type
@@ -74,7 +85,7 @@
       ~rv() throw();
       rv(rv const&);
       void operator=(rv const&);
-   } BOOST_MOVE_ATTRIBUTE_MAY_ALIAS;
+   };
 
 
    //////////////////////////////////////////////////////////////////////////////
@@ -92,6 +103,12 @@
       : integral_constant<bool, ::boost::move_detail::is_rv_impl<T>::value >
    {};
 
+   template <class T>
+   struct is_not_rv
+   {
+      static const bool value = !is_rv<T>::value;
+   };
+
    }  //namespace move_detail {
 
    //////////////////////////////////////////////////////////////////////////////
@@ -103,6 +120,12 @@
    struct has_move_emulation_enabled
       : ::boost::move_detail::has_move_emulation_enabled_impl<T>
    {};
+
+   template<class T>
+   struct has_move_emulation_disabled
+   {
+      static const bool value = !::boost::move_detail::has_move_emulation_enabled_impl<T>::value;
+   };
 
    }  //namespace boost {
 
@@ -124,6 +147,14 @@
 
    #define BOOST_RV_REF_END\
       >& \
+   //
+
+   #define BOOST_RV_REF_BEG_IF_CXX11 \
+      \
+   //
+
+   #define BOOST_RV_REF_END_IF_CXX11 \
+      \
    //
 
    #define BOOST_FWD_REF(TYPE)\
@@ -158,7 +189,7 @@
    namespace move_detail {
 
    template <class Ret, class T>
-   inline typename ::boost::move_detail::enable_if_c
+   BOOST_MOVE_FORCEINLINE typename ::boost::move_detail::enable_if_c
       <  ::boost::move_detail::is_lvalue_reference<Ret>::value ||
         !::boost::has_move_emulation_enabled<T>::value
       , T&>::type
@@ -168,17 +199,17 @@
    }
 
    template <class Ret, class T>
-   inline typename ::boost::move_detail::enable_if_c
+   BOOST_MOVE_FORCEINLINE typename ::boost::move_detail::enable_if_c
       < !::boost::move_detail::is_lvalue_reference<Ret>::value &&
          ::boost::has_move_emulation_enabled<T>::value
       , ::boost::rv<T>&>::type
          move_return(T& x) BOOST_NOEXCEPT
    {
-      return *static_cast< ::boost::rv<T>* >(::boost::move_detail::addressof(x));
+      return *BOOST_MOVE_TO_RV_CAST(::boost::rv<T>*, ::boost::move_detail::addressof(x));
    }
 
    template <class Ret, class T>
-   inline typename ::boost::move_detail::enable_if_c
+   BOOST_MOVE_FORCEINLINE typename ::boost::move_detail::enable_if_c
       < !::boost::move_detail::is_lvalue_reference<Ret>::value &&
          ::boost::has_move_emulation_enabled<T>::value
       , ::boost::rv<T>&>::type
@@ -194,6 +225,10 @@
       boost::move_detail::move_return< RET_TYPE >(REF)
    //
 
+   #define BOOST_MOVE_BASE(BASE_TYPE, ARG) \
+      ::boost::move((BASE_TYPE&)(ARG))
+   //
+
    //////////////////////////////////////////////////////////////////////////////
    //
    //                         BOOST_MOVABLE_BUT_NOT_COPYABLE
@@ -202,10 +237,10 @@
    #define BOOST_MOVABLE_BUT_NOT_COPYABLE(TYPE)\
       BOOST_MOVE_IMPL_NO_COPY_CTOR_OR_ASSIGN(TYPE)\
       public:\
-      operator ::boost::rv<TYPE>&() \
-      {  return *static_cast< ::boost::rv<TYPE>* >(this);  }\
-      operator const ::boost::rv<TYPE>&() const \
-      {  return *static_cast<const ::boost::rv<TYPE>* >(this);  }\
+      BOOST_MOVE_FORCEINLINE operator ::boost::rv<TYPE>&() \
+      {  return *BOOST_MOVE_TO_RV_CAST(::boost::rv<TYPE>*, this);  }\
+      BOOST_MOVE_FORCEINLINE operator const ::boost::rv<TYPE>&() const \
+      {  return *BOOST_MOVE_TO_RV_CAST(const ::boost::rv<TYPE>*, this);  }\
       private:\
    //
 
@@ -217,22 +252,22 @@
 
    #define BOOST_COPYABLE_AND_MOVABLE(TYPE)\
       public:\
-      TYPE& operator=(TYPE &t)\
-      {  this->operator=(static_cast<const ::boost::rv<TYPE> &>(const_cast<const TYPE &>(t))); return *this;}\
+      BOOST_MOVE_FORCEINLINE TYPE& operator=(TYPE &t)\
+      {  this->operator=(const_cast<const TYPE&>(t)); return *this;}\
       public:\
-      operator ::boost::rv<TYPE>&() \
-      {  return *static_cast< ::boost::rv<TYPE>* >(this);  }\
-      operator const ::boost::rv<TYPE>&() const \
-      {  return *static_cast<const ::boost::rv<TYPE>* >(this);  }\
+      BOOST_MOVE_FORCEINLINE operator ::boost::rv<TYPE>&() \
+      {  return *BOOST_MOVE_TO_RV_CAST(::boost::rv<TYPE>*, this);  }\
+      BOOST_MOVE_FORCEINLINE operator const ::boost::rv<TYPE>&() const \
+      {  return *BOOST_MOVE_TO_RV_CAST(const ::boost::rv<TYPE>*, this);  }\
       private:\
    //
 
    #define BOOST_COPYABLE_AND_MOVABLE_ALT(TYPE)\
       public:\
-      operator ::boost::rv<TYPE>&() \
-      {  return *static_cast< ::boost::rv<TYPE>* >(this);  }\
-      operator const ::boost::rv<TYPE>&() const \
-      {  return *static_cast<const ::boost::rv<TYPE>* >(this);  }\
+      BOOST_MOVE_FORCEINLINE operator ::boost::rv<TYPE>&() \
+      {  return *BOOST_MOVE_TO_RV_CAST(::boost::rv<TYPE>*, this);  }\
+      BOOST_MOVE_FORCEINLINE operator const ::boost::rv<TYPE>&() const \
+      {  return *BOOST_MOVE_TO_RV_CAST(const ::boost::rv<TYPE>*, this);  }\
       private:\
    //
 
@@ -251,23 +286,6 @@
 
 #else    //BOOST_NO_CXX11_RVALUE_REFERENCES
 
-   //Compiler workaround detection
-   #if !defined(BOOST_MOVE_DOXYGEN_INVOKED)
-      #if defined(__GNUC__) && (__GNUC__ == 4) && (__GNUC_MINOR__ < 5) && !defined(__clang__)
-         //Pre-standard rvalue binding rules
-         #define BOOST_MOVE_OLD_RVALUE_REF_BINDING_RULES
-      #elif defined(_MSC_VER) && (_MSC_VER == 1600)
-         //Standard rvalue binding rules but with some bugs
-         #define BOOST_MOVE_MSVC_10_MEMBER_RVALUE_REF_BUG
-         #define BOOST_MOVE_MSVC_AUTO_MOVE_RETURN_BUG
-         //Use standard library for MSVC to avoid namespace issues as
-         //some move calls in the STL are not fully qualified.
-         //#define BOOST_MOVE_USE_STANDARD_LIBRARY_MOVE
-      #elif defined(_MSC_VER) && (_MSC_VER == 1700)
-         #define BOOST_MOVE_MSVC_AUTO_MOVE_RETURN_BUG
-      #endif
-   #endif
-
    //! This macro marks a type as movable but not copyable, disabling copy construction
    //! and assignment. The user will need to write a move constructor/assignment as explained
    //! in the documentation to fully write a movable but not copyable class.
@@ -275,6 +293,7 @@
       BOOST_MOVE_IMPL_NO_COPY_CTOR_OR_ASSIGN(TYPE)\
       public:\
       typedef int boost_move_emulation_t;\
+      private:\
    //
 
    //! This macro marks a type as copyable and movable.
@@ -297,6 +316,12 @@
    struct has_move_emulation_enabled
    {
       static const bool value = false;
+   };
+
+   template<class T>
+   struct has_move_emulation_disabled
+   {
+      static const bool value = true;
    };
 
    }  //namespace boost{
@@ -326,6 +351,19 @@
    //!and ended with BOOST_RV_REF_END
    #define BOOST_RV_REF_END\
       && \
+   //
+
+   //!This macro expands to BOOST_RV_REF_BEG if BOOST_NO_CXX11_RVALUE_REFERENCES
+   //!is not defined, empty otherwise
+   #define BOOST_RV_REF_BEG_IF_CXX11 \
+      BOOST_RV_REF_BEG \
+   //
+
+   //!This macro expands to BOOST_RV_REF_END if BOOST_NO_CXX11_RVALUE_REFERENCES
+   //!is not defined, empty otherwise
+   #define BOOST_RV_REF_END_IF_CXX11 \
+      BOOST_RV_REF_END \
+   //
 
    //!This macro is used to achieve portable syntax in copy
    //!assignment for classes marked as BOOST_COPYABLE_AND_MOVABLE.
@@ -369,7 +407,6 @@
       const TYPE & \
    //
 
-
    #endif   //#if !defined(BOOST_MOVE_DOXYGEN_INVOKED)
 
    #if !defined(BOOST_MOVE_MSVC_AUTO_MOVE_RETURN_BUG) || defined(BOOST_MOVE_DOXYGEN_INVOKED)
@@ -406,7 +443,7 @@
       namespace move_detail {
 
       template <class Ret, class T>
-      inline typename ::boost::move_detail::enable_if_c
+      BOOST_MOVE_FORCEINLINE typename ::boost::move_detail::enable_if_c
          <  ::boost::move_detail::is_lvalue_reference<Ret>::value
          , T&>::type
             move_return(T& x) BOOST_NOEXCEPT
@@ -415,7 +452,7 @@
       }
 
       template <class Ret, class T>
-      inline typename ::boost::move_detail::enable_if_c
+      BOOST_MOVE_FORCEINLINE typename ::boost::move_detail::enable_if_c
          < !::boost::move_detail::is_lvalue_reference<Ret>::value
          , Ret && >::type
             move_return(T&& t) BOOST_NOEXCEPT
@@ -431,6 +468,17 @@
       //
 
    #endif   //!defined(BOOST_MOVE_MSVC_AUTO_MOVE_RETURN_BUG) || defined(BOOST_MOVE_DOXYGEN_INVOKED)
+
+   //!This macro is used to achieve portable optimal move constructors.
+   //!
+   //!When implementing the move constructor, in C++03 compilers the moved-from argument must be
+   //!cast to the base type before calling `::boost::move()` due to rvalue reference limitations.
+   //!
+   //!In C++11 compilers the cast from a rvalue reference of a derived type to a rvalue reference of
+   //!a base type is implicit.
+   #define BOOST_MOVE_BASE(BASE_TYPE, ARG) \
+      ::boost::move((BASE_TYPE&)(ARG))
+   //
 
    namespace boost {
    namespace move_detail {

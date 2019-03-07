@@ -11,7 +11,11 @@
 #ifndef BOOST_CONTAINER_THROW_EXCEPTION_HPP
 #define BOOST_CONTAINER_THROW_EXCEPTION_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -20,6 +24,7 @@
 
 #ifndef BOOST_NO_EXCEPTIONS
    #include <stdexcept> //for std exception types
+   #include <string>    //for implicit std::string conversion
    #include <new>       //for std::bad_alloc
 #else
    #include <boost/assert.hpp>
@@ -46,31 +51,41 @@ namespace container {
 
    inline void throw_bad_alloc()
    {
-      BOOST_ASSERT(!"boost::container bad_alloc thrown");
+      const char msg[] = "boost::container bad_alloc thrown";
+      (void)msg;
+      BOOST_ASSERT(!msg);
       std::abort();
    }
 
    inline void throw_out_of_range(const char* str)
    {
-      BOOST_ASSERT_MSG(!"boost::container out_of_range thrown", str);
+      const char msg[] = "boost::container out_of_range thrown";
+      (void)msg; (void)str;
+      BOOST_ASSERT_MSG(!msg, str);
       std::abort();
    }
 
    inline void throw_length_error(const char* str)
    {
-      BOOST_ASSERT_MSG(!"boost::container length_error thrown", str);
+      const char msg[] = "boost::container length_error thrown";
+      (void)msg; (void)str;
+      BOOST_ASSERT_MSG(!msg, str);
       std::abort();
    }
 
    inline void throw_logic_error(const char* str)
    {
-      BOOST_ASSERT_MSG(!"boost::container logic_error thrown", str);
+      const char msg[] = "boost::container logic_error thrown";
+      (void)msg; (void)str;
+      BOOST_ASSERT_MSG(!msg, str);
       std::abort();
    }
 
    inline void throw_runtime_error(const char* str)
    {
-      BOOST_ASSERT_MSG(!"boost::container runtime_error thrown", str);
+      const char msg[] = "boost::container runtime_error thrown";
+      (void)msg; (void)str;
+      BOOST_ASSERT_MSG(!msg, str);
       std::abort();
    }
 

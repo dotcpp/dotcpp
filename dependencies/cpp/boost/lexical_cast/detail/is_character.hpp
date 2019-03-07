@@ -1,6 +1,6 @@
 // Copyright Kevlin Henney, 2000-2005.
 // Copyright Alexander Nasonov, 2006-2010.
-// Copyright Antony Polukhin, 2011-2014.
+// Copyright Antony Polukhin, 2011-2018.
 //
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
@@ -23,6 +23,7 @@
 #   pragma once
 #endif
 
+#include <boost/type_traits/integral_constant.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 namespace boost {
@@ -33,22 +34,23 @@ namespace boost {
         template < typename T >
         struct is_character
         {
-            typedef boost::type_traits::ice_or<
-                    boost::is_same< T, char >::value,
+            typedef BOOST_DEDUCED_TYPENAME boost::integral_constant<
+              bool,
+              boost::is_same< T, char >::value ||
                     #if !defined(BOOST_NO_STRINGSTREAM) && !defined(BOOST_NO_STD_WSTRING)
-                        boost::is_same< T, wchar_t >::value,
+                        boost::is_same< T, wchar_t >::value ||
                     #endif
                     #ifndef BOOST_NO_CXX11_CHAR16_T
-                        boost::is_same< T, char16_t >::value,
+                        boost::is_same< T, char16_t >::value ||
                     #endif
                     #ifndef BOOST_NO_CXX11_CHAR32_T
-                        boost::is_same< T, char32_t >::value,
+                        boost::is_same< T, char32_t >::value ||
                     #endif
-                    boost::is_same< T, unsigned char >::value,
-                    boost::is_same< T, signed char >::value
-            > result_type;
+                   	boost::is_same< T, unsigned char >::value ||
+                   	boost::is_same< T, signed char >::value
+            > type;
 
-            BOOST_STATIC_CONSTANT(bool, value = (result_type::value) );
+            BOOST_STATIC_CONSTANT(bool, value = (type::value) );
         };
     }
 }

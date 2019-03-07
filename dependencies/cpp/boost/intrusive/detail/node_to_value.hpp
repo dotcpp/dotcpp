@@ -13,7 +13,11 @@
 #ifndef BOOST_INTRUSIVE_DETAIL_NODE_TO_VALUE_HPP
 #define BOOST_INTRUSIVE_DETAIL_NODE_TO_VALUE_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -55,7 +59,7 @@ struct constptr
    {}
 
    const void *get_ptr() const
-   {  return boost::intrusive::detail::to_raw_pointer(const_void_ptr_);  }
+   {  return boost::movelib::to_raw_pointer(const_void_ptr_);  }
 
    ConstVoidPtr const_void_ptr_;
 };

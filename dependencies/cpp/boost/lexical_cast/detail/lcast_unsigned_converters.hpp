@@ -1,6 +1,6 @@
 // Copyright Kevlin Henney, 2000-2005.
 // Copyright Alexander Nasonov, 2006-2010.
-// Copyright Antony Polukhin, 2011-2014.
+// Copyright Antony Polukhin, 2011-2018.
 //
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
@@ -29,8 +29,7 @@
 #include <cstring>
 #include <cstdio>
 #include <boost/limits.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/type_traits/ice.hpp>
+#include <boost/type_traits/conditional.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/detail/workaround.hpp>
 
@@ -72,9 +71,9 @@ namespace boost
         template <class Traits, class T, class CharT>
         class lcast_put_unsigned: boost::noncopyable {
             typedef BOOST_DEDUCED_TYPENAME Traits::int_type int_type;
-            BOOST_DEDUCED_TYPENAME boost::mpl::if_c<
-                    (sizeof(int_type) > sizeof(T))
-                    , int_type
+            BOOST_DEDUCED_TYPENAME boost::conditional<
+                    (sizeof(unsigned) > sizeof(T))
+                    , unsigned
                     , T
             >::type         m_value;
             CharT*          m_finish;
@@ -144,7 +143,7 @@ namespace boost
                 int_type const digit = static_cast<int_type>(m_value % 10U);
                 Traits::assign(*m_finish, Traits::to_char_type(m_zero + digit));
                 m_value /= 10;
-                return !!m_value; // supressing warnings
+                return !!m_value; // suppressing warnings
             }
 
             inline CharT* main_convert_loop() BOOST_NOEXCEPT {

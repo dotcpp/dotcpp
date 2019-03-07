@@ -16,7 +16,11 @@
 #ifndef BOOST_CONTAINER_DETAIL_VERSION_TYPE_HPP
 #define BOOST_CONTAINER_DETAIL_VERSION_TYPE_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -28,13 +32,11 @@
 
 namespace boost{
 namespace container {
-namespace container_detail {
-
-//using namespace boost;
+namespace dtl {
 
 template <class T, unsigned V>
 struct version_type
-    : public container_detail::integral_constant<unsigned, V>
+    : public dtl::integral_constant<unsigned, V>
 {
     typedef T type;
 
@@ -44,7 +46,7 @@ struct version_type
 namespace impl{
 
 template <class T,
-          bool = container_detail::is_convertible<version_type<T, 0>, typename T::version>::value>
+          bool = dtl::is_convertible<version_type<T, 0>, typename T::version>::value>
 struct extract_version
 {
    static const unsigned value = 1;
@@ -84,7 +86,7 @@ struct version<T, true>
 
 template <class T>
 struct version
-   : public container_detail::integral_constant<unsigned, impl::version<T>::value>
+   : public dtl::integral_constant<unsigned, impl::version<T>::value>
 {};
 
 template<class T, unsigned N>
@@ -94,7 +96,12 @@ struct is_version
       is_same< typename version<T>::type, integral_constant<unsigned, N> >::value;
 };
 
-}  //namespace container_detail {
+}  //namespace dtl {
+
+typedef dtl::integral_constant<unsigned, 0> version_0;
+typedef dtl::integral_constant<unsigned, 1> version_1;
+typedef dtl::integral_constant<unsigned, 2> version_2;
+
 }  //namespace container {
 }  //namespace boost{
 

@@ -13,7 +13,11 @@
 #ifndef BOOST_INTRUSIVE_DETAIL_SIMPLE_DISPOSERS_HPP
 #define BOOST_INTRUSIVE_DETAIL_SIMPLE_DISPOSERS_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -35,7 +39,7 @@ class init_disposer
    typedef typename NodeAlgorithms::node_ptr node_ptr;
 
    public:
-   void operator()(const node_ptr & p)
+   BOOST_INTRUSIVE_FORCEINLINE void operator()(const node_ptr & p)
    {  NodeAlgorithms::init(p);   }
 };
 

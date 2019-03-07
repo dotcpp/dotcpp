@@ -14,6 +14,14 @@
 #ifndef BOOST_MOVE_UNIQUE_PTR_DETAIL_META_UTILS_HPP
 #define BOOST_MOVE_UNIQUE_PTR_DETAIL_META_UTILS_HPP
 
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 #include <cstddef>   //for std::size_t
 
 //Small meta-typetraits to support move
@@ -389,7 +397,7 @@ struct pointer_type_imp
 template <class T, class D>
 struct pointer_type_imp<T, D, false>
 {
-    typedef typename remove_extent<T>::type* type;
+    typedef T* type;
 };
 
 template <class T, class D>
@@ -438,7 +446,7 @@ class is_convertible
 #define BOOST_MOVE_TT_DECL
 #endif
 
-#if defined(_MSC_EXTENSIONS) && !defined(__BORLAND__) && !defined(_WIN64) && !defined(_M_ARM) && !defined(UNDER_CE)
+#if defined(_MSC_EXTENSIONS) && !defined(__BORLAND__) && !defined(_WIN64) && !defined(_M_ARM) && !defined(_M_ARM64) && !defined(UNDER_CE)
 #define BOOST_MOVE_TT_TEST_MSC_FUNC_SIGS
 #endif
 
