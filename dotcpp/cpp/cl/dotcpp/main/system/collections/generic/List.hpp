@@ -56,7 +56,22 @@ namespace cl
     public: // METHODS
 
         /// <summary>Returns an enumerator that iterates through the collection.</summary>
-        virtual IEnumerator<T> GetEnumerator() { return nullptr; } // TODO - implement
+        virtual IEnumerator<T> GetEnumerator()
+        {
+            return new_Enumerator(std::vector<T>::begin(), std::vector<T>::end());
+        }
+
+        /// <summary>Implements begin() used by STL and similar algorithms.</summary>
+        virtual detail::std_iterator_wrapper<T> begin()
+        {
+            return detail::std_iterator_wrapper<T>(detail::make_iterator(std::vector<T>::begin()));
+        }
+
+        /// <summary>Implements end() used by STL and similar algorithms.</summary>
+        virtual detail::std_iterator_wrapper<T> end()
+        {
+            return detail::std_iterator_wrapper<T>(detail::make_iterator(std::vector<T>::end()));
+        }
 
         /// <summary>The number of items contained in the list.</summary>
         virtual int getCount() { return this->size(); }
@@ -209,20 +224,4 @@ namespace cl
     /// </summary>
     template <typename T>
     List<T> new_List() { return new ListImpl<T>(); }
-
-}
-
-namespace std
-{
-    template <typename T>
-    auto begin(cl::List<T> & list)
-    {
-        return list->begin();
-    }
-
-    template <typename T>
-    auto end(cl::List<T> & list)
-    {
-        return list->end();
-    }
 }

@@ -24,6 +24,7 @@ limitations under the License.
 #pragma once
 
 #include <cl/dotcpp/main/system/Object.hpp>
+#include <cl/dotcpp/main/detail/iterator.hpp>
 
 namespace cl
 {
@@ -35,16 +36,46 @@ namespace cl
     template <typename T>
     class IEnumeratorImpl : public virtual ObjectImpl
     {
+        template <typename Iterator>
+        friend IEnumerator<typename Iterator::value_type> new_Enumerator(Iterator const&, Iterator const&);
+
+    private: // FIELDS
+
+        std::unique_ptr<detail::std_iterator_base<T> > begin_iterator_;
+        std::unique_ptr<detail::std_iterator_base<T> > end_iterator_;
+        std::unique_ptr<detail::std_iterator_base<T> > current_iterator_;
+
+    private: // CONSTRUCTORS
+
+        /// <summary>
+        /// Create from begin() and end() iterator positions for the underlying collection.
+        /// </summary>
+        template <typename Iterator>
+        explicit IEnumeratorImpl(Iterator const& beginPos, Iterator const& endPos)
+            :
+            begin_iterator_(detail::make_iterator(beginPos)),
+            end_iterator_(detail::make_iterator(endPos)),
+            current_iterator_(begin_iterator_->copy())
+        {
+        }
+
     public: // METHODS
 
         /// <summary>
-        /// Gets the element in the collection at the current position of the enumerator (const version).</summary>
-        virtual const T& getCurrent() const = 0;
+        /// Gets the element in the collection at the current position of the enumerator (const version).
+        /// </summary>
+        const T& getCurrent() const
+        {
+            return current_iterator_->get();
+        }
 
         /// <summary>
         /// Gets the element in the collection at the current position of the enumerator (non-const version).
         /// </summary>
-        virtual T& getCurrent() = 0;
+        T& getCurrent()
+        {
+            return current_iterator_->get();
+        }
 
         /// <summary>
         /// Advances the enumerator to the next element of the collection.
@@ -52,12 +83,37 @@ namespace cl
         /// Returns true if the enumerator was successfully advanced to the next element;
         /// false if the enumerator has passed the end of the collection.
         /// </summary>
-        virtual bool MoveNext() = 0;
+        bool MoveNext()
+        {
+            // Check before advancing because the iterator may already be at
+            // the end of the collection, e.g. if the collection has zero size
+            if (current_iterator_ == end_iterator_)
+                return false;
+
+            // Advance iterator to the next position
+            current_iterator_++;
+
+            // Check again after advancing if we are now at the end of the collection
+            if (current_iterator_ == end_iterator_) return false;
+            else return true;
+        }
 
         /// <summary>
         /// Sets the enumerator to its initial position, which is
         /// before the first element in the collection.
         /// </summary>
-        virtual void Reset() = 0;
+        void Reset()
+        {
+            current_iterator_ = begin_iterator_->copy();
+        }
     };
+
+    /// <summary>
+    /// Create from begin() and end() iterator positions for the underlying collection.
+    /// </summary>
+    template <typename Iterator>
+    IEnumerator<typename Iterator::value_type> new_Enumerator(Iterator const& beginPos, Iterator const& endPos)
+    {
+        return new IEnumeratorImpl<typename Iterator::value_type>(beginPos, endPos);
+    }
 }

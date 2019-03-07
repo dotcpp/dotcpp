@@ -23,7 +23,6 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/system/Ptr.hpp>
 #include <cl/dotcpp/main/system/collections/generic/IEnumerator.hpp>
 
 #include <deque>
@@ -43,5 +42,28 @@ namespace cl
 
         /// <summary>Returns an enumerator that iterates through the collection.</summary>
         virtual IEnumerator<T> GetEnumerator() = 0;
+
+        /// <summary>Implements begin() used by STL and similar algorithms.</summary>
+        virtual detail::std_iterator_wrapper<T> begin() = 0;
+
+        /// <summary>Implements end() used by STL and similar algorithms.</summary>
+        virtual detail::std_iterator_wrapper<T> end() = 0;
     };
+}
+
+namespace std
+{
+    /// <summary>Implements begin() used by STL and similar algorithms.</summary>
+    template <typename T>
+    auto begin(cl::Ptr<T> & obj)
+    {
+        return obj->begin();
+    }
+
+    /// <summary>Implements end() used by STL and similar algorithms.</summary>
+    template <typename T>
+    auto end(cl::Ptr<T> & obj)
+    {
+        return obj->end();
+    }
 }
