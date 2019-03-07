@@ -86,6 +86,9 @@ namespace cl
     public: // OPERATORS
 
         /// <summary>Pointer dereference.</summary>
+        T& operator*() const;
+
+        /// <summary>Pointer dereference.</summary>
         T* operator->() const;
 
         /// <summary>Returns true if the argument contains
@@ -133,6 +136,7 @@ namespace cl
     template <class T> Ptr<T>::Ptr(const pointer_type & ptr) : ptr_(ptr) {}
     template <typename T> template <typename R> R Ptr<T>::as() const { return std::dynamic_pointer_cast<typename R::element_type>(ptr_); }
     template <typename T> template <typename R> bool Ptr<T>::is() const { if (!ptr_) return false; return typeid(*ptr_) == typeid(R::element_type); }
+    template <class T> T& Ptr<T>::operator*() const { T* p = ptr_.get(); if (!p) throw std::runtime_error("Pointer is not initialized"); return *p; }
     template <class T> T* Ptr<T>::operator->() const { T* p = ptr_.get(); if (!p) throw std::runtime_error("Pointer is not initialized"); return p; }
     template <class T> bool Ptr<T>::operator==(const Ptr<T>& rhs) const { return ptr_ == rhs.ptr_; }
     template <class T> bool Ptr<T>::operator!=(const Ptr<T>& rhs) const { return ptr_ != rhs.ptr_; }
