@@ -23,6 +23,7 @@ limitations under the License.
 
 #pragma once
 
+#include <cl/dotcpp/main/system/Object.hpp>
 #include <cl/dotcpp/main/system/collections/generic/IList.hpp>
 
 #include <deque>
@@ -36,7 +37,7 @@ namespace cl
     /// Provides methods to search, sort, and manipulate lists.
     /// </summary>
     template <typename T>
-    class ListImpl : public IListImpl<T>, public std::vector<T>
+    class ListImpl : public IListImpl<T>, public virtual ObjectImpl, public std::vector<T>
     {
         typedef std::vector<T> base;
 

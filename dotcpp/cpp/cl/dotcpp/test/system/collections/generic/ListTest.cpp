@@ -60,6 +60,10 @@ namespace cl
         // Access the underlying std::vector<double> class
         sortDoubleVector(*a);
         BOOST_CHECK(a[0] == 0.0);
+
+        // Access by Object
+        Object obj = b;
+        BOOST_CHECK(obj->ToString() == "Object");
     }
 
     void ListTest::Iterators()

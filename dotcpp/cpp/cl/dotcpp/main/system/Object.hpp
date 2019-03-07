@@ -29,10 +29,13 @@ limitations under the License.
 
 namespace cl
 {
-    /// <summary>All classes with reference semantics should derive from this type.
+    class ObjectImpl; using Object = Ptr<ObjectImpl>;
+
+    /// <summary>
+    /// All classes with reference semantics should derive from this type.
     /// It works with Ptr to provide an emulation of reference semantics in C++.
-    /// Classes with value semantics should not derive from this type.</summary>
-    class CL_DOTCPP_MAIN Object
+    /// </summary>
+    class CL_DOTCPP_MAIN ObjectImpl
     {
     public:
 
@@ -40,7 +43,7 @@ namespace cl
         /// Virtual destructor to ensure that destructor
         /// of the derived type is called by Ptr.
         /// </summary>
-        virtual ~Object() = default;
+        virtual ~ObjectImpl() = default;
 
     public: // METHODS
 
@@ -52,6 +55,6 @@ namespace cl
         virtual String ToString() const { return "Object"; }
 
     protected:
-        Object() = default;
+        ObjectImpl() = default;
     };
 }

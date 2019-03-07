@@ -23,7 +23,7 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/system/Ptr.hpp>
+#include <cl/dotcpp/main/system/Object.hpp>
 
 namespace cl
 {
@@ -33,7 +33,7 @@ namespace cl
     /// Supports a simple iteration over a generic collection.
     /// </summary>
     template <typename T>
-    class IEnumeratorImpl
+    class IEnumeratorImpl : public virtual ObjectImpl
     {
     public: // METHODS
 

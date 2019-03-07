@@ -37,7 +37,7 @@ namespace cl
     /// Exposes the enumerator, which supports a simple iteration over a collection of a specified type.
     /// </summary>
     template <typename T>
-    class IEnumerableImpl
+    class IEnumerableImpl : public virtual ObjectImpl
     {
     public: // METHODS
 
