@@ -26,9 +26,30 @@ limitations under the License.
 #include <cl/dotcpp/test/declare.hpp>
 #include <boost/test/unit_test_suite.hpp>
 #include <boost/test/test_tools.hpp>
-#include <cl/dotcpp/main/system/collections/generic/List.hpp>
-#include <cl/dotcpp/main/system/String.hpp>
+#include <boost/test/unit_test.hpp>
 
+using namespace boost::unit_test_framework;
+
+#include <cl/dotcpp/main/system/collections/generic/List.hpp>
+
+namespace cl
+{
+    /// <summary>List test.</summary>
+    class CL_DOTCPP_TEST ListTest
+    {
+    public: // METHODS
+
+        /// <summary>Smoke test.</summary>
+        static void Smoke();
+
+        /// <summary>Test interfaces.</summary>
+        static void Interfaces();
+
+        static test_suite* GetTestSuite();
+    };
+}
+
+/*
 namespace cl
 {
     class CL_DOTCPP_TEST ListTest
@@ -101,3 +122,4 @@ namespace cl
         }
     };
 }
+*/

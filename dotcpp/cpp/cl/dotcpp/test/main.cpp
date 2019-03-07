@@ -43,7 +43,7 @@ test_suite* init_unit_test_suite(int, char*[])
     BOOST_TEST_MESSAGE(rule);
     test_suite* allTests = BOOST_TEST_SUITE(header);
 
-    allTests->add(cl::ListTest::ListTestSuite());
+    allTests->add(cl::ListTest::GetTestSuite());
     allTests->add(cl::DoubleTest::DoubleTestSuite());
     allTests->add(cl::PropertyTest::GetTestSuite());
     allTests->add(cl::ReadOnlyPropertyTest::GetTestSuite());
@@ -51,7 +51,5 @@ test_suite* init_unit_test_suite(int, char*[])
     allTests->add(cl::ReadOnlyStaticPropertyTest::GetTestSuite());
     allTests->add(cl::PtrTest::GetTestSuite());
 
-
     return allTests;
 }
-

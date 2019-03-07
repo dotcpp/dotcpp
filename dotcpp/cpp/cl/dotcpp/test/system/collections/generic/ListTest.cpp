@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright (C) 2003-present CompatibL
 
 This file is part of .C++, a native C++ implementation of
@@ -21,26 +21,39 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#pragma once
-
-#include <cl/dotcpp/main/system/collections/generic/ICollection.hpp>
+#include <cl/dotcpp/test/implement.hpp>
+#include <cl/dotcpp/test/system/collections/generic/ListTest.hpp>
 
 namespace cl
 {
-    template <class T> class IListImpl; template <class T> using IList = Ptr<IListImpl<T>>;
+    void ListTest::Smoke()
+    {   
+        List<double> a = new_List<double>();
+        a->Add(0.0);
+        a->Add(1.0);
+        a->Add(2.0);
 
-    /// <summary>
-    /// Represents a collection of objects that can be individually accessed by index.
-    /// </summary>
-    template <typename T>
-    class IListImpl : public ICollectionImpl<T>
+        BOOST_CHECK(a->getCount() == 3);
+    }
+
+    void ListTest::Interfaces()
     {
-    public: // OPERATORS
+        List<double> a = new_List<double>();
+        IList<double> b = a;
 
-        /// <summary>Gets or sets the element at the specified index (const version).</summary>
-        virtual const T& operator[](int i) const = 0;
+        b->Add(0.0);
+        b->Add(1.0);
+        b->Add(2.0);
 
-        /// <summary>Gets or sets the element at the specified index (non-const version).</summary>
-        virtual T& operator[](int i) = 0;
-    };
+        BOOST_CHECK(a->getCount() == 3);
+        BOOST_CHECK(b->getCount() == 3);
+    }
+
+    test_suite* ListTest::GetTestSuite()
+    {
+        test_suite* suite = BOOST_TEST_SUITE("ListTest");
+        suite->add(BOOST_TEST_CASE(&ListTest::Smoke));
+        suite->add(BOOST_TEST_CASE(&ListTest::Interfaces));
+        return suite;
+    }
 }

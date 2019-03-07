@@ -39,10 +39,10 @@ namespace cl
     {
     public: // METHODS
 
-        /// <summary>Test inheriance support in pointer.</summary>
+        /// <summary>Test inheritance support in pointer.</summary>
         static void Inheritance();
 
-        /// <summary>Test dynamic casts.</summary>
+        /// <summary>Test dynamic cast.</summary>
         static void Cast();
 
         static test_suite* GetTestSuite();
