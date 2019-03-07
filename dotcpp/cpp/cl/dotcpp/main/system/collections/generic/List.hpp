@@ -224,5 +224,4 @@ namespace std
     {
         return list->end();
     }
-
 }

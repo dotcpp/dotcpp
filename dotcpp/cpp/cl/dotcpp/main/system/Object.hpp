@@ -21,12 +21,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_main_Object_hpp
-#define cl_dotcpp_main_Object_hpp
+#pragma once
 
 #include <cl/dotcpp/main/declare.hpp>
 #include <cl/dotcpp/main/system/Ptr.hpp>
-#include <cl/dotcpp/main/system/Exception.hpp>
+#include <cl/dotcpp/main/system/String.hpp>
 
 namespace cl
 {
@@ -37,19 +36,22 @@ namespace cl
     {
     public:
 
-        /// <summary>Virtual destructor to ensure that destructor
-        /// of the derived type is called by Ptr.</summary>
+        /// <summary>
+        /// Virtual destructor to ensure that destructor
+        /// of the derived type is called by Ptr.
+        /// </summary>
         virtual ~Object() = default;
 
     public: // METHODS
 
-        /// <summary>Returns a string that represents the current object.
-        /// Default implementation uses full name of the class.</summary>
-        virtual std::string ToString() const { return "Object"; }
+        /// <summary>
+        /// String that represents the current object.
+        ///
+        /// Default implementation returns full name of the class.
+        /// </summary>
+        virtual String ToString() const { return "Object"; }
 
     protected:
         Object() = default;
     };
 }
-
-#endif // cl_dotcpp_main_Object_hpp
