@@ -124,10 +124,12 @@ namespace cl
         Ptr<T>& operator=(const Ptr<T>& rhs);
 
         /// <summary>Const indexer operator for arrays.</summary>
-        decltype(auto) operator[](int i) const;
+        template <typename I>
+        decltype(auto) operator[](I const& i) const;
 
         /// <summary>Non-const indexer operator for arrays.</summary>
-        decltype(auto) operator[](int i);
+        template <typename I>
+        decltype(auto) operator[](I const& i);
     };
 
     template <class T> Ptr<T>::Ptr(T* ptr) : ptr_(ptr) {}
@@ -145,8 +147,8 @@ namespace cl
     template <class T> Ptr<T>& Ptr<T>::operator=(T* rhs) { ptr_.reset(rhs); return *this; }
     template <class T> template <class R> Ptr<T>& Ptr<T>::operator=(const Ptr<R>& rhs) { ptr_ = rhs.ptr_; return *this; }
     template <class T> Ptr<T>& Ptr<T>::operator=(const Ptr<T>& rhs) { ptr_ = rhs.ptr_; return *this; }
-    template <class T> decltype(auto) Ptr<T>::operator[](int i) const { return (*ptr_)[i]; }
-    template <class T> decltype(auto) Ptr<T>::operator[](int i) { return (*ptr_)[i]; }
+    template <class T> template <typename I> decltype(auto) Ptr<T>::operator[](I const& i) const { return (*ptr_)[i]; }
+    template <class T> template <typename I> decltype(auto) Ptr<T>::operator[](I const& i) { return (*ptr_)[i]; }
 
     template <typename T> 
     template <typename R> 
