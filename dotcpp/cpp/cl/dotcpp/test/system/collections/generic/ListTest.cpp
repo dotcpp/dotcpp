@@ -27,8 +27,14 @@ limitations under the License.
 
 namespace cl
 {
+    void sortDoubleVector(std::vector<double>& v)
+    {
+        // Sort the argument std::vector<double>
+        std::sort(v.begin(), v.end());
+    }
+
     void ListTest::Smoke()
-    {   
+    {
         List<double> a = new_List<double>();
         a->Add(0.0);
         a->Add(1.0);
@@ -40,14 +46,20 @@ namespace cl
     void ListTest::Interfaces()
     {
         List<double> a = new_List<double>();
+
+        // Add elements to IList interface
         IList<double> b = a;
-
-        b->Add(0.0);
-        b->Add(1.0);
         b->Add(2.0);
+        b->Add(1.0);
+        b->Add(0.0);
 
+        // Check size of the original class and the interface
         BOOST_CHECK(a->getCount() == 3);
         BOOST_CHECK(b->getCount() == 3);
+
+        // Access the underlying std::vector<double> class
+        sortDoubleVector(*a);
+        BOOST_CHECK(a[0] == 0.0);
     }
 
     void ListTest::Iterators()
