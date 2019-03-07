@@ -45,17 +45,12 @@ namespace cl
         std::unique_ptr<detail::std_iterator_base<T> > end_iterator_;
         std::unique_ptr<detail::std_iterator_base<T> > current_iterator_;
 
-    private: // CONSTRUCTORS
-
-        /// <summary>
-        /// Create from begin() and end() iterator positions for the underlying collection.
-        /// </summary>
         template <typename Iterator>
         explicit IEnumeratorImpl(Iterator const& beginPos, Iterator const& endPos)
             :
             begin_iterator_(detail::make_iterator(beginPos)),
             end_iterator_(detail::make_iterator(endPos)),
-            current_iterator_(begin_iterator_->copy())
+            current_iterator_()
         {
         }
 
@@ -85,16 +80,24 @@ namespace cl
         /// </summary>
         bool MoveNext()
         {
-            // Check before advancing because the iterator may already be at
-            // the end of the collection, e.g. if the collection has zero size
-            if (current_iterator_ == end_iterator_)
-                return false;
+            // Create if null
+            if (!current_iterator_)
+            {
+                current_iterator_ = begin_iterator_->copy();
+            }
+            else
+            {
+                // Check before advancing because the iterator may already be at
+                // the end of the collection, e.g. if the collection has zero size
+                if (*current_iterator_ == *end_iterator_)
+                    return false;
 
-            // Advance iterator to the next position
-            current_iterator_++;
+                // Advance iterator to the next position
+                current_iterator_->operator ++();
+            }
 
             // Check again after advancing if we are now at the end of the collection
-            if (current_iterator_ == end_iterator_) return false;
+            if (*current_iterator_ == *end_iterator_) return false;
             else return true;
         }
 
@@ -104,7 +107,7 @@ namespace cl
         /// </summary>
         void Reset()
         {
-            current_iterator_ = begin_iterator_->copy();
+            current_iterator_.reset();
         }
     };
 

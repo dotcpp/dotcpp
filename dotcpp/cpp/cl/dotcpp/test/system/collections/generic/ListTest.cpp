@@ -27,12 +27,14 @@ limitations under the License.
 
 namespace cl
 {
+    /// <summary>Sort vector in ascending order.</summary>
     void sortDoubleVector(std::vector<double>& v)
     {
         // Sort the argument std::vector<double>
         std::sort(v.begin(), v.end());
     }
 
+    /// <summary>Smoke test.</summary>
     void ListTest::Smoke()
     {
         List<double> a = new_List<double>();
@@ -43,6 +45,7 @@ namespace cl
         BOOST_CHECK(a->getCount() == 3);
     }
 
+    /// <summary>Test interfaces.</summary>
     void ListTest::Interfaces()
     {
         List<double> a = new_List<double>();
@@ -66,6 +69,7 @@ namespace cl
         BOOST_CHECK(obj->ToString() == "Object");
     }
 
+    /// <summary>Test iterators.</summary>
     void ListTest::Iterators()
     {
         List<String> stringList = new_List<String>();
@@ -81,6 +85,7 @@ namespace cl
         }
     }
 
+    /// <summary>Test capacity.</summary>
     void ListTest::Capacity()
     {
         List<String> stringList = new_List<String>();
@@ -89,6 +94,7 @@ namespace cl
         BOOST_CHECK(stringList->capacity() == 100);
     }
 
+    /// <summary>Test find methods.</summary>
     void ListTest::Find()
     {
         cl::List<String> stringList = new_List<String>();
@@ -102,6 +108,41 @@ namespace cl
         // TODO BOOST_CHECK(stringList.findLastIndex([](std::string const& s) { return s == "111"; }) == 0);
     }
 
+    /// <summary>Test enumerator methods.</summary>
+    void ListTest::Enumerator()
+    {
+        ICollection<String> stringList = new_List<String>();
+        stringList->Add("000");
+        stringList->Add("111");
+        stringList->Add("222");
+        BOOST_CHECK(stringList->getCount() == 3);
+
+        int i = 0;
+
+        for (String str : stringList)
+        {
+            BOOST_CHECK((stringList.as<List<String>>())[i++] == str);
+        }
+
+        i = 0;
+        IEnumerator<String> en = stringList->GetEnumerator();
+
+        for (; en->MoveNext();)
+        {
+            BOOST_CHECK((stringList.as<List<String>>())[i++] == en->getCurrent());
+
+        }
+
+        i = 0;
+        en->Reset();
+
+        for (; en->MoveNext();)
+        {
+            BOOST_CHECK((stringList.as<List<String>>())[i++] == en->getCurrent());
+
+        }
+    }
+
     test_suite* ListTest::GetTestSuite()
     {
         test_suite* suite = BOOST_TEST_SUITE("ListTest");
@@ -110,6 +151,7 @@ namespace cl
         suite->add(BOOST_TEST_CASE(&ListTest::Iterators));
         suite->add(BOOST_TEST_CASE(&ListTest::Capacity));
         suite->add(BOOST_TEST_CASE(&ListTest::Find));
+        suite->add(BOOST_TEST_CASE(&ListTest::Enumerator));
         return suite;
     }
 }

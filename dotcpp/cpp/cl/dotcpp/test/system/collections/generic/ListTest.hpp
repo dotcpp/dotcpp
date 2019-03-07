@@ -54,6 +54,9 @@ namespace cl
         /// <summary>Test find methods.</summary>
         static void Find();
 
+        /// <summary>Test enumerator methods.</summary>
+        static void Enumerator();
+
         static test_suite* GetTestSuite();
     };
 }
