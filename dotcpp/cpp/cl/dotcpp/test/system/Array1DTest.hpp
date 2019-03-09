@@ -30,12 +30,10 @@ limitations under the License.
 
 using namespace boost::unit_test_framework;
 
-#include <cl/dotcpp/main/system/collections/generic/List.hpp>
-
 namespace cl
 {
     /// <summary>List test.</summary>
-    class CL_DOTCPP_TEST ListTest
+    class CL_DOTCPP_TEST Array1DTest
     {
     public: // METHODS
 

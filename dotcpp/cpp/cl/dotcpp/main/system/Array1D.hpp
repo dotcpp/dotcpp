@@ -24,43 +24,45 @@ limitations under the License.
 #pragma once
 
 #include <cl/dotcpp/main/system/collections/generic/ListBase.hpp>
+#include <cl/dotcpp/main/system/Exception.hpp>
 
 namespace cl
 {
-    template <class T> class ListImpl; template <class T> using List = Ptr<ListImpl<T>>;
+    template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
 
     /// <summary>
     /// Represents a strongly typed list of objects that can be accessed by index.
     /// Provides methods to search, sort, and manipulate lists.
     /// </summary>
     template <typename T>
-    class ListImpl : public ListBaseImpl<T>
+    class Array1DImpl : public ListBaseImpl<T>
     {
         typedef std::vector<T> base;
 
         template <typename T>
-        friend List<T> new_List();
+        friend Array1D<T> new_Array1D(int size);
 
     private: // CONSTRUCTORS
 
         /// <summary>
-        /// Initializes a new instance of the list that is empty and has the default initial capacity.
+        /// Initializes a new instance of the array with the specified size.
         ///
-        /// This constructor is private. Use new_List() function instead.
+        /// This constructor is private. Use new_Array1D(size) function instead.
         /// </summary>
-        ListImpl() {}
+        Array1DImpl(int size) { base::resize(size); }
 
     public: // METHODS
 
-        /// <summary>Adds the elements of the specified collection to the end of the list.</summary>
-        // TODO void AddRange(const IEnumerable<T>& collection);
+        /// <summary>Adds an object to the end of the list.</summary>
+        virtual void Add(const T& item) { throw Exception("Method Add(item) is not available for a fixed size collection."); }
+
+        /// <summary>Removes all elements from the list.</summary>
+        virtual void Clear() { throw Exception("Method Clear() is not available for a fixed size collection."); }
     };
 
     /// <summary>
-    /// Initializes a new instance of the list that is empty and has the default initial capacity.
-    ///
-    /// This constructor is private. Use new_List() function instead.
+    /// Initializes a new instance of the array with the specified size.
     /// </summary>
     template <typename T>
-    List<T> new_List() { return new ListImpl<T>(); }
+    Array1D<T> new_Array1D(int size) { return new Array1DImpl<T>(size); }
 }

@@ -13,6 +13,7 @@ license from CompatibL and with the inclusion of this copyright notice.
 #include <cl/dotcpp/test/system/ObjectTest.hpp>
 #include <cl/dotcpp/test/system/PtrTest.hpp>
 #include <cl/dotcpp/test/system/StringTest.hpp>
+#include <cl/dotcpp/test/system/Array1DTest.hpp>
 #include <cl/dotcpp/test/system/collections/generic/ListTest.hpp>
 #include <cl/dotcpp/test/system/PropertyTest.hpp>
 #include <cl/dotcpp/test/system/ReadOnlyPropertyTest.hpp>
@@ -43,6 +44,7 @@ test_suite* init_unit_test_suite(int, char*[])
     BOOST_TEST_MESSAGE(rule);
     test_suite* allTests = BOOST_TEST_SUITE(header);
 
+    allTests->add(cl::Array1DTest::GetTestSuite());
     allTests->add(cl::ListTest::GetTestSuite());
     allTests->add(cl::DoubleTest::DoubleTestSuite());
     allTests->add(cl::PropertyTest::GetTestSuite());

@@ -25,8 +25,6 @@ limitations under the License.
 
 #include <cl/dotcpp/main/system/collections/generic/IEnumerator.hpp>
 
-#include <deque>
-
 namespace cl
 {
     template <class T> class IEnumerableImpl; template <class T> using IEnumerable = Ptr<IEnumerableImpl<T>>;

@@ -27,13 +27,6 @@ limitations under the License.
 
 namespace cl
 {
-    /// <summary>Sort vector in ascending order.</summary>
-    void sortDoubleVector(std::vector<double>& v)
-    {
-        // Sort the argument std::vector<double>
-        std::sort(v.begin(), v.end());
-    }
-
     /// <summary>Smoke test.</summary>
     void ListTest::Smoke()
     {
@@ -61,7 +54,7 @@ namespace cl
         BOOST_CHECK(b->getCount() == 3);
 
         // Access the underlying std::vector<double> class
-        sortDoubleVector(*a);
+        SortDoubleVector(*a);
         BOOST_CHECK(a[0] == 0.0);
 
         // Access by Object
