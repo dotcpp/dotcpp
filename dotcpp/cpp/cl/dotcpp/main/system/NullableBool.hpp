@@ -25,9 +25,30 @@ limitations under the License.
 
 #include <cl/dotcpp/main/declare.hpp>
 #include <cl/dotcpp/main/system/Bool.hpp>
+#include <cl/dotcpp/main/system/ObjectImpl.hpp>
 
 namespace cl
 {
+    class NullableBool;
+
+    /// <summary>Wrapper around bool to make it convertible to Object (boxing).</summary>
+    class BoolImpl : public ObjectImpl
+    {
+        friend Object;
+        friend NullableBool;
+        bool value_;
+
+    public: // CONSTRUCTORS
+
+        /// <summary>Create from value (box).</summary>
+        BoolImpl(bool value) : value_(value) {}
+
+    public: // METHODS
+
+        /// <summary>A string representing the name of the current type.</summary>
+        virtual String ToString() const { return "System.Bool"; }
+    };
+
     /// <summary>
     /// Wrapper for bool where default constructor creates uninitialized
     /// value. Use this class to get an error message when the variable is
@@ -50,10 +71,18 @@ namespace cl
         /// </summary>
         NullableBool(bool rhs) : value_(rhs ? 1 : 0) {}
 
+        /// <summary>
+        /// Create from Object.
+        ///
+        /// Error if Object does is not a boxed bool.
+        /// Null Object becomes empty NullableBool.
+        /// </summary>
+        NullableBool(const Ptr<ObjectImpl>& rhs) : value_(rhs == nullptr ? Bool::Empty : rhs.cast<Ptr<BoolImpl>>()->value_) {}
+
     public: //  METHODS
 
         /// <summary>Returns true if the object is in uninitialized (empty) state.</summary>
-        bool IsBool::Empty() const { return value_ == Bool::Empty; }
+        bool IsEmpty() const { return value_ == Bool::Empty; }
 
         /// <summary>Returns string representation of the object.</summary>
         std::string AsString() const

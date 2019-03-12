@@ -23,6 +23,7 @@ limitations under the License.
 
 #pragma once
 
+#include <cl/dotcpp/main/system/NullableBool.hpp>
 #include <cl/dotcpp/main/system/NullableDouble.hpp>
 #include <cl/dotcpp/main/system/NullableInt.hpp>
 
@@ -37,6 +38,12 @@ namespace cl
 
         /// <summary>Construct Object from Ptr(T).</summary>
         Object(const Ptr<ObjectImpl>& ptr) : base(ptr) {}
+
+        /// <summary>Construct Object from bool by boxing.</summary>
+        Object(bool value) : base(new BoolImpl(value)) {}
+
+        /// <summary>Construct Object from NullableBool by boxing.</summary>
+        Object(const NullableBool& value) : base(value.IsEmpty() ? nullptr : new BoolImpl(value)) {}
 
         /// <summary>Construct Object from double by boxing.</summary>
         Object(double value) : base(new DoubleImpl(value)) {}
@@ -55,6 +62,12 @@ namespace cl
         /// <summary>Assign Ptr(T) to Object.</summary>
         Object& operator=(const Ptr<ObjectImpl>& ptr) { base::operator=(ptr); return *this; }
 
+        /// <summary>Assign bool to Object by boxing.</summary>
+        Object& operator=(bool value) { base::operator=(new BoolImpl(value)); return *this; }
+
+        /// <summary>Assign NullableDouble to Object by boxing.</summary>
+        Object& operator=(const NullableBool& value) { base::operator=(value.IsEmpty() ? nullptr : new BoolImpl(value)); return *this; }
+
         /// <summary>Assign double to Object by boxing.</summary>
         Object& operator=(double value) { base::operator=(new DoubleImpl(value)); return *this; }
 
@@ -66,6 +79,9 @@ namespace cl
 
         /// <summary>Assign NullableInt to Object by boxing.</summary>
         Object& operator=(const NullableInt& value) { base::operator=(value.IsEmpty() ? nullptr : new IntImpl(value)); return *this; }
+
+        /// <summary>Convert Object to bool by unboxing. Error if Object does is not a boxed double.</summary>
+        operator bool() const { return cast<Ptr<BoolImpl>>()->value_; }
 
         /// <summary>Convert Object to double by unboxing. Error if Object does is not a boxed double.</summary>
         operator double() const { return cast<Ptr<DoubleImpl>>()->value_; }

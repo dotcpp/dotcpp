@@ -111,6 +111,25 @@ namespace cl
     void PtrTest::Boxing()
     {
         {
+            // Boxing bool
+            bool x = false;
+            Object boxed = x;
+            BOOST_CHECK((bool)boxed == false);
+            boxed = true;
+            BOOST_CHECK((bool)boxed == true);
+        }
+
+        {
+            // Boxing NullableBool
+            NullableBool x;
+            Object boxed = x;
+            BOOST_CHECK(((NullableBool)boxed).IsEmpty());
+            NullableBool y = true;
+            boxed = y;
+            BOOST_CHECK((bool)boxed == true);
+        }
+
+        {
             // Boxing double
             double x = 1.0;
             Object boxed = x;
