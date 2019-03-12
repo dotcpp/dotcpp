@@ -34,11 +34,11 @@ namespace cl
     }
 }
 
-#define PROPERTY(Class, type, name, ...) EXPAND(CAT(PROPERTY_, GET_ARG_COUNT(__VA_ARGS__))(Class, type, name, __VA_ARGS__))
 
-#define PROPERTY_1(Class, type, name, getter)                               \
+
+#define DECL_PROP_GET(Class, type, name)                                    \
     private:                                                                \
-        type CAT(get_, name)(type name) getter                              \
+        virtual type CAT(get, name)(type name) = 0;                         \
         struct CAT(name, _prop)                                             \
         {                                                                   \
                                                                             \
@@ -46,7 +46,7 @@ namespace cl
             type name;                                                      \
                                                                             \
             type & operator = (const type &) = delete;                      \
-            operator type() const { return this_->CAT(get_, name)(name); }  \
+            operator type() const { return this_->CAT(get, name)(name); }   \
                                                                             \
             Class * this_;                                                  \
                                                                             \
@@ -54,10 +54,11 @@ namespace cl
     public:                                                                 \
         CAT(name, _prop) name = CAT(name, _prop)(this);
 
-#define PROPERTY_2(Class, type, name, getter, setter)                       \
+
+#define DECL_PROP(Class, type, name)                                        \
     private:                                                                \
-        type CAT(get_, name)(type const& name) getter                       \
-        void CAT(set_, name)(type & name, type const& value) setter         \
+        virtual type CAT(get, name)(type name) = 0;                         \
+        virtual void CAT(set, name)(type & name, type const& value) = 0;    \
         struct CAT(name, _prop)                                             \
         {                                                                   \
                                                                             \
@@ -65,11 +66,77 @@ namespace cl
             type name;                                                      \
                                                                             \
             void operator = (const type &value )                            \
-                { return this_->CAT(set_, name)(name, value); }             \
-            operator type() const { return this_->CAT(get_, name)(name); }  \
+                { return this_->CAT(set, name)(name, value); }              \
+            operator type() const { return this_->CAT(get, name)(name); }   \
                                                                             \
             Class * this_;                                                  \
                                                                             \
         };                                                                  \
     public:                                                                 \
         CAT(name, _prop) name = CAT(name, _prop)(this);
+
+
+
+#define IMPL_PROP_GET(Class, type, name, getter)                            \
+    private:                                                                \
+        virtual type CAT(get, name)(type name) getter
+
+
+#define IMPL_PROP(Class, type, name, getter, setter)                        \
+    private:                                                                \
+        virtual type CAT(get, name)(type name) getter                       \
+        virtual void CAT(set, name)(type & name, type const& value) setter
+
+#define PROP_GET(Class, type, name, getter)                                 \
+    private:                                                                \
+        virtual type CAT(get, name)(type name) getter                       \
+        struct CAT(name, _prop)                                             \
+        {                                                                   \
+                                                                            \
+            CAT(name, _prop)(Class * this_) : this_(this_) {}               \
+            type name;                                                      \
+                                                                            \
+            type & operator = (const type &) = delete;                      \
+            operator type() const { return this_->CAT(get, name)(name); }   \
+                                                                            \
+            Class * this_;                                                  \
+                                                                            \
+        };                                                                  \
+    public:                                                                 \
+        CAT(name, _prop) name = CAT(name, _prop)(this);
+
+
+#define PROP(Class, type, name, getter, setter)                             \
+    private:                                                                \
+        virtual type CAT(get, name)(type name) getter                       \
+        virtual void CAT(set, name)(type & name, type const& value) setter  \
+        struct CAT(name, _prop)                                             \
+        {                                                                   \
+                                                                            \
+            CAT(name, _prop)(Class * this_) : this_(this_) {}               \
+            type name;                                                      \
+                                                                            \
+            void operator = (const type &value )                            \
+                { return this_->CAT(set, name)(name, value); }              \
+            operator type() const { return this_->CAT(get, name)(name); }   \
+                                                                            \
+            Class * this_;                                                  \
+                                                                            \
+        };                                                                  \
+    public:                                                                 \
+        CAT(name, _prop) name = CAT(name, _prop)(this);
+
+
+#define AUTO_PROP_GET(Class, type, name)                                    \
+    public:                                                                 \
+        type name;                                                          \
+        virtual type CAT(get, name)() { return name; }
+
+
+#define AUTO_PROP(Class, type, name)                                        \
+    public:                                                                 \
+        type name;                                                          \
+        virtual type CAT(get, name)() { return name; }                      \
+        void CAT(set, name)(type const& value) { name = value; }
+
+

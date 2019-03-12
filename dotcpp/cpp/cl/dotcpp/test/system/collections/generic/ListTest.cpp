@@ -35,7 +35,7 @@ namespace cl
         a->Add(1.0);
         a->Add(2.0);
 
-        BOOST_CHECK(a->getCount() == 3);
+        BOOST_CHECK(a->Count == 3);
     }
 
     /// <summary>Test interfaces.</summary>
@@ -50,8 +50,8 @@ namespace cl
         b->Add(0.0);
 
         // Check size of the original class and the interface
-        BOOST_CHECK(a->getCount() == 3);
-        BOOST_CHECK(b->getCount() == 3);
+        BOOST_CHECK(a->Count == 3);
+        BOOST_CHECK(b->Count == 3);
 
         // Access the underlying std::vector<double> class
         SortDoubleVector(*a);
@@ -69,7 +69,7 @@ namespace cl
         stringList->Add("000");
         stringList->Add("111");
         stringList->Add("222");
-        BOOST_CHECK(stringList->getCount() == 3);
+        BOOST_CHECK(stringList->Count == 3);
 
         int i = 0;
         for (String str : stringList)
@@ -108,7 +108,7 @@ namespace cl
         stringList->Add("000");
         stringList->Add("111");
         stringList->Add("222");
-        BOOST_CHECK(stringList->getCount() == 3);
+        BOOST_CHECK(stringList->Count == 3);
 
         int i = 0;
 

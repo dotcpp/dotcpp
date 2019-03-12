@@ -167,7 +167,7 @@ namespace cl
     public:
         static LocalDate Max(List<LocalDate> src)
         {
-            if (src->getCount() == 0) throw std::exception("Cannot get max value of a zero size List<Date>.");
+            if (src->Count == 0) throw std::exception("Cannot get max value of a zero size List<Date>.");
             LocalDate result;
             for (LocalDate value : src)
             {
@@ -179,7 +179,7 @@ namespace cl
 
         static LocalDate min(List<LocalDate> src)
         {
-            if (src->getCount() == 0) throw std::exception("Cannot get min value of a zero size List<Date>.");
+            if (src->Count == 0) throw std::exception("Cannot get min value of a zero size List<Date>.");
             LocalDate result;
             for (LocalDate value : src)
             {

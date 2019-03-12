@@ -38,7 +38,7 @@ namespace cl
     public: // METHODS
 
         /// <summary>The number of items contained in the list.</summary>
-        virtual int getCount() = 0;
+        DECL_PROP_GET(ICollectionImpl, int, Count)
 
         /// <summary>Adds an item to the end of the lisIt.</summary>
         virtual void Add(const T& item) = 0;
