@@ -72,6 +72,7 @@ namespace cl
     /// <summary>Wrapper around double to make it convertible to Object (boxing).</summary>
     class DoubleImpl : public ValueTypeImpl
     {
+        friend Object;
         double value_;
 
     public: // CONSTRUCTORS
@@ -105,5 +106,8 @@ namespace cl
 
         /// <summary>Assign double to Object by boxing.</summary>
         Object& operator=(double value) { base::operator=(new DoubleImpl(value)); return *this; }
+
+        /// <summary>Convert to double by unboxing.</summary>
+        operator double() const { return cast<Ptr<DoubleImpl>>()->value_; }
     };
 }

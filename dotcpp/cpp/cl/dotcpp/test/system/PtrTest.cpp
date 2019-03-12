@@ -113,9 +113,9 @@ namespace cl
         // Boxing double
         double x = 1.0;
         Object boxedDouble = 1.0;
-       // BOOST_CHECK(boxedDouble.cast<double>() == 1.0);
+        BOOST_CHECK((double)boxedDouble == 1.0);
         boxedDouble = 2.0;
-     //   BOOST_CHECK(boxedDouble.cast<double>() == 2.0);
+        BOOST_CHECK((double)boxedDouble == 2.0);
     }
 
     test_suite* PtrTest::GetTestSuite()
