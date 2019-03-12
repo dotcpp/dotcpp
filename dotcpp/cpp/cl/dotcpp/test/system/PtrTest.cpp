@@ -123,7 +123,7 @@ namespace cl
             // Boxing NullableDouble
             NullableDouble x;
             Object boxed = x;
-            // BOOST_CHECK(((NullableDouble)boxed).IsEmpty());
+            BOOST_CHECK(((NullableDouble)boxed).IsEmpty());
             NullableDouble y = 2.0;
             boxed = y;
             BOOST_CHECK((double)boxed == 2.0);

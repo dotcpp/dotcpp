@@ -25,9 +25,30 @@ limitations under the License.
 
 #include <cl/dotcpp/main/declare.hpp>
 #include <cl/dotcpp/main/system/Double.hpp>
+#include <cl/dotcpp/main/system/ObjectImpl.hpp>
 
 namespace cl
 {
+    class NullableDouble;
+
+    /// <summary>Wrapper around double to make it convertible to Object (boxing).</summary>
+    class DoubleImpl : public ObjectImpl
+    {
+        friend Object;
+        friend NullableDouble;
+        double value_;
+
+    public: // CONSTRUCTORS
+
+        /// <summary>Create from value (box).</summary>
+        DoubleImpl(double value) : value_(value) {}
+
+    public: // METHODS
+
+        /// <summary>A string representing the name of the current type.</summary>
+        virtual String ToString() const { return "System.Double"; }
+    };
+
     /// <summary>
     /// Nullable double is initialized to null (empty) by default ctor.
     /// Conversion to double when in null state results in an error.
@@ -51,6 +72,14 @@ namespace cl
         /// no error occurs and the object is constructed in null state.
         /// </summary>
         NullableDouble(double rhs) : value_(rhs) {}
+
+        /// <summary>
+        /// Create from Object.
+        ///
+        /// Error if Object does is not a boxed double.
+        /// Null Object becomes empty NullableDouble.
+        /// </summary>
+        NullableDouble(const Ptr<ObjectImpl>& rhs) : value_(rhs == nullptr ? Double::Empty : rhs.cast<Ptr<DoubleImpl>>()->value_) {}
 
     public: //  METHODS
 
@@ -78,22 +107,5 @@ namespace cl
         /// no error occurs and the object reverts to null (empty) state.
         /// </summary>
         NullableDouble& operator=(double rhs) { value_ = rhs; return *this; }
-    };
-
-    /// <summary>Wrapper around double to make it convertible to Object (boxing).</summary>
-    class DoubleImpl : public ObjectImpl
-    {
-        friend Object;
-        double value_;
-
-    public: // CONSTRUCTORS
-
-        /// <summary>Create from value (box).</summary>
-        DoubleImpl(double value) : value_(value) {}
-
-    public: // METHODS
-
-        /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() const { return "System.Double"; }
     };
 }

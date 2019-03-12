@@ -64,9 +64,6 @@ namespace cl
         /// <summary>Convert Object to double by unboxing. Error if Object does is not a boxed double.</summary>
         operator double() const { return cast<Ptr<DoubleImpl>>()->value_; }
 
-        /// <summary>Convert Object to NullableDouble by unboxing. Error if Object does is not a boxed double.</summary>
-        operator NullableDouble() const { return *this == nullptr ? NullableDouble() : cast<Ptr<DoubleImpl>>()->value_; }
-
         /// <summary>Convert Object to int by unboxing. Error if Object does is not a boxed int.</summary>
         operator int() const { return cast<Ptr<IntImpl>>()->value_; }
     };
