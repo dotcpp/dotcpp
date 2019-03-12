@@ -110,12 +110,23 @@ namespace cl
     /// <summary>Test boxing.</summary>
     void PtrTest::Boxing()
     {
-        // Boxing double
-        double x = 1.0;
-        Object boxedDouble = 1.0;
-        BOOST_CHECK((double)boxedDouble == 1.0);
-        boxedDouble = 2.0;
-        BOOST_CHECK((double)boxedDouble == 2.0);
+        {
+            // Boxing double
+            double x = 1.0;
+            Object boxed = 1.0;
+            BOOST_CHECK((double)boxed == 1.0);
+            boxed = 2.0;
+            BOOST_CHECK((double)boxed == 2.0);
+        }
+
+        {
+            // Boxing int
+            int x = 1;
+            Object boxed = 1;
+            BOOST_CHECK((int)boxed == 1);
+            boxed = 2;
+            BOOST_CHECK((int)boxed == 2);
+        }
     }
 
     test_suite* PtrTest::GetTestSuite()

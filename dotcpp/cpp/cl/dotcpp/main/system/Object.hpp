@@ -86,6 +86,23 @@ namespace cl
         virtual String ToString() const { return "System.Double"; }
     };
 
+    /// <summary>Wrapper around int to make it convertible to Object (boxing).</summary>
+    class IntImpl : public ValueTypeImpl
+    {
+        friend Object;
+        int value_;
+
+    public: // CONSTRUCTORS
+
+        /// <summary>Create from value (box).</summary>
+        IntImpl(int value) : value_(value) {}
+
+    public: // METHODS
+
+        /// <summary>A string representing the name of the current type.</summary>
+        virtual String ToString() const { return "System.Int32"; }
+    };
+
     /// <summary>Adds support for boxing value types to Ptr(ObjectImpl).</summary>
     class CL_DOTCPP_MAIN Object : public Ptr<ObjectImpl>
     {
@@ -99,6 +116,9 @@ namespace cl
         /// <summary>Construct Object from double by boxing.</summary>
         Object(double value) : base(new DoubleImpl(value)) {}
 
+        /// <summary>Construct Object from int by boxing.</summary>
+        Object(int value) : base(new IntImpl(value)) {}
+
     public: // OPERATORS
 
         /// <summary>Assign Ptr(T) to Object.</summary>
@@ -107,7 +127,13 @@ namespace cl
         /// <summary>Assign double to Object by boxing.</summary>
         Object& operator=(double value) { base::operator=(new DoubleImpl(value)); return *this; }
 
-        /// <summary>Convert to double by unboxing.</summary>
+        /// <summary>Assign int to Object by boxing.</summary>
+        Object& operator=(int value) { base::operator=(new IntImpl(value)); return *this; }
+
+        /// <summary>Convert Object to double by unboxing. Error if Object does is not a boxed double.</summary>
         operator double() const { return cast<Ptr<DoubleImpl>>()->value_; }
+
+        /// <summary>Convert Object to int by unboxing. Error if Object does is not a boxed int.</summary>
+        operator int() const { return cast<Ptr<IntImpl>>()->value_; }
     };
 }
