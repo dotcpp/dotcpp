@@ -23,7 +23,7 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/system/Double.hpp>
+#include <cl/dotcpp/main/system/NullableDouble.hpp>
 #include <cl/dotcpp/main/system/Int.hpp>
 
 namespace cl
@@ -41,6 +41,9 @@ namespace cl
         /// <summary>Construct Object from double by boxing.</summary>
         Object(double value) : base(new DoubleImpl(value)) {}
 
+        /// <summary>Construct Object from NullableDouble by boxing.</summary>
+        Object(const NullableDouble& value) : base( value.IsEmpty() ? nullptr : new DoubleImpl(value)) {}
+
         /// <summary>Construct Object from int by boxing.</summary>
         Object(int value) : base(new IntImpl(value)) {}
 
@@ -52,11 +55,17 @@ namespace cl
         /// <summary>Assign double to Object by boxing.</summary>
         Object& operator=(double value) { base::operator=(new DoubleImpl(value)); return *this; }
 
+        /// <summary>Assign NullableDouble to Object by boxing.</summary>
+        Object& operator=(const NullableDouble& value) { base::operator=(value.IsEmpty() ? nullptr : new DoubleImpl(value)); return *this; }
+
         /// <summary>Assign int to Object by boxing.</summary>
         Object& operator=(int value) { base::operator=(new IntImpl(value)); return *this; }
 
         /// <summary>Convert Object to double by unboxing. Error if Object does is not a boxed double.</summary>
         operator double() const { return cast<Ptr<DoubleImpl>>()->value_; }
+
+        /// <summary>Convert Object to NullableDouble by unboxing. Error if Object does is not a boxed double.</summary>
+        operator NullableDouble() const { return *this == nullptr ? NullableDouble() : cast<Ptr<DoubleImpl>>()->value_; }
 
         /// <summary>Convert Object to int by unboxing. Error if Object does is not a boxed int.</summary>
         operator int() const { return cast<Ptr<IntImpl>>()->value_; }

@@ -79,4 +79,21 @@ namespace cl
         /// </summary>
         NullableDouble& operator=(double rhs) { value_ = rhs; return *this; }
     };
+
+    /// <summary>Wrapper around double to make it convertible to Object (boxing).</summary>
+    class DoubleImpl : public ObjectImpl
+    {
+        friend Object;
+        double value_;
+
+    public: // CONSTRUCTORS
+
+        /// <summary>Create from value (box).</summary>
+        DoubleImpl(double value) : value_(value) {}
+
+    public: // METHODS
+
+        /// <summary>A string representing the name of the current type.</summary>
+        virtual String ToString() const { return "System.Double"; }
+    };
 }

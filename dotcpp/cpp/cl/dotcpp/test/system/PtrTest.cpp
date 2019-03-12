@@ -113,16 +113,26 @@ namespace cl
         {
             // Boxing double
             double x = 1.0;
-            Object boxed = 1.0;
+            Object boxed = x;
             BOOST_CHECK((double)boxed == 1.0);
             boxed = 2.0;
             BOOST_CHECK((double)boxed == 2.0);
         }
 
         {
+            // Boxing NullableDouble
+            NullableDouble x;
+            Object boxed = x;
+            // BOOST_CHECK(((NullableDouble)boxed).IsEmpty());
+            NullableDouble y = 2.0;
+            boxed = y;
+            BOOST_CHECK((double)boxed == 2.0);
+        }
+
+        {
             // Boxing int
             int x = 1;
-            Object boxed = 1;
+            Object boxed = x;
             BOOST_CHECK((int)boxed == 1);
             boxed = 2;
             BOOST_CHECK((int)boxed == 2);
