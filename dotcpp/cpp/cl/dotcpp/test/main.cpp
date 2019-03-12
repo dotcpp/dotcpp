@@ -19,6 +19,7 @@ license from CompatibL and with the inclusion of this copyright notice.
 #include <cl/dotcpp/test/system/ReadOnlyPropertyTest.hpp>
 #include <cl/dotcpp/test/system/StaticPropertyTest.hpp>
 #include <cl/dotcpp/test/system/ReadOnlyStaticPropertyTest.hpp>
+#include <cl/dotcpp/test/system/ReflectionTest.hpp>
 
 // using namespace boost::unit_test_framework;
 
@@ -52,6 +53,7 @@ test_suite* init_unit_test_suite(int, char*[])
     allTests->add(cl::StaticPropertyTest::GetTestSuite());
     allTests->add(cl::ReadOnlyStaticPropertyTest::GetTestSuite());
     allTests->add(cl::PtrTest::GetTestSuite());
+    allTests->add(cl::ReflectionTest::GetTestSuite());
 
     return allTests;
 }

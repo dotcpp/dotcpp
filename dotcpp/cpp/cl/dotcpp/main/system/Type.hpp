@@ -35,25 +35,35 @@ namespace cl
     /// <summary>
     /// Provides reflection functionality.
     /// </summary>
-    class CL_DOTCPP_MAIN TypeImpl : public virtual ObjectImpl
+    class TypeImpl : public virtual ObjectImpl
     {
+        friend Type new_Type();
+
     public: // PROPERTIES
 
         /// <summary>Gets the name of the current type, excluding namespace.</summary>
-        DOT_DECL_GET(TypeImpl, String, Name)
+        DOT_AUTO_GET(TypeImpl, String, Name)
 
         /// <summary>Gets the fully qualified name of the type, including its namespace but not its assembly.</summary>
-        DOT_DECL_GET(TypeImpl, String, FullName)
+        DOT_AUTO_GET(TypeImpl, String, FullName)
 
     public: // METHODS
 
-        /// <summary>Returns all the public properties of the current type.</summary>
-        virtual Array1D<PropertyInfo> GetProperties();
+        Array1D<PropertyInfo> Properties; // TODO Make private
+
+        /// <summary>Returns properties of the current type.</summary>
+        virtual Array1D<PropertyInfo> GetProperties()
+        {
+            return Properties;
+        }
 
         /// <summary>A string representing the name of the current type.</summary>
         virtual String ToString() const { return "Type"; } // TODO - return name
 
-    protected:
+    protected: // CONSTRUCTORS
+
         TypeImpl() = default;
     };
+
+    Type new_Type() { return new TypeImpl(); }
 }

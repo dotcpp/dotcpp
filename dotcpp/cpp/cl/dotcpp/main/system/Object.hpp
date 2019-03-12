@@ -36,8 +36,12 @@ namespace cl
 
     public: // CONSTRUCTORS
 
-        /// <summary>Construct Object from Ptr(T).</summary>
+        /// <summary>Construct Object from Ptr(ObjectImpl).</summary>
         Object(const Ptr<ObjectImpl>& ptr) : base(ptr) {}
+
+        /// <summary>Construct Object from Ptr(T).</summary>
+        template <class T>
+        Object(const Ptr<T>& ptr) : base(ptr.as<base>()) {} // TODO Use cast?
 
         /// <summary>Construct Object from bool by boxing.</summary>
         Object(bool value) : base(new BoolImpl(value)) {}

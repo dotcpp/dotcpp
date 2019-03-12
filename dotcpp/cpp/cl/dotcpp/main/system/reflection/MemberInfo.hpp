@@ -33,20 +33,29 @@ namespace cl
     /// <summary>
     /// Obtains information about the attributes of a member and provides access to member metadata.
     /// </summary>
-    class CL_DOTCPP_MAIN MemberInfoImpl : public virtual ObjectImpl
+    class MemberInfoImpl : public virtual ObjectImpl
     {
     public: // METHODS
 
         /// <summary>Gets the name of the current member.</summary>
-        DOT_DECL_GET(MemberInfoImpl, String, Name)
+        DOT_AUTO_GET(MemberInfoImpl, String, Name)
 
         /// <summary>Gets the class that declares this member.</summary>
-        DOT_DECL_GET(MemberInfoImpl, Type, DeclaringType)
+        DOT_AUTO_GET(MemberInfoImpl, Type, DeclaringType)
 
         /// <summary>A string representing the name of the current type.</summary>
         virtual String ToString() const { return "MemberInfo"; }
 
-    protected:
-        MemberInfoImpl() = default;
+    protected: // CONSTRUCTORS
+
+        /// <summary>
+        /// Create from property name and declaring type.
+        ///
+        /// This constructor is protected. It is used by derived classes only.
+        /// </summary>
+        MemberInfoImpl(const String& name, Type declaringType)
+            : Name(name)
+            , DeclaringType(declaringType)
+        {}
     };
 }
