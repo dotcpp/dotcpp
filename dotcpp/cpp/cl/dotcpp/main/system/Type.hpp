@@ -40,10 +40,10 @@ namespace cl
     public: // PROPERTIES
 
         /// <summary>Gets the name of the current type, excluding namespace.</summary>
-        DECL_PROP_GET(TypeImpl, String, Name)
+        DOT_DECL_PROP_GET(TypeImpl, String, Name)
 
         /// <summary>Gets the fully qualified name of the type, including its namespace but not its assembly.</summary>
-        DECL_PROP_GET(TypeImpl, String, FullName)
+        DOT_DECL_PROP_GET(TypeImpl, String, FullName)
 
     public: // METHODS
 

@@ -63,10 +63,10 @@ namespace cl
         }
 
         /// <summary>The number of items contained in the list.</summary>
-        IMPL_PROP_GET(ListBaseImpl, int, Count, { return this->size(); })
+        DOT_IMPL_PROP_GET(ListBaseImpl, int, Count, { return this->size(); })
 
         /// <summary>The total number of elements the internal data structure can hold without resizing.</summary>
-        PROP(ListBaseImpl, int, Capacity, { return this->capacity(); }, { this->reserve(value); });
+        DOT_PROP(ListBaseImpl, int, Capacity, { return this->capacity(); }, { this->reserve(value); });
 
         /// <summary>Adds an object to the end of the list.</summary>
         virtual void Add(const T& item) { this->push_back(item); }

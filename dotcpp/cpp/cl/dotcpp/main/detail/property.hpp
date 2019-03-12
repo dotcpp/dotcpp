@@ -36,7 +36,7 @@ namespace cl
 
 
 
-#define DECL_PROP_GET(Class, type, name)                                    \
+#define DOT_DECL_PROP_GET(Class, type, name)                                \
     private:                                                                \
         virtual type CAT(get, name)(type name) = 0;                         \
         struct CAT(name, _prop)                                             \
@@ -55,7 +55,7 @@ namespace cl
         CAT(name, _prop) name = CAT(name, _prop)(this);
 
 
-#define DECL_PROP(Class, type, name)                                        \
+#define DOT_DECL_PROP(Class, type, name)                                    \
     private:                                                                \
         virtual type CAT(get, name)(type name) = 0;                         \
         virtual void CAT(set, name)(type & name, type const& value) = 0;    \
@@ -77,17 +77,17 @@ namespace cl
 
 
 
-#define IMPL_PROP_GET(Class, type, name, getter)                            \
+#define DOT_IMPL_PROP_GET(Class, type, name, getter)                        \
     private:                                                                \
         virtual type CAT(get, name)(type name) getter
 
 
-#define IMPL_PROP(Class, type, name, getter, setter)                        \
+#define DOT_IMPL_PROP(Class, type, name, getter, setter)                    \
     private:                                                                \
         virtual type CAT(get, name)(type name) getter                       \
         virtual void CAT(set, name)(type & name, type const& value) setter
 
-#define PROP_GET(Class, type, name, getter)                                 \
+#define DOT_PROP_GET(Class, type, name, getter)                             \
     private:                                                                \
         virtual type CAT(get, name)(type name) getter                       \
         struct CAT(name, _prop)                                             \
@@ -106,7 +106,7 @@ namespace cl
         CAT(name, _prop) name = CAT(name, _prop)(this);
 
 
-#define PROP(Class, type, name, getter, setter)                             \
+#define DOT_PROP(Class, type, name, getter, setter)                         \
     private:                                                                \
         virtual type CAT(get, name)(type name) getter                       \
         virtual void CAT(set, name)(type & name, type const& value) setter  \
@@ -127,16 +127,14 @@ namespace cl
         CAT(name, _prop) name = CAT(name, _prop)(this);
 
 
-#define AUTO_PROP_GET(Class, type, name)                                    \
+#define DOT_AUTO_PROP_GET(Class, type, name)                                \
     public:                                                                 \
         type name;                                                          \
         virtual type CAT(get, name)() { return name; }
 
 
-#define AUTO_PROP(Class, type, name)                                        \
+#define DOT_AUTO_PROP(Class, type, name)                                    \
     public:                                                                 \
         type name;                                                          \
         virtual type CAT(get, name)() { return name; }                      \
         void CAT(set, name)(type const& value) { name = value; }
-
-
