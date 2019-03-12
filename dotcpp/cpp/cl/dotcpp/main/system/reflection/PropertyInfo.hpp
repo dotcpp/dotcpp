@@ -36,6 +36,9 @@ namespace cl
     {
     public: // METHODS
 
+        /// <summary>Gets the type of this property.</summary>
+        virtual Type getPropertyType() const = 0;
+
         /// <summary>A string representing the name of the current type.</summary>
         virtual String ToString() const { return "PropertyInfo"; }
 

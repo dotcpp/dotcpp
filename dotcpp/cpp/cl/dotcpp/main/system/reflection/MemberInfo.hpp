@@ -28,6 +28,7 @@ limitations under the License.
 namespace cl
 {
     class MemberInfoImpl; using MemberInfo = Ptr<MemberInfoImpl>;
+    class TypeImpl; using Type = Ptr<TypeImpl>;
 
     /// <summary>
     /// Obtains information about the attributes of a member and provides access to member metadata.
@@ -35,6 +36,12 @@ namespace cl
     class CL_DOTCPP_MAIN MemberInfoImpl : public virtual ObjectImpl
     {
     public: // METHODS
+
+        /// <summary>Gets the name of the current member.</summary>
+        virtual String getName() const = 0;
+
+        /// <summary>Gets the class that declares this member.</summary>
+        virtual Type getDeclaringType() const = 0;
 
         /// <summary>A string representing the name of the current type.</summary>
         virtual String ToString() const { return "MemberInfo"; }

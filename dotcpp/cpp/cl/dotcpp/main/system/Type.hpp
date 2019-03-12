@@ -28,18 +28,27 @@ limitations under the License.
 namespace cl
 {
     class TypeImpl; using Type = Ptr<TypeImpl>;
+    class String;
     class PropertyInfoImpl; using PropertyInfo = Ptr<PropertyInfoImpl>;
-    class Array1DImpl; using Array1D = Ptr<Array1DImpl>;
+    template <typename T> class Array1DImpl; template <typename T> using Array1D = Ptr<Array1DImpl<T>>;
 
     /// <summary>
     /// Provides reflection functionality.
     /// </summary>
     class CL_DOTCPP_MAIN TypeImpl : public virtual ObjectImpl
     {
+    public: // PROPERTIES
+
+        /// <summary>Gets the name of the current type, excluding namespace.</summary>
+        virtual String getName();
+
+        /// <summary>Gets the fully qualified name of the type, including its namespace but not its assembly.</summary>
+        virtual String getFullName();
+
     public: // METHODS
 
         /// <summary>Returns all the public properties of the current type.</summary>
-        public Array1D<PropertyInfo> GetProperties();
+        virtual Array1D<PropertyInfo> GetProperties();
 
         /// <summary>A string representing the name of the current type.</summary>
         virtual String ToString() const { return "Type"; } // TODO - return name
