@@ -45,6 +45,9 @@ namespace cl
         /// <summary>Test dynamic cast.</summary>
         static void Cast();
 
+        /// <summary>Test boxing.</summary>
+        static void Boxing();
+
         static test_suite* GetTestSuite();
     };
 }

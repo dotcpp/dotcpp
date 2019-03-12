@@ -29,7 +29,7 @@ limitations under the License.
 
 namespace cl
 {
-    class ObjectImpl; using Object = Ptr<ObjectImpl>;
+    class Object;
 
     /// <summary>
     /// All classes with reference semantics should derive from this type.
@@ -37,7 +37,7 @@ namespace cl
     /// </summary>
     class CL_DOTCPP_MAIN ObjectImpl
     {
-    public:
+    public: // DESTRUCTOR
 
         /// <summary>
         /// Virtual destructor to ensure that destructor
@@ -56,5 +56,54 @@ namespace cl
 
     protected:
         ObjectImpl() = default;
+    };
+
+    class ValueTypeImpl; using ValueType = Ptr<ValueTypeImpl>;
+
+    /// <summary>Based class for boxed value types.</summary>
+    class ValueTypeImpl : public ObjectImpl
+    {
+    public: // METHODS
+
+        /// <summary>A string representing the name of the current type.</summary>
+        virtual String ToString() const { return "System.ValueType"; }
+    };
+
+    /// <summary>Wrapper around double to make it convertible to Object (boxing).</summary>
+    class DoubleImpl : public ValueTypeImpl
+    {
+        double value_;
+
+    public: // CONSTRUCTORS
+
+        /// <summary>Create from value (box).</summary>
+        DoubleImpl(double value) : value_(value) {}
+
+    public: // METHODS
+
+        /// <summary>A string representing the name of the current type.</summary>
+        virtual String ToString() const { return "System.Double"; }
+    };
+
+    /// <summary>Adds support for boxing value types to Ptr(ObjectImpl).</summary>
+    class CL_DOTCPP_MAIN Object : public Ptr<ObjectImpl>
+    {
+        typedef Ptr<ObjectImpl> base;
+
+    public: // CONSTRUCTORS
+
+        /// <summary>Construct Object from Ptr(T).</summary>
+        Object(const Ptr<ObjectImpl>& ptr) : base(ptr) {}
+
+        /// <summary>Construct Object from double by boxing.</summary>
+        Object(double value) : base(new DoubleImpl(value)) {}
+
+    public: // OPERATORS
+
+        /// <summary>Assign Ptr(T) to Object.</summary>
+        Object& operator=(const Ptr<ObjectImpl>& ptr) { base::operator=(ptr); return *this; }
+
+        /// <summary>Assign double to Object by boxing.</summary>
+        Object& operator=(double value) { base::operator=(new DoubleImpl(value)); return *this; }
     };
 }

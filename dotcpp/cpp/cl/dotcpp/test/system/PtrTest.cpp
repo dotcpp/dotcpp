@@ -23,6 +23,7 @@ limitations under the License.
 
 #include <cl/dotcpp/test/implement.hpp>
 #include <cl/dotcpp/test/system/PtrTest.hpp>
+#include <cl/dotcpp/main/system/Object.hpp>
 
 namespace cl
 {
@@ -106,11 +107,23 @@ namespace cl
         BOOST_CHECK(d.cast<Derived>() != nullptr);
     }
 
+    /// <summary>Test boxing.</summary>
+    void PtrTest::Boxing()
+    {
+        // Boxing double
+        double x = 1.0;
+        Object boxedDouble = 1.0;
+       // BOOST_CHECK(boxedDouble.cast<double>() == 1.0);
+        boxedDouble = 2.0;
+     //   BOOST_CHECK(boxedDouble.cast<double>() == 2.0);
+    }
+
     test_suite* PtrTest::GetTestSuite()
     {
         test_suite* suite = BOOST_TEST_SUITE("PtrTest");
         suite->add(BOOST_TEST_CASE(&PtrTest::Inheritance));
         suite->add(BOOST_TEST_CASE(&PtrTest::Cast));
+        suite->add(BOOST_TEST_CASE(&PtrTest::Boxing));
         return suite;
     }
 }
