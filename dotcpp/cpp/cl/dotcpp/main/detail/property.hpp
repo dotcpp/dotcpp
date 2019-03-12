@@ -79,13 +79,13 @@ namespace cl
 
 #define DOT_IMPL_GET(Class, type, name, getter)                             \
     private:                                                                \
-        virtual type CAT(get, name)(type name) getter
+        virtual type CAT(get, name)(type name) override getter
 
 
 #define DOT_IMPL_PROP(Class, type, name, getter, setter)                    \
     private:                                                                \
-        virtual type CAT(get, name)(type name) getter                       \
-        virtual void CAT(set, name)(type & name, type const& value) setter
+        virtual type CAT(get, name)(type name) override getter              \
+        virtual void CAT(set, name)(type & name, type const& value) override setter
 
 #define DOT_GET(Class, type, name, getter)                                  \
     private:                                                                \
