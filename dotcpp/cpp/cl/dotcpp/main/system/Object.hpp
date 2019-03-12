@@ -23,86 +23,11 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/declare.hpp>
-#include <cl/dotcpp/main/system/Ptr.hpp>
-#include <cl/dotcpp/main/system/String.hpp>
+#include <cl/dotcpp/main/system/Double.hpp>
+#include <cl/dotcpp/main/system/Int.hpp>
 
 namespace cl
 {
-    class Object;
-
-    /// <summary>
-    /// All classes with reference semantics should derive from this type.
-    /// It works with Ptr to provide an emulation of reference semantics in C++.
-    /// </summary>
-    class CL_DOTCPP_MAIN ObjectImpl
-    {
-    public: // DESTRUCTOR
-
-        /// <summary>
-        /// Virtual destructor to ensure that destructor
-        /// of the derived type is called by Ptr.
-        /// </summary>
-        virtual ~ObjectImpl() = default;
-
-    public: // METHODS
-
-        /// <summary>
-        /// String that represents the current object.
-        ///
-        /// Default implementation returns full name of the class.
-        /// </summary>
-        virtual String ToString() const { return "Object"; }
-
-    protected:
-        ObjectImpl() = default;
-    };
-
-    class ValueTypeImpl; using ValueType = Ptr<ValueTypeImpl>;
-
-    /// <summary>Based class for boxed value types.</summary>
-    class ValueTypeImpl : public ObjectImpl
-    {
-    public: // METHODS
-
-        /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() const { return "System.ValueType"; }
-    };
-
-    /// <summary>Wrapper around double to make it convertible to Object (boxing).</summary>
-    class DoubleImpl : public ValueTypeImpl
-    {
-        friend Object;
-        double value_;
-
-    public: // CONSTRUCTORS
-
-        /// <summary>Create from value (box).</summary>
-        DoubleImpl(double value) : value_(value) {}
-
-    public: // METHODS
-
-        /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() const { return "System.Double"; }
-    };
-
-    /// <summary>Wrapper around int to make it convertible to Object (boxing).</summary>
-    class IntImpl : public ValueTypeImpl
-    {
-        friend Object;
-        int value_;
-
-    public: // CONSTRUCTORS
-
-        /// <summary>Create from value (box).</summary>
-        IntImpl(int value) : value_(value) {}
-
-    public: // METHODS
-
-        /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() const { return "System.Int32"; }
-    };
-
     /// <summary>Adds support for boxing value types to Ptr(ObjectImpl).</summary>
     class CL_DOTCPP_MAIN Object : public Ptr<ObjectImpl>
     {

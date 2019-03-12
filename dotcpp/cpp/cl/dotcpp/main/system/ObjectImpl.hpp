@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright (C) 2003-present CompatibL
 
 This file is part of .C++, a native C++ implementation of
@@ -23,35 +23,38 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/system/ObjectImpl.hpp>
+#include <cl/dotcpp/main/declare.hpp>
+#include <cl/dotcpp/main/system/Ptr.hpp>
+#include <cl/dotcpp/main/system/String.hpp>
 
 namespace cl
 {
+    class Object;
+
     /// <summary>
-    /// Provides constants and static methods for int type.
+    /// All classes with reference semantics should derive from this type.
+    /// It works with Ptr to provide an emulation of reference semantics in C++.
     /// </summary>
-    class Int
+    class CL_DOTCPP_MAIN ObjectImpl
     {
-    public: //  CONSTANTS
+    public: // DESTRUCTOR
 
-        /// <summary>Sentinel value representing uninitialized state.</summary>
-        static constexpr int Empty = std::numeric_limits<int>::min();
-    };
-
-    /// <summary>Wrapper around int to make it convertible to Object (boxing).</summary>
-    class IntImpl : public ObjectImpl
-    {
-        friend Object;
-        int value_;
-
-    public: // CONSTRUCTORS
-
-        /// <summary>Create from value (box).</summary>
-        IntImpl(int value) : value_(value) {}
+        /// <summary>
+        /// Virtual destructor to ensure that destructor
+        /// of the derived type is called by Ptr.
+        /// </summary>
+        virtual ~ObjectImpl() = default;
 
     public: // METHODS
 
-        /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() const { return "System.Int32"; }
+        /// <summary>
+        /// String that represents the current object.
+        ///
+        /// Default implementation returns full name of the class.
+        /// </summary>
+        virtual String ToString() const { return "Object"; }
+
+    protected:
+        ObjectImpl() = default;
     };
 }

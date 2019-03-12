@@ -23,7 +23,7 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/declare.hpp>
+#include <cl/dotcpp/main/system/ObjectImpl.hpp>
 
 namespace cl
 {
@@ -39,6 +39,23 @@ namespace cl
 
         /// <summary>Tolerance used in comparison.</summary>
         static constexpr double Tolerance = 1e-10;
+    };
+
+    /// <summary>Wrapper around double to make it convertible to Object (boxing).</summary>
+    class DoubleImpl : public ObjectImpl
+    {
+        friend Object;
+        double value_;
+
+    public: // CONSTRUCTORS
+
+        /// <summary>Create from value (box).</summary>
+        DoubleImpl(double value) : value_(value) {}
+
+    public: // METHODS
+
+        /// <summary>A string representing the name of the current type.</summary>
+        virtual String ToString() const { return "System.Double"; }
     };
 }
 
