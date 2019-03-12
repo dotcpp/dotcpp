@@ -24,14 +24,14 @@ limitations under the License.
 #pragma once
 
 #include <cl/dotcpp/main/declare.hpp>
-#include <string>
+#include <cl/dotcpp/main/system/Ptr.hpp>
 
 namespace cl
 {
     enum class StringSplitOptions;
     class Char;
     class Comparer;
-    template <typename T> class Array;
+    template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
     class StringComparer;
 
     /// <summary>Immutable string type with Unicode support.</summary>
@@ -116,12 +116,12 @@ namespace cl
 
         /// <summary>Returns a string array that contains the substrings of the current string
         /// that are delimited by any of the specified 8-bit characters.</summary>
-        Array<String> Split(char separator) const;
+        Array1D<String> Split(char separator) const;
 
         /// <summary>Returns a string array that contains the substrings in
         /// this string that are delimited by any of the specified strings.\\
         /// A parameter specifies whether to return empty array elements.</summary>
-        Array<String> Split(const Array<String>& separator, const StringSplitOptions& options) const;
+        Array1D<String> Split(const Array1D<String>& separator, const StringSplitOptions& options) const;
 
         ///<summary>Indicates whether the argument occurs within this string.</summary>
         inline bool Contains(cl::String const& s) const
@@ -246,10 +246,10 @@ namespace cl
         static String Concat(const Object& arg0);
 
         /// <summary>Concatenates the string representations of the elements in a specified Object array.</summary>
-        static String Concat(const Array<Object>& args);
+        static String Concat(const Array1D<Object>& args);
 
         /// <summary>Concatenates the elements of a specified String array.</summary>
-        static String Concat(const Array<String>& values);
+        static String Concat(const Array1D<String>& values);
 
         /// <summary>Concatenates the string representations of two specified objects.</summary>
         static String Concat(const Object& arg0, const Object& arg1);
@@ -286,12 +286,12 @@ namespace cl
 
         /// <summary>Replaces the format item (e.g. {0}, {1}, etc.) in a specified string
         /// with the string representation of a corresponding object in a specified array.</summary>
-        static String Format(const String& format, const Array<Object>& args);
+        static String Format(const String& format, const Array1D<Object>& args);
 
         /// <summary>Replaces the format item in a specified string with the string representation
         /// of a corresponding object in a specified array. A specified parameter supplies
         /// culture-specific formatting information.</summary>
-        static String Format(const ITFormatProvider& provider, const String& format, const Array<Object>& args);
+        static String Format(const ITFormatProvider& provider, const String& format, const Array1D<Object>& args);
 
         /// <summary>Replaces the format items in a specified string with the string representation
         /// of two specified objects.</summary>
@@ -322,15 +322,15 @@ namespace cl
 
         /// <summary>Concatenates the elements of an object array, using the specified separator
         /// between each element.</summary>
-        static String Join(const String& separator, const Array<Object>& values);
+        static String Join(const String& separator, const Array1D<Object>& values);
 
         /// <summary>Concatenates all the elements of a string array, using the specified separator
         /// between each element.</summary>
-        static String Join(const String& separator, const Array<String>& value);
+        static String Join(const String& separator, const Array1D<String>& value);
 
         /// <summary>Concatenates the specified elements of a string array, using the specified
         /// separator between each element.</summary>
-        static String Join(const String& separator, const Array<String>& value, int startIndex, int count);
+        static String Join(const String& separator, const Array1D<String>& value, int startIndex, int count);
 
         */
     };

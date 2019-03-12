@@ -64,7 +64,7 @@ namespace cl
         inline bool contains(const T& item) const;
 
         /// <summary>Copies Queue elements to array starting at specified index.</summary>
-        inline void copyTo(Array<T>& arr, int arrIndex) const;
+        inline void copyTo(Array1D<T>& arr, int arrIndex) const;
 
         /// <summary>Removes and returns the object at the beginning of the Queue.</summary>
         inline T dequeue()
@@ -87,7 +87,7 @@ namespace cl
         }
 
         /// <summary>Copies the elements of the Queue to a new array.</summary>
-        inline Array<T> toArray() const;
+        inline Array1D<T> toArray() const;
 
         /// <summary>Sets the capacity to the actual number of elements in the Queue, if that number is less than a threshold value.</summary>
         inline void trimExcess();

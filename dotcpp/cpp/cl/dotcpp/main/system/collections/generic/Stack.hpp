@@ -32,7 +32,7 @@ limitations under the License.
 
 namespace cl
 {
-    template <class T> class Array;
+    template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
 
     ///!!! Provide .NET description Adapter class from STL deque to .NET Stack. srd::deque used as container to make possible Conataints(T item) and GetEnumerator() implementation
     template <typename T>
@@ -67,7 +67,7 @@ namespace cl
         inline bool contains(T item) const;
 
         /// <summary>Copies Stack elements to array starting at specified index.</summary>
-        inline void copyTo(Array<T>& arr, int arrIndex) const;
+        inline void copyTo(Array1D<T>& arr, int arrIndex) const;
 
         /// <summary>Returns the object at the top of the Stack without removing it.</summary>
         inline T peek() const
@@ -90,7 +90,7 @@ namespace cl
         }
 
         /// <summary>Copies the elements of the Stack to a new array.</summary>
-        inline Array<T> toArray() const;
+        inline Array1D<T> toArray() const;
 
         /// <summary>Sets the capacity to the actual number of elements
         /// in the Stack, if that number is less than a threshold value.</summary>

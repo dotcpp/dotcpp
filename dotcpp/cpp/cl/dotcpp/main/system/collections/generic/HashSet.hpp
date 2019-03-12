@@ -32,7 +32,7 @@ limitations under the License.
 
 namespace cl
 {
-    template <typename T> class Array;
+    template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
 
     /// Adapter class from STL has_set to .NET HashSet
     template <typename T>
@@ -65,13 +65,13 @@ namespace cl
         inline bool contains(const T& item) const;
 
         /// <summary>Copies HashSet elements to array starting at then begining of arrray.</summary>
-        void copyTo(Array<T>& arr) const;
+        void copyTo(Array1D<T>& arr) const;
 
         /// <summary>Copies HashSet elements to array starting at specified index.</summary>
-        void copyTo(Array<T>& arr, int arrIndex) const;
+        void copyTo(Array1D<T>& arr, int arrIndex) const;
 
         /// <summary>Copies range of HashSet elements to array starting at specified index.</summary>
-        void copyTo(Array<T>& arr, int arrIndex, int count) const;
+        void copyTo(Array1D<T>& arr, int arrIndex, int count) const;
 
         /// <summary>Removes all elements in the specified collection from the current HashSet object.</summary>
         inline void exceptWith(const IEnumerable<T>& other);

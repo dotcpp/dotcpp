@@ -30,7 +30,7 @@ namespace cl
     class TypeImpl; using Type = Ptr<TypeImpl>;
     class String;
     class PropertyInfoImpl; using PropertyInfo = Ptr<PropertyInfoImpl>;
-    template <typename T> class Array1DImpl; template <typename T> using Array1D = Ptr<Array1DImpl<T>>;
+    template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
 
     /// <summary>
     /// Provides reflection functionality.

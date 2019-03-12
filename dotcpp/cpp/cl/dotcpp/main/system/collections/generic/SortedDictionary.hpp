@@ -33,7 +33,7 @@ limitations under the License.
 
 namespace cl
 {
-    template <class T> class Array;
+    template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
 
     ///!!! Provide .NET description Adapter class from STL map to .NET SortedDictionary - collection of key/value pairs that are sorted on the key
     template <typename Key, typename Type >
@@ -113,7 +113,7 @@ namespace cl
         }
 
         /// <summary>Copies SortedDictionary elements to array starting at specified index.</summary>
-        inline void copyTo(Array<typename KeyValuePair<Key, Type>::type>& arr, int arrIndex) const
+        inline void copyTo(Array1D<typename KeyValuePair<Key, Type>::type>& arr, int arrIndex) const
         {
             /*if (arrIndex +  this->get().count() > arr.length())
                 throw Exeption();*/
@@ -132,7 +132,7 @@ namespace cl
                 this->get().erase(it);
                 return true;
             }
-            return false; 
+            return false;
         }
 
         /// <summary>Gets the value associated with the specified key.</summary>

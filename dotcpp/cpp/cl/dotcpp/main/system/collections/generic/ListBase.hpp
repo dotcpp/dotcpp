@@ -88,13 +88,13 @@ namespace cl
         /*
 
         /// <summary>Copies list elements to array starting at then begining of arrray.</summary>
-        void copyTo(Array<T>& arr) const;
+        void copyTo(Array1D<T>& arr) const;
 
         /// <summary>Copies ListBase elements to array starting at specified index.</summary>
-        void copyTo(Array<T>& arr, int index) const;
+        void copyTo(Array1D<T>& arr, int index) const;
 
         /// <summary>Copies range of ListBase elements to array starting at specified index.</summary>
-        void copyTo(int index, Array<T>& arr, int arrIndex, int count) const;
+        void copyTo(int index, Array1D<T>& arr, int arrIndex, int count) const;
 
         /// <summary>Looks for element in ListBase that matches predicate condition and returns its index.</summary>
         template <typename Predicate>
@@ -198,7 +198,7 @@ namespace cl
         }
 
         /// <summary>Copies list elements to an array.</summary>
-        Array<T> ToArray() const;
+        Array1D<T> ToArray() const;
 
         */
     };

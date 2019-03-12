@@ -32,7 +32,7 @@ limitations under the License.
 
 namespace cl
 {
-    template <typename T> class Array;
+    template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
 
     ///!!! Provide .NET description Adapter class from STL set to .NET SortedSet
     template <typename T>
@@ -71,13 +71,13 @@ namespace cl
         inline bool contains(const T& item);
 
         /// <summary>Copies SortedSet elements to array starting at then begining of array.</summary>
-        void copyTo(Array<T>& arr);
+        void copyTo(Array1D<T>& arr);
 
         /// <summary>Copies SortedSet elements to array starting at specified index.</summary>
-        void copyTo(Array<T>& arr, int index);
+        void copyTo(Array1D<T>& arr, int index);
 
         /// <summary>Copies a specified number of SortedSet elements to array starting at specified index.</summary>
-        void copyTo(Array<T>& arr, int index, int count);
+        void copyTo(Array1D<T>& arr, int index, int count);
 
         /// <summary>Removes all elements in the specified collection from the current SortedSet object.</summary>
         inline void exceptWith(const IEnumerable<T>& other);
