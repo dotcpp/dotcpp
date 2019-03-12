@@ -37,21 +37,4 @@ namespace cl
         /// <summary>Sentinel value representing uninitialized state.</summary>
         static constexpr int Empty = std::numeric_limits<int>::min();
     };
-
-    /// <summary>Wrapper around int to make it convertible to Object (boxing).</summary>
-    class IntImpl : public ObjectImpl
-    {
-        friend Object;
-        int value_;
-
-    public: // CONSTRUCTORS
-
-        /// <summary>Create from value (box).</summary>
-        IntImpl(int value) : value_(value) {}
-
-    public: // METHODS
-
-        /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() const { return "System.Int32"; }
-    };
 }

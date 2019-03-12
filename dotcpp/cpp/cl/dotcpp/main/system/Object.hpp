@@ -24,7 +24,7 @@ limitations under the License.
 #pragma once
 
 #include <cl/dotcpp/main/system/NullableDouble.hpp>
-#include <cl/dotcpp/main/system/Int.hpp>
+#include <cl/dotcpp/main/system/NullableInt.hpp>
 
 namespace cl
 {
@@ -47,6 +47,9 @@ namespace cl
         /// <summary>Construct Object from int by boxing.</summary>
         Object(int value) : base(new IntImpl(value)) {}
 
+        /// <summary>Construct Object from NullableInt by boxing.</summary>
+        Object(const NullableInt& value) : base(value.IsEmpty() ? nullptr : new IntImpl(value)) {}
+
     public: // OPERATORS
 
         /// <summary>Assign Ptr(T) to Object.</summary>
@@ -60,6 +63,9 @@ namespace cl
 
         /// <summary>Assign int to Object by boxing.</summary>
         Object& operator=(int value) { base::operator=(new IntImpl(value)); return *this; }
+
+        /// <summary>Assign NullableInt to Object by boxing.</summary>
+        Object& operator=(const NullableInt& value) { base::operator=(value.IsEmpty() ? nullptr : new IntImpl(value)); return *this; }
 
         /// <summary>Convert Object to double by unboxing. Error if Object does is not a boxed double.</summary>
         operator double() const { return cast<Ptr<DoubleImpl>>()->value_; }

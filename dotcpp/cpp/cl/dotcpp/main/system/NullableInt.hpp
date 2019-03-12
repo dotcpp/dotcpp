@@ -28,6 +28,26 @@ limitations under the License.
 
 namespace cl
 {
+    class NullableInt;
+
+    /// <summary>Wrapper around int to make it convertible to Object (boxing).</summary>
+    class IntImpl : public ObjectImpl
+    {
+        friend Object;
+        friend NullableInt;
+        int value_;
+
+    public: // CONSTRUCTORS
+
+        /// <summary>Create from value (box).</summary>
+        IntImpl(int value) : value_(value) {}
+
+    public: // METHODS
+
+        /// <summary>A string representing the name of the current type.</summary>
+        virtual String ToString() const { return "System.Int32"; }
+    };
+
     /// <summary>
     /// Wrapper for int where default constructor creates uninitialized
     /// value. Use this class to get an error message when the variable is
@@ -52,6 +72,14 @@ namespace cl
         /// no error occurs and the object is constructed in uninitialized state.
         /// </summary>
         NullableInt(int rhs) : value_(rhs) {}
+
+        /// <summary>
+        /// Create from Object.
+        ///
+        /// Error if Object does is not a boxed double.
+        /// Null Object becomes empty NullableDouble.
+        /// </summary>
+        NullableInt(const Ptr<ObjectImpl>& rhs) : value_(rhs == nullptr ? Int::Empty : rhs.cast<Ptr<IntImpl>>()->value_) {}
 
     public: //  METHODS
 

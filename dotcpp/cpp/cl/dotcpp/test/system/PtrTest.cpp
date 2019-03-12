@@ -137,6 +137,16 @@ namespace cl
             boxed = 2;
             BOOST_CHECK((int)boxed == 2);
         }
+
+        {
+            // Boxing NullableInt
+            NullableInt x;
+            Object boxed = x;
+            BOOST_CHECK(((NullableInt)boxed).IsEmpty());
+            NullableInt y = 2;
+            boxed = y;
+            BOOST_CHECK((int)boxed == 2);
+        }
     }
 
     test_suite* PtrTest::GetTestSuite()
