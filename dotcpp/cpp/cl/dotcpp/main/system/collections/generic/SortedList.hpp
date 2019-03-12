@@ -36,7 +36,7 @@ namespace cl
     template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
 
     ///!!! Provide .NET description Adapter class from STL deque to .NET SortedList - collection of key/value pairs that are sorted on the key
-    template <typename Key, typename Type >
+    template <class Key, class Type >
     class SortedList : public detail::std_accessor_<
         cl::IEnumerable< typename KeyValuePair<Key, Type>::type >
         , std::deque< typename KeyValuePair<Key, Type>::type > >

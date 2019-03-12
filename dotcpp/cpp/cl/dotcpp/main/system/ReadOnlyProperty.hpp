@@ -30,7 +30,7 @@ namespace cl
 {
     /// <summary>Use this class to implement a non-static readonly property using a getter method.
     /// Define getter as static method taking reference to self as its argument.</summary>
-    template <typename ObjType, typename PropType>
+    template <class ObjType, class PropType>
     class ReadOnlyProperty
     {
         ObjType& obj_;

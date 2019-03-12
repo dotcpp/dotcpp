@@ -33,7 +33,7 @@ limitations under the License.
 namespace cl
 {
     ///!!! Not finished
-    template <typename T>
+    template <class T>
     class LinkedListNode
     {
     private:
@@ -43,7 +43,7 @@ namespace cl
     };
 
     ///!!! Not finished
-    template <typename T>
+    template <class T>
     class LinkedList : public detail::std_accessor_<cl::IEnumerable<T>
         , std::deque<T> >
     {

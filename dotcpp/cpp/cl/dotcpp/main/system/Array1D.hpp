@@ -34,12 +34,12 @@ namespace cl
     /// Represents a strongly typed list of objects that can be accessed by index.
     /// Provides methods to search, sort, and manipulate lists.
     /// </summary>
-    template <typename T>
+    template <class T>
     class Array1DImpl : public ListBaseImpl<T>
     {
         typedef std::vector<T> base;
 
-        template <typename T>
+        template <class T>
         friend Array1D<T> new_Array1D(int size);
 
     private: // CONSTRUCTORS
@@ -63,6 +63,6 @@ namespace cl
     /// <summary>
     /// Initializes a new instance of the array with the specified size.
     /// </summary>
-    template <typename T>
+    template <class T>
     Array1D<T> new_Array1D(int size) { return new Array1DImpl<T>(size); }
 }

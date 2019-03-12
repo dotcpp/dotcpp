@@ -32,7 +32,7 @@ namespace cl
     /// <summary>
     /// Represents a collection of objects that can be individually accessed by index.
     /// </summary>
-    template <typename T>
+    template <class T>
     class IListImpl : public ICollectionImpl<T>
     {
     public: // OPERATORS

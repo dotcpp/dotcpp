@@ -30,7 +30,7 @@ namespace cl
     /// <summary>
     /// Common base to List(T) and Array1D(T)
     /// </summary>
-    template <typename T>
+    template <class T>
     class ListBaseImpl : public IListImpl<T>, public virtual ObjectImpl, public std::vector<T>
     {
         typedef std::vector<T> base;
@@ -97,36 +97,36 @@ namespace cl
         void copyTo(int index, Array1D<T>& arr, int arrIndex, int count) const;
 
         /// <summary>Looks for element in ListBase that matches predicate condition and returns its index.</summary>
-        template <typename Predicate>
+        template <class Predicate>
         inline int findLastIndex(Predicate match) const
         {
             return std::distance(this->begin(), std::find_if(this->rbegin(), this->rend(), match).base() - 1);
         }
 
         /// <summary>Looks for element in ListBase starting at specified index that match predicate condition and returns it index in ListBase.</summary>
-        template <typename Predicate>
+        template <class Predicate>
         inline int findLastIndex(int startIndex, Predicate match) const;
 
         /// <summary>Looks for element in ranghe of elements in ListBase that match predicate condition and returns it index in ListBase.</summary>
-        template <typename Predicate>
+        template <class Predicate>
         inline int findLastIndex(int startIndex, int count, Predicate match) const;
 
         /// <summary>Returns element in ListBase that matches predicate condition.</summary>
-        template <typename Predicate>
+        template <class Predicate>
         inline T const & findLast(Predicate match) const
         {
             return *std::find_if(this->rbegin(), this->rend(), match);
         }
 
         /// <summary>Returns element in ListBase that matches predicate condition.</summary>
-        template <typename Predicate>
+        template <class Predicate>
         inline T& findLast(Predicate match)
         {
             return *std::find_if(this->rbegin(), this->rend(), match);
         }
 
         /// <summary>Apples action to each element in ListBase.</summary>
-        template <typename TAction>
+        template <class TAction>
         inline void forEach(TAction action)
         {
             std::for_each(this->begin(), this->end(), action);
@@ -163,7 +163,7 @@ namespace cl
         bool remove(const T& item);
 
         /// <summary>Removes all the elements that match the predicate conditions.</summary>
-        template <typename Predicate>
+        template <class Predicate>
         inline int removeAll(Predicate match)
         {
             unsigned int sizeold = this->get().size();
@@ -191,7 +191,7 @@ namespace cl
         void Sort();
 
         /// <summary>Sorts the elements in a range of elements in ListBase using the specified comparer.</summary>
-        template <typename Comparer>
+        template <class Comparer>
         void sort(int index, int count, Comparer comparer)
         {
             std::sort(this->begin() + index, this->begin() + index + count, comparer);

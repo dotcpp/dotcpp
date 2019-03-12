@@ -35,7 +35,7 @@ namespace cl
     template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
 
     /// Adapter class from STL has_set to .NET HashSet
-    template <typename T>
+    template <class T>
     class HashSet : public std::unordered_set<T>
     {
     public:
@@ -98,7 +98,7 @@ namespace cl
         inline bool remove(const T& item);
 
         /// <summary>Removes all the elements that match the predicate conditions.</summary>
-        template <typename Predicate>
+        template <class Predicate>
         inline int removeWhere(Predicate match);
 
         /// <summary>Determines whether a HashSet object and the specified collection contain the same elements.</summary>

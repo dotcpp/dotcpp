@@ -33,12 +33,12 @@ namespace cl
     /// Represents a strongly typed list of objects that can be accessed by index.
     /// Provides methods to search, sort, and manipulate lists.
     /// </summary>
-    template <typename T>
+    template <class T>
     class ListImpl : public ListBaseImpl<T>
     {
         typedef std::vector<T> base;
 
-        template <typename T>
+        template <class T>
         friend List<T> new_List();
 
     private: // CONSTRUCTORS
@@ -61,6 +61,6 @@ namespace cl
     ///
     /// This constructor is private. Use new_List() function instead.
     /// </summary>
-    template <typename T>
+    template <class T>
     List<T> new_List() { return new ListImpl<T>(); }
 }

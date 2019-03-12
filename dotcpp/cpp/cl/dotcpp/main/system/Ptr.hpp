@@ -72,15 +72,15 @@ namespace cl
     public: // METHODS
 
         /// <summary>Dynamic cast to type R, returns 0 if the cast fails.</summary>
-        template <typename R>
+        template <class R>
         R as() const;
 
         /// <summary>Dynamic cast to type R, throws exception if the cast fails.</summary>
-        template <typename R>
+        template <class R>
         R cast() const;
 
         /// <summary>Returns true if pointer holds object of type R, and false otherwise.</summary>
-        template <typename R>
+        template <class R>
         bool is() const;
 
     public: // OPERATORS
@@ -124,11 +124,11 @@ namespace cl
         Ptr<T>& operator=(const Ptr<T>& rhs);
 
         /// <summary>Const indexer operator for arrays.</summary>
-        template <typename I>
+        template <class I>
         decltype(auto) operator[](I const& i) const;
 
         /// <summary>Non-const indexer operator for arrays.</summary>
-        template <typename I>
+        template <class I>
         decltype(auto) operator[](I const& i);
     };
 
@@ -136,8 +136,8 @@ namespace cl
     template <class T> template <class R> Ptr<T>::Ptr(const Ptr<R>& rhs) : ptr_(rhs.ptr_) {}
     template <class T> Ptr<T>::Ptr(const Ptr<T>& rhs) : ptr_(rhs.ptr_) {}
     template <class T> Ptr<T>::Ptr(const pointer_type & ptr) : ptr_(ptr) {}
-    template <typename T> template <typename R> R Ptr<T>::as() const { return std::dynamic_pointer_cast<typename R::element_type>(ptr_); }
-    template <typename T> template <typename R> bool Ptr<T>::is() const { if (!ptr_) return false; return typeid(*ptr_) == typeid(R::element_type); }
+    template <class T> template <class R> R Ptr<T>::as() const { return std::dynamic_pointer_cast<typename R::element_type>(ptr_); }
+    template <class T> template <class R> bool Ptr<T>::is() const { if (!ptr_) return false; return typeid(*ptr_) == typeid(R::element_type); }
     template <class T> T& Ptr<T>::operator*() const { T* p = ptr_.get(); if (!p) throw std::runtime_error("Pointer is not initialized"); return *p; }
     template <class T> T* Ptr<T>::operator->() const { T* p = ptr_.get(); if (!p) throw std::runtime_error("Pointer is not initialized"); return p; }
     template <class T> bool Ptr<T>::operator==(const Ptr<T>& rhs) const { return ptr_ == rhs.ptr_; }
@@ -147,11 +147,11 @@ namespace cl
     template <class T> Ptr<T>& Ptr<T>::operator=(T* rhs) { ptr_.reset(rhs); return *this; }
     template <class T> template <class R> Ptr<T>& Ptr<T>::operator=(const Ptr<R>& rhs) { ptr_ = rhs.ptr_; return *this; }
     template <class T> Ptr<T>& Ptr<T>::operator=(const Ptr<T>& rhs) { ptr_ = rhs.ptr_; return *this; }
-    template <class T> template <typename I> decltype(auto) Ptr<T>::operator[](I const& i) const { return (*ptr_)[i]; }
-    template <class T> template <typename I> decltype(auto) Ptr<T>::operator[](I const& i) { return (*ptr_)[i]; }
+    template <class T> template <class I> decltype(auto) Ptr<T>::operator[](I const& i) const { return (*ptr_)[i]; }
+    template <class T> template <class I> decltype(auto) Ptr<T>::operator[](I const& i) { return (*ptr_)[i]; }
 
-    template <typename T> 
-    template <typename R> 
+    template <class T> 
+    template <class R> 
     R Ptr<T>::cast() const 
     {
         typename R::pointer_type ret = std::dynamic_pointer_cast<typename R::element_type>(ptr_);

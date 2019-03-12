@@ -33,7 +33,7 @@ namespace cl
     /// <summary>
     /// Exposes the enumerator, which supports a simple iteration over a collection of a specified type.
     /// </summary>
-    template <typename T>
+    template <class T>
     class IEnumerableImpl : public virtual ObjectImpl
     {
     public: // METHODS
@@ -52,14 +52,14 @@ namespace cl
 namespace std
 {
     /// <summary>Implements begin() used by STL and similar algorithms.</summary>
-    template <typename T>
+    template <class T>
     auto begin(cl::Ptr<T> & obj)
     {
         return obj->begin();
     }
 
     /// <summary>Implements end() used by STL and similar algorithms.</summary>
-    template <typename T>
+    template <class T>
     auto end(cl::Ptr<T> & obj)
     {
         return obj->end();

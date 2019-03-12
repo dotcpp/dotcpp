@@ -33,7 +33,7 @@ limitations under the License.
 namespace cl
 {
     ///!! Provide description Adapter class from STL deque to .NET Queue. std::deque used as container to make possible Conataints(T item) and GetEnumerator() implementation
-    template <typename T>
+    template <class T>
     class Queue : public detail::std_accessor_<cl::IEnumerable<T>, std::deque<T> >
     {
     public:

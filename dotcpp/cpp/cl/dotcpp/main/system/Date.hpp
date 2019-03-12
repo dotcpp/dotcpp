@@ -54,7 +54,7 @@ namespace cl
 
 
         /// <summary>Constructor from variant.</summary>
-        template <typename Type>
+        template <class Type>
         LocalDate(Type value)
         {
             *this = value.ToDate();
@@ -113,7 +113,7 @@ namespace cl
         virtual int getHashCode() const { return impl_->getHashCode(); }
 
         /// <summary>Compare the current instance with another of the same type</summary>
-        template<typename Type>
+        template<class Type>
         int compareTo(Type other) const
         {
             if (!other) return isNull() ? 0 : 1;
@@ -126,7 +126,7 @@ namespace cl
 
         /// <summary>Checks equality using tolerance-based comparison without causing an exception even if the object is not set.
         /// Two empty objects are considered equal.</summary>
-        template<typename Type>
+        template<class Type>
         bool equals(Type other) const
         {
             return false; // Method always returns false because Type != TData

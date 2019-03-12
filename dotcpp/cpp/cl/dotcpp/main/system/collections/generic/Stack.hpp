@@ -35,7 +35,7 @@ namespace cl
     template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
 
     ///!!! Provide .NET description Adapter class from STL deque to .NET Stack. srd::deque used as container to make possible Conataints(T item) and GetEnumerator() implementation
-    template <typename T>
+    template <class T>
     class Stack : public detail::std_accessor_< cl::IEnumerable<T>, std::deque<T> >
     {
     public:

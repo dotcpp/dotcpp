@@ -30,7 +30,7 @@ namespace cl
 {
     /// <summary>Use this class to implement a static read/write property using getter and setter methods.
     /// This template is designed to work with setter method that takes const reference to value.</summary>
-    template <typename PropType>
+    template <class PropType>
     class StaticProperty
     {
         std::function<PropType()> getter_;

@@ -31,7 +31,7 @@ namespace cl
     /// <summary>Use this class to implement a non-static read/write property using getter and setter methods.
     /// Define getter and setter as static methods taking reference to self as the first argument.
     /// This template is designed to work with setter method that takes const reference to value.</summary>
-    template <typename ObjType, typename PropType>
+    template <class ObjType, class PropType>
     class Property
     {
         ObjType& obj_;

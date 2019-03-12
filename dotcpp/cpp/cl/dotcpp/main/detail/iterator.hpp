@@ -31,7 +31,7 @@ namespace cl
     namespace detail
     {
         /// Base class of virtual iterators, depends only on the item type T
-        template <typename T>
+        template <class T>
         struct std_iterator_base
         {
             using iterator_category = std::forward_iterator_tag;
@@ -78,14 +78,14 @@ namespace cl
             inline std::reference_wrapper<T> operator*() { return get(); }
         };
 
-        template <typename Iterator>
+        template <class Iterator>
         struct std_iterator;
 
-        template <typename Iterator>
+        template <class Iterator>
         inline std::unique_ptr<std_iterator_base<typename std_iterator<Iterator>::value_type >> make_iterator(Iterator const& iter);
 
         /// Provides implementation, depends on iterator type rather than item type
-        template <typename Iterator>
+        template <class Iterator>
         struct std_iterator : std_iterator_base<typename Iterator::value_type>
         {
             typedef typename Iterator::value_type value_type;
@@ -154,7 +154,7 @@ namespace cl
         };
 
         /// Unique pointer to std_iterator_base to permit assignment by base class
-        template <typename Iterator>
+        template <class Iterator>
         inline std::unique_ptr<std_iterator_base<typename std_iterator<Iterator>::value_type >>
             make_iterator(Iterator const& iter)
         {
@@ -163,7 +163,7 @@ namespace cl
         }
 
         /// Inline wrapper providing dot dereference for std_iterator_base
-        template <typename T>
+        template <class T>
         struct std_iterator_wrapper
         {
             using iterator_category = std::forward_iterator_tag;

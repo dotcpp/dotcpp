@@ -33,10 +33,10 @@ namespace cl
     /// <summary>
     /// Supports a simple iteration over a generic collection.
     /// </summary>
-    template <typename T>
+    template <class T>
     class IEnumeratorImpl : public virtual ObjectImpl
     {
-        template <typename Iterator>
+        template <class Iterator>
         friend IEnumerator<typename Iterator::value_type> new_Enumerator(Iterator const&, Iterator const&);
 
     private: // FIELDS
@@ -45,7 +45,7 @@ namespace cl
         std::unique_ptr<detail::std_iterator_base<T> > end_iterator_;
         std::unique_ptr<detail::std_iterator_base<T> > current_iterator_;
 
-        template <typename Iterator>
+        template <class Iterator>
         explicit IEnumeratorImpl(Iterator const& beginPos, Iterator const& endPos)
             :
             begin_iterator_(detail::make_iterator(beginPos)),
@@ -114,7 +114,7 @@ namespace cl
     /// <summary>
     /// Create from begin() and end() iterator positions for the underlying collection.
     /// </summary>
-    template <typename Iterator>
+    template <class Iterator>
     IEnumerator<typename Iterator::value_type> new_Enumerator(Iterator const& beginPos, Iterator const& endPos)
     {
         return new IEnumeratorImpl<typename Iterator::value_type>(beginPos, endPos);

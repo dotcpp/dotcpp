@@ -29,7 +29,7 @@ limitations under the License.
 namespace cl
 {
     /// <summary>Use this class to implement a static readonly property using a getter method.</summary>
-    template <typename PropType>
+    template <class PropType>
     class ReadOnlyStaticProperty
     {
         std::function<PropType()> getter_;

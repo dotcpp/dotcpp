@@ -29,14 +29,14 @@ namespace cl
 {
     namespace detail
     {
-        template <typename Class, typename Ret, typename ... Args>
+        template <class Class, class Ret, class ... Args>
         Class get_method_class(Ret (Class::*)(Args...));
     }
 }
 
 
 
-#define DOT_DECL_GET(Class, type, name)                                \
+#define DOT_DECL_GET(Class, type, name)                                     \
     private:                                                                \
         virtual type CAT(get, name)(type name) = 0;                         \
         struct CAT(name, _prop)                                             \
@@ -77,7 +77,7 @@ namespace cl
 
 
 
-#define DOT_IMPL_GET(Class, type, name, getter)                        \
+#define DOT_IMPL_GET(Class, type, name, getter)                             \
     private:                                                                \
         virtual type CAT(get, name)(type name) getter
 
@@ -87,7 +87,7 @@ namespace cl
         virtual type CAT(get, name)(type name) getter                       \
         virtual void CAT(set, name)(type & name, type const& value) setter
 
-#define DOT_GET(Class, type, name, getter)                             \
+#define DOT_GET(Class, type, name, getter)                                  \
     private:                                                                \
         virtual type CAT(get, name)(type name) getter                       \
         struct CAT(name, _prop)                                             \
@@ -127,7 +127,7 @@ namespace cl
         CAT(name, _prop) name = CAT(name, _prop)(this);
 
 
-#define DOT_AUTO_GET(Class, type, name)                                \
+#define DOT_AUTO_GET(Class, type, name)                                     \
     public:                                                                 \
         type name;                                                          \
         virtual type CAT(get, name)() { return name; }

@@ -33,7 +33,7 @@ limitations under the License.
 namespace cl
 {
     /// <summary>Represents a collection of keys and values.</summary>
-    template <typename Key, typename Type >
+    template <class Key, class Type >
     class Dictionary : public std::unordered_map<Key, Type>
     {
         typedef std::unordered_map<Key, Type> base;

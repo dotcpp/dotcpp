@@ -32,7 +32,7 @@ namespace cl
     /// <summary>
     /// Defines methods to manipulate generic collections.
     /// </summary>
-    template <typename T>
+    template <class T>
     class ICollectionImpl : public IEnumerableImpl<T>
     {
     public: // METHODS

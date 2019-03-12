@@ -28,7 +28,7 @@ limitations under the License.
 namespace cl
 {
     /// <summary>Use this class to implement readonly auto property.</summary>
-    template <typename T>
+    template <class T>
     class ReadOnlyAutoProperty
     {
         T& addr_;

@@ -35,7 +35,7 @@ namespace cl
     template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
 
     ///!!! Provide .NET description Adapter class from STL set to .NET SortedSet
-    template <typename T>
+    template <class T>
     class SortedSet : public detail::std_accessor_<cl::IEnumerable<T>, std::set<T> >
     {
     public:
@@ -105,7 +105,7 @@ namespace cl
         inline bool remove(const T& item);
 
         /// <summary>Removes all the elements that match the predicate conditions.</summary>
-        template <typename Predicate>
+        template <class Predicate>
         inline int removeWhere(Predicate match);
 
         /// <summary>Returns an IEnumerable that iterates over the SortedSet in reverse order.</summary>
