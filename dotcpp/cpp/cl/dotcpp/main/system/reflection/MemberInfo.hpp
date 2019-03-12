@@ -38,10 +38,10 @@ namespace cl
     public: // METHODS
 
         /// <summary>Gets the name of the current member.</summary>
-        virtual String getName() const = 0;
+        DECL_PROP_GET(MemberInfoImpl, String, Name)
 
         /// <summary>Gets the class that declares this member.</summary>
-        virtual Type getDeclaringType() const = 0;
+        DECL_PROP_GET(MemberInfoImpl, Type, DeclaringType)
 
         /// <summary>A string representing the name of the current type.</summary>
         virtual String ToString() const { return "MemberInfo"; }
