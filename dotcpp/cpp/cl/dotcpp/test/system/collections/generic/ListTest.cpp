@@ -28,6 +28,20 @@ limitations under the License.
 
 namespace cl
 {
+    static std::stringstream received;
+
+    /// <summary>Print double vector to received on one line in JSON format.</summary>
+    static void VerifyDoubleVector(const std::string& name, std::vector<double>& v)
+    {
+        received << "\"" << name << "\" : [ ";
+        for (size_t i = 0; i < v.size(); ++i)
+        {
+            if (i > 0) received << ", ";
+            received << v[i];
+        }
+        received << " ]" << std::endl;
+    }
+
     /// <summary>Sort vector in ascending order.</summary>
     static void SortDoubleVector(std::vector<double>& v)
     {
@@ -60,12 +74,16 @@ namespace cl
         REQUIRE(b->Count == 3);
 
         // Access the underlying std::vector<double> class
+        VerifyDoubleVector("Unsorted", *a);
         SortDoubleVector(*a);
-        REQUIRE(a[0] == 0.0);
+        VerifyDoubleVector("Sorted", *a);
 
         // Access by Object
         Object obj = b;
         REQUIRE(obj->ToString() == "Object");
+
+        Approvals::verify(received.str());
+        received.clear();
     }
 
     TEST_CASE("Iterators")
