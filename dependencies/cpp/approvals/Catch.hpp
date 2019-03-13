@@ -8975,10 +8975,14 @@ namespace Catch {
         std::set<TestCase> seenFunctions;
         for( auto const& function : functions ) {
             auto prev = seenFunctions.insert( function );
-            CATCH_ENFORCE( prev.second,
-                    "error: TEST_CASE( \"" << function.name << "\" ) already defined.\n"
-                    << "\tFirst seen at " << prev.first->getTestCaseInfo().lineInfo << "\n"
-                    << "\tRedefined at " << function.getTestCaseInfo().lineInfo );
+
+      // (CL) Modified to permit shorter test names that are not globally unique.
+      //      Use test file path to identify the test.
+      //
+      //      CATCH_ENFORCE( prev.second,
+      //              "error: TEST_CASE( \"" << function.name << "\" ) already defined.\n"
+      //              << "\tFirst seen at " << prev.first->getTestCaseInfo().lineInfo << "\n"
+      //              << "\tRedefined at " << function.getTestCaseInfo().lineInfo );
         }
     }
 
