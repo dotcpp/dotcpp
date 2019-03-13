@@ -36,7 +36,7 @@ namespace cl
         std::sort(v.begin(), v.end());
     }
 
-    TEST_CASE("Array1DTest.Smoke")
+    TEST_CASE("Smoke")
     {
         Array1D<double> stringArray = new_Array1D<double>(3);
         stringArray[0] = 0.0;
@@ -46,7 +46,7 @@ namespace cl
         REQUIRE(stringArray->Count == 3);
     }
 
-    TEST_CASE("Array1DTest.Interfaces")
+    TEST_CASE("Interfaces")
     {
         Array1D<double> a = new_Array1D<double>(3);
         IList<double> b = a;
@@ -68,7 +68,7 @@ namespace cl
         CHECK_THROWS_AS(b->Clear(), Exception);
     }
 
-    TEST_CASE("Array1DTest.Iterators")
+    TEST_CASE("Iterators")
     {
         Array1D<String> stringArray = new_Array1D<String>(3);
         stringArray[0] = "000";
@@ -84,7 +84,7 @@ namespace cl
         }
     }
 
-    TEST_CASE("Array1DTest.Capacity")
+    TEST_CASE("Capacity")
     {
         Array1D<String> stringArray = new_Array1D<String>(0);
         stringArray->Capacity = 100;
@@ -92,7 +92,7 @@ namespace cl
         REQUIRE(stringArray->capacity() == 100);
     }
 
-    TEST_CASE("Array1DTest.Find")
+    TEST_CASE("Find")
     {
         cl::Array1D<String> stringArray = new_Array1D<String>(5);
         stringArray[0] = "000";
@@ -103,7 +103,7 @@ namespace cl
         // TODO REQUIRE(stringArray.findLastIndex([](std::string const& s) { return s == "111"; }) == 0);
     }
 
-    TEST_CASE("Array1DTest.Enumerator")
+    TEST_CASE("Enumerator")
     {
         cl::Array1D<String> stringArray = new_Array1D<String>(3);
         stringArray[0] = "000";

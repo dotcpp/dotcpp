@@ -35,7 +35,7 @@ namespace cl
         std::sort(v.begin(), v.end());
     }
 
-    TEST_CASE("ListTest.Smoke")
+    TEST_CASE("Smoke")
     {
         List<double> a = new_List<double>();
         a->Add(0.0);
@@ -45,7 +45,7 @@ namespace cl
         REQUIRE(a->Count == 3);
     }
 
-    TEST_CASE("ListTest.Interfaces")
+    TEST_CASE("Interfaces")
     {
         List<double> a = new_List<double>();
 
@@ -68,7 +68,7 @@ namespace cl
         REQUIRE(obj->ToString() == "Object");
     }
 
-    TEST_CASE("ListTest.Iterators")
+    TEST_CASE("Iterators")
     {
         List<String> stringList = new_List<String>();
         stringList->Add("000");
@@ -83,7 +83,7 @@ namespace cl
         }
     }
 
-    TEST_CASE("ListTest.Capacity")
+    TEST_CASE("Capacity")
     {
         List<String> stringList = new_List<String>();
         stringList->Capacity = 100;
@@ -91,7 +91,7 @@ namespace cl
         REQUIRE(stringList->capacity() == 100);
     }
 
-    TEST_CASE("ListTest.Find")
+    TEST_CASE("Find")
     {
         cl::List<String> stringList = new_List<String>();
         stringList->Add("000");
@@ -104,7 +104,7 @@ namespace cl
         // TODO REQUIRE(stringList.findLastIndex([](std::string const& s) { return s == "111"; }) == 0);
     }
 
-    TEST_CASE("ListTest.Enumerator")
+    TEST_CASE("Enumerator")
     {
         ICollection<String> stringList = new_List<String>();
         stringList->Add("000");

@@ -28,7 +28,7 @@ limitations under the License.
 
 namespace cl
 {
-    TEST_CASE("DoubleTest.Smoke")
+    TEST_CASE("Smoke")
     {
         cl::NullableDouble x;
         REQUIRE(x.IsEmpty() == true);

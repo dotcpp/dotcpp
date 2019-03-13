@@ -58,7 +58,7 @@ namespace cl
     using Derived = Ptr<DerivedImpl>;
     Derived new_Derived() { return new DerivedImpl; }
 
-    TEST_CASE("PtrTest.Smoke")
+    TEST_CASE("Smoke")
     {
         Base b = new_Base();
         REQUIRE(b->foo() == "Base");
@@ -72,7 +72,7 @@ namespace cl
         REQUIRE(d->foo() == "Derived");
     }
 
-    TEST_CASE("PtrTest.Cast")
+    TEST_CASE("Cast")
     {
         Base b = new_Base();
 

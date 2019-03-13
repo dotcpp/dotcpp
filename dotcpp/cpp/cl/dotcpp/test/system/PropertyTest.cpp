@@ -46,7 +46,7 @@ namespace cl
         Property<PropertySample, std::string> Value = Property<PropertySample, std::string>(*this, getValue, setValue);
     };
 
-    TEST_CASE("PropertyTest.Smoke")
+    TEST_CASE("Smoke")
     {
         PropertySample sample;
         sample.Value = "abc";

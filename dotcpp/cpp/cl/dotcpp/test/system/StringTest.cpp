@@ -28,7 +28,7 @@ limitations under the License.
 
 namespace cl
 {
-    TEST_CASE("StringTest.Smoke")
+    TEST_CASE("Smoke")
     {
         String s = "abc";
         REQUIRE(s == "abc");

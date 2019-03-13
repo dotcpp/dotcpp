@@ -104,7 +104,7 @@ namespace cl
     using ReflectionDerivedSample = Ptr<ReflectionDerivedSampleImpl>;
     ReflectionDerivedSample new_ReflectionDerivedSample() { return new ReflectionDerivedSampleImpl; }
 
-    TEST_CASE("ReflectionTest.PropertyInfo")
+    TEST_CASE("PropertyInfo")
     {
         ReflectionBaseSample obj = new_ReflectionBaseSample();
         obj->IntFld = 15;

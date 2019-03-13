@@ -30,7 +30,7 @@ limitations under the License.
 
 namespace cl
 {
-    TEST_CASE("BoxingTest.Smoke")
+    TEST_CASE("Smoke")
     {
         {
             // Boxing bool
