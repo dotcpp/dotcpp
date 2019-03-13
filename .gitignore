@@ -6,12 +6,9 @@ syntax: glob
 **/CMakeFiles
 **/bin/Debug*
 **/bin/Release*
-**/obj/Debug*
-**/obj/Release*
-**/x64/Debug*
-**/x64/Release*
-**/x86/Debug*
-**/x86/Release*
+**/obj
+**/x64
+**/x86
 /bin
 build/*
 packages/*
