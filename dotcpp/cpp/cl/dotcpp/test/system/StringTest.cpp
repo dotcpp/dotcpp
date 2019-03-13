@@ -22,23 +22,15 @@ limitations under the License.
 */
 
 #include <cl/dotcpp/test/implement.hpp>
-#include <cl/dotcpp/test/system/StringTest.hpp>
-#include <cl/dotcpp/main/system/collections/generic/Dictionary.hpp>
-#include <cl/dotcpp/main/system/Exception.hpp>
+#include <approvals/ApprovalTests.hpp>
+#include <approvals/Catch.hpp>
+#include <cl/dotcpp/main/system/String.hpp>
 
 namespace cl
 {
-    void StringTest::Create()
+    TEST_CASE("StringTest.Smoke")
     {
+        String s = "abc";
+        REQUIRE(s == "abc");
     }
-
-
-    boost::unit_test::test_suite* StringTest::StringTestSuite()
-    {
-        boost::unit_test::test_suite* suite = BOOST_TEST_SUITE("TString test");
-        suite->add(BOOST_TEST_CASE(&StringTest::Create));
-        return suite;
-    }
-
 }
-

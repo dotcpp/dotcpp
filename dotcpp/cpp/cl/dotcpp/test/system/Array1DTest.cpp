@@ -22,74 +22,77 @@ limitations under the License.
 */
 
 #include <cl/dotcpp/test/implement.hpp>
-#include <cl/dotcpp/test/system/Array1DTest.hpp>
+#include <approvals/ApprovalTests.hpp>
+#include <approvals/Catch.hpp>
 #include <cl/dotcpp/main/system/Array1D.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
 
 namespace cl
 {
-    /// <summary>Smoke test.</summary>
-    void Array1DTest::Smoke()
+    /// <summary>Sort vector in ascending order.</summary>
+    static void SortDoubleVector(std::vector<double>& v)
+    {
+        // Sort the argument std::vector<double>
+        std::sort(v.begin(), v.end());
+    }
+
+    TEST_CASE("Array1DTest.Smoke")
     {
         Array1D<double> stringArray = new_Array1D<double>(3);
         stringArray[0] = 0.0;
         stringArray[1] = 1.0;
         stringArray[2] = 2.0;
 
-        BOOST_CHECK(stringArray->Count == 3);
+        REQUIRE(stringArray->Count == 3);
     }
 
-    /// <summary>Test interfaces.</summary>
-    void Array1DTest::Interfaces()
+    TEST_CASE("Array1DTest.Interfaces")
     {
         Array1D<double> a = new_Array1D<double>(3);
         IList<double> b = a;
  
         // Check size of the original class and the interface
-        BOOST_CHECK(a->Count == 3);
-        BOOST_CHECK(b->Count == 3);
+        REQUIRE(a->Count == 3);
+        REQUIRE(b->Count == 3);
 
         // Access the underlying std::vector<double> class
         SortDoubleVector(*a);
-        BOOST_CHECK(b[0] == 0.0);
+        REQUIRE(b[0] == 0.0);
 
         // Access by Object
         Object obj = b;
-        BOOST_CHECK(obj->ToString() == "Object");
+        REQUIRE(obj->ToString() == "Object");
 
         // Check that methods that should throw actually throw
-        BOOST_CHECK_THROW(b->Add(0.0), Exception);
-        BOOST_CHECK_THROW(b->Clear(), Exception);
+        CHECK_THROWS_AS(b->Add(0.0), Exception);
+        CHECK_THROWS_AS(b->Clear(), Exception);
     }
 
-    /// <summary>Test iterators.</summary>
-    void Array1DTest::Iterators()
+    TEST_CASE("Array1DTest.Iterators")
     {
         Array1D<String> stringArray = new_Array1D<String>(3);
         stringArray[0] = "000";
         stringArray[1] = "111";
         stringArray[2] = "222";
-        BOOST_CHECK(stringArray->Count == 3);
-        BOOST_CHECK(stringArray[2] == "222");
+        REQUIRE(stringArray->Count == 3);
+        REQUIRE(stringArray[2] == "222");
 
         int i = 0;
         for (String str : stringArray)
         {
-            BOOST_CHECK(stringArray[i++] == str);
+            REQUIRE(stringArray[i++] == str);
         }
     }
 
-    /// <summary>Test capacity.</summary>
-    void Array1DTest::Capacity()
+    TEST_CASE("Array1DTest.Capacity")
     {
         Array1D<String> stringArray = new_Array1D<String>(0);
         stringArray->Capacity = 100;
-        BOOST_CHECK(stringArray->Capacity == 100);
-        BOOST_CHECK(stringArray->capacity() == 100);
+        REQUIRE(stringArray->Capacity == 100);
+        REQUIRE(stringArray->capacity() == 100);
     }
 
-    /// <summary>Test find methods.</summary>
-    void Array1DTest::Find()
+    TEST_CASE("Array1DTest.Find")
     {
         cl::Array1D<String> stringArray = new_Array1D<String>(5);
         stringArray[0] = "000";
@@ -97,23 +100,22 @@ namespace cl
         stringArray[2] = "222";
 
         // TODO stringArray.findLast([](std::string const& s) { return s == "222"; }) = "57";
-        // TODO BOOST_CHECK(stringArray.findLastIndex([](std::string const& s) { return s == "111"; }) == 0);
+        // TODO REQUIRE(stringArray.findLastIndex([](std::string const& s) { return s == "111"; }) == 0);
     }
 
-    /// <summary>Test enumerator methods.</summary>
-    void Array1DTest::Enumerator()
+    TEST_CASE("Array1DTest.Enumerator")
     {
         cl::Array1D<String> stringArray = new_Array1D<String>(3);
         stringArray[0] = "000";
         stringArray[1] = "111";
         stringArray[2] = "222";
-        BOOST_CHECK(stringArray->Count == 3);
+        REQUIRE(stringArray->Count == 3);
 
         int i = 0;
 
         for (String str : stringArray)
         {
-            BOOST_CHECK((stringArray.as<Array1D<String>>())[i++] == str);
+            REQUIRE((stringArray.as<Array1D<String>>())[i++] == str);
         }
 
         i = 0;
@@ -121,7 +123,7 @@ namespace cl
 
         for (; en->MoveNext();)
         {
-            BOOST_CHECK((stringArray.as<Array1D<String>>())[i++] == en->getCurrent());
+            REQUIRE((stringArray.as<Array1D<String>>())[i++] == en->getCurrent());
 
         }
 
@@ -130,20 +132,8 @@ namespace cl
 
         for (; en->MoveNext();)
         {
-            BOOST_CHECK((stringArray.as<Array1D<String>>())[i++] == en->getCurrent());
+            REQUIRE((stringArray.as<Array1D<String>>())[i++] == en->getCurrent());
 
         }
-    }
-
-    test_suite* Array1DTest::GetTestSuite()
-    {
-        test_suite* suite = BOOST_TEST_SUITE("Array1DTest");
-        suite->add(BOOST_TEST_CASE(&Array1DTest::Smoke));
-        suite->add(BOOST_TEST_CASE(&Array1DTest::Interfaces));
-        suite->add(BOOST_TEST_CASE(&Array1DTest::Iterators));
-        suite->add(BOOST_TEST_CASE(&Array1DTest::Capacity));
-        suite->add(BOOST_TEST_CASE(&Array1DTest::Find));
-        suite->add(BOOST_TEST_CASE(&Array1DTest::Enumerator));
-        return suite;
     }
 }

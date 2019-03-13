@@ -21,12 +21,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+#include <cl/dotcpp/test/implement.hpp>
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <cl/dotcpp/main/system/NullableDouble.hpp>
 
-TEST_CASE("DoubleTest.Smoke")
+namespace cl
 {
-    cl::NullableDouble x;
-    REQUIRE(x.IsEmpty() == true);
+    TEST_CASE("DoubleTest.Smoke")
+    {
+        cl::NullableDouble x;
+        REQUIRE(x.IsEmpty() == true);
+    }
 }

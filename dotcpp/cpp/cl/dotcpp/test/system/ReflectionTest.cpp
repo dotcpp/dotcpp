@@ -22,7 +22,8 @@ limitations under the License.
 */
 
 #include <cl/dotcpp/test/implement.hpp>
-#include <cl/dotcpp/test/system/ReflectionTest.hpp>
+#include <approvals/ApprovalTests.hpp>
+#include <approvals/Catch.hpp>
 #include <cl/dotcpp/main/system/Exception.hpp>
 #include <cl/dotcpp/main/system/reflection/PropertyInfo.hpp>
 #include <cl/dotcpp/main/system/Type.hpp>
@@ -85,9 +86,8 @@ namespace cl
 
     ReflectionTestClass2 new_ReflectionTestClass2() { return new ReflectionTestClassImpl2; }
 
-    void ReflectionTest::GetValue()
+    TEST_CASE("Array1DTest.PropertyInfo")
     {
-
         ReflectionTestClass obj = new_ReflectionTestClass();
         obj->IntFld = 15;
 
@@ -95,38 +95,27 @@ namespace cl
         Type type = obj->GetType();
         Array1D<PropertyInfo> props = type->GetProperties();
         PropertyInfo int_prop = props[0];
-        BOOST_CHECK(int_prop->Name == "IntFld");
-        BOOST_CHECK(int(int_prop->GetValue(obj)) == 15);
+        REQUIRE(int_prop->Name == "IntFld");
+        REQUIRE(int(int_prop->GetValue(obj)) == 15);
 
         int_prop->SetValue(obj, 19);
-        BOOST_CHECK(obj->IntFld == 19);
-        BOOST_CHECK(int(int_prop->GetValue(obj)) == 19);
+        REQUIRE(obj->IntFld == 19);
+        REQUIRE(int(int_prop->GetValue(obj)) == 19);
 
         PropertyInfo private_int_prop = props[1];
-        BOOST_CHECK(private_int_prop->Name == "PrivateIntFld");
-        BOOST_CHECK(int(private_int_prop->GetValue(obj)) == 42);
+        REQUIRE(private_int_prop->Name == "PrivateIntFld");
+        REQUIRE(int(private_int_prop->GetValue(obj)) == 42);
 
         props[2]->SetValue(obj, 2384);
-        BOOST_CHECK(obj->Count == 2384);
-        BOOST_CHECK(int(props[2]->GetValue(obj)) == 2384);
-
+        REQUIRE(obj->Count == 2384);
+        REQUIRE(int(props[2]->GetValue(obj)) == 2384);
 
         ReflectionTestClass2 obj2 = new_ReflectionTestClass2();
 
-
         props[2]->SetValue(obj2, -15);
-        BOOST_CHECK(obj2->Count == -15);
-        BOOST_CHECK(int(props[2]->GetValue(obj2)) == -15);
+        REQUIRE(obj2->Count == -15);
+        REQUIRE(int(props[2]->GetValue(obj2)) == -15);
 
     }
-
-
-    boost::unit_test::test_suite* ReflectionTest::GetTestSuite()
-    {
-        boost::unit_test::test_suite* suite = BOOST_TEST_SUITE("TString test");
-        suite->add(BOOST_TEST_CASE(&ReflectionTest::GetValue));
-        return suite;
-    }
-
 }
 

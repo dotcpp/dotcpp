@@ -22,7 +22,9 @@ limitations under the License.
 */
 
 #include <cl/dotcpp/test/implement.hpp>
-#include <cl/dotcpp/test/system/PropertyTest.hpp>
+#include <approvals/ApprovalTests.hpp>
+#include <approvals/Catch.hpp>
+#include <cl/dotcpp/main/system/Property.hpp>
 
 namespace cl
 {
@@ -44,21 +46,12 @@ namespace cl
         Property<PropertySample, std::string> Value = Property<PropertySample, std::string>(*this, getValue, setValue);
     };
 
-    /// <summary>Smoke test.</summary>
-    void PropertyTest::SmokeTest()
+    TEST_CASE("PropertyTest.Smoke")
     {
         PropertySample sample;
         sample.Value = "abc";
         std::string v1 = sample.Value;
         sample.Value = "def";
         std::string v2 = sample.Value;
-    }
-
-    /// <summary>Includes all test methods in this class.</summary>
-    test_suite* PropertyTest::GetTestSuite()
-    {
-        test_suite* suite = BOOST_TEST_SUITE("PropertyTest");
-        suite->add(BOOST_TEST_CASE(&PropertyTest::SmokeTest));
-        return suite;
     }
 }
