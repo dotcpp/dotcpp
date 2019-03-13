@@ -21,22 +21,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include <cl/dotcpp/test/implement.hpp>
-#include <cl/dotcpp/test/system/DoubleTest.hpp>
+#include <approvals/ApprovalTests.hpp>
+#include <approvals/Catch.hpp>
 #include <cl/dotcpp/main/system/NullableDouble.hpp>
 
-namespace cl
+TEST_CASE("DoubleTest.Smoke")
 {
-    void DoubleTest::Smoke()
-    {
-        NullableDouble x;
-        BOOST_CHECK(x.IsEmpty() == true);
-    }
-
-    boost::unit_test::test_suite* DoubleTest::DoubleTestSuite()
-    {
-        boost::unit_test::test_suite* suite = BOOST_TEST_SUITE("DoubleTest");
-        suite->add(BOOST_TEST_CASE(&DoubleTest::Smoke));
-        return suite;
-    }
+    cl::NullableDouble x;
+    REQUIRE(x.IsEmpty() == true);
 }
