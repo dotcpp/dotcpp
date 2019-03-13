@@ -1,0 +1,8 @@
+Creating Type (this should run only once).
+ReflectionBaseSample.setCount
+ReflectionBaseSample.getCount
+ReflectionBaseSample.getCount
+ReflectionDerivedSample.setCount
+ReflectionDerivedSample.getCount
+ReflectionDerivedSample.getCount
+

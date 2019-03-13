@@ -32,15 +32,25 @@ limitations under the License.
 
 namespace cl
 {
-    class ReflectionTestClassImpl : public ObjectImpl
+    static std::stringstream received;
+
+    class ReflectionBaseSampleImpl : public ObjectImpl
     {
     public:
-
         int IntFld;
         double DblFld;
         List<double> DblListFld;
 
-        DOT_PROP(ReflectionTestClassImpl, int, Count, { std::cout << "getting count" << std::endl; return Count; }, { std::cout << "setting count" << std::endl; Count = value; })
+        DOT_PROP(ReflectionBaseSampleImpl, int, Count,
+            {
+                received << "ReflectionBaseSample.getCount" << std::endl;
+                return Count;
+            },
+            {
+                received << "ReflectionBaseSample.setCount" << std::endl;
+                Count = value;
+            }
+        )
 
     private:
         int PrivateIntFld = 42;
@@ -51,15 +61,17 @@ namespace cl
         {
             static Type type = []()->Type
             {
+                received << "Creating Type (this should run only once)." << std::endl;
+
                 Type type = new_Type();
 
-                type->Name = "ReflectionTestClass";
-                type->FullName = "DotCpp.System.Test.ReflectionTestClass";
+                type->Name = "ReflectionBaseSample";
+                type->FullName = "DotCpp.System.Test.ReflectionBaseSample";
 
                 Array1D<PropertyInfo> props = new_Array1D<PropertyInfo>(3);
-                props[0] = new_PropertyInfo("IntFld", type, nullptr, &ReflectionTestClassImpl::IntFld);
-                props[1] = new_PropertyInfo("PrivateIntFld", type, nullptr, &ReflectionTestClassImpl::PrivateIntFld);
-                props[2] = new_PropertyInfo("Count", type, nullptr, &ReflectionTestClassImpl::Count);
+                props[0] = new_PropertyInfo("IntFld", type, nullptr, &ReflectionBaseSampleImpl::IntFld);
+                props[1] = new_PropertyInfo("PrivateIntFld", type, nullptr, &ReflectionBaseSampleImpl::PrivateIntFld);
+                props[2] = new_PropertyInfo("Count", type, nullptr, &ReflectionBaseSampleImpl::Count);
 
                 type->Properties = props;
 
@@ -70,27 +82,32 @@ namespace cl
         }
     };
 
-    class ReflectionTestClassImpl2 : public ReflectionTestClassImpl
+    class ReflectionDerivedSampleImpl : public ReflectionBaseSampleImpl
     {
     public:
 
-        DOT_IMPL_PROP(ReflectionTestClassImpl, int, Count, { std::cout << "getting count2" << std::endl; return Count; }, { std::cout << "setting count2" << std::endl; Count = value; })
-
+        DOT_IMPL_PROP(ReflectionDerivedSampleImpl, int, Count,
+            {
+                received << "ReflectionDerivedSample.getCount" << std::endl;
+                return Count;
+            },
+            {
+                received << "ReflectionDerivedSample.setCount" << std::endl;
+                Count = value;
+            }
+        )
     };
 
-    using ReflectionTestClass = Ptr<ReflectionTestClassImpl>;
+    using ReflectionBaseSample = Ptr<ReflectionBaseSampleImpl>;
+    ReflectionBaseSample new_ReflectionBaseSample() { return new ReflectionBaseSampleImpl; }
 
-    ReflectionTestClass new_ReflectionTestClass() { return new ReflectionTestClassImpl; }
+    using ReflectionDerivedSample = Ptr<ReflectionDerivedSampleImpl>;
+    ReflectionDerivedSample new_ReflectionDerivedSample() { return new ReflectionDerivedSampleImpl; }
 
-    using ReflectionTestClass2 = Ptr<ReflectionTestClassImpl2>;
-
-    ReflectionTestClass2 new_ReflectionTestClass2() { return new ReflectionTestClassImpl2; }
-
-    TEST_CASE("Array1DTest.PropertyInfo")
+    TEST_CASE("ReflectionTest.PropertyInfo")
     {
-        ReflectionTestClass obj = new_ReflectionTestClass();
+        ReflectionBaseSample obj = new_ReflectionBaseSample();
         obj->IntFld = 15;
-
 
         Type type = obj->GetType();
         Array1D<PropertyInfo> props = type->GetProperties();
@@ -110,12 +127,13 @@ namespace cl
         REQUIRE(obj->Count == 2384);
         REQUIRE(int(props[2]->GetValue(obj)) == 2384);
 
-        ReflectionTestClass2 obj2 = new_ReflectionTestClass2();
+        ReflectionDerivedSample obj2 = new_ReflectionDerivedSample();
 
         props[2]->SetValue(obj2, -15);
         REQUIRE(obj2->Count == -15);
         REQUIRE(int(props[2]->GetValue(obj2)) == -15);
 
+        Approvals::verify(received.str());
+        received.clear();
     }
 }
-
