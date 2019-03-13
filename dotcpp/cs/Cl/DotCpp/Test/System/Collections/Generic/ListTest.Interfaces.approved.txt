@@ -1,0 +1,3 @@
+﻿"Unsorted" : [ 2, 1, 0 ]
+"Sorted" : [ 0, 1, 2 ]
+System.Collections.Generic.List`1[System.Double]
