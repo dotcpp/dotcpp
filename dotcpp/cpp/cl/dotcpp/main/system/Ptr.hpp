@@ -49,7 +49,7 @@ namespace cl
         /// Take ownership of raw pointer to template argument type.
         /// This also permits construction from null pointer.
         /// </summary>
-        Ptr() {}
+        Ptr();
 
         /// <summary>
         /// Take ownership of raw pointer to template argument type.
@@ -132,6 +132,7 @@ namespace cl
         decltype(auto) operator[](I const& i);
     };
 
+    template <class T> Ptr<T>::Ptr() {}
     template <class T> Ptr<T>::Ptr(T* ptr) : ptr_(ptr) {}
     template <class T> template <class R> Ptr<T>::Ptr(const Ptr<R>& rhs) : ptr_(rhs.ptr_) {}
     template <class T> Ptr<T>::Ptr(const Ptr<T>& rhs) : ptr_(rhs.ptr_) {}
@@ -162,6 +163,7 @@ namespace cl
     }
 
     class StringImpl;
+    class Char;
 
     /// <summary>
     /// Specialization of Ptr for T=StringImpl
@@ -181,7 +183,7 @@ namespace cl
         /// Take ownership of raw pointer to template argument type.
         /// This also permits construction from null pointer.
         /// </summary>
-        Ptr() {}
+        Ptr();
 
         /// <summary>
         /// Take ownership of raw pointer to template argument type.
@@ -202,6 +204,11 @@ namespace cl
         /// <summary>Copy constructor. Shares reference count with argument.</summary>
         Ptr(const Ptr<StringImpl>& rhs);
 
+    public: // DESTRUCTOR
+
+        /// <summary>Declare the destructor and move the implementation after the definition of StringImpl.</summary>
+        ~Ptr();
+
     public: // OPERATORS
 
         /// <summary>Pointer dereference.</summary>
@@ -209,14 +216,6 @@ namespace cl
 
         /// <summary>Pointer dereference.</summary>
         StringImpl* operator->() const;
-
-        /// <summary>Returns true if the argument contains
-        /// pointer to the same instance as self.</summary>
-        bool operator==(const Ptr<StringImpl>& rhs) const;
-
-        /// <summary>Returns true if the argument does
-        /// not contain pointer to the same instance as self.</summary>
-        bool operator!=(const Ptr<StringImpl>& rhs) const;
 
         /// <summary>Case sensitive comparison to std::string.</summary>
         bool operator==(const std::string& rhs) const;
@@ -236,6 +235,12 @@ namespace cl
         /// <summary>Supports ptr != nullptr.</summary>
         bool operator!=(Null* rhs) const;
 
+        /// <summary>Case sensitive comparison by value.</summary>
+        bool operator==(const Ptr<StringImpl>& rhs) const;
+
+        /// <summary>Case sensitive comparison by value.</summary>
+        bool operator!=(const Ptr<StringImpl>& rhs) const;
+
         /// <summary>
         /// Take ownership of raw pointer to template argument type.
         /// This also permits assignment of pointer to type derived from T.
@@ -249,25 +254,9 @@ namespace cl
         Ptr<StringImpl>& operator=(const Ptr<StringImpl>& rhs);
 
         /// <summary>Const indexer operator for arrays.</summary>
-        template <class I>
-        decltype(auto) operator[](I const& i) const;
+        Char operator[](int i) const;
 
         /// <summary>Non-const indexer operator for arrays.</summary>
-        template <class I>
-        decltype(auto) operator[](I const& i);
+        Char operator[](int i);
     };
-
-    inline Ptr<StringImpl>::Ptr(StringImpl* ptr) : ptr_(ptr) {}
-    inline Ptr<StringImpl>::Ptr(const Ptr<StringImpl>& rhs) : ptr_(rhs.ptr_) {}
-    inline StringImpl& Ptr<StringImpl>::operator*() const { StringImpl* p = ptr_.get(); if (!p) throw std::runtime_error("Pointer is not initialized"); return *p; }
-    inline StringImpl* Ptr<StringImpl>::operator->() const { StringImpl* p = ptr_.get(); if (!p) throw std::runtime_error("Pointer is not initialized"); return p; }
-    inline bool Ptr<StringImpl>::operator==(const Ptr<StringImpl>& rhs) const { return ptr_ == rhs.ptr_; }
-    inline bool Ptr<StringImpl>::operator!=(const Ptr<StringImpl>& rhs) const { return ptr_ != rhs.ptr_; }
-    inline bool Ptr<StringImpl>::operator==(Null* rhs) const { return ptr_.get() == nullptr; }
-    inline bool Ptr<StringImpl>::operator!=(Null* rhs) const { return ptr_.get() != nullptr; }
-    inline Ptr<StringImpl>& Ptr<StringImpl>::operator=(StringImpl* rhs) { ptr_.reset(rhs); return *this; }
-    inline Ptr<StringImpl>& Ptr<StringImpl>::operator=(const Ptr<StringImpl>& rhs) { ptr_ = rhs.ptr_; return *this; }
-    template <class I> decltype(auto) Ptr<StringImpl>::operator[](I const& i) const { return (*ptr_)[i]; }
-    template <class I> decltype(auto) Ptr<StringImpl>::operator[](I const& i) { return (*ptr_)[i]; }
 }
-

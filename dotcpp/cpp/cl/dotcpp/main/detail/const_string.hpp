@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (C) 2003-present CompatibL
 
 This file is part of .C++, a native C++ implementation of
@@ -24,23 +24,21 @@ limitations under the License.
 #pragma once
 
 #include <cl/dotcpp/main/declare.hpp>
-#include <cl/dotcpp/main/detail/const_string.hpp>
 
 namespace cl
 {
-    /// <summary>
-    /// Represents a single character of a UTF-8 string.
-    ///
-    /// It can be represented by a variable number of
-    /// bytes and is stored in std::string rather than char. 
-    /// </summary>
-    class Char : std::string // TODO use const_string
+    namespace detail
     {
-        typedef std::string base;
-
-    public: // CONSTRUCTORS
-
-        /// <summary>Create from a single ASCII character.</summary>
-        Char(char c) : base(std::to_string(c)) {}
-    };
+        /// <summary>
+        /// This class is used as base class of StringImpl.
+        ///
+        /// The objective is to make it possible to pass this class to functions
+        /// accepting  std::string. Because C# String is immutable, const_string
+        /// derives from std::string and then deletes all non-const methods.
+        /// </summary>
+        class const_string : public std::string
+        {
+            // TODO - delete non-const methods of std::string
+        };
+    }
 }

@@ -24,23 +24,13 @@ limitations under the License.
 #pragma once
 
 #include <cl/dotcpp/main/declare.hpp>
+#include <cl/dotcpp/main/detail/const_string.hpp>
 #include <cl/dotcpp/main/system/Ptr.hpp>
 #include <cl/dotcpp/main/system/ObjectImpl.hpp>
+#include <cl/dotcpp/main/system/Char.hpp>
 
 namespace cl
 {
-    /// <summary>
-    /// This class is used as base class of StringImpl.
-    ///
-    /// The objective is to make it possible to pass this class to functions
-    /// accepting  std::string. Because C# String is immutable, const_string
-    /// derives from std::string and then deletes all non-const methods.
-    /// </summary>
-    class const_string : public std::string
-    {
-        // TODO - delete non-const methods of std::string
-    };
-
     class StringImpl; using String = Ptr<StringImpl>;
     template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
     enum class StringSplitOptions;
@@ -350,12 +340,31 @@ namespace cl
     /// </summary>
     inline String new_String(const char* rhs) { return new StringImpl(rhs); }
 
+    /// <summary>
+    /// Inline implementation of methods from template specialization Ptr(StringImpl)
+    /// that cannot be included next to the declaration because they require StringImpl
+    /// to be defined.
+    /// </summary>
+    inline Ptr<StringImpl>::Ptr() {}
+    inline Ptr<StringImpl>::Ptr(StringImpl* ptr) : ptr_(ptr) {}
     inline Ptr<StringImpl>::Ptr(const std::string& rhs) : ptr_(new StringImpl(rhs)) {}
     inline Ptr<StringImpl>::Ptr(const char* rhs) : ptr_(new StringImpl(rhs)) {}
+    inline Ptr<StringImpl>::Ptr(const Ptr<StringImpl>& rhs) : ptr_(rhs.ptr_) {}
+    inline Ptr<StringImpl>::~Ptr() {}
+    inline StringImpl& Ptr<StringImpl>::operator*() const { StringImpl* p = ptr_.get(); if (!p) throw std::runtime_error("Pointer is not initialized"); return *p; }
+    inline StringImpl* Ptr<StringImpl>::operator->() const { StringImpl* p = ptr_.get(); if (!p) throw std::runtime_error("Pointer is not initialized"); return p; }
     inline bool Ptr<StringImpl>::operator==(const std::string& rhs) const { return *ptr_ == rhs; }
     inline bool Ptr<StringImpl>::operator!=(const std::string& rhs) const { return *ptr_ != rhs; }
     inline bool Ptr<StringImpl>::operator==(const char* rhs) const { return *ptr_ == rhs; }
     inline bool Ptr<StringImpl>::operator!=(const char* rhs) const { return *ptr_ != rhs; }
+    inline bool Ptr<StringImpl>::operator==(Null* rhs) const { return ptr_.get() == nullptr; }
+    inline bool Ptr<StringImpl>::operator!=(Null* rhs) const { return ptr_.get() != nullptr; }
+    inline bool Ptr<StringImpl>::operator==(const Ptr<StringImpl>& rhs) const { return *ptr_ == *rhs.ptr_; }
+    inline bool Ptr<StringImpl>::operator!=(const Ptr<StringImpl>& rhs) const { return *ptr_ != *rhs.ptr_; }
+    inline Ptr<StringImpl>& Ptr<StringImpl>::operator=(StringImpl* rhs) { ptr_.reset(rhs); return *this; }
+    inline Ptr<StringImpl>& Ptr<StringImpl>::operator=(const Ptr<StringImpl>& rhs) { ptr_ = rhs.ptr_; return *this; }
+    inline Char Ptr<StringImpl>::operator[](int i) const { return (*ptr_)[(size_t)i]; }
+    inline Char Ptr<StringImpl>::operator[](int i) { return (*ptr_)[(size_t)i]; }
 
     /// <summary>Returns a string containing characters from lhs followed by the characters from rhs.</summary>
     inline String operator+(const String& lhs, const String& rhs) { return new_String(*lhs + *rhs); }
