@@ -50,6 +50,32 @@ namespace Cl.DotCpp.Test
             String usingAssignment = "abcd";
             received.AppendLine(usingAssignment);
 
+            var x = usingAssignment[2];
+
+            Approvals.Verify(received.ToString());
+            received.Clear();
+        }
+
+        [Fact]
+        public void Char()
+        {
+            // Access character inside string by index
+            {
+                String str = "abcd";
+                Char x = str[1];
+                received.AppendLine(x.ToString());
+            }
+
+            // Iterate over characters in string
+            {
+                String str = "abcd";
+                foreach (Char x in str)
+                {
+                    received.Append(x.ToString());
+                }
+                received.AppendLine();
+            }
+
             Approvals.Verify(received.ToString());
             received.Clear();
         }
