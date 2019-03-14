@@ -28,7 +28,7 @@ limitations under the License.
 namespace cl
 {
     class TypeImpl; using Type = Ptr<TypeImpl>;
-    class String;
+    class StringImpl; using String = Ptr<StringImpl>;
     class PropertyInfoImpl; using PropertyInfo = Ptr<PropertyInfoImpl>;
     template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
 

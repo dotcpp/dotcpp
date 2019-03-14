@@ -25,19 +25,39 @@ limitations under the License.
 
 #include <cl/dotcpp/main/declare.hpp>
 #include <cl/dotcpp/main/system/Ptr.hpp>
+#include <cl/dotcpp/main/system/ObjectImpl.hpp>
 
 namespace cl
 {
+    /// <summary>
+    /// This class is used as base class of StringImpl.
+    ///
+    /// The objective is to make it possible to pass this class to functions
+    /// accepting  std::string. Because C# String is immutable, const_string
+    /// derives from std::string and then deletes all non-const methods.
+    /// </summary>
+    class const_string : public std::string
+    {
+        // TODO - delete non-const methods of std::string
+    };
+
+    class StringImpl; using String = Ptr<StringImpl>;
+    template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
     enum class StringSplitOptions;
     class Char;
     class Comparer;
-    template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
     class StringComparer;
 
-    /// <summary>Immutable string type with Unicode support.</summary>
-    class String : public std::string
+    /// <summary>
+    /// Immutable string type similar to System.String.
+    ///
+    /// The string is encoded internally as UTF-8 instead of UTF-16 used by C# System.String.
+    /// </summary>
+    class StringImpl : public virtual ObjectImpl, public std::string // TODO Replace by const_string
     {
         typedef std::string base;
+        friend String new_String(const std::string& rhs);
+        friend String new_String(const char* rhs);
 
     public: // CONSTANTS
 
@@ -47,19 +67,23 @@ namespace cl
     public: // CONSTRUCTORS
 
         /// <summary>Creates an empty string.</summary>
-        String() {}
+        StringImpl() {}
 
         /// <summary>Create from a single Unicode character.</summary>
-        String(const Char& value);
+        StringImpl(const Char& value);
 
-        /// <summary>Create from std::string.</summary>
-        String(const std::string& value) : base(value) {}
+        /// <summary>
+        /// Initializes from std::string or string literal.
+        ///
+        /// This constructor is private. Use new_String(str) function instead.
+        /// </summary>
+        StringImpl(const std::string& value) : base(value) {}
 
         /// <summary>Create from const char*, null pointer is converted to to empty value.</summary>
-        String(const char* value) : base(value) {}
+        StringImpl(const char* value) : base(value) {}
 
         /// <summary>Create from a single 8-bit character.</summary>
-        String(char value) : base(std::to_string(value)) {}
+        StringImpl(char value) : base(std::to_string(value)) {}
 
     public: // METHODS
 
@@ -83,19 +107,19 @@ namespace cl
 
         /// <summary>Determines whether the beginning of this
         /// string matches the specified string.</summary>
-        bool StartsWith(String const& value)
+        bool StartsWith(const String& value)
         {
-            int p = length() - value.length();
-            if (p >= 0 && substr(0, value.length()) == value)
+            int p = length() - value->length();
+            if (p >= 0 && substr(0, value->length()) == *value)
                 return true;
             return false;
         }
 
         /// <summary>Retrieves a substring which starts at the specified
         /// character position and has the specified length.</summary>
-        String Substring(int startIndex, int length)
+        String SubString(int startIndex, int length)
         {
-            return substr(startIndex, length);
+            return new_String(this->substr(startIndex, length));
         }
 
         /// <summary>Gets the number of characters in the current string.
@@ -124,9 +148,10 @@ namespace cl
         Array1D<String> Split(const Array1D<String>& separator, const StringSplitOptions& options) const;
 
         ///<summary>Indicates whether the argument occurs within this string.</summary>
-        inline bool Contains(cl::String const& s) const
+        bool Contains(String const& s) const
         {
-            return find(s) != std::string::npos;
+            throw std::exception("Not implemented");
+           // TODO - fix return this->find(s) != std::string::npos;
         }
 
         ///<summary>Returns a copy of this string converted to lowercase.</summary>
@@ -142,26 +167,6 @@ namespace cl
         String ToUpperInvariant() const;
 
     public: // OPERATORS
-
-        /// <summary>Assignment of std::string.</summary>
-        String& operator=(const std::string& rhs);
-
-        /// <summary>Assignment of const char*, null pointer is converted to to empty value.</summary>
-        String& operator=(const char* rhs)
-        {
-            if (rhs)
-            {
-                base::operator=(rhs);
-            }
-            else
-            {
-                base::operator=(Empty);
-            }
-            return *this;
-        }
-
-        /// <summary>Assignment of 8-bit character.</summary>
-        String& operator=(char rhs);
 
         /// <summary>Gets the Char object at a specified position in the current String object.</summary>
         Char operator[](int index) const;
@@ -335,6 +340,33 @@ namespace cl
         */
     };
 
+    /// <summary>
+    /// Create from std::string or string literal using new
+    /// </summary>
+    inline String new_String(const std::string& rhs) { return new StringImpl(rhs); }
+
+    /// <summary>
+    /// Create from std::string or string literal using new
+    /// </summary>
+    inline String new_String(const char* rhs) { return new StringImpl(rhs); }
+
+    /// <summary>
+    /// Create from from std::string without using new
+    /// </summary>
+    inline Ptr<StringImpl>::Ptr(const std::string& rhs) : ptr_(new StringImpl(rhs)) {}
+
+    /// <summary>
+    /// Create from from string literal without using new
+    /// </summary>
+    inline Ptr<StringImpl>::Ptr(const char* rhs) : ptr_(new StringImpl(rhs)) {}
+
     /// <summary>Returns a string containing characters from lhs followed by the characters from rhs.</summary>
-    inline String operator+(const String& lhs, const String& rhs) { return String(lhs + rhs); }
+    inline String operator+(const String& lhs, const String& rhs) { return new_String(*lhs + *rhs); }
+
+    /// <summary>
+    /// String that represents the current object.
+    ///
+    /// Default implementation returns full name of the class.
+    /// </summary>
+    inline String ObjectImpl::ToString() const { return "Object"; }
 }

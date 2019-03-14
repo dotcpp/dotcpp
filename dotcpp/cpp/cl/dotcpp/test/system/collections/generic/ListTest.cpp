@@ -33,7 +33,7 @@ namespace cl
     /// <summary>Print double vector to received on one line in JSON format.</summary>
     static void PrintList(String name, List<double> v)
     {
-        received << "\"" << name << "\" : [ ";
+        received << "\"" << *name << "\" : [ ";
         for (int i = 0; i < v->Count; ++i)
         {
             if (i > 0) received << ", ";

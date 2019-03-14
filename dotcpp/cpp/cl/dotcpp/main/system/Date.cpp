@@ -31,7 +31,7 @@ namespace cl
         /// <summary>Create from string in ISO format (YYYY-MM-DD).</summary>
         LocalDateImpl(cl::String value)
         {
-            std::istringstream strstream(value);
+            std::istringstream strstream(*value);
             char delimiter;
             int year;
             int month;

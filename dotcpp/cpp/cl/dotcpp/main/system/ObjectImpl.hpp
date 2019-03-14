@@ -25,17 +25,17 @@ limitations under the License.
 
 #include <cl/dotcpp/main/declare.hpp>
 #include <cl/dotcpp/main/system/Ptr.hpp>
-#include <cl/dotcpp/main/system/String.hpp>
 
 namespace cl
 {
     class Object;
+    class StringImpl; using String = Ptr<StringImpl>;
 
     /// <summary>
     /// All classes with reference semantics should derive from this type.
     /// It works with Ptr to provide an emulation of reference semantics in C++.
     /// </summary>
-    class CL_DOTCPP_MAIN ObjectImpl
+    class ObjectImpl
     {
     public: // DESTRUCTOR
 
@@ -52,7 +52,7 @@ namespace cl
         ///
         /// Default implementation returns full name of the class.
         /// </summary>
-        virtual String ToString() const { return "Object"; }
+        virtual String ToString() const;
 
     protected:
         ObjectImpl() = default;
