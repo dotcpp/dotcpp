@@ -50,10 +50,28 @@ namespace Cl.DotCpp.Test
             String usingAssignment = "abcd";
             received.AppendLine(usingAssignment);
 
-            var x = usingAssignment[2];
-
             Approvals.Verify(received.ToString());
             received.Clear();
+        }
+
+        [Fact]
+        public void Compare()
+        {
+            // Compare to literal strings
+            String str = "abcd";
+            Assert.True(str == "abcd");
+
+            // Check comparison case sensitivity
+            Assert.False(str == "Abcd");
+
+            // Compare two strings that have the same value but are not the same instances
+            String str2 = "abcd";
+            Assert.True(str == str2);
+
+            // Compare two strings that have the same value but are not the same instances
+            // after casting one or both to object
+            Assert.True(str == (Object)str2);
+            Assert.True((Object)str == (Object)str2);
         }
 
         [Fact]

@@ -33,4 +33,23 @@ namespace cl
         String s = "abc";
         REQUIRE(s == "abc");
     }
+
+    TEST_CASE("Compare")
+    {
+        // Compare to literal strings
+        String str = "abcd";
+        REQUIRE(str == "abcd");
+
+        // Check comparison case sensitivity
+        REQUIRE_FALSE(str == "Abcd");
+
+        // Compare two strings that have the same value but are not the same instances
+        String str2 = "abcd";
+        REQUIRE(str == str2);
+
+        // Compare two strings that have the same value but are not the same instances
+        // after casting one or both to object
+        // TODO REQUIRE(str == (Object)str2);
+        // TODO REQUIRE((Object)str == (Object)str2);
+    }
 }
