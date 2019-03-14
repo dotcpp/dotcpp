@@ -44,6 +44,9 @@ namespace cl
         template <class T>
         Object(const Ptr<T>& ptr) : base(ptr.as<base>()) {} // TODO Use cast?
 
+        /// <summary>Construct Object from String.</summary>
+        Object(const String& value) : base(value) {}
+
         /// <summary>Construct Object from bool by boxing.</summary>
         Object(bool value) : base(new BoolImpl(value)) {}
 
@@ -66,6 +69,9 @@ namespace cl
 
         /// <summary>Assign Ptr(T) to Object.</summary>
         Object& operator=(const Ptr<ObjectImpl>& ptr) { base::operator=(ptr); return *this; }
+
+        /// <summary>Assign String to Object by boxing.</summary>
+        Object& operator=(const String& value) { base::operator=(value); return *this; }
 
         /// <summary>Assign bool to Object by boxing.</summary>
         Object& operator=(bool value) { base::operator=(new BoolImpl(value)); return *this; }

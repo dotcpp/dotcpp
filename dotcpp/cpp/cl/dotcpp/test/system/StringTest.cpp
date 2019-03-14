@@ -25,13 +25,25 @@ limitations under the License.
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
+#include <cl/dotcpp/main/system/Object.hpp>
 
 namespace cl
 {
     TEST_CASE("Smoke")
     {
-        String s = "abc";
-        REQUIRE(s == "abc");
+        // Create from std::string
+        String s1 = std::string("abc");
+        REQUIRE(s1 == "abc");
+        REQUIRE(s1 == std::string("abc"));
+
+        // Create from string literal
+        String s2 = "abc";
+        REQUIRE(s2 == "abc");
+
+        // Cast to Object and back
+        Object obj1 = s1;
+        // TODO String s11 = obj1.cast<String>();
+        // TODO  REQUIRE(s11 == "abc");
     }
 
     TEST_CASE("Compare")
@@ -49,6 +61,7 @@ namespace cl
 
         // Compare two strings that have the same value but are not the same instances
         // after casting one or both to object
+        // TODO REQUIRE((Object)str == str2);
         // TODO REQUIRE(str == (Object)str2);
         // TODO REQUIRE((Object)str == (Object)str2);
     }
