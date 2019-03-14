@@ -350,15 +350,12 @@ namespace cl
     /// </summary>
     inline String new_String(const char* rhs) { return new StringImpl(rhs); }
 
-    /// <summary>
-    /// Create from from std::string without using new
-    /// </summary>
     inline Ptr<StringImpl>::Ptr(const std::string& rhs) : ptr_(new StringImpl(rhs)) {}
-
-    /// <summary>
-    /// Create from from string literal without using new
-    /// </summary>
     inline Ptr<StringImpl>::Ptr(const char* rhs) : ptr_(new StringImpl(rhs)) {}
+    inline bool Ptr<StringImpl>::operator==(const std::string& rhs) const { return *ptr_ == rhs; }
+    inline bool Ptr<StringImpl>::operator!=(const std::string& rhs) const { return *ptr_ != rhs; }
+    inline bool Ptr<StringImpl>::operator==(const char* rhs) const { return *ptr_ == rhs; }
+    inline bool Ptr<StringImpl>::operator!=(const char* rhs) const { return *ptr_ != rhs; }
 
     /// <summary>Returns a string containing characters from lhs followed by the characters from rhs.</summary>
     inline String operator+(const String& lhs, const String& rhs) { return new_String(*lhs + *rhs); }

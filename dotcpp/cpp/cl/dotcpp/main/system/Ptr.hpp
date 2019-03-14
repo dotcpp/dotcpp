@@ -140,8 +140,8 @@ namespace cl
     template <class T> template <class R> bool Ptr<T>::is() const { if (!ptr_) return false; return typeid(*ptr_) == typeid(R::element_type); }
     template <class T> T& Ptr<T>::operator*() const { T* p = ptr_.get(); if (!p) throw std::runtime_error("Pointer is not initialized"); return *p; }
     template <class T> T* Ptr<T>::operator->() const { T* p = ptr_.get(); if (!p) throw std::runtime_error("Pointer is not initialized"); return p; }
-    template <class T> bool Ptr<T>::operator==(const Ptr<T>& rhs) const { return ptr_ == rhs.ptr_; }
-    template <class T> bool Ptr<T>::operator!=(const Ptr<T>& rhs) const { return ptr_ != rhs.ptr_; }
+    template <class T> bool Ptr<T>::operator==(const Ptr<T>& rhs) const { return ptr_ == rhs.ptr_; } // TODO check when comparison is performed by value
+    template <class T> bool Ptr<T>::operator!=(const Ptr<T>& rhs) const { return ptr_ != rhs.ptr_; } // TODO check when comparison is performed by value
     template <class T> bool Ptr<T>::operator==(Null* rhs) const { return ptr_.get() == nullptr; }
     template <class T> bool Ptr<T>::operator!=(Null* rhs) const { return ptr_.get() != nullptr; }
     template <class T> Ptr<T>& Ptr<T>::operator=(T* rhs) { ptr_.reset(rhs); return *this; }
@@ -217,6 +217,18 @@ namespace cl
         /// <summary>Returns true if the argument does
         /// not contain pointer to the same instance as self.</summary>
         bool operator!=(const Ptr<StringImpl>& rhs) const;
+
+        /// <summary>Case sensitive comparison to std::string.</summary>
+        bool operator==(const std::string& rhs) const;
+
+        /// <summary>Case sensitive comparison to std::string.</summary>
+        bool operator!=(const std::string& rhs) const;
+
+        /// <summary>Case sensitive comparison to string literal.</summary>
+        bool operator==(const char* rhs) const;
+
+        /// <summary>Case sensitive comparison to string literal.</summary>
+        bool operator!=(const char* rhs) const;
 
         /// <summary>Supports ptr == nullptr.</summary>
         bool operator==(Null* rhs) const;

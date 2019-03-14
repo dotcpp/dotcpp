@@ -23,6 +23,7 @@ limitations under the License.
 
 #pragma once
 
+#include <cl/dotcpp/main/system/String.hpp>
 #include <cl/dotcpp/main/system/NullableBool.hpp>
 #include <cl/dotcpp/main/system/NullableDouble.hpp>
 #include <cl/dotcpp/main/system/NullableInt.hpp>
