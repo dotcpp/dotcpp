@@ -34,9 +34,75 @@ namespace cl
 
         struct property {};
         struct set_property : property{};
+
+        /// <summary>Helper class to implement readonly auto property.</summary>
+        template <class T>
+        class auto_get
+        {
+        public: // CONSTRUCTORS
+
+            /// <summary>Create by passing arguments to the constructor of T.</summary>
+            template <typename... Args>
+            explicit auto_get(Args... args) : value_(args...) {}
+
+        public: // OPERATORS
+
+            /// <summary>Provides property get behavior.</summary>
+            operator T() const { return value_; }
+
+            /// <summary>Forwards operator* to the underlying type.</summary>
+            auto& operator*() const { return *value_; }
+
+            /// <summary>Forwards operator-> to the underlying type.</summary>
+            auto operator->() const { return value_.operator->(); }
+
+            /// <summary>Provides comparison operator.</summary>
+            template <typename U>
+            bool operator==(const U& u) const
+            {
+                return value_ == u;
+            }
+
+        private:
+            T value_;
+        };
+
+        /// <summary>Helper class to implement read/write auto property.</summary>
+        template <class T>
+        class auto_prop
+        {
+        public: // CONSTRUCTORS
+
+            /// <summary>Create by passing arguments to the constructor of T.</summary>
+            template <typename... Args>
+            explicit auto_prop(Args... args) : value_(args...) {}
+
+        public: // OPERATORS
+
+            /// <summary>Provides property set behavior.</summary>
+            void operator=(const T& value) { value_ = value; }
+
+            /// <summary>Provides property get behavior.</summary>
+            operator T() const { return value_; }
+
+            /// <summary>Forwards operator* to the underlying type.</summary>
+            auto& operator*() const { return *value_; }
+
+            /// <summary>Forwards operator-> to the underlying type.</summary>
+            auto operator->() const { return value_.operator->(); }
+
+            /// <summary>Comparison operator.</summary>
+            template <typename U>
+            bool operator==(const U& u) const
+            {
+                return value_ == u;
+            }
+
+        private:
+            T value_;
+        };
     }
 }
-
 
 
 #define DOT_DECL_GET(Class, type, name)                                     \
@@ -79,7 +145,6 @@ namespace cl
         CAT(name, _prop) name = CAT(name, _prop)(this);
 
 
-
 #define DOT_IMPL_GET(Class, type, name, getter)                             \
     private:                                                                \
         virtual type CAT(get, name)(type name) override getter
@@ -89,6 +154,7 @@ namespace cl
     private:                                                                \
         virtual type CAT(get, name)(type name) override getter              \
         virtual void CAT(set, name)(type & name, type const& value) override setter
+
 
 #define DOT_GET(Class, type, name, getter)                                  \
     private:                                                                \
@@ -132,12 +198,12 @@ namespace cl
 
 #define DOT_AUTO_GET(Class, type, name)                                     \
     public:                                                                 \
-        ReadOnlyAutoProperty<type> name;                                    \
+        detail::auto_get<type> name;                                        \
         virtual type CAT(get, name)() { return name; }
 
 
 #define DOT_AUTO_PROP(Class, type, name)                                    \
     public:                                                                 \
-        AutoProperty<type> name;                                            \
+        detail::auto_prop<type> name;                                       \
         virtual type CAT(get, name)() { return name; }                      \
         void CAT(set, name)(type const& value) { name = value; }

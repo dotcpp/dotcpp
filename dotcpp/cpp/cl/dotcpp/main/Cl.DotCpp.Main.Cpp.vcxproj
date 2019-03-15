@@ -23,7 +23,6 @@
     <ClInclude Include="implement.hpp" />
     <ClInclude Include="import.hpp" />
     <ClInclude Include="system\Array1D.hpp" />
-    <ClInclude Include="system\AutoProperty.hpp" />
     <ClInclude Include="system\Bool.hpp" />
     <ClInclude Include="system\Char.hpp" />
     <ClInclude Include="system\collections\generic\Dictionary.hpp" />
@@ -55,7 +54,6 @@
     <ClInclude Include="system\ObjectImpl.hpp" />
     <ClInclude Include="system\Property.hpp" />
     <ClInclude Include="system\Ptr.hpp" />
-    <ClInclude Include="system\ReadOnlyAutoProperty.hpp" />
     <ClInclude Include="system\ReadOnlyProperty.hpp" />
     <ClInclude Include="system\ReadOnlyStaticProperty.hpp" />
     <ClInclude Include="system\reflection\BindingFlags.hpp" />
