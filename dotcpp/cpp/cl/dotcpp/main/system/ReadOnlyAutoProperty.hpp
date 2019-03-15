@@ -27,25 +27,35 @@ limitations under the License.
 
 namespace cl
 {
-    /// <summary>Use this class to implement readonly auto property.</summary>
+    /// <summary>Helper class to implement readonly auto property.</summary>
     template <class T>
     class ReadOnlyAutoProperty
     {
-        T& addr_;
-
     public: // CONSTRUCTORS
 
-        /// <summary>Create from the local variable address.</summary>
-        ReadOnlyAutoProperty(T& addr) : addr_(addr) {}
+        /// <summary>Create by passing arguments to the constructor of T.</summary>
+        template <typename... Args>
+        explicit ReadOnlyAutoProperty(Args... args) : value_(args...) {}
 
     public: // OPERATORS
 
         /// <summary>Provides property get behavior.</summary>
-        operator T() const { return addr_; }
+        operator T() const { return value_; }
 
-    private: // OPERATORS
+        /// <summary>Forwards operator* to the underlying type.</summary>
+        auto& operator*() const { return *value_; }
 
-        /// <summary>Private assignment operator prohibits property set behavior.</summary>
-        void operator=(const ReadOnlyAutoProperty<T>&);
+        /// <summary>Forwards operator-> to the underlying type.</summary>
+        auto operator->() const { return value_.operator->(); }
+
+        /// <summary>Provides comparison operator.</summary>
+        template <typename U>
+        bool operator==(const U& u) const
+        {
+            return value_ == u;
+        }
+
+    private:
+        T value_;
     };
 }

@@ -132,12 +132,12 @@ namespace cl
 
 #define DOT_AUTO_GET(Class, type, name)                                     \
     public:                                                                 \
-        type name;                                                          \
+        ReadOnlyAutoProperty<type> name;                                    \
         virtual type CAT(get, name)() { return name; }
 
 
 #define DOT_AUTO_PROP(Class, type, name)                                    \
     public:                                                                 \
-        type name;                                                          \
+        AutoProperty<type> name;                                            \
         virtual type CAT(get, name)() { return name; }                      \
         void CAT(set, name)(type const& value) { name = value; }

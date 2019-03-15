@@ -77,11 +77,7 @@ namespace cl
             {
                 received << "Creating Type (this should run only once)." << std::endl;
 
-                Type type = new_Type();
-
-                type->Name = "ReflectionBaseSample";
-                
-                type->FullName = "DotCpp.System.Test.ReflectionBaseSample";
+                Type type = new_Type("ReflectionBaseSample", "DotCpp.System.Test.ReflectionBaseSample");
 
                 Array1D<PropertyInfo> props = new_Array1D<PropertyInfo>(4);
                 props[0] = new_PropertyInfo("IntFld", type, nullptr, &ReflectionBaseSampleImpl::IntFld);
@@ -159,8 +155,6 @@ namespace cl
         Array1D<Object> params = new_Array1D<Object>(1);
         params[0] = 15;
         REQUIRE(int(type->GetMethods()[0]->Invoke(obj2, params)) == 42 + 15);
-
-        CHECK_THROWS_AS(props[3]->SetValue(obj2, -15), std::runtime_error);
 
         Approvals::verify(received.str());
         received.clear();

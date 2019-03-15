@@ -37,7 +37,7 @@ namespace cl
     /// </summary>
     class TypeImpl : public virtual ObjectImpl
     {
-        friend Type new_Type();
+        friend Type new_Type(String, String); // TODO Swtich to Builder pattern
 
     public: // PROPERTIES
 
@@ -70,10 +70,14 @@ namespace cl
 
     protected: // CONSTRUCTORS
 
-        TypeImpl() = default;
+        TypeImpl(String name, String fullName)
+            : Name(name)
+            , FullName(fullName)
+        {
+        }
     };
 
-    Type new_Type() { return new TypeImpl(); } // TODO replace by type builder
+    Type new_Type(String name, String fullName) { return new TypeImpl(name, fullName); } // TODO replace by type builder
 
     /// <summary>Returns type of class Type.</summary>
     template <class T>

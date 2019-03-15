@@ -27,24 +27,38 @@ limitations under the License.
 
 namespace cl
 {
-    /// <summary>Use this class to implement read/write auto property.</summary>
+    /// <summary>Helper class to implement read/write auto property.</summary>
     template <class T>
     class AutoProperty
     {
-        T& addr_;
-
     public: // CONSTRUCTORS
 
-        /// <summary>Create from the local variable address.</summary>
-        AutoProperty(T& addr) : addr_(addr) {}
+        /// <summary>Create by passing arguments to the constructor of T.</summary>
+        template <typename... Args>
+        explicit AutoProperty(Args... args) : value_(args...) {}
 
     public: // OPERATORS
 
-        /// <summary>Provides property get behavior.</summary>
-        operator T() const { return addr_; }
-
         /// <summary>Provides property set behavior.</summary>
-        void operator=(const T& value) { addr_ = value; }
+        void operator=(const T& value) { value_ = value; }
+
+        /// <summary>Provides property get behavior.</summary>
+        operator T() const { return value_; }
+
+        /// <summary>Forwards operator* to the underlying type.</summary>
+        auto& operator*() const { return *value_; }
+
+        /// <summary>Forwards operator-> to the underlying type.</summary>
+        auto operator->() const { return value_.operator->(); }
+
+        /// <summary>Comparison operator.</summary>
+        template <typename U>
+        bool operator==(const U& u) const
+        {
+            return value_ == u;
+        }
+
+    private:
+        T value_;
     };
 }
-
