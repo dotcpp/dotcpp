@@ -21,8 +21,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_main_Exception_hpp
-#define cl_dotcpp_main_Exception_hpp
+#pragma once
 
 #include <cl/dotcpp/main/declare.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
@@ -43,11 +42,12 @@ namespace cl
         /// <summary>Create with a specified error message.</summary>
         Exception(const char* msg) : std::runtime_error(msg ? msg : "") {}
 
+        /// <summary>Create with a specified error message.</summary>
+        Exception(String msg) : std::runtime_error(*msg) {}
+
     public: // METHODS
 
         /// <summary>Message that describes the current exception.</summary>
         virtual String Message() const { return String(what()); }
     };
 }
-
-#endif // cl_dotcpp_main_Exception_hpp
