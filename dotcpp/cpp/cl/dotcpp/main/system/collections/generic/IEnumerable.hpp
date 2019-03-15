@@ -41,11 +41,18 @@ namespace cl
         /// <summary>Returns an enumerator that iterates through the collection.</summary>
         virtual IEnumerator<T> GetEnumerator() = 0;
 
-        /// <summary>Implements begin() used by STL and similar algorithms.</summary>
-        virtual detail::std_iterator_wrapper<T> begin() = 0;
+        /// <summary>Returns forward begin iterator based on IEnumerator.</summary>
+        detail::std_iterator_wrapper<T> begin()
+        {
+            return detail::std_iterator_wrapper<T>(std::move(GetEnumerator()->begin_iterator_));
+        }
 
-        /// <summary>Implements end() used by STL and similar algorithms.</summary>
-        virtual detail::std_iterator_wrapper<T> end() = 0;
+        /// <summary>Returns forward end iterator based on IEnumerator.</summary>
+        detail::std_iterator_wrapper<T> end()
+        {
+            return detail::std_iterator_wrapper<T>(std::move(GetEnumerator()->end_iterator_));
+        }
+
     };
 }
 

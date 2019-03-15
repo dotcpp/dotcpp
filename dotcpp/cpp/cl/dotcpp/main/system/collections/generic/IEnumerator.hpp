@@ -39,6 +39,9 @@ namespace cl
         template <class Iterator>
         friend IEnumerator<typename Iterator::value_type> new_Enumerator(Iterator const&, Iterator const&);
 
+        template <class T>
+        friend class IEnumerableImpl;
+
     private: // FIELDS
 
         std::unique_ptr<detail::std_iterator_base<T> > begin_iterator_;

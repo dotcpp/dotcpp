@@ -68,11 +68,7 @@ namespace cl
 
         // Access the underlying std::vector<double> class
         PrintList("Unsorted", a);
-
-        // TODO - replace by List->Sort() nad check why iterators do not work directly on List
-        std::vector<double>& v = *a;
-        std::sort(v.begin(), v.end());
-
+        std::sort(a->begin(), a->end());
         PrintList("Sorted", a);
 
         // Access by Object
@@ -132,6 +128,12 @@ namespace cl
         // Iterate using foreach
         int i = 0;
         for (String str : stringList)
+        {
+            REQUIRE(stringList[i++] == str);
+        }
+
+        i = 0;
+        for (String str : stringList.as<IEnumerable<String>>())
         {
             REQUIRE(stringList[i++] == str);
         }

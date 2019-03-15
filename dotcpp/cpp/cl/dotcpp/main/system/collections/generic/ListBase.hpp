@@ -50,16 +50,16 @@ namespace cl
             return new_Enumerator(std::vector<T>::begin(), std::vector<T>::end());
         }
 
-        /// <summary>Implements begin() used by STL and similar algorithms.</summary>
-        virtual detail::std_iterator_wrapper<T> begin()
+        /// <summary>Returns random access begin iterator of the underlying std::vector.</summary>
+        typename base::iterator begin()
         {
-            return detail::std_iterator_wrapper<T>(detail::make_iterator(std::vector<T>::begin()));
+            return base::begin();
         }
 
-        /// <summary>Implements end() used by STL and similar algorithms.</summary>
-        virtual detail::std_iterator_wrapper<T> end()
+        /// <summary>Returns random access end iterator of the underlying std::vector.</summary>
+        typename base::iterator end()
         {
-            return detail::std_iterator_wrapper<T>(detail::make_iterator(std::vector<T>::end()));
+            return base::end();
         }
 
         /// <summary>The number of items contained in the list.</summary>
