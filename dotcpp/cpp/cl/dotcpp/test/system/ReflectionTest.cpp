@@ -53,6 +53,13 @@ namespace cl
             }
         )
 
+        DOT_GET(ReflectionBaseSampleImpl, int, Count2,
+            {
+                std::cout << "ReflectionBaseSample.getCount2" << std::endl;
+                return Count2;
+            }
+        )
+
     private:
         int PrivateIntFld = 42;
 
@@ -73,12 +80,14 @@ namespace cl
                 Type type = new_Type();
 
                 type->Name = "ReflectionBaseSample";
+                
                 type->FullName = "DotCpp.System.Test.ReflectionBaseSample";
 
-                Array1D<PropertyInfo> props = new_Array1D<PropertyInfo>(3);
+                Array1D<PropertyInfo> props = new_Array1D<PropertyInfo>(4);
                 props[0] = new_PropertyInfo("IntFld", type, nullptr, &ReflectionBaseSampleImpl::IntFld);
                 props[1] = new_PropertyInfo("PrivateIntFld", type, nullptr, &ReflectionBaseSampleImpl::PrivateIntFld);
                 props[2] = new_PropertyInfo("Count", type, nullptr, &ReflectionBaseSampleImpl::Count);
+                props[3] = new_PropertyInfo("Count2", type, nullptr, &ReflectionBaseSampleImpl::Count2 );
 
                 type->Properties = props;
 
@@ -150,6 +159,8 @@ namespace cl
         Array1D<Object> params = new_Array1D<Object>(1);
         params[0] = 15;
         REQUIRE(int(type->GetMethods()[0]->Invoke(obj2, params)) == 42 + 15);
+
+        CHECK_THROWS_AS(props[3]->SetValue(obj2, -15), std::runtime_error);
 
         Approvals::verify(received.str());
         received.clear();

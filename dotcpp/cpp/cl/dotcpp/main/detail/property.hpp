@@ -33,6 +33,7 @@ namespace cl
         Class get_method_class(Ret (Class::*)(Args...));
 
         struct property {};
+        struct set_property : property{};
     }
 }
 
@@ -61,7 +62,7 @@ namespace cl
     private:                                                                \
         virtual type CAT(get, name)(type name) = 0;                         \
         virtual void CAT(set, name)(type & name, type const& value) = 0;    \
-        struct CAT(name, _prop) : detail::property                          \
+        struct CAT(name, _prop) : detail::set_property                      \
         {                                                                   \
             typedef type value_type;                                        \
             CAT(name, _prop)(Class * this_) : this_(this_) {}               \
@@ -112,7 +113,7 @@ namespace cl
     private:                                                                \
         virtual type CAT(get, name)(type name) getter                       \
         virtual void CAT(set, name)(type & name, type const& value) setter  \
-        struct CAT(name, _prop) : detail::property                          \
+        struct CAT(name, _prop) : detail::set_property                      \
         {                                                                   \
             typedef type value_type;                                        \
             CAT(name, _prop)(Class * this_) : this_(this_) {}               \

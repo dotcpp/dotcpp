@@ -156,10 +156,23 @@ namespace cl
             return (PropType::value_type)((*obj.cast<Ptr<Class>>()).*prop_);
         }
 
-        /// <summary>Sets the property value of a specified object.</summary>
-        virtual void SetValue(Object obj, Object value) override
+        // Prop has operator =
+        void SetValue_impl(Object obj, Object value, std::true_type)
         {
             (*obj.cast<Ptr<Class>>()).*prop_ = (PropType::value_type)value;
+        }
+
+        // Prop does not have operator =
+        void SetValue_impl(Object obj, Object value, std::false_type)
+        {
+            throw Exception("Attempting to use SetValue on read-only property.");
+        }
+
+        // Property might be read-only (operator =(value) = delete; )
+        // SetValue throws exception in case of setting read-only DOT_PROP
+        virtual void SetValue(Object obj, Object value) override
+        {
+            SetValue_impl(obj, value, std::is_base_of<detail::set_property, PropType>::type());
         }
     };
 
