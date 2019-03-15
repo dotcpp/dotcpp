@@ -29,11 +29,15 @@ namespace cl
 {
     namespace detail
     {
+        /// <summary>Helper function to implement properties.</summary>
         template <class Class, class Ret, class ... Args>
         Class get_method_class(Ret (Class::*)(Args...));
 
-        struct property {};
-        struct set_property : property{};
+        /// <summary>Helper class to implement readonly property.</summary>
+        struct decl_get {};
+
+        /// <summary>Helper class to implement read/write property.</summary>
+        struct decl_prop : decl_get {};
 
         /// <summary>Helper class to implement readonly auto property.</summary>
         template <class T>
@@ -108,7 +112,7 @@ namespace cl
 #define DOT_DECL_GET(Class, type, name)                                     \
     private:                                                                \
         virtual type CAT(get, name)(type name) = 0;                         \
-        struct CAT(name, _prop) : detail::property                          \
+        struct CAT(name, _prop) : detail::decl_get                          \
         {                                                                   \
             typedef type value_type;                                        \
             CAT(name, _prop)(Class * this_) : this_(this_) {}               \
@@ -128,7 +132,7 @@ namespace cl
     private:                                                                \
         virtual type CAT(get, name)(type name) = 0;                         \
         virtual void CAT(set, name)(type & name, type const& value) = 0;    \
-        struct CAT(name, _prop) : detail::set_property                      \
+        struct CAT(name, _prop) : detail::decl_prop                      \
         {                                                                   \
             typedef type value_type;                                        \
             CAT(name, _prop)(Class * this_) : this_(this_) {}               \
@@ -159,7 +163,7 @@ namespace cl
 #define DOT_GET(Class, type, name, getter)                                  \
     private:                                                                \
         virtual type CAT(get, name)(type name) getter                       \
-        struct CAT(name, _prop) : detail::property                          \
+        struct CAT(name, _prop) : detail::decl_get                          \
         {                                                                   \
             typedef type value_type;                                        \
             CAT(name, _prop)(Class * this_) : this_(this_) {}               \
@@ -179,7 +183,7 @@ namespace cl
     private:                                                                \
         virtual type CAT(get, name)(type name) getter                       \
         virtual void CAT(set, name)(type & name, type const& value) setter  \
-        struct CAT(name, _prop) : detail::set_property                      \
+        struct CAT(name, _prop) : detail::decl_prop                      \
         {                                                                   \
             typedef type value_type;                                        \
             CAT(name, _prop)(Class * this_) : this_(this_) {}               \

@@ -72,7 +72,7 @@ namespace cl
 
         template <class PropType, class Class>
         friend PropertyInfo new_PropertyInfo(String , Type , Type , PropType Class::*
-            , typename std::enable_if<!std::is_base_of<detail::property, PropType>::value>::type *);
+            , typename std::enable_if<!std::is_base_of<detail::decl_get, PropType>::value>::type *);
 
     private: // FIELDS
 
@@ -114,7 +114,7 @@ namespace cl
     /// </summary>
     template <class PropType, class Class>
     PropertyInfo new_PropertyInfo(String name, Type declaringType, Type propertyType, PropType Class::* prop
-        , typename std::enable_if<!std::is_base_of<detail::property, PropType>::value>::type * p = 0)
+        , typename std::enable_if<!std::is_base_of<detail::decl_get, PropType>::value>::type * p = 0)
     {
         return new PropertyInfoFieldImpl<PropType, Class>(name, declaringType, propertyType, prop);
     }
@@ -129,7 +129,7 @@ namespace cl
 
         template <class PropType, class Class>
         friend PropertyInfo new_PropertyInfo(String, Type, Type, PropType Class::*
-            , typename std::enable_if<std::is_base_of<detail::property, PropType>::value>::type *);
+            , typename std::enable_if<std::is_base_of<detail::decl_get, PropType>::value>::type *);
 
     private: // FIELDS
 
@@ -172,7 +172,7 @@ namespace cl
         // SetValue throws exception in case of setting read-only DOT_PROP
         virtual void SetValue(Object obj, Object value) override
         {
-            SetValue_impl(obj, value, std::is_base_of<detail::set_property, PropType>::type());
+            SetValue_impl(obj, value, std::is_base_of<detail::decl_prop, PropType>::type());
         }
     };
 
@@ -182,7 +182,7 @@ namespace cl
     /// </summary>
     template <class PropType, class Class>
     PropertyInfo new_PropertyInfo(String name, Type declaringType, Type propertyType, PropType Class::* prop
-        , typename std::enable_if<std::is_base_of<detail::property, PropType>::value>::type * p = 0)
+        , typename std::enable_if<std::is_base_of<detail::decl_get, PropType>::value>::type * p = 0)
     {
         return new PropertyInfoPropertyImpl<PropType, Class>(name, declaringType, propertyType, prop);
     }
