@@ -39,8 +39,6 @@
     <ClInclude Include="system\collections\generic\SortedList.hpp" />
     <ClInclude Include="system\collections\generic\SortedSet.hpp" />
     <ClInclude Include="system\collections\generic\Stack.hpp" />
-    <ClInclude Include="system\Console.hpp" />
-    <ClInclude Include="system\Date.hpp" />
     <ClInclude Include="system\Double.hpp" />
     <ClInclude Include="system\Exception.hpp" />
     <ClInclude Include="system\Int.hpp" />

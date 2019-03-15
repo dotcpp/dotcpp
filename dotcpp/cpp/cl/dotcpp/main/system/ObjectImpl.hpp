@@ -36,7 +36,7 @@ namespace cl
     /// All classes with reference semantics should derive from this type.
     /// It works with Ptr to provide an emulation of reference semantics in C++.
     /// </summary>
-    class ObjectImpl
+    class CL_DOTCPP_MAIN ObjectImpl
     {
     public: // DESTRUCTOR
 

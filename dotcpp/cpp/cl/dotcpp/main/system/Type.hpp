@@ -28,9 +28,58 @@ limitations under the License.
 namespace cl
 {
     class TypeImpl; using Type = Ptr<TypeImpl>;
+    class TypeDataImpl; using TypeData = Ptr<TypeDataImpl>;
     class StringImpl; using String = Ptr<StringImpl>;
+    class MethodInfoImpl; using MethodInfo = Ptr<MethodInfoImpl>;
     class PropertyInfoImpl; using PropertyInfo = Ptr<PropertyInfoImpl>;
+    template <class T> class ListImpl; template <class T> using List = Ptr<ListImpl<T>>;
     template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
+
+    /// <summary>Builder for Type.</summary>
+    class CL_DOTCPP_MAIN TypeDataImpl final : public virtual ObjectImpl
+    {
+        friend TypeData new_TypeData();
+        friend class TypeImpl;
+
+    private:
+        String name_;
+        String namespace_;
+        List<PropertyInfo> properties_;
+        List<MethodInfo> methods_;
+
+    public: // METHODS
+
+        /// <summary>Set the name of the current type, excluding namespace.</summary>
+        TypeDataImpl& WithName(const String& name);
+
+        /// <summary>Set the namespace of the Type.</summary>
+        TypeDataImpl& WithNamespace(const String& ns);
+
+    public: // METHODS
+
+        /// <summary>Add public property of the current Type.</summary>
+        TypeDataImpl& WithProperty();
+
+        /// <summary>Add public method of the current Type.</summary>
+        TypeDataImpl& WithMethod();
+
+        /// <summary>Built Type from the current object.</summary>
+        Type Build();
+
+    private: // CONSTRUCTORS
+
+        /// <summary>
+        /// Create an empty instance of TypeData.
+        ///
+        /// This constructor is private. Use new_TypeData() function instead.
+        /// </summary>
+        TypeDataImpl() = default;
+    };
+
+    /// <summary>
+    /// Create an empty instance of TypeData.
+    /// </summary>
+    inline TypeData new_TypeData() { return new TypeDataImpl(); }
 
     /// <summary>
     /// Represents type declarations: class types, interface types, array types, value types, enumeration types,
@@ -52,35 +101,30 @@ namespace cl
     ///
     /// \end{itemize}
     /// </summary>
-    class TypeImpl : public virtual ObjectImpl
+    class CL_DOTCPP_MAIN TypeImpl final : public virtual ObjectImpl
     {
-        friend Type new_Type(String, String); // TODO Swtich to Builder pattern
+        friend class TypeDataImpl;
+
+    private: // FIELDS
+
+        Array1D<PropertyInfo> properties_;
+        Array1D<MethodInfo> methods_;
 
     public: // PROPERTIES
 
         /// <summary>Gets the name of the current type, excluding namespace.</summary>
-        DOT_AUTO_GET(TypeImpl, String, Name)
+        DOT_AUTO_GET(TypeImpl, String, Name);
 
         /// <summary>Gets the fully qualified name of the type, including its namespace but not its assembly.</summary>
-        DOT_AUTO_GET(TypeImpl, String, FullName)
+        DOT_AUTO_GET(TypeImpl, String, Namespace);
 
     public: // METHODS
 
-        Array1D<PropertyInfo> Properties; // TODO Make private
-
-        /// <summary>Returns properties of the current type.</summary>
-        virtual Array1D<PropertyInfo> GetProperties()
-        {
-            return Properties;
-        }
-
-        Array1D<MethodInfo> Methods; // TODO Make private
+        /// <summary>Returns all the public properties of the current Type.</summary>
+        virtual Array1D<PropertyInfo> GetProperties() { return properties_; }
 
         /// <summary>Returns methods of the current type.</summary>
-        virtual Array1D<MethodInfo> GetMethods()
-        {
-            return Methods;
-        }
+        virtual Array1D<MethodInfo> GetMethods() { return methods_; }
 
         /// <summary>A string representing the name of the current type.</summary>
         virtual String ToString() const { return "Type"; } // TODO - return name
@@ -88,29 +132,16 @@ namespace cl
     private: // CONSTRUCTORS
 
         /// <summary>
-        /// Initializes a new instance of the Type class.
+        /// Create from builder.
         ///
-        /// This constructor is private. Use new_Type(...) function instead.
+        /// This constructor is private. Use TypeBuilder->Build() method instead.
         /// </summary>
-        TypeImpl(String name, String fullName)
-            : Name(name)
-            , FullName(fullName)
-        {
-        }
+        TypeImpl(const TypeDataImpl& data)
+            : Name()
+        {}
     };
 
-    /// <summary>
-    /// Initializes a new instance of the Type class.
-    ///
-    /// This constructor is private. Use new_Type(...) function instead.
-    /// </summary>
-    inline Type new_Type(String name, String fullName)
-    {
-        // TODO replace by type builder
-        return new TypeImpl(name, fullName);
-    }
-
-    /// <summary>Returns type of class Type.</summary>
+    /// <summary>Get Type object for the argument.</summary>
     template <class T>
     Type typeof() { return T::typeof(); }
 
@@ -119,18 +150,18 @@ namespace cl
     /// </summary>
     inline Type ObjectImpl::GetType()
     {
-        return new_Type("Object", "System.Object");
+        return new_TypeData()->WithName("Object").WithNamespace("System").Build();
     }
 
     template <>
-    inline Type typeof<StringImpl>() { return new_Type("String", "System.String"); }
+    inline Type typeof<StringImpl>() { return new_TypeData()->WithName("String").WithNamespace("System").Build(); }
 
     template <>
-    inline Type typeof<double>() { return new_Type("Double", "System.Double"); }
+    inline Type typeof<double>() { return new_TypeData()->WithName("Double").WithNamespace("System").Build(); }
 
     template <>
-    inline Type typeof<long>() { return new_Type("Int64", "System.Int64"); }
+    inline Type typeof<long long int>() { return new_TypeData()->WithName("Int64").WithNamespace("System").Build(); }
 
     template <>
-    inline Type typeof<int>() { return new_Type("Int32", "System.Int32"); }
+    inline Type typeof<int>() { return new_TypeData()->WithName("Int32").WithNamespace("System").Build(); }
 }

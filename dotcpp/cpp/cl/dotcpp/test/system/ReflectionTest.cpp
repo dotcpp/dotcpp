@@ -73,33 +73,36 @@ namespace cl
 
         virtual Type GetType()
         {
-            static Type type_ = []()->Type
+            // Converts to Type with thread safety guarantee as per C++ Standard
+            static Type typeLambda = []()->Type
             {
                 received << "Creating Type (this should run only once)." << std::endl;
 
-                Type type = new_Type("ReflectionBaseSample", "DotCpp.System.Test.ReflectionBaseSample");
+                return new_TypeData()
+                    ->WithName("ReflectionBaseSample")
+                    .WithNamespace("Test.System")
+                    .Build();
 
-                Array1D<PropertyInfo> props = new_Array1D<PropertyInfo>(4);
-                props[0] = new_PropertyInfo("IntFld", type, nullptr, &ReflectionBaseSampleImpl::IntFld);
-                props[1] = new_PropertyInfo("PrivateIntFld", type, nullptr, &ReflectionBaseSampleImpl::PrivateIntFld);
-                props[2] = new_PropertyInfo("Count", type, nullptr, &ReflectionBaseSampleImpl::Count);
-                props[3] = new_PropertyInfo("Count2", type, nullptr, &ReflectionBaseSampleImpl::Count2 );
+                /*
+                data->Properties = new_Array1D<PropertyInfo>(4);
+                data->Properties[0] = new_PropertyInfo("IntFld", type, nullptr, &ReflectionBaseSampleImpl::IntFld);
+                data->Properties[1] = new_PropertyInfo("PrivateIntFld", type, nullptr, &ReflectionBaseSampleImpl::PrivateIntFld);
+                data->Properties[2] = new_PropertyInfo("Count", type, nullptr, &ReflectionBaseSampleImpl::Count);
+                data->Properties[3] = new_PropertyInfo("Count2", type, nullptr, &ReflectionBaseSampleImpl::Count2 );
 
-                type->Properties = props;
-
-                Array1D<MethodInfo> methods = new_Array1D<MethodInfo>(1);
-                methods[0] = new_MethodInfo("SampleMethod", type, &ReflectionBaseSampleImpl::SampleMethod); // TODO - is this part of C# API?
-                methods[0]->Parameters = new_Array1D<ParameterInfo>(1);
-                methods[0]->Parameters[0] = new_ParameterInfo("param", nullptr, 0);
-
-                type->Methods = methods;
-
-                return type;
+                data->Methods = new_Array1D<MethodInfo>(1);
+                data->Methods[0] = new_MethodInfo("SampleMethod", type, &ReflectionBaseSampleImpl::SampleMethod); // TODO - not part of C# API, use builder pattern for MethodInfo
+                data->Methods[0]->Parameters = new_Array1D<ParameterInfo>(1);
+                data->Methods[0]->Parameters[0] = new_ParameterInfo("param", nullptr, 0);
+                */
             }();
 
-            return type_;
+            return typeLambda;
         }
     };
+
+    using ReflectionBaseSample = Ptr<ReflectionBaseSampleImpl>;
+    ReflectionBaseSample new_ReflectionBaseSample() { return new ReflectionBaseSampleImpl; }
 
     class ReflectionDerivedSampleImpl : public ReflectionBaseSampleImpl
     {
@@ -116,9 +119,6 @@ namespace cl
             }
         )
     };
-
-    using ReflectionBaseSample = Ptr<ReflectionBaseSampleImpl>;
-    ReflectionBaseSample new_ReflectionBaseSample() { return new ReflectionBaseSampleImpl; }
 
     using ReflectionDerivedSample = Ptr<ReflectionDerivedSampleImpl>;
     ReflectionDerivedSample new_ReflectionDerivedSample() { return new ReflectionDerivedSampleImpl; }
