@@ -61,7 +61,7 @@ namespace cl
         /// Create from pointer to template argument base type.
         /// Shares reference count with argument.
         /// </summary>
-        template <class R> Ptr(const Ptr<R>& rhs);
+        template <class R> Ptr(const Ptr<R>& rhs, typename std::enable_if<std::is_base_of<T, R>::value>::type* p = 0);
 
         /// <summary>Copy constructor. Shares reference count with argument.</summary>
         Ptr(const Ptr<T>& rhs);
@@ -123,6 +123,21 @@ namespace cl
         /// </summary>
         Ptr<T>& operator=(const Ptr<T>& rhs);
 
+        /// <summary>
+        /// Cast operator from derived to base.
+        /// </summary>
+        /*
+        template <class R>
+        operator R() const
+        {
+            std::shared_ptr<R> ret = std::dynamic_pointer_cast<typename R::element_type>(ptr_);
+            if (ret)
+                return ret;
+            else
+                throw std::runtime_error("Cast cannot be performed.");
+        }
+        */
+
         /// <summary>Const indexer operator for arrays.</summary>
         template <class I>
         decltype(auto) operator[](I const& i) const;
@@ -134,7 +149,7 @@ namespace cl
 
     template <class T> Ptr<T>::Ptr() {}
     template <class T> Ptr<T>::Ptr(T* ptr) : ptr_(ptr) {}
-    template <class T> template <class R> Ptr<T>::Ptr(const Ptr<R>& rhs) : ptr_(rhs.ptr_) {}
+    template <class T> template <class R> Ptr<T>::Ptr(const Ptr<R>& rhs, typename std::enable_if<std::is_base_of<T, R>::value>::type* p) : ptr_(rhs.ptr_) {}
     template <class T> Ptr<T>::Ptr(const Ptr<T>& rhs) : ptr_(rhs.ptr_) {}
     template <class T> Ptr<T>::Ptr(const pointer_type & ptr) : ptr_(ptr) {}
     template <class T> template <class R> R Ptr<T>::as() const { return std::dynamic_pointer_cast<typename R::element_type>(ptr_); }
