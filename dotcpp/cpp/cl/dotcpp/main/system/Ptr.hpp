@@ -67,7 +67,7 @@ namespace cl
         /// Create from pointer to template argument base type.
         /// Shares reference count with argument.
         /// </summary>
-        template <class R> explicit Ptr(const Ptr<R>& rhs, typename std::enable_if<std::is_base_of<R, T>::value>::type* p = 0);
+        template <class R> explicit Ptr(const Ptr<R>& rhs, typename std::enable_if<!std::is_base_of<T, R>::value>::type* p = 0);
 
         /// <summary>Copy constructor. Shares reference count with argument.</summary>
         Ptr(const Ptr<T>& rhs);
@@ -83,7 +83,7 @@ namespace cl
 
         /// <summary>Dynamic cast to type R, throws exception if the cast fails.</summary>
         template <class R>
-        R cast() const;
+        R cast() const; // TODO - deprecated, replace by C style cast
 
         /// <summary>Returns true if pointer holds object of type R, and false otherwise.</summary>
         template <class R>
@@ -141,9 +141,9 @@ namespace cl
     template <class T> Ptr<T>::Ptr() {}
     template <class T> Ptr<T>::Ptr(T* ptr) : ptr_(ptr) {}
     template <class T> template <class R> Ptr<T>::Ptr(const Ptr<R>& rhs, typename std::enable_if<std::is_base_of<T, R>::value>::type* p) : ptr_(rhs.ptr_) {}
-    template <class T> template <class R> Ptr<T>::Ptr(const Ptr<R>& rhs, typename std::enable_if<std::is_base_of<R, T>::value>::type* p)
+    template <class T> template <class R> Ptr<T>::Ptr(const Ptr<R>& rhs, typename std::enable_if<!std::is_base_of<T, R>::value>::type* p)
     {
-        // If preferred, we can use !is_base<T,R> in signature to get runtime rather than compile time error
+        // If argument is null, ptr_ should also remain null
         if (rhs.ptr_)
         {
             // Perform dynamic cast from base to derived
@@ -152,6 +152,7 @@ namespace cl
             // Check that dynamic cast succeeded
             if (!ptr) throw Exception("Cast cannot be performed."); // TODO Use typeof(...) and GetType() to provide specific types in the error message
 
+            // Ptr<T> now contains the result of dynamic cast
             ptr_ = ptr;
         }
     }
