@@ -5,4 +5,4 @@ ReflectionBaseSample.getCount
 ReflectionDerivedSample.setCount
 ReflectionDerivedSample.getCount
 ReflectionDerivedSample.getCount
-
+Invoked ReflectionBaseSample.SampleMethod

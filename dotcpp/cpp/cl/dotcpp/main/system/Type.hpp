@@ -57,6 +57,14 @@ namespace cl
             return Properties;
         }
 
+        Array1D<MethodInfo> Methods; // TODO Make private
+
+        /// <summary>Returns methods of the current type.</summary>
+        virtual Array1D<MethodInfo> GetMethods()
+        {
+            return Methods;
+        }
+
         /// <summary>A string representing the name of the current type.</summary>
         virtual String ToString() const { return "Type"; } // TODO - return name
 
@@ -65,5 +73,9 @@ namespace cl
         TypeImpl() = default;
     };
 
-    Type new_Type() { return new TypeImpl(); }
+    Type new_Type() { return new TypeImpl(); } // TODO replace by type builder
+
+    /// <summary>Returns type of class Type.</summary>
+    template <class T>
+    Type typeof() { return T::typeof(); }
 }

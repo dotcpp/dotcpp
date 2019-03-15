@@ -26,6 +26,7 @@ limitations under the License.
 #include <approvals/Catch.hpp>
 #include <cl/dotcpp/main/system/Exception.hpp>
 #include <cl/dotcpp/main/system/reflection/PropertyInfo.hpp>
+#include <cl/dotcpp/main/system/reflection/MethodInfo.hpp>
 #include <cl/dotcpp/main/system/Type.hpp>
 #include <cl/dotcpp/main/system/Array1D.hpp>
 #include <cl/dotcpp/main/system/collections/generic/List.hpp>
@@ -57,6 +58,12 @@ namespace cl
 
     public:
 
+        int SampleMethod(int param)
+        {
+            received << "Invoked ReflectionBaseSample.SampleMethod";
+            return 42 + param;
+        }
+
         virtual Type GetType()
         {
             static Type type = []()->Type
@@ -74,6 +81,13 @@ namespace cl
                 props[2] = new_PropertyInfo("Count", type, nullptr, &ReflectionBaseSampleImpl::Count);
 
                 type->Properties = props;
+
+                Array1D<MethodInfo> methods = new_Array1D<MethodInfo>(1);
+                methods[0] = new_MethodInfo("SampleMethod", type, &ReflectionBaseSampleImpl::foo);
+                methods[0]->Parameters = new_Array1D<ParameterInfo>(1);
+                methods[0]->Parameters[0] = new_ParameterInfo("param", nullptr, 0);
+
+                type->Methods = methods;
 
                 return type;
             }();
@@ -132,6 +146,10 @@ namespace cl
         props[2]->SetValue(obj2, -15);
         REQUIRE(obj2->Count == -15);
         REQUIRE(int(props[2]->GetValue(obj2)) == -15);
+
+        Array1D<Object> params = new_Array1D<Object>(1);
+        params[0] = 15;
+        REQUIRE(int(type->GetMethods()[0]->Invoke(obj2, params)) == 42 + 15);
 
         Approvals::verify(received.str());
         received.clear();
