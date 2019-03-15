@@ -83,7 +83,7 @@ namespace cl
                 type->Properties = props;
 
                 Array1D<MethodInfo> methods = new_Array1D<MethodInfo>(1);
-                methods[0] = new_MethodInfo("SampleMethod", type, &ReflectionBaseSampleImpl::foo);
+                methods[0] = new_MethodInfo("SampleMethod", type, &ReflectionBaseSampleImpl::SampleMethod); // TODO - is this part of C# API?
                 methods[0]->Parameters = new_Array1D<ParameterInfo>(1);
                 methods[0]->Parameters[0] = new_ParameterInfo("param", nullptr, 0);
 

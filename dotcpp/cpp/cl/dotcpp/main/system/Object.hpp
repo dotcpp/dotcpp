@@ -37,6 +37,14 @@ namespace cl
 
     public: // CONSTRUCTORS
 
+        /// <summary>
+        /// Default constructor to create untyped Object.
+        ///
+        /// This constructor is used, among other things,
+        /// as argument to lock(...) to provide thread safety.
+        /// </summary>
+        Object() : base() {} // TODO - C# does not have this ctor, need to check if we can avoid it
+
         /// <summary>Construct Object from Ptr(ObjectImpl).</summary>
         Object(const Ptr<ObjectImpl>& ptr) : base(ptr) {}
 
