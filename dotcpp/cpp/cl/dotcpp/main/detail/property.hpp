@@ -61,11 +61,15 @@ namespace cl
             auto operator->() const { return value_.operator->(); }
 
             /// <summary>Provides comparison operator.</summary>
-            template <typename U>
-            bool operator==(const U& u) const
-            {
-                return value_ == u;
-            }
+            template <typename U> bool operator==(const U& u) const { return value_ == u; }
+
+            /// <summary>Const indexer operator for arrays.</summary>
+            template <class I>
+            decltype(auto) operator[](I const& i) const { return value_[i]; }
+
+            /// <summary>Non-const indexer operator for arrays.</summary>
+            template <class I>
+            decltype(auto) operator[](I const& i) { return value_[i]; }
 
         private:
             T value_;
@@ -96,11 +100,15 @@ namespace cl
             auto operator->() const { return value_.operator->(); }
 
             /// <summary>Comparison operator.</summary>
-            template <typename U>
-            bool operator==(const U& u) const
-            {
-                return value_ == u;
-            }
+            template <typename U> bool operator==(const U& u) const { return value_ == u; }
+
+            /// <summary>Const indexer operator for arrays.</summary>
+            template <class I>
+            decltype(auto) operator[](I const& i) const { return value_[i]; }
+
+            /// <summary>Non-const indexer operator for arrays.</summary>
+            template <class I>
+            decltype(auto) operator[](I const& i) { return value_[i]; }
 
         private:
             T value_;
