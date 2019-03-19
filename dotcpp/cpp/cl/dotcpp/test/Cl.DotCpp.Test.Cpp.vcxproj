@@ -19,6 +19,7 @@
     <ClCompile Include="system\PropertyTest.cpp" />
     <ClCompile Include="system\PtrTest.cpp" />
     <ClCompile Include="system\ReflectionTest.cpp" />
+    <ClCompile Include="system\SerializationSampleTest.cpp" />
     <ClCompile Include="system\StringTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

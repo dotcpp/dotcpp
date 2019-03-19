@@ -65,7 +65,7 @@ namespace cl
     /// <summary>
     /// Create from parameter name, parameter type, and parameter position.
     /// </summary>
-    ParameterInfo new_ParameterInfo(String name, Type parameterType, int position)
+    inline ParameterInfo new_ParameterInfo(String name, Type parameterType, int position)
     {
         return new ParameterInfoImpl(name, parameterType, position);
     }

@@ -104,7 +104,7 @@ namespace cl
     ///
     /// This constructor is private. Use new_Type(...) function instead.
     /// </summary>
-    Type new_Type(String name, String fullName)
+    inline Type new_Type(String name, String fullName)
     {
         // TODO replace by type builder
         return new TypeImpl(name, fullName);
@@ -117,8 +117,17 @@ namespace cl
     /// <summary>
     /// Initializes a new instance of the Type class for untyped instance of Object.
     /// </summary>
-    Type ObjectImpl::GetType()
+    inline Type ObjectImpl::GetType()
     {
         return new_Type("Object", "System.Object");
     }
+
+    template <>
+    inline Type typeof<double>() { return new_Type("Double", "System.Double"); }
+
+    template <>
+    inline Type typeof<long>() { return new_Type("Int64", "System.Int64"); }
+
+    template <>
+    inline Type typeof<int>() { return new_Type("Int32", "System.Int32"); }
 }
