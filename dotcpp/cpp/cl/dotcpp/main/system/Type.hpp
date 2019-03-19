@@ -123,6 +123,9 @@ namespace cl
     }
 
     template <>
+    inline Type typeof<StringImpl>() { return new_Type("String", "System.String"); }
+
+    template <>
     inline Type typeof<double>() { return new_Type("Double", "System.Double"); }
 
     template <>

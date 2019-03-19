@@ -39,6 +39,7 @@ namespace cl
     {
     public:
 
+    DOT_AUTO_PROP(SampleDataImpl, String, StringProp)
     DOT_AUTO_PROP(SampleDataImpl, int, IntegerProp)
     DOT_AUTO_PROP(SampleDataImpl, double, DoubleProp)
 
@@ -49,9 +50,10 @@ namespace cl
             {
                 Type type = new_Type("SampleData", "DotCpp.System.Test.SampleData");
 
-                Array1D<PropertyInfo> props = new_Array1D<PropertyInfo>(2);
-                props[0] = new_PropertyInfo("IntegerProp", type, cl::typeof<int>(), &SampleDataImpl::IntegerProp);
-                props[1] = new_PropertyInfo("DoubleProp", type, cl::typeof<double>(), &SampleDataImpl::DoubleProp);
+                Array1D<PropertyInfo> props = new_Array1D<PropertyInfo>(3);
+                // TODO - make compile props[0] = new_PropertyInfo("StringProp", type, cl::typeof<String>(), &SampleDataImpl::StringProp);
+                props[1] = new_PropertyInfo("IntegerProp", type, cl::typeof<int>(), &SampleDataImpl::IntegerProp);
+                props[2] = new_PropertyInfo("DoubleProp", type, cl::typeof<double>(), &SampleDataImpl::DoubleProp);
 
                 type->Properties = props;
 
@@ -73,7 +75,9 @@ namespace cl
     TEST_CASE("SimpleSerialization")
     {
         SampleData obj = new_SampleData();
-        obj->StringProp = 42;
+    //    obj->StringProp = "abc";
+        obj->IntegerProp = 42;
+        obj->DoubleProp = 1.23;
 
         auto vec_prop = obj->GetType()->GetProperties();
 
