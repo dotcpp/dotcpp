@@ -52,7 +52,7 @@ namespace cl
         d = LocalDate(2005, 1, 10);
         REQUIRE(d.PlusYears(1) == LocalDate(2006, 1, 10));
 
-        LocalDate d(2005, 1, 10);
+        LocalDate dd(2005, 1, 10);
         // Next, Prev
 
         LocalDateTime date_time(2005, 5, 10, 12, 10);
