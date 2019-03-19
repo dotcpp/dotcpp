@@ -30,6 +30,7 @@ namespace cl
 {
     class Object;
     class StringImpl; using String = Ptr<StringImpl>;
+    class TypeImpl; using Type = Ptr<TypeImpl>;
 
     /// <summary>
     /// All classes with reference semantics should derive from this type.
@@ -46,6 +47,9 @@ namespace cl
         virtual ~ObjectImpl() = default;
 
     public: // METHODS
+
+        /// <summary>Gets the Type of the current instance.</summary>
+        virtual Type GetType();
 
         /// <summary>
         /// String that represents the current object.

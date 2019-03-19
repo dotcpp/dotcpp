@@ -33,7 +33,24 @@ namespace cl
     template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
 
     /// <summary>
-    /// Provides reflection functionality.
+    /// Represents type declarations: class types, interface types, array types, value types, enumeration types,
+    /// type parameters, generic type definitions, and open or closed constructed generic types.
+    ///
+    /// Type is the root of the System.Reflection functionality and is the primary way to access metadata.
+    /// Use the members of Type to get information about a type declaration, about the members of a type
+    /// (such as the constructors, methods, fields, properties, and events of a class), as well as the module
+    /// and the assembly in which the class is deployed.
+    ///
+    /// The Type object associated with a particular type can be obtained in the following ways:
+    ///
+    /// \begin{itemize}
+    ///
+    /// \item The instance Object.GetType method returns a Type object that represents the type of an instance.
+    /// Because all managed types derive from Object, the GetType method can be called on an instance of any type.
+    ///
+    /// \item The typeof method obtains the Type object for the argument type.
+    ///
+    /// \end{itemize}
     /// </summary>
     class TypeImpl : public virtual ObjectImpl
     {
@@ -68,8 +85,13 @@ namespace cl
         /// <summary>A string representing the name of the current type.</summary>
         virtual String ToString() const { return "Type"; } // TODO - return name
 
-    protected: // CONSTRUCTORS
+    private: // CONSTRUCTORS
 
+        /// <summary>
+        /// Initializes a new instance of the Type class.
+        ///
+        /// This constructor is private. Use new_Type(...) function instead.
+        /// </summary>
         TypeImpl(String name, String fullName)
             : Name(name)
             , FullName(fullName)
@@ -77,9 +99,26 @@ namespace cl
         }
     };
 
-    Type new_Type(String name, String fullName) { return new TypeImpl(name, fullName); } // TODO replace by type builder
+    /// <summary>
+    /// Initializes a new instance of the Type class.
+    ///
+    /// This constructor is private. Use new_Type(...) function instead.
+    /// </summary>
+    Type new_Type(String name, String fullName)
+    {
+        // TODO replace by type builder
+        return new TypeImpl(name, fullName);
+    }
 
     /// <summary>Returns type of class Type.</summary>
     template <class T>
     Type typeof() { return T::typeof(); }
+
+    /// <summary>
+    /// Initializes a new instance of the Type class for untyped instance of Object.
+    /// </summary>
+    Type ObjectImpl::GetType()
+    {
+        return new_Type("Object", "System.Object");
+    }
 }
