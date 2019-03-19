@@ -44,6 +44,9 @@
     <ClInclude Include="system\Double.hpp" />
     <ClInclude Include="system\Exception.hpp" />
     <ClInclude Include="system\Int.hpp" />
+    <ClInclude Include="system\LocalDate.hpp" />
+    <ClInclude Include="system\LocalDateTime.hpp" />
+    <ClInclude Include="system\LocalTime.hpp" />
     <ClInclude Include="system\Long.hpp" />
     <ClInclude Include="system\Null.hpp" />
     <ClInclude Include="system\NullableBool.hpp" />
@@ -52,6 +55,7 @@
     <ClInclude Include="system\NullableLong.hpp" />
     <ClInclude Include="system\Object.hpp" />
     <ClInclude Include="system\ObjectImpl.hpp" />
+    <ClInclude Include="system\Period.hpp" />
     <ClInclude Include="system\Property.hpp" />
     <ClInclude Include="system\Ptr.hpp" />
     <ClInclude Include="system\ReadOnlyProperty.hpp" />

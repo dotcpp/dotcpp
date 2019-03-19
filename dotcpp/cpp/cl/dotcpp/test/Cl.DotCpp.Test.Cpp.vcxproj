@@ -16,11 +16,21 @@
     <ClCompile Include="system\BoxingTest.cpp" />
     <ClCompile Include="system\collections\generic\ListTest.cpp" />
     <ClCompile Include="system\DoubleTest.cpp" />
+    <ClCompile Include="system\LocalDateTest.cpp" />
+    <ClCompile Include="system\LocalDateTimeTest.cpp" />
+    <ClCompile Include="system\LocalTimeTest.cpp" />
+    <ClCompile Include="system\PeriodTest.cpp" />
     <ClCompile Include="system\PropertyTest.cpp" />
     <ClCompile Include="system\PtrTest.cpp" />
     <ClCompile Include="system\ReflectionTest.cpp" />
     <ClCompile Include="system\SerializationSampleTest.cpp" />
     <ClCompile Include="system\StringTest.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="declare.hpp" />
+    <ClInclude Include="implement.hpp" />
+    <ClInclude Include="import.hpp" />
+    <ClInclude Include="system\StringTest.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{04199C2F-0C9B-43F1-968F-5D7329204EF6}</ProjectGuid>
