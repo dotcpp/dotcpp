@@ -73,7 +73,7 @@ namespace cl
 
         virtual Type GetType()
         {
-            static Type type = []()->Type
+            static Type type_ = []()->Type
             {
                 received << "Creating Type (this should run only once)." << std::endl;
 
@@ -97,7 +97,7 @@ namespace cl
                 return type;
             }();
 
-            return type;
+            return type_;
         }
     };
 
