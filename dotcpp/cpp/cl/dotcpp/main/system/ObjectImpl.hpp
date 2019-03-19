@@ -38,6 +38,11 @@ namespace cl
     /// </summary>
     class CL_DOTCPP_MAIN ObjectImpl
     {
+    private: // FIELDS
+
+        /// <summary>Reference count for intrusive pointer.</summary>
+        unsigned int refCount_ = 0;
+
     public: // DESTRUCTOR
 
         /// <summary>
@@ -58,7 +63,25 @@ namespace cl
         /// </summary>
         virtual String ToString() const;
 
-    protected:
+    protected: // CONSTRUCTORS
+
         ObjectImpl() = default;
+
+    private: // METHODS
+
+        /// <summary>Increment reference count.</summary>
+        void addRef()
+        {
+            ++refCount_;
+        }
+
+        /// <summary>Decrement reference count, deletes if decremented count is zero.</summary>
+        void release()
+        {
+            if (!--refCount_)
+            {
+                delete this;
+            }
+        }
     };
 }
