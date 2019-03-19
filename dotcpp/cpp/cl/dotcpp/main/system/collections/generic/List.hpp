@@ -58,8 +58,6 @@ namespace cl
 
     /// <summary>
     /// Initializes a new instance of the list that is empty and has the default initial capacity.
-    ///
-    /// This constructor is private. Use new_List() function instead.
     /// </summary>
     template <class T>
     List<T> new_List() { return new ListImpl<T>(); }
