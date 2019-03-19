@@ -33,6 +33,32 @@ namespace cl
         template <class Class, class Ret, class ... Args>
         Class get_method_class(Ret (Class::*)(Args...));
 
+        /// <summary>Empty structure.</summary>
+        struct dummy {};
+
+        /// <summary>Struct checks if T has method begin() using SFINAE.</summary>
+        template<class T>
+        struct has_begin
+        {
+        private:
+            static dummy detect(...);
+            template<class U> static decltype(std::declval<U>()->begin()) detect(const U&);
+        public:
+            static constexpr bool value = !std::is_same<dummy, decltype(detect(std::declval<T>()))>::value;
+            typedef std::integral_constant<bool, value> type;
+        };
+
+        /// <summary>
+        /// Properies inherit this structure in case their inner class has methods begin/end
+        /// so properties also have these methods and may be used in foreach loop.
+        /// </summary>
+        template <class T>
+        struct begin_end
+        {
+            auto begin() { return static_cast<T*>(this)->operator T::value_type()->begin(); }
+            auto end() { return static_cast<T*>(this)->operator T::value_type()->end(); }
+        };
+
         /// <summary>Helper class to implement readonly property.</summary>
         struct decl_get {};
 
@@ -41,9 +67,14 @@ namespace cl
 
         /// <summary>Helper class to implement readonly auto property.</summary>
         template <class T>
-        class auto_get
+        class auto_get : public std::conditional<detail::has_begin<T>::value     // Check if T has begin()
+                                               , detail::begin_end<auto_get<T>>  // true: inherit begin_end with begin/end
+                                               , detail::dummy                   // false: inherit dummy (just empty struct)
+                                                >::type
         {
         public: // CONSTRUCTORS
+
+            typedef T value_type;
 
             /// <summary>Create by passing arguments to the constructor of T.</summary>
             template <typename... Args>
@@ -77,9 +108,14 @@ namespace cl
 
         /// <summary>Helper class to implement read/write auto property.</summary>
         template <class T>
-        class auto_prop
+        class auto_prop : public std::conditional<detail::has_begin<T>::value
+                                                , detail::begin_end<auto_prop<T>>
+                                                , detail::dummy
+                                                 >::type
         {
         public: // CONSTRUCTORS
+
+            typedef T value_type;
 
             /// <summary>Create by passing arguments to the constructor of T.</summary>
             template <typename... Args>
@@ -117,105 +153,121 @@ namespace cl
 }
 
 
-#define DOT_DECL_GET(Class, type, name)                                     \
-    private:                                                                \
-        virtual type CAT(get, name)(type name) = 0;                         \
-        struct CAT(name, _prop) : detail::decl_get                          \
-        {                                                                   \
-            typedef type value_type;                                        \
-            CAT(name, _prop)(Class * this_) : this_(this_) {}               \
-            type name;                                                      \
-                                                                            \
-            type & operator = (const type &) = delete;                      \
-            operator type() const { return this_->CAT(get, name)(name); }   \
-                                                                            \
-            Class * this_;                                                  \
-                                                                            \
-        };                                                                  \
-    public:                                                                 \
+#define DOT_DECL_GET(Class, ptype, name)                                                \
+    private:                                                                            \
+        virtual ptype CAT(get, name)(ptype name) = 0;                                   \
+        struct CAT(name, _prop) : detail::decl_get                                      \
+                                , std::conditional<detail::has_begin<ptype>::value      \
+                                                 , detail::begin_end<CAT(name, _prop)>  \
+                                                 , detail::dummy                        \
+                                                  >::type                               \
+        {                                                                               \
+            typedef ptype value_type;                                                   \
+            CAT(name, _prop)(Class * this_) : this_(this_) {}                           \
+            ptype name;                                                                 \
+                                                                                        \
+            ptype & operator = (const ptype &) = delete;                                \
+            operator ptype() const { return this_->CAT(get, name)(name); }              \
+                                                                                        \
+            Class * this_;                                                              \
+                                                                                        \
+        };                                                                              \
+    public:                                                                             \
         CAT(name, _prop) name = CAT(name, _prop)(this);
 
 
-#define DOT_DECL_PROP(Class, type, name)                                    \
-    private:                                                                \
-        virtual type CAT(get, name)(type name) = 0;                         \
-        virtual void CAT(set, name)(type & name, type const& value) = 0;    \
-        struct CAT(name, _prop) : detail::decl_prop                      \
-        {                                                                   \
-            typedef type value_type;                                        \
-            CAT(name, _prop)(Class * this_) : this_(this_) {}               \
-            type name;                                                      \
-                                                                            \
-            void operator = (const type &value )                            \
-                { return this_->CAT(set, name)(name, value); }              \
-            operator type() const { return this_->CAT(get, name)(name); }   \
-                                                                            \
-            Class * this_;                                                  \
-                                                                            \
-        };                                                                  \
-    public:                                                                 \
+#define DOT_DECL_PROP(Class, ptype, name)                                               \
+    private:                                                                            \
+        virtual ptype CAT(get, name)(ptype name) = 0;                                   \
+        virtual void CAT(set, name)(ptype & name, ptype const& value) = 0;              \
+        struct CAT(name, _prop) : detail::decl_prop                                     \
+                                , std::conditional<detail::has_begin<ptype>::value      \
+                                                 , detail::begin_end<CAT(name, _prop)>  \
+                                                 , detail::dummy                        \
+                                                  >::type                               \
+        {                                                                               \
+            typedef ptype value_type;                                                   \
+            CAT(name, _prop)(Class * this_) : this_(this_) {}                           \
+            ptype name;                                                                 \
+                                                                                        \
+            void operator = (const ptype &value )                                       \
+                { return this_->CAT(set, name)(name, value); }                          \
+            operator ptype() const { return this_->CAT(get, name)(name); }              \
+                                                                                        \
+            Class * this_;                                                              \
+                                                                                        \
+        };                                                                              \
+    public:                                                                             \
         CAT(name, _prop) name = CAT(name, _prop)(this);
 
 
-#define DOT_IMPL_GET(Class, type, name, getter)                             \
-    private:                                                                \
-        virtual type CAT(get, name)(type name) override getter
+#define DOT_IMPL_GET(Class, ptype, name, getter)                                        \
+    private:                                                                            \
+        virtual ptype CAT(get, name)(ptype name) override getter
 
 
-#define DOT_IMPL_PROP(Class, type, name, getter, setter)                    \
-    private:                                                                \
-        virtual type CAT(get, name)(type name) override getter              \
-        virtual void CAT(set, name)(type & name, type const& value) override setter
+#define DOT_IMPL_PROP(Class, ptype, name, getter, setter)                               \
+    private:                                                                            \
+        virtual ptype CAT(get, name)(ptype name) override getter                        \
+        virtual void CAT(set, name)(ptype & name, ptype const& value) override setter
 
 
-#define DOT_GET(Class, type, name, getter)                                  \
-    private:                                                                \
-        virtual type CAT(get, name)(type name) getter                       \
-        struct CAT(name, _prop) : detail::decl_get                          \
-        {                                                                   \
-            typedef type value_type;                                        \
-            CAT(name, _prop)(Class * this_) : this_(this_) {}               \
-            type name;                                                      \
-                                                                            \
-            type & operator = (const type &) = delete;                      \
-            operator type() const { return this_->CAT(get, name)(name); }   \
-                                                                            \
-            Class * this_;                                                  \
-                                                                            \
-        };                                                                  \
-    public:                                                                 \
+#define DOT_GET(Class, ptype, name, getter)                                             \
+    private:                                                                            \
+        virtual ptype CAT(get, name)(ptype name) getter                                 \
+        struct CAT(name, _prop) : detail::decl_get                                      \
+                                , std::conditional<detail::has_begin<ptype>::value      \
+                                                 , detail::begin_end<CAT(name, _prop)>  \
+                                                 , detail::dummy                        \
+                                                  >::type                               \
+        {                                                                               \
+            typedef ptype value_type;                                                   \
+            CAT(name, _prop)(Class * this_) : this_(this_) {}                           \
+            ptype name;                                                                 \
+                                                                                        \
+            ptype & operator = (const ptype &) = delete;                                \
+            operator ptype() const { return this_->CAT(get, name)(name); }              \
+                                                                                        \
+            Class * this_;                                                              \
+                                                                                        \
+        };                                                                              \
+    public:                                                                             \
         CAT(name, _prop) name = CAT(name, _prop)(this);
 
 
-#define DOT_PROP(Class, type, name, getter, setter)                         \
-    private:                                                                \
-        virtual type CAT(get, name)(type name) getter                       \
-        virtual void CAT(set, name)(type & name, type const& value) setter  \
-        struct CAT(name, _prop) : detail::decl_prop                      \
-        {                                                                   \
-            typedef type value_type;                                        \
-            CAT(name, _prop)(Class * this_) : this_(this_) {}               \
-            type name;                                                      \
-                                                                            \
-            void operator = (const type &value )                            \
-                { return this_->CAT(set, name)(name, value); }              \
-            operator type() const { return this_->CAT(get, name)(name); }   \
-                                                                            \
-            Class * this_;                                                  \
-                                                                            \
-        };                                                                  \
-    public:                                                                 \
+#define DOT_PROP(Class, ptype, name, getter, setter)                                    \
+    private:                                                                            \
+        virtual ptype CAT(get, name)(ptype name) getter                                 \
+        virtual void CAT(set, name)(ptype & name, ptype const& value) setter            \
+        struct CAT(name, _prop) : detail::decl_prop                                     \
+                                , std::conditional<detail::has_begin<ptype>::value      \
+                                                 , detail::begin_end<CAT(name, _prop)>  \
+                                                 , detail::dummy                        \
+                                                  >::type                               \
+        {                                                                               \
+            typedef ptype value_type;                                                   \
+            CAT(name, _prop)(Class * this_) : this_(this_) {}                           \
+            ptype name;                                                                 \
+                                                                                        \
+            void operator = (const ptype &value )                                       \
+                { return this_->CAT(set, name)(name, value); }                          \
+            operator ptype() const { return this_->CAT(get, name)(name); }              \
+                                                                                        \
+            Class * this_;                                                              \
+                                                                                        \
+        };                                                                              \
+    public:                                                                             \
         CAT(name, _prop) name = CAT(name, _prop)(this);
 
 
-#define DOT_AUTO_GET(Class, type, name)                                     \
-    public:                                                                 \
-        detail::auto_get<type> name;                                        \
+#define DOT_AUTO_GET(Class, type, name)                                                 \
+    public:                                                                             \
+        detail::auto_get<type> name;                                                    \
         virtual type CAT(get, name)() { return name; }
 
 
-#define DOT_AUTO_PROP(Class, type, name)                                    \
-    public:                                                                 \
-        detail::auto_prop<type> name;                                       \
-        virtual type CAT(get, name)() { return name; }                      \
+#define DOT_AUTO_PROP(Class, type, name)                                                \
+    public:                                                                             \
+        detail::auto_prop<type> name;                                                   \
+        virtual type CAT(get, name)() { return name; }                                  \
         void CAT(set, name)(type const& value) { name = value; }
