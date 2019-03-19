@@ -39,7 +39,8 @@ namespace cl
     {
     public:
 
-    DOT_AUTO_PROP(SampleDataImpl, int, StringProp)
+    DOT_AUTO_PROP(SampleDataImpl, int, IntegerProp)
+    DOT_AUTO_PROP(SampleDataImpl, double, DoubleProp)
 
     public:
         static Type typeof()
@@ -48,8 +49,9 @@ namespace cl
             {
                 Type type = new_Type("SampleData", "DotCpp.System.Test.SampleData");
 
-                Array1D<PropertyInfo> props = new_Array1D<PropertyInfo>(1);
-                props[0] = new_PropertyInfo("StringProp", type, cl::typeof<int>(), &SampleDataImpl::StringProp);
+                Array1D<PropertyInfo> props = new_Array1D<PropertyInfo>(2);
+                props[0] = new_PropertyInfo("IntegerProp", type, cl::typeof<int>(), &SampleDataImpl::IntegerProp);
+                props[1] = new_PropertyInfo("DoubleProp", type, cl::typeof<double>(), &SampleDataImpl::DoubleProp);
 
                 type->Properties = props;
 
