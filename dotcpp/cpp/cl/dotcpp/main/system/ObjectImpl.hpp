@@ -44,7 +44,7 @@ namespace cl
     private: // FIELDS
 
         /// <summary>Reference count for intrusive pointer.</summary>
-        unsigned int refCount_ = 0;
+        std::atomic<unsigned int> refCount_ = 0;
 
     public: // DESTRUCTOR
 

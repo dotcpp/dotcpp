@@ -60,6 +60,7 @@ limitations under the License.
 #include <sstream>
 #include <iomanip>
 #include <algorithm>
+#include <atomic>
 
 // DotCpp detail includes
 #include <cl/dotcpp/main/detail/property.hpp>
