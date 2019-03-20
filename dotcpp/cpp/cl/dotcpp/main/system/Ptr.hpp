@@ -38,17 +38,14 @@ namespace cl
     class Ptr
     {
         template<class R> friend class Ptr;
-        std::shared_ptr<T> ptr_;
+        T* ptr_;
 
         typedef T element_type;
-        typedef std::shared_ptr<T> pointer_type;
+        typedef T* pointer_type;
 
     public: // CONSTRUCTORS
 
-        /// <summary>
-        /// Take ownership of raw pointer to template argument type.
-        /// This also permits construction from null pointer.
-        /// </summary>
+        /// <summary>Create empty pointer.</summary>
         Ptr();
 
         /// <summary>
@@ -57,23 +54,19 @@ namespace cl
         /// </summary>
         Ptr(T* ptr);
 
-        /// <summary>
-        /// Create from pointer to template argument base type.
-        /// Shares reference count with argument.
-        /// </summary>
+        /// <summary>Create from pointer to class derived from T (does not use dynamic cast).</summary>
         template <class R> Ptr(const Ptr<R>& rhs, typename std::enable_if<std::is_base_of<T, R>::value>::type* p = 0);
 
-        /// <summary>
-        /// Create from pointer to template argument base type.
-        /// Shares reference count with argument.
-        /// </summary>
+        /// <summary>Create from pointer to class not derived from T (uses dynamic cast).</summary>
         template <class R> explicit Ptr(const Ptr<R>& rhs, typename std::enable_if<!std::is_base_of<T, R>::value>::type* p = 0);
 
-        /// <summary>Copy constructor. Shares reference count with argument.</summary>
+        /// <summary>Copy constructor for the pointer (does not copy T).</summary>
         Ptr(const Ptr<T>& rhs);
 
-        /// <summary>Create from shared_ptr. Shares reference count with argument.</summary>
-        Ptr(const pointer_type& ptr);
+    public: // DESTRUCTOR
+
+        /// <summary>Decrements reference count if not empty.</summary>
+        ~Ptr();
 
     public: // METHODS
 
@@ -138,37 +131,40 @@ namespace cl
         decltype(auto) operator[](I const& i);
     };
 
-    template <class T> Ptr<T>::Ptr() {}
-    template <class T> Ptr<T>::Ptr(T* ptr) : ptr_(ptr) {}
-    template <class T> template <class R> Ptr<T>::Ptr(const Ptr<R>& rhs, typename std::enable_if<std::is_base_of<T, R>::value>::type* p) : ptr_(rhs.ptr_) {}
+    template <class T> Ptr<T>::Ptr() : ptr_(nullptr) {}
+    template <class T> Ptr<T>::Ptr(T* ptr) : ptr_(ptr) { if (ptr_) ptr_->addRef(); }
+    template <class T> template <class R> Ptr<T>::Ptr(const Ptr<R>& rhs, typename std::enable_if<std::is_base_of<T, R>::value>::type* p) : ptr_(rhs.ptr_) { if (ptr_) ptr_->addRef(); }
     template <class T> template <class R> Ptr<T>::Ptr(const Ptr<R>& rhs, typename std::enable_if<!std::is_base_of<T, R>::value>::type* p)
     {
         // If argument is null, ptr_ should also remain null
         if (rhs.ptr_)
         {
             // Perform dynamic cast from base to derived
-            std::shared_ptr<T> ptr = std::dynamic_pointer_cast<T>(rhs.ptr_);
+            T* ptr = dynamic_cast<T>(rhs.ptr_);
 
             // Check that dynamic cast succeeded
             if (!ptr) throw Exception("Cast cannot be performed."); // TODO Use typeof(...) and GetType() to provide specific types in the error message
 
-            // Ptr<T> now contains the result of dynamic cast
+            // Current pointer now contains the result of dynamic_cast
             ptr_ = ptr;
+
+            // Increment reference count
+            ptr_->addRef();
         }
     }
-    template <class T> Ptr<T>::Ptr(const Ptr<T>& rhs) : ptr_(rhs.ptr_) {}
-    template <class T> Ptr<T>::Ptr(const pointer_type & ptr) : ptr_(ptr) {}
-    template <class T> template <class R> R Ptr<T>::as() const { return std::dynamic_pointer_cast<typename R::element_type>(ptr_); }
+    template <class T> Ptr<T>::Ptr(const Ptr<T>& rhs) : ptr_(rhs.ptr_) { if (ptr_) ptr_->addRef(); }
+    template <class T> Ptr<T>::~Ptr() { if (ptr_) ptr_->release(); }
+    template <class T> template <class R> R Ptr<T>::as() const { R::pointer_type ptr = dynamic_cast<R::pointer_type>(ptr_); return ptr; }
     template <class T> template <class R> bool Ptr<T>::is() const { if (!ptr_) return false; return typeid(*ptr_) == typeid(R::element_type); }
-    template <class T> T& Ptr<T>::operator*() const { T* p = ptr_.get(); if (!p) throw std::runtime_error("Pointer is not initialized"); return *p; }
-    template <class T> T* Ptr<T>::operator->() const { T* p = ptr_.get(); if (!p) throw std::runtime_error("Pointer is not initialized"); return p; }
+    template <class T> T& Ptr<T>::operator*() const { if (!ptr_) throw std::runtime_error("Pointer is not initialized"); return *ptr_; }
+    template <class T> T* Ptr<T>::operator->() const { if (!ptr_) throw std::runtime_error("Pointer is not initialized"); return ptr_; }
     template <class T> bool Ptr<T>::operator==(const Ptr<T>& rhs) const { return ptr_ == rhs.ptr_; } // TODO check when comparison is performed by value
     template <class T> bool Ptr<T>::operator!=(const Ptr<T>& rhs) const { return ptr_ != rhs.ptr_; } // TODO check when comparison is performed by value
-    template <class T> bool Ptr<T>::operator==(Null* rhs) const { return ptr_.get() == nullptr; }
-    template <class T> bool Ptr<T>::operator!=(Null* rhs) const { return ptr_.get() != nullptr; }
-    template <class T> Ptr<T>& Ptr<T>::operator=(T* rhs) { ptr_.reset(rhs); return *this; }
-    template <class T> template <class R> Ptr<T>& Ptr<T>::operator=(const Ptr<R>& rhs) { ptr_ = rhs.ptr_; return *this; }
-    template <class T> Ptr<T>& Ptr<T>::operator=(const Ptr<T>& rhs) { ptr_ = rhs.ptr_; return *this; }
+    template <class T> bool Ptr<T>::operator==(Null* rhs) const { return ptr_ == nullptr; }
+    template <class T> bool Ptr<T>::operator!=(Null* rhs) const { return ptr_ != nullptr; }
+    template <class T> Ptr<T>& Ptr<T>::operator=(T* rhs) { if (ptr_) ptr_->release(); if (rhs) rhs->addRef(); ptr_ = rhs; return *this; }
+    template <class T> template <class R> Ptr<T>& Ptr<T>::operator=(const Ptr<R>& rhs) { if (ptr_) ptr_->release(); if (rhs.ptr_) rhs.ptr_->addRef(); ptr_ = rhs.ptr_; return *this; }
+    template <class T> Ptr<T>& Ptr<T>::operator=(const Ptr<T>& rhs) { if (ptr_) ptr_->release(); if (rhs.ptr_) rhs.ptr_->addRef(); ptr_ = rhs.ptr_; return *this; }
     template <class T> template <class I> decltype(auto) Ptr<T>::operator[](I const& i) const { return (*ptr_)[i]; }
     template <class T> template <class I> decltype(auto) Ptr<T>::operator[](I const& i) { return (*ptr_)[i]; }
 
@@ -176,7 +172,7 @@ namespace cl
     template <class R>
     R Ptr<T>::cast() const
     {
-        typename R::pointer_type ret = std::dynamic_pointer_cast<typename R::element_type>(ptr_);
+        R::pointer_type ret = dynamic_cast<R::pointer_type>(ptr_);
         if (ret)
             return ret;
         else
@@ -192,18 +188,14 @@ namespace cl
     template <>
     class Ptr<StringImpl>
     {
-        template<class R> friend class Ptr;
-        std::shared_ptr<StringImpl> ptr_;
+        StringImpl* ptr_;
 
         typedef StringImpl element_type;
-        typedef std::shared_ptr<StringImpl> pointer_type;
+        typedef StringImpl* pointer_type;
 
     public: // CONSTRUCTORS
 
-        /// <summary>
-        /// Take ownership of raw pointer to template argument type.
-        /// This also permits construction from null pointer.
-        /// </summary>
+        /// <summary>Create null String.</summary>
         Ptr();
 
         /// <summary>
@@ -213,7 +205,7 @@ namespace cl
         Ptr(StringImpl* ptr);
 
         /// <summary>
-        /// Create from std::string
+        /// Create from std::string.
         /// </summary>
         Ptr(const std::string& rhs);
 
@@ -222,12 +214,12 @@ namespace cl
         /// </summary>
         Ptr(const char* rhs);
 
-        /// <summary>Copy constructor. Shares reference count with argument.</summary>
+        /// <summary>Copy constructor.</summary>
         Ptr(const Ptr<StringImpl>& rhs);
 
     public: // DESTRUCTOR
 
-        /// <summary>Declare the destructor and move the implementation after the definition of StringImpl.</summary>
+        /// <summary>Decrement reference count if not empty.</summary>
         ~Ptr();
 
     public: // OPERATORS

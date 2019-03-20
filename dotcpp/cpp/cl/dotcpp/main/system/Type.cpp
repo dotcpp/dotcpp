@@ -24,8 +24,11 @@ limitations under the License.
 
 #include <cl/dotcpp/main/implement.hpp>
 #include <cl/dotcpp/main/system/ObjectImpl.hpp>
+#include <cl/dotcpp/main/system/reflection/PropertyInfo.hpp>
 #include <cl/dotcpp/main/system/reflection/MethodInfo.hpp>
 #include <cl/dotcpp/main/system/Type.hpp>
+#include <cl/dotcpp/main/system/Array1D.hpp>
+#include <cl/dotcpp/main/system/collections/generic/List.hpp>
 
 namespace cl
 {

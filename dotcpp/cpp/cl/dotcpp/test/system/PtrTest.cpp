@@ -28,7 +28,7 @@ limitations under the License.
 
 namespace cl
 {
-    class BaseImpl
+    class BaseImpl : public virtual ObjectImpl
     {
     public:
 

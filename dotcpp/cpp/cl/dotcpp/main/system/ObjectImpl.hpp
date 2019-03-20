@@ -67,7 +67,7 @@ namespace cl
 
         ObjectImpl() = default;
 
-    private: // METHODS
+    public: // METHODS // TODO - make private
 
         /// <summary>Increment reference count.</summary>
         void addRef()

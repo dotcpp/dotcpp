@@ -345,24 +345,24 @@ namespace cl
     /// that cannot be included next to the declaration because they require StringImpl
     /// to be defined.
     /// </summary>
-    inline Ptr<StringImpl>::Ptr() {}
-    inline Ptr<StringImpl>::Ptr(StringImpl* ptr) : ptr_(ptr) {}
-    inline Ptr<StringImpl>::Ptr(const std::string& rhs) : ptr_(new StringImpl(rhs)) {}
-    inline Ptr<StringImpl>::Ptr(const char* rhs) : ptr_(new StringImpl(rhs)) {}
-    inline Ptr<StringImpl>::Ptr(const Ptr<StringImpl>& rhs) : ptr_(rhs.ptr_) {}
-    inline Ptr<StringImpl>::~Ptr() {}
-    inline StringImpl& Ptr<StringImpl>::operator*() const { StringImpl* p = ptr_.get(); if (!p) throw std::runtime_error("Pointer is not initialized"); return *p; }
-    inline StringImpl* Ptr<StringImpl>::operator->() const { StringImpl* p = ptr_.get(); if (!p) throw std::runtime_error("Pointer is not initialized"); return p; }
+    inline Ptr<StringImpl>::Ptr() : ptr_(nullptr) {}
+    inline Ptr<StringImpl>::Ptr(StringImpl* ptr) : ptr_(ptr) { if (ptr_) ptr_->addRef(); }
+    inline Ptr<StringImpl>::Ptr(const std::string& rhs) : ptr_(new StringImpl(rhs)) { ptr_->addRef(); }
+    inline Ptr<StringImpl>::Ptr(const char* rhs) : ptr_(new StringImpl(rhs)) { ptr_->addRef(); }
+    inline Ptr<StringImpl>::Ptr(const Ptr<StringImpl>& rhs) : ptr_(rhs.ptr_) { if (ptr_) ptr_->addRef(); }
+    inline Ptr<StringImpl>::~Ptr() { if (ptr_) ptr_->release(); }
+    inline StringImpl& Ptr<StringImpl>::operator*() const { if (!ptr_) throw std::runtime_error("Pointer is not initialized"); return *ptr_; }
+    inline StringImpl* Ptr<StringImpl>::operator->() const { if (!ptr_) throw std::runtime_error("Pointer is not initialized"); return ptr_; }
     inline bool Ptr<StringImpl>::operator==(const std::string& rhs) const { return *ptr_ == rhs; }
     inline bool Ptr<StringImpl>::operator!=(const std::string& rhs) const { return *ptr_ != rhs; }
     inline bool Ptr<StringImpl>::operator==(const char* rhs) const { return *ptr_ == rhs; }
     inline bool Ptr<StringImpl>::operator!=(const char* rhs) const { return *ptr_ != rhs; }
-    inline bool Ptr<StringImpl>::operator==(Null* rhs) const { return ptr_.get() == nullptr; }
-    inline bool Ptr<StringImpl>::operator!=(Null* rhs) const { return ptr_.get() != nullptr; }
+    inline bool Ptr<StringImpl>::operator==(Null* rhs) const { return ptr_ == nullptr; }
+    inline bool Ptr<StringImpl>::operator!=(Null* rhs) const { return ptr_ != nullptr; }
     inline bool Ptr<StringImpl>::operator==(const Ptr<StringImpl>& rhs) const { return *ptr_ == *rhs.ptr_; }
     inline bool Ptr<StringImpl>::operator!=(const Ptr<StringImpl>& rhs) const { return *ptr_ != *rhs.ptr_; }
-    inline Ptr<StringImpl>& Ptr<StringImpl>::operator=(StringImpl* rhs) { ptr_.reset(rhs); return *this; }
-    inline Ptr<StringImpl>& Ptr<StringImpl>::operator=(const Ptr<StringImpl>& rhs) { ptr_ = rhs.ptr_; return *this; }
+    inline Ptr<StringImpl>& Ptr<StringImpl>::operator=(StringImpl* rhs) { if (ptr_) ptr_->release(); if (rhs) rhs->addRef(); ptr_ = rhs; return *this; }
+    inline Ptr<StringImpl>& Ptr<StringImpl>::operator=(const Ptr<StringImpl>& rhs) { if (ptr_) ptr_->release(); if (rhs.ptr_) rhs.ptr_->addRef(); ptr_ = rhs.ptr_; return *this; }
     inline Char Ptr<StringImpl>::operator[](int i) const { return (*ptr_)[(size_t)i]; }
     inline Char Ptr<StringImpl>::operator[](int i) { return (*ptr_)[(size_t)i]; }
 
