@@ -32,8 +32,6 @@ namespace cl
     {
     public:
 
-        virtual ~BaseImpl() {}
-
         virtual std::string foo()
         {
             return "Base";
@@ -46,7 +44,6 @@ namespace cl
     class DerivedImpl : public BaseImpl
     {
     public:
-        virtual ~DerivedImpl() {}
 
         virtual std::string foo()
         {
@@ -82,8 +79,9 @@ namespace cl
         REQUIRE(b.as<Base>() != nullptr);
         REQUIRE(b.as<Derived>() == nullptr);
 
-        REQUIRE(b.cast<Base>() != nullptr);
-        CHECK_THROWS_AS(b.cast<Derived>(), std::runtime_error);
+
+        REQUIRE((Base)b != nullptr);
+        CHECK_THROWS_AS(Derived(b), std::runtime_error);
 
         Base bd = new_Derived();
 
@@ -93,8 +91,8 @@ namespace cl
         REQUIRE(bd.as<Base>() != nullptr);
         REQUIRE(bd.as<Derived>() != nullptr);
 
-        REQUIRE(bd.cast<Base>() != nullptr);
-        REQUIRE(bd.cast<Derived>() != nullptr);
+        REQUIRE((Base)bd != nullptr);
+        REQUIRE((Derived)bd != nullptr);
 
         Derived d = new_Derived();
 
@@ -104,7 +102,7 @@ namespace cl
         REQUIRE(d.as<Base>() != nullptr);
         REQUIRE(d.as<Derived>() != nullptr);
 
-        REQUIRE(d.cast<Base>() != nullptr);
-        REQUIRE(d.cast<Derived>() != nullptr);
+        REQUIRE((Base)d != nullptr);
+        REQUIRE((Derived)d != nullptr);
     }
 }

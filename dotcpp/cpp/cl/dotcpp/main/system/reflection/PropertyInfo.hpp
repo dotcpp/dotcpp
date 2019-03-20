@@ -98,13 +98,13 @@ namespace cl
         /// <summary>Returns the property value of a specified object.</summary>
         virtual Object GetValue(Object obj) override
         {
-            return (*obj.cast<Ptr<Class>>()).*prop_;
+            return (*Ptr<Class>(obj)).*prop_;
         }
 
         /// <summary>Sets the property value of a specified object.</summary>
         virtual void SetValue(Object obj, Object value) override
         {
-            (*obj.cast<Ptr<Class>>()).*prop_ = (PropType)value;
+            (*Ptr<Class>(obj)).*prop_ = (PropType)value;
         }
     };
 
