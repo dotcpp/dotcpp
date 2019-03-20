@@ -35,7 +35,7 @@ namespace cl
 {
     static std::stringstream received;
 
-    class ReflectionBaseSampleImpl : public ObjectImpl
+    class ReflectionBaseSampleImpl : public virtual ObjectImpl
     {
     public:
         int IntFld;

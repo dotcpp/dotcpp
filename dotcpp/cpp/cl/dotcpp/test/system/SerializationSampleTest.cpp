@@ -35,7 +35,7 @@ namespace cl
 {
     static std::stringstream received;
 
-    class SampleDataImpl : public ObjectImpl
+    class SampleDataImpl : public virtual ObjectImpl
     {
     public:
 
