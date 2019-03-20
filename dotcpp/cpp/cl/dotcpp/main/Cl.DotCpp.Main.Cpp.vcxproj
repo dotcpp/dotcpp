@@ -11,7 +11,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="**\*.cpp" />
+    <ClCompile Include="system\LocalDate.cpp" />
+    <ClCompile Include="system\LocalDateTime.cpp" />
+    <ClCompile Include="system\LocalTime.cpp" />
+    <ClCompile Include="system\NullableBool.cpp" />
+    <ClCompile Include="system\NullableDouble.cpp" />
+    <ClCompile Include="system\NullableInt.cpp" />
+    <ClCompile Include="system\NullableLong.cpp" />
+    <ClCompile Include="system\Object.cpp" />
+    <ClCompile Include="system\Period.cpp" />
+    <ClCompile Include="system\Type.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="declare.hpp" />
