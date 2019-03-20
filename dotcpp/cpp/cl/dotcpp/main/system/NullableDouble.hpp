@@ -32,7 +32,7 @@ namespace cl
     class NullableDouble;
 
     /// <summary>Wrapper around double to make it convertible to Object (boxing).</summary>
-    class DoubleImpl : public ObjectImpl
+    class DoubleImpl : public virtual ObjectImpl
     {
         friend Object;
         friend NullableDouble;
@@ -46,7 +46,7 @@ namespace cl
     public: // METHODS
 
         /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() const { return "System.Double"; }
+        virtual String ToString() const;
     };
 
     /// <summary>
@@ -79,7 +79,7 @@ namespace cl
         /// Error if Object does is not a boxed double.
         /// Null Object becomes empty NullableDouble.
         /// </summary>
-        NullableDouble(const Ptr<ObjectImpl>& rhs) : value_(rhs == nullptr ? Double::Empty : rhs.cast<Ptr<DoubleImpl>>()->value_) {}
+        // NullableDouble(const Ptr<ObjectImpl>& rhs);
 
     public: //  METHODS
 
@@ -87,10 +87,10 @@ namespace cl
         bool IsEmpty() const { return value_ == Double::Empty; }
 
         /// <summary>Returns string representation of the object.</summary>
-        std::string AsString() const { return value_ != Double::Empty ? std::to_string(value_) : ""; }
+        std::string AsString() const;
 
         /// <summary>Convert to native double, error if the object is in null (empty) state.</summary>
-        double Value() const { if (value_ == Double::Empty) throw std::exception("Double value is empty"); return value_; }
+        double Value() const { if (value_ == Double::Empty) throw std::runtime_error("Double value is empty"); return value_; }
 
         /// <summary>Clear the value and revert to null (empty) state.</summary>
         void Clear() { value_ = Double::Empty; }

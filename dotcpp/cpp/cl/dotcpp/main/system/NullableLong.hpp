@@ -25,9 +25,30 @@ limitations under the License.
 
 #include <cl/dotcpp/main/declare.hpp>
 #include <cl/dotcpp/main/system/Long.hpp>
+#include <cl/dotcpp/main/system/ObjectImpl.hpp>
 
 namespace cl
 {
+    class NullableLong;
+
+    /// <summary>Wrapper around int to make it convertible to Object (boxing).</summary>
+    class LongImpl : public virtual ObjectImpl
+    {
+        friend Object;
+        friend NullableLong;
+        long long int value_;
+
+    public: // CONSTRUCTORS
+
+        /// <summary>Create from value (box).</summary>
+        LongImpl(long long int value) : value_(value) {}
+
+    public: // METHODS
+
+        /// <summary>A string representing the name of the current type.</summary>
+        virtual String ToString() const;
+    };
+
     /// <summary>
     /// Wrapper for long long int where default constructor creates uninitialized
     /// value. Use this class to get an error message when the variable is
@@ -56,13 +77,13 @@ namespace cl
     public: //  METHODS
 
         /// <summary>Returns true if the object is in uninitialized (empty) state.</summary>
-        bool IsLong::Empty() const { return value_ == Long::Empty; }
+        bool Empty() const { return value_ == Long::Empty; }
 
         /// <summary>Returns string representation of the object.</summary>
-        std::string AsString() const { return value_ != Long::Empty ? std::to_string(value_) : ""; }
+        std::string AsString() const;
 
         /// <summary>Convert to native long, error if the object is in uninitialized (empty) state.</summary>
-        long long int Value() const { if (value_ == Long::Empty) throw std::exception("Long value is empty"); return value_; }
+        long long int Value() const { if (value_ == Long::Empty) throw std::runtime_error("Long value is empty"); return value_; }
 
         /// <summary>Clear the value and revert to uninitialized (empty) state.</summary>
         void Clear() { value_ = Long::Empty; }

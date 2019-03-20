@@ -25,13 +25,14 @@ limitations under the License.
 
 #include <cl/dotcpp/main/declare.hpp>
 #include <cl/dotcpp/main/system/Int.hpp>
+#include <cl/dotcpp/main/system/ObjectImpl.hpp>
 
 namespace cl
 {
     class NullableInt;
 
     /// <summary>Wrapper around int to make it convertible to Object (boxing).</summary>
-    class IntImpl : public ObjectImpl
+    class IntImpl : public virtual ObjectImpl
     {
         friend Object;
         friend NullableInt;
@@ -45,7 +46,7 @@ namespace cl
     public: // METHODS
 
         /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() const { return "System.Int32"; }
+        virtual String ToString() const;
     };
 
     /// <summary>
@@ -79,7 +80,7 @@ namespace cl
         /// Error if Object does is not a boxed double.
         /// Null Object becomes empty NullableDouble.
         /// </summary>
-        NullableInt(const Ptr<ObjectImpl>& rhs) : value_(rhs == nullptr ? Int::Empty : rhs.cast<Ptr<IntImpl>>()->value_) {}
+        // NullableInt(const Ptr<ObjectImpl>& rhs);
 
     public: //  METHODS
 
@@ -87,10 +88,10 @@ namespace cl
         bool IsEmpty() const { return value_ == Int::Empty; }
 
         /// <summary>Returns string representation of the object.</summary>
-        std::string AsString() const { return value_ != Int::Empty ? std::to_string(value_) : ""; }
+        std::string AsString() const;
 
         /// <summary>Convert to native double, error if the object is in uninitialized (empty) state.</summary>
-        int Value() const { if (value_ == Int::Empty) throw std::exception("Int value is empty"); return value_; }
+        int Value() const { if (value_ == Int::Empty) throw std::runtime_error("Int value is empty"); return value_; }
 
         /// <summary>Clear the value and revert to uninitialized (empty) state.</summary>
         void Clear() { value_ = Int::Empty; }

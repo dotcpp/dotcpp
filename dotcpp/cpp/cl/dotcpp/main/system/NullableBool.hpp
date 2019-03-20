@@ -25,14 +25,14 @@ limitations under the License.
 
 #include <cl/dotcpp/main/declare.hpp>
 #include <cl/dotcpp/main/system/Bool.hpp>
-#include <cl/dotcpp/main/system/String.hpp>
+#include <cl/dotcpp/main/system/ObjectImpl.hpp>
 
 namespace cl
 {
     class NullableBool;
 
     /// <summary>Wrapper around bool to make it convertible to Object (boxing).</summary>
-    class BoolImpl : public ObjectImpl
+    class BoolImpl : public virtual ObjectImpl
     {
         friend Object;
         friend NullableBool;
@@ -46,7 +46,7 @@ namespace cl
     public: // METHODS
 
         /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() const { return "System.Bool"; }
+        virtual String ToString() const;
     };
 
     /// <summary>
@@ -77,7 +77,7 @@ namespace cl
         /// Error if Object does is not a boxed bool.
         /// Null Object becomes empty NullableBool.
         /// </summary>
-        NullableBool(const Ptr<ObjectImpl>& rhs) : value_(rhs == nullptr ? Bool::Empty : rhs.cast<Ptr<BoolImpl>>()->value_) {}
+        // NullableBool(const Ptr<ObjectImpl>& rhs);
 
     public: //  METHODS
 
@@ -85,16 +85,7 @@ namespace cl
         bool IsEmpty() const { return value_ == Bool::Empty; }
 
         /// <summary>Returns string representation of the object.</summary>
-        std::string AsString() const
-        {
-            switch(value_)
-            {
-                case 1: return "Y";
-                case 0: return "N";
-                case Bool::Empty: return "";
-                default: throw std::exception("Unknown internal value in NullableBool.");
-            }
-        }
+        std::string AsString() const; // TODO - Switch to ToString()
 
         /// <summary>Convert to native bool, error if the object is in uninitialized (empty) state.</summary>
         bool Value() const
@@ -103,8 +94,8 @@ namespace cl
             {
                 case 1: return true;
                 case 0: return false;
-                case Bool::Empty: throw std::exception("Bool value is empty");
-                default: throw std::exception("Unknown internal value in NullableBool.");
+                case Bool::Empty: throw std::runtime_error("Bool value is empty");
+                default: throw std::runtime_error("Unknown internal value in NullableBool.");
             }
         }
 

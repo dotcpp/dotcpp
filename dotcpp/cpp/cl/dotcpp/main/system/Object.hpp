@@ -23,13 +23,16 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/system/String.hpp>
-#include <cl/dotcpp/main/system/NullableBool.hpp>
-#include <cl/dotcpp/main/system/NullableDouble.hpp>
-#include <cl/dotcpp/main/system/NullableInt.hpp>
+#include <cl/dotcpp/main/declare.hpp>
+#include <cl/dotcpp/main/system/Ptr.hpp>
+#include <cl/dotcpp/main/system/ObjectImpl.hpp>
 
 namespace cl
 {
+    class NullableBool;
+    class NullableDouble;
+    class NullableInt;
+
     /// <summary>Adds support for boxing value types to Ptr(ObjectImpl).</summary>
     class CL_DOTCPP_MAIN Object : public Ptr<ObjectImpl>
     {
@@ -50,28 +53,28 @@ namespace cl
 
         /// <summary>Construct Object from Ptr(T).</summary>
         template <class T>
-        Object(const Ptr<T>& ptr) : base(ptr.as<base>()) {} // TODO Use cast?
+        Object(const Ptr<T>& ptr) : base(ptr) {}
 
         /// <summary>Construct Object from String.</summary>
-        Object(const String& value) : base(value) {}
+        Object(const String& value);
 
         /// <summary>Construct Object from bool by boxing.</summary>
-        Object(bool value) : base(new BoolImpl(value)) {}
+        Object(bool value);
 
         /// <summary>Construct Object from NullableBool by boxing.</summary>
-        Object(const NullableBool& value) : base(value.IsEmpty() ? nullptr : new BoolImpl(value)) {}
+        Object(const NullableBool& value);
 
         /// <summary>Construct Object from double by boxing.</summary>
-        Object(double value) : base(new DoubleImpl(value)) {}
+        Object(double value);
 
         /// <summary>Construct Object from NullableDouble by boxing.</summary>
-        Object(const NullableDouble& value) : base( value.IsEmpty() ? nullptr : new DoubleImpl(value)) {}
+        Object(const NullableDouble& value);
 
         /// <summary>Construct Object from int by boxing.</summary>
-        Object(int value) : base(new IntImpl(value)) {}
+        Object(int value);
 
         /// <summary>Construct Object from NullableInt by boxing.</summary>
-        Object(const NullableInt& value) : base(value.IsEmpty() ? nullptr : new IntImpl(value)) {}
+        Object(const NullableInt& value);
 
     public: // OPERATORS
 
@@ -79,33 +82,33 @@ namespace cl
         Object& operator=(const Ptr<ObjectImpl>& ptr) { base::operator=(ptr); return *this; }
 
         /// <summary>Assign String to Object by boxing.</summary>
-        Object& operator=(const String& value) { base::operator=(value); return *this; }
+        Object& operator=(const String& value);
 
         /// <summary>Assign bool to Object by boxing.</summary>
-        Object& operator=(bool value) { base::operator=(new BoolImpl(value)); return *this; }
+        Object& operator=(bool value);
 
         /// <summary>Assign NullableDouble to Object by boxing.</summary>
-        Object& operator=(const NullableBool& value) { base::operator=(value.IsEmpty() ? nullptr : new BoolImpl(value)); return *this; }
+        Object& operator=(const NullableBool& value);
 
         /// <summary>Assign double to Object by boxing.</summary>
-        Object& operator=(double value) { base::operator=(new DoubleImpl(value)); return *this; }
+        Object& operator=(double value);
 
         /// <summary>Assign NullableDouble to Object by boxing.</summary>
-        Object& operator=(const NullableDouble& value) { base::operator=(value.IsEmpty() ? nullptr : new DoubleImpl(value)); return *this; }
+        Object& operator=(const NullableDouble& value);
 
         /// <summary>Assign int to Object by boxing.</summary>
-        Object& operator=(int value) { base::operator=(new IntImpl(value)); return *this; }
+        Object& operator=(int value);
 
         /// <summary>Assign NullableInt to Object by boxing.</summary>
-        Object& operator=(const NullableInt& value) { base::operator=(value.IsEmpty() ? nullptr : new IntImpl(value)); return *this; }
+        Object& operator=(const NullableInt& value);
 
         /// <summary>Convert Object to bool by unboxing. Error if Object does is not a boxed double.</summary>
-        operator bool() const { return cast<Ptr<BoolImpl>>()->value_; }
+        operator bool() const;
 
         /// <summary>Convert Object to double by unboxing. Error if Object does is not a boxed double.</summary>
-        operator double() const { return cast<Ptr<DoubleImpl>>()->value_; }
+        operator double() const;
 
         /// <summary>Convert Object to int by unboxing. Error if Object does is not a boxed int.</summary>
-        operator int() const { return cast<Ptr<IntImpl>>()->value_; }
+        operator int() const;
     };
 }
