@@ -24,7 +24,7 @@ limitations under the License.
 #pragma once
 
 #include <cl/dotcpp/main/declare.hpp>
-#include <cl/dotcpp/main/detail/const_string.hpp>
+#include <cl/dotcpp/main/detail/const_string_base.hpp>
 #include <cl/dotcpp/main/system/Ptr.hpp>
 #include <cl/dotcpp/main/system/ObjectImpl.hpp>
 #include <cl/dotcpp/main/system/Char.hpp>
