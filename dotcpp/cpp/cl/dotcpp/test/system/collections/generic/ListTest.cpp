@@ -25,6 +25,7 @@ limitations under the License.
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <cl/dotcpp/main/system/collections/generic/List.hpp>
+#include <cl/dotcpp/main/system/String.hpp>
 
 namespace cl
 {
