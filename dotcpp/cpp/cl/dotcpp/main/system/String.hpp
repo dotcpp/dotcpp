@@ -340,6 +340,14 @@ namespace cl
         /// </summary>
         String(const String& rhs) : base(rhs) {}
 
+        /// <summary>
+        /// Supports cast (explicit constructor) from Object.
+        ///
+        /// Error if Object does is not a boxed int.
+        /// Null Object becomes empty NullableInt.
+        /// </summary>
+        explicit String(const Ptr<ObjectImpl>& rhs) : base(rhs) {}
+
     public: // OPERATORS
 
         /// <summary>Case sensitive comparison to std::string.</summary>
