@@ -80,10 +80,6 @@ namespace cl
         template <class R>
         R as() const;
 
-        /// <summary>Dynamic cast to type R, throws exception if the cast fails.</summary>
-        template <class R>
-        R cast() const; // TODO - deprecated, replace by C style cast
-
         /// <summary>Returns true if pointer holds object of type R, and false otherwise.</summary>
         template <class R>
         bool is() const;
@@ -142,10 +138,10 @@ namespace cl
         if (rhs.ptr_)
         {
             // Perform dynamic cast from base to derived
-            T* ptr = dynamic_cast<T>(rhs.ptr_);
+            T* ptr = dynamic_cast<T*>(rhs.ptr_);
 
             // Check that dynamic cast succeeded
-            if (!ptr) throw Exception("Cast cannot be performed."); // TODO Use typeof(...) and GetType() to provide specific types in the error message
+            if (!ptr) throw std::runtime_error("Cast cannot be performed."); // TODO Use typeof(...) and GetType() to provide specific types in the error message
 
             // Current pointer now contains the result of dynamic_cast
             ptr_ = ptr;
@@ -169,17 +165,6 @@ namespace cl
     template <class T> Ptr<T>& Ptr<T>::operator=(const Ptr<T>& rhs) { if (ptr_) ptr_->release(); if (rhs.ptr_) rhs.ptr_->addRef(); ptr_ = rhs.ptr_; return *this; }
     template <class T> template <class I> decltype(auto) Ptr<T>::operator[](I const& i) const { return (*ptr_)[i]; }
     template <class T> template <class I> decltype(auto) Ptr<T>::operator[](I const& i) { return (*ptr_)[i]; }
-
-    template <class T>
-    template <class R>
-    R Ptr<T>::cast() const
-    {
-        R::pointer_type ret = dynamic_cast<R::pointer_type>(ptr_);
-        if (ret)
-            return ret;
-        else
-            throw std::runtime_error("Cast cannot be performed.");
-    }
 
     class StringImpl;
     class Char;
@@ -267,7 +252,6 @@ namespace cl
 
         /// <summary>
         /// Assign pointer of the same type.
-        /// Shares reference count with argument.
         /// </summary>
         Ptr<StringImpl>& operator=(const Ptr<StringImpl>& rhs);
 
