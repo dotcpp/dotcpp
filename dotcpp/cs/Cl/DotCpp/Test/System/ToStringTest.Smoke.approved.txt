@@ -1,0 +1,11 @@
+﻿Object: System.Object
+Empty String: 
+String: abc
+String Type: System.String
+Empty Double: 
+Double: 1.23
+Double Type: System.Double
+Double Array: System.Double[]
+Double Array Type: System.Double[]
+Double List: System.Collections.Generic.List`1[System.Double]
+Double List Type: System.Collections.Generic.List`1[System.Double]
