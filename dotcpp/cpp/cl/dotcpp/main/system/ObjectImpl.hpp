@@ -68,7 +68,13 @@ namespace cl
 
     protected: // CONSTRUCTORS
 
+        /// <summary>Prevent construction on stack.</summary>
         ObjectImpl() = default;
+
+    private: // CONSTRUCTORS
+
+        /// <summary>Prevent copying object instead of copying pointer.</summary>
+        ObjectImpl(const ObjectImpl&) = delete;
 
     private: // METHODS
 
@@ -86,5 +92,10 @@ namespace cl
                 delete this;
             }
         }
+
+    private: // OPERATORS
+
+        /// <summary>Prevent assignment of object instead of assignment of pointer.</summary>
+        ObjectImpl& operator=(const ObjectImpl& rhs) = delete;
     };
 }
