@@ -33,11 +33,24 @@ namespace cl
         /// This class is used as base class of StringImpl.
         ///
         /// The objective is to make it possible to pass this class to functions
-        /// accepting  std::string. Because C# String is immutable, const_string
+        /// accepting  std::string. Because C# String is immutable, string_base
         /// derives from std::string and then deletes all non-const methods.
         /// </summary>
-        class const_string : public std::string
+        class const_string_base : public std::string
         {
+            typedef std::string base;
+
+        public:
+
+            /// <summary>Create empty string.</summary>
+            const_string_base() = default;
+
+            /// <summary>Create from std::string or string literal.</summary>
+            const_string_base(const std::string& value) : base(value) {}
+
+            /// <summary>Create from const char*, null pointer is converted to to empty value.</summary>
+            const_string_base(const char* value) : base(value) {}
+
             // TODO - delete non-const methods of std::string
         };
     }

@@ -43,9 +43,9 @@ namespace cl
     ///
     /// The string is encoded internally as UTF-8 instead of UTF-16 used by C# System.String.
     /// </summary>
-    class CL_DOTCPP_MAIN StringImpl : public virtual ObjectImpl, public std::string // TODO Replace by const_string
+    class CL_DOTCPP_MAIN StringImpl : public virtual ObjectImpl, public detail::const_string_base
     {
-        typedef std::string base;
+        typedef detail::const_string_base base;
         friend String new_String(const std::string& rhs);
         friend String new_String(const char* rhs);
 

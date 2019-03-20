@@ -34,9 +34,9 @@ namespace cl
     /// It can be represented by a variable number of
     /// bytes and is stored in std::string rather than char. 
     /// </summary>
-    class Char : std::string // TODO use const_string
+    class Char : detail::const_string_base
     {
-        typedef std::string base;
+        typedef detail::const_string_base base;
 
     public: // CONSTRUCTORS
 
