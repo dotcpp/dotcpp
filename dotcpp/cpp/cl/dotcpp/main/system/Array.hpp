@@ -27,7 +27,7 @@ limitations under the License.
 
 namespace cl
 {
-    class ArrayImpl; using Array = Ptr<ArrayImpl>;
+    class ArrayImpl;
 
     /// <summary>
     /// Common base to List(T) and Array1D(T)
@@ -42,5 +42,33 @@ namespace cl
 
         /// <summary>The number of items contained in all dimensions of the list.</summary>
         DOT_DECL_GET(ArrayImpl, int, Count)
+    };
+
+    class Array : public Ptr<ArrayImpl>
+    {
+        typedef Ptr<ArrayImpl> base;
+
+    public: // CONSTRUCTORS
+
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        Array() : base() {}
+
+        /// <summary>Construct Array from pointer to derived types.</summary>
+        Array(const Ptr<ArrayImpl>& ptr) : base(ptr) {}
+
+    public: // STATIC
+
+        /// <summary>
+        /// Sorts the elements in a one-dimensional Array
+        /// using default comparer of array elements.
+        ///
+        /// In C#, this method takes Array base and there is
+        /// an error message if the array is multidimensional.
+        /// In C+, we will detect this error at compile time.
+        /// </summary>
+        template <class T>
+        static void Sort(const Array1D<T> obj);
     };
 }

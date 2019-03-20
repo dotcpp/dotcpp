@@ -79,6 +79,20 @@ namespace cl
     /// </summary>
     template <class T>
     Array1D<T> new_Array1D(int size) { return new Array1DImpl<T>(size); }
+
+    /// <summary>
+    /// Sorts the elements in a one-dimensional Array
+    /// using default comparer of array elements.
+    ///
+    /// In C#, this method takes Array base and there is
+    /// an error message if the array is multidimensional.
+    /// In C+, we will detect this error at compile time.
+    /// </summary>
+    template <class T>
+    void Array::Sort(const Array1D<T> obj)
+    {
+        std::sort(obj->begin(), obj->end());
+    }
 }
 
 namespace std
