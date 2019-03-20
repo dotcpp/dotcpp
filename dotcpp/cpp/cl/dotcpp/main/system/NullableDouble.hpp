@@ -74,12 +74,12 @@ namespace cl
         NullableDouble(double rhs) : value_(rhs) {}
 
         /// <summary>
-        /// Create from Object.
+        /// Supports cast (explicit constructor) from Object.
         ///
         /// Error if Object does is not a boxed double.
         /// Null Object becomes empty NullableDouble.
         /// </summary>
-        // NullableDouble(const Ptr<ObjectImpl>& rhs);
+        explicit NullableDouble(const Ptr<ObjectImpl>& rhs) : value_(rhs == nullptr ? Double::Empty : Ptr<DoubleImpl>(rhs)->value_) {}
 
     public: //  METHODS
 

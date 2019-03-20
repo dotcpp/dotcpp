@@ -32,14 +32,6 @@ namespace cl
     /// <summary>A string representing the current type.</summary>
     String BoolImpl::ToString() const { return std::to_string(value_); }
 
-    /// <summary>
-    /// Create from Object.
-    ///
-    /// Error if Object does is not a boxed bool.
-    /// Null Object becomes empty NullableBool.
-    /// </summary>
-    // NullableBool::NullableBool(const Ptr<ObjectImpl>& rhs) : value_(rhs == nullptr ? Bool::Empty : Ptr<BoolImpl>(rhs)->value_) {}
-
     /// <summary>Returns string representation of the object.</summary>
     std::string NullableBool::AsString() const
     {

@@ -75,12 +75,12 @@ namespace cl
         NullableInt(int rhs) : value_(rhs) {}
 
         /// <summary>
-        /// Create from Object.
+        /// Supports cast (explicit constructor) from Object.
         ///
-        /// Error if Object does is not a boxed double.
-        /// Null Object becomes empty NullableDouble.
+        /// Error if Object does is not a boxed int.
+        /// Null Object becomes empty NullableInt.
         /// </summary>
-        // NullableInt(const Ptr<ObjectImpl>& rhs);
+        explicit NullableInt(const Ptr<ObjectImpl>& rhs) : value_(rhs == nullptr ? Int::Empty : Ptr<IntImpl>(rhs)->value_) {}
 
     public: //  METHODS
 

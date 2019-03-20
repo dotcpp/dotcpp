@@ -72,12 +72,12 @@ namespace cl
         NullableBool(bool rhs) : value_(rhs ? 1 : 0) {}
 
         /// <summary>
-        /// Create from Object.
+        /// Supports cast (explicit constructor) from Object.
         ///
-        /// Error if Object does is not a boxed bool.
+        /// Error if Object does is not a boxed boolean.
         /// Null Object becomes empty NullableBool.
         /// </summary>
-        // NullableBool(const Ptr<ObjectImpl>& rhs);
+        explicit NullableBool(const Ptr<ObjectImpl>& rhs) : value_(rhs == nullptr ? Bool::Empty : Ptr<BoolImpl>(rhs)->value_) {}
 
     public: //  METHODS
 

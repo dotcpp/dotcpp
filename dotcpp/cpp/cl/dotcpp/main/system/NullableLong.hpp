@@ -74,6 +74,14 @@ namespace cl
         /// </summary>
         NullableLong(int64_t rhs) : value_(rhs) {}
 
+        /// <summary>
+        /// Supports cast (explicit constructor) from Object.
+        ///
+        /// Error if Object does is not a boxed long.
+        /// Null Object becomes empty NullableLong.
+        /// </summary>
+        explicit NullableLong(const Ptr<ObjectImpl>& rhs) : value_(rhs == nullptr ? Long::Empty : Ptr<LongImpl>(rhs)->value_) {}
+
     public: //  METHODS
 
         /// <summary>Returns true if the object is in uninitialized (empty) state.</summary>

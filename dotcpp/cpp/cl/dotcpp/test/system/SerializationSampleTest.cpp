@@ -52,7 +52,7 @@ namespace cl
                 Type type = new_TypeData()->WithName("SampleData").WithNamespace("DotCpp.System.Test").Build();
 
                 Array1D<PropertyInfo> props = new_Array1D<PropertyInfo>(3);
-                // TODO - make compile props[0] = new_PropertyInfo("StringProp", type, cl::typeof<String>(), &SampleDataImpl::StringProp);
+                // props[0] = new_PropertyInfo("StringProp", type, cl::typeof<String>(), &SampleDataImpl::StringProp);
                 props[1] = new_PropertyInfo("IntegerProp", type, cl::typeof<int>(), &SampleDataImpl::IntegerProp);
                 props[2] = new_PropertyInfo("DoubleProp", type, cl::typeof<double>(), &SampleDataImpl::DoubleProp);
 
