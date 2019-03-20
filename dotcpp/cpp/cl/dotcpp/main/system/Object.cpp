@@ -27,9 +27,13 @@ limitations under the License.
 #include <cl/dotcpp/main/system/NullableBool.hpp>
 #include <cl/dotcpp/main/system/NullableDouble.hpp>
 #include <cl/dotcpp/main/system/NullableInt.hpp>
+#include <cl/dotcpp/main/system/NullableLong.hpp>
 
 namespace cl
 {
+    /// <summary>Construct Object from String.</summary>
+    Object::Object(const String& value) : base(value) {}
+
     /// <summary>Construct Object from bool by boxing.</summary>
     Object::Object(bool value) : base(new BoolImpl(value)) {}
 
@@ -45,11 +49,14 @@ namespace cl
     /// <summary>Construct Object from int by boxing.</summary>
     Object::Object(int value) : base(new IntImpl(value)) {}
 
-    /// <summary>Construct Object from String.</summary>
-    Object::Object(const String& value) : base(value) {}
-
     /// <summary>Construct Object from NullableInt by boxing.</summary>
     Object::Object(const NullableInt& value) : base(value.IsEmpty() ? nullptr : new IntImpl(value)) {}
+
+    /// <summary>Construct Object from int by boxing.</summary>
+    Object::Object(int64_t value) : base(new LongImpl(value)) {}
+
+    /// <summary>Construct Object from NullableInt by boxing.</summary>
+    Object::Object(const NullableLong& value) : base(value.IsEmpty() ? nullptr : new LongImpl(value)) {}
 
     /// <summary>Assign String to Object by boxing.</summary>
     Object& Object::operator=(const String& value) { base::operator=(value); return *this; }
@@ -72,6 +79,12 @@ namespace cl
     /// <summary>Assign NullableInt to Object by boxing.</summary>
     Object& Object::operator=(const NullableInt& value) { base::operator=(value.IsEmpty() ? nullptr : new IntImpl(value)); return *this; }
 
+    /// <summary>Assign int to Object by boxing.</summary>
+    Object& Object::operator=(int64_t value) { base::operator=(new LongImpl(value)); return *this; }
+
+    /// <summary>Assign NullableInt to Object by boxing.</summary>
+    Object& Object::operator=(const NullableLong& value) { base::operator=(value.IsEmpty() ? nullptr : new LongImpl(value)); return *this; }
+
     /// <summary>Convert Object to bool by unboxing. Error if Object does is not a boxed double.</summary>
     Object::operator bool() const { return Ptr<BoolImpl>(*this)->value_; }
 
@@ -80,4 +93,7 @@ namespace cl
 
     /// <summary>Convert Object to int by unboxing. Error if Object does is not a boxed int.</summary>
     Object::operator int() const { return Ptr<IntImpl>(*this)->value_; }
+
+    /// <summary>Convert Object to long by unboxing. Error if Object does is not a boxed long.</summary>
+    Object::operator int64_t() const { return Ptr<LongImpl>(*this)->value_; }
 }

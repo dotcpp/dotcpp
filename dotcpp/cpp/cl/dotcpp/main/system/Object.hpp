@@ -32,6 +32,7 @@ namespace cl
     class NullableBool;
     class NullableDouble;
     class NullableInt;
+    class NullableLong;
 
     /// <summary>Adds support for boxing value types to Ptr(ObjectImpl).</summary>
     class CL_DOTCPP_MAIN Object : public Ptr<ObjectImpl>
@@ -76,6 +77,12 @@ namespace cl
         /// <summary>Construct Object from NullableInt by boxing.</summary>
         Object(const NullableInt& value);
 
+        /// <summary>Construct Object from int by boxing.</summary>
+        Object(int64_t value);
+
+        /// <summary>Construct Object from NullableInt by boxing.</summary>
+        Object(const NullableLong& value);
+
     public: // OPERATORS
 
         /// <summary>Assign Ptr(T) to Object.</summary>
@@ -102,6 +109,12 @@ namespace cl
         /// <summary>Assign NullableInt to Object by boxing.</summary>
         Object& operator=(const NullableInt& value);
 
+        /// <summary>Assign long to Object by boxing.</summary>
+        Object& operator=(int64_t value);
+
+        /// <summary>Assign NullableLong to Object by boxing.</summary>
+        Object& operator=(const NullableLong& value);
+
         /// <summary>Convert Object to bool by unboxing. Error if Object does is not a boxed double.</summary>
         operator bool() const;
 
@@ -110,5 +123,8 @@ namespace cl
 
         /// <summary>Convert Object to int by unboxing. Error if Object does is not a boxed int.</summary>
         operator int() const;
+
+        /// <summary>Convert Object to long by unboxing. Error if Object does is not a boxed long.</summary>
+        operator int64_t() const;
     };
 }

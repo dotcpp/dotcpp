@@ -85,7 +85,7 @@ namespace cl
     public: //  METHODS
 
         /// <summary>Returns true if the object is in uninitialized (empty) state.</summary>
-        bool Empty() const { return value_ == Long::Empty; }
+        bool IsEmpty() const { return value_ == Long::Empty; }
 
         /// <summary>Returns string representation of the object.</summary>
         std::string AsString() const;

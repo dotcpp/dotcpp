@@ -29,6 +29,7 @@ limitations under the License.
 #include <cl/dotcpp/main/system/NullableBool.hpp>
 #include <cl/dotcpp/main/system/NullableDouble.hpp>
 #include <cl/dotcpp/main/system/NullableInt.hpp>
+#include <cl/dotcpp/main/system/NullableLong.hpp>
 
 namespace cl
 {
@@ -89,6 +90,25 @@ namespace cl
             NullableInt y = 2;
             boxed = y;
             REQUIRE((int)boxed == 2);
+        }
+
+        {
+            // Boxing int64_t
+            int64_t x = 1;
+            Object boxed = x;
+            REQUIRE((int64_t)boxed == 1);
+            boxed = (int64_t)2;
+            REQUIRE((int64_t)boxed == 2);
+        }
+
+        {
+            // Boxing NullableLong
+            NullableLong x;
+            Object boxed = x;
+            REQUIRE(((NullableLong)boxed).IsEmpty());
+            NullableLong y = (int64_t)2;
+            boxed = y;
+            REQUIRE((int64_t)boxed == 2);
         }
     }
 }
