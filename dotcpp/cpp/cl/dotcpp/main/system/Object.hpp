@@ -83,6 +83,10 @@ namespace cl
         /// <summary>Construct Object from NullableInt by boxing.</summary>
         Object(const NullableLong& value);
 
+        /// <summary>Construct Object from auto property, boxing the value if necessary.</summary>
+        template <typename T>
+        Object(detail::auto_prop<T> & value) : Object(value.operator T()) {}
+
     public: // OPERATORS
 
         /// <summary>Assign Ptr(T) to Object.</summary>
