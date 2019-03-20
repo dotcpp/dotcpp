@@ -38,10 +38,12 @@ namespace cl
     class Ptr
     {
         template<class R> friend class Ptr;
-        T* ptr_;
-
         typedef T element_type;
         typedef T* pointer_type;
+
+    private: // FIELDS
+
+        T* ptr_;
 
     public: // CONSTRUCTORS
 
@@ -54,10 +56,14 @@ namespace cl
         /// </summary>
         Ptr(T* ptr);
 
-        /// <summary>Create from pointer to class derived from T (does not use dynamic cast).</summary>
+        /// <summary>Implicit conversion from derived to base pointer (does not use dynamic cast).</summary>
         template <class R> Ptr(const Ptr<R>& rhs, typename std::enable_if<std::is_base_of<T, R>::value>::type* p = 0);
 
-        /// <summary>Create from pointer to class not derived from T (uses dynamic cast).</summary>
+        /// <summary>
+        /// Explicit conversion from base to derived or sibling pointer (uses dynamic cast).
+        ///
+        /// Error message if the cast fails because the two types are unrelated.
+        /// </summary>
         template <class R> explicit Ptr(const Ptr<R>& rhs, typename std::enable_if<!std::is_base_of<T, R>::value>::type* p = 0);
 
         /// <summary>Copy constructor for the pointer (does not copy T).</summary>
@@ -111,15 +117,11 @@ namespace cl
         Ptr<T>& operator=(T* rhs);
 
         /// <summary>
-        /// Assign pointer to template argument base type.
-        /// Shares reference count with argument.
+        /// Assign pointer to template argument base type. // TODO - use SFINAE to detemine if dynamic cast is needed
         /// </summary>
         template <class R> Ptr<T>& operator=(const Ptr<R>& rhs);
 
-        /// <summary>
-        /// Assign pointer of the same type.
-        /// Shares reference count with argument.
-        /// </summary>
+        /// <summary>Assign pointer of the same type.</summary>
         Ptr<T>& operator=(const Ptr<T>& rhs);
 
         /// <summary>Const indexer operator for arrays.</summary>
@@ -192,6 +194,9 @@ namespace cl
 
         typedef StringImpl element_type;
         typedef StringImpl* pointer_type;
+
+        template<typename T>
+        friend class Ptr;
 
     public: // CONSTRUCTORS
 
