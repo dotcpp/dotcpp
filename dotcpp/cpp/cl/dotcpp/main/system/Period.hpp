@@ -100,6 +100,12 @@ namespace cl
         /// <summary>Subtracts one period from another, by simply subtracting each property value.</summary>
         Period operator-(const Period& other) const;
 
+        /// <summary>Compares two periods for equality.</summary>
+        bool operator==(const Period& other) const;
+        
+        /// <summary>Compares two periods for inequality.</summary>
+        bool operator!=(const Period& other) const;
+
     public:
         operator date_duration() const;
     };

@@ -44,7 +44,7 @@ namespace cl
     {}
 
     LocalTime::LocalTime(const time_duration& time)
-        : ptime(boost::gregorian::date(), time)
+        : ptime(boost::gregorian::date(1970, 1, 1), time)
     {}
 
     LocalTime::LocalTime(const ptime& time)
@@ -124,32 +124,32 @@ namespace cl
 
     bool LocalTime::operator==(const LocalTime& other) const
     {
-        return static_cast<ptime>(*this) == static_cast<ptime>(other);
+        return time_of_day() == other.time_of_day();
     }
 
     bool LocalTime::operator!=(const LocalTime& other) const
     {
-        return static_cast<ptime>(*this) != static_cast<ptime>(other);
+        return time_of_day() != other.time_of_day();
     }
 
     bool LocalTime::operator>(const LocalTime& other) const
     {
-        return static_cast<ptime>(*this) > static_cast<ptime>(other);
+        return time_of_day() > other.time_of_day();
     }
 
     bool LocalTime::operator>=(const LocalTime& other) const
     {
-        return static_cast<ptime>(*this) >= static_cast<ptime>(other);
+        return time_of_day() >= other.time_of_day();
     }
 
     bool LocalTime::operator<(const LocalTime& other) const
     {
-        return static_cast<ptime>(*this) < static_cast<ptime>(other);
+        return time_of_day() < other.time_of_day();
     }
 
     bool LocalTime::operator<=(const LocalTime& other) const
     {
-        return static_cast<ptime>(*this) <= static_cast<ptime>(other);
+        return time_of_day() <= other.time_of_day();
     }
 
     Period LocalTime::operator-(const LocalTime& other) const

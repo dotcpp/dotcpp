@@ -32,31 +32,26 @@ limitations under the License.
 
 namespace cl
 {
-    TEST_CASE("Methods")
+    TEST_CASE("Properties")
     {
         LocalTime t(12, 10, 20, 30);
         REQUIRE(t.Hour == 12);
         REQUIRE(t.Minute == 10);
         REQUIRE(t.Second == 20);
         REQUIRE(t.Millisecond == 30);
+    }
 
-        t = t.PlusHours(1);
-        REQUIRE(t.Hour == 13);
-
-        t = t.PlusMinutes(1);
-        REQUIRE(t.Minute == 11);
-
-        t = t.PlusSeconds(1);
-        REQUIRE(t.Second == 21);
-
-        t = t.PlusMilliseconds(1);
-        REQUIRE(t.Millisecond == 31);
+    TEST_CASE("Methods")
+    {
+        LocalTime t(12, 10, 20, 30);
+        REQUIRE(t.PlusHours(1) == LocalTime(13, 10, 20, 30));
+        REQUIRE(t.PlusMinutes(1) == LocalTime(12, 11, 20, 30));
+        REQUIRE(t.PlusSeconds(1) == LocalTime(12, 10, 21, 30));
+        REQUIRE(t.PlusMilliseconds(1) == LocalTime(12, 10, 20, 31));
 
         t = LocalTime(23, 59);
-        t = t.PlusHours(2);
-        REQUIRE(t.Hour == 1);
-        t = t.PlusMinutes(2);
-        REQUIRE(t.Minute == 1);
+        REQUIRE(t.PlusHours(2) == LocalTime(1, 59));
+        REQUIRE(t.PlusMinutes(2) == LocalTime(0, 1));
 
         LocalDateTime date_time(2005, 5, 10, 12, 10);
         LocalDate date(2005, 5, 10);

@@ -32,7 +32,7 @@ limitations under the License.
 
 namespace cl
 {
-    TEST_CASE("Methods")
+    TEST_CASE("Properties")
     {
         LocalDate d(2005, 1, 10);
         REQUIRE(d.Year == 2005);
@@ -40,26 +40,25 @@ namespace cl
         REQUIRE(d.Day == 10);
         REQUIRE(d.DayOfWeek == boost::gregorian::Monday);
         REQUIRE(d.DayOfYear == 10);
+    }
 
-        d = LocalDate(2005, 1, 10);
+    TEST_CASE("Methods")
+    {
+        LocalDate d(2005, 1, 10);
         REQUIRE(d.PlusDays(10) == LocalDate(2005, 1, 20));
-
-        d = LocalDate(2005, 1, 10);
         REQUIRE(d.PlusWeeks(1) == LocalDate(2005, 1, 17));
-
-        d = LocalDate(2005, 1, 10);
         REQUIRE(d.PlusMonths(1) == LocalDate(2005, 2, 10));
-
-        d = LocalDate(2005, 1, 10);
         REQUIRE(d.PlusYears(1) == LocalDate(2006, 1, 10));
 
-        LocalDate dd(2005, 1, 10);
-        // Next, Prev
+        LocalDate d2(2005, 1, 10);
+        REQUIRE(d2.Previous(boost::gregorian::Monday) == LocalDate(2005, 1, 3));
+        REQUIRE(d2.Next(boost::gregorian::Monday) == LocalDate(2005, 1, 17));
 
         LocalDateTime date_time(2005, 5, 10, 12, 10);
         LocalDate date(2005, 5, 10);
         LocalTime time(12, 10);
         REQUIRE(date.At(time) == date_time);
+        REQUIRE(date.AtMidnight() == LocalDateTime(2005, 5, 10, 0, 0));
     }
 
     TEST_CASE("Operators")

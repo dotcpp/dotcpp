@@ -92,6 +92,16 @@ namespace cl
         return static_cast<time_duration>(*this) + static_cast<time_duration>(other);
     }
 
+    bool Period::operator==(const Period & other) const
+    {
+        return static_cast<time_duration>(*this) == static_cast<time_duration>(other);;
+    }
+
+    bool Period::operator!=(const Period & other) const
+    {
+        return static_cast<time_duration>(*this) != static_cast<time_duration>(other);;
+    }
+
     Period Period::operator-(const Period & other) const
     {
         return static_cast<time_duration>(*this) - static_cast<time_duration>(other);

@@ -80,8 +80,10 @@ namespace cl
 
     LocalDate LocalDate::Next(int targetDayOfWeek) const
     {
+        if (DayOfWeek == targetDayOfWeek)
+            return PlusWeeks(1);
         auto wd = boost::gregorian::greg_weekday(targetDayOfWeek);
-        return boost::gregorian::next_weekday(date(), wd);
+        return boost::gregorian::next_weekday(*this, wd);
     }
 
     LocalDate LocalDate::Plus(const Period& period) const
@@ -111,8 +113,10 @@ namespace cl
 
     LocalDate LocalDate::Previous(int targetDayOfWeek) const
     {
+        if (DayOfWeek == targetDayOfWeek)
+            return PlusWeeks(-1);
         auto wd = boost::gregorian::greg_weekday(targetDayOfWeek);
-        return boost::gregorian::previous_weekday(date(), wd);
+        return boost::gregorian::previous_weekday(*this, wd);
     }
 
     Period LocalDate::Subtract(const LocalDate& lhs, const LocalDate& rhs)
