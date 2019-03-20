@@ -14,7 +14,26 @@
     <ClCompile Include="system\src\*.cpp" />
     <ClCompile Include="archive\impl\src\*.cpp" />
     <ClCompile Include="filesystem\src\*.cpp" />
-    <ClCompile Include="test\impl\**\*.ipp" />
+    <ClCompile Include="test\impl\compiler_log_formatter.ipp" />
+    <ClCompile Include="test\impl\debug.ipp" />
+    <ClCompile Include="test\impl\decorator.ipp" />
+    <ClCompile Include="test\impl\execution_monitor.ipp" />
+    <ClCompile Include="test\impl\framework.ipp" />
+    <ClCompile Include="test\impl\junit_log_formatter.ipp" />
+    <ClCompile Include="test\impl\plain_report_formatter.ipp" />
+    <ClCompile Include="test\impl\progress_monitor.ipp" />
+    <ClCompile Include="test\impl\results_collector.ipp" />
+    <ClCompile Include="test\impl\results_reporter.ipp" />
+    <ClCompile Include="test\impl\test_framework_init_observer.ipp" />
+    <ClCompile Include="test\impl\test_main.ipp" />
+    <ClCompile Include="test\impl\test_tools.ipp" />
+    <ClCompile Include="test\impl\test_tree.ipp" />
+    <ClCompile Include="test\impl\unit_test_log.ipp" />
+    <ClCompile Include="test\impl\unit_test_main.ipp" />
+    <ClCompile Include="test\impl\unit_test_monitor.ipp" />
+    <ClCompile Include="test\impl\unit_test_parameters.ipp" />
+    <ClCompile Include="test\impl\xml_log_formatter.ipp" />
+    <ClCompile Include="test\impl\xml_report_formatter.ipp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{05FCBA2D-EBAF-4265-94E6-CB33526C758F}</ProjectGuid>
