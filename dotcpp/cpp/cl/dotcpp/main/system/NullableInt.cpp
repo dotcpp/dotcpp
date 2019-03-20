@@ -24,8 +24,8 @@ limitations under the License.
 #pragma once
 
 #include <cl/dotcpp/main/implement.hpp>
-#include <cl/dotcpp/main/system/String.hpp>
 #include <cl/dotcpp/main/system/NullableInt.hpp>
+#include <cl/dotcpp/main/system/String.hpp>
 
 namespace cl
 {

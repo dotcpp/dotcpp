@@ -23,8 +23,7 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/declare.hpp>
-#include <cl/dotcpp/main/system/Long.hpp>
+#include <cl/dotcpp/main/implement.hpp>
 #include <cl/dotcpp/main/system/NullableLong.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
 
