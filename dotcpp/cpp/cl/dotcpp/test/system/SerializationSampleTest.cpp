@@ -49,10 +49,10 @@ namespace cl
         {
             static Type type = []()-> Type
             {
-                Type type = new_TypeData()->WithName("SampleData").WithNamespace("DotCpp.System.Test").Build();
+                Type type = new_TypeData()->WithName("SampleData")->WithNamespace("DotCpp.System.Test")->Build();
 
                 Array1D<PropertyInfo> props = new_Array1D<PropertyInfo>(3);
-                // props[0] = new_PropertyInfo("StringProp", type, cl::typeof<String>(), &SampleDataImpl::StringProp);
+                props[0] = new_PropertyInfo("StringProp", type, cl::typeof<String>(), &SampleDataImpl::StringProp);
                 props[1] = new_PropertyInfo("IntegerProp", type, cl::typeof<int>(), &SampleDataImpl::IntegerProp);
                 props[2] = new_PropertyInfo("DoubleProp", type, cl::typeof<double>(), &SampleDataImpl::DoubleProp);
 
@@ -77,9 +77,9 @@ namespace cl
     {
         SampleData obj = new_SampleData();
     //    obj->StringProp = "abc";
-        obj->IntegerProp = 42;
-        obj->DoubleProp = 1.23;
-
+     //   obj->IntegerProp = 42;
+      //  obj->DoubleProp = 1.23;
+        /*
         auto vec_prop = obj->GetType()->GetProperties();
 
         for (PropertyInfo& prop : vec_prop)
@@ -92,5 +92,6 @@ namespace cl
 
         Approvals::verify(received.str());
         received.clear();
+        */
     }
 }

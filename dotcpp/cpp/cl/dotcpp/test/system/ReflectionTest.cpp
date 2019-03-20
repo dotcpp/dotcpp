@@ -81,8 +81,8 @@ namespace cl
 
                 return new_TypeData()
                     ->WithName("ReflectionBaseSample")
-                    .WithNamespace("Test.System")
-                    .Build();
+                    ->WithNamespace("Test.System")
+                    ->Build();
 
                 /*
                 data->Properties = new_Array1D<PropertyInfo>(4);

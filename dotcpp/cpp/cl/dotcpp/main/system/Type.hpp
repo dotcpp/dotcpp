@@ -52,18 +52,18 @@ namespace cl
     public: // METHODS
 
         /// <summary>Set the name of the current type, excluding namespace.</summary>
-        TypeDataImpl& WithName(const String& name);
+        TypeData WithName(const String& name);
 
         /// <summary>Set the namespace of the Type.</summary>
-        TypeDataImpl& WithNamespace(const String& ns);
+        TypeData WithNamespace(const String& ns);
 
     public: // METHODS
 
         /// <summary>Add public property of the current Type.</summary>
-        TypeDataImpl& WithProperty();
+        TypeData WithProperty();
 
         /// <summary>Add public method of the current Type.</summary>
-        TypeDataImpl& WithMethod();
+        TypeData WithMethod();
 
         /// <summary>Built Type from the current object.</summary>
         Type Build();
@@ -138,8 +138,9 @@ namespace cl
         ///
         /// This constructor is private. Use TypeBuilder->Build() method instead.
         /// </summary>
-        TypeImpl(const TypeDataImpl& data)
-            : Name()
+        TypeImpl(const TypeData& data)
+            : Name(data->name_)
+            , Namespace(data->namespace_)
         {}
     };
 
@@ -152,18 +153,18 @@ namespace cl
     /// </summary>
     inline Type ObjectImpl::GetType()
     {
-        return new_TypeData()->WithName("Object").WithNamespace("System").Build();
+        return new_TypeData()->WithName("Object")->WithNamespace("System")->Build();
     }
 
     template <>
-    inline Type typeof<String>() { return new_TypeData()->WithName("String").WithNamespace("System").Build(); }
+    inline Type typeof<String>() { return new_TypeData()->WithName("String")->WithNamespace("System")->Build(); }
 
     template <>
-    inline Type typeof<double>() { return new_TypeData()->WithName("Double").WithNamespace("System").Build(); }
+    inline Type typeof<double>() { return new_TypeData()->WithName("Double")->WithNamespace("System")->Build(); }
 
     template <>
-    inline Type typeof<int64_t>() { return new_TypeData()->WithName("Int64").WithNamespace("System").Build(); }
+    inline Type typeof<int64_t>() { return new_TypeData()->WithName("Int64")->WithNamespace("System")->Build(); }
 
     template <>
-    inline Type typeof<int>() { return new_TypeData()->WithName("Int32").WithNamespace("System").Build(); }
+    inline Type typeof<int>() { return new_TypeData()->WithName("Int32")->WithNamespace("System")->Build(); }
 }

@@ -34,11 +34,11 @@ limitations under the License.
 namespace cl
 {
     /// <summary>Set the name of the current type, excluding namespace.</summary>
-    TypeDataImpl& TypeDataImpl::WithName(const String& name) { name_ = name; return *this; }
+    TypeData TypeDataImpl::WithName(const String& name) { name_ = name; return this; }
 
     /// <summary>Set the namespace of the Type.</summary>
-    TypeDataImpl& TypeDataImpl::WithNamespace(const String& ns) { namespace_ = ns; return *this; }
+    TypeData TypeDataImpl::WithNamespace(const String& ns) { namespace_ = ns; return this; }
 
     /// <summary>Built Type from the current object.</summary>
-    Type TypeDataImpl::Build() { return new TypeImpl(*this); }
+    Type TypeDataImpl::Build() { return new TypeImpl(this); }
 }
