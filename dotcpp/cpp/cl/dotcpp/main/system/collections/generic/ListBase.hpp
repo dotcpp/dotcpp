@@ -51,16 +51,10 @@ namespace cl
         }
 
         /// <summary>Returns random access begin iterator of the underlying std::vector.</summary>
-        typename base::iterator begin()
-        {
-            return base::begin();
-        }
+        typename base::iterator begin() { return base::begin(); }
 
         /// <summary>Returns random access end iterator of the underlying std::vector.</summary>
-        typename base::iterator end()
-        {
-            return base::end();
-        }
+        typename base::iterator end() { return base::end(); }
 
         /// <summary>The number of items contained in the list.</summary>
         DOT_IMPL_GET(ListBaseImpl, int, Count, { return this->size(); })

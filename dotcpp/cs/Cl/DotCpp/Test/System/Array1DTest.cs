@@ -48,6 +48,9 @@ namespace Cl.DotCpp.Test
             x[2] = 4;
             received.AppendLine("x[2]: " + x[2]);
 
+            Array y = x;
+            received.AppendLine("y.Length: " + y.Length);
+
             Approvals.Verify(received.ToString());
             received.Clear();
         }

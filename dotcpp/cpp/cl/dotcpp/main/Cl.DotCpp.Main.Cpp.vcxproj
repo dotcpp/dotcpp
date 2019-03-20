@@ -25,13 +25,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="declare.hpp" />
-    <ClInclude Include="detail\const_string.hpp" />
+    <ClInclude Include="detail\array_base.hpp" />
+    <ClInclude Include="detail\const_string_base.hpp" />
     <ClInclude Include="detail\iterator.hpp" />
     <ClInclude Include="detail\macro.hpp" />
     <ClInclude Include="detail\property.hpp" />
     <ClInclude Include="detail\traits.hpp" />
     <ClInclude Include="implement.hpp" />
     <ClInclude Include="import.hpp" />
+    <ClInclude Include="system\Array.hpp" />
     <ClInclude Include="system\Array1D.hpp" />
     <ClInclude Include="system\Bool.hpp" />
     <ClInclude Include="system\Char.hpp" />

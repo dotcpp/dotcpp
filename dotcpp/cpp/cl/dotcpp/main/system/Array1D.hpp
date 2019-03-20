@@ -23,8 +23,9 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/system/collections/generic/ListBase.hpp>
-#include <cl/dotcpp/main/system/Exception.hpp>
+#include <cl/dotcpp/main/declare.hpp>
+#include <cl/dotcpp/main/system/Array.hpp>
+#include <cl/dotcpp/main/detail/array_base.hpp>
 
 namespace cl
 {
@@ -35,9 +36,9 @@ namespace cl
     /// Provides methods to search, sort, and manipulate lists.
     /// </summary>
     template <class T>
-    class Array1DImpl : public ListBaseImpl<T>
+    class Array1DImpl : public ArrayImpl, public detail::array_base<T>
     {
-        typedef std::vector<T> base;
+        typedef detail::array_base<T> base;
 
         template <class T>
         friend Array1D<T> new_Array1D(int size);
@@ -49,15 +50,28 @@ namespace cl
         ///
         /// This constructor is private. Use new_Array1D(size) function instead.
         /// </summary>
-        Array1DImpl(int size) { base::resize(size); }
+        explicit Array1DImpl(int size) : base(size) {}
+
+    public: // PROPERTIES
+
+        /// <summary>The number of items contained in the list.</summary>
+        DOT_IMPL_GET(Array1DImpl, int, Count, { return this->size(); })
 
     public: // METHODS
 
-        /// <summary>Adds an object to the end of the list.</summary>
-        virtual void Add(const T& item) { throw Exception("Method Add(item) is not available for a fixed size collection."); }
+        /// <summary>Returns random access begin iterator of the underlying std::vector.</summary>
+        auto begin() { return base::begin(); }
 
-        /// <summary>Removes all elements from the list.</summary>
-        virtual void Clear() { throw Exception("Method Clear() is not available for a fixed size collection."); }
+        /// <summary>Returns random access end iterator of the underlying std::vector.</summary>
+        auto end() { return base::end(); }
+
+    public: // OPERATORS
+
+        /// <summary>Gets or sets the element at the specified index (const version).</summary>
+        const T& operator[](int i) const { return base::operator[](size_t(i)); }
+
+        /// <summary>Gets or sets the element at the specified index (non-const version).</summary>
+        T& operator[](int i) { return base::operator[](size_t(i)); }
     };
 
     /// <summary>
@@ -65,4 +79,21 @@ namespace cl
     /// </summary>
     template <class T>
     Array1D<T> new_Array1D(int size) { return new Array1DImpl<T>(size); }
+}
+
+namespace std
+{
+    /// <summary>Implements begin() used by STL and similar algorithms.</summary>
+    template <class T>
+    auto begin(cl::Array1D<T>& obj)
+    {
+        return obj->begin();
+    }
+
+    /// <summary>Implements end() used by STL and similar algorithms.</summary>
+    template <class T>
+    auto end(cl::Array1D<T>& obj)
+    {
+        return obj->end();
+    }
 }

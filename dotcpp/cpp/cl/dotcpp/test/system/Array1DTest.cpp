@@ -26,6 +26,7 @@ limitations under the License.
 #include <approvals/Catch.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
 #include <cl/dotcpp/main/system/Array1D.hpp>
+#include <cl/dotcpp/main/system/Object.hpp>
 
 namespace cl
 {
@@ -49,7 +50,7 @@ namespace cl
     TEST_CASE("Interfaces")
     {
         Array1D<double> a = new_Array1D<double>(3);
-        IList<double> b = a;
+        Array b = a;
  
         // Check size of the original class and the interface
         REQUIRE(a->Count == 3);
@@ -57,15 +58,15 @@ namespace cl
 
         // Access the underlying std::vector<double> class
         SortDoubleVector(*a);
-        REQUIRE(b[0] == 0.0);
+        REQUIRE(a[0] == 0.0);
 
         // Access by Object
         Object obj = b;
         REQUIRE(obj->ToString() == "Object");
 
         // Check that methods that should throw actually throw
-        CHECK_THROWS_AS(b->Add(0.0), Exception);
-        CHECK_THROWS_AS(b->Clear(), Exception);
+        // CHECK_THROWS_AS(b->Add(0.0), Exception);
+        // CHECK_THROWS_AS(b->Clear(), Exception);
     }
 
     TEST_CASE("Iterators")
@@ -82,14 +83,6 @@ namespace cl
         {
             REQUIRE(stringArray[i++] == str);
         }
-    }
-
-    TEST_CASE("Capacity")
-    {
-        Array1D<String> stringArray = new_Array1D<String>(0);
-        stringArray->Capacity = 100;
-        REQUIRE(stringArray->Capacity == 100);
-        REQUIRE(stringArray->capacity() == 100);
     }
 
     TEST_CASE("Find")
@@ -116,24 +109,6 @@ namespace cl
         for (String str : stringArray)
         {
             REQUIRE((stringArray.as<Array1D<String>>())[i++] == str);
-        }
-
-        i = 0;
-        IEnumerator<String> en = stringArray->GetEnumerator();
-
-        for (; en->MoveNext();)
-        {
-            REQUIRE((stringArray.as<Array1D<String>>())[i++] == en->getCurrent());
-
-        }
-
-        i = 0;
-        en->Reset();
-
-        for (; en->MoveNext();)
-        {
-            REQUIRE((stringArray.as<Array1D<String>>())[i++] == en->getCurrent());
-
         }
     }
 }
