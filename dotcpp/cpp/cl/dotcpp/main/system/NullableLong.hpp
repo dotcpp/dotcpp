@@ -36,12 +36,12 @@ namespace cl
     {
         friend Object;
         friend NullableLong;
-        long long int value_;
+        int64_t value_;
 
     public: // CONSTRUCTORS
 
         /// <summary>Create from value (box).</summary>
-        LongImpl(long long int value) : value_(value) {}
+        LongImpl(int64_t value) : value_(value) {}
 
     public: // METHODS
 
@@ -50,7 +50,7 @@ namespace cl
     };
 
     /// <summary>
-    /// Wrapper for long long int where default constructor creates uninitialized
+    /// Wrapper for int64_t where default constructor creates uninitialized
     /// value. Use this class to get an error message when the variable is
     /// used before being assigned to.
     ///
@@ -59,7 +59,7 @@ namespace cl
     /// </summary>
     class NullableLong
     {
-        long long int value_ = Long::Empty;
+        int64_t value_ = Long::Empty;
 
     public: //  CONSTRUCTORS
 
@@ -72,7 +72,7 @@ namespace cl
         /// If sentinel value for uninitialized state is passed to this constructor,
         /// no error occurs and the object is constructed in uninitialized state.
         /// </summary>
-        NullableLong(long long int rhs) : value_(rhs) {}
+        NullableLong(int64_t rhs) : value_(rhs) {}
 
     public: //  METHODS
 
@@ -83,7 +83,7 @@ namespace cl
         std::string AsString() const;
 
         /// <summary>Convert to native long, error if the object is in uninitialized (empty) state.</summary>
-        long long int Value() const { if (value_ == Long::Empty) throw std::runtime_error("Long value is empty"); return value_; }
+        int64_t Value() const { if (value_ == Long::Empty) throw std::runtime_error("Long value is empty"); return value_; }
 
         /// <summary>Clear the value and revert to uninitialized (empty) state.</summary>
         void Clear() { value_ = Long::Empty; }
@@ -91,7 +91,7 @@ namespace cl
     public: //  OPERATORS
 
         /// <summary>Convert to native long, error if the object is in uninitialized (empty) state.</summary>
-        operator long long int() const { return Value(); }
+        operator int64_t() const { return Value(); }
 
         /// <summary>
         /// Assign native long.
@@ -99,6 +99,6 @@ namespace cl
         /// If sentinel value for uninitialized state is passed to this operator,
         /// no error occurs and the object reverts to uninitialized (empty) state.
         /// </summary>
-        NullableLong& operator=(long long int rhs) { value_ = rhs; return *this; }
+        NullableLong& operator=(int64_t rhs) { value_ = rhs; return *this; }
     };
 }

@@ -160,7 +160,7 @@ namespace cl
     inline Type typeof<double>() { return new_TypeData()->WithName("Double").WithNamespace("System").Build(); }
 
     template <>
-    inline Type typeof<long long int>() { return new_TypeData()->WithName("Int64").WithNamespace("System").Build(); }
+    inline Type typeof<int64_t>() { return new_TypeData()->WithName("Int64").WithNamespace("System").Build(); }
 
     template <>
     inline Type typeof<int>() { return new_TypeData()->WithName("Int32").WithNamespace("System").Build(); }
