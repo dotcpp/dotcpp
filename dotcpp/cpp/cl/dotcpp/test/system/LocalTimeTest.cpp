@@ -24,6 +24,7 @@ limitations under the License.
 #include <cl/dotcpp/test/implement.hpp>
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
+#include <cl/dotcpp/main/system/String.hpp>
 #include <cl/dotcpp/main/system/Period.hpp>
 #include <cl/dotcpp/main/system/LocalTime.hpp>
 #include <cl/dotcpp/main/system/LocalDate.hpp>

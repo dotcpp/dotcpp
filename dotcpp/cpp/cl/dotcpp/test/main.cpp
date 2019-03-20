@@ -8,3 +8,4 @@ license from CompatibL and with the inclusion of this copyright notice.
 
 #define APPROVALS_CATCH
 #include <approvals/ApprovalTests.hpp>
+#include <cl/dotcpp/main/system/String.hpp>

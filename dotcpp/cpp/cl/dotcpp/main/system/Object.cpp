@@ -21,8 +21,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#pragma once
-
 #include <cl/dotcpp/main/implement.hpp>
 #include <cl/dotcpp/main/system/Object.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
@@ -46,6 +44,9 @@ namespace cl
 
     /// <summary>Construct Object from int by boxing.</summary>
     Object::Object(int value) : base(new IntImpl(value)) {}
+
+    /// <summary>Construct Object from String.</summary>
+    Object::Object(const String& value) : base(value) {}
 
     /// <summary>Construct Object from NullableInt by boxing.</summary>
     Object::Object(const NullableInt& value) : base(value.IsEmpty() ? nullptr : new IntImpl(value)) {}
