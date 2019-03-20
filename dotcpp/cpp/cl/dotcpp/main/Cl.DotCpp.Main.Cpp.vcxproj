@@ -20,6 +20,7 @@
     <ClCompile Include="system\NullableLong.cpp" />
     <ClCompile Include="system\Object.cpp" />
     <ClCompile Include="system\Period.cpp" />
+    <ClCompile Include="system\String.cpp" />
     <ClCompile Include="system\Type.cpp" />
   </ItemGroup>
   <ItemGroup>

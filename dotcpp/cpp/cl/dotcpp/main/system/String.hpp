@@ -31,7 +31,7 @@ limitations under the License.
 
 namespace cl
 {
-    class StringImpl; using String = Ptr<StringImpl>;
+    class StringImpl; class String;
     template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
     enum class StringSplitOptions;
     class Char;
@@ -48,11 +48,6 @@ namespace cl
         typedef std::string base;
         friend String new_String(const std::string& rhs);
         friend String new_String(const char* rhs);
-
-    public: // CONSTANTS
-
-        /// <summary>Empty string.</summary>
-        static constexpr const char* Empty = "";
 
     public: // CONSTRUCTORS
 
@@ -86,38 +81,19 @@ namespace cl
 
         /// <summary>Determines whether the end of this
         /// string matches the specified string.</summary>
-        bool EndsWith(const std::string& value)
-        {
-            int p = length() - value.length();
-            if (p >= 0 && substr(p, value.length())
-                == value)
-                return true;
-            return false;
-        }
+        bool EndsWith(const std::string& value);
 
         /// <summary>Determines whether the beginning of this
         /// string matches the specified string.</summary>
-        bool StartsWith(const String& value)
-        {
-            int p = length() - value->length();
-            if (p >= 0 && substr(0, value->length()) == *value)
-                return true;
-            return false;
-        }
+        bool StartsWith(const String& value);
 
         /// <summary>Retrieves a substring which starts at the specified
         /// character position and has the specified length.</summary>
-        String SubString(int startIndex, int length)
-        {
-            return new_String(this->substr(startIndex, length));
-        }
+        String SubString(int startIndex, int length);
 
         /// <summary>Gets the number of characters in the current string.
         /// Note that for Unicode this is not the same as the number of bytes.</summary>
-        int getLength()
-        {
-            return length(); //!!! This has to be corrected for Unicode
-        }
+        int getLength();
 
         /// <summary>Compares this instance with a specified String object and indicates
         /// whether this instance precedes, follows, or appears in the same position
@@ -138,11 +114,7 @@ namespace cl
         Array1D<String> Split(const Array1D<String>& separator, const StringSplitOptions& options) const;
 
         ///<summary>Indicates whether the argument occurs within this string.</summary>
-        bool Contains(String const& s) const
-        {
-            throw std::exception("Not implemented");
-           // TODO - fix return this->find(s) != std::string::npos;
-        }
+        bool Contains(String const& s) const;
 
         ///<summary>Returns a copy of this string converted to lowercase.</summary>
         String ToLower() const;
@@ -331,6 +303,65 @@ namespace cl
     };
 
     /// <summary>
+    /// Pointer to StringImpl that has additional constructors compared to Ptr(String)
+    /// </summary>
+    class CL_DOTCPP_MAIN String : public Ptr<StringImpl>
+    {
+        typedef Ptr<StringImpl> base;
+
+    public: // CONSTANTS
+
+        /// <summary>Empty string.</summary>
+        static String Empty;
+
+    public: // CONSTRUCTORS
+
+        /// <summary>Create null String.</summary>
+        String() : base() {}
+
+        /// <summary>
+        /// Take ownership of raw pointer to template argument type.
+        /// This also permits construction from null pointer.
+        /// </summary>
+        String(StringImpl* ptr) : base(ptr) {}
+
+        /// <summary>
+        /// Create from std::string.
+        /// </summary>
+        String(const std::string& rhs) : base(new StringImpl(rhs)) {}
+
+        /// <summary>
+        /// Create from string literal.
+        /// </summary>
+        String(const char* rhs) : base(new StringImpl(rhs)) {}
+
+        /// <summary>
+        /// Copy constructor.
+        /// </summary>
+        String(const String& rhs) : base(rhs) {}
+
+    public: // OPERATORS
+
+        /// <summary>Case sensitive comparison to std::string.</summary>
+        bool operator==(const std::string& rhs) const { StringImpl& impl = base::operator*(); return impl == rhs; }
+
+        /// <summary>Case sensitive comparison to std::string.</summary>
+        bool operator!=(const std::string& rhs) const { StringImpl& impl = base::operator*(); return impl != rhs; }
+
+        /// <summary>Case sensitive comparison to string literal.</summary>
+        bool operator==(const char* rhs) const { StringImpl& impl = base::operator*(); return impl == rhs; }
+
+        /// <summary>Case sensitive comparison to string literal.</summary>
+        bool operator!=(const char* rhs) const { StringImpl& impl = base::operator*(); return impl != rhs; }
+
+        /// <summary>Case sensitive comparison to string literal.</summary>
+        bool operator==(const String& rhs) const { return base::operator==(rhs); }
+
+        /// <summary>Case sensitive comparison to string literal.</summary>
+        bool operator!=(const String& rhs) const { return base::operator!=(rhs); }
+    };
+
+    /// <summary>
     /// Create from std::string or string literal using new
     /// </summary>
     inline String new_String(const std::string& rhs) { return new StringImpl(rhs); }
@@ -339,32 +370,6 @@ namespace cl
     /// Create from std::string or string literal using new
     /// </summary>
     inline String new_String(const char* rhs) { return new StringImpl(rhs); }
-
-    /// <summary>
-    /// Inline implementation of methods from template specialization Ptr(StringImpl)
-    /// that cannot be included next to the declaration because they require StringImpl
-    /// to be defined.
-    /// </summary>
-    inline Ptr<StringImpl>::Ptr() : ptr_(nullptr) {}
-    inline Ptr<StringImpl>::Ptr(StringImpl* ptr) : ptr_(ptr) { if (ptr_) ptr_->addRef(); }
-    inline Ptr<StringImpl>::Ptr(const std::string& rhs) : ptr_(new StringImpl(rhs)) { ptr_->addRef(); }
-    inline Ptr<StringImpl>::Ptr(const char* rhs) : ptr_(new StringImpl(rhs)) { ptr_->addRef(); }
-    inline Ptr<StringImpl>::Ptr(const Ptr<StringImpl>& rhs) : ptr_(rhs.ptr_) { if (ptr_) ptr_->addRef(); }
-    inline Ptr<StringImpl>::~Ptr() { if (ptr_) ptr_->release(); }
-    inline StringImpl& Ptr<StringImpl>::operator*() const { if (!ptr_) throw std::runtime_error("Pointer is not initialized"); return *ptr_; }
-    inline StringImpl* Ptr<StringImpl>::operator->() const { if (!ptr_) throw std::runtime_error("Pointer is not initialized"); return ptr_; }
-    inline bool Ptr<StringImpl>::operator==(const std::string& rhs) const { return *ptr_ == rhs; }
-    inline bool Ptr<StringImpl>::operator!=(const std::string& rhs) const { return *ptr_ != rhs; }
-    inline bool Ptr<StringImpl>::operator==(const char* rhs) const { return *ptr_ == rhs; }
-    inline bool Ptr<StringImpl>::operator!=(const char* rhs) const { return *ptr_ != rhs; }
-    inline bool Ptr<StringImpl>::operator==(Null* rhs) const { return ptr_ == nullptr; }
-    inline bool Ptr<StringImpl>::operator!=(Null* rhs) const { return ptr_ != nullptr; }
-    inline bool Ptr<StringImpl>::operator==(const Ptr<StringImpl>& rhs) const { return *ptr_ == *rhs.ptr_; }
-    inline bool Ptr<StringImpl>::operator!=(const Ptr<StringImpl>& rhs) const { return *ptr_ != *rhs.ptr_; }
-    inline Ptr<StringImpl>& Ptr<StringImpl>::operator=(StringImpl* rhs) { if (ptr_) ptr_->release(); if (rhs) rhs->addRef(); ptr_ = rhs; return *this; }
-    inline Ptr<StringImpl>& Ptr<StringImpl>::operator=(const Ptr<StringImpl>& rhs) { if (ptr_) ptr_->release(); if (rhs.ptr_) rhs.ptr_->addRef(); ptr_ = rhs.ptr_; return *this; }
-    inline Char Ptr<StringImpl>::operator[](int i) const { return (*ptr_)[(size_t)i]; }
-    inline Char Ptr<StringImpl>::operator[](int i) { return (*ptr_)[(size_t)i]; }
 
     /// <summary>Returns a string containing characters from lhs followed by the characters from rhs.</summary>
     inline String operator+(const String& lhs, const String& rhs) { return new_String(*lhs + *rhs); }

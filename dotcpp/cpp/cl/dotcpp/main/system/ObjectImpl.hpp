@@ -29,7 +29,7 @@ limitations under the License.
 namespace cl
 {
     class Object;
-    class StringImpl; using String = Ptr<StringImpl>;
+    class StringImpl; class String;
     class TypeImpl; using Type = Ptr<TypeImpl>;
 
     /// <summary>

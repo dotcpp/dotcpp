@@ -24,12 +24,14 @@ limitations under the License.
 #pragma once
 
 #include <cl/dotcpp/main/system/Object.hpp>
+#include <cl/dotcpp/main/system/String.hpp>
 
 namespace cl
 {
+    class StringImpl; class String;
     class TypeImpl; using Type = Ptr<TypeImpl>;
     class TypeDataImpl; using TypeData = Ptr<TypeDataImpl>;
-    class StringImpl; using String = Ptr<StringImpl>;
+    class StringImpl; class String;
     class MethodInfoImpl; using MethodInfo = Ptr<MethodInfoImpl>;
     class PropertyInfoImpl; using PropertyInfo = Ptr<PropertyInfoImpl>;
     template <class T> class ListImpl; template <class T> using List = Ptr<ListImpl<T>>;
@@ -154,7 +156,7 @@ namespace cl
     }
 
     template <>
-    inline Type typeof<StringImpl>() { return new_TypeData()->WithName("String").WithNamespace("System").Build(); }
+    inline Type typeof<String>() { return new_TypeData()->WithName("String").WithNamespace("System").Build(); }
 
     template <>
     inline Type typeof<double>() { return new_TypeData()->WithName("Double").WithNamespace("System").Build(); }
