@@ -132,7 +132,7 @@ namespace cl
     template <class T> Ptr<T>::Ptr() : ptr_(nullptr) {}
     template <class T> Ptr<T>::Ptr(T* ptr) : ptr_(ptr) { if (ptr_) ptr_->addRef(); }
     template <class T> template <class R> Ptr<T>::Ptr(const Ptr<R>& rhs, typename std::enable_if<std::is_base_of<T, R>::value>::type* p) : ptr_(rhs.ptr_) { if (ptr_) ptr_->addRef(); }
-    template <class T> template <class R> Ptr<T>::Ptr(const Ptr<R>& rhs, typename std::enable_if<!std::is_base_of<T, R>::value>::type* p)
+    template <class T> template <class R> Ptr<T>::Ptr(const Ptr<R>& rhs, typename std::enable_if<!std::is_base_of<T, R>::value>::type* p) : ptr_(nullptr)
     {
         // If argument is null, ptr_ should also remain null
         if (rhs.ptr_)
@@ -165,100 +165,4 @@ namespace cl
     template <class T> Ptr<T>& Ptr<T>::operator=(const Ptr<T>& rhs) { if (ptr_) ptr_->release(); if (rhs.ptr_) rhs.ptr_->addRef(); ptr_ = rhs.ptr_; return *this; }
     template <class T> template <class I> decltype(auto) Ptr<T>::operator[](I const& i) const { return (*ptr_)[i]; }
     template <class T> template <class I> decltype(auto) Ptr<T>::operator[](I const& i) { return (*ptr_)[i]; }
-
-    class StringImpl;
-    class Char;
-
-    /// <summary>
-    /// Specialization of Ptr for T=StringImpl
-    /// </summary>
-    template <>
-    class Ptr<StringImpl>
-    {
-        StringImpl* ptr_;
-
-        typedef StringImpl element_type;
-        typedef StringImpl* pointer_type;
-
-        template<typename T>
-        friend class Ptr;
-
-    public: // CONSTRUCTORS
-
-        /// <summary>Create null String.</summary>
-        Ptr();
-
-        /// <summary>
-        /// Take ownership of raw pointer to template argument type.
-        /// This also permits construction from null pointer.
-        /// </summary>
-        Ptr(StringImpl* ptr);
-
-        /// <summary>
-        /// Create from std::string.
-        /// </summary>
-        Ptr(const std::string& rhs);
-
-        /// <summary>
-        /// Create from string literal.
-        /// </summary>
-        Ptr(const char* rhs);
-
-        /// <summary>Copy constructor.</summary>
-        Ptr(const Ptr<StringImpl>& rhs);
-
-    public: // DESTRUCTOR
-
-        /// <summary>Decrement reference count if not empty.</summary>
-        ~Ptr();
-
-    public: // OPERATORS
-
-        /// <summary>Pointer dereference.</summary>
-        StringImpl& operator*() const;
-
-        /// <summary>Pointer dereference.</summary>
-        StringImpl* operator->() const;
-
-        /// <summary>Case sensitive comparison to std::string.</summary>
-        bool operator==(const std::string& rhs) const;
-
-        /// <summary>Case sensitive comparison to std::string.</summary>
-        bool operator!=(const std::string& rhs) const;
-
-        /// <summary>Case sensitive comparison to string literal.</summary>
-        bool operator==(const char* rhs) const;
-
-        /// <summary>Case sensitive comparison to string literal.</summary>
-        bool operator!=(const char* rhs) const;
-
-        /// <summary>Supports ptr == nullptr.</summary>
-        bool operator==(Null* rhs) const;
-
-        /// <summary>Supports ptr != nullptr.</summary>
-        bool operator!=(Null* rhs) const;
-
-        /// <summary>Case sensitive comparison by value.</summary>
-        bool operator==(const Ptr<StringImpl>& rhs) const;
-
-        /// <summary>Case sensitive comparison by value.</summary>
-        bool operator!=(const Ptr<StringImpl>& rhs) const;
-
-        /// <summary>
-        /// Take ownership of raw pointer to template argument type.
-        /// This also permits assignment of pointer to type derived from T.
-        /// </summary>
-        Ptr<StringImpl>& operator=(StringImpl* rhs);
-
-        /// <summary>
-        /// Assign pointer of the same type.
-        /// </summary>
-        Ptr<StringImpl>& operator=(const Ptr<StringImpl>& rhs);
-
-        /// <summary>Const indexer operator for arrays.</summary>
-        Char operator[](int i) const;
-
-        /// <summary>Non-const indexer operator for arrays.</summary>
-        Char operator[](int i);
-    };
 }
