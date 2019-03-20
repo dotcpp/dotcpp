@@ -38,6 +38,9 @@ namespace cl
     /// </summary>
     class CL_DOTCPP_MAIN ObjectImpl
     {
+        template<typename T>
+        friend class Ptr;
+
     private: // FIELDS
 
         /// <summary>Reference count for intrusive pointer.</summary>
@@ -67,7 +70,7 @@ namespace cl
 
         ObjectImpl() = default;
 
-    public: // METHODS // TODO - make private
+    private: // METHODS
 
         /// <summary>Increment reference count.</summary>
         void addRef()
