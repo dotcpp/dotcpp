@@ -363,10 +363,10 @@ namespace cl
         bool operator!=(const char* rhs) const { StringImpl& impl = base::operator*(); return impl != rhs; }
 
         /// <summary>Case sensitive comparison to string literal.</summary>
-        bool operator==(const String& rhs) const { return base::operator==(rhs); }
+        bool operator==(const Ptr<StringImpl>& rhs) const { return *this == *rhs; }
 
         /// <summary>Case sensitive comparison to string literal.</summary>
-        bool operator!=(const String& rhs) const { return base::operator!=(rhs); }
+        bool operator!=(const Ptr<StringImpl>& rhs) const { return *this != *rhs; }
     };
 
     /// <summary>
