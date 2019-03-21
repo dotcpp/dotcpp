@@ -41,4 +41,20 @@ namespace cl
 
     /// <summary>Built Type from the current object.</summary>
     Type TypeDataImpl::Build() { return new TypeImpl(this); }
+
+    /// <summary>
+    /// Create from builder.
+    ///
+    /// This constructor is private. Use TypeBuilder->Build() method instead.
+    /// </summary>
+    TypeImpl::TypeImpl(const TypeData& data)
+        : Name(data->name_)
+        , Namespace(data->namespace_)
+    {
+        for (auto propInfoData : data->properties_)
+        {
+            // TODO auto propInfo = new_PropertyInfo(propInfoData->Name, this, propInfoData->PropertyType, propInfoData->PropertyPointer);
+        }
+    }
+
 }

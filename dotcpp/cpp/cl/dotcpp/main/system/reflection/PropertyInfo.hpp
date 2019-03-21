@@ -28,6 +28,36 @@ limitations under the License.
 namespace cl
 {
     class PropertyInfoImpl; using PropertyInfo = Ptr<PropertyInfoImpl>;
+    template <class PropType, class Class> class PropertyInfoDataImpl; template <class PropType, class Class> using PropertyInfoData = Ptr<PropertyInfoDataImpl<PropType, Class>>;
+
+    /// <summary>Data for PropertyInfo.</summary>
+    template <class PropType, class Class>
+    class CL_DOTCPP_MAIN PropertyInfoDataImpl final : public MemberInfoDataImpl
+    {
+
+    public: // PROPERTIES
+
+        /// <summary>Type of this property.</summary>
+        DOT_AUTO_PROP(PropertyInfoImpl, Type, PropertyType)
+
+        /// <summary>Property pointer.</summary>
+        DOT_AUTO_PROP(PropertyInfoImpl, PropType Class::*, PropertyPointer)
+
+    private: // CONSTRUCTORS
+
+        /// <summary>
+        /// Create an empty instance of PropertyInfoData.
+        ///
+        /// This constructor is private. Use new_TypeData() function instead.
+        /// </summary>
+        PropertyInfoDataImpl() = default;
+    };
+
+    /// <summary>
+    /// Create an empty instance of PropertyInfoData.
+    /// </summary>
+    template <class PropType, class Class>
+    PropertyInfoData<PropType, Class> new_PropertyInfoData() { return new PropertyInfoDataImpl<PropType, Class>(); }
 
     /// <summary>
     /// Discovers the attributes of a property and provides access to property metadata.

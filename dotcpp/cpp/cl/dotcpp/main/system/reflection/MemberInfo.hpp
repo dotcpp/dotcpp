@@ -28,7 +28,26 @@ limitations under the License.
 namespace cl
 {
     class MemberInfoImpl; using MemberInfo = Ptr<MemberInfoImpl>;
+    class MemberInfoDataImpl; using MemberInfoData = Ptr<MemberInfoDataImpl>;
     class TypeImpl; using Type = Ptr<TypeImpl>;
+
+    /// <summary>Data for MemberInfo.</summary>
+    class CL_DOTCPP_MAIN MemberInfoDataImpl abstract : public virtual ObjectImpl
+    {
+    public: // PROPERTIES
+
+        /// <summary>Gets the name of the current member.</summary>
+        DOT_AUTO_PROP(MemberInfoImpl, String, Name)
+
+    protected: // CONSTRUCTORS
+
+        /// <summary>
+        /// Create an empty instance of MemberInfoData.
+        ///
+        /// This constructor is protected. It is used by derived classes only.
+        /// </summary>
+        MemberInfoDataImpl() = default;
+    };
 
     /// <summary>
     /// Obtains information about the attributes of a member and provides access to member metadata.

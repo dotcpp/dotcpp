@@ -138,10 +138,7 @@ namespace cl
         ///
         /// This constructor is private. Use TypeBuilder->Build() method instead.
         /// </summary>
-        TypeImpl(const TypeData& data)
-            : Name(data->name_)
-            , Namespace(data->namespace_)
-        {}
+        TypeImpl(const TypeData& data);
     };
 
     /// <summary>Get Type object for the argument.</summary>
