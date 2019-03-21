@@ -23,7 +23,7 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/system/collections/generic/ListBase.hpp>
+#include <cl/dotcpp/main/system/collections/generic/IList.hpp>
 
 namespace cl
 {
@@ -34,7 +34,7 @@ namespace cl
     /// Provides methods to search, sort, and manipulate lists.
     /// </summary>
     template <class T>
-    class ListImpl : public ListBaseImpl<T>
+    class ListImpl : public IListImpl<T>, public virtual ObjectImpl, public std::vector<T>
     {
         typedef std::vector<T> base;
 
@@ -52,8 +52,43 @@ namespace cl
 
     public: // METHODS
 
+        /// <summary>Returns an enumerator that iterates through the collection.</summary>
+        virtual IEnumerator<T> GetEnumerator()
+        {
+            return new_Enumerator(std::vector<T>::begin(), std::vector<T>::end());
+        }
+
+        /// <summary>Returns random access begin iterator of the underlying std::vector.</summary>
+        typename base::iterator begin() { return base::begin(); }
+
+        /// <summary>Returns random access end iterator of the underlying std::vector.</summary>
+        typename base::iterator end() { return base::end(); }
+
+        /// <summary>The number of items contained in the list.</summary>
+        DOT_IMPL_GET(ListImpl, int, Count, { return this->size(); })
+
+        /// <summary>The total number of elements the internal data structure can hold without resizing.</summary>
+        DOT_PROP(ListImpl, int, Capacity, { return this->capacity(); }, { this->reserve(value); });
+
+        /// <summary>Adds an object to the end of the list.</summary>
+        virtual void Add(const T& item) { this->push_back(item); }
+
+        /// <summary>Removes all elements from the list.</summary>
+        virtual void Clear() { this->clear(); }
+
+        /// <summary>Determines whether an element is in the list.</summary>
+        virtual bool Contains(const T& item) { throw std::runtime_error("Not implemented.");  return false; } // TODO - implement
+
         /// <summary>Adds the elements of the specified collection to the end of the list.</summary>
-        // TODO void AddRange(const IEnumerable<T>& collection);
+        // TODO - implement void AddRange(const IEnumerable<T>& collection);
+
+    public: // OPERATORS
+
+        /// <summary>Gets or sets the element at the specified index (const version).</summary>
+        virtual const T& operator[](int i) const { return base::operator[](i); }
+
+        /// <summary>Gets or sets the element at the specified index (non-const version).</summary>
+        virtual T& operator[](int i) { return base::operator[](i); }
     };
 
     /// <summary>
