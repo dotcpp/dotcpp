@@ -38,8 +38,7 @@ namespace cl
     {
         typedef std::vector<T> base;
 
-        template <class T>
-        friend List<T> new_List();
+        template <class T> friend List<T> new_List();
 
     private: // CONSTRUCTORS
 
@@ -81,6 +80,9 @@ namespace cl
 
         /// <summary>Adds the elements of the specified collection to the end of the list.</summary>
         // TODO - implement void AddRange(const IEnumerable<T>& collection);
+
+        /// <summary>Copies the elements of the current List(T) to a new array.</summary>
+        Array1D<T> ToArray() const { return new Array1DImpl(*this); }
 
     public: // OPERATORS
 

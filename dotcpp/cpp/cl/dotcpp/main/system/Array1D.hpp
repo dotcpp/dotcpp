@@ -40,8 +40,8 @@ namespace cl
     {
         typedef detail::array_base<T> base;
 
-        template <class T>
-        friend Array1D<T> new_Array1D(int size);
+        template <class T> friend Array1D<T> new_Array1D(int size);
+        template <class T> friend class ListImpl;
 
     private: // CONSTRUCTORS
 
@@ -51,6 +51,12 @@ namespace cl
         /// This constructor is private. Use new_Array1D(size) function instead.
         /// </summary>
         explicit Array1DImpl(int size) : base(size) {}
+
+        /// <summary>Create from std::vector using copy ctor.</summary>
+        explicit Array1DImpl(const std::vector<T>& obj) : base(obj) {}
+
+        /// <summary>Create from std::vector using move ctor.</summary>
+        explicit Array1DImpl(std::vector<T>&& obj) : base(obj) {}
 
     public: // PROPERTIES
 

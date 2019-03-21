@@ -41,7 +41,7 @@ namespace cl
         {
             typedef std::vector<T> base;
 
-        public: // CONSTRUCTORS
+        protected: // CONSTRUCTORS
 
             /// <summary>
             /// Create with the specified size and default value of T.
@@ -50,6 +50,12 @@ namespace cl
             /// avoiding excess memory allocation.
             /// </summary>
             array_base(int size) : base(size, T()) {}
+
+            /// <summary>Create from std::vector using copy ctor.</summary>
+            explicit array_base(const std::vector<T>& obj) : base(obj) {}
+
+            /// <summary>Create from std::vector using move ctor.</summary>
+            explicit array_base(std::vector<T>&& obj) : base(obj) {}
 
             // TODO - delete or mark private the methods of array_base that change its size
 

@@ -26,6 +26,7 @@ limitations under the License.
 #include <approvals/Catch.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
 #include <cl/dotcpp/main/system/collections/generic/List.hpp>
+#include <cl/dotcpp/main/system/Array1D.hpp>
 
 namespace cl
 {
@@ -51,6 +52,10 @@ namespace cl
         a->Add(2.0);
 
         REQUIRE(a->Count == 3);
+
+        auto b = a->ToArray();
+        REQUIRE(b->Count == 3);
+        REQUIRE(b[2] == 2.0);
     }
 
     TEST_CASE("Interfaces")
