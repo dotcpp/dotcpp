@@ -89,6 +89,13 @@ namespace cl
 
     public: // OPERATORS
 
+        /// <summary>Forward to operator in type Pt(T).</summary>
+        bool operator==(nullptr_t) const { return base::operator==(nullptr); }
+
+        /// <summary>Forward to operator in type Pt(T).</summary>
+        template <class T>
+        bool operator!=(nullptr_t) const { return !operator==(nullptr); }
+
         /// <summary>Assign Ptr(T) to Object.</summary>
         Object& operator=(const Ptr<ObjectImpl>& ptr) { base::operator=(ptr); return *this; }
 
