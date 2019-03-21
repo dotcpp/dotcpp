@@ -101,10 +101,10 @@ namespace cl
         bool operator!=(const Ptr<T>& rhs) const;
 
         /// <summary>Supports ptr == nullptr.</summary>
-        bool operator==(Null* rhs) const;
+        bool operator==(nullptr_t) const;
 
         /// <summary>Supports ptr != nullptr.</summary>
-        bool operator!=(Null* rhs) const;
+        bool operator!=(nullptr_t) const;
 
         /// <summary>
         /// Take ownership of raw pointer to template argument type.
@@ -158,8 +158,8 @@ namespace cl
     template <class T> T* Ptr<T>::operator->() const { if (!ptr_) throw std::runtime_error("Pointer is not initialized"); return ptr_; }
     template <class T> bool Ptr<T>::operator==(const Ptr<T>& rhs) const { return ptr_ == rhs.ptr_; } // TODO check when comparison is performed by value
     template <class T> bool Ptr<T>::operator!=(const Ptr<T>& rhs) const { return ptr_ != rhs.ptr_; } // TODO check when comparison is performed by value
-    template <class T> bool Ptr<T>::operator==(Null* rhs) const { return ptr_ == nullptr; }
-    template <class T> bool Ptr<T>::operator!=(Null* rhs) const { return ptr_ != nullptr; }
+    template <class T> bool Ptr<T>::operator==(nullptr_t) const { return ptr_ == nullptr; }
+    template <class T> bool Ptr<T>::operator!=(nullptr_t) const { return ptr_ != nullptr; }
     template <class T> Ptr<T>& Ptr<T>::operator=(T* rhs) { if (ptr_) ptr_->release(); if (rhs) rhs->addRef(); ptr_ = rhs; return *this; }
     template <class T> template <class R> Ptr<T>& Ptr<T>::operator=(const Ptr<R>& rhs) { if (ptr_) ptr_->release(); if (rhs.ptr_) rhs.ptr_->addRef(); ptr_ = rhs.ptr_; return *this; }
     template <class T> Ptr<T>& Ptr<T>::operator=(const Ptr<T>& rhs) { if (ptr_) ptr_->release(); if (rhs.ptr_) rhs.ptr_->addRef(); ptr_ = rhs.ptr_; return *this; }
