@@ -59,10 +59,10 @@ namespace cl
         String str2 = "abcd";
         REQUIRE(str == str2);
 
-        // Compare two strings that have the same value but are not the same instances
-        // after casting one or both to object
-        // TODO REQUIRE((Object)str == str2);
-        // TODO REQUIRE(str == (Object)str2);
-        // TODO REQUIRE((Object)str == (Object)str2);
+        // Compare two strings that have the same value but are not
+        // the same instances after casting one or both to object
+        REQUIRE(str == (Object)str2);
+        // TODO - fix by implemnenting Equals(...) REQUIRE((Object)str == str2);
+        // TODO - fix by implemnenting Equals(...) REQUIRE((Object)str == (Object)str2);
     }
 }

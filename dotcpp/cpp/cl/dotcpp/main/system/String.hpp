@@ -354,19 +354,25 @@ namespace cl
         bool operator==(const std::string& rhs) const { StringImpl& impl = base::operator*(); return impl == rhs; }
 
         /// <summary>Case sensitive comparison to std::string.</summary>
-        bool operator!=(const std::string& rhs) const { StringImpl& impl = base::operator*(); return impl != rhs; }
+        bool operator!=(const std::string& rhs) const { return !operator==(rhs); }
 
         /// <summary>Case sensitive comparison to string literal.</summary>
-        bool operator==(const char* rhs) const { StringImpl& impl = base::operator*(); return impl == rhs; }
+        bool operator==(const char* rhs) const { if (rhs == nullptr) return base::operator==(nullptr); StringImpl& impl = base::operator*(); return impl == rhs; }
 
         /// <summary>Case sensitive comparison to string literal.</summary>
-        bool operator!=(const char* rhs) const { StringImpl& impl = base::operator*(); return impl != rhs; }
+        bool operator!=(const char* rhs) const { return !operator==(rhs); }
 
         /// <summary>Case sensitive comparison to string literal.</summary>
         bool operator==(const Ptr<StringImpl>& rhs) const { return *this == *rhs; }
 
         /// <summary>Case sensitive comparison to string literal.</summary>
-        bool operator!=(const Ptr<StringImpl>& rhs) const { return *this != *rhs; }
+        bool operator!=(const Ptr<StringImpl>& rhs) const { return !operator==(rhs); }
+
+        /// <summary>Case sensitive comparison to Object.</summary>
+        bool operator==(const Object& rhs) const;
+
+        /// <summary>Case sensitive comparison to Object.</summary>
+        bool operator!=(const Object& rhs) const { return !operator==(rhs); }
     };
 
     /// <summary>

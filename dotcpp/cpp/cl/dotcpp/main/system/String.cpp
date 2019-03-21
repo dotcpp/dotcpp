@@ -25,6 +25,7 @@ limitations under the License.
 
 #include <cl/dotcpp/main/implement.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
+#include <cl/dotcpp/main/system/Object.hpp>
 
 namespace cl
 {
@@ -71,5 +72,23 @@ namespace cl
     {
         throw std::exception("Not implemented");
        // TODO - fix return this->find(s) != std::string::npos;
+    }
+
+    /// <summary>Case sensitive comparison to Object.</summary>
+    bool String::operator==(const Object& rhs) const
+    {
+        // If rhs is null, return false. Otherwise, check if
+        // the other object is a string. If yes, compare by value.
+        // If no, return false.
+        if (rhs == nullptr)
+        {
+            return false;
+        }
+        else
+        {
+            String rhsStr = rhs.as<String>();
+            if (rhsStr != nullptr) return operator==(rhsStr);
+            else return false;
+        }
     }
 }
