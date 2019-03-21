@@ -70,6 +70,7 @@ namespace Cl.DotCpp.Test
 
             // Compare two strings that have the same value but are not the same instances
             // after casting one or both to object
+            Assert.True((Object)str2 == str);
             Assert.True(str == (Object)str2);
             Assert.True((Object)str == (Object)str2);
         }

@@ -1,7 +1,1 @@
-﻿x.Length: 3
-x.Rank: 1
-x.GetLength(0): 3
-x[2]: 3
-x[2]: 4
-y.Length: 3
-Sorted: 1, 2, 3
+﻿Sorted: 1, 2, 3
