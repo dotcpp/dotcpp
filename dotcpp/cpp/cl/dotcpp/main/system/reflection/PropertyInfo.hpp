@@ -183,13 +183,13 @@ namespace cl
         /// <summary>Returns the property value of a specified object.</summary>
         virtual Object GetValue(Object obj) override
         {
-            return (PropType::value_type)((*obj.cast<Ptr<Class>>()).*prop_);
+            return (PropType::value_type)((*Ptr<Class>(obj)).*prop_);
         }
 
         // Prop has operator =
         void SetValue_impl(Object obj, Object value, std::true_type)
         {
-            (*obj.cast<Ptr<Class>>()).*prop_ = (PropType::value_type)value;
+            (*Ptr<Class>(obj)).*prop_ = (PropType::value_type)value;
         }
 
         // Prop does not have operator =

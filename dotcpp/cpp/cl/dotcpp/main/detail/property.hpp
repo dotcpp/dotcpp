@@ -71,6 +71,7 @@ namespace cl
                                                , detail::begin_end<auto_get<T>>  // true: inherit begin_end with begin/end
                                                , detail::dummy                   // false: inherit dummy (just empty struct)
                                                 >::type
+                       , public detail::decl_get
         {
         public: // CONSTRUCTORS
 
@@ -112,6 +113,7 @@ namespace cl
                                                 , detail::begin_end<auto_prop<T>>
                                                 , detail::dummy
                                                  >::type
+                        , public detail::decl_prop
         {
         public: // CONSTRUCTORS
 
