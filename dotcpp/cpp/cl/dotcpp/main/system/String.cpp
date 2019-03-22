@@ -91,4 +91,10 @@ namespace cl
             else return false;
         }
     }
+
+    bool String::operator<(const Ptr<StringImpl>& rhs) const
+    {
+        return this->operator*() < *rhs;
+    }
+
 }

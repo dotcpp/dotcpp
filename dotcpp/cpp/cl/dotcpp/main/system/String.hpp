@@ -136,9 +136,6 @@ namespace cl
         /// <summary>Returns a string containing characters from lhs followed by the characters from rhs.</summary>
         friend String operator+(const String& lhs, const String& rhs);
 
-        /// <summary>Returns a string containing characters from lhs followed by the characters from rhs.</summary>
-        friend bool operator<(const String& lhs, const String& rhs);
-
     public: // STATIC
 
         /* TODO
@@ -367,6 +364,9 @@ namespace cl
 
         /// <summary>Case sensitive comparison to string literal.</summary>
         bool operator!=(const Ptr<StringImpl>& rhs) const { return !operator==(rhs); }
+
+        /// <summary>Case sensitive comparison to string literal.</summary>
+        bool operator<(const Ptr<StringImpl>& rhs) const;
 
         /// <summary>Case sensitive comparison to Object.</summary>
         bool operator==(const Object& rhs) const;
