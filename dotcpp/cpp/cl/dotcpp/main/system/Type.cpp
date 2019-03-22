@@ -33,22 +33,11 @@ limitations under the License.
 
 namespace cl
 {
-    /// <summary>Set the name of the current type, excluding namespace.</summary>
-    TypeData TypeDataImpl::WithName(const String& name) { name_ = name; return this; }
-
-    /// <summary>Set the namespace of the Type.</summary>
-    TypeData TypeDataImpl::WithNamespace(const String& ns)
-    {
-        namespace_ = ns;
-        type_ = new TypeImpl(this); // TODO move it to ctor
-        return this;
-    }
-
     /// <summary>Built Type from the current object.</summary>
     Type TypeDataImpl::Build()
     {
         type_->Fill(this);
-        return type_; 
+        return type_;
     }
 
     /// <summary>
@@ -84,13 +73,18 @@ namespace cl
     ///
     /// This constructor is private. Use TypeBuilder->Build() method instead.
     /// </summary>
-    TypeImpl::TypeImpl(const TypeData& data)
-        : Name(data->name_) // TODO move it ti Fill
-        , Namespace(data->namespace_)
+    TypeImpl::TypeImpl(String Name, String Namespace)
+        : Name(Name)
+        , Namespace(Namespace)
     {
-        //for (auto propInfoData : data->properties_)
-        //{
-        //    // TODO auto propInfo = new_PropertyInfo(propInfoData->Name, this, propInfoData->PropertyType, propInfoData->PropertyPointer);
-        //}
+    }
+
+
+    TypeDataImpl::TypeDataImpl(String Name, String Namespace, String CppName)
+        :full_name_(Name + Namespace)
+    {
+        type_ = new TypeImpl(Name, Namespace);
+        TypeImpl::GetTypeMap()[full_name_] = type_;
+        TypeImpl::GetTypeMap()[CppName] = type_;
     }
 }

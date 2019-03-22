@@ -38,6 +38,9 @@ namespace cl
     class Ptr
     {
         template<class R> friend class Ptr;
+
+    public: // TYPEDEF
+
         typedef T element_type;
         typedef T* pointer_type;
 
@@ -85,10 +88,7 @@ namespace cl
         bool is() const;
 
         /// <summary>Returns true if pointer holds object, and false otherwise.</summary>
-        bool IsEmpty()
-        {
-            return !ptr_;
-        }
+        bool IsEmpty();
 
     public: // OPERATORS
 
@@ -181,4 +181,5 @@ namespace cl
     template <class T> Ptr<T>& Ptr<T>::operator=(const Ptr<T>& rhs) { if (ptr_) ptr_->release(); if (rhs.ptr_) rhs.ptr_->addRef(); ptr_ = rhs.ptr_; return *this; }
     template <class T> template <class I> decltype(auto) Ptr<T>::operator[](I const& i) const { return (*ptr_)[i]; }
     template <class T> template <class I> decltype(auto) Ptr<T>::operator[](I const& i) { return (*ptr_)[i]; }
+    template <class T> bool Ptr<T>::IsEmpty() { return !ptr_; }
 }

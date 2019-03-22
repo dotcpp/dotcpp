@@ -36,6 +36,38 @@ namespace cl
 {
     static std::stringstream received;
 
+    class SampleDataImpl;
+    using SampleData = Ptr<SampleDataImpl>;
+
+
+    class SampleData2Impl;
+    using SampleData2 = Ptr<SampleData2Impl>;
+
+    class SampleData2Impl : public virtual ObjectImpl
+    {
+    public:
+        DOT_AUTO_PROP(SampleData2Impl, SampleData, DataProp)
+
+        static Type typeof()
+        {
+            static Type type = []()-> Type
+            {
+                Type type = new_TypeData<SampleData2Impl>("SampleData2", "DotCpp.System.Test")
+                    ->WithProperty("DataProp", &SampleData2Impl::DataProp)
+
+                    ->Build();
+
+                return type;
+            }();
+
+            return type;
+        }
+
+        virtual Type GetType()
+        {
+            return typeof();
+        }
+    };
     class SampleDataImpl : public virtual ObjectImpl
     {
     public:
@@ -43,7 +75,7 @@ namespace cl
     DOT_AUTO_PROP(SampleDataImpl, String, StringProp)
     DOT_AUTO_PROP(SampleDataImpl, int, IntegerProp)
     DOT_AUTO_PROP(SampleDataImpl, double, DoubleProp)
-
+    DOT_AUTO_PROP(SampleDataImpl, SampleData2, DataProp)
 
         double foo(int dbl_arg)
         {
@@ -55,10 +87,9 @@ namespace cl
         {
             static Type type = []()-> Type
             {
-                Type type = new_TypeData()
-                    ->WithName("SampleData")
-                    ->WithNamespace("DotCpp.System.Test")
-                    ->WithProperty("IntegerProp", &SampleDataImpl::IntegerProp)
+                Type type = new_TypeData<SampleDataImpl>("SampleData", "DotCpp.System.Test")
+                    ->WithProperty("IntegerProp", &SampleDataImpl::StringProp)
+                    ->WithProperty("DataProp", &SampleDataImpl::DataProp)
                     ->WithMethod("foo", &SampleDataImpl::foo, {"dbl_arg"})
 
                     ->Build();
@@ -81,10 +112,12 @@ namespace cl
     TEST_CASE("SimpleSerialization")
     {
         SampleData obj = new_SampleData();
+        SampleData2 obj2 = new SampleData2Impl();
     //    obj->StringProp = "abc";
      //   obj->IntegerProp = 42;
       //  obj->DoubleProp = 1.23;
 
+        Type type2 = obj2->GetType();
         auto vec_prop = obj->GetType()->GetProperties();
         Array1D<cl::Object> param = new_Array1D<Object>(1);
         param[0] = 15;

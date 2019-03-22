@@ -40,23 +40,15 @@ namespace cl
     /// <summary>Builder for Type.</summary>
     class CL_DOTCPP_MAIN TypeDataImpl final : public virtual ObjectImpl
     {
-        friend TypeData new_TypeData();
+        template <class>
+        friend TypeData new_TypeData(String, String);
         friend class TypeImpl;
 
     private:
-        String name_;
-        String namespace_;
+        String full_name_;
         List<PropertyInfo> properties_;
         List<MethodInfo> methods_;
-        Type type_; // TODO replace Type holder with static map of types
-
-    public: // METHODS
-
-        /// <summary>Set the name of the current type, excluding namespace.</summary>
-        TypeData WithName(const String& name);
-
-        /// <summary>Set the namespace of the Type.</summary>
-        TypeData WithNamespace(const String& ns);
+        Type type_;
 
     public: // METHODS
 
@@ -78,8 +70,8 @@ namespace cl
         {
             const int args_count = sizeof...(Args);
             if (args_count != names.size())
-                throw Exception("Wrong number of parameters for method " + name_ + "." + name);
-            
+                throw Exception("Wrong number of parameters for method " + full_name_);
+
             if (methods_.IsEmpty())
             {
                 methods_ = new_List<MethodInfo>();
@@ -92,12 +84,12 @@ namespace cl
             {
                 parameters[i] = new_ParameterInfo(names[i], param_types[i], i);
             }
-            
+
             MethodInfo meth_info = new MemberMethodInfoImpl<Class, Return, Args...>(name, type_, typeof<Return>(), mth);
             meth_info->Parameters = parameters;
 
             methods_->Add(meth_info);
-            
+
             return this;
         }
 
@@ -111,13 +103,14 @@ namespace cl
         ///
         /// This constructor is private. Use new_TypeData() function instead.
         /// </summary>
-        TypeDataImpl() = default;
+        TypeDataImpl(String Name, String Namespace, String CppName);
     };
 
     /// <summary>
     /// Create an empty instance of TypeData.
     /// </summary>
-    inline TypeData new_TypeData() { return new TypeDataImpl(); }
+    template <class T>
+    inline TypeData new_TypeData(String Name, String Namespace) { return new TypeDataImpl(Name, Namespace, typeid(T).name()); }
 
     /// <summary>
     /// Represents type declarations: class types, interface types, array types, value types, enumeration types,
@@ -142,6 +135,9 @@ namespace cl
     class CL_DOTCPP_MAIN TypeImpl final : public virtual ObjectImpl
     {
         friend class TypeDataImpl;
+        template <class T>
+        friend Type typeof();
+
 
     private: // FIELDS
 
@@ -167,12 +163,21 @@ namespace cl
         /// <summary>A string representing the name of the current type.</summary>
         virtual String ToString() const { return "Type"; } // TODO - return name
 
+        /// <summary>Get Type object for the name.</summary>
+        static Type GetType(String name) { return GetTypeMap()[name]; }
+
     private: // METHODS
 
         /// <summary>
         /// Fill data from builder.
         /// </summary>
         void Fill(const TypeData& data);
+
+        static std::map<String, Type>& GetTypeMap()
+        {
+            static std::map<String, Type> map_;
+            return map_;
+        }
 
     private: // CONSTRUCTORS
 
@@ -181,30 +186,41 @@ namespace cl
         ///
         /// This constructor is private. Use TypeBuilder->Build() method instead.
         /// </summary>
-        TypeImpl(const TypeData& data);
+        TypeImpl(String Name, String Namespace);
     };
 
     /// <summary>Get Type object for the argument.</summary>
     template <class T>
-    Type typeof() { return T::typeof(); }
+    Type typeof()
+    {
+        String cpp_name = typeid(T::element_type).name();
+        auto wh = TypeImpl::GetTypeMap().find(cpp_name);
+        if (wh == TypeImpl::GetTypeMap().end())
+        {
+            Type type = T::element_type::typeof();
+            return type;
+        }
+
+        return wh->second;
+    }
 
     /// <summary>
     /// Initializes a new instance of the Type class for untyped instance of Object.
     /// </summary>
     inline Type ObjectImpl::GetType()
     {
-        return new_TypeData()->WithName("Object")->WithNamespace("System")->Build();
+        return new_TypeData<ObjectImpl>("Object", "System")->Build();
     }
 
     template <>
-    inline Type typeof<String>() { return new_TypeData()->WithName("String")->WithNamespace("System")->Build(); }
+    inline Type typeof<String>() { return new_TypeData<String>("String", "System")->Build(); }
 
     template <>
-    inline Type typeof<double>() { return new_TypeData()->WithName("Double")->WithNamespace("System")->Build(); }
+    inline Type typeof<double>() { return new_TypeData<double>("Double", "System")->Build(); }
 
     template <>
-    inline Type typeof<int64_t>() { return new_TypeData()->WithName("Int64")->WithNamespace("System")->Build(); }
+    inline Type typeof<int64_t>() { return new_TypeData<int64_t>("Int64", "System")->Build(); }
 
     template <>
-    inline Type typeof<int>() { return new_TypeData()->WithName("Int32")->WithNamespace("System")->Build(); }
+    inline Type typeof<int>() { return new_TypeData<int>("Int32", "System")->Build(); }
 }
