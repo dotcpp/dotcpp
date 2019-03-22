@@ -149,6 +149,8 @@ namespace cl
         return new PropertyInfoFieldImpl<PropType, Class>(name, declaringType, propertyType, prop);
     }
 
+    class TypeDataImpl;
+
     /// <summary>
     /// Implementation of PropertyInfo for a property defined using a macro.
     /// </summary>
@@ -160,6 +162,7 @@ namespace cl
         template <class PropType, class Class>
         friend PropertyInfo new_PropertyInfo(String, Type, Type, PropType Class::*
             , typename std::enable_if<std::is_base_of<detail::decl_get, PropType>::value>::type *);
+        friend TypeDataImpl;
 
     private: // FIELDS
 

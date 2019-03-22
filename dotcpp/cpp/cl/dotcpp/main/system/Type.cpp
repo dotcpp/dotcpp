@@ -37,10 +37,47 @@ namespace cl
     TypeData TypeDataImpl::WithName(const String& name) { name_ = name; return this; }
 
     /// <summary>Set the namespace of the Type.</summary>
-    TypeData TypeDataImpl::WithNamespace(const String& ns) { namespace_ = ns; return this; }
+    TypeData TypeDataImpl::WithNamespace(const String& ns)
+    {
+        namespace_ = ns;
+        type_ = new TypeImpl(this); // TODO move it to ctor
+        return this;
+    }
 
     /// <summary>Built Type from the current object.</summary>
-    Type TypeDataImpl::Build() { return new TypeImpl(this); }
+    Type TypeDataImpl::Build()
+    {
+        type_->Fill(this);
+        return type_; 
+    }
+
+    /// <summary>
+    /// Fill data from builder.
+    /// </summary>
+    void TypeImpl::Fill(const TypeData& data)
+    {
+        if (!data->properties_.IsEmpty())
+        {
+
+            this->properties_ = new_Array1D<PropertyInfo>(data->properties_->Count);
+
+            int i = 0;
+            for (auto propInfoData : data->properties_)
+            {
+                this->properties_[i++] = propInfoData;
+            }
+        }
+
+        if (!data->methods_.IsEmpty())
+        {
+            this->methods_ = new_Array1D<MethodInfo>(data->methods_->Count);
+            int i = 0;
+            for (auto methInfoData : data->methods_)
+            {
+                this->methods_[i++] = methInfoData;
+            }
+        }
+    }
 
     /// <summary>
     /// Create from builder.
@@ -48,13 +85,12 @@ namespace cl
     /// This constructor is private. Use TypeBuilder->Build() method instead.
     /// </summary>
     TypeImpl::TypeImpl(const TypeData& data)
-        : Name(data->name_)
+        : Name(data->name_) // TODO move it ti Fill
         , Namespace(data->namespace_)
     {
-        for (auto propInfoData : data->properties_)
-        {
-            // TODO auto propInfo = new_PropertyInfo(propInfoData->Name, this, propInfoData->PropertyType, propInfoData->PropertyPointer);
-        }
+        //for (auto propInfoData : data->properties_)
+        //{
+        //    // TODO auto propInfo = new_PropertyInfo(propInfoData->Name, this, propInfoData->PropertyType, propInfoData->PropertyPointer);
+        //}
     }
-
 }

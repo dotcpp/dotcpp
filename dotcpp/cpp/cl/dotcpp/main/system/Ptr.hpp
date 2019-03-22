@@ -84,6 +84,12 @@ namespace cl
         template <class R>
         bool is() const;
 
+        /// <summary>Returns true if pointer holds object, and false otherwise.</summary>
+        bool IsEmpty()
+        {
+            return !ptr_;
+        }
+
     public: // OPERATORS
 
         /// <summary>Pointer dereference.</summary>
@@ -154,8 +160,18 @@ namespace cl
     template <class T> Ptr<T>::~Ptr() { if (ptr_) ptr_->release(); }
     template <class T> template <class R> R Ptr<T>::as() const { R::pointer_type ptr = dynamic_cast<R::pointer_type>(ptr_); return ptr; }
     template <class T> template <class R> bool Ptr<T>::is() const { if (!ptr_) return false; return typeid(*ptr_) == typeid(R::element_type); }
-    template <class T> T& Ptr<T>::operator*() const { if (!ptr_) throw std::runtime_error("Pointer is not initialized"); return *ptr_; }
-    template <class T> T* Ptr<T>::operator->() const { if (!ptr_) throw std::runtime_error("Pointer is not initialized"); return ptr_; }
+    template <class T> T& Ptr<T>::operator*() const
+    { 
+        if (!ptr_)
+        throw std::runtime_error("Pointer is not initialized"); 
+    return *ptr_; 
+    }
+    template <class T> T* Ptr<T>::operator->() const
+    {
+        if (!ptr_) 
+            throw std::runtime_error("Pointer is not initialized");
+        return ptr_; 
+    }
     template <class T> bool Ptr<T>::operator==(const Ptr<T>& rhs) const { return ptr_ == rhs.ptr_; } // TODO check when comparison is performed by value
     template <class T> bool Ptr<T>::operator!=(const Ptr<T>& rhs) const { return ptr_ != rhs.ptr_; } // TODO check when comparison is performed by value
     template <class T> bool Ptr<T>::operator==(nullptr_t) const { return ptr_ == nullptr; }

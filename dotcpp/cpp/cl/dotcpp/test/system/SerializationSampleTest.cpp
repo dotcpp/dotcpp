@@ -44,19 +44,24 @@ namespace cl
     DOT_AUTO_PROP(SampleDataImpl, int, IntegerProp)
     DOT_AUTO_PROP(SampleDataImpl, double, DoubleProp)
 
+
+        double foo(int dbl_arg)
+        {
+            return dbl_arg + 42;
+        }
+
     public:
         static Type typeof()
         {
             static Type type = []()-> Type
             {
-                Type type = new_TypeData()->WithName("SampleData")->WithNamespace("DotCpp.System.Test")->Build();
+                Type type = new_TypeData()
+                    ->WithName("SampleData")
+                    ->WithNamespace("DotCpp.System.Test")
+                    ->WithProperty("IntegerProp", &SampleDataImpl::IntegerProp)
+                    ->WithMethod("foo", &SampleDataImpl::foo, {"dbl_arg"})
 
-                Array1D<PropertyInfo> props = new_Array1D<PropertyInfo>(3);
-                props[0] = new_PropertyInfo("StringProp", type, cl::typeof<String>(), &SampleDataImpl::StringProp);
-                props[1] = new_PropertyInfo("IntegerProp", type, cl::typeof<int>(), &SampleDataImpl::IntegerProp);
-                props[2] = new_PropertyInfo("DoubleProp", type, cl::typeof<double>(), &SampleDataImpl::DoubleProp);
-
-                //!!! type->Properties = props;
+                    ->Build();
 
                 return type;
             }();
@@ -79,10 +84,13 @@ namespace cl
     //    obj->StringProp = "abc";
      //   obj->IntegerProp = 42;
       //  obj->DoubleProp = 1.23;
-        /*
-        auto vec_prop = obj->GetType()->GetProperties();
 
-        for (PropertyInfo& prop : vec_prop)
+        auto vec_prop = obj->GetType()->GetProperties();
+        Array1D<cl::Object> param = new_Array1D<Object>(1);
+        param[0] = 15;
+        double ret = obj->GetType()->GetMethods()[0]->Invoke(obj, param);
+
+        /*for (PropertyInfo& prop : vec_prop)
         {
             Object val = prop->GetValue(obj);
             String name = prop->Name;

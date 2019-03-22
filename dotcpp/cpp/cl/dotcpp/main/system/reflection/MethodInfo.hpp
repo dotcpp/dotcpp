@@ -38,12 +38,12 @@ namespace cl
     /// </summary>
     class MethodInfoImpl : public MemberInfoImpl
     {
+        friend class TypeDataImpl;
+
     public: // METHODS
 
         /// <summary>A string representing the name of the current type.</summary>
         virtual String ToString() const { return "MethodInfo"; }
-
-        Array1D<ParameterInfo> Parameters; // TODO Make private
 
         /// <summary>Gets the parameters of this method.</summary>
         virtual Array1D<ParameterInfo> GetParameters()
@@ -58,6 +58,8 @@ namespace cl
         DOT_AUTO_GET(MethodInfoImpl, Type, ReturnType);
 
     protected: // CONSTRUCTORS
+
+        Array1D<ParameterInfo> Parameters;
 
         /// <summary>
         /// Create from method name, declaring type, return type.
@@ -76,6 +78,8 @@ namespace cl
     template <class Class, class Return, class ... Args>
     class MemberMethodInfoImpl : public MethodInfoImpl
     {
+        
+        friend class TypeDataImpl;
         template <class Class, class Return, class ... Args>
         friend MethodInfo new_MethodInfo(String, Type, Return(Class::*)(Args...));
         typedef Return (Class::*method_type)(Args...);
@@ -93,7 +97,7 @@ namespace cl
         template <int ... I>
         Object Invoke_impl(Object obj, Array1D<Object> params, detail::index_sequence<I...>)
         {
-            return ((*obj.cast<Ptr<Class>>()).*ptr_)(params[I]...);
+            return ((*Ptr<Class>(obj)).*ptr_)(params[I]...);
         }
 
         /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>

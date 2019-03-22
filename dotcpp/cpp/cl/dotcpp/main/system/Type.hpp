@@ -48,6 +48,7 @@ namespace cl
         String namespace_;
         List<PropertyInfo> properties_;
         List<MethodInfo> methods_;
+        Type type_; // TODO replace Type holder with static map of types
 
     public: // METHODS
 
@@ -60,10 +61,45 @@ namespace cl
     public: // METHODS
 
         /// <summary>Add public property of the current Type.</summary>
-        TypeData WithProperty();
+        template <class Class, class Prop>
+        TypeData WithProperty(String name, Prop Class::*prop)
+        {
+             if (properties_.IsEmpty())
+             {
+                 properties_ = new_List<PropertyInfo>();
+             }
+             properties_->Add(new PropertyInfoPropertyImpl(name, type_, typeof<Prop::value_type>(), prop));
+             return this;
+        }
 
         /// <summary>Add public method of the current Type.</summary>
-        TypeData WithMethod();
+        template <class Class, class Return, class ... Args>
+        TypeData WithMethod(String name, Return(Class::*mth) (Args ...), std::vector<String> const& names) // TODO Change to List? Make overload?
+        {
+            const int args_count = sizeof...(Args);
+            if (args_count != names.size())
+                throw Exception("Wrong number of parameters for method " + name_ + "." + name);
+            
+            if (methods_.IsEmpty())
+            {
+                methods_ = new_List<MethodInfo>();
+            }
+
+            Array1D<ParameterInfo> parameters = new_Array1D<ParameterInfo>(sizeof...(Args));
+            std::vector<Type> param_types = { typeof<Args>()... };
+
+            for (int i = 0; i < args_count; ++i)
+            {
+                parameters[i] = new_ParameterInfo(names[i], param_types[i], i);
+            }
+            
+            MethodInfo meth_info = new MemberMethodInfoImpl<Class, Return, Args...>(name, type_, typeof<Return>(), mth);
+            meth_info->Parameters = parameters;
+
+            methods_->Add(meth_info);
+            
+            return this;
+        }
 
         /// <summary>Built Type from the current object.</summary>
         Type Build();
@@ -130,6 +166,13 @@ namespace cl
 
         /// <summary>A string representing the name of the current type.</summary>
         virtual String ToString() const { return "Type"; } // TODO - return name
+
+    private: // METHODS
+
+        /// <summary>
+        /// Fill data from builder.
+        /// </summary>
+        void Fill(const TypeData& data);
 
     private: // CONSTRUCTORS
 
