@@ -16,7 +16,7 @@ by core C++ libraries such as STL and Boost, becomes major obstacle to code reus
 As an example, consider this code in C#:
 
 ```
-myList.OrderBy(_ => _.x).ThenBy(_ => _.y);.ToList();
+myList.OrderBy(_ => _.x).ThenBy(_ => _.y).ToList();
 ```
 
 and this code in C++:
