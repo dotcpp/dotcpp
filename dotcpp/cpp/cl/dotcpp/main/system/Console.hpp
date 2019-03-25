@@ -47,10 +47,20 @@ namespace cl
         /// Writes the text representation of the specified
         /// value or values to the standard output stream.
         /// </summary>
-        template <typename ...Args>
-        static void Write(const String& format, const Args& ...args)
+        template <typename First, typename ...Args>
+        static void Write(const String& format, First&& f, Args&& ...args)
         {
-            std::cout << *String::Format(format, args...);
+            std::cout << *String::Format(format, std::forward<First>(f), std::forward<Args>(args)...);
+        }
+
+        /// <summary>
+        /// Writes the text representation of the specified
+        /// value or values to the standard output stream.
+        /// </summary>
+        template <typename T>
+        static void Write(T&& arg)
+        {
+            std::cout << *String::Format("{0}", std::forward<T>(arg));
         }
 
         /// <summary>
@@ -58,14 +68,10 @@ namespace cl
         /// line terminator, to the standard output stream.
         /// </summary>
         template <typename ...Args>
-        static void WriteLine(const String& format, const Args& ...args)
+        static void WriteLine(Args&& ...args)
         {
-            std::cout << *String::Format(format, args...) << std::endl;
+            Write(std::forward<Args>(args)...);
+            std::cout << std::endl;
         }
-
-    private: // STATIC
-
-        /// <summary>Non-template implementation of Write(...).</summary>
-        static void write_impl(fmt::string_view format_str, fmt::format_args args);
     };
 }

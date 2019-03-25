@@ -24,13 +24,17 @@ limitations under the License.
 #include <cl/dotcpp/test/implement.hpp>
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
-#include <cl/dotcpp/main/system/String.hpp>
 #include <cl/dotcpp/main/system/Console.hpp>
 
 namespace cl
 {
     TEST_CASE("Format")
     {
-        Console::Write("{0}, {1}", 1, "str");
+        int x = 1;
+        String s = "{1}";
+        Console::WriteLine("{0}, {1}", x, "str");
+        //Console::WriteLine(String("{0}"));
+        //Console::WriteLine(s);
+        Console::WriteLine(2);
     }
 }

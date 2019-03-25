@@ -46,6 +46,12 @@ namespace cl
         // TODO  REQUIRE(s11 == "abc");
     }
 
+    TEST_CASE("Format")
+    {
+        REQUIRE(String::Format("{0}", 1) == "1");
+        REQUIRE(String::Format("1") == "1");
+    }
+
     TEST_CASE("Compare")
     {
         // Compare to literal strings

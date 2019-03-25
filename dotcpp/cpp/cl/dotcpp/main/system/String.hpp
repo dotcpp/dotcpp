@@ -353,10 +353,7 @@ namespace cl
         /// and inserts them into another string.
         /// </summary>
         template <typename ...Args>
-        static String Format(const String& format, const Args& ...args)
-        {
-            return new_String(format_impl(*format, fmt::make_format_args(args...)));
-        }
+        static String Format(const String& format, const Args& ...args);
 
     public: // OPERATORS
 
@@ -412,4 +409,14 @@ namespace cl
     /// Default implementation returns full name of the class.
     /// </summary>
     inline String ObjectImpl::ToString() const { return "Object"; }
+
+    /// <summary>
+    /// Converts the value of objects to strings based on the formats specified
+    /// and inserts them into another string.
+    /// </summary>
+    template<typename ...Args>
+    inline String String::Format(const String& format, const Args& ...args)
+    {
+        return format_impl(*format, fmt::make_format_args(args...));
+    }
 }

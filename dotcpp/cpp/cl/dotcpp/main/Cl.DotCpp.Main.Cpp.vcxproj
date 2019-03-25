@@ -11,7 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="system\Console.cpp" />
     <ClCompile Include="system\LocalDate.cpp" />
     <ClCompile Include="system\LocalDateTime.cpp" />
     <ClCompile Include="system\LocalTime.cpp" />
