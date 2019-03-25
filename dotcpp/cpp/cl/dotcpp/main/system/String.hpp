@@ -24,6 +24,7 @@ limitations under the License.
 #pragma once
 
 #include <cl/dotcpp/main/declare.hpp>
+#include <fmt/core.h>
 #include <cl/dotcpp/main/detail/const_string_base.hpp>
 #include <cl/dotcpp/main/system/Ptr.hpp>
 #include <cl/dotcpp/main/system/ObjectImpl.hpp>
@@ -345,6 +346,18 @@ namespace cl
         /// </summary>
         explicit String(const Ptr<ObjectImpl>& rhs) : base(rhs) {}
 
+    public: // STATIC
+
+        /// <summary>
+        /// Converts the value of objects to strings based on the formats specified
+        /// and inserts them into another string.
+        /// </summary>
+        template <typename ...Args>
+        static String Format(const String& format, const Args& ...args)
+        {
+            return new_String(format_impl(*format, fmt::make_format_args(args...)));
+        }
+
     public: // OPERATORS
 
         /// <summary>Case sensitive comparison to std::string.</summary>
@@ -373,6 +386,11 @@ namespace cl
 
         /// <summary>Case sensitive comparison to Object.</summary>
         bool operator!=(const Object& rhs) const { return !operator==(rhs); }
+
+    private: // STATIC
+
+        /// <summary>Non-template implementation of String.Format.</summary>
+        static std::string format_impl(fmt::string_view format_str, fmt::format_args args);
     };
 
     /// <summary>

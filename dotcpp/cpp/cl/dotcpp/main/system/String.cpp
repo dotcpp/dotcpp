@@ -23,6 +23,8 @@ limitations under the License.
 
 #pragma once
 
+#define FMT_HEADER_ONLY
+#include <fmt/format.h>
 #include <cl/dotcpp/main/implement.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
 #include <cl/dotcpp/main/system/Object.hpp>
@@ -92,9 +94,9 @@ namespace cl
         }
     }
 
-    bool String::operator<(const Ptr<StringImpl>& rhs) const
+    /// <summary>Non-template implementation of String.Format.</summary>
+    std::string String::format_impl(fmt::string_view format_str, fmt::format_args args)
     {
-        return this->operator*() < *rhs;
+        return fmt::vformat(format_str, args);
     }
-
 }

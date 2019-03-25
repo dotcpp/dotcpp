@@ -15,6 +15,7 @@
     <ClCompile Include="system\Array1DTest.cpp" />
     <ClCompile Include="system\BoxingTest.cpp" />
     <ClCompile Include="system\collections\generic\ListTest.cpp" />
+    <ClCompile Include="system\ConsoleTest.cpp" />
     <ClCompile Include="system\DoubleTest.cpp" />
     <ClCompile Include="system\LocalDateTest.cpp" />
     <ClCompile Include="system\LocalDateTimeTest.cpp" />
