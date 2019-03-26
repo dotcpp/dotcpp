@@ -33,8 +33,8 @@ namespace cl
         int x = 1;
         String s = "{1}";
         Console::WriteLine("{0}, {1}", x, "str");
-        //Console::WriteLine(String("{0}"));
-        //Console::WriteLine(s);
+        Console::WriteLine(String("{0}"));
+        Console::WriteLine(s);
         Console::WriteLine(2);
     }
 }

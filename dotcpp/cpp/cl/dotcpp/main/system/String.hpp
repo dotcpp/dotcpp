@@ -137,6 +137,9 @@ namespace cl
         /// <summary>Returns a string containing characters from lhs followed by the characters from rhs.</summary>
         friend String operator+(const String& lhs, const String& rhs);
 
+        /// <summary>Returns a string containing characters from lhs followed by the characters from rhs.</summary>
+        friend bool operator<(const String& lhs, const String& rhs);
+
     public: // STATIC
 
         /* TODO
@@ -349,8 +352,8 @@ namespace cl
     public: // STATIC
 
         /// <summary>
-        /// Converts the value of objects to strings based on the formats specified
-        /// and inserts them into another string.
+        /// Replaces format entries in the specified string with the string 
+        /// representation of objects in the argument array.
         /// </summary>
         template <typename ...Args>
         static String Format(const String& format, const Args& ...args);
@@ -374,9 +377,6 @@ namespace cl
 
         /// <summary>Case sensitive comparison to string literal.</summary>
         bool operator!=(const Ptr<StringImpl>& rhs) const { return !operator==(rhs); }
-
-        /// <summary>Case sensitive comparison to string literal.</summary>
-        bool operator<(const Ptr<StringImpl>& rhs) const;
 
         /// <summary>Case sensitive comparison to Object.</summary>
         bool operator==(const Object& rhs) const;
@@ -410,13 +410,24 @@ namespace cl
     /// </summary>
     inline String ObjectImpl::ToString() const { return "Object"; }
 
-    /// <summary>
-    /// Converts the value of objects to strings based on the formats specified
-    /// and inserts them into another string.
-    /// </summary>
+    template <class T>
+    struct format_forward {
+        static inline const T& convert(const T& t) { return t; }
+    };
+
+    template<>
+    struct format_forward<String> {
+        static inline const std::string& convert(const String& s) { return *s; }
+    };
+
+    template<>
+    struct format_forward<Object> {
+        static inline const std::string& convert(const Object& o) { return *o->ToString(); }
+    };
+
     template<typename ...Args>
-    inline String String::Format(const String& format, const Args& ...args)
+    String String::Format(const String& format, const Args& ...args)
     {
-        return format_impl(*format, fmt::make_format_args(args...));
+        return format_impl(*format, fmt::make_format_args(format_forward<Args>::convert(args)...));
     }
 }

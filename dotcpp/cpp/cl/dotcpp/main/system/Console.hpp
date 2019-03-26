@@ -44,33 +44,34 @@ namespace cl
     public: // STATIC
 
         /// <summary>
-        /// Writes the text representation of the specified
-        /// value or values to the standard output stream.
+        /// Writes the text representation of the argument array of objects 
+        /// to the standard output stream using the specified format information.
         /// </summary>
         template <typename First, typename ...Args>
-        static void Write(const String& format, First&& f, Args&& ...args)
+        static void Write(const String& format, const First& f, const Args& ...args)
         {
-            std::cout << *String::Format(format, std::forward<First>(f), std::forward<Args>(args)...);
+            std::cout << *String::Format(format, f, args...);
         }
 
         /// <summary>
-        /// Writes the text representation of the specified
-        /// value or values to the standard output stream.
+        /// Writes the text representation of the specified object 
+        /// to the standard output stream.
         /// </summary>
         template <typename T>
-        static void Write(T&& arg)
+        static void Write(const T& arg)
         {
-            std::cout << *String::Format("{0}", std::forward<T>(arg));
+            std::cout << *String::Format("{0}", arg);
         }
 
         /// <summary>
-        /// Writes the specified data, followed by the current
-        /// line terminator, to the standard output stream.
+        /// Writes the text representation of the specified array of objects,
+        /// followed by the current line terminator, to the standard output
+        /// stream using the specified format information.
         /// </summary>
         template <typename ...Args>
-        static void WriteLine(Args&& ...args)
+        static void WriteLine(const Args& ...args)
         {
-            Write(std::forward<Args>(args)...);
+            Write(args...);
             std::cout << std::endl;
         }
     };
