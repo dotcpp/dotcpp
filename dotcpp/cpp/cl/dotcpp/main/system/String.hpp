@@ -403,6 +403,9 @@ namespace cl
     /// <summary>Returns a string containing characters from lhs followed by the characters from rhs.</summary>
     inline String operator+(const String& lhs, const String& rhs) { return new_String(*lhs + *rhs); }
 
+    /// <summary>Returns a string containing characters from lhs followed by the characters from rhs.</summary>
+    inline bool operator<(const String& lhs, const String& rhs) { return *lhs < *rhs; }
+
     /// <summary>
     /// String that represents the current object.
     ///
