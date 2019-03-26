@@ -48,8 +48,37 @@ namespace cl
 
     TEST_CASE("Format")
     {
-        REQUIRE(String::Format("{0}", 1) == "1");
-        REQUIRE(String::Format("1") == "1");
+        int x = 1;
+        double y = 2.5;
+        const String s = "{0}";
+
+        REQUIRE(String::Format(s, x) == "1");
+        REQUIRE(String::Format("{0:.3f}", y) == "2.500");
+        REQUIRE(String::Format(s, s) == "{0}");
+        REQUIRE(String::Format("{0}, {1}", s, s) == "{0}, {0}");
+
+        REQUIRE(String::Format(String("{0}, {1}, {2}"), 1, "str1", String("str2")) == "1, str1, str2");
+        REQUIRE(String::Format("123") == "123");
+        
+        REQUIRE(String::Format("{0}, {1}, {2}", 'a', 'b', 'c') == "a, b, c");
+        REQUIRE(String::Format("{}, {}, {}", 'a', 'b', 'c') == "a, b, c");
+        REQUIRE(String::Format("{2}, {1}, {0}", 'a', 'b', 'c') == "c, b, a");
+        REQUIRE(String::Format("{0}{1}{0}", "abra", "cad") == "abracadabra");
+        
+        REQUIRE(String::Format("{:<15}", "left aligned") == "left aligned   ");
+        REQUIRE(String::Format("{:>15}", "right aligned") == "  right aligned");
+        REQUIRE(String::Format("{:^16}", "centered") == "    centered    ");
+        REQUIRE(String::Format("{:*^16}", "centered") == "****centered****");
+        REQUIRE(String::Format("{:<{}}", "left aligned", 15) == "left aligned   ");
+
+        REQUIRE(String::Format("{:.{}f}", 3.14, 1) == "3.1");
+        REQUIRE(String::Format("{:+f}; {:+f}", 3.14, -3.14) == "+3.140000; -3.140000");
+        REQUIRE(String::Format("{: f}; {: f}", 3.14, -3.14) == " 3.140000; -3.140000");
+        REQUIRE(String::Format("{:-f}; {:-f}", 3.14, -3.14) == "3.140000; -3.140000");
+
+        REQUIRE(String::Format("int: {0:d};  hex: {0:x};  oct: {0:o}; bin: {0:b}", 42) == "int: 42;  hex: 2a;  oct: 52; bin: 101010");
+        REQUIRE(String::Format("int: {0:d};  hex: {0:#x};  oct: {0:#o};  bin: {0:#b}", 42) == "int: 42;  hex: 0x2a;  oct: 052;  bin: 0b101010");
+        REQUIRE(String::Format("{:#04x}", 0) == "0x00");
     }
 
     TEST_CASE("Compare")

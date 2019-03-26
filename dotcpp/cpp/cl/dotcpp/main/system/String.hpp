@@ -27,8 +27,8 @@ limitations under the License.
 #include <fmt/core.h>
 #include <cl/dotcpp/main/detail/const_string_base.hpp>
 #include <cl/dotcpp/main/system/Ptr.hpp>
-#include <cl/dotcpp/main/system/ObjectImpl.hpp>
 #include <cl/dotcpp/main/system/Char.hpp>
+#include <cl/dotcpp/main/system/Object.hpp>
 
 namespace cl
 {
@@ -410,19 +410,22 @@ namespace cl
     /// </summary>
     inline String ObjectImpl::ToString() const { return "Object"; }
 
+    /// <summary>Helper class for fmt::format arguments conversion</summary>
     template <class T>
     struct format_forward {
         static inline const T& convert(const T& t) { return t; }
     };
 
+    /// <summary>Helper class for fmt::format arguments conversion</summary>
     template<>
     struct format_forward<String> {
         static inline const std::string& convert(const String& s) { return *s; }
     };
 
+    /// <summary>Helper class for fmt::format arguments conversion</summary>
     template<>
     struct format_forward<Object> {
-        static inline const std::string& convert(const Object& o) { return *o->ToString(); }
+        static inline std::string convert(const Object& o) { return *o->ToString(); }
     };
 
     template<typename ...Args>
