@@ -45,7 +45,7 @@ namespace cl
         friend class TypeImpl;
 
     private:
-        String full_name_;
+        String fullName_;
         List<PropertyInfo> properties_;
         List<MethodInfo> methods_;
         Type type_;
@@ -64,13 +64,13 @@ namespace cl
              return this;
         }
 
-        /// <summary>Add public method of the current Type.</summary>
+        /// <summary>Add public member method of the current Type.</summary>
         template <class Class, class Return, class ... Args>
         TypeData WithMethod(String name, Return(Class::*mth) (Args ...), std::vector<String> const& names) // TODO Change to List? Make overload?
         {
-            const int args_count = sizeof...(Args);
-            if (args_count != names.size())
-                throw Exception("Wrong number of parameters for method " + full_name_);
+            const int argsCount = sizeof...(Args);
+            if (argsCount != names.size())
+                throw Exception("Wrong number of parameters for method " + fullName_);
 
             if (methods_.IsEmpty())
             {
@@ -78,17 +78,46 @@ namespace cl
             }
 
             Array1D<ParameterInfo> parameters = new_Array1D<ParameterInfo>(sizeof...(Args));
-            std::vector<Type> param_types = { typeof<Args>()... };
+            std::vector<Type> paramTypes = { typeof<Args>()... };
 
-            for (int i = 0; i < args_count; ++i)
+            for (int i = 0; i < argsCount; ++i)
             {
-                parameters[i] = new_ParameterInfo(names[i], param_types[i], i);
+                parameters[i] = new_ParameterInfo(names[i], paramTypes[i], i);
             }
 
-            MethodInfo meth_info = new MemberMethodInfoImpl<Class, Return, Args...>(name, type_, typeof<Return>(), mth);
-            meth_info->Parameters = parameters;
+            MethodInfo methodInfo_ = new MemberMethodInfoImpl<Class, Return, Args...>(name, type_, typeof<Return>(), mth);
+            methodInfo_->Parameters = parameters;
 
-            methods_->Add(meth_info);
+            methods_->Add(methodInfo_);
+
+            return this;
+        }
+
+        /// <summary>Add public static method of the current Type.</summary>
+        template <class Return, class ... Args>
+        TypeData WithMethod(String name, Return(*mth) (Args ...), std::vector<String> const& names) // TODO Change to List? Make overload?
+        {
+            const int argsCount = sizeof...(Args);
+            if (argsCount != names.size())
+                throw Exception("Wrong number of parameters for method " + fullName_);
+
+            if (methods_.IsEmpty())
+            {
+                methods_ = new_List<MethodInfo>();
+            }
+
+            Array1D<ParameterInfo> parameters = new_Array1D<ParameterInfo>(sizeof...(Args));
+            std::vector<Type> paramTypes = { typeof<Args>()... };
+
+            for (int i = 0; i < argsCount; ++i)
+            {
+                parameters[i] = new_ParameterInfo(names[i], paramTypes[i], i);
+            }
+
+            MethodInfo methodInfo_ = new StaticMethodInfoImpl<Return, Args...>(name, type_, typeof<Return>(), mth);
+            methodInfo_->Parameters = parameters;
+
+            methods_->Add(methodInfo_);
 
             return this;
         }
@@ -223,4 +252,7 @@ namespace cl
 
     template <>
     inline Type typeof<int>() { return new_TypeData<int>("Int32", "System")->Build(); }
+
+    template <>
+    inline Type typeof<void>() { return new_TypeData<void>("Void", "System")->Build(); }
 }

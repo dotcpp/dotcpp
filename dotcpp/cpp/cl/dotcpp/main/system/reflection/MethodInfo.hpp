@@ -57,9 +57,11 @@ namespace cl
         /// <summary>Gets the return type of this method.</summary>
         DOT_AUTO_GET(MethodInfoImpl, Type, ReturnType);
 
-    protected: // CONSTRUCTORS
+    protected: // FIELDS
 
         Array1D<ParameterInfo> Parameters;
+
+    protected: // CONSTRUCTORS
 
         /// <summary>
         /// Create from method name, declaring type, return type.
@@ -78,14 +80,12 @@ namespace cl
     template <class Class, class Return, class ... Args>
     class MemberMethodInfoImpl : public MethodInfoImpl
     {
-        
         friend class TypeDataImpl;
-        template <class Class, class Return, class ... Args>
-        friend MethodInfo new_MethodInfo(String, Type, Return(Class::*)(Args...));
         typedef Return (Class::*method_type)(Args...);
 
     private: // FIELDS
 
+        /// <summary>C++ function pointer type for the method.</summary>
         method_type ptr_;
 
     public: // METHODS
@@ -95,9 +95,17 @@ namespace cl
 
         /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
         template <int ... I>
-        Object Invoke_impl(Object obj, Array1D<Object> params, detail::index_sequence<I...>)
+        Object Invoke_impl(Object obj, Array1D<Object> params, detail::index_sequence<I...>, std::false_type)
         {
             return ((*Ptr<Class>(obj)).*ptr_)(params[I]...);
+        }
+
+        /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
+        template <int ... I>
+        Object Invoke_impl(Object obj, Array1D<Object> params, detail::index_sequence<I...>, std::true_type)
+        {
+            ((*Ptr<Class>(obj)).*ptr_)(params[I]...);
+            return Object();
         }
 
         /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
@@ -106,7 +114,7 @@ namespace cl
             if (params->Count != Parameters->Count)
                 throw Exception("Wrong number of parameters for method " + this->DeclaringType->Name + "." + this->Name);
 
-            return Invoke_impl(obj, params, detail::make_index_sequence<sizeof...(Args)>::type());
+            return Invoke_impl(obj, params, detail::make_index_sequence<sizeof...(Args)>::type(), std::is_same<Return, void>::type());
         }
 
     private: // CONSTRUCTORS
@@ -121,15 +129,61 @@ namespace cl
             : MethodInfoImpl(name, declaringType, returnType)
             , ptr_(ptr)
         {}
-
     };
 
     /// <summary>
-    /// Create from method name, declaring type, return type, and parameters.
+    /// Obtains information about the attributes of a static method and provides access to method metadata.
     /// </summary>
-    template <class Class, class Return, class ... Args>
-    MethodInfo new_MethodInfo(String name, Type declaringType, Return(Class::*meth)(Args...) )
+    template <class Return, class ... Args>
+    class StaticMethodInfoImpl : public MethodInfoImpl
     {
-        return new MemberMethodInfoImpl<Class, Return, Args...>(name, declaringType, /*typeof<Return>()*/ nullptr, meth);
-    }
+        friend class TypeDataImpl;
+        typedef Return (*method_type)(Args...);
+
+    private: // FIELDS
+
+        method_type ptr_;
+
+    public: // METHODS
+
+        /// <summary>A string representing the name of the current type.</summary>
+        virtual String ToString() const { return "StaticMethodInfo"; }
+
+        /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
+        template <int ... I>
+        Object Invoke_impl(Object obj, Array1D<Object> params, detail::index_sequence<I...>, std::false_type)
+        {
+            return (*ptr_)(params[I]...);
+        }
+
+        /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
+        template <int ... I>
+        Object Invoke_impl(Object obj, Array1D<Object> params, detail::index_sequence<I...>, std::true_type)
+        {
+            (*ptr_)(params[I]...);
+            return Object();
+        }
+
+        /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
+        virtual Object Invoke(Object obj, Array1D<Object> params)
+        {
+            if (params->Count != Parameters->Count)
+                throw Exception("Wrong number of parameters for method " + this->DeclaringType->Name + "." + this->Name);
+
+            return Invoke_impl(obj, params, detail::make_index_sequence<sizeof...(Args)>::type(), std::is_same<Return, void>::type());
+        }
+
+    private: // CONSTRUCTORS
+
+        /// <summary>
+        /// Create from method name, declaring type, return type, and pointer to method.
+        ///
+        /// This constructor is private. Use new_MethodInfo(...)
+        /// function with matching signature instead.
+        /// </summary>
+        StaticMethodInfoImpl(const String& name, Type declaringType, Type returnType, method_type ptr)
+            : MethodInfoImpl(name, declaringType, returnType)
+            , ptr_(ptr)
+        {}
+    };
 }

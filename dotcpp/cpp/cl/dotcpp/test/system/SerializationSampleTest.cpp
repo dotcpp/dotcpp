@@ -36,12 +36,8 @@ namespace cl
 {
     static std::stringstream received;
 
-    class SampleDataImpl;
-    using SampleData = Ptr<SampleDataImpl>;
-
-
-    class SampleData2Impl;
-    using SampleData2 = Ptr<SampleData2Impl>;
+    class SampleDataImpl; using SampleData = Ptr<SampleDataImpl>;
+    class SampleData2Impl; using SampleData2 = Ptr<SampleData2Impl>;
 
     class SampleData2Impl : public virtual ObjectImpl
     {
@@ -68,18 +64,30 @@ namespace cl
             return typeof();
         }
     };
+
     class SampleDataImpl : public virtual ObjectImpl
     {
     public:
 
-    DOT_AUTO_PROP(SampleDataImpl, String, StringProp)
-    DOT_AUTO_PROP(SampleDataImpl, int, IntegerProp)
-    DOT_AUTO_PROP(SampleDataImpl, double, DoubleProp)
-    DOT_AUTO_PROP(SampleDataImpl, SampleData2, DataProp)
+        DOT_AUTO_PROP(SampleDataImpl, String, StringProp)
+        DOT_AUTO_PROP(SampleDataImpl, int, IntegerProp)
+        DOT_AUTO_PROP(SampleDataImpl, double, DoubleProp)
+        DOT_AUTO_PROP(SampleDataImpl, SampleData2, DataProp)
 
-        double foo(int dbl_arg)
+        double Foo(int dblArg)
         {
-            return dbl_arg + 42;
+            received << "Foo(" << dblArg << ")" << std::endl;
+            return dblArg + 42;
+        }
+
+        void Bar(int intArg)
+        {
+            received << "Bar( << intArg << ")" << std::endl;
+        }
+
+        static void StaticFoo(int intArg)
+        {
+            received << "StaticFoo( << intArg << ")" << std::endl;
         }
 
     public:
@@ -90,7 +98,9 @@ namespace cl
                 Type type = new_TypeData<SampleDataImpl>("SampleData", "DotCpp.System.Test")
                     ->WithProperty("IntegerProp", &SampleDataImpl::StringProp)
                     ->WithProperty("DataProp", &SampleDataImpl::DataProp)
-                    ->WithMethod("foo", &SampleDataImpl::foo, {"dbl_arg"})
+                    ->WithMethod("Foo", &SampleDataImpl::Foo, {"dblArg"})
+                    ->WithMethod("Bar", &SampleDataImpl::Bar, { "dblArg" })
+                    ->WithMethod("StaticFoo", &SampleDataImpl::StaticFoo, { "intArg" })
 
                     ->Build();
 
@@ -113,17 +123,19 @@ namespace cl
     {
         SampleData obj = new_SampleData();
         SampleData2 obj2 = new SampleData2Impl();
-    //    obj->StringProp = "abc";
-     //   obj->IntegerProp = 42;
-      //  obj->DoubleProp = 1.23;
+        // obj->StringProp = "abc";
+        // obj->IntegerProp = 42;
+        // obj->DoubleProp = 1.23;
 
         Type type2 = obj2->GetType();
         auto vec_prop = obj->GetType()->GetProperties();
         Array1D<cl::Object> param = new_Array1D<Object>(1);
         param[0] = 15;
         double ret = obj->GetType()->GetMethods()[0]->Invoke(obj, param);
+        obj->GetType()->GetMethods()[1]->Invoke(obj, param);
 
-        /*for (PropertyInfo& prop : vec_prop)
+        /* TODO - Restore test
+        for (PropertyInfo& prop : vec_prop)
         {
             Object val = prop->GetValue(obj);
             String name = prop->Name;
