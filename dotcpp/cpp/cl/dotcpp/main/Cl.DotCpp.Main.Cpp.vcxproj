@@ -71,6 +71,7 @@
     <ClInclude Include="system\ReadOnlyProperty.hpp" />
     <ClInclude Include="system\ReadOnlyStaticProperty.hpp" />
     <ClInclude Include="system\reflection\BindingFlags.hpp" />
+    <ClInclude Include="system\reflection\ConstructorInfo.hpp" />
     <ClInclude Include="system\reflection\MemberInfo.hpp" />
     <ClInclude Include="system\reflection\MethodInfo.hpp" />
     <ClInclude Include="system\reflection\ParameterInfo.hpp" />

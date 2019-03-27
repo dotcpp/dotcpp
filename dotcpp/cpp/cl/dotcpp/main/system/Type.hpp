@@ -33,6 +33,7 @@ namespace cl
     class TypeDataImpl; using TypeData = Ptr<TypeDataImpl>;
     class StringImpl; class String;
     class MethodInfoImpl; using MethodInfo = Ptr<MethodInfoImpl>;
+    class ConstructorInfoImpl; using ConstructorInfo = Ptr<ConstructorInfoImpl>;
     class PropertyInfoImpl; using PropertyInfo = Ptr<PropertyInfoImpl>;
     template <class T> class ListImpl; template <class T> using List = Ptr<ListImpl<T>>;
     template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
@@ -48,6 +49,7 @@ namespace cl
         String fullName_;
         List<PropertyInfo> properties_;
         List<MethodInfo> methods_;
+        List<ConstructorInfo> ctors_;
         Type type_;
 
     public: // METHODS
@@ -122,6 +124,36 @@ namespace cl
             return this;
         }
 
+        /// <summary>Add public constructor of the current Type.</summary>
+        template <class Class, class ... Args>
+        TypeData WithConstructor(Class(*ctor)(Args...), std::vector<String> const& names) // TODO Change to List? Make overload?
+        {
+            const int argsCount_ = sizeof...(Args);
+            if (argsCount_ != names.size())
+                throw Exception("Wrong number of parameters for method " + fullName_);
+
+            if (ctors_.IsEmpty())
+            {
+                ctors_ = new_List<ConstructorInfo>();
+            }
+
+            Array1D<ParameterInfo> parameters = new_Array1D<ParameterInfo>(sizeof...(Args));
+            std::vector<Type> paramTypes = { typeof<Args>()... };
+
+            for (int i = 0; i < argsCount_; ++i)
+            {
+                parameters[i] = new_ParameterInfo(names[i], paramTypes[i], i);
+            }
+
+            ConstructorInfo ctorInfo = new MemberConstructorInfoImpl<Class, Args...>(type_, ctor);
+            ctorInfo->Parameters = parameters;
+
+            ctors_->Add(ctorInfo);
+
+            return this;
+        }
+
+
         /// <summary>Built Type from the current object.</summary>
         Type Build();
 
@@ -172,6 +204,7 @@ namespace cl
 
         Array1D<PropertyInfo> properties_;
         Array1D<MethodInfo> methods_;
+        Array1D<ConstructorInfo> ctors_;
 
     public: // PROPERTIES
 
@@ -184,10 +217,13 @@ namespace cl
     public: // METHODS
 
         /// <summary>Returns all the public properties of the current Type.</summary>
-        virtual Array1D<PropertyInfo> GetProperties() { return properties_; }
+        Array1D<PropertyInfo> GetProperties() { return properties_; }
 
         /// <summary>Returns methods of the current type.</summary>
-        virtual Array1D<MethodInfo> GetMethods() { return methods_; }
+        Array1D<MethodInfo> GetMethods() { return methods_; }
+
+        /// <summary>Returns constructors of the current type.</summary>
+        Array1D<ConstructorInfo> GetConstructors() { return ctors_; }
 
         /// <summary>A string representing the name of the current type.</summary>
         virtual String ToString() const { return "Type"; } // TODO - return name

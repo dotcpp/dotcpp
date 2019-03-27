@@ -27,6 +27,7 @@ limitations under the License.
 #include <cl/dotcpp/main/system/ObjectImpl.hpp>
 #include <cl/dotcpp/main/system/reflection/PropertyInfo.hpp>
 #include <cl/dotcpp/main/system/reflection/MethodInfo.hpp>
+#include <cl/dotcpp/main/system/reflection/ConstructorInfo.hpp>
 #include <cl/dotcpp/main/system/Array1D.hpp>
 #include <cl/dotcpp/main/system/collections/generic/List.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
@@ -66,6 +67,16 @@ namespace cl
                 this->methods_[i++] = methInfoData;
             }
         }
+
+        if (!data->ctors_.IsEmpty())
+        {
+            this->ctors_ = new_Array1D<ConstructorInfo>(data->ctors_->Count);
+            int i = 0;
+            for (auto ctorInfoData : data->ctors_)
+            {
+                this->ctors_[i++] = ctorInfoData;
+            }
+        }
     }
 
     /// <summary>
@@ -81,10 +92,10 @@ namespace cl
 
 
     TypeDataImpl::TypeDataImpl(String Name, String Namespace, String CppName)
-        :full_name_(Name + Namespace)
+        : fullName_(Name + Namespace)
     {
         type_ = new TypeImpl(Name, Namespace);
-        TypeImpl::GetTypeMap()[full_name_] = type_;
+        TypeImpl::GetTypeMap()[fullName_] = type_;
         TypeImpl::GetTypeMap()[CppName] = type_;
     }
 }

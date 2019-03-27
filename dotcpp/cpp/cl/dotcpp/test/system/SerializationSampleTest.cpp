@@ -28,6 +28,7 @@ limitations under the License.
 #include <cl/dotcpp/main/system/Exception.hpp>
 #include <cl/dotcpp/main/system/reflection/PropertyInfo.hpp>
 #include <cl/dotcpp/main/system/reflection/MethodInfo.hpp>
+#include <cl/dotcpp/main/system/reflection/ConstructorInfo.hpp>
 #include <cl/dotcpp/main/system/Type.hpp>
 #include <cl/dotcpp/main/system/Array1D.hpp>
 #include <cl/dotcpp/main/system/collections/generic/List.hpp>
@@ -65,6 +66,9 @@ namespace cl
         }
     };
 
+    class SampleDataImpl; using SampleData = Ptr<SampleDataImpl>;
+    SampleData new_SampleData();
+
     class SampleDataImpl : public virtual ObjectImpl
     {
     public:
@@ -98,9 +102,10 @@ namespace cl
                 Type type = new_TypeData<SampleDataImpl>("SampleData", "DotCpp.System.Test")
                     ->WithProperty("IntegerProp", &SampleDataImpl::StringProp)
                     ->WithProperty("DataProp", &SampleDataImpl::DataProp)
-                    ->WithMethod("Foo", &SampleDataImpl::Foo, {"dblArg"})
-                    ->WithMethod("Bar", &SampleDataImpl::Bar, { "dblArg" })
-                    ->WithMethod("StaticFoo", &SampleDataImpl::StaticFoo, { "intArg" })
+                    ->WithMethod("foo", &SampleDataImpl::foo, {"dbl_arg"})
+                    ->WithMethod("bar", &SampleDataImpl::bar, { "dbl_arg" })
+                    ->WithMethod("fooo", &SampleDataImpl::fooo, { "g" })
+                    ->WithConstructor(&new_SampleData, {})
 
                     ->Build();
 
@@ -116,7 +121,6 @@ namespace cl
         }
     };
 
-    using SampleData = Ptr<SampleDataImpl>;
     SampleData new_SampleData() { return new SampleDataImpl; }
 
     TEST_CASE("SimpleSerialization")
@@ -133,6 +137,8 @@ namespace cl
         param[0] = 15;
         double ret = obj->GetType()->GetMethods()[0]->Invoke(obj, param);
         obj->GetType()->GetMethods()[1]->Invoke(obj, param);
+
+        Object o2 = obj->GetType()->GetConstructors()[0]->Invoke({});
 
         /* TODO - Restore test
         for (PropertyInfo& prop : vec_prop)
