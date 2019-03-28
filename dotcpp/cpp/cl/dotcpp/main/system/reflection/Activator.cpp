@@ -43,28 +43,31 @@ namespace cl
     {
         Array1D<ConstructorInfo> ctors = type->GetConstructors();
 
-        // if no constructors
+        // If no constructors
         if (ctors.IsEmpty() || ctors->Count == 0)
         {
             throw Exception(String::Format("Type {0}.{1} does not have registered constructors", type->Namespace, type->Name));
         }
 
-        // search for best matched constructor
-        
+        // Search for best matched constructor
         ConstructorInfo best_ctor = nullptr;
-        int paramsCount = params.IsEmpty() ? 0 : params->Count;
+        int paramsCount = 0;
+        if (!params.IsEmpty())
+        {
+            paramsCount = params->Count;
+        }
 
         for (auto ctor : ctors)
         {
             auto ctorParams = ctor->GetParameters();
             bool matches = true;
 
-            // continue if different parameters count
+            // Continue if different parameters count
             if (ctorParams->Count != paramsCount)
                 continue;
 
-            // compare all parameters types
-            for (int i = 0; i < params->Count; ++i)
+            // Compare all parameters types
+            for (int i = 0; i < paramsCount; ++i)
             {
                 if ((String)ctorParams[i]->ParameterType->Name != params[i]->GetType()->Name)
                 {
@@ -73,7 +76,7 @@ namespace cl
                 }
             }
 
-            // break if found
+            // Break if found
             if (matches)
             {
                 best_ctor = ctor;
@@ -81,7 +84,7 @@ namespace cl
             }
         }
 
-        // if not constructor found
+        // If not found
         if (best_ctor == nullptr)
         {
             throw Exception("No matching public constructor was found.");

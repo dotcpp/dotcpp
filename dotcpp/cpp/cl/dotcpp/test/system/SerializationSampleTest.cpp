@@ -29,6 +29,7 @@ limitations under the License.
 #include <cl/dotcpp/main/system/reflection/PropertyInfo.hpp>
 #include <cl/dotcpp/main/system/reflection/MethodInfo.hpp>
 #include <cl/dotcpp/main/system/reflection/ConstructorInfo.hpp>
+#include <cl/dotcpp/main/system/reflection/Activator.hpp>
 #include <cl/dotcpp/main/system/Type.hpp>
 #include <cl/dotcpp/main/system/Array1D.hpp>
 #include <cl/dotcpp/main/system/collections/generic/List.hpp>
@@ -127,6 +128,9 @@ namespace cl
     {
         SampleData obj = new_SampleData();
         SampleData2 obj2 = new SampleData2Impl();
+
+        SampleData dt = (SampleData)Activator::CreateInstance(obj->GetType());
+
         // obj->StringProp = "abc";
         // obj->IntegerProp = 42;
         // obj->DoubleProp = 1.23;
