@@ -28,14 +28,30 @@ limitations under the License.
 
 namespace cl
 {
-    class CL_DOTCPP_MAIN Activator
+    /// <summary>
+    /// Contains methods to create types of objects locally or remotely, or obtain 
+    /// references to existing remote objects. This class cannot be inherited.
+    /// </summary>
+    class CL_DOTCPP_MAIN Activator final
     {
+    private: // CONSTRUCTORS
+
+        Activator() = delete;
+        Activator(const Activator&) = delete;
+        Activator operator=(const Activator&) = delete;
+
     public: // METHODS
 
+        /// <summary>Creates an instance of the specified type using that type's default constructor.</summary>
         static Object CreateInstance(Type type);
+
+        /// <summary>Creates an instance of the specified type using the constructor that best matches the specified parameters.</summary>
         static Object CreateInstance(Type type, Array1D<Object> params);
 
-        static Object CreateInstance(String typeName);
-        static Object CreateInstance(String typeName, Array1D<Object> params);
+        /// <summary>Creates an instance of the type whose name is specified, using the named assembly and default constructor.</summary>
+        static Object CreateInstance(String assemblyName, String typeName);
+
+        /// <summary>Creates an instance of the type whose name is specified, using the named assembly and default constructor.</summary>
+        static Object CreateInstance(String assemblyName, String typeName, Array1D<Object> params);
     };
 }

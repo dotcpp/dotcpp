@@ -34,7 +34,6 @@ limitations under the License.
 
 namespace cl
 {
-
     Object Activator::CreateInstance(Type type)
     {
         return CreateInstance(type, nullptr);
@@ -44,20 +43,59 @@ namespace cl
     {
         Array1D<ConstructorInfo> ctors = type->GetConstructors();
 
+        // if no constructors
         if (ctors.IsEmpty() || ctors->Count == 0)
         {
             throw Exception(String::Format("Type {0}.{1} does not have registered constructors", type->Namespace, type->Name));
         }
 
-        return Object();
+        // search for best matched constructor
+        
+        ConstructorInfo best_ctor = nullptr;
+        int paramsCount = params.IsEmpty() ? 0 : params->Count;
+
+        for (auto ctor : ctors)
+        {
+            auto ctorParams = ctor->GetParameters();
+            bool matches = true;
+
+            // continue if different parameters count
+            if (ctorParams->Count != paramsCount)
+                continue;
+
+            // compare all parameters types
+            for (int i = 0; i < params->Count; ++i)
+            {
+                if ((String)ctorParams[i]->ParameterType->Name != params[i]->GetType()->Name)
+                {
+                    matches = false;
+                    break;
+                }
+            }
+
+            // break if found
+            if (matches)
+            {
+                best_ctor = ctor;
+                break;
+            }
+        }
+
+        // if not constructor found
+        if (best_ctor == nullptr)
+        {
+            throw Exception("No matching public constructor was found.");
+        }
+
+        return best_ctor->Invoke(params);
     }
 
-    Object Activator::CreateInstance(String typeName)
+    Object Activator::CreateInstance(String assemblyName, String typeName)
     {
         return CreateInstance(TypeImpl::GetType(typeName), nullptr);
     }
 
-    Object Activator::CreateInstance(String typeName, Array1D<Object> params)
+    Object Activator::CreateInstance(String assemblyName, String typeName, Array1D<Object> params)
     {
         return CreateInstance(TypeImpl::GetType(typeName), params);
     }
