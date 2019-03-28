@@ -158,8 +158,8 @@ namespace cl
     }
     template <class T> Ptr<T>::Ptr(const Ptr<T>& rhs) : ptr_(rhs.ptr_) { if (ptr_) ptr_->addRef(); }
     template <class T> Ptr<T>::~Ptr() { if (ptr_) ptr_->release(); }
-    template <class T> template <class R> R Ptr<T>::as() const { R::pointer_type ptr = dynamic_cast<R::pointer_type>(ptr_); return ptr; }
-    template <class T> template <class R> bool Ptr<T>::is() const { if (!ptr_) return false; return typeid(*ptr_) == typeid(R::element_type); }
+    template <class T> template <class R> R Ptr<T>::as() const { typename R::pointer_type ptr = dynamic_cast<typename R::pointer_type>(ptr_); return ptr; }
+    template <class T> template <class R> bool Ptr<T>::is() const { if (!ptr_) return false; return typeid(*ptr_) == typeid(typename R::element_type); }
     template <class T> T& Ptr<T>::operator*() const
     { 
         if (!ptr_)

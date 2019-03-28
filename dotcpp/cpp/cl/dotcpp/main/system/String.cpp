@@ -21,8 +21,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#pragma once
-
 #define FMT_HEADER_ONLY
 #include <fmt/format.h>
 #include <cl/dotcpp/main/implement.hpp>
@@ -72,7 +70,7 @@ namespace cl
     ///<summary>Indicates whether the argument occurs within this string.</summary>
     bool StringImpl::Contains(String const& s) const
     {
-        throw std::exception("Not implemented");
+        throw std::runtime_error("Not implemented");
        // TODO - fix return this->find(s) != std::string::npos;
     }
 

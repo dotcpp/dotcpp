@@ -55,8 +55,8 @@ namespace cl
         template <class T>
         struct begin_end
         {
-            auto begin() { return static_cast<T*>(this)->operator T::value_type()->begin(); }
-            auto end() { return static_cast<T*>(this)->operator T::value_type()->end(); }
+            auto begin() { return static_cast<T*>(this)->operator typename T::value_type()->begin(); }
+            auto end() { return static_cast<T*>(this)->operator typename T::value_type()->end(); }
         };
 
         /// <summary>Helper class to implement readonly property.</summary>

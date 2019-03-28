@@ -24,10 +24,13 @@ limitations under the License.
 #pragma once
 
 #include <cl/dotcpp/main/declare.hpp>
+#include <cl/dotcpp/main/system/ObjectImpl.hpp>
 
 namespace cl
 {
     class ArrayImpl;
+
+    template <class> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
 
     /// <summary>
     /// Common base to List(T) and Array1D(T)

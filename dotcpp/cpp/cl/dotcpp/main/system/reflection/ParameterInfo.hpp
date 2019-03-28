@@ -56,8 +56,8 @@ namespace cl
         /// function with matching signature instead.
         /// </summary>
         ParameterInfoImpl(String name, Type parameterType, int position)
-            : Name(name)
-            , ParameterType(parameterType)
+            : ParameterType(parameterType)
+            , Name(name)
             , Position(position)
         {}
     };

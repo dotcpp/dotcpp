@@ -32,7 +32,7 @@ namespace cl
     class TypeImpl; using Type = Ptr<TypeImpl>;
 
     /// <summary>Data for MemberInfo.</summary>
-    class CL_DOTCPP_MAIN MemberInfoDataImpl abstract : public virtual ObjectImpl
+    class CL_DOTCPP_MAIN MemberInfoDataImpl : public virtual ObjectImpl
     {
     public: // PROPERTIES
 

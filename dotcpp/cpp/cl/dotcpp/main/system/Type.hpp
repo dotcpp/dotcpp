@@ -25,6 +25,11 @@ limitations under the License.
 
 #include <cl/dotcpp/main/system/Object.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
+#include <cl/dotcpp/main/system/Array1D.hpp>
+#include <cl/dotcpp/main/system/collections/generic/List.hpp>
+#include <cl/dotcpp/main/system/reflection/MethodInfo.hpp>
+#include <cl/dotcpp/main/system/reflection/ParameterInfo.hpp>
+#include <cl/dotcpp/main/system/reflection/PropertyInfo.hpp>
 
 namespace cl
 {
@@ -37,6 +42,8 @@ namespace cl
     class PropertyInfoImpl; using PropertyInfo = Ptr<PropertyInfoImpl>;
     template <class T> class ListImpl; template <class T> using List = Ptr<ListImpl<T>>;
     template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
+
+    template <class T> Type typeof();
 
     /// <summary>Builder for Type.</summary>
     class CL_DOTCPP_MAIN TypeDataImpl final : public virtual ObjectImpl
@@ -62,7 +69,7 @@ namespace cl
              {
                  properties_ = new_List<PropertyInfo>();
              }
-             properties_->Add(new PropertyInfoPropertyImpl(name, type_, typeof<Prop::value_type>(), prop));
+             properties_->Add(new PropertyInfoPropertyImpl<Prop, Class>(name, type_, typeof<typename Prop::value_type>(), prop));
              return this;
         }
 
@@ -264,7 +271,7 @@ namespace cl
     template <class T>
     Type typeof()
     {
-        String cpp_name = typeid(T::element_type).name();
+        String cpp_name = typeid(typename T::element_type).name();
         auto wh = TypeImpl::GetTypeMap().find(cpp_name);
         if (wh == TypeImpl::GetTypeMap().end())
         {

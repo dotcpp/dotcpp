@@ -40,8 +40,8 @@ namespace cl
     {
         typedef detail::array_base<T> base;
 
-        template <class T> friend Array1D<T> new_Array1D(int size);
-        template <class T> friend class ListImpl;
+        template <class R> friend Array1D<R> new_Array1D(int size);
+        template <class R> friend class ListImpl;
 
     private: // CONSTRUCTORS
 

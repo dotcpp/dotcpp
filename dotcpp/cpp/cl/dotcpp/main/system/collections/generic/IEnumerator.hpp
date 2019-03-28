@@ -36,11 +36,8 @@ namespace cl
     template <class T>
     class IEnumeratorImpl : public virtual ObjectImpl
     {
-        template <class Iterator>
-        friend IEnumerator<typename Iterator::value_type> new_Enumerator(Iterator const&, Iterator const&);
-
-        template <class T>
-        friend class IEnumerableImpl;
+        template <class Iterator> friend IEnumerator<typename Iterator::value_type> new_Enumerator(Iterator const&, Iterator const&);
+        template <class R> friend class IEnumerableImpl;
 
     private: // FIELDS
 

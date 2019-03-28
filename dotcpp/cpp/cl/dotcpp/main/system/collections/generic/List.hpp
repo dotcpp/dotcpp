@@ -38,7 +38,7 @@ namespace cl
     {
         typedef std::vector<T> base;
 
-        template <class T> friend List<T> new_List();
+        template <class R> friend List<R> new_List();
 
     private: // CONSTRUCTORS
 

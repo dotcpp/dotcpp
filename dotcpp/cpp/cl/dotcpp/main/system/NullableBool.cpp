@@ -21,8 +21,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#pragma once
-
 #include <cl/dotcpp/main/implement.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
 #include <cl/dotcpp/main/system/NullableBool.hpp>
@@ -40,7 +38,7 @@ namespace cl
             case 1: return "Y";
             case 0: return "N";
             case Bool::Empty: return "";
-            default: throw std::exception("Unknown internal value in NullableBool.");
+            default: throw std::runtime_error("Unknown internal value in NullableBool.");
         }
     }
 }

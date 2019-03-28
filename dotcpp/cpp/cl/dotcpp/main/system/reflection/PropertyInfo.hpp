@@ -23,6 +23,7 @@ limitations under the License.
 
 #pragma once
 
+#include <cl/dotcpp/main/system/Exception.hpp>
 #include <cl/dotcpp/main/system/reflection/MemberInfo.hpp>
 
 namespace cl
@@ -100,8 +101,8 @@ namespace cl
     {
         typedef PropType Class::* property_ptr_type;
 
-        template <class PropType, class Class>
-        friend PropertyInfo new_PropertyInfo(String , Type , Type , PropType Class::*
+        template <class PropType1, class Class1>
+        friend PropertyInfo new_PropertyInfo(String , Type , Type , PropType1 Class1::*
             , typename std::enable_if<!std::is_base_of<detail::decl_get, PropType>::value>::type *);
 
     private: // FIELDS
@@ -159,8 +160,8 @@ namespace cl
     {
         typedef PropType Class::* property_ptr_type;
 
-        template <class PropType, class Class>
-        friend PropertyInfo new_PropertyInfo(String, Type, Type, PropType Class::*
+        template <class PropType1, class Class1>
+        friend PropertyInfo new_PropertyInfo(String, Type, Type, PropType1 Class1::*
             , typename std::enable_if<std::is_base_of<detail::decl_get, PropType>::value>::type *);
         friend TypeDataImpl;
 
@@ -186,13 +187,13 @@ namespace cl
         /// <summary>Returns the property value of a specified object.</summary>
         virtual Object GetValue(Object obj) override
         {
-            return (PropType::value_type)((*Ptr<Class>(obj)).*prop_);
+            return (typename PropType::value_type)((*Ptr<Class>(obj)).*prop_);
         }
 
         // Prop has operator =
         void SetValue_impl(Object obj, Object value, std::true_type)
         {
-            (*Ptr<Class>(obj)).*prop_ = (PropType::value_type)value;
+            (*Ptr<Class>(obj)).*prop_ = (typename PropType::value_type)(value);
         }
 
         // Prop does not have operator =
@@ -205,7 +206,7 @@ namespace cl
         // SetValue throws exception in case of setting read-only DOT_PROP
         virtual void SetValue(Object obj, Object value) override
         {
-            SetValue_impl(obj, value, std::is_base_of<detail::decl_prop, PropType>::type());
+            SetValue_impl(obj, value, typename std::is_base_of<detail::decl_prop, PropType>::type());
         }
     };
 

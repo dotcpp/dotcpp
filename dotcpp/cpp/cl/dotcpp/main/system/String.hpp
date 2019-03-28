@@ -73,7 +73,7 @@ namespace cl
 
     public: // METHODS
 
-        /// <summary>Returns the number of 8-bit characters, not the number of Unicode characters.\\
+        /// <summary>Returns the number of 8-bit characters, not the number of Unicode characters.
         /// This number may be different from the number of Unicode characters because each
         /// Unicode character might be represented by more than one 8-bit character.</summary>
         int byteCount() const;
@@ -110,7 +110,7 @@ namespace cl
         Array1D<String> Split(char separator) const;
 
         /// <summary>Returns a string array that contains the substrings in
-        /// this string that are delimited by any of the specified strings.\\
+        /// this string that are delimited by any of the specified strings.
         /// A parameter specifies whether to return empty array elements.</summary>
         Array1D<String> Split(const Array1D<String>& separator, const StringSplitOptions& options) const;
 

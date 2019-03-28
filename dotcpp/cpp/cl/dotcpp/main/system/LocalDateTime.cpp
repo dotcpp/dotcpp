@@ -130,8 +130,6 @@ namespace cl
 
     LocalDateTime LocalDateTime::Previous(int targetDayOfWeek) const
     {
-        auto wd = boost::gregorian::greg_weekday(targetDayOfWeek);
-        gdate d = boost::gregorian::previous_weekday(date(), wd);
         return {LocalDate(date()).Previous(targetDayOfWeek), time_of_day()};
     }
 

@@ -25,6 +25,23 @@ limitations under the License.
 
 #include <cl/dotcpp/main/system/collections/generic/IEnumerator.hpp>
 
+namespace std
+{
+    /// <summary>Implements begin() used by STL and similar algorithms.</summary>
+    template <class T>
+    auto begin(cl::Ptr<T> & obj)
+    {
+        return obj->begin();
+    }
+
+    /// <summary>Implements end() used by STL and similar algorithms.</summary>
+    template <class T>
+    auto end(cl::Ptr<T> & obj)
+    {
+        return obj->end();
+    }
+}
+
 namespace cl
 {
     template <class T> class IEnumerableImpl; template <class T> using IEnumerable = Ptr<IEnumerableImpl<T>>;
@@ -60,14 +77,14 @@ namespace std
 {
     /// <summary>Implements begin() used by STL and similar algorithms.</summary>
     template <class T>
-    auto begin(cl::Ptr<T> & obj)
+    auto begin(cl::IEnumerable<T> & obj)
     {
         return obj->begin();
     }
 
     /// <summary>Implements end() used by STL and similar algorithms.</summary>
     template <class T>
-    auto end(cl::Ptr<T> & obj)
+    auto end(cl::IEnumerable<T> & obj)
     {
         return obj->end();
     }
