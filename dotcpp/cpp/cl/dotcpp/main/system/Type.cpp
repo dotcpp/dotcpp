@@ -98,4 +98,26 @@ namespace cl
         TypeImpl::GetTypeMap()[fullName_] = type_;
         TypeImpl::GetTypeMap()[CppName] = type_;
     }
+
+    PropertyInfo TypeImpl::GetProperty(String name)
+    {
+        for (auto prop : properties_)
+        {
+            if (prop->Name == name)
+                return prop;
+        }
+
+        return nullptr;
+    }
+
+    MethodInfo TypeImpl::GetMethod(String name)
+    {
+        for (auto method : methods_)
+        {
+            if (method->Name == name)
+                return method;
+        }
+
+        return nullptr;
+    }
 }

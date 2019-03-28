@@ -420,6 +420,12 @@ namespace cl
     };
 
     /// <summary>Helper class for fmt::format arguments conversion</summary>
+    template<class T>
+    struct format_forward<detail::auto_get<T>> {
+        static inline std::string convert(const T& o) { return format_forward<T>::convert(o); }
+    };
+
+    /// <summary>Helper class for fmt::format arguments conversion</summary>
     template<>
     struct format_forward<String> {
         static inline const std::string& convert(const String& s) { return *s; }

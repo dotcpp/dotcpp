@@ -225,6 +225,12 @@ namespace cl
         /// <summary>Returns constructors of the current type.</summary>
         Array1D<ConstructorInfo> GetConstructors() { return ctors_; }
 
+        /// <summary>Searches for the public property with the specified name.</summary>
+        PropertyInfo GetProperty(String name);
+
+        /// <summary>Searches for the public method with the specified name.</summary>
+        MethodInfo GetMethod(String name);
+
         /// <summary>A string representing the name of the current type.</summary>
         virtual String ToString() const { return "Type"; } // TODO - return name
 

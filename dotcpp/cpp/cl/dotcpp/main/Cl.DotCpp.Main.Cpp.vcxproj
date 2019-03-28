@@ -20,6 +20,7 @@
     <ClCompile Include="system\NullableLong.cpp" />
     <ClCompile Include="system\Object.cpp" />
     <ClCompile Include="system\Period.cpp" />
+    <ClCompile Include="system\reflection\Activator.cpp" />
     <ClCompile Include="system\String.cpp" />
     <ClCompile Include="system\Type.cpp" />
   </ItemGroup>
@@ -70,6 +71,7 @@
     <ClInclude Include="system\Ptr.hpp" />
     <ClInclude Include="system\ReadOnlyProperty.hpp" />
     <ClInclude Include="system\ReadOnlyStaticProperty.hpp" />
+    <ClInclude Include="system\reflection\Activator.hpp" />
     <ClInclude Include="system\reflection\BindingFlags.hpp" />
     <ClInclude Include="system\reflection\ConstructorInfo.hpp" />
     <ClInclude Include="system\reflection\MemberInfo.hpp" />
