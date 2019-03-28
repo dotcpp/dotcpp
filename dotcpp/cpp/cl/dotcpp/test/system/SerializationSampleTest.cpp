@@ -86,12 +86,12 @@ namespace cl
 
         void Bar(int intArg)
         {
-            received << "Bar( << intArg << ")" << std::endl;
+            received << "Bar(" << intArg << ")" << std::endl;
         }
 
         static void StaticFoo(int intArg)
         {
-            received << "StaticFoo( << intArg << ")" << std::endl;
+            received << "StaticFoo(" << intArg << ")" << std::endl;
         }
 
     public:
@@ -102,9 +102,9 @@ namespace cl
                 Type type = new_TypeData<SampleDataImpl>("SampleData", "DotCpp.System.Test")
                     ->WithProperty("IntegerProp", &SampleDataImpl::StringProp)
                     ->WithProperty("DataProp", &SampleDataImpl::DataProp)
-                    ->WithMethod("foo", &SampleDataImpl::foo, {"dbl_arg"})
-                    ->WithMethod("bar", &SampleDataImpl::bar, { "dbl_arg" })
-                    ->WithMethod("fooo", &SampleDataImpl::fooo, { "g" })
+                    ->WithMethod("foo", &SampleDataImpl::Foo, {"dbl_arg"})
+                    ->WithMethod("bar", &SampleDataImpl::Bar, { "dbl_arg" })
+                    ->WithMethod("fooo", &SampleDataImpl::StaticFoo, { "g" })
                     ->WithConstructor(&new_SampleData, {})
 
                     ->Build();
