@@ -67,7 +67,6 @@ namespace cl
         LocalTime t3(14, 2, 2, 2);
         Period p1 = Period::Between(t1, t2);
         Period p2 = Period::Between(t2, t3);
-        Period p3 = Period::Between(t1, t3);
 
         REQUIRE(t2 + p1 == t3);
         REQUIRE(t2 - t1 == p2);

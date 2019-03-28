@@ -74,7 +74,6 @@ namespace cl
 
         Period p1 = Period::Between(d1, d2);
         Period p2 = Period::Between(d2, d3);
-        Period p3 = Period::Between(d1, d3);
 
         REQUIRE(d2 + p1 == d3);
         REQUIRE(d2 - d1 == p2);
