@@ -21,8 +21,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_main_StringSplitOptions_hpp
-#define cl_dotcpp_main_StringSplitOptions_hpp
+#pragma once
 
 #include <cl/dotcpp/main/declare.hpp>
 
@@ -39,5 +38,3 @@ namespace cl
         RemoveEmptyEntries
     };
 }
-
-#endif // cl_dotcpp_main_StringSplitOptions_hpp

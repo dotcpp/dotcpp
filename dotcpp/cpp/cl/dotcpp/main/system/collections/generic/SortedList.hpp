@@ -21,8 +21,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_main_SortedList_hpp
-#define cl_dotcpp_main_SortedList_hpp
+#pragma once
 
 #include <cl/dotcpp/main/system/collections/generic/List.hpp>
 #include <deque>
@@ -99,5 +98,3 @@ namespace cl
         inline bool tryGetValue(Key key, Type& value);
     };
 }
-
-#endif // cl_dotcpp_main_SortedList_hpp

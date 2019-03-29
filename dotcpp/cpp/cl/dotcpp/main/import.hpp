@@ -21,8 +21,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_main_import_hpp
-#define cl_dotcpp_main_import_hpp
+#pragma once
 
 // Supports compilation into Windows DLL
 #ifndef CL_IMPLEMENT
@@ -64,5 +63,3 @@ limitations under the License.
 
 // DotCpp detail includes
 #include <cl/dotcpp/main/detail/property.hpp>
-
-#endif // cl_dotcpp_main_import_hpp

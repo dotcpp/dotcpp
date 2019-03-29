@@ -21,8 +21,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_main_Dictionary_hpp
-#define cl_dotcpp_main_Dictionary_hpp
+#pragma once
 
 #include <unordered_map>
 #include <cl/dotcpp/main/system/collections/generic/ICollection.hpp>
@@ -118,5 +117,3 @@ namespace cl
         }
     };
 }
-
-#endif // cl_dotcpp_main_Dictionary_hpp

@@ -21,8 +21,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_main_SortedDictionary_hpp
-#define cl_dotcpp_main_SortedDictionary_hpp
+#pragma once
 
 #include <map>
 
@@ -152,5 +151,3 @@ namespace cl
         }
     };
 }
-
-#endif // cl_dotcpp_main_SortedDictionary_hpp

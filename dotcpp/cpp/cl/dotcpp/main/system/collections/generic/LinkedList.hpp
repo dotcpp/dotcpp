@@ -21,8 +21,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_main_LinkedList_hpp
-#define cl_dotcpp_main_LinkedList_hpp
+#pragma once
 
 #include <deque>
 
@@ -63,5 +62,3 @@ namespace cl
         }
     };
 }
-
-#endif // cl_dotcpp_main_LinkedList_hpp

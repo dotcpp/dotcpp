@@ -41,6 +41,7 @@
     <ClInclude Include="system\collections\generic\Dictionary.hpp" />
     <ClInclude Include="system\collections\generic\HashSet.hpp" />
     <ClInclude Include="system\collections\generic\ICollection.hpp" />
+    <ClInclude Include="system\collections\generic\IDictionary.hpp" />
     <ClInclude Include="system\collections\generic\IEnumerable.hpp" />
     <ClInclude Include="system\collections\generic\IEnumerator.hpp" />
     <ClInclude Include="system\collections\generic\IList.hpp" />

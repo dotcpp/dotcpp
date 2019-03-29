@@ -21,8 +21,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_main_SortedSet_hpp
-#define cl_dotcpp_main_SortedSet_hpp
+#pragma once
 
 #include <set>
 
@@ -123,5 +122,3 @@ namespace cl
         inline void unionWith(const IEnumerable<T>& other);
     };
 }
-
-#endif // cl_dotcpp_main_SortedSet_hpp

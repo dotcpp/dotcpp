@@ -21,13 +21,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_main_implement_hpp
-#define cl_dotcpp_main_implement_hpp
+#pragma once
 
 #include <cl/dotcpp/main/import.hpp>
 
 #ifndef CL_DOTCPP_MAIN
 #   define CL_DOTCPP_MAIN CL_IMPLEMENT
 #endif
-
-#endif // cl_dotcpp_main_implement_hpp

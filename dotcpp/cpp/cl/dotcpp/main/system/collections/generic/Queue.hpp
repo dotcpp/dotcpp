@@ -21,8 +21,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef cl_dotcpp_main_Queue_hpp
-#define cl_dotcpp_main_Queue_hpp
+#pragma once
 
 #include <deque>
 
@@ -93,5 +92,3 @@ namespace cl
         inline void trimExcess();
     };
 }
-
-#endif // cl_dotcpp_main_Queue_hpp
