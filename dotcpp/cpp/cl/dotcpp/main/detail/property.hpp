@@ -170,6 +170,8 @@ namespace cl
                                                                                         \
             ptype & operator = (const ptype &) = delete;                                \
             operator ptype() const { return this_->CAT(get, name)(name); }              \
+            CAT(name, _prop) & operator = (const CAT(name, _prop) & rhs)                \
+                { name = rhs.name; return *this;  }                                     \
                                                                                         \
             Class * this_;                                                              \
                                                                                         \
@@ -195,6 +197,8 @@ namespace cl
             void operator = (const ptype &value )                                       \
                 { return this_->CAT(set, name)(name, value); }                          \
             operator ptype() const { return this_->CAT(get, name)(name); }              \
+            CAT(name, _prop) & operator = (const CAT(name, _prop) & rhs)                \
+                { name = rhs.operator ptype(); return *this;  }                         \
                                                                                         \
             Class * this_;                                                              \
                                                                                         \
@@ -229,6 +233,8 @@ namespace cl
                                                                                         \
             ptype & operator = (const ptype &) = delete;                                \
             operator ptype() const { return this_->CAT(get, name)(name); }              \
+            CAT(name, _prop) & operator = (const CAT(name, _prop) & rhs)                \
+                { name = rhs.name; return *this;  }                                     \
                                                                                         \
             Class * this_;                                                              \
                                                                                         \
@@ -254,6 +260,8 @@ namespace cl
             void operator = (const ptype &value )                                       \
                 { return this_->CAT(set, name)(name, value); }                          \
             operator ptype() const { return this_->CAT(get, name)(name); }              \
+            CAT(name, _prop) & operator = (const CAT(name, _prop) & rhs)                \
+                { name = rhs.operator ptype(); return *this;  }                         \
                                                                                         \
             Class * this_;                                                              \
                                                                                         \
