@@ -52,7 +52,6 @@ namespace cl
         {
             return detail::std_iterator_wrapper<T>(std::move(GetEnumerator()->end_iterator_));
         }
-
     };
 
     /// <summary>Implements begin() used by STL and similar algorithms.</summary>

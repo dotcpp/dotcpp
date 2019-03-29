@@ -32,7 +32,7 @@ namespace cl
 
     /// <summary>Represents a generic collection of key/value pairs.</summary>
     template <class TKey, class TValue>
-    class IDictionaryImpl : public ICollectionImpl<std::pair<TKey, TValue>>
+    class IDictionaryImpl : public ICollectionImpl<std::pair<TKey, TValue>> // TODO - should be ICollectionImpl<KeyValuePair<TKey, TValue>>
     {
     public: // PROPERTIES
 
@@ -45,16 +45,16 @@ namespace cl
     public: // METHODS
 
         /// <summary>Adds an element with the provided key and value to the IDictionary.</summary>
-        void Add(const TKey& key, const TValue& value) = 0;
+        virtual void Add(const TKey& key, const TValue& value) = 0;
 
         /// <summary>Determines whether the IDictionary contains an element with the specified key.</summary>
-        bool ContainsKey(const TKey& key) = 0;
+        virtual bool ContainsKey(const TKey& key) = 0;
 
         /// <summary>Removes the element with the specified key from the IDictionary.</summary>
-        bool Remove(TKey key) = 0;
+        virtual bool Remove(TKey key) = 0;
 
         /// <summary>Gets the value associated with the specified key.</summary>
-        bool TryGetValue(const TKey& key, TValue& value) = 0;
+        virtual bool TryGetValue(const TKey& key, TValue& value) = 0;
 
     public: // OPERATORS
 
