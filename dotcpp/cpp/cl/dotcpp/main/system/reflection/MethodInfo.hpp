@@ -114,7 +114,7 @@ namespace cl
             if (params->Count != Parameters->Count)
                 throw Exception("Wrong number of parameters for method " + this->DeclaringType->Name + "." + this->Name);
 
-            return Invoke_impl(obj, params, detail::make_index_sequence<sizeof...(Args)>::type(), std::is_same<Return, void>::type());
+            return Invoke_impl(obj, params, typename detail::make_index_sequence<sizeof...(Args)>::type(), typename std::is_same<Return, void>::type());
         }
 
     private: // CONSTRUCTORS
@@ -170,7 +170,7 @@ namespace cl
             if (params->Count != Parameters->Count)
                 throw Exception("Wrong number of parameters for method " + this->DeclaringType->Name + "." + this->Name);
 
-            return Invoke_impl(obj, params, detail::make_index_sequence<sizeof...(Args)>::type(), std::is_same<Return, void>::type());
+            return Invoke_impl(obj, params, typename detail::make_index_sequence<sizeof...(Args)>::type(), typename std::is_same<Return, void>::type());
         }
 
     private: // CONSTRUCTORS

@@ -42,6 +42,7 @@ namespace cl
     class PropertyInfoImpl; using PropertyInfo = Ptr<PropertyInfoImpl>;
     template <class T> class ListImpl; template <class T> using List = Ptr<ListImpl<T>>;
     template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
+    template <class Class, class ... Args> class MemberConstructorInfoImpl;
 
     template <class T> Type typeof();
 
