@@ -25,51 +25,65 @@ limitations under the License.
 
 #include <unordered_map>
 #include <cl/dotcpp/main/system/collections/generic/IDictionary.hpp>
+#include <cl/dotcpp/main/system/collections/generic/List.hpp>
 
 namespace cl
 {
+    template <class TKey, class TValue> class DictionaryImpl;
+    template <class TKey, class TValue> using Dictionary = Ptr<DictionaryImpl<TKey, TValue>>;
+
     /// <summary>Represents a collection of keys and values.</summary>
     template <class TKey, class TValue>
-    class Dictionary
-        : public IDictionary<TKey, TValue>,
+    class DictionaryImpl
+        : public IDictionary<TKey, TValue>
+        , public virtual ObjectImpl
         , public std::unordered_map<TKey, TValue>
     {
-        typedef std::unordered_map<Key, Type> base;
+        typedef std::unordered_map<TKey, TValue> base;
 
-    public: // CONSTRUCTORS
+        template <class TKey, class TValue>
+        friend Dictionary<TKey, TValue> new_Dictionary();
 
-        /// <summary>Initializes a new instance of Dictionary.</summary>
-        Dictionary() : base() {}
+    private: // CONSTRUCTORS
+
+        /// <summary>
+        /// Initializes a new instance of Dictionary.
+        ///
+        /// This constructor is private. Use new_Dictionary() function instead.
+        /// </summary>
+        DictionaryImpl() : base() {}
+
+    public: // METHODS
 
         /// <summary>Gets number of elements in dictionary.</summary>
         int Count() const { return this->size(); }
 
         /// <summary>Gets List of keys.</summary>
-        inline List<Key> keys()
+        inline List<TKey> keys()
         {
-            List<Key> keys;
-            std::for_each(this->get().begin(), this->get().end(), [&keys](std::pair<Key, Type> const& value){ keys.add(value.first); });
+            List<TKey> keys;
+            std::for_each(this->get().begin(), this->get().end(), [&keys](std::pair<TKey, TValue> const& value){ keys.add(value.first); });
             return keys;
         }
 
         /// <summary>Gets List of values.</summary>
-        inline List<Type> values()
+        inline List<TValue> values()
         {
-            List<Type> values;
-            std::for_each(this->get().begin(), this->get().end(), [&values](std::pair<Key, Type> const& value){ values.add(value.second); });
+            List<TValue> values;
+            std::for_each(this->get().begin(), this->get().end(), [&values](std::pair<TKey, TValue> const& value){ values.add(value.second); });
             return values;
         }
 
         /// <summary>Gets value reference associated with the specified key.</summary>
-        inline Type& operator[] (Key const& key)
+        inline TValue& operator[] (TKey const& key)
         {
             return this->get()[key];
         }
 
         /// <summary>Adds the specified key and value to the Dictionary.</summary>
-        inline void add(Key const& key, Type const& value)
+        inline void add(TKey const& key, TValue const& value)
         {
-            this->get().insert(std::pair<Key, Type>(key, value));
+            this->get().insert(std::pair<TKey, TValue>(key, value));
         }
 
         /// <summary>Removes all keys and values from the Dictionary.</summary>
@@ -79,13 +93,13 @@ namespace cl
         }
 
         /// <summary>Determines whether the Dictionary contains the specified key.</summary>
-        inline bool containsKey(Key const& key) const
+        inline bool containsKey(TKey const& key) const
         {
             return (this->get().find(key) != this->get().end());
         }
 
         /// <summary>Determines whether the Dictionary contains the specified value.</summary>
-        inline bool containsValue(const Type& value) const
+        inline bool containsValue(const TValue& value) const
         {
             for (typename base::iterator iter = this->get().begin(); iter != this->get().end(); iter++)
             {
@@ -98,13 +112,13 @@ namespace cl
         }
 
         /// <summary>Removes the value with the specified key from the Dictionary.</summary>
-        inline bool remove(Key const& key)
+        inline bool remove(TKey const& key)
         {
             this->get().erase(key);
         }
 
         /// <summary>Gets the value associated with the specified key.</summary>
-        inline bool tryGetValue(Key const& key, Type& value)
+        inline bool tryGetValue(TKey const& key, TValue& value)
         {
             typename base::iterator iter = this->get().find(key);
             if (iter != this->get().end())
@@ -115,4 +129,8 @@ namespace cl
             return false;
         }
     };
+
+    /// <summary>Initializes a new instance of Dictionary.</summary>
+    template <class TKey, class TValue>
+    Dictionary<TKey, TValue> new_Dictionary() { return new DictionaryImpl<TKey, TValue>(); }
 }
