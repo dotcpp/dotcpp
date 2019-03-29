@@ -24,16 +24,15 @@ limitations under the License.
 #pragma once
 
 #include <unordered_map>
-#include <cl/dotcpp/main/system/collections/generic/ICollection.hpp>
-#include <cl/dotcpp/main/system/collections/generic/IEnumerable.hpp>
-#include <cl/dotcpp/main/system/collections/generic/IEnumerator.hpp>
-#include <cl/dotcpp/main/system/collections/generic/List.hpp>
+#include <cl/dotcpp/main/system/collections/generic/IDictionary.hpp>
 
 namespace cl
 {
     /// <summary>Represents a collection of keys and values.</summary>
-    template <class Key, class Type >
-    class Dictionary : public std::unordered_map<Key, Type>
+    template <class TKey, class TValue>
+    class Dictionary
+        : public IDictionary<TKey, TValue>,
+        , public std::unordered_map<TKey, TValue>
     {
         typedef std::unordered_map<Key, Type> base;
 
