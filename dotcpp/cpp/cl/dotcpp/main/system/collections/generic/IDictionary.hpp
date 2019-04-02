@@ -31,7 +31,7 @@ namespace cl
     template <class TKey, class TValue> using IDictionary = Ptr<IDictionaryImpl<TKey, TValue>>;
 
     template <class TKey, class TValue>
-    using KeyValuePair = std::pair<TKey, TValue>;
+    using KeyValuePair = std::pair<const TKey, TValue>;
 
     /// <summary>Represents a generic collection of key/value pairs.</summary>
     template <class TKey, class TValue>
