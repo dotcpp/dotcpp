@@ -30,9 +30,12 @@ namespace cl
     template <class TKey, class TValue> class IDictionaryImpl;
     template <class TKey, class TValue> using IDictionary = Ptr<IDictionaryImpl<TKey, TValue>>;
 
+    template <class TKey, class TValue>
+    using KeyValuePair = std::pair<TKey, TValue>;
+
     /// <summary>Represents a generic collection of key/value pairs.</summary>
     template <class TKey, class TValue>
-    class IDictionaryImpl : public ICollectionImpl<std::pair<TKey, TValue>> // TODO - should be ICollectionImpl<KeyValuePair<TKey, TValue>>
+    class IDictionaryImpl : public ICollectionImpl<KeyValuePair<TKey, TValue>>
     {
     public: // PROPERTIES
 
@@ -51,17 +54,14 @@ namespace cl
         virtual bool ContainsKey(const TKey& key) = 0;
 
         /// <summary>Removes the element with the specified key from the IDictionary.</summary>
-        virtual bool Remove(TKey key) = 0;
+        virtual bool Remove(const TKey& key) = 0;
 
         /// <summary>Gets the value associated with the specified key.</summary>
         virtual bool TryGetValue(const TKey& key, TValue& value) = 0;
 
     public: // OPERATORS
 
-        /// <summary>Gets or sets the element with the specified key (const version).</summary>
-        virtual const TValue& operator[](const TKey& key) const = 0;
-
-        /// <summary>Gets or sets the element with the specified key (non-const version).</summary>
+        /// <summary>Gets or sets the element with the specified key.</summary>
         virtual TValue& operator[](const TKey& key) = 0;
     };
 }

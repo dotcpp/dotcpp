@@ -35,7 +35,7 @@ namespace cl
     /// <summary>Represents a collection of keys and values.</summary>
     template <class TKey, class TValue>
     class DictionaryImpl
-        : public IDictionary<TKey, TValue>
+        : public IDictionaryImpl<TKey, TValue>
         , public virtual ObjectImpl
         , public std::unordered_map<TKey, TValue>
     {
@@ -53,80 +53,109 @@ namespace cl
         /// </summary>
         DictionaryImpl() : base() {}
 
+    public: // PROPERTIES
+
+        /// <summary>Gets the number of key/value pairs contained in the Dictionary.</summary>
+        DOT_IMPL_GET(DictionaryImpl, int, Count, { return size(); })
+        
+        /// <summary>Gets a collection containing the keys in the Dictionary.</summary>
+        DOT_IMPL_GET(DictionaryImpl, ICollection<TKey>, Keys, {
+            ICollection<TKey> list = new_List<TKey>();
+            for (auto x : *this) list->Add(x.first);
+            return list;
+        })
+        
+        /// <summary>Gets a collection containing the values in the Dictionary.</summary>
+        DOT_IMPL_GET(DictionaryImpl, ICollection<TValue>, Values, {
+            ICollection<TValue> list = new_List<TValue>();
+            for (auto x : *this) list->Add(x.second);
+            return list;
+        })
+
     public: // METHODS
 
-        /// <summary>Gets number of elements in dictionary.</summary>
-        int Count() const { return this->size(); }
-
-        /// <summary>Gets List of keys.</summary>
-        inline List<TKey> keys()
+        /// <summary>Adds the specified key and value to the dictionary.</summary>
+        virtual void Add(const TKey& key, const TValue& value) override
         {
-            List<TKey> keys;
-            std::for_each(this->get().begin(), this->get().end(), [&keys](std::pair<TKey, TValue> const& value){ keys.add(value.first); });
-            return keys;
+            insert(std::pair<TKey, TValue>(key, value));
         }
 
-        /// <summary>Gets List of values.</summary>
-        inline List<TValue> values()
+        /// <summary>Adds the specified value to the ICollection with the specified key.</summary>
+        virtual void Add(const KeyValuePair<TKey, TValue>& keyValuePair) override
         {
-            List<TValue> values;
-            std::for_each(this->get().begin(), this->get().end(), [&values](std::pair<TKey, TValue> const& value){ values.add(value.second); });
-            return values;
-        }
-
-        /// <summary>Gets value reference associated with the specified key.</summary>
-        inline TValue& operator[] (TKey const& key)
-        {
-            return this->get()[key];
-        }
-
-        /// <summary>Adds the specified key and value to the Dictionary.</summary>
-        inline void add(TKey const& key, TValue const& value)
-        {
-            this->get().insert(std::pair<TKey, TValue>(key, value));
+            insert(keyValuePair);
         }
 
         /// <summary>Removes all keys and values from the Dictionary.</summary>
-        inline void clear()
+        virtual void Clear() override
         {
-            this->get().clear();
+            clear();
         }
 
-        /// <summary>Determines whether the Dictionary contains the specified key.</summary>
-        inline bool containsKey(TKey const& key) const
+        /// <summary>Determines whether the ICollection contains a specific key and value.</summary>
+        virtual bool Contains(const KeyValuePair<TKey, TValue>& keyValuePair) override
         {
-            return (this->get().find(key) != this->get().end());
-        }
-
-        /// <summary>Determines whether the Dictionary contains the specified value.</summary>
-        inline bool containsValue(const TValue& value) const
-        {
-            for (typename base::iterator iter = this->get().begin(); iter != this->get().end(); iter++)
+            auto iter = find(keyValuePair.first);
+            if (iter != end())
             {
-                if (iter->second == value)
-                {
-                    return true;
-                }
+                return keyValuePair.second == iter->second;
             }
             return false;
         }
 
-        /// <summary>Removes the value with the specified key from the Dictionary.</summary>
-        inline bool remove(TKey const& key)
+        /// <summary>Determines whether the Dictionary contains the specified key.</summary>
+        virtual bool ContainsKey(const TKey& key) override
         {
-            this->get().erase(key);
+            return find(key) != end();
+        }
+
+        /// <summary>Determines whether the Dictionary contains a specific value.</summary>
+        virtual bool ContainsValue(const TValue& value)
+        {
+            for (auto x : *this)
+            {
+                if (x.second == value)
+                    return true;
+            }
+            return false;
+        }
+
+        /// <summary>Returns an enumerator that iterates through the Dictionary.</summary>
+        virtual IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator() override
+        {
+           return new_Enumerator(base::begin(), base::end());
+        }
+
+        /// <summary>Returns random access begin iterator of the underlying std::unordered_map.</summary>
+        typename base::iterator begin() { return base::begin(); }
+
+        /// <summary>Returns random access end iterator of the underlying std::unordered_map.</summary>
+        typename base::iterator end() { return base::end(); }
+
+        /// <summary>Removes the value with the specified key from the Dictionary.</summary>
+        virtual bool Remove(const TKey& key) override
+        {
+            return erase(key) != 0;
         }
 
         /// <summary>Gets the value associated with the specified key.</summary>
-        inline bool tryGetValue(TKey const& key, TValue& value)
+        bool TryGetValue(const TKey& key, TValue& value)
         {
-            typename base::iterator iter = this->get().find(key);
-            if (iter != this->get().end())
+            auto iter = find(key);
+            if (iter != end())
             {
                 value = iter->second;
                 return true;
             }
             return false;
+        }
+
+    public: // OPERATORS
+
+        /// <summary>Gets or sets the value associated with the specified key.</summary>
+        virtual TValue& operator[](const TKey& key) override
+        {
+            return base::operator[](key);
         }
     };
 
