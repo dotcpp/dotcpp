@@ -443,3 +443,16 @@ namespace cl
         return format_impl(*format, fmt::make_format_args(format_forward<Args>::convert(args)...));
     }
 }
+
+namespace std
+{
+    /// <summary>Implements hash struct used by STL unordered_map.</summary>
+    template <>
+    struct hash<cl::String>
+    {
+        size_t operator()(const cl::String& s) const
+        {
+            return hash<std::string>()(*s);
+        }
+    };
+}

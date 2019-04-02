@@ -29,8 +29,13 @@ limitations under the License.
 
 namespace cl
 {
-    TEST_CASE("Create")
+    TEST_CASE("IntKey")
     {
         Dictionary<int, int> dict = new_Dictionary<int, int>();
+    }
+
+    TEST_CASE("StringKey")
+    {
+        Dictionary<String, int> dict = new_Dictionary<String, int>();
     }
 }
