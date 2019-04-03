@@ -29,12 +29,29 @@ limitations under the License.
 #include <cl/dotcpp/main/system/NullableBool.hpp>
 #include <cl/dotcpp/main/system/NullableDouble.hpp>
 #include <cl/dotcpp/main/system/NullableInt.hpp>
+#include <cl/dotcpp/main/system/collections/generic/List.hpp>
 #include <cl/dotcpp/main/system/NullableLong.hpp>
 
 namespace cl
 {
     TEST_CASE("Smoke")
     {
+        {
+            //Boxing Enumerable
+            List<double> obj = new_List<double>();
+            obj->Add(1.);
+            obj->Add(2.);
+            obj->Add(3.);
+
+            Object boxed = obj;
+            ObjectEnumerable list = ObjectEnumerable(boxed);
+            int i = 0;
+            for (Object item : list)
+            {
+                REQUIRE((double)item == ++i);
+            }
+        }
+
         {
             // Boxing bool
             bool x = false;
