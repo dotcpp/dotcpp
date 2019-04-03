@@ -81,6 +81,7 @@
     <ClInclude Include="system\reflection\PropertyInfo.hpp" />
     <ClInclude Include="system\String.hpp" />
     <ClInclude Include="system\StringSplitOptions.hpp" />
+    <ClInclude Include="system\text\StringBuilder.hpp" />
     <ClInclude Include="system\Type.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

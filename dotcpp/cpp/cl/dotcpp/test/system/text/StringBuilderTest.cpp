@@ -21,23 +21,31 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#pragma once
-
-#include <cl/dotcpp/test/declare.hpp>
-#include <cl/dotcpp/test/declare.hpp>
-#include <cl/dotcpp/main/system/String.hpp>
-#include <boost/test/unit_test_suite.hpp>
+#include <cl/dotcpp/test/implement.hpp>
+#include <approvals/ApprovalTests.hpp>
+#include <approvals/Catch.hpp>
+#include <cl/dotcpp/main/system/text/StringBuilder.hpp>
 
 namespace cl
 {
-    /// <summary>String tests.</summary>
-    class CL_DOTCPP_TEST StringTest
+    TEST_CASE("Smoke")
     {
-    public: // METHODS
+        int x = 1;
+        double y = 2.5;
+        const String s = "{0}";
 
-        /// <summary>Test create methods.</summary>
-        static void Create();
+        StringBuilder result = new_StringBuilder();
+        result->Append("abc");
+        result->Append(123);
+        result->AppendLine();
+        result->AppendLine("xyz");
+        result->AppendLine();
 
-        static boost::unit_test::test_suite* StringTestSuite();
-    };
+        result->AppendFormat(s, x);
+        result->AppendLine();
+        result->AppendLine(String::Format("{0:.3f}", y));
+        result->AppendLine(String::Format("{0}, {1}", "123", "456"));
+
+        Approvals::verify(*result);
+    }
 }

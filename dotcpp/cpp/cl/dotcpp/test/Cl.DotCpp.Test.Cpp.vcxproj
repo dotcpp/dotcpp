@@ -27,12 +27,12 @@
     <ClCompile Include="system\ReflectionTest.cpp" />
     <ClCompile Include="system\SerializationSampleTest.cpp" />
     <ClCompile Include="system\StringTest.cpp" />
+    <ClCompile Include="system\text\StringBuilderTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="declare.hpp" />
     <ClInclude Include="implement.hpp" />
     <ClInclude Include="import.hpp" />
-    <ClInclude Include="system\StringTest.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{04199C2F-0C9B-43F1-968F-5D7329204EF6}</ProjectGuid>
