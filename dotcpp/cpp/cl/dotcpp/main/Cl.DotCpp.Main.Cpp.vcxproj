@@ -71,10 +71,7 @@
     <ClInclude Include="system\Object.hpp" />
     <ClInclude Include="system\ObjectImpl.hpp" />
     <ClInclude Include="system\Period.hpp" />
-    <ClInclude Include="system\Property.hpp" />
     <ClInclude Include="system\Ptr.hpp" />
-    <ClInclude Include="system\ReadOnlyProperty.hpp" />
-    <ClInclude Include="system\ReadOnlyStaticProperty.hpp" />
     <ClInclude Include="system\reflection\Activator.hpp" />
     <ClInclude Include="system\reflection\BindingFlags.hpp" />
     <ClInclude Include="system\reflection\ConstructorInfo.hpp" />
@@ -82,7 +79,6 @@
     <ClInclude Include="system\reflection\MethodInfo.hpp" />
     <ClInclude Include="system\reflection\ParameterInfo.hpp" />
     <ClInclude Include="system\reflection\PropertyInfo.hpp" />
-    <ClInclude Include="system\StaticProperty.hpp" />
     <ClInclude Include="system\String.hpp" />
     <ClInclude Include="system\StringSplitOptions.hpp" />
     <ClInclude Include="system\Type.hpp" />
