@@ -24,7 +24,7 @@ limitations under the License.
 #pragma once
 
 #include <cl/dotcpp/main/system/collections/generic/IList.hpp>
-#include <cl/dotcpp/main/system/collections/generic/IObjectEnumerable.hpp>
+#include <cl/dotcpp/main/system/collections/IObjectEnumerable.hpp>
 
 namespace cl
 {
