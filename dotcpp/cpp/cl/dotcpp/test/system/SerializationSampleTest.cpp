@@ -21,6 +21,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+#include <boost/core/typeinfo.hpp>
+#include <boost/core/demangle.hpp>
+#include <typeinfo>
+#include <iostream>
+
 #include <cl/dotcpp/test/implement.hpp>
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
@@ -33,6 +38,38 @@ limitations under the License.
 #include <cl/dotcpp/main/system/reflection/Activator.hpp>
 #include <cl/dotcpp/main/system/Type.hpp>
 #include <cl/dotcpp/main/system/collections/generic/List.hpp>
+
+
+#define DOT_REFLECTION(registration)                                                              \
+        static Type typeof()                                                                      \
+        {                                                                                         \
+            static Type type = []()-> Type                                                        \
+            {                                                                                     \
+                                                                                                  \
+                Type type = new_TypeData<ThisType>                                                \
+                            (boost::core::demangled_name(typeid(ThisType)), "DotCpp.System.Test") \
+                                                                                                  \
+                    registration                                                                  \
+                                                                                                  \
+                    ->Build();                                                                    \
+                                                                                                  \
+                return type;                                                                      \
+            }();                                                                                  \
+                                                                                                  \
+            return type;                                                                          \
+        }                                                                                         \
+                                                                                                  \
+        virtual Type GetType()                                                                    \
+        {                                                                                         \
+            return typeof();                                                                      \
+        }
+
+
+
+#define PROPERTY(prop_name)        ->WithProperty(#prop_name, &ThisType::prop_name)
+#define METHOD(meth_name, ...)     ->WithMethod(#meth_name, &ThisType::meth_name, { __VA_ARGS__ })
+#define CONSTRUCTOR(ctor_name, ...)     ->WithConstructor(&ctor_name, { __VA_ARGS__ })
+
 
 namespace cl
 {
@@ -83,7 +120,7 @@ namespace cl
         DOT_AUTO_PROP(double, DoubleProp)
         DOT_AUTO_PROP(SampleData2, DataProp)
 
-        double Foo(int dblArg)
+        double Foo(int dblArg, int second_arg)
         {
             received << "Foo(" << dblArg << ")" << std::endl;
             return dblArg + 42;
@@ -100,30 +137,16 @@ namespace cl
         }
 
     public:
-        static Type typeof()
-        {
-            static Type type = []()-> Type
-            {
-                Type type = new_TypeData<SampleDataImpl>("SampleData", "DotCpp.System.Test")
-                    ->WithProperty("IntegerProp", &SampleDataImpl::StringProp)
-                    ->WithProperty("DataProp", &SampleDataImpl::DataProp)
-                    ->WithMethod("foo", &SampleDataImpl::Foo, {"dbl_arg"})
-                    ->WithMethod("bar", &SampleDataImpl::Bar, { "dbl_arg" })
-                    ->WithMethod("fooo", &SampleDataImpl::StaticFoo, { "g" })
-                    ->WithConstructor(&new_SampleData, {})
 
-                    ->Build();
-
-                return type;
-            }();
-
-            return type;
-        }
-
-        virtual Type GetType()
-        {
-            return typeof();
-        }
+        DOT_REFLECTION
+        (
+            CONSTRUCTOR(new_SampleData)
+            PROPERTY(StringProp)
+            PROPERTY(DataProp)
+            METHOD(Foo, "dbl_arg", "second_arg")
+            METHOD(Bar, "dbl_arg")
+            METHOD(StaticFoo, "g")
+        )
     };
 
     SampleData new_SampleData() { return new SampleDataImpl; }
@@ -132,6 +155,7 @@ namespace cl
     {
         SampleData obj = new_SampleData();
         SampleData2 obj2 = new SampleData2Impl();
+        Type type = obj->GetType();
 
         SampleData dt = (SampleData)Activator::CreateInstance(obj->GetType());
 
