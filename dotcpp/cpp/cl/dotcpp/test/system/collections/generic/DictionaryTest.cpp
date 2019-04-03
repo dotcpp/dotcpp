@@ -120,7 +120,7 @@ namespace cl
     {
         Object obj1 = Object(1);
         Object obj2 = Object("2");
-        Object obj3 = Object("2");
+        Object obj3 = Object("3");
 
         Dictionary<Object, String> dict = new_Dictionary<Object, String>();
         dict->Add(obj1, "val1");
