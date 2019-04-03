@@ -50,12 +50,12 @@
     <ClInclude Include="system\collections\generic\LinkedList.hpp" />
     <ClInclude Include="system\collections\generic\List.hpp" />
     <ClInclude Include="system\collections\generic\ListBase.hpp" />
-    <ClInclude Include="system\collections\generic\IObjectEnumerable.hpp" />
     <ClInclude Include="system\collections\generic\Queue.hpp" />
     <ClInclude Include="system\collections\generic\SortedDictionary.hpp" />
     <ClInclude Include="system\collections\generic\SortedList.hpp" />
     <ClInclude Include="system\collections\generic\SortedSet.hpp" />
     <ClInclude Include="system\collections\generic\Stack.hpp" />
+    <ClInclude Include="system\collections\IObjectEnumerable.hpp" />
     <ClInclude Include="system\Console.hpp" />
     <ClInclude Include="system\Double.hpp" />
     <ClInclude Include="system\Exception.hpp" />
