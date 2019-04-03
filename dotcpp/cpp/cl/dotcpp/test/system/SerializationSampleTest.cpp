@@ -165,10 +165,15 @@ namespace cl
 
         Type type2 = obj2->GetType();
         auto vec_prop = obj->GetType()->GetProperties();
-        Array1D<cl::Object> param = new_Array1D<Object>(1);
-        param[0] = 15;
-        double ret = obj->GetType()->GetMethods()[0]->Invoke(obj, param);
-        obj->GetType()->GetMethods()[1]->Invoke(obj, param);
+
+        Array1D<cl::Object> paramsFoo = new_Array1D<Object>(2);
+        paramsFoo[0] = 15;
+        paramsFoo[1] = 42;
+        double ret = obj->GetType()->GetMethods()[0]->Invoke(obj, paramsFoo);
+
+        Array1D<cl::Object> paramsBar = new_Array1D<Object>(1);
+        paramsBar[0] = 15;
+        obj->GetType()->GetMethods()[1]->Invoke(obj, paramsBar);
 
         Object o2 = obj->GetType()->GetConstructors()[0]->Invoke({});
 
