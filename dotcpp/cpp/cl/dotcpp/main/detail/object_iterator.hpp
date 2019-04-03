@@ -63,12 +63,6 @@ namespace cl
             /// Inequality
             virtual bool operator !=(std_object_iterator_base const& iter) = 0;
 
-            /// More than
-            virtual bool operator>(std_object_iterator_base const& iter) = 0;
-
-            /// Less than
-            virtual bool operator<(std_object_iterator_base const& iter) = 0;
-
             /// Dereference (const version)
             inline Object const operator*() const { return get(); }
 
@@ -134,19 +128,6 @@ namespace cl
                 return iter_ != other;
             }
 
-            /// More than
-            virtual bool operator>(std_object_iterator_base const& iter) override
-            {
-                Iterator const& other = static_cast<std_object_iterator<Iterator> const&>(iter).iter_;
-                return iter_ > other;
-            }
-
-            /// Less than
-            virtual bool operator<(std_object_iterator_base const& iter) override
-            {
-                Iterator const& other = static_cast<std_object_iterator<Iterator> const&>(iter).iter_;
-                return iter_ < other;
-            }
         };
 
         struct std_object_iterator_wrapper
@@ -204,18 +185,6 @@ namespace cl
             inline bool operator!=(std_object_iterator_wrapper const& iter)
             {
                 return *iter_ != *(iter.iter_);
-            }
-
-            /// More than
-            inline bool operator>(std_object_iterator_wrapper const& iter)
-            {
-                return *iter_ > *(iter.iter_);
-            }
-
-            /// Less than
-            inline bool operator<(std_object_iterator_wrapper const& iter)
-            {
-                return *iter_ < *(iter.iter_);
             }
 
             /// Dereference (const version)

@@ -61,7 +61,7 @@ namespace cl
     public: // PROPERTIES
 
         /// <summary>The number of items contained in the list.</summary>
-        DOT_IMPL_GET(Array1DImpl, int, Count, { return this->size(); })
+        DOT_IMPL_GET(int, Count, { return this->size(); })
 
     public: // METHODS
 

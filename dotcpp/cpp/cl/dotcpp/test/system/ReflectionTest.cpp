@@ -39,12 +39,14 @@ namespace cl
 
     class ReflectionBaseSampleImpl : public virtual ObjectImpl
     {
+        typedef ReflectionBaseSampleImpl ThisType;
+
     public:
         int IntFld;
         double DblFld;
         List<double> DblListFld;
 
-        DOT_PROP(ReflectionBaseSampleImpl, int, Count,
+        DOT_PROP(int, Count,
             {
                 received << "ReflectionBaseSample.getCount" << std::endl;
                 return Count;
@@ -55,7 +57,7 @@ namespace cl
             }
         )
 
-        DOT_GET(ReflectionBaseSampleImpl, int, Count2,
+        DOT_GET(int, Count2,
             {
                 std::cout << "ReflectionBaseSample.getCount2" << std::endl;
                 return Count2;
@@ -114,7 +116,7 @@ namespace cl
     {
     public:
 
-        DOT_IMPL_PROP(ReflectionDerivedSampleImpl, int, Count,
+        DOT_IMPL_PROP(int, Count,
             {
                 received << "ReflectionDerivedSample.getCount" << std::endl;
                 return Count;

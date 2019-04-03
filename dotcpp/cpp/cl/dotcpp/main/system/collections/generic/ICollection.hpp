@@ -35,10 +35,12 @@ namespace cl
     template <class T>
     class ICollectionImpl : public IEnumerableImpl<T>
     {
+        typedef ICollectionImpl<T> ThisType;
+
     public: // METHODS
 
         /// <summary>The number of items contained in the list.</summary>
-        DOT_DECL_GET(ICollectionImpl, int, Count)
+        DOT_DECL_GET(int, Count)
 
         /// <summary>Adds an item to the end of the lisIt.</summary>
         virtual void Add(const T& item) = 0;

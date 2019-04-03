@@ -55,7 +55,7 @@ namespace cl
         virtual Object Invoke(Object, Array1D<Object>) = 0;
 
         /// <summary>Gets the return type of this method.</summary>
-        DOT_AUTO_GET(MethodInfoImpl, Type, ReturnType);
+        DOT_AUTO_GET(Type, ReturnType);
 
     protected: // FIELDS
 

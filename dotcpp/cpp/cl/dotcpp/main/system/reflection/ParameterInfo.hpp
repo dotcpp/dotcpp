@@ -39,13 +39,13 @@ namespace cl
     public: // METHODS
 
         /// <summary>Gets the type of this parameter.</summary>
-        DOT_AUTO_GET(ParameterInfoImpl, Type, ParameterType)
+        DOT_AUTO_GET(Type, ParameterType)
 
         /// <summary>Gets the name of this parameter.</summary>
-        DOT_AUTO_GET(MemberInfoImpl, String, Name)
+        DOT_AUTO_GET(String, Name)
 
         /// <summary>Gets the zero-based position of the parameter in the formal parameter list.</summary>
-        DOT_AUTO_GET(MemberInfoImpl, int, Position)
+        DOT_AUTO_GET(int, Position)
 
     private: // CONSTRUCTORS
 

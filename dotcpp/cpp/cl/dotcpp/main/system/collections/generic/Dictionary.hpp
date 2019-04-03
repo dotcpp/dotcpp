@@ -56,17 +56,17 @@ namespace cl
     public: // PROPERTIES
 
         /// <summary>Gets the number of key/value pairs contained in the Dictionary.</summary>
-        DOT_IMPL_GET(DictionaryImpl, int, Count, { return size(); })
+        DOT_IMPL_GET(int, Count, { return size(); })
         
         /// <summary>Gets a collection containing the keys in the Dictionary.</summary>
-        DOT_IMPL_GET(DictionaryImpl, ICollection<TKey>, Keys, {
+        DOT_IMPL_GET(ICollection<TKey>, Keys, {
             ICollection<TKey> list = new_List<TKey>();
             for (auto x : *this) list->Add(x.first);
             return list;
         })
         
         /// <summary>Gets a collection containing the values in the Dictionary.</summary>
-        DOT_IMPL_GET(DictionaryImpl, ICollection<TValue>, Values, {
+        DOT_IMPL_GET(ICollection<TValue>, Values, {
             ICollection<TValue> list = new_List<TValue>();
             for (auto x : *this) list->Add(x.second);
             return list;

@@ -37,13 +37,15 @@ namespace cl
     template <class TKey, class TValue>
     class IDictionaryImpl : public ICollectionImpl<KeyValuePair<TKey, TValue>>
     {
+        typedef IDictionaryImpl<TKey, TValue> ThisType;
+
     public: // PROPERTIES
 
         /// <summary>Gets an ICollection containing the keys of the IDictionary.</summary>
-        DOT_DECL_GET(IDictionaryImpl, ICollection<TKey>, Keys)
+        DOT_DECL_GET(ICollection<TKey>, Keys)
 
         /// <summary>Gets an ICollection containing the values in the IDictionary.</summary>
-        DOT_DECL_GET(IDictionaryImpl, ICollection<TValue>, Values)
+        DOT_DECL_GET(ICollection<TValue>, Values)
 
     public: // METHODS
 

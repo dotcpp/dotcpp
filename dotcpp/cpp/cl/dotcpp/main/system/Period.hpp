@@ -42,25 +42,27 @@ namespace cl
     /// </summary>
     class CL_DOTCPP_MAIN Period : public time_duration
     {
+        typedef Period ThisType;
+
     public:
         Period(const time_duration& d);
         Period(const date_duration& d);
 
     public:
         /// <summary>Gets the number of days within this period.</summary>
-        DOT_GET(Period, int, Days, { return static_cast<int>(hours() / 24); })
+        DOT_GET(int, Days, { return static_cast<int>(hours() / 24); })
 
         /// <summary>Gets the number of hours within this period.</summary>
-        DOT_GET(Period, int64_t, Hours, { return hours() % 24; })
+        DOT_GET(int64_t, Hours, { return hours() % 24; })
 
         /// <summary>Gets the number of milliseconds within this period.</summary>
-        DOT_GET(Period, int64_t, Milliseconds, { return fractional_seconds() / 1000; })
+        DOT_GET(int64_t, Milliseconds, { return fractional_seconds() / 1000; })
 
         /// <summary>Gets the number of minutes within this period.</summary>
-        DOT_GET(Period, int64_t, Minutes, { return minutes(); })
+        DOT_GET(int64_t, Minutes, { return minutes(); })
 
         /// <summary>Gets the number of seconds within this period.</summary>
-        DOT_GET(Period, int64_t, Seconds, { return seconds(); })
+        DOT_GET(int64_t, Seconds, { return seconds(); })
 
     public:
         /// <summary>Returns the exact difference between two dates.</summary>

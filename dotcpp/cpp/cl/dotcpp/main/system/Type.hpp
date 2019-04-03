@@ -217,10 +217,10 @@ namespace cl
     public: // PROPERTIES
 
         /// <summary>Gets the name of the current type, excluding namespace.</summary>
-        DOT_AUTO_GET(TypeImpl, String, Name);
+        DOT_AUTO_GET(String, Name);
 
         /// <summary>Gets the fully qualified name of the type, including its namespace but not its assembly.</summary>
-        DOT_AUTO_GET(TypeImpl, String, Namespace);
+        DOT_AUTO_GET(String, Namespace);
 
     public: // METHODS
 

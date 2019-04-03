@@ -42,6 +42,8 @@ namespace cl
     /// </summary>
     class CL_DOTCPP_MAIN LocalTime : public ptime
     {
+        typedef LocalTime ThisType;
+
     public:
         /// <summary>Creates a local time at the given hour and minute, with second, millisecond-of-second and tick-of-millisecond values of zero.</summary>
         LocalTime(int hour, int minute);
@@ -59,16 +61,16 @@ namespace cl
 
     public:
         /// <summary>Gets the hour of day of this local time, in the range 0 to 23 inclusive.</summary>
-        DOT_GET(LocalTime, int, Hour, { return static_cast<int>(time_of_day().hours()); })
+        DOT_GET(int, Hour, { return static_cast<int>(time_of_day().hours()); })
 
         /// <summary>Gets the millisecond of this local time within the second, in the range 0 to 999 inclusive.</summary>
-        DOT_GET(LocalTime, int, Millisecond, { return static_cast<int>(time_of_day().fractional_seconds() / 1000); })
+        DOT_GET(int, Millisecond, { return static_cast<int>(time_of_day().fractional_seconds() / 1000); })
 
         /// <summary>Gets the minute of this local time, in the range 0 to 59 inclusive.</summary>
-        DOT_GET(LocalTime, int, Minute, { return static_cast<int>(time_of_day().minutes()); })
+        DOT_GET(int, Minute, { return static_cast<int>(time_of_day().minutes()); })
 
         /// <summary>Gets the second of this local time within the minute, in the range 0 to 59 inclusive.</summary>
-        DOT_GET(LocalTime, int, Second, { return static_cast<int>(time_of_day().seconds()); })
+        DOT_GET(int, Second, { return static_cast<int>(time_of_day().seconds()); })
 
     public:
         /// <summary>Adds the specified period to the time. Friendly alternative to operator+().</summary>

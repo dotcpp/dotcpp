@@ -155,7 +155,7 @@ namespace cl
 }
 
 
-#define DOT_DECL_GET(Class, ptype, name)                                                \
+#define DOT_DECL_GET(ptype, name)                                                       \
     private:                                                                            \
         virtual ptype CAT(get, name)(ptype name) = 0;                                   \
         struct CAT(name, _prop) : detail::decl_get                                      \
@@ -165,7 +165,7 @@ namespace cl
                                                   >::type                               \
         {                                                                               \
             typedef ptype value_type;                                                   \
-            CAT(name, _prop)(Class * this_) : this_(this_) {}                           \
+            CAT(name, _prop)(ThisType * this_) : this_(this_) {}                        \
             ptype name;                                                                 \
                                                                                         \
             ptype & operator = (const ptype &) = delete;                                \
@@ -173,14 +173,14 @@ namespace cl
             CAT(name, _prop) & operator = (const CAT(name, _prop) & rhs)                \
                 { name = rhs.name; return *this;  }                                     \
                                                                                         \
-            Class * this_;                                                              \
+            ThisType * this_;                                                           \
                                                                                         \
         };                                                                              \
     public:                                                                             \
         CAT(name, _prop) name = CAT(name, _prop)(this);
 
 
-#define DOT_DECL_PROP(Class, ptype, name)                                               \
+#define DOT_DECL_PROP(ptype, name)                                                      \
     private:                                                                            \
         virtual ptype CAT(get, name)(ptype name) = 0;                                   \
         virtual void CAT(set, name)(ptype & name, ptype const& value) = 0;              \
@@ -191,7 +191,7 @@ namespace cl
                                                   >::type                               \
         {                                                                               \
             typedef ptype value_type;                                                   \
-            CAT(name, _prop)(Class * this_) : this_(this_) {}                           \
+            CAT(name, _prop)(ThisType * this_) : this_(this_) {}                        \
             ptype name;                                                                 \
                                                                                         \
             void operator = (const ptype &value )                                       \
@@ -200,25 +200,25 @@ namespace cl
             CAT(name, _prop) & operator = (const CAT(name, _prop) & rhs)                \
                 { name = rhs.operator ptype(); return *this;  }                         \
                                                                                         \
-            Class * this_;                                                              \
+            ThisType * this_;                                                           \
                                                                                         \
         };                                                                              \
     public:                                                                             \
         CAT(name, _prop) name = CAT(name, _prop)(this);
 
 
-#define DOT_IMPL_GET(Class, ptype, name, getter)                                        \
+#define DOT_IMPL_GET(ptype, name, getter)                                               \
     private:                                                                            \
         virtual ptype CAT(get, name)(ptype name) override getter
 
 
-#define DOT_IMPL_PROP(Class, ptype, name, getter, setter)                               \
+#define DOT_IMPL_PROP(ptype, name, getter, setter)                                      \
     private:                                                                            \
         virtual ptype CAT(get, name)(ptype name) override getter                        \
         virtual void CAT(set, name)(ptype & name, ptype const& value) override setter
 
 
-#define DOT_GET(Class, ptype, name, getter)                                             \
+#define DOT_GET(ptype, name, getter)                                                    \
     private:                                                                            \
         virtual ptype CAT(get, name)(ptype name) getter                                 \
         struct CAT(name, _prop) : detail::decl_get                                      \
@@ -228,7 +228,7 @@ namespace cl
                                                   >::type                               \
         {                                                                               \
             typedef ptype value_type;                                                   \
-            CAT(name, _prop)(Class * this_) : this_(this_) {}                           \
+            CAT(name, _prop)(ThisType * this_) : this_(this_) {}                        \
             ptype name;                                                                 \
                                                                                         \
             ptype & operator = (const ptype &) = delete;                                \
@@ -236,14 +236,14 @@ namespace cl
             CAT(name, _prop) & operator = (const CAT(name, _prop) & rhs)                \
                 { name = rhs.name; return *this;  }                                     \
                                                                                         \
-            Class * this_;                                                              \
+            ThisType * this_;                                                           \
                                                                                         \
         };                                                                              \
     public:                                                                             \
         CAT(name, _prop) name = CAT(name, _prop)(this);
 
 
-#define DOT_PROP(Class, ptype, name, getter, setter)                                    \
+#define DOT_PROP(ptype, name, getter, setter)                                           \
     private:                                                                            \
         virtual ptype CAT(get, name)(ptype name) getter                                 \
         virtual void CAT(set, name)(ptype & name, ptype const& value) setter            \
@@ -254,7 +254,7 @@ namespace cl
                                                   >::type                               \
         {                                                                               \
             typedef ptype value_type;                                                   \
-            CAT(name, _prop)(Class * this_) : this_(this_) {}                           \
+            CAT(name, _prop)(ThisType * this_) : this_(this_) {}                        \
             ptype name;                                                                 \
                                                                                         \
             void operator = (const ptype &value )                                       \
@@ -263,20 +263,20 @@ namespace cl
             CAT(name, _prop) & operator = (const CAT(name, _prop) & rhs)                \
                 { name = rhs.operator ptype(); return *this;  }                         \
                                                                                         \
-            Class * this_;                                                              \
+            ThisType * this_;                                                           \
                                                                                         \
         };                                                                              \
     public:                                                                             \
         CAT(name, _prop) name = CAT(name, _prop)(this);
 
 
-#define DOT_AUTO_GET(Class, type, name)                                                 \
+#define DOT_AUTO_GET(type, name)                                                        \
     public:                                                                             \
         detail::auto_get<type> name;                                                    \
         virtual type CAT(get, name)() { return name; }
 
 
-#define DOT_AUTO_PROP(Class, type, name)                                                \
+#define DOT_AUTO_PROP(type, name)                                                       \
     public:                                                                             \
         detail::auto_prop<type> name;                                                   \
         virtual type CAT(get, name)() { return name; }                                  \

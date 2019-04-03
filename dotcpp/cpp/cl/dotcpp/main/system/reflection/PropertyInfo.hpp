@@ -39,10 +39,10 @@ namespace cl
     public: // PROPERTIES
 
         /// <summary>Type of this property.</summary>
-        DOT_AUTO_PROP(PropertyInfoImpl, Type, PropertyType)
+        DOT_AUTO_PROP(Type, PropertyType)
 
         /// <summary>Property pointer.</summary>
-        DOT_AUTO_PROP(PropertyInfoImpl, PropType Class::*, PropertyPointer)
+        DOT_AUTO_PROP(PropType Class::*, PropertyPointer)
 
     private: // CONSTRUCTORS
 
@@ -68,7 +68,7 @@ namespace cl
     public: // METHODS
 
         /// <summary>Gets the type of this property.</summary>
-        DOT_AUTO_GET(PropertyInfoImpl, Type, PropertyType)
+        DOT_AUTO_GET(Type, PropertyType)
 
         /// <summary>A string representing the name of the current type.</summary>
         virtual String ToString() const { return "PropertyInfo"; }

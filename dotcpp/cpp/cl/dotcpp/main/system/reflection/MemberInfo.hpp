@@ -37,7 +37,7 @@ namespace cl
     public: // PROPERTIES
 
         /// <summary>Gets the name of the current member.</summary>
-        DOT_AUTO_PROP(MemberInfoImpl, String, Name)
+        DOT_AUTO_PROP(String, Name)
 
     protected: // CONSTRUCTORS
 
@@ -57,10 +57,10 @@ namespace cl
     public: // METHODS
 
         /// <summary>Gets the name of the current member.</summary>
-        DOT_AUTO_GET(MemberInfoImpl, String, Name)
+        DOT_AUTO_GET(String, Name)
 
         /// <summary>Gets the class that declares this member.</summary>
-        DOT_AUTO_GET(MemberInfoImpl, Type, DeclaringType)
+        DOT_AUTO_GET(Type, DeclaringType)
 
         /// <summary>A string representing the name of the current type.</summary>
         virtual String ToString() const { return "MemberInfo"; }

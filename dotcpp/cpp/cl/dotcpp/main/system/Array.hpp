@@ -41,10 +41,12 @@ namespace cl
         template <class T> friend class Array2DImpl;
         template <class T> friend class Array3DImpl;
 
+        typedef ArrayImpl ThisType;
+
     public: // METHODS
 
         /// <summary>The number of items contained in all dimensions of the list.</summary>
-        DOT_DECL_GET(ArrayImpl, int, Count)
+        DOT_DECL_GET(int, Count)
     };
 
     class Array : public Ptr<ArrayImpl>

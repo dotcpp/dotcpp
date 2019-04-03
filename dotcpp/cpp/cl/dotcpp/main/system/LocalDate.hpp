@@ -41,6 +41,8 @@ namespace cl
     /// </summary>
     class CL_DOTCPP_MAIN LocalDate : public gdate
     {
+        typedef LocalDate ThisType;
+
     public:
         /// <summary>Constructs an instance for the given year, month and day in the ISO calendar.</summary>
         LocalDate(int year, int month, int day);
@@ -51,19 +53,19 @@ namespace cl
 
     public:
         /// <summary>Gets the day of this local date within the month.</summary>
-        DOT_GET(LocalDate, int, Day, { return day(); })
+        DOT_GET(int, Day, { return day(); })
 
         /// <summary>Gets the week day of this local date expressed as an IsoDayOfWeek value.</summary>
-        DOT_GET(LocalDate, int, DayOfWeek, { return day_of_week(); })
+        DOT_GET(int, DayOfWeek, { return day_of_week(); })
 
         /// <summary>Gets the day of this local date within the year.</summary>
-        DOT_GET(LocalDate, int, DayOfYear, { return day_of_year(); })
+        DOT_GET(int, DayOfYear, { return day_of_year(); })
 
         /// <summary>Gets the month of this local date within the year.</summary>
-        DOT_GET(LocalDate, int, Month, { return month(); })
+        DOT_GET(int, Month, { return month(); })
 
         /// <summary>Gets the year of this local date.</summary>
-        DOT_GET(LocalDate, int, Year, { return year(); })
+        DOT_GET(int, Year, { return year(); })
 
     public:
         /// <summary>Adds the specified period to the date. Friendly alternative to operator+().</summary>
