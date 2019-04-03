@@ -35,8 +35,8 @@ namespace cl
     /// <summary>Represents a collection of keys and values.</summary>
     template <class TKey, class TValue>
     class DictionaryImpl
-        : public IDictionaryImpl<TKey, TValue>
-        , public virtual ObjectImpl
+        : public virtual ObjectImpl
+        , public IDictionaryImpl<TKey, TValue>
         , public std::unordered_map<TKey, TValue>
     {
         typedef std::unordered_map<TKey, TValue> base;
@@ -61,14 +61,14 @@ namespace cl
         /// <summary>Gets a collection containing the keys in the Dictionary.</summary>
         DOT_IMPL_GET(ICollection<TKey>, Keys, {
             ICollection<TKey> list = new_List<TKey>();
-            for (auto x : *this) list->Add(x.first);
+            for (auto& x : *this) list->Add(x.first);
             return list;
         })
         
         /// <summary>Gets a collection containing the values in the Dictionary.</summary>
         DOT_IMPL_GET(ICollection<TValue>, Values, {
             ICollection<TValue> list = new_List<TValue>();
-            for (auto x : *this) list->Add(x.second);
+            for (auto& x : *this) list->Add(x.second);
             return list;
         })
 
@@ -112,7 +112,7 @@ namespace cl
         /// <summary>Determines whether the Dictionary contains a specific value.</summary>
         virtual bool ContainsValue(const TValue& value)
         {
-            for (auto x : *this)
+            for (auto& x : *this)
             {
                 if (x.second == value)
                     return true;

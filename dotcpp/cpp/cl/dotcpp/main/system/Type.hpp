@@ -23,10 +23,12 @@ limitations under the License.
 
 #pragma once
 
+#include <cl/dotcpp/main/detail/traits.hpp>
 #include <cl/dotcpp/main/system/Object.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
 #include <cl/dotcpp/main/system/Array1D.hpp>
 #include <cl/dotcpp/main/system/collections/generic/List.hpp>
+#include <cl/dotcpp/main/system/reflection/ConstructorInfo.hpp>
 #include <cl/dotcpp/main/system/reflection/MethodInfo.hpp>
 #include <cl/dotcpp/main/system/reflection/ParameterInfo.hpp>
 #include <cl/dotcpp/main/system/reflection/PropertyInfo.hpp>

@@ -29,13 +29,90 @@ limitations under the License.
 
 namespace cl
 {
-    TEST_CASE("IntKey")
+    Dictionary<String, String> CreateDictionary()
     {
-        Dictionary<int, int> dict = new_Dictionary<int, int>();
+        Dictionary<String, String> dict = new_Dictionary<String, String>();
+
+        dict->Add("a", "b");
+        dict->Add(KeyValuePair<String, String>("c", "d"));
+        dict->Add("", "");
+
+        return dict;
     }
 
-    TEST_CASE("StringKey")
+    TEST_CASE("Properties")
     {
-        Dictionary<String, int> dict = new_Dictionary<String, int>();
+        Dictionary<String, String> dict = CreateDictionary();
+
+        REQUIRE(dict->Count == 3);
+
+        // Keys
+        ICollection<String> keys = dict->Keys;
+        REQUIRE(keys->Count == 3);
+        //REQUIRE(keys->Contains("a"));  // TODO uncomment when implemented
+        //REQUIRE(keys->Contains("c"));
+        //REQUIRE(keys->Contains(""));
+
+        // Values
+        ICollection<String> values = dict->Values;
+        REQUIRE(values->Count == 3);
+        //REQUIRE(values->Contains("b"));  // TODO uncomment when implemented
+        //REQUIRE(values->Contains("d"));
+        //REQUIRE(values->Contains(""));
+    }
+
+    TEST_CASE("Methods")
+    {
+        Dictionary<String, String> dict = CreateDictionary();
+
+        // Get
+        REQUIRE(dict["a"] == "b");
+        REQUIRE(dict["c"] == "d");
+        REQUIRE(dict[""] == "");
+
+        String s = "";
+        dict->TryGetValue("b", s);
+        REQUIRE(s == "");
+        dict->TryGetValue("a", s);
+        REQUIRE(s == "b");
+
+        // Contains
+        REQUIRE(dict->Contains(KeyValuePair<String, String>("a", "b")));
+        REQUIRE(dict->Contains(KeyValuePair<String, String>("c", "d")));
+        REQUIRE(dict->Contains(KeyValuePair<String, String>("", "")));
+
+        REQUIRE(dict->ContainsKey("a"));
+        REQUIRE(dict->ContainsKey("c"));
+        REQUIRE(dict->ContainsKey(""));
+        REQUIRE(dict->ContainsKey("b") == false);
+
+        REQUIRE(dict->ContainsValue("b"));
+        REQUIRE(dict->ContainsValue("d"));
+        REQUIRE(dict->ContainsValue(""));
+        REQUIRE(dict->ContainsValue("a") == false);
+
+        // Remove
+        dict->Remove("a");
+        REQUIRE(dict->Count == 2);
+        REQUIRE(dict->ContainsKey("a") == false);
+        REQUIRE(dict->ContainsValue("b") == false);
+
+        // Clear
+        dict->Clear();
+        REQUIRE(dict->Count == 0);
+    }
+
+    TEST_CASE("Interfaces")
+    {
+        Dictionary<String, String> dict = new_Dictionary<String, String>();
+
+        IDictionary<String, String> idict = dict;
+        idict->Add("a", "b");
+        idict->Add("c", "d");
+        idict->Add("e", "f");
+
+        REQUIRE(dict["a"] == "b");
+        REQUIRE(dict["c"] == "d");
+        REQUIRE(dict["e"] == "f");
     }
 }
