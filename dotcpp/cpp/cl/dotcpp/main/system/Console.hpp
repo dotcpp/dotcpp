@@ -39,7 +39,7 @@ namespace cl
 
         Console() = delete;
         Console(const Console&) = delete;
-        Console operator=(const Console&) = delete;
+        Console& operator=(const Console&) = delete;
 
     public: // STATIC
 

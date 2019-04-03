@@ -26,6 +26,7 @@ limitations under the License.
 #include <cl/dotcpp/main/declare.hpp>
 #include <fmt/core.h>
 #include <cl/dotcpp/main/system/String.hpp>
+#include <cl/dotcpp/main/system/Environment.hpp>
 
 namespace cl
 {
@@ -96,7 +97,7 @@ namespace cl
         /// </summary>
         void AppendLine()
         {
-            *this += "\n"; // TODO - use Environment to append the appropriate line terminator
+            *this += *Environment::NewLine;
         }
 
         /// <summary>

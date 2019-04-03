@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="system\Environment.cpp" />
     <ClCompile Include="system\LocalDate.cpp" />
     <ClCompile Include="system\LocalDateTime.cpp" />
     <ClCompile Include="system\LocalTime.cpp" />
@@ -58,6 +59,7 @@
     <ClInclude Include="system\collections\IObjectEnumerable.hpp" />
     <ClInclude Include="system\Console.hpp" />
     <ClInclude Include="system\Double.hpp" />
+    <ClInclude Include="system\Environment.hpp" />
     <ClInclude Include="system\Exception.hpp" />
     <ClInclude Include="system\Int.hpp" />
     <ClInclude Include="system\LocalDate.hpp" />
