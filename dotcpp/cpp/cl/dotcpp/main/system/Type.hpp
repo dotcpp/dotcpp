@@ -82,7 +82,7 @@ namespace cl
         {
             const int argsCount = sizeof...(Args);
             if (argsCount != names.size())
-                throw Exception("Wrong number of parameters for method " + fullName_);
+                throw new_Exception("Wrong number of parameters for method " + fullName_);
 
             if (methods_.IsEmpty())
             {
@@ -111,7 +111,7 @@ namespace cl
         {
             const int argsCount = sizeof...(Args);
             if (argsCount != names.size())
-                throw Exception("Wrong number of parameters for method " + fullName_);
+                throw new_Exception("Wrong number of parameters for method " + fullName_);
 
             if (methods_.IsEmpty())
             {
@@ -140,7 +140,7 @@ namespace cl
         {
             const int argsCount_ = sizeof...(Args);
             if (argsCount_ != names.size())
-                throw Exception("Wrong number of parameters for method " + fullName_);
+                throw new_Exception("Wrong number of parameters for method " + fullName_);
 
             if (ctors_.IsEmpty())
             {

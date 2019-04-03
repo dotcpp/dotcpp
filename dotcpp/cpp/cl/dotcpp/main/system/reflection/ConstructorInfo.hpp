@@ -97,7 +97,7 @@ namespace cl
         virtual Object Invoke(Array1D<Object> params)
         {
             if ((params.IsEmpty() && Parameters->Count != 0) || (!params.IsEmpty() && (params->Count != Parameters->Count)))
-                throw Exception("Wrong number of parameters for constructor " + this->DeclaringType->Name + "." + this->Name);
+                throw new_Exception("Wrong number of parameters for constructor " + this->DeclaringType->Name + "." + this->Name);
 
             return Invoke_impl(params, typename detail::make_index_sequence<sizeof...(Args)>::type());
         }

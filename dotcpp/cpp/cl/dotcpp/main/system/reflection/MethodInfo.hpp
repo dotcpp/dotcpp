@@ -112,7 +112,7 @@ namespace cl
         virtual Object Invoke(Object obj, Array1D<Object> params)
         {
             if (params->Count != Parameters->Count)
-                throw Exception("Wrong number of parameters for method " + this->DeclaringType->Name + "." + this->Name);
+                throw new_Exception("Wrong number of parameters for method " + this->DeclaringType->Name + "." + this->Name);
 
             return Invoke_impl(obj, params, typename detail::make_index_sequence<sizeof...(Args)>::type(), typename std::is_same<Return, void>::type());
         }
@@ -168,7 +168,7 @@ namespace cl
         virtual Object Invoke(Object obj, Array1D<Object> params)
         {
             if (params->Count != Parameters->Count)
-                throw Exception("Wrong number of parameters for method " + this->DeclaringType->Name + "." + this->Name);
+                throw new_Exception("Wrong number of parameters for method " + this->DeclaringType->Name + "." + this->Name);
 
             return Invoke_impl(obj, params, typename detail::make_index_sequence<sizeof...(Args)>::type(), typename std::is_same<Return, void>::type());
         }

@@ -46,7 +46,7 @@ namespace cl
         // If no constructors
         if (ctors.IsEmpty() || ctors->Count == 0)
         {
-            throw Exception(String::Format("Type {0}.{1} does not have registered constructors", type->Namespace, type->Name));
+            throw new_Exception(String::Format("Type {0}.{1} does not have registered constructors", type->Namespace, type->Name));
         }
 
         // Search for best matched constructor
@@ -87,7 +87,7 @@ namespace cl
         // If not found
         if (best_ctor == nullptr)
         {
-            throw Exception("No matching public constructor was found.");
+            throw new_Exception("No matching public constructor was found.");
         }
 
         return best_ctor->Invoke(params);

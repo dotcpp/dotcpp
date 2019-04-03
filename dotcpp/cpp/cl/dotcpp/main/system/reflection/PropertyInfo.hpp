@@ -199,7 +199,7 @@ namespace cl
         // Prop does not have operator =
         void SetValue_impl(Object obj, Object value, std::false_type)
         {
-            throw Exception("Attempting to use SetValue on read-only property.");
+            throw new_Exception("Attempting to use SetValue on read-only property.");
         }
 
         // Property might be read-only (operator =(value) = delete; )

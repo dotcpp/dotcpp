@@ -31,19 +31,52 @@ namespace cl
     /// <summary>Represents errors that occur during application execution.</summary>
     class Exception : public std::runtime_error
     {
+        typedef std::runtime_error base;
+
+    protected: // CONSTRUCTORS
+
+        /// <summary>Create with default message.</summary>
+        Exception() : base("Exception of type 'System.Exception' was thrown.") {}
+
+        /// <summary>Create with a specified error message.</summary>
+        Exception(const std::string& msg) : base(msg.c_str()) {}
+
+        /// <summary>Create with a specified error message.</summary>
+        Exception(const char* msg) : base(msg ? msg : "") {}
+
+        /// <summary>Create with a specified error message.</summary>
+        Exception(String msg) : base(*msg) {}
+
+    public: // METHODS
+
+        /// <summary>Message that describes the current exception.</summary>
+        virtual String Message() const { return String(what()); }
+    };
+
+    /// <summary>
+    /// Represents errors that occur during application execution.
+    ///
+    /// For compatibility with both C++ and C\# style catch blocks,
+    /// this class is syntactic sugar on top of Exception class which
+    /// has value semantics.
+    /// </summary>
+    class new_Exception : public Exception
+    {
+        typedef Exception base;
+
     public: // CONSTRUCTORS
 
         /// <summary>Create with default message.</summary>
-        Exception() : std::runtime_error("Exception of type 'System.Exception' was thrown.") {}
+        new_Exception() : base("Exception of type 'System.Exception' was thrown.") {}
 
         /// <summary>Create with a specified error message.</summary>
-        Exception(const std::string& msg) : std::runtime_error(msg.c_str()) {}
+        new_Exception(const std::string& msg) : base(msg.c_str()) {}
 
         /// <summary>Create with a specified error message.</summary>
-        Exception(const char* msg) : std::runtime_error(msg ? msg : "") {}
+        new_Exception(const char* msg) : base(msg ? msg : "") {}
 
         /// <summary>Create with a specified error message.</summary>
-        Exception(String msg) : std::runtime_error(*msg) {}
+        new_Exception(String msg) : base(*msg) {}
 
     public: // METHODS
 
