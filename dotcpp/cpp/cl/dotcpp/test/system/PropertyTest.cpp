@@ -26,33 +26,102 @@ limitations under the License.
 #include <approvals/Catch.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
 #include <cl/dotcpp/main/system/Property.hpp>
+#include "cl/dotcpp/main/system/Console.hpp"
 
 namespace cl
 {
-    class PropertySample
+    static std::stringstream received;
+
+    class PropertySampleBaseDataImpl; using PropertySampleBaseData = Ptr<PropertySampleBaseDataImpl>;
+
+    class PropertySampleBaseDataImpl : public virtual ObjectImpl
     {
-        std::string value_;
+        typedef PropertySampleBaseDataImpl ThisType;
+        friend PropertySampleBaseData new_PropertySampleBaseData();
 
-    private: // METHODS
+    private:
+        int x_ = 1;
 
-        /// <summary>Method used for property get.</summary>
-        static std::string getValue(PropertySample& obj) { return obj.value_; }
+    public:
 
-        /// <summary>Method used for property set.</summary>
-        static void setValue(PropertySample& obj, const std::string& value) { obj.value_ = value; }
+        DOT_DECL_GET(int, DeclaredGet)
+        DOT_DECL_PROP(int, DeclaredProp)
 
-    public: // METHOD
+        // TODO - must be able to declare property and implement as autoproperty
+        // DOT_DECL_GET(int, DeclaredGet2)
+        // DOT_DECL_GET(int, DeclaredGet3)
+        // DOT_DECL_PROP(int, DeclaredProp2)
 
-        /// <summary>Test property.</summary>
-        Property<PropertySample, std::string> Value = Property<PropertySample, std::string>(*this, getValue, setValue);
+        DOT_GET(int, RegularGet, { return 123; })
+        DOT_PROP(int, RegularProp, { return x_; }, { x_ = value; })
+
+    protected:
+        PropertySampleBaseDataImpl() = default;
     };
 
-    TEST_CASE("Smoke")
+    class PropertySampleDataImpl; using PropertySampleData = Ptr<PropertySampleDataImpl>;
+
+    class PropertySampleDataImpl : public PropertySampleBaseDataImpl
     {
-        PropertySample sample;
-        sample.Value = "abc";
-        std::string v1 = sample.Value;
-        sample.Value = "def";
-        std::string v2 = sample.Value;
+        typedef PropertySampleDataImpl ThisType;
+        friend PropertySampleData new_PropertySampleData();
+
+    private:
+        int y_ = 456;
+
+    public:
+
+        DOT_IMPL_GET(int, DeclaredGet, { return 456; })
+        DOT_IMPL_PROP(int, DeclaredProp, { return y_; }, { y_ = value; })
+
+        // Implement declared properties as auto properties
+        // A property can be declared as get and implemented as get/set
+        DOT_AUTO_GET(int, DeclaredGet2)
+        DOT_AUTO_PROP(int, DeclaredGet3)
+        DOT_AUTO_PROP(int, DeclaredProp2)
+
+        DOT_AUTO_PROP(String, StringProp)
+        DOT_AUTO_PROP(int, IntegerProp)
+        DOT_AUTO_PROP(double, DoubleProp)
+        DOT_AUTO_PROP(PropertySampleData, DataProp)
+
+    protected:
+        PropertySampleDataImpl()
+        {
+            // TODO - make it possible to set getter property in ctor
+            // DeclaredGet2 = 300;
+        }
+    };
+
+    PropertySampleData new_PropertySampleData() { return new PropertySampleDataImpl(); }
+
+    TEST_CASE("PropertySemantics")
+    {
+        PropertySampleData obj = new_PropertySampleData();
+        obj->DeclaredProp = 100;
+        obj->DeclaredProp2 = 200;
+        obj->StringProp = "abc";
+        obj->IntegerProp = 123;
+        obj->DoubleProp = 3.1415;
+        obj->DataProp = new_PropertySampleData();
+        obj->DataProp->StringProp = "xyz";
+
+        Console::WriteLine(obj->DeclaredGet);
+        Console::WriteLine(obj->DeclaredProp);
+
+        // TODO - these lines do not compile
+        // Console::WriteLine(obj->DeclaredGet2);
+        // Console::WriteLine(obj->DeclaredGet3);
+
+        // This line is declared the same way but compiles
+        Console::WriteLine(obj->DeclaredProp2);
+
+        Console::WriteLine(obj->StringProp->c_str());
+        Console::WriteLine(obj->IntegerProp);
+        Console::WriteLine(obj->DoubleProp);
+        Console::WriteLine(obj->DataProp->StringProp->c_str());
+
+        //Approvals::verify(received.str());
+        //received.clear();
     }
 }
