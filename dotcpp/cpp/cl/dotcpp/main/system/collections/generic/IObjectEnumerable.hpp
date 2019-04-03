@@ -31,17 +31,17 @@ limitations under the License.
 namespace cl
 {
 
-    class ObjectEnumerableImpl; using ObjectEnumerable = Ptr<ObjectEnumerableImpl>;
+    class IObjectEnumerableImpl; using IObjectEnumerable = Ptr<IObjectEnumerableImpl>;
 
-    class ObjectEnumerableImpl : public virtual ObjectImpl
+    class IObjectEnumerableImpl : public virtual ObjectImpl
     {
     public:
 
         /// <summary>Returns forward begin object iterator.</summary>
-        virtual detail::std_object_iterator_wrapper obj_begin() = 0;
+        virtual detail::std_object_iterator_wrapper object_begin() = 0;
 
         /// <summary>Returns forward end object iterator.</summary>
-        virtual detail::std_object_iterator_wrapper obj_end() = 0;
+        virtual detail::std_object_iterator_wrapper object_end() = 0;
 
     };
 
@@ -50,14 +50,14 @@ namespace cl
 namespace std
 {
     /// <summary>Implements begin() used by STL and similar algorithms.</summary>
-    inline auto begin(cl::ObjectEnumerable & obj)
+    inline auto begin(cl::IObjectEnumerable & obj)
     {
-        return obj->obj_begin();
+        return obj->object_begin();
     }
 
     /// <summary>Implements end() used by STL and similar algorithms.</summary>
-    inline auto end(cl::ObjectEnumerable & obj)
+    inline auto end(cl::IObjectEnumerable & obj)
     {
-        return obj->obj_end();
+        return obj->object_end();
     }
 }

@@ -30,6 +30,7 @@
     <ClInclude Include="detail\const_string_base.hpp" />
     <ClInclude Include="detail\iterator.hpp" />
     <ClInclude Include="detail\macro.hpp" />
+    <ClInclude Include="detail\object_iterator.hpp" />
     <ClInclude Include="detail\property.hpp" />
     <ClInclude Include="detail\traits.hpp" />
     <ClInclude Include="implement.hpp" />
@@ -48,6 +49,7 @@
     <ClInclude Include="system\collections\generic\LinkedList.hpp" />
     <ClInclude Include="system\collections\generic\List.hpp" />
     <ClInclude Include="system\collections\generic\ListBase.hpp" />
+    <ClInclude Include="system\collections\generic\IObjectEnumerable.hpp" />
     <ClInclude Include="system\collections\generic\Queue.hpp" />
     <ClInclude Include="system\collections\generic\SortedDictionary.hpp" />
     <ClInclude Include="system\collections\generic\SortedList.hpp" />

@@ -24,6 +24,7 @@ limitations under the License.
 #pragma once
 
 #include <cl/dotcpp/main/system/collections/generic/IList.hpp>
+#include <cl/dotcpp/main/system/collections/generic/IObjectEnumerable.hpp>
 
 namespace cl
 {
@@ -34,9 +35,10 @@ namespace cl
     /// Provides methods to search, sort, and manipulate lists.
     /// </summary>
     template <class T>
-    class ListImpl : public IListImpl<T>, public virtual ObjectImpl, public std::vector<T>
+    class ListImpl : public IListImpl<T>, public virtual ObjectImpl, public std::vector<T>, public IObjectEnumerableImpl
     {
         typedef std::vector<T> base;
+        typedef ListImpl<T> ThisType;
 
         template <class R> friend List<R> new_List();
 
@@ -62,6 +64,18 @@ namespace cl
 
         /// <summary>Returns random access end iterator of the underlying std::vector.</summary>
         typename base::iterator end() { return base::end(); }
+
+        /// <summary>Returns forward begin object iterator.</summary>
+        virtual detail::std_object_iterator_wrapper object_begin()
+        {
+            return detail::make_obj_iterator(base::begin());
+        }
+
+        /// <summary>Returns forward end object iterator.</summary>
+        virtual detail::std_object_iterator_wrapper object_end()
+        {
+            return detail::make_obj_iterator(base::end());
+        }
 
         /// <summary>The number of items contained in the list.</summary>
         DOT_IMPL_GET(ListImpl, int, Count, { return this->size(); })

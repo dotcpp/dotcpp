@@ -44,7 +44,7 @@ namespace cl
             obj->Add(3.);
 
             Object boxed = obj;
-            ObjectEnumerable list = ObjectEnumerable(boxed);
+            IObjectEnumerable list = IObjectEnumerable(boxed);
             int i = 0;
             for (Object item : list)
             {
