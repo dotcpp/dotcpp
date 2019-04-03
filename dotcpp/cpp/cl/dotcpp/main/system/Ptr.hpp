@@ -183,3 +183,26 @@ namespace cl
     template <class T> template <class I> decltype(auto) Ptr<T>::operator[](I const& i) { return (*ptr_)[i]; }
     template <class T> bool Ptr<T>::IsEmpty() { return !ptr_; }
 }
+
+namespace std
+{
+    /// <summary>Implements hash struct used by STL unordered_map for Ptr.</summary>
+    template <typename T>
+    struct hash<cl::Ptr<T>>
+    {
+        size_t operator()(const cl::Ptr<T>& obj) const
+        {
+            return obj->GetHashCode();
+        }
+    };
+
+    /// <summary>Implements equal_to struct used by STL unordered_map for Ptr.</summary>
+    template <typename T>
+    struct equal_to<cl::Ptr<T>>
+    {
+        bool operator()(const cl::Ptr<T>& lhs, const cl::Ptr<T>& rhs) const
+        {
+            return lhs->Equals(rhs);
+        }
+    };
+}

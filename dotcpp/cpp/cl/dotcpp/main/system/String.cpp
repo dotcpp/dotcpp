@@ -32,6 +32,19 @@ namespace cl
     /// <summary>Empty string.</summary>
     String String::Empty = new_String("");
 
+    bool StringImpl::Equals(Object obj)
+    {
+        if (this == &(*obj)) return true;
+        if (obj.is<String>())
+            return *this == *((String) obj);
+        return false;
+    }
+
+    size_t StringImpl::GetHashCode()
+    {
+        return std::hash<std::string>()(*this);
+    }
+
     /// <summary>Determines whether the end of this
     /// string matches the specified string.</summary>
     bool StringImpl::EndsWith(const std::string& value)

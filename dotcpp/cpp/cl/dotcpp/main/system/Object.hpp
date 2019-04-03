@@ -139,3 +139,17 @@ namespace cl
         operator int64_t() const;
     };
 }
+
+namespace std
+{
+    /// <summary>Implements hash struct used by STL unordered_map for Object.</summary>
+    template <>
+    struct hash<cl::Object> : public hash<cl::Ptr<cl::ObjectImpl>>
+    {};
+
+    /// <summary>Implements equal_to struct used by STL unordered_map for Object.</summary>
+    template <>
+    struct equal_to<cl::Object> : public equal_to<cl::Ptr<cl::ObjectImpl>>
+    {};
+}
+

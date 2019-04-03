@@ -19,6 +19,7 @@
     <ClCompile Include="system\NullableInt.cpp" />
     <ClCompile Include="system\NullableLong.cpp" />
     <ClCompile Include="system\Object.cpp" />
+    <ClCompile Include="system\ObjectImpl.cpp" />
     <ClCompile Include="system\Period.cpp" />
     <ClCompile Include="system\reflection\Activator.cpp" />
     <ClCompile Include="system\String.cpp" />

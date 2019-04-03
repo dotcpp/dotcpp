@@ -80,6 +80,13 @@ namespace cl
 
     public: // METHODS
 
+        /// <summary>Determines whether this instance and a specified object,
+        /// which must also be a String object, have the same value.</summary>
+        virtual bool Equals(Object obj) override;
+
+        /// <summary>Returns the hash code for this string.</summary>
+        virtual size_t GetHashCode() override;
+
         /// <summary>Determines whether the end of this
         /// string matches the specified string.</summary>
         bool EndsWith(const std::string& value);
@@ -406,13 +413,6 @@ namespace cl
     /// <summary>Returns a string containing characters from lhs followed by the characters from rhs.</summary>
     inline bool operator<(const String& lhs, const String& rhs) { return *lhs < *rhs; }
 
-    /// <summary>
-    /// String that represents the current object.
-    ///
-    /// Default implementation returns full name of the class.
-    /// </summary>
-    inline String ObjectImpl::ToString() const { return "Object"; }
-
     /// <summary>Helper class for fmt::format arguments conversion</summary>
     template <class T>
     struct format_forward {
@@ -446,13 +446,13 @@ namespace cl
 
 namespace std
 {
-    /// <summary>Implements hash struct used by STL unordered_map.</summary>
+    /// <summary>Implements hash struct used by STL unordered_map for String.</summary>
     template <>
-    struct hash<cl::String>
-    {
-        size_t operator()(const cl::String& s) const
-        {
-            return hash<std::string>()(*s);
-        }
-    };
+    struct hash<cl::String> : public hash<cl::Ptr<cl::StringImpl>>
+    {};
+
+    /// <summary>Implements equal_to struct used by STL unordered_map for String.</summary>
+    template <>
+    struct equal_to<cl::String> : public equal_to<cl::Ptr<cl::StringImpl>>
+    {};
 }

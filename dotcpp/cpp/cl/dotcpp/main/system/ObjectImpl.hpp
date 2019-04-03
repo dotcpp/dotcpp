@@ -56,6 +56,12 @@ namespace cl
 
     public: // METHODS
 
+        /// <summary>Determines whether the specified object is equal to the current object.</summary>
+        virtual bool Equals(Object obj);
+
+        /// <summary>Serves as the default hash function.</summary>
+        virtual size_t GetHashCode();
+
         /// <summary>Gets the Type of the current instance.</summary>
         virtual Type GetType();
 
