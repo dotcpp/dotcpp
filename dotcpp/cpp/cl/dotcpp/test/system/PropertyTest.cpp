@@ -25,7 +25,7 @@ limitations under the License.
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
-#include "cl/dotcpp/main/system/Console.hpp"
+#include "cl/dotcpp/main/system/text/StringBuilder.hpp"
 
 namespace cl
 {
@@ -96,6 +96,8 @@ namespace cl
 
     TEST_CASE("PropertySemantics")
     {
+        StringBuilder received = new_StringBuilder();
+
         PropertySampleData obj = new_PropertySampleData();
         obj->DeclaredProp = 100;
         obj->DeclaredProp2 = 200;
@@ -105,22 +107,21 @@ namespace cl
         obj->DataProp = new_PropertySampleData();
         obj->DataProp->StringProp = "xyz";
 
-        Console::WriteLine(obj->DeclaredGet);
-        Console::WriteLine(obj->DeclaredProp);
+        received->AppendLine(obj->DeclaredGet);
+        received->AppendLine(obj->DeclaredProp);
 
         // TODO - these lines do not compile
-        // Console::WriteLine(obj->DeclaredGet2);
-        // Console::WriteLine(obj->DeclaredGet3);
+        // received->AppendLine(obj->DeclaredGet2);
+        // received->AppendLine(obj->DeclaredGet3);
 
         // This line is declared the same way but compiles
-        Console::WriteLine(obj->DeclaredProp2);
+        received->AppendLine(obj->DeclaredProp2);
 
-        Console::WriteLine(obj->StringProp->c_str());
-        Console::WriteLine(obj->IntegerProp);
-        Console::WriteLine(obj->DoubleProp);
-        Console::WriteLine(obj->DataProp->StringProp->c_str());
+        received->AppendLine(obj->StringProp->c_str());
+        received->AppendLine(obj->IntegerProp);
+        received->AppendLine(obj->DoubleProp);
+        received->AppendLine(obj->DataProp->StringProp->c_str());
 
-        //Approvals::verify(received.str());
-        //received.clear();
+        Approvals::verify(*received);
     }
 }

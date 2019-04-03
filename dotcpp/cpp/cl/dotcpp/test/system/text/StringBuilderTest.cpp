@@ -25,6 +25,7 @@ limitations under the License.
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <cl/dotcpp/main/system/text/StringBuilder.hpp>
+#include <cl/dotcpp/main/system/Exception.hpp>
 
 namespace cl
 {
