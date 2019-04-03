@@ -112,5 +112,5 @@ namespace cl
     /// <summary>
     /// Initializes an empty instance of the StringBuilder class.
     /// </summary>
-    StringBuilder new_StringBuilder() { return new StringBuilderImpl(); }
+    inline StringBuilder new_StringBuilder() { return new StringBuilderImpl(); }
 }
