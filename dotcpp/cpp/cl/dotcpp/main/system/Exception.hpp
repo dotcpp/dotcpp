@@ -24,33 +24,35 @@ limitations under the License.
 #pragma once
 
 #include <cl/dotcpp/main/declare.hpp>
-#include <cl/dotcpp/main/system/String.hpp>
 
 namespace cl
 {
+    class String;
+    class StringImpl; 
+
     /// <summary>Represents errors that occur during application execution.</summary>
-    class Exception : public std::runtime_error
+    class CL_DOTCPP_MAIN Exception : public std::runtime_error
     {
         typedef std::runtime_error base;
 
     protected: // CONSTRUCTORS
 
         /// <summary>Create with default message.</summary>
-        Exception() : base("Exception of type 'System.Exception' was thrown.") {}
+        Exception();
 
         /// <summary>Create with a specified error message.</summary>
-        Exception(const std::string& msg) : base(msg.c_str()) {}
+        Exception(const std::string& msg);
 
         /// <summary>Create with a specified error message.</summary>
-        Exception(const char* msg) : base(msg ? msg : "") {}
+        Exception(const char* msg);
 
         /// <summary>Create with a specified error message.</summary>
-        Exception(String msg) : base(*msg) {}
+        Exception(String msg);
 
     public: // METHODS
 
         /// <summary>Message that describes the current exception.</summary>
-        virtual String Message() const { return String(what()); }
+        virtual String Message() const;
     };
 
     /// <summary>
@@ -60,27 +62,22 @@ namespace cl
     /// this class is syntactic sugar on top of Exception class which
     /// has value semantics.
     /// </summary>
-    class new_Exception : public Exception
+    class CL_DOTCPP_MAIN new_Exception : public Exception
     {
         typedef Exception base;
 
     public: // CONSTRUCTORS
 
         /// <summary>Create with default message.</summary>
-        new_Exception() : base("Exception of type 'System.Exception' was thrown.") {}
+        new_Exception();
 
         /// <summary>Create with a specified error message.</summary>
-        new_Exception(const std::string& msg) : base(msg.c_str()) {}
+        new_Exception(const std::string& msg);
 
         /// <summary>Create with a specified error message.</summary>
-        new_Exception(const char* msg) : base(msg ? msg : "") {}
+        new_Exception(const char* msg);
 
         /// <summary>Create with a specified error message.</summary>
-        new_Exception(String msg) : base(*msg) {}
-
-    public: // METHODS
-
-        /// <summary>Message that describes the current exception.</summary>
-        virtual String Message() const { return String(what()); }
+        new_Exception(String msg);
     };
 }

@@ -26,6 +26,7 @@ limitations under the License.
 #include <cl/dotcpp/main/declare.hpp>
 #include <cl/dotcpp/main/system/Ptr.hpp>
 #include <cl/dotcpp/main/system/ObjectImpl.hpp>
+#include <cl/dotcpp/main/system/Exception.hpp>
 
 namespace cl
 {

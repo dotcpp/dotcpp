@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="system\Environment.cpp" />
+    <ClCompile Include="system\Exception.cpp" />
     <ClCompile Include="system\LocalDate.cpp" />
     <ClCompile Include="system\LocalDateTime.cpp" />
     <ClCompile Include="system\LocalTime.cpp" />
