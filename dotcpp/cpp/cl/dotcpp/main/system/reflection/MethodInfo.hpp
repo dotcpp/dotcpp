@@ -40,6 +40,8 @@ namespace cl
     {
         friend class TypeDataImpl;
 
+        typedef MethodInfoImpl ThisType;
+
     public: // METHODS
 
         /// <summary>A string representing the name of the current type.</summary>
@@ -70,8 +72,9 @@ namespace cl
         /// </summary>
         MethodInfoImpl(const String& name, Type declaringType, Type returnType)
             : MemberInfoImpl(name, declaringType)
-            , ReturnType(returnType)
-        {}
+        {
+            ReturnType.ReturnType = returnType;
+        }
     };
 
     /// <summary>

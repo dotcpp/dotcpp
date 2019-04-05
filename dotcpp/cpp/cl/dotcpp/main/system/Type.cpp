@@ -85,9 +85,9 @@ namespace cl
     /// This constructor is private. Use TypeBuilder->Build() method instead.
     /// </summary>
     TypeImpl::TypeImpl(String Name, String Namespace)
-        : Name(Name)
-        , Namespace(Namespace)
     {
+        this->Name.Name = Name;
+        this->Namespace.Namespace = Namespace;
     }
 
 

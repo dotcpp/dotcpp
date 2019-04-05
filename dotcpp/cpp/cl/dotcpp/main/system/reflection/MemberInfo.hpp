@@ -34,6 +34,8 @@ namespace cl
     /// <summary>Data for MemberInfo.</summary>
     class CL_DOTCPP_MAIN MemberInfoDataImpl : public virtual ObjectImpl
     {
+        typedef MemberInfoDataImpl ThisType;
+
     public: // PROPERTIES
 
         /// <summary>Gets the name of the current member.</summary>
@@ -54,6 +56,8 @@ namespace cl
     /// </summary>
     class MemberInfoImpl : public virtual ObjectImpl
     {
+        typedef MemberInfoImpl ThisType;
+
     public: // METHODS
 
         /// <summary>Gets the name of the current member.</summary>
@@ -73,8 +77,9 @@ namespace cl
         /// This constructor is protected. It is used by derived classes only.
         /// </summary>
         MemberInfoImpl(const String& name, Type declaringType)
-            : Name(name)
-            , DeclaringType(declaringType)
-        {}
+        {
+            Name.Name = name;
+            DeclaringType.DeclaringType = declaringType;
+        }
     };
 }

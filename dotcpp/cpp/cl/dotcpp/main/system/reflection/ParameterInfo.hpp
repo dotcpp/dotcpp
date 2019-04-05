@@ -36,6 +36,8 @@ namespace cl
     {
         friend ParameterInfo new_ParameterInfo(String , Type, int);
 
+        typedef ParameterInfoImpl ThisType;
+
     public: // METHODS
 
         /// <summary>Gets the type of this parameter.</summary>
@@ -56,10 +58,11 @@ namespace cl
         /// function with matching signature instead.
         /// </summary>
         ParameterInfoImpl(String name, Type parameterType, int position)
-            : ParameterType(parameterType)
-            , Name(name)
-            , Position(position)
-        {}
+        {
+            ParameterType.ParameterType = parameterType;
+            Name.Name = name;
+            Position.Position = position;
+        }
     };
 
     /// <summary>

@@ -359,7 +359,7 @@ namespace cl
     public: // STATIC
 
         /// <summary>
-        /// Replaces format entries in the specified string with the string 
+        /// Replaces format entries in the specified string with the string
         /// representation of objects in the argument array.
         /// </summary>
         template <typename ...Args>
@@ -416,7 +416,11 @@ namespace cl
     /// <summary>Helper class for fmt::format arguments conversion</summary>
     template <class T>
     struct format_forward {
-        static inline const T& convert(const T& t) { return t; }
+
+        static inline const auto & convert_impl(const T& t, std::true_type) { return format_forward<T::value_type>::convert(t.operator T::value_type()); }
+        static inline const T& convert_impl(const T& t, std::false_type) { return t; }
+
+        static inline auto convert(const T& t) { return convert_impl(t, std::is_base_of<detail::decl_get, T>::type() ); }
     };
 
     /// <summary>Helper class for fmt::format arguments conversion</summary>

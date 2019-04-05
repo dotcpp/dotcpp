@@ -36,6 +36,8 @@ namespace cl
     class CL_DOTCPP_MAIN PropertyInfoDataImpl final : public MemberInfoDataImpl
     {
 
+        typedef PropertyInfoDataImpl ThisType;
+
     public: // PROPERTIES
 
         /// <summary>Type of this property.</summary>
@@ -65,6 +67,8 @@ namespace cl
     /// </summary>
     class PropertyInfoImpl : public MemberInfoImpl
     {
+        typedef PropertyInfoImpl ThisType;
+
     public: // METHODS
 
         /// <summary>Gets the type of this property.</summary>
@@ -89,8 +93,9 @@ namespace cl
         /// </summary>
         PropertyInfoImpl(String name, Type declaringType, Type propertyType)
             : MemberInfoImpl(name, declaringType)
-            , PropertyType(propertyType)
-        {}
+        {
+            PropertyType.PropertyType = propertyType;
+        }
     };
 
     /// <summary>
