@@ -69,7 +69,6 @@ namespace cl
         struct operator_arrow
         {
             auto operator->() { return static_cast<T*>(this)->operator typename T::value_type().operator->(); }
-
         };
 
         /// <summary>
@@ -318,3 +317,72 @@ namespace cl
 
 
 #define DOT_AUTO_PROP(type, name) DOT_PROP(type, name, { return name; }, { name = value; })
+
+
+#define DOT_DECL_FLUENT(ptype, name)                                                         \
+    private:                                                                                 \
+        virtual ptype CAT(get, name)(ptype name) = 0;                                        \
+        virtual void CAT(set, name)(ptype & name, ptype const& value) = 0;                   \
+        struct CAT(name, _prop) : detail::decl_prop                                          \
+                                , std::conditional<detail::has_begin<ptype>::value           \
+                                                 , detail::begin_end<CAT(name, _prop)>       \
+                                                 , detail::dummy                             \
+                                                  >::type                                    \
+                                , std::conditional<detail::has_operator_arrow<ptype>::value  \
+                                                 , detail::operator_arrow<CAT(name, _prop)>  \
+                                                 , detail::dummy_                            \
+                                                  >::type                                    \
+        {                                                                                    \
+            typedef ptype value_type;                                                        \
+            CAT(name, _prop)(ThisType * this_) : this_(this_) {}                             \
+            ptype name;                                                                      \
+                                                                                             \
+            void operator = (const ptype &value )                                            \
+                { return this_->CAT(set, name)(name, value); }                               \
+            operator ptype() const { return this_->CAT(get, name)(name); }                   \
+            CAT(name, _prop) & operator = (const CAT(name, _prop) & rhs)                     \
+                { name = rhs.operator ptype(); return *this;  }                              \
+            ThisType * operator()(ptype const& value) { *this = value; return this_; }       \
+                                                                                             \
+            ThisType * this_;                                                                \
+                                                                                             \
+        };                                                                                   \
+    public:                                                                                  \
+        CAT(name, _prop) name = CAT(name, _prop)(this);
+
+
+
+#define DOT_PROP_FLUENT(ptype, name, getter, setter)                                         \
+    private:                                                                                 \
+        virtual ptype CAT(get, name)(ptype name) getter                                      \
+        virtual void CAT(set, name)(ptype & name, ptype const& value) setter                 \
+        struct CAT(name, _prop) : detail::decl_prop                                          \
+                                , std::conditional<detail::has_begin<ptype>::value           \
+                                                 , detail::begin_end<CAT(name, _prop)>       \
+                                                 , detail::dummy                             \
+                                                  >::type                                    \
+                                , std::conditional<detail::has_operator_arrow<ptype>::value  \
+                                                 , detail::operator_arrow<CAT(name, _prop)>  \
+                                                 , detail::dummy_                            \
+                                                  >::type                                    \
+        {                                                                                    \
+            typedef ptype value_type;                                                        \
+            CAT(name, _prop)(ThisType * this_) : this_(this_) {}                             \
+            ptype name;                                                                      \
+                                                                                             \
+            void operator = (const ptype &value )                                            \
+                { return this_->CAT(set, name)(name, value); }                               \
+            operator ptype() const { return this_->CAT(get, name)(name); }                   \
+            CAT(name, _prop) & operator = (const CAT(name, _prop) & rhs)                     \
+                { name = rhs.operator ptype(); return *this;  }                              \
+            template <class T_>                                                              \
+            bool operator==(T_ const& rhs) { return operator ptype() == rhs; }               \
+            ThisType * operator()(ptype const& value) { *this = value; return this_; }       \
+                                                                                             \
+            ThisType * this_;                                                                \
+                                                                                             \
+        };                                                                                   \
+    public:                                                                                  \
+        CAT(name, _prop) name = CAT(name, _prop)(this);
+
+#define DOT_AUTO_FLUENT(type, name) DOT_PROP_FLUENT(type, name, { return name; }, { name = value; })
