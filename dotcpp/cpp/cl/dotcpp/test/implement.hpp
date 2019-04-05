@@ -28,3 +28,5 @@ limitations under the License.
 #ifndef CL_DOTCPP_TEST
 #   define CL_DOTCPP_TEST CL_IMPLEMENT
 #endif
+
+#include <cl/dotcpp/main/detail/reflection_macro_impl.hpp> // TODO Move above ifnfdef?

@@ -28,3 +28,5 @@ limitations under the License.
 #ifndef CL_DOTCPP_MAIN
 #   define CL_DOTCPP_MAIN CL_DECLARE
 #endif
+
+#include <cl/dotcpp/main/detail/reflection_macro_decl.hpp> // TODO Move above ifnfdef?

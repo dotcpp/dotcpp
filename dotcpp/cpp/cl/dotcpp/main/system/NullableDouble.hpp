@@ -47,6 +47,11 @@ namespace cl
 
         /// <summary>A string representing the name of the current type.</summary>
         virtual String ToString() const;
+
+        static Type typeof();
+
+        virtual Type GetType();
+
     };
 
     /// <summary>

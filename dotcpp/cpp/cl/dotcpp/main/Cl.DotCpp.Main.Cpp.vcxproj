@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="system\collections\IObjectEnumerable.cpp" />
     <ClCompile Include="system\Environment.cpp" />
     <ClCompile Include="system\Exception.cpp" />
     <ClCompile Include="system\LocalDate.cpp" />
@@ -35,6 +36,8 @@
     <ClInclude Include="detail\macro.hpp" />
     <ClInclude Include="detail\object_iterator.hpp" />
     <ClInclude Include="detail\property.hpp" />
+    <ClInclude Include="detail\reflection_macro_decl.hpp" />
+    <ClInclude Include="detail\reflection_macro_impl.hpp" />
     <ClInclude Include="detail\traits.hpp" />
     <ClInclude Include="implement.hpp" />
     <ClInclude Include="import.hpp" />

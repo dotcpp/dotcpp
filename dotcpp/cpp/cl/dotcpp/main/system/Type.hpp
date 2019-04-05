@@ -61,6 +61,10 @@ namespace cl
         List<MethodInfo> methods_;
         List<ConstructorInfo> ctors_;
         Type type_;
+        Type base_;
+        List<Type> interfaces_;
+        List<Type> generic_args_;
+        bool is_class_;
 
     public: // METHODS
 
@@ -163,6 +167,39 @@ namespace cl
             return this;
         }
 
+        /// <summary>Add base type of the current Type.</summary>
+        template <class Class>
+        TypeData WithBase()
+        {
+            if (!(this->base_.IsEmpty()))
+                throw Exception("Base already defined in class " + fullName_);
+
+            this->base_ = typeof<Class>();
+            return this;
+        }
+
+        /// <summary>Add interface type of the current Type.</summary>
+        template <class Class>
+        TypeData WithInterface()
+        {
+            if (this->interfaces_.IsEmpty())
+                this->interfaces_ = new_List<Type>();
+
+            this->interfaces_->Add(typeof<Class>());
+            return this;
+        }
+
+        /// <summary>Add generic argument type of the current Type.</summary>
+        template <class Class>
+        TypeData WithGenericArgument()
+        {
+            if (this->generic_args_.IsEmpty())
+                this->generic_args_ = new_List<Type>();
+
+            this->generic_args_->Add(typeof<Class>());
+            return this;
+        }
+
 
         /// <summary>Built Type from the current object.</summary>
         Type Build();
@@ -181,7 +218,12 @@ namespace cl
     /// Create an empty instance of TypeData.
     /// </summary>
     template <class T>
-    inline TypeData new_TypeData(String Name, String Namespace) { return new TypeDataImpl(Name, Namespace, typeid(T).name()); }
+    inline TypeData new_TypeData(String Name, String Namespace)
+    {
+        TypeData td = new TypeDataImpl(Name, Namespace, typeid(T).name());
+        td->is_class_ = std::is_base_of<ObjectImpl, T>::value;
+        return td;
+    }
 
     /// <summary>
     /// Represents type declarations: class types, interface types, array types, value types, enumeration types,
@@ -216,6 +258,9 @@ namespace cl
         Array1D<PropertyInfo> properties_;
         Array1D<MethodInfo> methods_;
         Array1D<ConstructorInfo> ctors_;
+        Array1D<Type> interfaces_;
+        Array1D<Type> generic_args_;
+        Type base_;
 
     public: // PROPERTIES
 
@@ -224,6 +269,12 @@ namespace cl
 
         /// <summary>Gets the fully qualified name of the type, including its namespace but not its assembly.</summary>
         DOT_AUTO_GET(String, Namespace);
+
+        /// <summary>Gets the base type if current type.</summary>
+        DOT_GET(Type, BaseType, { return base_; })
+
+        /// <summary>Gets a value indicating whether the System.Type is a class or a delegate; that is, not a value type or interface.</summary>
+        DOT_AUTO_GET(bool, IsClass);
 
     public: // METHODS
 
@@ -236,11 +287,20 @@ namespace cl
         /// <summary>Returns constructors of the current type.</summary>
         Array1D<ConstructorInfo> GetConstructors() { return ctors_; }
 
+        /// <summary>Returns interfaces of the current type.</summary>
+        Array1D<Type> GetInterfaces() { return interfaces_; }
+
+        /// <summary>Returns interfaces of the current type.</summary>
+        Array1D<Type> GetGenericArguments() { return generic_args_; }
+
         /// <summary>Searches for the public property with the specified name.</summary>
         PropertyInfo GetProperty(String name);
 
         /// <summary>Searches for the public method with the specified name.</summary>
         MethodInfo GetMethod(String name);
+
+        /// <summary>Searches for the interface with the specified name.</summary>
+        Type GetInterface(String name);
 
         /// <summary>A string representing the name of the current type.</summary>
         virtual String ToString() const { return "Type"; } // TODO - return name
@@ -294,8 +354,14 @@ namespace cl
         return new_TypeData<ObjectImpl>("Object", "System")->Build();
     }
 
-    template <>
-    inline Type typeof<String>() { return new_TypeData<String>("String", "System")->Build(); }
+    template <class T> inline Type ListImpl<T>::typeof()
+    {
+        return new_TypeData<ObjectImpl>("List", "System.Collections.Generic")
+            WITH_CONSTRUCTOR(new_List<T>)
+            //WITH_GENERIC_ARG(T)
+            WITH_INTERFACE(IObjectEnumerable)
+            ->Build();
+    }
 
     template <>
     inline Type typeof<double>() { return new_TypeData<double>("Double", "System")->Build(); }

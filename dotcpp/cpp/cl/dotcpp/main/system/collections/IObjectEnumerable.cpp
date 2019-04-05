@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (C) 2003-present CompatibL
 
 This file is part of .C++, a native C++ implementation of
@@ -21,12 +21,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#pragma once
+#include <cl/dotcpp/main/implement.hpp>
+#include <cl/dotcpp/main/system/collections/IObjectEnumerable.hpp>
+#include <cl/dotcpp/main/system/Type.hpp>
 
-#include <cl/dotcpp/main/import.hpp>
+namespace cl
+{
+    Type IObjectEnumerableImpl::typeof()
+    {
+        return new_TypeData<ObjectImpl>("IObjectEnumerable", "System.Collections")
+            ->Build();
+    }
 
-#ifndef CL_DOTCPP_MAIN
-#   define CL_DOTCPP_MAIN CL_IMPLEMENT
-#endif
+    Type IObjectEnumerableImpl::GetType()
+    {
+        return typeof();
+    }
 
-#include <cl/dotcpp/main/detail/reflection_macro_impl.hpp> // TODO Move above ifnfdef?
+}

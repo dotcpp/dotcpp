@@ -40,37 +40,6 @@ limitations under the License.
 #include <cl/dotcpp/main/system/collections/generic/List.hpp>
 
 
-#define DOT_REFLECTION(registration)                                                              \
-        static Type typeof()                                                                      \
-        {                                                                                         \
-            static Type type = []()-> Type                                                        \
-            {                                                                                     \
-                                                                                                  \
-                Type type = new_TypeData<ThisType>                                                \
-                            (boost::core::demangled_name(typeid(ThisType)), "DotCpp.System.Test") \
-                                                                                                  \
-                    registration                                                                  \
-                                                                                                  \
-                    ->Build();                                                                    \
-                                                                                                  \
-                return type;                                                                      \
-            }();                                                                                  \
-                                                                                                  \
-            return type;                                                                          \
-        }                                                                                         \
-                                                                                                  \
-        virtual Type GetType()                                                                    \
-        {                                                                                         \
-            return typeof();                                                                      \
-        }
-
-
-
-#define PROPERTY(prop_name)        ->WithProperty(#prop_name, &ThisType::prop_name)
-#define METHOD(meth_name, ...)     ->WithMethod(#meth_name, &ThisType::meth_name, { __VA_ARGS__ })
-#define CONSTRUCTOR(ctor_name, ...)     ->WithConstructor(&ctor_name, { __VA_ARGS__ })
-
-
 namespace cl
 {
     static std::stringstream received;
@@ -119,6 +88,7 @@ namespace cl
         DOT_AUTO_PROP(int, IntegerProp)
         DOT_AUTO_PROP(double, DoubleProp)
         DOT_AUTO_PROP(SampleData2, DataProp)
+        DOT_AUTO_PROP(List<double>, DblList)
 
         double Foo(int dblArg, int second_arg)
         {
@@ -140,21 +110,71 @@ namespace cl
 
         DOT_REFLECTION
         (
-            CONSTRUCTOR(new_SampleData)
-            PROPERTY(StringProp)
-            PROPERTY(DataProp)
-            METHOD(Foo, "dbl_arg", "second_arg")
-            METHOD(Bar, "dbl_arg")
-            METHOD(StaticFoo, "g")
+            "SampleData", "DotCpp.Test",
+            WITH_CONSTRUCTOR(new_SampleData)
+            WITH_PROPERTY(StringProp)
+            WITH_PROPERTY(DataProp)
+            WITH_PROPERTY(DblList)
+            WITH_METHOD(Foo, "dbl_arg", "second_arg")
+            WITH_METHOD(Bar, "dbl_arg")
+            WITH_METHOD(StaticFoo, "g")
         )
     };
 
     SampleData new_SampleData() { return new SampleDataImpl; }
 
+    String ObjToString(Object obj)
+    {
+        if (obj.IsEmpty()) return "";
+
+        Type type = obj->GetType();
+
+        std::stringstream ss;
+
+        if (!type->GetInterface("IObjectEnumerable").IsEmpty())
+        {
+            IObjectEnumerable vec = (IObjectEnumerable)obj;
+            for (Object item : vec)
+            {
+                ss << *(ObjToString(item));
+            }
+
+        }
+        else if (type == typeof<String>())
+        {
+            ss << *(String)obj << "|";
+        }
+        else if (type->IsClass)
+        {
+            for (PropertyInfo prop : type->GetProperties())
+            {
+                ss << *(ObjToString(prop->GetValue(obj)));
+            }
+        }
+        else
+        {
+            ss << *(obj->ToString()) << "|";
+        }
+
+
+        return ss.str();
+    }
+
+
     TEST_CASE("SimpleSerialization")
     {
         SampleData obj = new_SampleData();
-        SampleData2 obj2 = new SampleData2Impl();
+        obj->StringProp = "str";
+        obj->DataProp = new SampleData2Impl();
+        obj->DataProp->DataProp = new_SampleData();
+        obj->DataProp->DataProp->StringProp = "internal str";
+        obj->DblList = new_List<double>();
+        obj->DblList->Add(1.);
+        obj->DblList->Add(3.);
+        obj->DblList->Add(2.);
+
+        String s = ObjToString(obj);
+
         Type type = obj->GetType();
 
         SampleData dt = (SampleData)Activator::CreateInstance(obj->GetType());
@@ -163,7 +183,7 @@ namespace cl
         // obj->IntegerProp = 42;
         // obj->DoubleProp = 1.23;
 
-        Type type2 = obj2->GetType();
+        //Type type2 = obj2->GetType();
         auto vec_prop = obj->GetType()->GetProperties();
 
         Array1D<cl::Object> paramsFoo = new_Array1D<Object>(2);

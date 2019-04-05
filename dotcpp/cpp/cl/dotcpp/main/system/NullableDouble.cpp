@@ -24,11 +24,23 @@ limitations under the License.
 #include <cl/dotcpp/main/implement.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
 #include <cl/dotcpp/main/system/NullableDouble.hpp>
+#include <cl/dotcpp/main/system/Type.hpp>
 
 namespace cl
 {
     /// <summary>A string representing the current type.</summary>
     String DoubleImpl::ToString() const { return std::to_string(value_); }
+
+    Type DoubleImpl::typeof()
+    {
+        return cl::typeof<double>();
+    }
+
+    Type DoubleImpl::GetType()
+    {
+        return typeof();
+    }
+
 
     /// <summary>
     /// Create from Object.

@@ -31,6 +31,7 @@ limitations under the License.
 #include <cl/dotcpp/main/system/NullableInt.hpp>
 #include <cl/dotcpp/main/system/collections/generic/List.hpp>
 #include <cl/dotcpp/main/system/NullableLong.hpp>
+#include <cl/dotcpp/main/system/Type.hpp>
 
 namespace cl
 {

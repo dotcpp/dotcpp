@@ -48,11 +48,9 @@ namespace cl
     {
         if (!data->properties_.IsEmpty())
         {
-
             this->properties_ = new_Array1D<PropertyInfo>(data->properties_->Count);
-
             int i = 0;
-            for (auto propInfoData : data->properties_)
+            for (PropertyInfo propInfoData : data->properties_)
             {
                 this->properties_[i++] = propInfoData;
             }
@@ -62,7 +60,7 @@ namespace cl
         {
             this->methods_ = new_Array1D<MethodInfo>(data->methods_->Count);
             int i = 0;
-            for (auto methInfoData : data->methods_)
+            for (MethodInfo methInfoData : data->methods_)
             {
                 this->methods_[i++] = methInfoData;
             }
@@ -72,11 +70,34 @@ namespace cl
         {
             this->ctors_ = new_Array1D<ConstructorInfo>(data->ctors_->Count);
             int i = 0;
-            for (auto ctorInfoData : data->ctors_)
+            for (ConstructorInfo ctorInfoData : data->ctors_)
             {
                 this->ctors_[i++] = ctorInfoData;
             }
         }
+
+        if (!data->interfaces_.IsEmpty())
+        {
+            this->interfaces_ = new_Array1D<Type>(data->interfaces_->Count);
+            int i = 0;
+            for (Type interface : data->interfaces_)
+            {
+                this->interfaces_[i++] = interface;
+            }
+        }
+
+        if (!data->generic_args_.IsEmpty())
+        {
+            this->generic_args_ = new_Array1D<Type>(data->generic_args_->Count);
+            int i = 0;
+            for (Type arg : data->generic_args_)
+            {
+                this->generic_args_[i++] = arg;
+            }
+        }
+
+        this->base_ = data->base_;
+        this->IsClass.IsClass = data->is_class_;
     }
 
     /// <summary>
@@ -101,6 +122,8 @@ namespace cl
 
     PropertyInfo TypeImpl::GetProperty(String name)
     {
+        if (properties_.IsEmpty()) return nullptr;
+
         for (auto prop : properties_)
         {
             if (prop->Name == name)
@@ -112,10 +135,25 @@ namespace cl
 
     MethodInfo TypeImpl::GetMethod(String name)
     {
+        if (methods_.IsEmpty()) return nullptr;
+
         for (auto method : methods_)
         {
             if (method->Name == name)
                 return method;
+        }
+
+        return nullptr;
+    }
+
+    Type TypeImpl::GetInterface(String name)
+    {
+        if (interfaces_.IsEmpty()) return nullptr;
+
+        for (auto interface : interfaces_)
+        {
+            if (interface->Name == name)
+                return interface;
         }
 
         return nullptr;

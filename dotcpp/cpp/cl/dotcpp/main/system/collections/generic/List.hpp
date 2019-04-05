@@ -29,6 +29,7 @@ limitations under the License.
 namespace cl
 {
     template <class T> class ListImpl; template <class T> using List = Ptr<ListImpl<T>>;
+    class TypeDataImpl; using TypeData = Ptr<TypeDataImpl>;
 
     /// <summary>
     /// Represents a strongly typed list of objects that can be accessed by index.
@@ -105,6 +106,14 @@ namespace cl
 
         /// <summary>Gets or sets the element at the specified index (non-const version).</summary>
         virtual T& operator[](int i) { return base::operator[](i); }
+
+        static Type typeof();
+
+        virtual Type GetType()
+        {
+            return typeof();
+        }
+
     };
 
     /// <summary>

@@ -26,11 +26,24 @@ limitations under the License.
 #include <cl/dotcpp/main/implement.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
 #include <cl/dotcpp/main/system/Object.hpp>
+#include <cl/dotcpp/main/system/Type.hpp>
 
 namespace cl
 {
     /// <summary>Empty string.</summary>
     String String::Empty = new_String("");
+
+    Type StringImpl::typeof()
+    {
+        return new_TypeData<StringImpl>("String", "System")
+            ->Build();
+    }
+
+    Type StringImpl::GetType()
+    {
+        return typeof();
+    }
+
 
     bool StringImpl::Equals(Object obj)
     {

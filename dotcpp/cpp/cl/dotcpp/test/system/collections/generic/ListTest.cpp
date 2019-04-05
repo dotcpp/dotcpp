@@ -28,6 +28,7 @@ limitations under the License.
 #include <cl/dotcpp/main/system/Array1D.hpp>
 #include <cl/dotcpp/main/system/collections/generic/List.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
+#include <cl/dotcpp/main/system/Type.hpp>
 
 namespace cl
 {

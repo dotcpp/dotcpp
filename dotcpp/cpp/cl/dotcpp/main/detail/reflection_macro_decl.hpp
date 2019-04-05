@@ -1,4 +1,5 @@
-﻿/*
+#pragma once
+/*
 Copyright (C) 2003-present CompatibL
 
 This file is part of .C++, a native C++ implementation of
@@ -23,10 +24,14 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/import.hpp>
+#ifndef DOT_REFLECTION
 
-#ifndef CL_DOTCPP_MAIN
-#   define CL_DOTCPP_MAIN CL_IMPLEMENT
+#   define DOT_REFLECTION(name, namespace, registration) static Type typeof(); virtual Type GetType();
+
+#   define WITH_PROPERTY(prop_name)
+#   define WITH_METHOD(meth_name, ...)
+#   define WITH_CONSTRUCTOR(ctor_name, ...)
+#   define WITH_INTERFACE(interface)
+#   define WITH_BASE(base)
+
 #endif
-
-#include <cl/dotcpp/main/detail/reflection_macro_impl.hpp> // TODO Move above ifnfdef?

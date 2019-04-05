@@ -136,6 +136,11 @@ namespace cl
         ///<summary>Returns a copy of this System.String object converted to uppercase using the casing rules of the invariant culture.</summary>
         String ToUpperInvariant() const;
 
+        static Type typeof();
+
+        virtual Type GetType();
+
+
     public: // OPERATORS
 
         /// <summary>Gets the Char object at a specified position in the current String object.</summary>
@@ -417,7 +422,7 @@ namespace cl
     template <class T>
     struct format_forward {
 
-        static inline const auto & convert_impl(const T& t, std::true_type) { return format_forward<T::value_type>::convert(t.operator T::value_type()); }
+        static inline auto convert_impl(const T& t, std::true_type) { return format_forward<T::value_type>::convert(t.operator T::value_type()); }
         static inline const T& convert_impl(const T& t, std::false_type) { return t; }
 
         static inline auto convert(const T& t) { return convert_impl(t, std::is_base_of<detail::decl_get, T>::type() ); }

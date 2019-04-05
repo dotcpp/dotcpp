@@ -31,6 +31,7 @@ limitations under the License.
 namespace cl
 {
     class IObjectEnumerableImpl; using IObjectEnumerable = Ptr<IObjectEnumerableImpl>;
+    class TypeImpl; using Type = Ptr<TypeImpl>;
 
     /// <summary>
     /// Supports a simple iteration over a non-generic collection.
@@ -38,8 +39,10 @@ namespace cl
     /// In C\#, this interface is called IEnumerable. Because in C++ template and non-template
     /// types cannot have the same name, here it is called IObjectEnumerable.
     /// </summary>
-    class IObjectEnumerableImpl : public virtual ObjectImpl
+    class CL_DOTCPP_MAIN IObjectEnumerableImpl : public virtual ObjectImpl
     {
+        typedef IObjectEnumerableImpl ThisType;
+
     public:
 
         /// <summary>Returns forward begin object iterator.</summary>
@@ -47,8 +50,12 @@ namespace cl
 
         /// <summary>Returns forward end object iterator.</summary>
         virtual detail::std_object_iterator_wrapper object_end() = 0;
-    };
 
+        static Type typeof();
+
+        virtual Type GetType();
+
+    };
 }
 
 namespace std

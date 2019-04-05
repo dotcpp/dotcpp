@@ -26,6 +26,7 @@ limitations under the License.
 #include <approvals/Catch.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
 #include <cl/dotcpp/main/system/collections/generic/Dictionary.hpp>
+#include <cl/dotcpp/main/system/Type.hpp>
 
 namespace cl
 {
