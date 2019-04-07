@@ -38,7 +38,7 @@ namespace cl
         return size_t(this);
     }
 
-    String ObjectImpl::ToString() const
+    String ObjectImpl::ToString()
     {
         return "Object";
     }

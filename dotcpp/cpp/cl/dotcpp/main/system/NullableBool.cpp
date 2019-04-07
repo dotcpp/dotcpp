@@ -28,7 +28,7 @@ limitations under the License.
 namespace cl
 {
     /// <summary>A string representing the current type.</summary>
-    String BoolImpl::ToString() const { return std::to_string(value_); }
+    String BoolImpl::ToString() { return std::to_string(value_); }
 
     /// <summary>Returns string representation of the object.</summary>
     std::string NullableBool::AsString() const

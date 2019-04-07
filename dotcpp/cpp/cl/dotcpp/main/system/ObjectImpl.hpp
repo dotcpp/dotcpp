@@ -70,7 +70,7 @@ namespace cl
         ///
         /// Default implementation returns full name of the class.
         /// </summary>
-        virtual String ToString() const;
+        virtual String ToString();
 
     protected: // CONSTRUCTORS
 

@@ -45,7 +45,7 @@ namespace cl
     public: // METHODS
 
         /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() const { return "MethodInfo"; }
+        virtual String ToString() override { return "MethodInfo"; }
 
         /// <summary>Gets the parameters of this method.</summary>
         virtual Array1D<ParameterInfo> GetParameters()
@@ -94,7 +94,7 @@ namespace cl
     public: // METHODS
 
         /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() const { return "MemberMethodInfo"; }
+        virtual String ToString() override { return "MemberMethodInfo"; }
 
         /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
         template <int ... I>
@@ -150,7 +150,7 @@ namespace cl
     public: // METHODS
 
         /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() const { return "StaticMethodInfo"; }
+        virtual String ToString() override { return "StaticMethodInfo"; }
 
         /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
         template <int ... I>

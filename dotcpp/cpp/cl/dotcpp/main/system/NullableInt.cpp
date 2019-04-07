@@ -28,7 +28,7 @@ limitations under the License.
 namespace cl
 {
     /// <summary>A string representing the current type.</summary>
-    String IntImpl::ToString() const { return std::to_string(value_); }
+    String IntImpl::ToString() { return std::to_string(value_); }
 
     /// <summary>
     /// Create from Object.

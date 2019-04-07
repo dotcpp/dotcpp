@@ -53,7 +53,7 @@ namespace cl
     public: // METHODS
 
         /// <summary>A string representing the current type.</summary>
-        String ToString() const
+        virtual String ToString() override
         {
             // Returns a copy of the string, not a reference to the same string
             // Further changes to StringBuilder will not affect the previously

@@ -28,7 +28,7 @@ limitations under the License.
 namespace cl
 {
     /// <summary>A string representing the current type.</summary>
-    String LongImpl::ToString() const { return std::to_string(value_); }
+    String LongImpl::ToString() { return std::to_string(value_); }
 
     /// <summary>Returns string representation of the object.</summary>
     std::string NullableLong::AsString() const { return value_ != Long::Empty ? std::to_string(value_) : ""; }

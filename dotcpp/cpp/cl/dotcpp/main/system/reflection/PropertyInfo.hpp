@@ -75,7 +75,7 @@ namespace cl
         DOT_AUTO_GET(Type, PropertyType)
 
         /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() const { return "PropertyInfo"; }
+        virtual String ToString() override { return "PropertyInfo"; }
 
         /// <summary>Returns the property value of a specified object.</summary>
         virtual Object GetValue(Object obj) = 0;

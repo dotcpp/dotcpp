@@ -88,7 +88,7 @@ namespace cl
         virtual size_t GetHashCode() override;
 
         /// <summary>Returns this instance of String; no actual conversion is performed.</summary>
-        virtual String ToString() const override;
+        virtual String ToString() override;
 
         /// <summary>Determines whether the end of this
         /// string matches the specified string.</summary>

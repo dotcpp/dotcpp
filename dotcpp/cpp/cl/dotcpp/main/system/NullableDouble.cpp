@@ -29,7 +29,7 @@ limitations under the License.
 namespace cl
 {
     /// <summary>A string representing the current type.</summary>
-    String DoubleImpl::ToString() const { return std::to_string(value_); }
+    String DoubleImpl::ToString() { return std::to_string(value_); }
 
     Type DoubleImpl::typeof()
     {

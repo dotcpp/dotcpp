@@ -46,7 +46,7 @@ namespace cl
     public: // METHODS
 
         /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() const;
+        virtual String ToString() override;
     };
 
     /// <summary>

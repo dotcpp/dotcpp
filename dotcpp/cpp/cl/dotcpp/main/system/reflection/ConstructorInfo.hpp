@@ -42,7 +42,7 @@ namespace cl
     public: // METHODS
 
         /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() const { return "ConstructorInfo"; }
+        virtual String ToString() override { return "ConstructorInfo"; }
 
         /// <summary>Gets the parameters of this constructor.</summary>
         virtual Array1D<ParameterInfo> GetParameters()
@@ -84,7 +84,7 @@ namespace cl
     public: // METHODS
 
         /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() const { return "MemberConstructorInfo"; }
+        virtual String ToString() override { return "MemberConstructorInfo"; }
 
         /// <summary>Invokes the constructor reflected by this ConstructorInfo instance.</summary>
         template <int ... I>

@@ -67,7 +67,7 @@ namespace cl
         DOT_AUTO_GET(Type, DeclaringType)
 
         /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() const { return "MemberInfo"; }
+        virtual String ToString() override { return "MemberInfo"; }
 
     protected: // CONSTRUCTORS
 
