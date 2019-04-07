@@ -34,18 +34,18 @@ namespace cl
         Class get_method_class(Ret (Class::*)(Args...));
 
         /// <summary>Empty structure.</summary>
-        struct dummy {};
-        struct dummy_ {}; // RENAME
+        struct dummy_no_begin {};
+        struct dummy_no_arrow {}; // RENAME
 
         /// <summary>Struct checks if T has method begin() using SFINAE.</summary>
         template<class T>
         struct has_begin
         {
         private:
-            static dummy detect(...);
+            static dummy_no_begin detect(...);
             template<class U> static decltype(std::declval<U>()->begin()) detect(const U&);
         public:
-            static constexpr bool value = !std::is_same<dummy, decltype(detect(std::declval<T>()))>::value;
+            static constexpr bool value = !std::is_same<dummy_no_begin, decltype(detect(std::declval<T>()))>::value;
             typedef std::integral_constant<bool, value> type;
         };
 
@@ -54,10 +54,10 @@ namespace cl
         struct has_operator_arrow
         {
         private:
-            static dummy detect(...);
+            static dummy_no_begin detect(...);
             template<class U> static decltype(std::declval<U>().operator->()) detect(const U&);
         public:
-            static constexpr bool value = !std::is_same<dummy, decltype(detect(std::declval<T>()))>::value;
+            static constexpr bool value = !std::is_same<dummy_no_begin, decltype(detect(std::declval<T>()))>::value;
             typedef std::integral_constant<bool, value> type;
         };
 
@@ -92,7 +92,7 @@ namespace cl
         template <class T>
         class auto_get : public std::conditional<detail::has_begin<T>::value     // Check if T has begin()
                                                , detail::begin_end<auto_get<T>>  // true: inherit begin_end with begin/end
-                                               , detail::dummy                   // false: inherit dummy (just empty struct)
+                                               , detail::dummy_no_begin                   // false: inherit dummy_no_begin (just empty struct)
                                                 >::type
                        , public detail::decl_get
         {
@@ -134,7 +134,7 @@ namespace cl
         template <class T>
         class auto_prop : public std::conditional<detail::has_begin<T>::value
                                                 , detail::begin_end<auto_prop<T>>
-                                                , detail::dummy
+                                                , detail::dummy_no_begin
                                                  >::type
                         , public detail::decl_prop
         {
@@ -184,11 +184,11 @@ namespace cl
         struct CAT(name, _prop) : detail::decl_get                                           \
                                 , std::conditional<detail::has_begin<ptype>::value           \
                                                  , detail::begin_end<CAT(name, _prop)>       \
-                                                 , detail::dummy                             \
+                                                 , detail::dummy_no_begin                             \
                                                   >::type                                    \
                                 , std::conditional<detail::has_operator_arrow<ptype>::value  \
                                                  , detail::operator_arrow<CAT(name, _prop)>  \
-                                                 , detail::dummy_                            \
+                                                 , detail::dummy_no_arrow                            \
                                                   >::type                                    \
         {                                                                                    \
             typedef ptype value_type;                                                        \
@@ -214,11 +214,11 @@ namespace cl
         struct CAT(name, _prop) : detail::decl_prop                                          \
                                 , std::conditional<detail::has_begin<ptype>::value           \
                                                  , detail::begin_end<CAT(name, _prop)>       \
-                                                 , detail::dummy                             \
+                                                 , detail::dummy_no_begin                             \
                                                   >::type                                    \
                                 , std::conditional<detail::has_operator_arrow<ptype>::value  \
                                                  , detail::operator_arrow<CAT(name, _prop)>  \
-                                                 , detail::dummy_                            \
+                                                 , detail::dummy_no_arrow                            \
                                                   >::type                                    \
         {                                                                                    \
             typedef ptype value_type;                                                        \
@@ -255,11 +255,11 @@ namespace cl
         struct CAT(name, _prop) : detail::decl_get                                           \
                                 , std::conditional<detail::has_begin<ptype>::value           \
                                                  , detail::begin_end<CAT(name, _prop)>       \
-                                                 , detail::dummy                             \
+                                                 , detail::dummy_no_begin                             \
                                                   >::type                                    \
                                 , std::conditional<detail::has_operator_arrow<ptype>::value  \
                                                  , detail::operator_arrow<CAT(name, _prop)>  \
-                                                 , detail::dummy_                            \
+                                                 , detail::dummy_no_arrow                            \
                                                   >::type                                    \
         {                                                                                    \
             typedef ptype value_type;                                                        \
@@ -286,11 +286,11 @@ namespace cl
         struct CAT(name, _prop) : detail::decl_prop                                          \
                                 , std::conditional<detail::has_begin<ptype>::value           \
                                                  , detail::begin_end<CAT(name, _prop)>       \
-                                                 , detail::dummy                             \
+                                                 , detail::dummy_no_begin                             \
                                                   >::type                                    \
                                 , std::conditional<detail::has_operator_arrow<ptype>::value  \
                                                  , detail::operator_arrow<CAT(name, _prop)>  \
-                                                 , detail::dummy_                            \
+                                                 , detail::dummy_no_arrow                            \
                                                   >::type                                    \
         {                                                                                    \
             typedef ptype value_type;                                                        \
@@ -325,11 +325,11 @@ namespace cl
         struct CAT(name, _prop) : detail::decl_prop                                          \
                                 , std::conditional<detail::has_begin<ptype>::value           \
                                                  , detail::begin_end<CAT(name, _prop)>       \
-                                                 , detail::dummy                             \
+                                                 , detail::dummy_no_begin                             \
                                                   >::type                                    \
                                 , std::conditional<detail::has_operator_arrow<ptype>::value  \
                                                  , detail::operator_arrow<CAT(name, _prop)>  \
-                                                 , detail::dummy_                            \
+                                                 , detail::dummy_no_arrow                            \
                                                   >::type                                    \
         {                                                                                    \
             typedef ptype value_type;                                                        \
@@ -358,11 +358,11 @@ namespace cl
         struct CAT(name, _prop) : detail::decl_prop                                          \
                                 , std::conditional<detail::has_begin<ptype>::value           \
                                                  , detail::begin_end<CAT(name, _prop)>       \
-                                                 , detail::dummy                             \
+                                                 , detail::dummy_no_begin                             \
                                                   >::type                                    \
                                 , std::conditional<detail::has_operator_arrow<ptype>::value  \
                                                  , detail::operator_arrow<CAT(name, _prop)>  \
-                                                 , detail::dummy_                            \
+                                                 , detail::dummy_no_arrow                            \
                                                   >::type                                    \
         {                                                                                    \
             typedef ptype value_type;                                                        \
