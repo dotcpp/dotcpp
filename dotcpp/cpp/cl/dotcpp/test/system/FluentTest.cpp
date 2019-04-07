@@ -53,7 +53,7 @@ namespace cl
 
         DOT_DECL_GET(int, DeclaredGet2)
         DOT_DECL_GET(int, DeclaredGet3)
-        DOT_DECL_PROP(int, DeclaredProp2)
+        DOT_DECL_FLUENT(int, DeclaredProp2)
 
     protected: // CONSTRUCTORS
 
@@ -76,7 +76,7 @@ namespace cl
 
         // Implement declared properties by specifying methods
         DOT_IMPL_GET(int, DeclaredGet, { return 456; })
-        DOT_IMPL_PROP(int, DeclaredProp, { return y_; }, { y_ = value; })
+        DOT_IMPL_FLUENT(int, DeclaredProp, { return y_; }, { y_ = value; })
 
         // Implement declared properties as auto properties
         DOT_AUTO_GET(int, DeclaredGet2)
