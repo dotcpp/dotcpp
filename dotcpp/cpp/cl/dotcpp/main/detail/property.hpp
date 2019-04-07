@@ -192,7 +192,7 @@ namespace cl
                                                   >::type                                    \
         {                                                                                    \
             typedef ptype value_type;                                                        \
-            CAT(name, _prop)(self * this_) : this_(this_) {}                             \
+            CAT(name, _prop)(self* this_) : this_(this_) {}                             \
             ptype name = ptype();                                                            \
                                                                                              \
             ptype & operator = (const ptype &) = delete;                                     \
@@ -200,7 +200,7 @@ namespace cl
             CAT(name, _prop) & operator = (const CAT(name, _prop) & rhs)                     \
                 { name = rhs.name; return *this;  }                                          \
                                                                                              \
-            self * this_;                                                                \
+            self* this_;                                                                \
                                                                                              \
         };                                                                                   \
     public:                                                                                  \
@@ -222,7 +222,7 @@ namespace cl
                                                   >::type                                    \
         {                                                                                    \
             typedef ptype value_type;                                                        \
-            CAT(name, _prop)(self * this_) : this_(this_) {}                             \
+            CAT(name, _prop)(self* this_) : this_(this_) {}                             \
             ptype name = ptype();                                                            \
                                                                                              \
             void operator = (const ptype &value )                                            \
@@ -231,7 +231,7 @@ namespace cl
             CAT(name, _prop) & operator = (const CAT(name, _prop) & rhs)                     \
                 { name = rhs.operator ptype(); return *this;  }                              \
                                                                                              \
-            self * this_;                                                                \
+            self* this_;                                                                \
                                                                                              \
         };                                                                                   \
     public:                                                                                  \
@@ -263,7 +263,7 @@ namespace cl
                                                   >::type                                    \
         {                                                                                    \
             typedef ptype value_type;                                                        \
-            CAT(name, _prop)(self * this_) : this_(this_) {}                             \
+            CAT(name, _prop)(self* this_) : this_(this_) {}                             \
             ptype name = ptype();                                                            \
                                                                                              \
             ptype & operator = (const ptype &) = delete;                                     \
@@ -273,7 +273,7 @@ namespace cl
             template <class T_>                                                              \
             bool operator==(T_ const& rhs) { return operator ptype() == rhs; }               \
                                                                                              \
-            self * this_;                                                                \
+            self* this_;                                                                \
         };                                                                                   \
     public:                                                                                  \
         CAT(name, _prop) name = CAT(name, _prop)(this);
@@ -294,7 +294,7 @@ namespace cl
                                                   >::type                                    \
         {                                                                                    \
             typedef ptype value_type;                                                        \
-            CAT(name, _prop)(self * this_) : this_(this_) {}                             \
+            CAT(name, _prop)(self* this_) : this_(this_) {}                             \
             ptype name = ptype();                                                            \
                                                                                              \
             void operator = (const ptype &value )                                            \
@@ -305,7 +305,7 @@ namespace cl
             template <class T_>                                                              \
             bool operator==(T_ const& rhs) { return operator ptype() == rhs; }               \
                                                                                              \
-            self * this_;                                                                \
+            self* this_;                                                                \
                                                                                              \
         };                                                                                   \
     public:                                                                                  \
@@ -333,7 +333,7 @@ namespace cl
                                                   >::type                                    \
         {                                                                                    \
             typedef ptype value_type;                                                        \
-            CAT(name, _prop)(self * this_) : this_(this_) {}                             \
+            CAT(name, _prop)(self* this_) : this_(this_) {}                             \
             ptype name = ptype();                                                            \
                                                                                              \
             void operator = (const ptype &value )                                            \
@@ -343,7 +343,7 @@ namespace cl
                 { name = rhs.operator ptype(); return *this;  }                              \
             Ptr<self> operator()(ptype const& value) { *this = value; return Ptr<self>(this_); }   \
                                                                                              \
-            self * this_;                                                                \
+            self* this_;                                                                \
                                                                                              \
         };                                                                                   \
     public:                                                                                  \
@@ -366,7 +366,7 @@ namespace cl
                                                   >::type                                    \
         {                                                                                    \
             typedef ptype value_type;                                                        \
-            CAT(name, _prop)(self * this_) : this_(this_) {}                             \
+            CAT(name, _prop)(self* this_) : this_(this_) {}                             \
             ptype name = ptype();                                                            \
                                                                                              \
             void operator = (const ptype &value )                                            \
@@ -378,7 +378,7 @@ namespace cl
             bool operator==(T_ const& rhs) { return operator ptype() == rhs; }               \
             Ptr<self> operator()(ptype const& value) { *this = value; return Ptr<self>(this_); }    \
                                                                                              \
-            self * this_;                                                                \
+            self* this_;                                                                \
                                                                                              \
         };                                                                                   \
     public:                                                                                  \
