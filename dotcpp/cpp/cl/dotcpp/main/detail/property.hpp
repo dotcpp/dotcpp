@@ -184,16 +184,16 @@ namespace cl
         struct CAT(name, _prop) : detail::decl_get                                           \
                                 , std::conditional<detail::has_begin<ptype>::value           \
                                                  , detail::begin_end<CAT(name, _prop)>       \
-                                                 , detail::dummy_no_begin                             \
+                                                 , detail::dummy_no_begin                    \
                                                   >::type                                    \
                                 , std::conditional<detail::has_operator_arrow<ptype>::value  \
                                                  , detail::operator_arrow<CAT(name, _prop)>  \
-                                                 , detail::dummy_no_arrow                            \
+                                                 , detail::dummy_no_arrow                    \
                                                   >::type                                    \
         {                                                                                    \
             typedef ptype value_type;                                                        \
             CAT(name, _prop)(ThisType * this_) : this_(this_) {}                             \
-            ptype name = ptype();                                                                      \
+            ptype name = ptype();                                                            \
                                                                                              \
             ptype & operator = (const ptype &) = delete;                                     \
             operator ptype() const { return this_->CAT(get, name)(name); }                   \
@@ -214,16 +214,16 @@ namespace cl
         struct CAT(name, _prop) : detail::decl_prop                                          \
                                 , std::conditional<detail::has_begin<ptype>::value           \
                                                  , detail::begin_end<CAT(name, _prop)>       \
-                                                 , detail::dummy_no_begin                             \
+                                                 , detail::dummy_no_begin                    \
                                                   >::type                                    \
                                 , std::conditional<detail::has_operator_arrow<ptype>::value  \
                                                  , detail::operator_arrow<CAT(name, _prop)>  \
-                                                 , detail::dummy_no_arrow                            \
+                                                 , detail::dummy_no_arrow                    \
                                                   >::type                                    \
         {                                                                                    \
             typedef ptype value_type;                                                        \
             CAT(name, _prop)(ThisType * this_) : this_(this_) {}                             \
-            ptype name = ptype();                                                                      \
+            ptype name = ptype();                                                            \
                                                                                              \
             void operator = (const ptype &value )                                            \
                 { return this_->CAT(set, name)(name, value); }                               \
@@ -238,14 +238,14 @@ namespace cl
         CAT(name, _prop) name = CAT(name, _prop)(this);
 
 
-#define DOT_IMPL_GET(ptype, name, getter)                                               \
-    private:                                                                            \
+#define DOT_IMPL_GET(ptype, name, getter)                                                    \
+    private:                                                                                 \
         virtual ptype CAT(get, name)(ptype name) override getter
 
 
-#define DOT_IMPL_PROP(ptype, name, getter, setter)                                      \
-    private:                                                                            \
-        virtual ptype CAT(get, name)(ptype name) override getter                        \
+#define DOT_IMPL_PROP(ptype, name, getter, setter)                                           \
+    private:                                                                                 \
+        virtual ptype CAT(get, name)(ptype name) override getter                             \
         virtual void CAT(set, name)(ptype & name, ptype const& value) override setter
 
 
@@ -255,16 +255,16 @@ namespace cl
         struct CAT(name, _prop) : detail::decl_get                                           \
                                 , std::conditional<detail::has_begin<ptype>::value           \
                                                  , detail::begin_end<CAT(name, _prop)>       \
-                                                 , detail::dummy_no_begin                             \
+                                                 , detail::dummy_no_begin                    \
                                                   >::type                                    \
                                 , std::conditional<detail::has_operator_arrow<ptype>::value  \
                                                  , detail::operator_arrow<CAT(name, _prop)>  \
-                                                 , detail::dummy_no_arrow                            \
+                                                 , detail::dummy_no_arrow                    \
                                                   >::type                                    \
         {                                                                                    \
             typedef ptype value_type;                                                        \
             CAT(name, _prop)(ThisType * this_) : this_(this_) {}                             \
-            ptype name = ptype();                                                                      \
+            ptype name = ptype();                                                            \
                                                                                              \
             ptype & operator = (const ptype &) = delete;                                     \
             operator ptype() const { return this_->CAT(get, name)(name); }                   \
@@ -286,16 +286,16 @@ namespace cl
         struct CAT(name, _prop) : detail::decl_prop                                          \
                                 , std::conditional<detail::has_begin<ptype>::value           \
                                                  , detail::begin_end<CAT(name, _prop)>       \
-                                                 , detail::dummy_no_begin                             \
+                                                 , detail::dummy_no_begin                    \
                                                   >::type                                    \
                                 , std::conditional<detail::has_operator_arrow<ptype>::value  \
                                                  , detail::operator_arrow<CAT(name, _prop)>  \
-                                                 , detail::dummy_no_arrow                            \
+                                                 , detail::dummy_no_arrow                    \
                                                   >::type                                    \
         {                                                                                    \
             typedef ptype value_type;                                                        \
             CAT(name, _prop)(ThisType * this_) : this_(this_) {}                             \
-            ptype name = ptype();                                                                      \
+            ptype name = ptype();                                                            \
                                                                                              \
             void operator = (const ptype &value )                                            \
                 { return this_->CAT(set, name)(name, value); }                               \
@@ -325,16 +325,16 @@ namespace cl
         struct CAT(name, _prop) : detail::decl_prop                                          \
                                 , std::conditional<detail::has_begin<ptype>::value           \
                                                  , detail::begin_end<CAT(name, _prop)>       \
-                                                 , detail::dummy_no_begin                             \
+                                                 , detail::dummy_no_begin                    \
                                                   >::type                                    \
                                 , std::conditional<detail::has_operator_arrow<ptype>::value  \
                                                  , detail::operator_arrow<CAT(name, _prop)>  \
-                                                 , detail::dummy_no_arrow                            \
+                                                 , detail::dummy_no_arrow                    \
                                                   >::type                                    \
         {                                                                                    \
             typedef ptype value_type;                                                        \
             CAT(name, _prop)(ThisType * this_) : this_(this_) {}                             \
-            ptype name = ptype();                                                                      \
+            ptype name = ptype();                                                            \
                                                                                              \
             void operator = (const ptype &value )                                            \
                 { return this_->CAT(set, name)(name, value); }                               \
@@ -351,23 +351,23 @@ namespace cl
 
 
 
-#define DOT_FLUENT(ptype, name, getter, setter)                                         \
+#define DOT_FLUENT(ptype, name, getter, setter)                                              \
     private:                                                                                 \
         virtual ptype CAT(get, name)(ptype name) getter                                      \
         virtual void CAT(set, name)(ptype & name, ptype const& value) setter                 \
         struct CAT(name, _prop) : detail::decl_prop                                          \
                                 , std::conditional<detail::has_begin<ptype>::value           \
                                                  , detail::begin_end<CAT(name, _prop)>       \
-                                                 , detail::dummy_no_begin                             \
+                                                 , detail::dummy_no_begin                    \
                                                   >::type                                    \
                                 , std::conditional<detail::has_operator_arrow<ptype>::value  \
                                                  , detail::operator_arrow<CAT(name, _prop)>  \
-                                                 , detail::dummy_no_arrow                            \
+                                                 , detail::dummy_no_arrow                    \
                                                   >::type                                    \
         {                                                                                    \
             typedef ptype value_type;                                                        \
             CAT(name, _prop)(ThisType * this_) : this_(this_) {}                             \
-            ptype name = ptype();                                                                      \
+            ptype name = ptype();                                                            \
                                                                                              \
             void operator = (const ptype &value )                                            \
                 { return this_->CAT(set, name)(name, value); }                               \
@@ -376,7 +376,7 @@ namespace cl
                 { name = rhs.operator ptype(); return *this;  }                              \
             template <class T_>                                                              \
             bool operator==(T_ const& rhs) { return operator ptype() == rhs; }               \
-            Ptr<ThisType> operator()(ptype const& value) { *this = value; return Ptr<ThisType>(this_); }   \
+            Ptr<ThisType> operator()(ptype const& value) { *this = value; return Ptr<ThisType>(this_); }    \
                                                                                              \
             ThisType * this_;                                                                \
                                                                                              \
