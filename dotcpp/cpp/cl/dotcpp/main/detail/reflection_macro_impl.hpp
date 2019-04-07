@@ -30,7 +30,7 @@ limitations under the License.
             static Type type = []()-> Type                                                        \
             {                                                                                     \
                                                                                                   \
-                Type type = new_TypeData<ThisType>                                                \
+                Type type = new_TypeData<self>                                                \
                             (name, namespace)                                                     \
                                                                                                   \
                     __VA_ARGS__                                                                   \
@@ -48,8 +48,8 @@ limitations under the License.
             return typeof();                                                                      \
         }
 
-#define WITH_PROPERTY(prop_name)             ->WithProperty(#prop_name, &ThisType::prop_name)
-#define WITH_METHOD(meth_name, ...)          ->WithMethod(#meth_name, &ThisType::meth_name, { __VA_ARGS__ })
+#define WITH_PROPERTY(prop_name)             ->WithProperty(#prop_name, &self::prop_name)
+#define WITH_METHOD(meth_name, ...)          ->WithMethod(#meth_name, &self::meth_name, { __VA_ARGS__ })
 #define WITH_CONSTRUCTOR(ctor_name, ...)     ->WithConstructor(&ctor_name, { __VA_ARGS__ })
 #define WITH_INTERFACE(interface)            ->WithInterface<interface>()
 #define WITH_BASE(base)                      ->WithBase<base>()  

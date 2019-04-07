@@ -41,7 +41,7 @@ namespace cl
     /// </summary>
     class CL_DOTCPP_MAIN IObjectEnumerableImpl : public virtual ObjectImpl
     {
-        typedef IObjectEnumerableImpl ThisType;
+        typedef IObjectEnumerableImpl self;
 
     public:
 

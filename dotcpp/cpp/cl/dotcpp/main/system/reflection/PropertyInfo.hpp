@@ -36,7 +36,7 @@ namespace cl
     class CL_DOTCPP_MAIN PropertyInfoDataImpl final : public MemberInfoDataImpl
     {
 
-        typedef PropertyInfoDataImpl ThisType;
+        typedef PropertyInfoDataImpl self;
 
     public: // PROPERTIES
 
@@ -67,7 +67,7 @@ namespace cl
     /// </summary>
     class PropertyInfoImpl : public MemberInfoImpl
     {
-        typedef PropertyInfoImpl ThisType;
+        typedef PropertyInfoImpl self;
 
     public: // METHODS
 

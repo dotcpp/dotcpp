@@ -39,7 +39,7 @@ namespace cl
     class ListImpl : public IListImpl<T>, public virtual ObjectImpl, public std::vector<T>, public IObjectEnumerableImpl
     {
         typedef std::vector<T> base;
-        typedef ListImpl<T> ThisType;
+        typedef ListImpl<T> self;
 
         template <class R> friend List<R> new_List();
 

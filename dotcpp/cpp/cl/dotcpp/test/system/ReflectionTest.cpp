@@ -39,7 +39,7 @@ namespace cl
 
     class ReflectionBaseSampleImpl : public virtual ObjectImpl
     {
-        typedef ReflectionBaseSampleImpl ThisType;
+        typedef ReflectionBaseSampleImpl self;
 
     public:
         int IntFld;

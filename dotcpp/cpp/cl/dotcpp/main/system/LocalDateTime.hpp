@@ -43,7 +43,7 @@ namespace cl
     ///</summary>
     class CL_DOTCPP_MAIN LocalDateTime : public ptime
     {
-        typedef LocalDateTime ThisType;
+        typedef LocalDateTime self;
 
     public:
         /// <summary>Initializes a new instance of the LocalDateTime struct using the ISO calendar system.</summary>

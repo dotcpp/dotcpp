@@ -41,7 +41,7 @@ namespace cl
         template <class T> friend class Array2DImpl;
         template <class T> friend class Array3DImpl;
 
-        typedef ArrayImpl ThisType;
+        typedef ArrayImpl self;
 
     public: // METHODS
 

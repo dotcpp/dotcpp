@@ -40,7 +40,7 @@ namespace cl
     {
         friend class TypeDataImpl;
 
-        typedef MethodInfoImpl ThisType;
+        typedef MethodInfoImpl self;
 
     public: // METHODS
 

@@ -251,7 +251,7 @@ namespace cl
         template <class T>
         friend Type typeof();
 
-        typedef TypeImpl ThisType;
+        typedef TypeImpl self;
 
     private: // FIELDS
 

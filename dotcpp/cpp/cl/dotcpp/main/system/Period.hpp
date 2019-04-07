@@ -42,7 +42,7 @@ namespace cl
     /// </summary>
     class CL_DOTCPP_MAIN Period : public time_duration
     {
-        typedef Period ThisType;
+        typedef Period self;
 
     public:
         Period(const time_duration& d);

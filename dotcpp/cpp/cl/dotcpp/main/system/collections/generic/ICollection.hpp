@@ -35,7 +35,7 @@ namespace cl
     template <class T>
     class ICollectionImpl : public IEnumerableImpl<T>
     {
-        typedef ICollectionImpl<T> ThisType;
+        typedef ICollectionImpl<T> self;
 
     public: // METHODS
 

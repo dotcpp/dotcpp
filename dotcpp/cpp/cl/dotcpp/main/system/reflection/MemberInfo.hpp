@@ -34,7 +34,7 @@ namespace cl
     /// <summary>Data for MemberInfo.</summary>
     class CL_DOTCPP_MAIN MemberInfoDataImpl : public virtual ObjectImpl
     {
-        typedef MemberInfoDataImpl ThisType;
+        typedef MemberInfoDataImpl self;
 
     public: // PROPERTIES
 
@@ -56,7 +56,7 @@ namespace cl
     /// </summary>
     class MemberInfoImpl : public virtual ObjectImpl
     {
-        typedef MemberInfoImpl ThisType;
+        typedef MemberInfoImpl self;
 
     public: // METHODS
 

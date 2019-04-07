@@ -41,7 +41,7 @@ namespace cl
     /// </summary>
     class CL_DOTCPP_MAIN LocalDate : public gdate
     {
-        typedef LocalDate ThisType;
+        typedef LocalDate self;
 
     public:
         /// <summary>Constructs an instance for the given year, month and day in the ISO calendar.</summary>

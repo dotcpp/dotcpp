@@ -49,7 +49,7 @@ namespace cl
 
     class SampleData2Impl : public virtual ObjectImpl
     {
-        typedef SampleData2Impl ThisType;
+        typedef SampleData2Impl self;
 
     public:
         DOT_AUTO_PROP(SampleData, DataProp)
@@ -58,8 +58,8 @@ namespace cl
         {
             static Type type = []()-> Type
             {
-                Type type = new_TypeData<ThisType>("SampleData2", "DotCpp.System.Test")
-                    ->WithProperty("DataProp", &ThisType::DataProp)
+                Type type = new_TypeData<self>("SampleData2", "DotCpp.System.Test")
+                    ->WithProperty("DataProp", &self::DataProp)
 
                     ->Build();
 
@@ -80,7 +80,7 @@ namespace cl
 
     class SampleDataImpl : public virtual ObjectImpl
     {
-        typedef SampleDataImpl ThisType;  // This typedef will be used inside property macro and inside registration macro.
+        typedef SampleDataImpl self;  // This typedef will be used inside property macro and inside registration macro.
 
     public:
 

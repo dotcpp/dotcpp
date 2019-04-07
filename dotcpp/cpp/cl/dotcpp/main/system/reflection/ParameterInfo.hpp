@@ -36,7 +36,7 @@ namespace cl
     {
         friend ParameterInfo new_ParameterInfo(String , Type, int);
 
-        typedef ParameterInfoImpl ThisType;
+        typedef ParameterInfoImpl self;
 
     public: // METHODS
 

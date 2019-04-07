@@ -37,7 +37,7 @@ namespace cl
     template <class TKey, class TValue>
     class IDictionaryImpl : public ICollectionImpl<KeyValuePair<TKey, TValue>>
     {
-        typedef IDictionaryImpl<TKey, TValue> ThisType;
+        typedef IDictionaryImpl<TKey, TValue> self;
 
     public: // PROPERTIES
 

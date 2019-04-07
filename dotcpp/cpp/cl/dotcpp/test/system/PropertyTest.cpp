@@ -35,7 +35,7 @@ namespace cl
 
     class PropertySampleBaseDataImpl : public virtual ObjectImpl
     {
-        typedef PropertySampleBaseDataImpl ThisType;
+        typedef PropertySampleBaseDataImpl self;
         friend PropertySampleBaseData new_PropertySampleBaseData();
 
     private:
@@ -61,7 +61,7 @@ namespace cl
 
     class PropertySampleDataImpl : public PropertySampleBaseDataImpl
     {
-        typedef PropertySampleDataImpl ThisType;
+        typedef PropertySampleDataImpl self;
         friend PropertySampleData new_PropertySampleData();
 
     private:

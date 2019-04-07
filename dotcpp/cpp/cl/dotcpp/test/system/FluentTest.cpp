@@ -35,7 +35,7 @@ namespace cl
 
     class FluentSampleBaseDataImpl : public virtual ObjectImpl
     {
-        typedef FluentSampleBaseDataImpl ThisType;
+        typedef FluentSampleBaseDataImpl self;
         friend FluentSampleBaseData new_FluentSampleBaseData();
 
     private:
@@ -61,7 +61,7 @@ namespace cl
 
     class FluentSampleDataImpl : public FluentSampleBaseDataImpl
     {
-        typedef FluentSampleDataImpl ThisType;
+        typedef FluentSampleDataImpl self;
         friend FluentSampleData new_FluentSampleData();
 
     private:

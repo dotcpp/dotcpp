@@ -42,7 +42,7 @@ namespace cl
     /// </summary>
     class CL_DOTCPP_MAIN LocalTime : public ptime
     {
-        typedef LocalTime ThisType;
+        typedef LocalTime self;
 
     public:
         /// <summary>Creates a local time at the given hour and minute, with second, millisecond-of-second and tick-of-millisecond values of zero.</summary>
