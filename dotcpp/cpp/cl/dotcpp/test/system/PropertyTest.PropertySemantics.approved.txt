@@ -1,8 +1,8 @@
-456
-100
-200
-abc
-123
-3.1415
-xyz
+DeclaredGet: 456
+DeclaredProp: 100
+DeclaredProp2: 200
+StringProp: abc
+IntegerProp: 123
+DoubleProp: 3.1415
+DataProp->StringProp: xyz
 

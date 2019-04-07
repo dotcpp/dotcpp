@@ -46,10 +46,9 @@ namespace cl
         DOT_DECL_GET(int, DeclaredGet)
         DOT_DECL_PROP(int, DeclaredProp)
 
-        // TODO - must be able to declare property and implement as autoproperty
-        // DOT_DECL_GET(int, DeclaredGet2)
-        // DOT_DECL_GET(int, DeclaredGet3)
-        // DOT_DECL_PROP(int, DeclaredProp2)
+        DOT_DECL_GET(int, DeclaredGet2)
+        DOT_DECL_GET(int, DeclaredGet3)
+        DOT_DECL_PROP(int, DeclaredProp2)
 
         DOT_GET(int, RegularGet, { return 123; })
         DOT_PROP(int, RegularProp, { return x_; }, { x_ = value; })
@@ -101,26 +100,22 @@ namespace cl
         PropertySampleData obj = new_PropertySampleData();
         obj->DeclaredProp = 100;
         obj->DeclaredProp2 = 200;
+        obj->DeclaredGet3 = 50;
         obj->StringProp = "abc";
         obj->IntegerProp = 123;
         obj->DoubleProp = 3.1415;
         obj->DataProp = new_PropertySampleData();
         obj->DataProp->StringProp = "xyz";
 
-        received->AppendLine(obj->DeclaredGet);
-        received->AppendLine(obj->DeclaredProp);
-
-        // TODO - these lines do not compile
-        // received->AppendLine(obj->DeclaredGet2);
-        // received->AppendLine(obj->DeclaredGet3);
-
-        // This line is declared the same way but compiles
-        received->AppendLine(obj->DeclaredProp2);
-
-        received->AppendLine(obj->StringProp->c_str());
-        received->AppendLine(obj->IntegerProp);
-        received->AppendLine(obj->DoubleProp);
-        received->AppendLine(obj->DataProp->StringProp->c_str());
+        received->AppendLine(String::Format("DeclaredGet: {0}", obj->DeclaredGet));
+        received->AppendLine(String::Format("DeclaredProp: {0}", obj->DeclaredProp));
+        //received->AppendLine(String::Format("DeclaredGet2: {0}", obj->DeclaredGet2));
+        //received->AppendLine(String::Format("DeclaredGet3: {0}", obj->DeclaredGet3));
+        received->AppendLine(String::Format("DeclaredProp2: {0}", obj->DeclaredProp2));
+        received->AppendLine(String::Format("StringProp: {0}", std::string(obj->StringProp->c_str())));
+        received->AppendLine(String::Format("IntegerProp: {0}", obj->IntegerProp));
+        received->AppendLine(String::Format("DoubleProp: {0}", obj->DoubleProp));
+        received->AppendLine(String::Format("DataProp->StringProp: {0}", std::string(obj->DataProp->StringProp->c_str())));
 
         Approvals::verify(*received);
     }
