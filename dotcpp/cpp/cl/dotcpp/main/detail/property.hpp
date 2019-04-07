@@ -342,7 +342,7 @@ namespace cl
             operator ptype() const { return this_->CAT(get, name)(name); }                   \
             CAT(name, _prop) & operator = (const CAT(name, _prop) & rhs)                     \
                 { name = rhs.operator ptype(); return *this;  }                              \
-            ThisType * operator()(ptype const& value) { *this = value; return this_; }       \
+            Ptr<ThisType> operator()(ptype const& value) { *this = value; return Ptr<ThisType>(this_); }   \
                                                                                              \
             ThisType * this_;                                                                \
                                                                                              \
@@ -352,7 +352,7 @@ namespace cl
 
 
 
-#define DOT_PROP_FLUENT(ptype, name, getter, setter)                                         \
+#define DOT_FLUENT(ptype, name, getter, setter)                                         \
     private:                                                                                 \
         virtual ptype CAT(get, name)(ptype name) getter                                      \
         virtual void CAT(set, name)(ptype & name, ptype const& value) setter                 \
@@ -377,7 +377,7 @@ namespace cl
                 { name = rhs.operator ptype(); return *this;  }                              \
             template <class T_>                                                              \
             bool operator==(T_ const& rhs) { return operator ptype() == rhs; }               \
-            ThisType * operator()(ptype const& value) { *this = value; return this_; }       \
+            Ptr<ThisType> operator()(ptype const& value) { *this = value; return Ptr<ThisType>(this_); }   \
                                                                                              \
             ThisType * this_;                                                                \
                                                                                              \
@@ -385,4 +385,4 @@ namespace cl
     public:                                                                                  \
         CAT(name, _prop) name = CAT(name, _prop)(this);
 
-#define DOT_AUTO_FLUENT(type, name) DOT_PROP_FLUENT(type, name, { return name; }, { name = value; })
+#define DOT_AUTO_FLUENT(type, name) DOT_FLUENT(type, name, { return name; }, { name = value; })
