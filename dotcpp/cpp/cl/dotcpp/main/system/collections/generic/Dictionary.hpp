@@ -161,5 +161,5 @@ namespace cl
 
     /// <summary>Initializes a new instance of Dictionary.</summary>
     template <class TKey, class TValue>
-    Dictionary<TKey, TValue> new_Dictionary() { return new DictionaryImpl<TKey, TValue>(); }
+    inline Dictionary<TKey, TValue> new_Dictionary() { return new DictionaryImpl<TKey, TValue>(); }
 }

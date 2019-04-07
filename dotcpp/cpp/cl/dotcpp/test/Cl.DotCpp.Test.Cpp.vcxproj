@@ -22,6 +22,7 @@
     <ClCompile Include="system\LocalDateTest.cpp" />
     <ClCompile Include="system\LocalDateTimeTest.cpp" />
     <ClCompile Include="system\LocalTimeTest.cpp" />
+    <ClCompile Include="system\ObjectTest.cpp" />
     <ClCompile Include="system\PeriodTest.cpp" />
     <ClCompile Include="system\PropertyTest.cpp" />
     <ClCompile Include="system\PtrTest.cpp" />

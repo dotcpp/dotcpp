@@ -21,25 +21,36 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include <cl/dotcpp/main/implement.hpp>
-#include <cl/dotcpp/main/system/ObjectImpl.hpp>
+#include <cl/dotcpp/test/implement.hpp>
+#include <approvals/ApprovalTests.hpp>
+#include <approvals/Catch.hpp>
 #include <cl/dotcpp/main/system/Object.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
 
 namespace cl
 {
-    bool ObjectImpl::Equals(Object obj)
+    TEST_CASE("Clear Object")
     {
-        return this == obj.GetRawPtr();
+        Object a = new_Object();
+        Object b = new_Object();
+
+        REQUIRE(a->Equals(a) == true);
+        REQUIRE(a->Equals(b) == false);
+        REQUIRE(a->GetHashCode() != b->GetHashCode());
     }
 
-    size_t ObjectImpl::GetHashCode()
+    TEST_CASE("Equals")
     {
-        return size_t(this);
-    }
+        Object a = new_String("str");
+        Object b = new_String("str");
+        Object c = new_String("str1");
 
-    String ObjectImpl::ToString() const
-    {
-        return "Object";
+        REQUIRE(a->Equals(a));
+        REQUIRE(a->Equals(b));
+        REQUIRE(a->Equals(c) == false);
+
+        REQUIRE(a->GetHashCode() == a->GetHashCode());
+        REQUIRE(a->GetHashCode() == b->GetHashCode());
+        REQUIRE(a->GetHashCode() != c->GetHashCode());
     }
 }

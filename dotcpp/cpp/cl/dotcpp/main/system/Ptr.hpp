@@ -87,6 +87,9 @@ namespace cl
         template <class R>
         bool is() const;
 
+        /// <summary>Returns raw pointer to object.</summary>
+        T* GetRawPtr();
+
         /// <summary>Returns true if pointer holds object, and false otherwise.</summary>
         bool IsEmpty();
 
@@ -161,16 +164,16 @@ namespace cl
     template <class T> template <class R> R Ptr<T>::as() const { typename R::pointer_type ptr = dynamic_cast<typename R::pointer_type>(ptr_); return ptr; }
     template <class T> template <class R> bool Ptr<T>::is() const { if (!ptr_) return false; return typeid(*ptr_) == typeid(typename R::element_type); }
     template <class T> T& Ptr<T>::operator*() const
-    { 
+    {
         if (!ptr_)
-        throw std::runtime_error("Pointer is not initialized"); 
-    return *ptr_; 
+        throw std::runtime_error("Pointer is not initialized");
+    return *ptr_;
     }
     template <class T> T* Ptr<T>::operator->() const
     {
-        if (!ptr_) 
+        if (!ptr_)
             throw std::runtime_error("Pointer is not initialized");
-        return ptr_; 
+        return ptr_;
     }
     template <class T> bool Ptr<T>::operator==(const Ptr<T>& rhs) const { return ptr_ == rhs.ptr_; } // TODO check when comparison is performed by value
     template <class T> bool Ptr<T>::operator!=(const Ptr<T>& rhs) const { return ptr_ != rhs.ptr_; } // TODO check when comparison is performed by value
@@ -181,6 +184,7 @@ namespace cl
     template <class T> Ptr<T>& Ptr<T>::operator=(const Ptr<T>& rhs) { if (ptr_) ptr_->release(); if (rhs.ptr_) rhs.ptr_->addRef(); ptr_ = rhs.ptr_; return *this; }
     template <class T> template <class I> decltype(auto) Ptr<T>::operator[](I const& i) const { return (*ptr_)[i]; }
     template <class T> template <class I> decltype(auto) Ptr<T>::operator[](I const& i) { return (*ptr_)[i]; }
+    template <class T> T* Ptr<T>::GetRawPtr() { return ptr_; }
     template <class T> bool Ptr<T>::IsEmpty() { return !ptr_; }
 }
 

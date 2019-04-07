@@ -139,6 +139,9 @@ namespace cl
         /// <summary>Convert Object to long by unboxing. Error if Object does is not a boxed long.</summary>
         operator int64_t() const;
     };
+
+    /// <summary>Initializes a new instance of Object.</summary>
+    inline Object new_Object() { return new Object(); }
 }
 
 namespace std
@@ -153,4 +156,3 @@ namespace std
     struct equal_to<cl::Object> : public equal_to<cl::Ptr<cl::ObjectImpl>>
     {};
 }
-
