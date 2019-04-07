@@ -34,6 +34,9 @@ namespace cl
     /// <summary>Construct Object from String.</summary>
     Object::Object(const String& value) : base(value) {}
 
+    /// <summary>Construct Object from const string.</summary>
+    Object::Object(const char* value) : base(String(value)) {}
+
     /// <summary>Construct Object from bool by boxing.</summary>
     Object::Object(bool value) : base(new BoolImpl(value)) {}
 

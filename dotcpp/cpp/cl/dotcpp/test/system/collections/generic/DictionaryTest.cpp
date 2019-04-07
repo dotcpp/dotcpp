@@ -119,17 +119,17 @@ namespace cl
 
     TEST_CASE("Object key")
     {
-        Object obj1 = Object(1);
-        Object obj2 = Object("2");
-        Object obj3 = Object("3");
+        Object obj1 = new_Object();
+        Object obj2 = Object("str2");
+        Object obj3 = Object("str2");
 
         Dictionary<Object, String> dict = new_Dictionary<Object, String>();
         dict->Add(obj1, "val1");
         dict->Add(obj2, "val2");
-        dict->Add(obj3, "val3");
+        CHECK_THROWS(dict->Add(obj3, "val3"));
 
         REQUIRE(dict[obj1] == "val1");
         REQUIRE(dict[obj2] == "val2");
-        REQUIRE(dict[obj3] == "val3");
+        REQUIRE(*dict[obj3] == "val2");
     }
 }

@@ -87,6 +87,9 @@ namespace cl
         /// <summary>Returns the hash code for this string.</summary>
         virtual size_t GetHashCode() override;
 
+        /// <summary>Returns this instance of String; no actual conversion is performed.</summary>
+        virtual String ToString() const override;
+
         /// <summary>Determines whether the end of this
         /// string matches the specified string.</summary>
         bool EndsWith(const std::string& value);

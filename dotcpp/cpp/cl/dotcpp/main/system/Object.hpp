@@ -60,6 +60,9 @@ namespace cl
         /// <summary>Construct Object from String.</summary>
         Object(const String& value);
 
+        /// <summary>Construct Object from const string.</summary>
+        Object(const char* value);
+
         /// <summary>Construct Object from bool by boxing.</summary>
         Object(bool value);
 

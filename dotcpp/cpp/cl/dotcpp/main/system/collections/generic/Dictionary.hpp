@@ -24,6 +24,7 @@ limitations under the License.
 #pragma once
 
 #include <unordered_map>
+#include <cl/dotcpp/main/system/Exception.hpp>
 #include <cl/dotcpp/main/system/collections/generic/IDictionary.hpp>
 #include <cl/dotcpp/main/system/collections/generic/List.hpp>
 
@@ -57,14 +58,14 @@ namespace cl
 
         /// <summary>Gets the number of key/value pairs contained in the Dictionary.</summary>
         DOT_IMPL_GET(int, Count, { return size(); })
-        
+
         /// <summary>Gets a collection containing the keys in the Dictionary.</summary>
         DOT_IMPL_GET(ICollection<TKey>, Keys, {
             ICollection<TKey> list = new_List<TKey>();
             for (auto& x : *this) list->Add(x.first);
             return list;
         })
-        
+
         /// <summary>Gets a collection containing the values in the Dictionary.</summary>
         DOT_IMPL_GET(ICollection<TValue>, Values, {
             ICollection<TValue> list = new_List<TValue>();
@@ -77,7 +78,9 @@ namespace cl
         /// <summary>Adds the specified key and value to the dictionary.</summary>
         virtual void Add(const TKey& key, const TValue& value) override
         {
-            insert(std::pair<TKey, TValue>(key, value));
+            auto res = insert(KeyValuePair<TKey, TValue>(key, value));
+            if (!res.second)
+                throw new_Exception("An element with the same key already exists in the Dictionary");
         }
 
         /// <summary>Adds the specified value to the ICollection with the specified key.</summary>
@@ -98,7 +101,7 @@ namespace cl
             auto iter = find(keyValuePair.first);
             if (iter != end())
             {
-                return keyValuePair.second == iter->second;
+                return std::equal_to<TValue>()(keyValuePair.second, iter->second);
             }
             return false;
         }
@@ -114,7 +117,7 @@ namespace cl
         {
             for (auto& x : *this)
             {
-                if (x.second == value)
+                if (std::equal_to<TValue>()(x.second, value))
                     return true;
             }
             return false;

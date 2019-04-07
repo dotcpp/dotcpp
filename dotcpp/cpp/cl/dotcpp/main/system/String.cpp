@@ -61,6 +61,11 @@ namespace cl
         return std::hash<std::string>()(*this);
     }
 
+    String StringImpl::ToString() const
+    {
+        return String(const_cast<StringImpl*>(this));
+    }
+
     /// <summary>Determines whether the end of this
     /// string matches the specified string.</summary>
     bool StringImpl::EndsWith(const std::string& value)
