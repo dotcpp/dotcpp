@@ -31,6 +31,20 @@ limitations under the License.
 
 namespace cl
 {
+    /// <summary>
+    /// Default constructor to create untyped Object.
+    ///
+    /// This constructor is used, among other things,
+    /// as argument to lock(...) to provide thread safety.
+    /// </summary>
+    Object::Object() : base(new ObjectImpl()) {}
+
+    /// <summary>Construct Object from Ptr(ObjectImpl).</summary>
+    Object::Object(const Ptr<ObjectImpl>& ptr) : base(ptr) {}
+
+    /// <summary>Construct Object from ObjectImpl pointer.</summary>
+    inline Object::Object(ObjectImpl* value) : base(value) {}
+
     /// <summary>Construct Object from String.</summary>
     Object::Object(const String& value) : base(value) {}
 

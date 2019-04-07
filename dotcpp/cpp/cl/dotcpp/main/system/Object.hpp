@@ -48,14 +48,17 @@ namespace cl
         /// This constructor is used, among other things,
         /// as argument to lock(...) to provide thread safety.
         /// </summary>
-        Object() : base() {}
+        Object();
 
         /// <summary>Construct Object from Ptr(ObjectImpl).</summary>
-        Object(const Ptr<ObjectImpl>& ptr) : base(ptr) {}
+        Object(const Ptr<ObjectImpl>& ptr);
 
         /// <summary>Construct Object from Ptr(T).</summary>
         template <class T>
         Object(const Ptr<T>& ptr) : base(ptr) {}
+
+        /// <summary>Construct Object from ObjectImpl pointer.</summary>
+        Object(ObjectImpl* value);
 
         /// <summary>Construct Object from String.</summary>
         Object(const String& value);
@@ -144,7 +147,7 @@ namespace cl
     };
 
     /// <summary>Initializes a new instance of Object.</summary>
-    inline Object new_Object() { return new Object(); }
+    inline Object new_Object() { return Object(); }
 }
 
 namespace std

@@ -40,6 +40,7 @@ namespace cl
     {
         template<typename T>
         friend class Ptr;
+        friend class Object;
 
     private: // FIELDS
 
