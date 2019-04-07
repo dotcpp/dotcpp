@@ -35,7 +35,6 @@ namespace cl
     template <class PropType, class Class>
     class CL_DOTCPP_MAIN PropertyInfoDataImpl final : public MemberInfoDataImpl
     {
-
         typedef PropertyInfoDataImpl self;
 
     public: // PROPERTIES

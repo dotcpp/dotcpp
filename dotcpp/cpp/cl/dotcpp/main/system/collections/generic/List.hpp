@@ -38,10 +38,10 @@ namespace cl
     template <class T>
     class ListImpl : public IListImpl<T>, public virtual ObjectImpl, public std::vector<T>, public IObjectEnumerableImpl
     {
-        typedef std::vector<T> base;
-        typedef ListImpl<T> self;
-
         template <class R> friend List<R> new_List();
+
+        typedef ListImpl<T> self;
+        typedef std::vector<T> base;
 
     private: // CONSTRUCTORS
 

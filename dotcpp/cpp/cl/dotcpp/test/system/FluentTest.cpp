@@ -35,13 +35,15 @@ namespace cl
 
     class FluentSampleBaseDataImpl : public virtual ObjectImpl
     {
-        typedef FluentSampleBaseDataImpl self;
         friend FluentSampleBaseData new_FluentSampleBaseData();
 
-    private:
+        typedef FluentSampleBaseDataImpl self;
+
+    private: // FIELDS
+
         int x_ = 1;
 
-    public:
+    public: // PROPERTIES
 
         DOT_GET(int, RegularGet, { return 10; })
         DOT_FLUENT(int, RegularProp, { return x_; }, { x_ = value; })
@@ -53,7 +55,8 @@ namespace cl
         DOT_DECL_GET(int, DeclaredGet3)
         DOT_DECL_PROP(int, DeclaredProp2)
 
-    protected:
+    protected: // CONSTRUCTORS
+
         FluentSampleBaseDataImpl() = default;
     };
 
@@ -61,13 +64,15 @@ namespace cl
 
     class FluentSampleDataImpl : public FluentSampleBaseDataImpl
     {
-        typedef FluentSampleDataImpl self;
         friend FluentSampleData new_FluentSampleData();
 
-    private:
+        typedef FluentSampleDataImpl self;
+
+    private: // FIELDS
+
         int y_ = 456;
 
-    public:
+    public: // PROPERTIES
 
         // Implement declared properties by specifying methods
         DOT_IMPL_GET(int, DeclaredGet, { return 456; })
@@ -86,7 +91,8 @@ namespace cl
         // Property that is a scalar class
         DOT_AUTO_FLUENT(FluentSampleData, DataProp)
 
-    protected:
+    protected: // CONSTRUCTORS
+
         FluentSampleDataImpl()
         {
             // TODO - make it possible to set getter property in ctor

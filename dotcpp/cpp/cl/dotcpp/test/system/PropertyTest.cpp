@@ -35,13 +35,15 @@ namespace cl
 
     class PropertySampleBaseDataImpl : public virtual ObjectImpl
     {
-        typedef PropertySampleBaseDataImpl self;
         friend PropertySampleBaseData new_PropertySampleBaseData();
 
-    private:
+        typedef PropertySampleBaseDataImpl self;
+
+    private: // FIELDS
+
         int x_ = 1;
 
-    public:
+    public: // PROPERTIES
 
         DOT_GET(int, RegularGet, { return 10; })
         DOT_PROP(int, RegularProp, { return x_; }, { x_ = value; })
@@ -53,7 +55,8 @@ namespace cl
         DOT_DECL_GET(int, DeclaredGet3)
         DOT_DECL_PROP(int, DeclaredProp2)
 
-    protected:
+    protected: // CONSTRUCTORS
+
         PropertySampleBaseDataImpl() = default;
     };
 
@@ -61,13 +64,15 @@ namespace cl
 
     class PropertySampleDataImpl : public PropertySampleBaseDataImpl
     {
-        typedef PropertySampleDataImpl self;
         friend PropertySampleData new_PropertySampleData();
 
-    private:
+        typedef PropertySampleDataImpl self;
+
+    private: // FIELDS
+
         int y_ = 456;
 
-    public:
+    public: // PROPERTIES
 
         // Implement declared properties by specifying methods
         DOT_IMPL_GET(int, DeclaredGet, { return 456; })

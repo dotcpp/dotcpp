@@ -51,8 +51,11 @@ namespace cl
     {
         typedef SampleData2Impl self;
 
-    public:
+    public: // PROPERTIES
+
         DOT_AUTO_PROP(SampleData, DataProp)
+
+    public: // STATIC
 
         static Type typeof()
         {

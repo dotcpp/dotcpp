@@ -41,10 +41,13 @@ namespace cl
     {
         typedef ReflectionBaseSampleImpl self;
 
-    public:
+    public: // FIELDS
+
         int IntFld;
         double DblFld;
         List<double> DblListFld;
+
+    public: // PROPERTIES
 
         DOT_PROP(int, Count,
             {
@@ -64,10 +67,11 @@ namespace cl
             }
         )
 
-    private:
+    private: // FIELDS
+
         int PrivateIntFld = 42;
 
-    public:
+    public: // METHODS
 
         int SampleMethod(int param)
         {
@@ -114,7 +118,7 @@ namespace cl
 
     class ReflectionDerivedSampleImpl : public ReflectionBaseSampleImpl
     {
-    public:
+    public: // PROPERTIES
 
         DOT_IMPL_PROP(int, Count,
             {
@@ -133,6 +137,7 @@ namespace cl
 
     TEST_CASE("PropertyInfo")
     {
+        // TODO - enable
         /*
         ReflectionBaseSample obj = new_ReflectionBaseSample();
         obj->IntFld = 15;

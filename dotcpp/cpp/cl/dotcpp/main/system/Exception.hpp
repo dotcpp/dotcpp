@@ -28,7 +28,7 @@ limitations under the License.
 namespace cl
 {
     class String;
-    class StringImpl; 
+    class StringImpl;
 
     /// <summary>Represents errors that occur during application execution.</summary>
     class CL_DOTCPP_MAIN Exception : public std::runtime_error
