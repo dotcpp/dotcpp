@@ -43,16 +43,15 @@ namespace cl
 
     public:
 
+        DOT_GET(int, RegularGet, { return 10; })
+        DOT_FLUENT(int, RegularProp, { return x_; }, { x_ = value; })
+
         DOT_DECL_GET(int, DeclaredGet)
         DOT_DECL_FLUENT(int, DeclaredProp)
 
-        // TODO - must be able to declare property and implement as autoproperty
-        // DOT_DECL_GET(int, DeclaredGet2)
-        // DOT_DECL_GET(int, DeclaredGet3)
-        // DOT_DECL_PROP(int, DeclaredProp2)
-
-        DOT_GET(int, RegularGet, { return 123; })
-        DOT_PROP(int, RegularProp, { return x_; }, { x_ = value; })
+        DOT_DECL_GET(int, DeclaredGet2)
+        DOT_DECL_GET(int, DeclaredGet3)
+        DOT_DECL_PROP(int, DeclaredProp2)
 
     protected:
         FluentSampleBaseDataImpl() = default;
@@ -70,18 +69,21 @@ namespace cl
 
     public:
 
+        // Implement declared properties by specifying methods
         DOT_IMPL_GET(int, DeclaredGet, { return 456; })
         DOT_IMPL_PROP(int, DeclaredProp, { return y_; }, { y_ = value; })
 
         // Implement declared properties as auto properties
-        // A property can be declared as get and implemented as get/set
         DOT_AUTO_GET(int, DeclaredGet2)
         DOT_AUTO_FLUENT(int, DeclaredGet3)
         DOT_AUTO_FLUENT(int, DeclaredProp2)
 
+        // Properties that have native type
         DOT_AUTO_FLUENT(String, StringProp)
         DOT_AUTO_FLUENT(int, IntegerProp)
         DOT_AUTO_FLUENT(double, DoubleProp)
+
+        // Property that is a scalar class
         DOT_AUTO_FLUENT(FluentSampleData, DataProp)
 
     protected:
@@ -102,16 +104,22 @@ namespace cl
             ->StringProp("abc")
             ->IntegerProp(123)
             ->DoubleProp(3.1415)
-            ->DataProp(new_FluentSampleData()->StringProp("xyz"))
+            ->DataProp(
+                new_FluentSampleData()
+                ->StringProp("xyz")
+                )
             ->DeclaredGet3(50)
             ->DeclaredProp2(200)
             ->DeclaredProp(100)
+            ->RegularProp(25)
             .as<FluentSampleData>();
 
+        received->AppendLine(String::Format("RegularGet: {0}", obj->RegularGet));
+        received->AppendLine(String::Format("RegularProp: {0}", obj->RegularProp));
         received->AppendLine(String::Format("DeclaredGet: {0}", obj->DeclaredGet));
+        received->AppendLine(String::Format("DeclaredGet2: {0}", obj->DeclaredGet2));
+        received->AppendLine(String::Format("DeclaredGet3: {0}", obj->DeclaredGet3));
         received->AppendLine(String::Format("DeclaredProp: {0}", obj->DeclaredProp));
-        //received->AppendLine(String::Format("DeclaredGet2: {0}", obj->DeclaredGet2));
-        //received->AppendLine(String::Format("DeclaredGet3: {0}", obj->DeclaredGet3));
         received->AppendLine(String::Format("DeclaredProp2: {0}", obj->DeclaredProp2));
         received->AppendLine(String::Format("StringProp: {0}", std::string(obj->StringProp->c_str())));
         received->AppendLine(String::Format("IntegerProp: {0}", obj->IntegerProp));

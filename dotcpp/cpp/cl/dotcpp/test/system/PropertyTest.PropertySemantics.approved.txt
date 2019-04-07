@@ -1,4 +1,8 @@
+RegularGet: 10
+RegularProp: 25
 DeclaredGet: 456
+DeclaredGet2: 0
+DeclaredGet3: 50
 DeclaredProp: 100
 DeclaredProp2: 200
 StringProp: abc
