@@ -19,6 +19,7 @@
     <ClCompile Include="system\ConsoleTest.cpp" />
     <ClCompile Include="system\DoubleTest.cpp" />
     <ClCompile Include="system\ExceptionTest.cpp" />
+    <ClCompile Include="system\FluentTest.cpp" />
     <ClCompile Include="system\LocalDateTest.cpp" />
     <ClCompile Include="system\LocalDateTimeTest.cpp" />
     <ClCompile Include="system\LocalTimeTest.cpp" />
