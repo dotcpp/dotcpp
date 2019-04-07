@@ -30,7 +30,7 @@ namespace cl
 {
     bool ObjectImpl::Equals(Object obj)
     {
-        return this == obj.GetRawPtr();
+        return this == &(*obj);
     }
 
     size_t ObjectImpl::GetHashCode()

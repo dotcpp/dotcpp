@@ -47,13 +47,14 @@ namespace cl
 
     bool StringImpl::Equals(Object obj)
     {
-        if (this == obj.GetRawPtr()) return true;
+        if (this == &(*obj)) return true;
+
         if (obj.is<String>())
         {
-            return *this == *((String) obj);
+            return *this == *obj.as<String>();
         }
 
-        return ObjectImpl::Equals(obj);
+        return false;
     }
 
     size_t StringImpl::GetHashCode()

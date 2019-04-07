@@ -28,8 +28,27 @@ limitations under the License.
 
 namespace cl
 {
-    /// <summary>A string representing the current type.</summary>
-    String DoubleImpl::ToString() { return std::to_string(value_); }
+    bool DoubleImpl::Equals(Object obj)
+    {
+        if (this == &(*obj)) return true;
+
+        if (obj.is<Ptr<DoubleImpl>>())
+        {
+            return value_ == obj.as<Ptr<DoubleImpl>>()->value_;
+        }
+
+        return false;
+    }
+
+    size_t DoubleImpl::GetHashCode()
+    {
+        return std::hash<double>()(value_);
+    }
+
+    String DoubleImpl::ToString()
+    {
+        return std::to_string(value_);
+    }
 
     Type DoubleImpl::typeof()
     {

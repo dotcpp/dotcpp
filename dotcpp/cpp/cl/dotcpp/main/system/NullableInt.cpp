@@ -27,8 +27,27 @@ limitations under the License.
 
 namespace cl
 {
-    /// <summary>A string representing the current type.</summary>
-    String IntImpl::ToString() { return std::to_string(value_); }
+    bool IntImpl::Equals(Object obj)
+    {
+        if (this == &(*obj)) return true;
+
+        if (obj.is<Ptr<IntImpl>>())
+        {
+            return value_ == obj.as<Ptr<IntImpl>>()->value_;
+        }
+
+        return false;
+    }
+
+    size_t IntImpl::GetHashCode()
+    {
+        return std::hash<int>()(value_);
+    }
+
+    String IntImpl::ToString()
+    {
+        return std::to_string(value_);
+    }
 
     /// <summary>
     /// Create from Object.

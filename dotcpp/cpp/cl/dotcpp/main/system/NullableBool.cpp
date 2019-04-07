@@ -27,8 +27,26 @@ limitations under the License.
 
 namespace cl
 {
-    /// <summary>A string representing the current type.</summary>
-    String BoolImpl::ToString() { return std::to_string(value_); }
+    bool BoolImpl::Equals(Object obj)
+    {
+        if (this == &(*obj)) return true;
+        if (obj.is<Ptr<BoolImpl>>())
+        {
+            return value_ == obj.as<Ptr<BoolImpl>>()->value_;
+        }
+
+        return false;
+    }
+
+    size_t BoolImpl::GetHashCode()
+    {
+        return std::hash<bool>()(value_);
+    }
+
+    String BoolImpl::ToString()
+    {
+        return value_ ? "True" : "False";
+    }
 
     /// <summary>Returns string representation of the object.</summary>
     std::string NullableBool::AsString() const

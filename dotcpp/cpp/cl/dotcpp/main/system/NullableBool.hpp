@@ -45,7 +45,13 @@ namespace cl
 
     public: // METHODS
 
-        /// <summary>A string representing the name of the current type.</summary>
+        /// <summary>Returns a value indicating whether this instance is equal to a specified object.</summary>
+        virtual bool Equals(Object obj) override;
+
+        /// <summary>Returns the hash code for this instance.</summary>
+        virtual size_t GetHashCode() override;
+
+        /// <summary>Converts the value of this instance to its equivalent string representation (either "True" or "False").</summary>
         virtual String ToString() override;
     };
 

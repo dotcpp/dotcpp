@@ -87,9 +87,6 @@ namespace cl
         template <class R>
         bool is() const;
 
-        /// <summary>Returns raw pointer to object.</summary>
-        T* GetRawPtr();
-
         /// <summary>Returns true if pointer holds object, and false otherwise.</summary>
         bool IsEmpty();
 
@@ -184,7 +181,6 @@ namespace cl
     template <class T> Ptr<T>& Ptr<T>::operator=(const Ptr<T>& rhs) { if (ptr_) ptr_->release(); if (rhs.ptr_) rhs.ptr_->addRef(); ptr_ = rhs.ptr_; return *this; }
     template <class T> template <class I> decltype(auto) Ptr<T>::operator[](I const& i) const { return (*ptr_)[i]; }
     template <class T> template <class I> decltype(auto) Ptr<T>::operator[](I const& i) { return (*ptr_)[i]; }
-    template <class T> T* Ptr<T>::GetRawPtr() { return ptr_; }
     template <class T> bool Ptr<T>::IsEmpty() { return !ptr_; }
 }
 
