@@ -181,14 +181,6 @@ namespace cl
 
     /// <summary>Initializes a new instance of Object.</summary>
     inline Object new_Object() { return Object(); }
-
-    /// <summary>Wraps struct into object.</summary>
-    template <class T>
-    class StructWrapperImpl : public virtual ObjectImpl, public T
-    {
-    public:
-        StructWrapperImpl(const T& value) : T(value) {}
-    };
 }
 
 namespace std

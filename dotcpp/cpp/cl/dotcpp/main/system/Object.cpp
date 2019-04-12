@@ -34,6 +34,14 @@ limitations under the License.
 
 namespace cl
 {
+    /// <summary>Wraps struct into object.</summary>
+    template <class T>
+    class StructWrapperImpl : public virtual ObjectImpl, public T
+    {
+    public:
+        StructWrapperImpl(const T& value) : T(value) {}
+    };
+
     /// <summary>
     /// Default constructor to create untyped Object.
     ///
