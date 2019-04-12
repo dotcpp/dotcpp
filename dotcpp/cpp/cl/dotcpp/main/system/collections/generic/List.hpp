@@ -24,7 +24,7 @@ limitations under the License.
 #pragma once
 
 #include <cl/dotcpp/main/system/collections/generic/IList.hpp>
-#include <cl/dotcpp/main/system/collections/IObjectEnumerable.hpp>
+#include <cl/dotcpp/main/system/collections/IObjectCollection.hpp>
 
 namespace cl
 {
@@ -36,7 +36,7 @@ namespace cl
     /// Provides methods to search, sort, and manipulate lists.
     /// </summary>
     template <class T>
-    class ListImpl : public IListImpl<T>, public virtual ObjectImpl, public std::vector<T>, public IObjectEnumerableImpl
+    class ListImpl : public IListImpl<T>, public virtual ObjectImpl, public std::vector<T>, public IObjectCollectionImpl
     {
         template <class R> friend List<R> new_List();
 
@@ -86,6 +86,9 @@ namespace cl
 
         /// <summary>Adds an object to the end of the list.</summary>
         virtual void Add(const T& item) { this->push_back(item); }
+
+        /// <summary>Adds an object to the end of the list.</summary>
+        virtual void AddObject(Object item) { this->push_back((T)item); }
 
         /// <summary>Removes all elements from the list.</summary>
         virtual void Clear() { this->clear(); }
