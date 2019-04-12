@@ -34,6 +34,9 @@ namespace cl
     class NullableDouble;
     class NullableInt;
     class NullableLong;
+    class LocalTime;
+    class LocalDate;
+    class LocalDateTime;
 
     /// <summary>Adds support for boxing value types to Ptr(ObjectImpl).</summary>
     class CL_DOTCPP_MAIN Object : public Ptr<ObjectImpl>
@@ -90,6 +93,15 @@ namespace cl
         /// <summary>Construct Object from NullableInt by boxing.</summary>
         Object(const NullableLong& value);
 
+        /// <summary>Construct Object from LocalTime by boxing.</summary>
+        Object(const LocalTime& value);
+
+        /// <summary>Construct Object from LocalDate by boxing.</summary>
+        Object(const LocalDate& value);
+
+        /// <summary>Construct Object from LocalDateTime by boxing.</summary>
+        Object(const LocalDateTime& value);
+
         /// <summary>Construct Object from auto property, boxing the value if necessary.</summary>
         template <typename T>
         Object(detail::auto_prop<T> & value) : Object(value.operator T()) {}
@@ -108,6 +120,9 @@ namespace cl
 
         /// <summary>Assign String to Object by boxing.</summary>
         Object& operator=(const String& value);
+
+        /// <summary>Assign const string to Object by boxing.</summary>
+        Object& operator=(const char* value);
 
         /// <summary>Assign bool to Object by boxing.</summary>
         Object& operator=(bool value);
@@ -133,6 +148,15 @@ namespace cl
         /// <summary>Assign NullableLong to Object by boxing.</summary>
         Object& operator=(const NullableLong& value);
 
+        /// <summary>Assign LocalTime to Object by boxing.</summary>
+        Object& operator=(const LocalTime& value);
+
+        /// <summary>Assign LocalDate to Object by boxing.</summary>
+        Object& operator=(const LocalDate& value);
+
+        /// <summary>Assign LocalDateTime to Object by boxing.</summary>
+        Object& operator=(const LocalDateTime& value);
+
         /// <summary>Convert Object to bool by unboxing. Error if Object does is not a boxed double.</summary>
         operator bool() const;
 
@@ -144,10 +168,27 @@ namespace cl
 
         /// <summary>Convert Object to long by unboxing. Error if Object does is not a boxed long.</summary>
         operator int64_t() const;
+
+        /// <summary>Convert Object to LocalTime by unboxing. Error if Object does is not a boxed LocalTime.</summary>
+        operator LocalTime() const;
+
+        /// <summary>Convert Object to LocalDate by unboxing. Error if Object does is not a boxed LocalDate.</summary>
+        operator LocalDate() const;
+
+        /// <summary>Convert Object to LocalDateTime by unboxing. Error if Object does is not a boxed LocalDateTime.</summary>
+        operator LocalDateTime() const;
     };
 
     /// <summary>Initializes a new instance of Object.</summary>
     inline Object new_Object() { return Object(); }
+
+    /// <summary>Wraps struct into object.</summary>
+    template <class T>
+    class StructWrapperImpl : public virtual ObjectImpl, public T
+    {
+    public:
+        StructWrapperImpl(const T& value) : T(value) {}
+    };
 }
 
 namespace std

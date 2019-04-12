@@ -31,6 +31,9 @@ limitations under the License.
 #include <cl/dotcpp/main/system/NullableInt.hpp>
 #include <cl/dotcpp/main/system/collections/generic/List.hpp>
 #include <cl/dotcpp/main/system/NullableLong.hpp>
+#include <cl/dotcpp/main/system/LocalTime.hpp>
+#include <cl/dotcpp/main/system/LocalDate.hpp>
+#include <cl/dotcpp/main/system/LocalDateTime.hpp>
 #include <cl/dotcpp/main/system/Type.hpp>
 
 namespace cl
@@ -127,6 +130,42 @@ namespace cl
             NullableLong y = (int64_t)2;
             boxed = y;
             REQUIRE((int64_t)boxed == 2);
+        }
+
+        {
+            // Boxing LocalTime
+            LocalTime time(12, 0);
+            LocalTime time2(12, 0);
+
+            Object boxed = time;
+            CHECK_NOTHROW((LocalTime) boxed);
+
+            REQUIRE((LocalTime) boxed == time);
+            REQUIRE((LocalTime) boxed == time2);
+        }
+
+        {
+            // Boxing LocalDate
+            LocalDate date(2005, 1, 1);
+            LocalDate date2(2005, 1, 1);
+
+            Object boxed = date;
+            CHECK_NOTHROW((LocalDate) boxed);
+
+            REQUIRE((LocalDate) boxed == date);
+            REQUIRE((LocalDate) boxed == date2);
+        }
+
+        {
+            // Boxing LocalDateTime
+            LocalDateTime date(2005, 1, 1, 12, 0);
+            LocalDateTime date2(2005, 1, 1, 12, 0);
+
+            Object boxed = date;
+            CHECK_NOTHROW((LocalDateTime) boxed);
+
+            REQUIRE((LocalDateTime) boxed == date);
+            REQUIRE((LocalDateTime) boxed == date2);
         }
     }
 }

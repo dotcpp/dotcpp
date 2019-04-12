@@ -28,6 +28,9 @@ limitations under the License.
 #include <cl/dotcpp/main/system/NullableDouble.hpp>
 #include <cl/dotcpp/main/system/NullableInt.hpp>
 #include <cl/dotcpp/main/system/NullableLong.hpp>
+#include <cl/dotcpp/main/system/LocalTime.hpp>
+#include <cl/dotcpp/main/system/LocalDate.hpp>
+#include <cl/dotcpp/main/system/LocalDateTime.hpp>
 
 namespace cl
 {
@@ -75,8 +78,20 @@ namespace cl
     /// <summary>Construct Object from NullableInt by boxing.</summary>
     Object::Object(const NullableLong& value) : base(value.IsEmpty() ? nullptr : new LongImpl(value)) {}
 
+    /// <summary>Construct Object from LocalTime by boxing.</summary>
+    Object::Object(const LocalTime & value) : base(new StructWrapperImpl<LocalTime>(value)) {}
+
+    /// <summary>Construct Object from LocalDate by boxing.</summary>
+    Object::Object(const LocalDate & value) : base(new StructWrapperImpl<LocalDate>(value)) {}
+
+    /// <summary>Construct Object from LocalDateTime by boxing.</summary>
+    Object::Object(const LocalDateTime & value) : base(new StructWrapperImpl<LocalDateTime>(value)) {}
+
     /// <summary>Assign String to Object by boxing.</summary>
     Object& Object::operator=(const String& value) { base::operator=(value); return *this; }
+
+    /// <summary>Assign const string to Object by boxing.</summary>
+    Object& Object::operator=(const char* value) { base::operator=(String(value)); return *this; }
 
     /// <summary>Assign bool to Object by boxing.</summary>
     Object& Object::operator=(bool value) { base::operator=(new BoolImpl(value)); return *this; }
@@ -102,6 +117,15 @@ namespace cl
     /// <summary>Assign NullableInt to Object by boxing.</summary>
     Object& Object::operator=(const NullableLong& value) { base::operator=(value.IsEmpty() ? nullptr : new LongImpl(value)); return *this; }
 
+    /// <summary>Assign LocalTime to Object by boxing.</summary>
+    Object& Object::operator=(const LocalTime& value) { base::operator=(new StructWrapperImpl<LocalTime>(value)); return *this; }
+
+    /// <summary>Assign LocalDate to Object by boxing.</summary>
+    Object& Object::operator=(const LocalDate& value) { base::operator=(new StructWrapperImpl<LocalDate>(value)); return *this; }
+
+    /// <summary>Assign LocalDateTime to Object by boxing.</summary>
+    Object& Object::operator=(const LocalDateTime& value) { base::operator=(new StructWrapperImpl<LocalDateTime>(value)); return *this; }
+
     /// <summary>Convert Object to bool by unboxing. Error if Object does is not a boxed double.</summary>
     Object::operator bool() const { return Ptr<BoolImpl>(*this)->value_; }
 
@@ -113,4 +137,13 @@ namespace cl
 
     /// <summary>Convert Object to long by unboxing. Error if Object does is not a boxed long.</summary>
     Object::operator int64_t() const { return Ptr<LongImpl>(*this)->value_; }
+
+    /// <summary>Convert Object to LocalTime by unboxing. Error if Object does is not a boxed LocalTime.</summary>
+    Object::operator LocalTime() const { return *Ptr<StructWrapperImpl<LocalTime>>(*this); }
+
+    /// <summary>Convert Object to LocalDate by unboxing. Error if Object does is not a boxed LocalDate.</summary>
+    Object::operator LocalDate() const { return *Ptr<StructWrapperImpl<LocalDate>>(*this); }
+
+    /// <summary>Convert Object to LocalDateTime by unboxing. Error if Object does is not a boxed LocalDateTime.</summary>
+    Object::operator LocalDateTime() const { return *Ptr<StructWrapperImpl<LocalDateTime>>(*this); }
 }
