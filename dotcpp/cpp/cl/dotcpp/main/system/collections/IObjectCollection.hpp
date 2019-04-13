@@ -43,7 +43,7 @@ namespace cl
     {
         typedef IObjectCollectionImpl self;
 
-    public:
+    public: // METHODS
 
         /// <summary>
         /// Adds an item to the end of the collection.
@@ -57,7 +57,5 @@ namespace cl
         static Type typeof();
 
         virtual Type GetType();
-
     };
-
 }
