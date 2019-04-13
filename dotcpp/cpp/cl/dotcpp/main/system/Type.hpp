@@ -53,7 +53,7 @@ namespace cl
     class CL_DOTCPP_MAIN TypeBuilderImpl final : public virtual ObjectImpl
     {
         template <class>
-        friend TypeBuilder new_TypeBuilder(String, String);
+        friend TypeBuilder new_TypeBuilder(String nspace, String name);
         friend class TypeImpl;
 
     private:
@@ -212,16 +212,16 @@ namespace cl
         ///
         /// This constructor is private. Use new_TypeBuilder() function instead.
         /// </summary>
-        TypeBuilderImpl(String Name, String Namespace, String CppName);
+        TypeBuilderImpl(String nspace, String name, String cppname);
     };
 
     /// <summary>
     /// Create an empty instance of TypeBuilder.
     /// </summary>
     template <class T>
-    inline TypeBuilder new_TypeBuilder(String Name, String Namespace)
+    inline TypeBuilder new_TypeBuilder(String nspace, String name)
     {
-        TypeBuilder td = new TypeBuilderImpl(Name, Namespace, typeid(T).name());
+        TypeBuilder td = new TypeBuilderImpl(nspace, name, typeid(T).name());
         td->is_class_ = std::is_base_of<ObjectImpl, T>::value;
         return td;
     }
@@ -332,7 +332,7 @@ namespace cl
         ///
         /// This constructor is private. Use TypeBuilder->Build() method instead.
         /// </summary>
-        TypeImpl(String Name, String Namespace);
+        TypeImpl(String nspace, String name);
     };
 
     /// <summary>Get Type object for the argument.</summary>

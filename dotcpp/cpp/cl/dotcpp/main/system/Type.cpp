@@ -105,10 +105,10 @@ namespace cl
     ///
     /// This constructor is private. Use TypeBuilder->Build() method instead.
     /// </summary>
-    TypeImpl::TypeImpl(String Name, String Namespace)
+    TypeImpl::TypeImpl(String nspace, String name)
     {
-        this->Name.Name = Name;
-        this->Namespace.Namespace = Namespace;
+        this->Namespace.Namespace = nspace;
+        this->Name.Name = name;
     }
 
 
