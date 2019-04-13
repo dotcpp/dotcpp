@@ -249,9 +249,6 @@ namespace cl
         virtual void CAT(set, name)(ptype & name, ptype const& value) override setter
 
 
-#define DOT_IMPL_FLUENT(ptype, name, getter, setter) DOT_IMPL_PROP(ptype, name, getter, setter)
-
-
 #define DOT_GET(ptype, name, getter)                                                         \
     private:                                                                                 \
         virtual ptype CAT(get, name)(ptype name) getter                                      \
