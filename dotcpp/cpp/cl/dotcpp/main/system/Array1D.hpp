@@ -88,6 +88,13 @@ namespace cl
 
         /// <summary>Gets or sets the element at the specified index (non-const version).</summary>
         T& operator[](int i) { return base::operator[](size_t(i)); }
+
+    public: // REFLECTION
+
+        DOT_REFLECTION
+        (
+            "T[]", "System" // TODO provide custom logic to resolve T[] into specific name
+        )
     };
 
     /// <summary>

@@ -307,7 +307,7 @@ namespace cl
         Type GetInterface(String name);
 
         /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() override { return "Type"; } // TODO - return name
+        virtual String ToString() override { return FullName; }
 
         /// <summary>Get Type object for the name.</summary>
         static Type GetType(String name) { return GetTypeMap()[name]; }

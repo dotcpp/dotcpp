@@ -62,7 +62,7 @@ namespace cl
 
         // Access by Object
         Object obj = b;
-        REQUIRE(obj->ToString() == "Object");
+        REQUIRE(((Array1D<double>)b)->Count == 3);
 
         // Check that methods that should throw actually throw
         // CHECK_THROWS_AS(b->Add(0.0), Exception);
@@ -110,5 +110,14 @@ namespace cl
         {
             REQUIRE((stringArray.as<Array1D<String>>())[i++] == str);
         }
+    }
+
+    TEST_CASE("ToString")
+    {
+        Array1D<double> obj = new_Array1D<double>(3);
+        auto type = obj->GetType();
+        String fullname = type->FullName;
+
+        REQUIRE(type->ToString() == "System.T[]"); // TODO provide custom logic to resolve T[] into specific name
     }
 }
