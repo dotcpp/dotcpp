@@ -87,8 +87,14 @@ namespace cl
         /// <summary>Adds an object to the end of the list.</summary>
         virtual void Add(const T& item) { this->push_back(item); }
 
-        /// <summary>Adds an object to the end of the list.</summary>
-        virtual void AddObject(Object item) { this->push_back((T)item); }
+        /// <summary>
+        /// Adds an item to the end of the collection.
+        ///
+        /// In C\#, the non-generic method is implemented for the interface
+        /// but not for the class to avoid ambiguous conversions. Because
+        /// in C++ this cannot be done, here this method has Object prefix.
+        /// </summary>
+        virtual void ObjectAdd(Object item) { this->push_back((T)item); }
 
         /// <summary>Removes all elements from the list.</summary>
         virtual void Clear() { this->clear(); }

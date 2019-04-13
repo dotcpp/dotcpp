@@ -35,17 +35,24 @@ namespace cl
     /// <summary>
     /// Supports a collection API over a non-generic collection.
     ///
-    /// In C\#, this interface is called ICollection. Because in C++ template and non-template
-    /// types cannot have the same name, here it is called IObjectEnumerable.
+    /// In C\#, this interface is called ICollection. Because in C++ template
+    /// and non-template types cannot have the same name, here it is
+    /// called IObjectCollection.
     /// </summary>
     class CL_DOTCPP_MAIN IObjectCollectionImpl : public IObjectEnumerableImpl
     {
-        typedef IObjectCollectionImpl ThisType;
+        typedef IObjectCollectionImpl self;
 
     public:
 
-        /// <summary>Adds an item to the end of the lisIt.</summary>
-        virtual void AddObject(Object item) = 0;
+        /// <summary>
+        /// Adds an item to the end of the collection.
+        ///
+        /// In C\#, the non-generic method is implemented for the interface
+        /// but not for the class to avoid ambiguous conversions. Because
+        /// in C++ this cannot be done, here this method has Object prefix.
+        /// </summary>
+        virtual void ObjectAdd(Object item) = 0;
 
         static Type typeof();
 
