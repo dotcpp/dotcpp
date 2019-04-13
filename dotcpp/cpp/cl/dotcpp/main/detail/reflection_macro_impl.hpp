@@ -24,8 +24,8 @@ limitations under the License.
 
 #pragma once
 
-#ifndef DOT_REFLECTION_IMPL
-#define DOT_REFLECTION_IMPL
+//#ifndef DOT_REFLECTION_IMPL
+//#define DOT_REFLECTION_IMPL
 
 #define DOT_REFLECTION(name, namespace, ...)                                                      \
         static Type typeof()                                                                      \
@@ -58,4 +58,4 @@ limitations under the License.
 #define WITH_BASE(base)                      ->WithBase<base>()  
 #define WITH_GENERIC_ARG(arg)                ->WithGenericArgument<arg>()
 
-#endif
+//#endif
