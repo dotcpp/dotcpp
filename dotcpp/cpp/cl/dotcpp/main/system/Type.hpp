@@ -24,7 +24,7 @@ limitations under the License.
 #pragma once
 
 #include <cl/dotcpp/main/detail/traits.hpp>
-#include <cl/dotcpp/main/detail/reflection_macro_impl.hpp>
+#include <cl/dotcpp/main/detail/reflection_macro.hpp>
 #include <cl/dotcpp/main/system/Object.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
 #include <cl/dotcpp/main/system/Array1D.hpp>

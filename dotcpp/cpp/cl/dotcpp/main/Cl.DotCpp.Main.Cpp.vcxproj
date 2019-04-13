@@ -38,7 +38,7 @@
     <ClInclude Include="detail\object_iterator.hpp" />
     <ClInclude Include="detail\property.hpp" />
     <ClInclude Include="detail\reference_counter.hpp" />
-    <ClInclude Include="detail\reflection_macro_impl.hpp" />
+    <ClInclude Include="detail\reflection_macro.hpp" />
     <ClInclude Include="detail\traits.hpp" />
     <ClInclude Include="implement.hpp" />
     <ClInclude Include="import.hpp" />
