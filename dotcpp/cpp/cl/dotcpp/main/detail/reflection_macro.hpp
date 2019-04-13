@@ -24,32 +24,26 @@ limitations under the License.
 
 #pragma once
 
-//#ifndef DOT_REFLECTION_IMPL
-//#define DOT_REFLECTION_IMPL
+/// <summary>
+/// Methods typeof() and GetType() are thread safe because the implementation uses lambda
+/// </summary>
 
 #define DOT_REFLECTION(name, namespace, ...)                                                      \
         static Type typeof()                                                                      \
         {                                                                                         \
             static Type type = []()-> Type                                                        \
             {                                                                                     \
-                                                                                                  \
-                Type type = new_TypeData<self>                                                \
+                Type type = new_TypeData<self>                                                    \
                             (name, namespace)                                                     \
-                                                                                                  \
                     __VA_ARGS__                                                                   \
-                                                                                                  \
                     ->Build();                                                                    \
-                                                                                                  \
                 return type;                                                                      \
             }();                                                                                  \
-                                                                                                  \
             return type;                                                                          \
         }                                                                                         \
                                                                                                   \
-        virtual Type GetType()                                                                    \
-        {                                                                                         \
-            return typeof();                                                                      \
-        }
+        virtual Type GetType() { return typeof(); }                                               \
+
 
 #define WITH_PROPERTY(prop_name)             ->WithProperty(#prop_name, &self::prop_name)
 #define WITH_METHOD(meth_name, ...)          ->WithMethod(#meth_name, &self::meth_name, { __VA_ARGS__ })
@@ -57,5 +51,3 @@ limitations under the License.
 #define WITH_INTERFACE(interface)            ->WithInterface<interface>()
 #define WITH_BASE(base)                      ->WithBase<base>()  
 #define WITH_GENERIC_ARG(arg)                ->WithGenericArgument<arg>()
-
-//#endif
