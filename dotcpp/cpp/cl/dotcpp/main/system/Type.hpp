@@ -265,10 +265,13 @@ namespace cl
     public: // PROPERTIES
 
         /// <summary>Gets the name of the current type, excluding namespace.</summary>
-        DOT_AUTO_GET(String, Name);
+        DOT_AUTO_GET(String, Name)
 
         /// <summary>Gets the fully qualified name of the type, including its namespace but not its assembly.</summary>
-        DOT_AUTO_GET(String, Namespace);
+        DOT_AUTO_GET(String, Namespace)
+
+        /// <summary>Gets the fully qualified name of the type, including its namespace but not its assembly.</summary>
+        DOT_GET(String, FullName, { return String::Format("{0}.{1}", this->Namespace, this->Name); }) // TODO - replace by String::Join
 
         /// <summary>Gets the base type if current type.</summary>
         DOT_GET(Type, BaseType, { return base_; })
