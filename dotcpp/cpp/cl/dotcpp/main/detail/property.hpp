@@ -35,7 +35,7 @@ namespace cl
 
         /// <summary>Empty structure.</summary>
         struct dummy_no_begin {};
-        struct dummy_no_arrow {}; // RENAME
+        struct dummy_no_arrow {};
 
         /// <summary>Struct checks if T has method begin() using SFINAE.</summary>
         template<class T>
@@ -62,7 +62,7 @@ namespace cl
         };
 
         /// <summary>
-        /// Properies inherit this structure in case their inner class has operator->
+        /// Properties inherit this structure in case their inner class has operator->
         /// so properties also have these operator.
         /// </summary>
         template <class T>
@@ -72,7 +72,7 @@ namespace cl
         };
 
         /// <summary>
-        /// Properies inherit this structure in case their inner class has methods begin/end
+        /// Properties inherit this structure in case their inner class has methods begin/end
         /// so properties also have these methods and may be used in foreach loop.
         /// </summary>
         template <class T>
@@ -192,7 +192,7 @@ namespace cl
                                                   >::type                                    \
         {                                                                                    \
             typedef ptype value_type;                                                        \
-            CAT(name, _prop)(self* this_) : this_(this_) {}                             \
+            CAT(name, _prop)(self* this_) : this_(this_) {}                                  \
             ptype name = ptype();                                                            \
                                                                                              \
             ptype & operator = (const ptype &) = delete;                                     \
@@ -200,7 +200,7 @@ namespace cl
             CAT(name, _prop) & operator = (const CAT(name, _prop) & rhs)                     \
                 { name = rhs.name; return *this;  }                                          \
                                                                                              \
-            self* this_;                                                                \
+            self* this_;                                                                     \
                                                                                              \
         };                                                                                   \
     public:                                                                                  \
@@ -231,7 +231,7 @@ namespace cl
             CAT(name, _prop) & operator = (const CAT(name, _prop) & rhs)                     \
                 { name = rhs.operator ptype(); return *this;  }                              \
                                                                                              \
-            self* this_;                                                                \
+            self* this_;                                                                     \
                                                                                              \
         };                                                                                   \
     public:                                                                                  \
@@ -263,7 +263,7 @@ namespace cl
                                                   >::type                                    \
         {                                                                                    \
             typedef ptype value_type;                                                        \
-            CAT(name, _prop)(self* this_) : this_(this_) {}                             \
+            CAT(name, _prop)(self* this_) : this_(this_) {}                                  \
             ptype name = ptype();                                                            \
                                                                                              \
             ptype & operator = (const ptype &) = delete;                                     \
@@ -273,7 +273,7 @@ namespace cl
             template <class T_>                                                              \
             bool operator==(T_ const& rhs) { return operator ptype() == rhs; }               \
                                                                                              \
-            self* this_;                                                                \
+            self* this_;                                                                     \
         };                                                                                   \
     public:                                                                                  \
         CAT(name, _prop) name = CAT(name, _prop)(this);
@@ -294,7 +294,7 @@ namespace cl
                                                   >::type                                    \
         {                                                                                    \
             typedef ptype value_type;                                                        \
-            CAT(name, _prop)(self* this_) : this_(this_) {}                             \
+            CAT(name, _prop)(self* this_) : this_(this_) {}                                  \
             ptype name = ptype();                                                            \
                                                                                              \
             void operator = (const ptype &value )                                            \
@@ -304,9 +304,10 @@ namespace cl
                 { name = rhs.operator ptype(); return *this;  }                              \
             template <class T_>                                                              \
             bool operator==(T_ const& rhs) { return operator ptype() == rhs; }               \
+            template <class I> decltype(auto) operator[](I const& i) const { return name[i]; }   \
+            template <class I> decltype(auto) operator[](I const& i) { return name[i]; }         \
                                                                                              \
-            self* this_;                                                                \
-                                                                                             \
+            self* this_;                                                                     \
         };                                                                                   \
     public:                                                                                  \
         CAT(name, _prop) name = CAT(name, _prop)(this);
