@@ -51,10 +51,10 @@ namespace cl
         /// <summary>Returns forward end object iterator.</summary>
         virtual detail::std_object_iterator_wrapper object_end() = 0;
 
-        static Type typeof();
+    public: // REFLECTION
 
         virtual Type GetType();
-
+        static Type typeof();
     };
 }
 

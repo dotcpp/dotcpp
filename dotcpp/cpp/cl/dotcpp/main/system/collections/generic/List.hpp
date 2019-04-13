@@ -116,13 +116,10 @@ namespace cl
         /// <summary>Gets or sets the element at the specified index (non-const version).</summary>
         virtual T& operator[](int i) { return base::operator[](i); }
 
+    public: // REFLECTION
+
+        virtual Type GetType() { return typeof(); }
         static Type typeof();
-
-        virtual Type GetType()
-        {
-            return typeof();
-        }
-
     };
 
     /// <summary>

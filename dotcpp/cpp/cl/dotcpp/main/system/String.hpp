@@ -139,11 +139,6 @@ namespace cl
         ///<summary>Returns a copy of this System.String object converted to uppercase using the casing rules of the invariant culture.</summary>
         String ToUpperInvariant() const;
 
-        static Type typeof();
-
-        virtual Type GetType();
-
-
     public: // OPERATORS
 
         /// <summary>Gets the Char object at a specified position in the current String object.</summary>
@@ -154,6 +149,11 @@ namespace cl
 
         /// <summary>Returns a string containing characters from lhs followed by the characters from rhs.</summary>
         friend bool operator<(const String& lhs, const String& rhs);
+
+    public: // REFLECTION
+
+        virtual Type GetType();
+        static Type typeof();
 
     public: // STATIC
 

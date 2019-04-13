@@ -54,8 +54,9 @@ namespace cl
         /// </summary>
         virtual void ObjectAdd(Object item) = 0;
 
-        static Type typeof();
+    public: // REFLECTION
 
         virtual Type GetType();
+        static Type typeof();
     };
 }

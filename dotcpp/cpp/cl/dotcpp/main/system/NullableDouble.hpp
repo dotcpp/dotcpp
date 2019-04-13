@@ -54,10 +54,10 @@ namespace cl
         /// <summary>Converts the numeric value of this instance to its equivalent string representation.</summary>
         virtual String ToString() override;
 
-        static Type typeof();
+    public: // REFLECTION
 
         virtual Type GetType();
-
+        static Type typeof();
     };
 
     /// <summary>
