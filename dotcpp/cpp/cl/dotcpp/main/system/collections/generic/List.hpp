@@ -106,7 +106,7 @@ namespace cl
         // TODO - implement void AddRange(const IEnumerable<T>& collection);
 
         /// <summary>Copies the elements of the current List(T) to a new array.</summary>
-        Array1D<T> ToArray() const { return new Array1DImpl(*this); }
+        Array1D<T> ToArray() const { return new_Array1D(*this); }
 
     public: // OPERATORS
 

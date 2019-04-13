@@ -38,10 +38,12 @@ namespace cl
     template <class T>
     class Array1DImpl : public ArrayImpl, public detail::array_base<T>
     {
+        typedef Array1DImpl<T> self;
         typedef detail::array_base<T> base;
 
         template <class R> friend Array1D<R> new_Array1D(int size);
-        template <class R> friend class ListImpl;
+        template <class R> friend Array1D<R> new_Array1D(const std::vector<R>& obj);
+        template <class R> friend Array1D<R> new_Array1D(std::vector<R>&& obj);
 
     private: // CONSTRUCTORS
 
@@ -52,10 +54,18 @@ namespace cl
         /// </summary>
         explicit Array1DImpl(int size) : base(size) {}
 
-        /// <summary>Create from std::vector using copy ctor.</summary>
+        /// <summary>
+        /// Create from std::vector using copy ctor.
+        ///
+        /// This constructor is private. Use new_Array1D(size) function instead.
+        /// </summary>
         explicit Array1DImpl(const std::vector<T>& obj) : base(obj) {}
 
-        /// <summary>Create from std::vector using move ctor.</summary>
+        /// <summary>
+        /// Create from std::vector using move ctor.
+        ///
+        /// This constructor is private. Use new_Array1D(size) function instead.
+        /// </summary>
         explicit Array1DImpl(std::vector<T>&& obj) : base(obj) {}
 
     public: // PROPERTIES
@@ -85,6 +95,18 @@ namespace cl
     /// </summary>
     template <class T>
     Array1D<T> new_Array1D(int size) { return new Array1DImpl<T>(size); }
+
+    /// <summary>
+    /// Create from std::vector using copy ctor.
+    /// </summary>
+    template <class T>
+    Array1D<T> new_Array1D(const std::vector<T>& obj) { return new Array1DImpl<T>(obj); }
+
+    /// <summary>
+    /// Create from std::vector using move ctor.
+    /// </summary>
+    template <class T>
+    Array1D<T> new_Array1D(std::vector<T>&& obj) { return new Array1DImpl<T>(obj); }
 
     /// <summary>
     /// Sorts the elements in a one-dimensional Array
