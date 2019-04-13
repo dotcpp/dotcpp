@@ -24,7 +24,9 @@ limitations under the License.
 
 #pragma once
 
-#ifndef DOT_REFLECTION
+/*
+#ifndef DOT_REFLECTION_DECL
+#define DOT_REFLECTION_DECL
 
 #   define DOT_REFLECTION(name, namespace, registration) static Type typeof(); virtual Type GetType();
 
@@ -35,3 +37,4 @@ limitations under the License.
 #   define WITH_BASE(base)
 
 #endif
+*/
