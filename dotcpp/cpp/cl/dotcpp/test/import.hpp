@@ -24,3 +24,19 @@ limitations under the License.
 #pragma once
 
 #include <cl/dotcpp/main/declare.hpp>
+
+// DotCpp includes
+#include <cl/dotcpp/main/system/Object.hpp>
+#include <cl/dotcpp/main/system/String.hpp>
+#include <cl/dotcpp/main/system/Type.hpp>
+#include <cl/dotcpp/main/system/Ptr.hpp>
+#include <cl/dotcpp/main/system/Bool.hpp>
+#include <cl/dotcpp/main/system/NullableBool.hpp>
+#include <cl/dotcpp/main/system/Double.hpp>
+#include <cl/dotcpp/main/system/NullableDouble.hpp>
+#include <cl/dotcpp/main/system/Int.hpp>
+#include <cl/dotcpp/main/system/NullableInt.hpp>
+#include <cl/dotcpp/main/system/Long.hpp>
+#include <cl/dotcpp/main/system/NullableLong.hpp>
+#include <cl/dotcpp/main/system/Array1D.hpp>
+#include <cl/dotcpp/main/system/collections/generic/List.hpp>
