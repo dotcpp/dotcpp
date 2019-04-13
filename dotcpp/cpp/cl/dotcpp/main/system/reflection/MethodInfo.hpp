@@ -38,7 +38,7 @@ namespace cl
     /// </summary>
     class MethodInfoImpl : public MemberInfoImpl
     {
-        friend class TypeDataImpl;
+        friend class TypeBuilderImpl;
 
         typedef MethodInfoImpl self;
 
@@ -83,7 +83,7 @@ namespace cl
     template <class Class, class Return, class ... Args>
     class MemberMethodInfoImpl : public MethodInfoImpl
     {
-        friend class TypeDataImpl;
+        friend class TypeBuilderImpl;
         typedef Return (Class::*method_type)(Args...);
 
     private: // FIELDS
@@ -140,7 +140,7 @@ namespace cl
     template <class Return, class ... Args>
     class StaticMethodInfoImpl : public MethodInfoImpl
     {
-        friend class TypeDataImpl;
+        friend class TypeBuilderImpl;
         typedef Return (*method_type)(Args...);
 
     private: // FIELDS

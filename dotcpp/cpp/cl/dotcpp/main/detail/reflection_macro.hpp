@@ -33,7 +33,7 @@ limitations under the License.
         {                                                                                         \
             static Type type = []()-> Type                                                        \
             {                                                                                     \
-                Type type = new_TypeData<self>                                                    \
+                Type type = new_TypeBuilder<self>                                                    \
                             (nspace, name)                                                        \
                     __VA_ARGS__                                                                   \
                     ->Build();                                                                    \

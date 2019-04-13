@@ -29,7 +29,7 @@ limitations under the License.
 namespace cl
 {
     template <class T> class ListImpl; template <class T> using List = Ptr<ListImpl<T>>;
-    class TypeDataImpl; using TypeData = Ptr<TypeDataImpl>;
+    class TypeBuilderImpl; using TypeBuilder = Ptr<TypeBuilderImpl>;
 
     /// <summary>
     /// Represents a strongly typed list of objects that can be accessed by index.

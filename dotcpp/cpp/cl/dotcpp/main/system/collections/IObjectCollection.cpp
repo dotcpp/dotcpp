@@ -29,7 +29,7 @@ namespace cl
 {
     Type IObjectCollectionImpl::typeof()
     {
-        return new_TypeData<ObjectImpl>("System.Collections", "IObjectCollection")
+        return new_TypeBuilder<ObjectImpl>("System.Collections", "IObjectCollection")
             ->Build();
     }
 

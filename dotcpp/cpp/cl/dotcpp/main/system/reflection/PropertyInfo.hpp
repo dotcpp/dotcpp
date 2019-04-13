@@ -50,7 +50,7 @@ namespace cl
         /// <summary>
         /// Create an empty instance of PropertyInfoData.
         ///
-        /// This constructor is private. Use new_TypeData() function instead.
+        /// This constructor is private. Use new_TypeBuilder() function instead.
         /// </summary>
         PropertyInfoDataImpl() = default;
     };
@@ -154,7 +154,7 @@ namespace cl
         return new PropertyInfoFieldImpl<PropType, Class>(name, declaringType, propertyType, prop);
     }
 
-    class TypeDataImpl;
+    class TypeBuilderImpl;
 
     /// <summary>
     /// Implementation of PropertyInfo for a property defined using a macro.
@@ -167,7 +167,7 @@ namespace cl
         template <class PropType1, class Class1>
         friend PropertyInfo new_PropertyInfo(String, Type, Type, PropType1 Class1::*
             , typename std::enable_if<std::is_base_of<detail::decl_get, PropType>::value>::type *);
-        friend TypeDataImpl;
+        friend TypeBuilderImpl;
 
     private: // FIELDS
 

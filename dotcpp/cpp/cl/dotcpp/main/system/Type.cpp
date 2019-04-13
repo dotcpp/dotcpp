@@ -35,7 +35,7 @@ limitations under the License.
 namespace cl
 {
     /// <summary>Built Type from the current object.</summary>
-    Type TypeDataImpl::Build()
+    Type TypeBuilderImpl::Build()
     {
         type_->Fill(this);
         return type_;
@@ -44,7 +44,7 @@ namespace cl
     /// <summary>
     /// Fill data from builder.
     /// </summary>
-    void TypeImpl::Fill(const TypeData& data)
+    void TypeImpl::Fill(const TypeBuilder& data)
     {
         if (!data->properties_.IsEmpty())
         {
@@ -112,7 +112,7 @@ namespace cl
     }
 
 
-    TypeDataImpl::TypeDataImpl(String Name, String Namespace, String CppName)
+    TypeBuilderImpl::TypeBuilderImpl(String Name, String Namespace, String CppName)
         : fullName_(Name + Namespace)
     {
         type_ = new TypeImpl(Name, Namespace);

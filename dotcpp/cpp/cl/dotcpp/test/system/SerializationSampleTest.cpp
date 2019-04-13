@@ -60,7 +60,7 @@ namespace cl
         {
             static Type type = []()-> Type
             {
-                Type type = new_TypeData<self>("System.Test", "SampleData2")
+                Type type = new_TypeBuilder<self>("System.Test", "SampleData2")
                     ->WithProperty("DataProp", &self::DataProp)
 
                     ->Build();

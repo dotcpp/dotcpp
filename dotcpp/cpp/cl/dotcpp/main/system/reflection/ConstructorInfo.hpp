@@ -37,7 +37,7 @@ namespace cl
     /// </summary>
     class ConstructorInfoImpl : public MemberInfoImpl
     {
-        friend class TypeDataImpl;
+        friend class TypeBuilderImpl;
 
     public: // METHODS
 
@@ -74,7 +74,7 @@ namespace cl
     class MemberConstructorInfoImpl : public ConstructorInfoImpl
     {
 
-        friend class TypeDataImpl;
+        friend class TypeBuilderImpl;
         typedef Class(*ctor_type)(Args...);
 
     private: // FIELDS

@@ -38,7 +38,7 @@ namespace cl
 {
     class StringImpl; class String;
     class TypeImpl; using Type = Ptr<TypeImpl>;
-    class TypeDataImpl; using TypeData = Ptr<TypeDataImpl>;
+    class TypeBuilderImpl; using TypeBuilder = Ptr<TypeBuilderImpl>;
     class StringImpl; class String;
     class MethodInfoImpl; using MethodInfo = Ptr<MethodInfoImpl>;
     class ConstructorInfoImpl; using ConstructorInfo = Ptr<ConstructorInfoImpl>;
@@ -50,10 +50,10 @@ namespace cl
     template <class T> Type typeof();
 
     /// <summary>Builder for Type.</summary>
-    class CL_DOTCPP_MAIN TypeDataImpl final : public virtual ObjectImpl
+    class CL_DOTCPP_MAIN TypeBuilderImpl final : public virtual ObjectImpl
     {
         template <class>
-        friend TypeData new_TypeData(String, String);
+        friend TypeBuilder new_TypeBuilder(String, String);
         friend class TypeImpl;
 
     private:
@@ -71,7 +71,7 @@ namespace cl
 
         /// <summary>Add public property of the current Type.</summary>
         template <class Class, class Prop>
-        TypeData WithProperty(String name, Prop Class::*prop)
+        TypeBuilder WithProperty(String name, Prop Class::*prop)
         {
              if (properties_.IsEmpty())
              {
@@ -83,7 +83,7 @@ namespace cl
 
         /// <summary>Add public member method of the current Type.</summary>
         template <class Class, class Return, class ... Args>
-        TypeData WithMethod(String name, Return(Class::*mth) (Args ...), std::vector<String> const& names) // TODO Change to List? Make overload?
+        TypeBuilder WithMethod(String name, Return(Class::*mth) (Args ...), std::vector<String> const& names) // TODO Change to List? Make overload?
         {
             const int argsCount = sizeof...(Args);
             if (argsCount != names.size())
@@ -112,7 +112,7 @@ namespace cl
 
         /// <summary>Add public static method of the current Type.</summary>
         template <class Return, class ... Args>
-        TypeData WithMethod(String name, Return(*mth) (Args ...), std::vector<String> const& names) // TODO Change to List? Make overload?
+        TypeBuilder WithMethod(String name, Return(*mth) (Args ...), std::vector<String> const& names) // TODO Change to List? Make overload?
         {
             const int argsCount = sizeof...(Args);
             if (argsCount != names.size())
@@ -141,7 +141,7 @@ namespace cl
 
         /// <summary>Add public constructor of the current Type.</summary>
         template <class Class, class ... Args>
-        TypeData WithConstructor(Class(*ctor)(Args...), std::vector<String> const& names) // TODO Change to List? Make overload?
+        TypeBuilder WithConstructor(Class(*ctor)(Args...), std::vector<String> const& names) // TODO Change to List? Make overload?
         {
             const int argsCount_ = sizeof...(Args);
             if (argsCount_ != names.size())
@@ -170,7 +170,7 @@ namespace cl
 
         /// <summary>Add base type of the current Type.</summary>
         template <class Class>
-        TypeData WithBase()
+        TypeBuilder WithBase()
         {
             if (!(this->base_.IsEmpty()))
                 throw Exception("Base already defined in class " + fullName_);
@@ -181,7 +181,7 @@ namespace cl
 
         /// <summary>Add interface type of the current Type.</summary>
         template <class Class>
-        TypeData WithInterface()
+        TypeBuilder WithInterface()
         {
             if (this->interfaces_.IsEmpty())
                 this->interfaces_ = new_List<Type>();
@@ -192,7 +192,7 @@ namespace cl
 
         /// <summary>Add generic argument type of the current Type.</summary>
         template <class Class>
-        TypeData WithGenericArgument()
+        TypeBuilder WithGenericArgument()
         {
             if (this->generic_args_.IsEmpty())
                 this->generic_args_ = new_List<Type>();
@@ -208,20 +208,20 @@ namespace cl
     private: // CONSTRUCTORS
 
         /// <summary>
-        /// Create an empty instance of TypeData.
+        /// Create an empty instance of TypeBuilder.
         ///
-        /// This constructor is private. Use new_TypeData() function instead.
+        /// This constructor is private. Use new_TypeBuilder() function instead.
         /// </summary>
-        TypeDataImpl(String Name, String Namespace, String CppName);
+        TypeBuilderImpl(String Name, String Namespace, String CppName);
     };
 
     /// <summary>
-    /// Create an empty instance of TypeData.
+    /// Create an empty instance of TypeBuilder.
     /// </summary>
     template <class T>
-    inline TypeData new_TypeData(String Name, String Namespace)
+    inline TypeBuilder new_TypeBuilder(String Name, String Namespace)
     {
-        TypeData td = new TypeDataImpl(Name, Namespace, typeid(T).name());
+        TypeBuilder td = new TypeBuilderImpl(Name, Namespace, typeid(T).name());
         td->is_class_ = std::is_base_of<ObjectImpl, T>::value;
         return td;
     }
@@ -248,7 +248,7 @@ namespace cl
     /// </summary>
     class CL_DOTCPP_MAIN TypeImpl final : public virtual ObjectImpl
     {
-        friend class TypeDataImpl;
+        friend class TypeBuilderImpl;
         template <class T>
         friend Type typeof();
 
@@ -317,7 +317,7 @@ namespace cl
         /// <summary>
         /// Fill data from builder.
         /// </summary>
-        void Fill(const TypeData& data);
+        void Fill(const TypeBuilder& data);
 
         static std::map<String, Type>& GetTypeMap()
         {
@@ -355,12 +355,12 @@ namespace cl
     /// </summary>
     inline Type ObjectImpl::GetType()
     {
-        return new_TypeData<ObjectImpl>("System", "Object")->Build();
+        return new_TypeBuilder<ObjectImpl>("System", "Object")->Build();
     }
 
     template <class T> inline Type ListImpl<T>::typeof() // TODO - check it should be here and not in List
     {
-        return new_TypeData<ObjectImpl>("System.Collections.Generic", "List`1")
+        return new_TypeBuilder<ObjectImpl>("System.Collections.Generic", "List`1")
             WITH_CONSTRUCTOR(new_List<T>)
             //WITH_GENERIC_ARG(T)
             WITH_INTERFACE(IObjectEnumerable)
@@ -368,15 +368,15 @@ namespace cl
     }
 
     template <>
-    inline Type typeof<double>() { return new_TypeData<double>("System", "Double")->Build(); }
+    inline Type typeof<double>() { return new_TypeBuilder<double>("System", "Double")->Build(); }
 
     template <>
-    inline Type typeof<int64_t>() { return new_TypeData<int64_t>("System", "Int64")->Build(); }
+    inline Type typeof<int64_t>() { return new_TypeBuilder<int64_t>("System", "Int64")->Build(); }
 
     template <>
-    inline Type typeof<int>() { return new_TypeData<int>("System", "Int32")->Build(); }
+    inline Type typeof<int>() { return new_TypeBuilder<int>("System", "Int32")->Build(); }
 
     /// <summary>This is required to compile typeof().</summary>
     template <>
-    inline Type typeof<void>() { return new_TypeData<void>("System", "Void")->Build(); } // TODO - this is not needed
+    inline Type typeof<void>() { return new_TypeBuilder<void>("System", "Void")->Build(); } // TODO - this is not needed
 }
