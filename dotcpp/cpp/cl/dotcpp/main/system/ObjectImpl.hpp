@@ -42,14 +42,6 @@ namespace cl
         friend class Ptr;
         friend class Object;
 
-    public: // DESTRUCTOR
-
-        /// <summary>
-        /// Virtual destructor to ensure that destructor
-        /// of the derived type is called by Ptr.
-        /// </summary>
-        virtual ~ObjectImpl() override;
-
     public: // METHODS
 
         /// <summary>Determines whether the specified object is equal to the current object.</summary>
