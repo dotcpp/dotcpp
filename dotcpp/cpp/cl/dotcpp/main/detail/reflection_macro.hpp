@@ -28,22 +28,20 @@ limitations under the License.
 /// Methods typeof() and GetType() are thread safe because the implementation uses lambda
 /// </summary>
 
-#define DOT_REFLECTION(nspace, name, ...)                                                         \
+#define DOT_BEGIN_REFLECTION(nspace, name, ...)                                                   \
+        virtual Type GetType() { return typeof(); }                                               \
         static Type typeof()                                                                      \
         {                                                                                         \
             static Type type = []()-> Type                                                        \
             {                                                                                     \
-                Type type = new_TypeBuilder<self>                                                    \
-                            (nspace, name)                                                        \
-                    __VA_ARGS__                                                                   \
+                Type type = new_TypeBuilder<self>(nspace, name)
+
+#define DOT_END_REFLECTION()                                                                      \
                     ->Build();                                                                    \
                 return type;                                                                      \
             }();                                                                                  \
             return type;                                                                          \
         }                                                                                         \
-                                                                                                  \
-        virtual Type GetType() { return typeof(); }                                               \
-
 
 #define WITH_PROPERTY(prop_name)             ->WithProperty(#prop_name, &self::prop_name)
 #define WITH_METHOD(meth_name, ...)          ->WithMethod(#meth_name, &self::meth_name, { __VA_ARGS__ })

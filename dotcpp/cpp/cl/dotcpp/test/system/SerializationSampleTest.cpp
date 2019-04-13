@@ -108,11 +108,9 @@ namespace cl
             received << "StaticFoo(" << intArg << ")" << std::endl;
         }
 
-    public:
+    public: // REFLECTION
 
-        DOT_REFLECTION
-        (
-            "System.Test", "SampleData",
+        DOT_BEGIN_REFLECTION("System.Test", "SampleData")
             WITH_CONSTRUCTOR(new_SampleData)
             WITH_PROPERTY(StringProp)
             WITH_PROPERTY(DataProp)
@@ -120,7 +118,7 @@ namespace cl
             WITH_METHOD(Foo, "dbl_arg", "second_arg")
             WITH_METHOD(Bar, "dbl_arg")
             WITH_METHOD(StaticFoo, "g")
-        )
+        DOT_END_REFLECTION()
     };
 
     SampleData new_SampleData() { return new SampleDataImpl; }

@@ -91,10 +91,8 @@ namespace cl
 
     public: // REFLECTION
 
-        DOT_REFLECTION
-        (
-            "System", "T[]" // TODO provide custom logic to resolve T[] into specific name
-        )
+        DOT_BEGIN_REFLECTION("System", "T[]") // TODO provide custom logic to resolve T[] into specific name
+        DOT_END_REFLECTION()
     };
 
     /// <summary>
