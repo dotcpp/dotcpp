@@ -339,15 +339,15 @@ namespace cl
     template <class T>
     Type typeof()
     {
-        String cpp_name = typeid(typename T::element_type).name();
-        auto wh = TypeImpl::GetTypeMap().find(cpp_name);
-        if (wh == TypeImpl::GetTypeMap().end())
+        String cppname = typeid(typename T::element_type).name(); // TODO - is it faster to use typeid rather than string as key?
+        auto p = TypeImpl::GetTypeMap().find(cppname);
+        if (p == TypeImpl::GetTypeMap().end())
         {
             Type type = T::element_type::typeof();
             return type;
         }
 
-        return wh->second;
+        return p->second;
     }
 
     /// <summary>
@@ -376,6 +376,7 @@ namespace cl
     template <>
     inline Type typeof<int>() { return new_TypeData<int>("System", "Int32")->Build(); }
 
+    /// <summary>This is required to compile typeof().</summary>
     template <>
     inline Type typeof<void>() { return new_TypeData<void>("System", "Void")->Build(); } // TODO - this is not needed
 }
