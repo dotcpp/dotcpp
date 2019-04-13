@@ -361,9 +361,9 @@ namespace cl
     template <class T> inline Type ListImpl<T>::typeof() // TODO - check it should be here and not in List
     {
         return new_TypeBuilder<ObjectImpl>("System.Collections.Generic", "List`1")
-            WITH_CONSTRUCTOR(new_List<T>)
-            //WITH_GENERIC_ARG(T)
-            WITH_INTERFACE(IObjectEnumerable)
+            DOT_TYPE_CTOR(new_List<T>)
+            //DOT_TYPE_GENERIC_ARGUMENT(T)
+            DOT_TYPE_INTERFACE(IObjectEnumerable)
             ->Build();
     }
 

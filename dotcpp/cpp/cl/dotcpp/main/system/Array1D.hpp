@@ -91,8 +91,8 @@ namespace cl
 
     public: // REFLECTION
 
-        DOT_BEGIN_REFLECTION("System", "T[]") // TODO provide custom logic to resolve T[] into specific name
-        DOT_END_REFLECTION()
+        DOT_TYPE_BEGIN("System", "T[]") // TODO provide custom logic to resolve T[] into specific name
+        DOT_TYPE_END()
     };
 
     /// <summary>

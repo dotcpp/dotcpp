@@ -110,15 +110,15 @@ namespace cl
 
     public: // REFLECTION
 
-        DOT_BEGIN_REFLECTION("System.Test", "SampleData")
-            WITH_CONSTRUCTOR(new_SampleData)
-            WITH_PROPERTY(StringProp)
-            WITH_PROPERTY(DataProp)
-            WITH_PROPERTY(DblList)
-            WITH_METHOD(Foo, "dbl_arg", "second_arg")
-            WITH_METHOD(Bar, "dbl_arg")
-            WITH_METHOD(StaticFoo, "g")
-        DOT_END_REFLECTION()
+        DOT_TYPE_BEGIN("System.Test", "SampleData")
+            DOT_TYPE_CTOR(new_SampleData)
+            DOT_TYPE_PROP(StringProp)
+            DOT_TYPE_PROP(DataProp)
+            DOT_TYPE_PROP(DblList)
+            DOT_TYPE_METHOD(Foo, "dbl_arg", "second_arg")
+            DOT_TYPE_METHOD(Bar, "dbl_arg")
+            DOT_TYPE_METHOD(StaticFoo, "g")
+        DOT_TYPE_END()
     };
 
     SampleData new_SampleData() { return new SampleDataImpl; }
