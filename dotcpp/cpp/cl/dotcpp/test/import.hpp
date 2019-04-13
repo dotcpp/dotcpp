@@ -23,4 +23,4 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/import.hpp>
+#include <cl/dotcpp/main/declare.hpp>
