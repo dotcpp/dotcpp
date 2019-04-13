@@ -44,10 +44,23 @@ namespace cl
 
     public: // METHODS
 
-        /// <summary>Determines whether the specified object is equal to the current object.</summary>
+        /// <summary>
+        /// Determines whether the specified object is equal to the current object.
+        ///
+        /// Default implementation in Object compares pointers. Derived classes
+        /// can override this method to compare by value.
+        /// </summary>
         virtual bool Equals(Object obj);
 
-        /// <summary>Serves as the default hash function.</summary>
+        /// <summary>
+        /// Serves as the default hash function.
+        ///
+        /// Default implementation in Object uses hash based on the pointer.
+        /// Derived classes can override this method to provide value based hash.
+        ///
+        /// Methods Equals() and GetHashCode() must always be overriden together
+        /// to avoid the situation when objects are equal but hash is not.
+        /// </summary>
         virtual size_t GetHashCode();
 
         /// <summary>Gets the Type of the current instance.</summary>
@@ -56,7 +69,10 @@ namespace cl
         /// <summary>
         /// String that represents the current object.
         ///
-        /// Default implementation returns full name of the class.
+        /// Default implementation in Object returns full name
+        /// of the class by calling GetType().FullName. Derived types
+        /// can override this method to provide custom conversion
+        /// to string.
         /// </summary>
         virtual String ToString();
     };

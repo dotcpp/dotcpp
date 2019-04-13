@@ -25,21 +25,45 @@ limitations under the License.
 #include <cl/dotcpp/main/system/ObjectImpl.hpp>
 #include <cl/dotcpp/main/system/Object.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
+#include <cl/dotcpp/main/system/Type.hpp>
 
 namespace cl
 {
+    /// <summary>
+    /// Determines whether the specified object is equal to the current object.
+    ///
+    /// Default implementation in Object compares pointers. Derived classes
+    /// can override this method to compare by value.
+    /// </summary>
     bool ObjectImpl::Equals(Object obj)
     {
         return this == &(*obj);
     }
 
+    /// <summary>
+    /// Serves as the default hash function.
+    ///
+    /// Default implementation in Object uses hash based on the pointer.
+    /// Derived classes can override this method to provide value based hash.
+    ///
+    /// Methods Equals() and GetHashCode() must always be overriden together
+    /// to avoid the situation when objects are equal but hash is not.
+    /// </summary>
     size_t ObjectImpl::GetHashCode()
     {
         return size_t(this);
     }
 
+    /// <summary>
+    /// String that represents the current object.
+    ///
+    /// Default implementation in Object returns full name
+    /// of the class by calling GetType().FullName. Derived types
+    /// can override this method to provide custom conversion
+    /// to string.
+    /// </summary>
     String ObjectImpl::ToString()
     {
-        return "Object";
+        return GetType()->FullName;
     }
 }
