@@ -35,7 +35,7 @@ namespace cl
 
     Type StringImpl::typeof()
     {
-        return new_TypeData<StringImpl>("String", "System")
+        return new_TypeData<StringImpl>("System", "String")
             ->Build();
     }
 

@@ -28,13 +28,13 @@ limitations under the License.
 /// Methods typeof() and GetType() are thread safe because the implementation uses lambda
 /// </summary>
 
-#define DOT_REFLECTION(name, namespace, ...)                                                      \
+#define DOT_REFLECTION(nspace, name, ...)                                                         \
         static Type typeof()                                                                      \
         {                                                                                         \
             static Type type = []()-> Type                                                        \
             {                                                                                     \
                 Type type = new_TypeData<self>                                                    \
-                            (name, namespace)                                                     \
+                            (nspace, name)                                                        \
                     __VA_ARGS__                                                                   \
                     ->Build();                                                                    \
                 return type;                                                                      \

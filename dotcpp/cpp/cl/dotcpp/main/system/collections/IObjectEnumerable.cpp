@@ -29,7 +29,7 @@ namespace cl
 {
     Type IObjectEnumerableImpl::typeof()
     {
-        return new_TypeData<ObjectImpl>("IObjectEnumerable", "System.Collections")
+        return new_TypeData<ObjectImpl>("System.Collections", "IObjectEnumerable")
             ->Build();
     }
 

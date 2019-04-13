@@ -93,7 +93,7 @@ namespace cl
 
         DOT_REFLECTION
         (
-            "T[]", "System" // TODO provide custom logic to resolve T[] into specific name
+            "System", "T[]" // TODO provide custom logic to resolve T[] into specific name
         )
     };
 

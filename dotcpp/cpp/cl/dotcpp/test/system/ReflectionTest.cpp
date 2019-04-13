@@ -86,7 +86,7 @@ namespace cl
             {
                 received << "Creating Type (this should run only once)." << std::endl;
 
-                return new_TypeData<ReflectionBaseSampleImpl>("ReflectionBaseSample", "Test.System")
+                return new_TypeData<ReflectionBaseSampleImpl>("System.Test", "ReflectionBaseSample")
 
                     //->WithProperty("IntFld", &ReflectionBaseSampleImpl::IntFld)
                     //->WithProperty("PrivateIntFld", &ReflectionBaseSampleImpl::PrivateIntFld)

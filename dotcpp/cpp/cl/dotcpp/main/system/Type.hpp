@@ -355,12 +355,12 @@ namespace cl
     /// </summary>
     inline Type ObjectImpl::GetType()
     {
-        return new_TypeData<ObjectImpl>("Object", "System")->Build();
+        return new_TypeData<ObjectImpl>("System", "Object")->Build();
     }
 
-    template <class T> inline Type ListImpl<T>::typeof()
+    template <class T> inline Type ListImpl<T>::typeof() // TODO - check it should be here and not in List
     {
-        return new_TypeData<ObjectImpl>("List", "System.Collections.Generic")
+        return new_TypeData<ObjectImpl>("System.Collections.Generic", "List`1")
             WITH_CONSTRUCTOR(new_List<T>)
             //WITH_GENERIC_ARG(T)
             WITH_INTERFACE(IObjectEnumerable)
@@ -368,14 +368,14 @@ namespace cl
     }
 
     template <>
-    inline Type typeof<double>() { return new_TypeData<double>("Double", "System")->Build(); }
+    inline Type typeof<double>() { return new_TypeData<double>("System", "Double")->Build(); }
 
     template <>
-    inline Type typeof<int64_t>() { return new_TypeData<int64_t>("Int64", "System")->Build(); }
+    inline Type typeof<int64_t>() { return new_TypeData<int64_t>("System", "Int64")->Build(); }
 
     template <>
-    inline Type typeof<int>() { return new_TypeData<int>("Int32", "System")->Build(); }
+    inline Type typeof<int>() { return new_TypeData<int>("System", "Int32")->Build(); }
 
     template <>
-    inline Type typeof<void>() { return new_TypeData<void>("Void", "System")->Build(); }
+    inline Type typeof<void>() { return new_TypeData<void>("System", "Void")->Build(); } // TODO - this is not needed
 }

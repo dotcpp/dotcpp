@@ -21,14 +21,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+#include <cl/dotcpp/test/implement.hpp>
+#include <approvals/ApprovalTests.hpp>
+#include <approvals/Catch.hpp>
 #include <boost/core/typeinfo.hpp>
 #include <boost/core/demangle.hpp>
 #include <typeinfo>
 #include <iostream>
-
-#include <cl/dotcpp/test/implement.hpp>
-#include <approvals/ApprovalTests.hpp>
-#include <approvals/Catch.hpp>
 #include <cl/dotcpp/main/system/Array1D.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
 #include <cl/dotcpp/main/system/Exception.hpp>
@@ -61,7 +60,7 @@ namespace cl
         {
             static Type type = []()-> Type
             {
-                Type type = new_TypeData<self>("SampleData2", "DotCpp.System.Test")
+                Type type = new_TypeData<self>("System.Test", "SampleData2")
                     ->WithProperty("DataProp", &self::DataProp)
 
                     ->Build();
@@ -113,7 +112,7 @@ namespace cl
 
         DOT_REFLECTION
         (
-            "SampleData", "DotCpp.Test",
+            "System.Test", "SampleData",
             WITH_CONSTRUCTOR(new_SampleData)
             WITH_PROPERTY(StringProp)
             WITH_PROPERTY(DataProp)
