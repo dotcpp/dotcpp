@@ -28,6 +28,8 @@ limitations under the License.
 
 namespace cl
 {
+    ObjectImpl::~ObjectImpl() = default;
+
     bool ObjectImpl::Equals(Object obj)
     {
         return this == &(*obj);

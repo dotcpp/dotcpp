@@ -24,6 +24,7 @@ limitations under the License.
 #pragma once
 
 #include <cl/dotcpp/main/declare.hpp>
+#include <cl/dotcpp/main/detail/reference_counter.hpp>
 
 namespace cl
 {
@@ -136,8 +137,8 @@ namespace cl
     };
 
     template <class T> Ptr<T>::Ptr() : ptr_(nullptr) {}
-    template <class T> Ptr<T>::Ptr(T* ptr) : ptr_(ptr) { if (ptr_) ptr_->addRef(); }
-    template <class T> template <class R> Ptr<T>::Ptr(const Ptr<R>& rhs, typename std::enable_if<std::is_base_of<T, R>::value>::type* p) : ptr_(rhs.ptr_) { if (ptr_) ptr_->addRef(); }
+    template <class T> Ptr<T>::Ptr(T* ptr) : ptr_(ptr) { if (ptr_) ptr_->IncrementReferenceCount(); }
+    template <class T> template <class R> Ptr<T>::Ptr(const Ptr<R>& rhs, typename std::enable_if<std::is_base_of<T, R>::value>::type* p) : ptr_(rhs.ptr_) { if (ptr_) ptr_->IncrementReferenceCount(); }
     template <class T> template <class R> Ptr<T>::Ptr(const Ptr<R>& rhs, typename std::enable_if<!std::is_base_of<T, R>::value>::type* p) : ptr_(nullptr)
     {
         // If argument is null, ptr_ should also remain null
@@ -153,11 +154,11 @@ namespace cl
             ptr_ = ptr;
 
             // Increment reference count
-            ptr_->addRef();
+            ptr_->IncrementReferenceCount();
         }
     }
-    template <class T> Ptr<T>::Ptr(const Ptr<T>& rhs) : ptr_(rhs.ptr_) { if (ptr_) ptr_->addRef(); }
-    template <class T> Ptr<T>::~Ptr() { if (ptr_) ptr_->release(); }
+    template <class T> Ptr<T>::Ptr(const Ptr<T>& rhs) : ptr_(rhs.ptr_) { if (ptr_) ptr_->IncrementReferenceCount(); }
+    template <class T> Ptr<T>::~Ptr() { if (ptr_) ptr_->DecrementReferenceCount(); }
     template <class T> template <class R> R Ptr<T>::as() const { typename R::pointer_type ptr = dynamic_cast<typename R::pointer_type>(ptr_); return ptr; }
     template <class T> template <class R> bool Ptr<T>::is() const { if (!ptr_) return false; return typeid(*ptr_) == typeid(typename R::element_type); }
     template <class T> T& Ptr<T>::operator*() const
@@ -176,9 +177,9 @@ namespace cl
     template <class T> bool Ptr<T>::operator!=(const Ptr<T>& rhs) const { return ptr_ != rhs.ptr_; } // TODO check when comparison is performed by value
     template <class T> bool Ptr<T>::operator==(nullptr_t) const { return ptr_ == nullptr; }
     template <class T> bool Ptr<T>::operator!=(nullptr_t) const { return ptr_ != nullptr; }
-    template <class T> Ptr<T>& Ptr<T>::operator=(T* rhs) { if (ptr_) ptr_->release(); if (rhs) rhs->addRef(); ptr_ = rhs; return *this; }
-    template <class T> template <class R> Ptr<T>& Ptr<T>::operator=(const Ptr<R>& rhs) { if (ptr_) ptr_->release(); if (rhs.ptr_) rhs.ptr_->addRef(); ptr_ = rhs.ptr_; return *this; }
-    template <class T> Ptr<T>& Ptr<T>::operator=(const Ptr<T>& rhs) { if (ptr_) ptr_->release(); if (rhs.ptr_) rhs.ptr_->addRef(); ptr_ = rhs.ptr_; return *this; }
+    template <class T> Ptr<T>& Ptr<T>::operator=(T* rhs) { if (ptr_) ptr_->DecrementReferenceCount(); if (rhs) rhs->IncrementReferenceCount(); ptr_ = rhs; return *this; }
+    template <class T> template <class R> Ptr<T>& Ptr<T>::operator=(const Ptr<R>& rhs) { if (ptr_) ptr_->DecrementReferenceCount(); if (rhs.ptr_) rhs.ptr_->IncrementReferenceCount(); ptr_ = rhs.ptr_; return *this; }
+    template <class T> Ptr<T>& Ptr<T>::operator=(const Ptr<T>& rhs) { if (ptr_) ptr_->DecrementReferenceCount(); if (rhs.ptr_) rhs.ptr_->IncrementReferenceCount(); ptr_ = rhs.ptr_; return *this; }
     template <class T> template <class I> decltype(auto) Ptr<T>::operator[](I const& i) const { return (*ptr_)[i]; }
     template <class T> template <class I> decltype(auto) Ptr<T>::operator[](I const& i) { return (*ptr_)[i]; }
     template <class T> bool Ptr<T>::IsEmpty() { return !ptr_; }

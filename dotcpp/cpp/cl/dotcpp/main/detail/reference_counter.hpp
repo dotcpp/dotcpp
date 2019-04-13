@@ -23,24 +23,18 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/declare.hpp>
-#include <cl/dotcpp/main/system/Ptr.hpp>
-
 namespace cl
 {
-    class Object;
-    class StringImpl; class String;
-    class TypeImpl; using Type = Ptr<TypeImpl>;
-
     /// <summary>
     /// All classes with reference semantics should derive from this type.
     /// It works with Ptr to provide an emulation of reference semantics in C++.
     /// </summary>
-    class CL_DOTCPP_MAIN ObjectImpl : public reference_counter
+    class reference_counter
     {
-        template<typename T>
-        friend class Ptr;
-        friend class Object;
+    private: // FIELDS
+
+        /// <summary>Reference count for intrusive pointer.</summary>
+        std::atomic<unsigned int> reference_count_ = 0;
 
     public: // DESTRUCTOR
 
@@ -48,24 +42,38 @@ namespace cl
         /// Virtual destructor to ensure that destructor
         /// of the derived type is called by Ptr.
         /// </summary>
-        virtual ~ObjectImpl() override;
+        virtual ~reference_counter() = default;
 
     public: // METHODS
 
-        /// <summary>Determines whether the specified object is equal to the current object.</summary>
-        virtual bool Equals(Object obj);
+        /// <summary>Increment reference count.</summary>
+        void IncrementReferenceCount()
+        {
+            ++reference_count_;
+        }
 
-        /// <summary>Serves as the default hash function.</summary>
-        virtual size_t GetHashCode();
+        /// <summary>Decrement reference count, deletes if decremented count is zero.</summary>
+        void DecrementReferenceCount()
+        {
+            if (!--reference_count_)
+            {
+                delete this;
+            }
+        }
 
-        /// <summary>Gets the Type of the current instance.</summary>
-        virtual Type GetType();
+    protected: // CONSTRUCTORS
 
-        /// <summary>
-        /// String that represents the current object.
-        ///
-        /// Default implementation returns full name of the class.
-        /// </summary>
-        virtual String ToString();
+        /// <summary>Prevent construction on stack.</summary>
+        reference_counter() = default;
+
+    private: // CONSTRUCTORS
+
+        /// <summary>Prevent copying object instead of copying pointer.</summary>
+        reference_counter(const reference_counter&) = delete;
+
+    private: // OPERATORS
+
+        /// <summary>Prevent assignment of object instead of assignment of pointer.</summary>
+        reference_counter& operator=(const reference_counter& rhs) = delete;
     };
 }
