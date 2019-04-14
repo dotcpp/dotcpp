@@ -28,9 +28,9 @@ limitations under the License.
 #include <cl/dotcpp/main/system/NullableDouble.hpp>
 #include <cl/dotcpp/main/system/NullableInt.hpp>
 #include <cl/dotcpp/main/system/NullableLong.hpp>
-#include <cl/dotcpp/main/system/LocalTime.hpp>
-#include <cl/dotcpp/main/system/LocalDate.hpp>
-#include <cl/dotcpp/main/system/LocalDateTime.hpp>
+#include <cl/dotcpp/main/nodatime/LocalTime.hpp>
+#include <cl/dotcpp/main/nodatime/LocalDate.hpp>
+#include <cl/dotcpp/main/nodatime/LocalDateTime.hpp>
 
 namespace cl
 {
