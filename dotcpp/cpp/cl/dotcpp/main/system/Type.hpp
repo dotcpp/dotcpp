@@ -355,15 +355,22 @@ namespace cl
     /// </summary>
     inline Type ObjectImpl::GetType()
     {
-        return new_TypeBuilder<ObjectImpl>("System", "Object")->Build();
+        return new_TypeBuilder<ObjectImpl>("System", "Object")->Build(); // Use Lambda
     }
 
-    template <class T> inline Type ListImpl<T>::typeof() // TODO - check it should be here and not in List
+    template <class T> Type ListImpl<T>::typeof()
     {
         return new_TypeBuilder<ObjectImpl>("System.Collections.Generic", "List`1")
             DOT_TYPE_CTOR(new_List<T>)
             //DOT_TYPE_GENERIC_ARGUMENT(T)
             DOT_TYPE_INTERFACE(IObjectEnumerable)
+            ->Build();
+    }
+
+    template <class T> Type Array1DImpl<T>::typeof()
+    {
+        // TODO provide custom logic to resolve T[] into specific name
+        return new_TypeBuilder<ObjectImpl>("System", "T[]")
             ->Build();
     }
 

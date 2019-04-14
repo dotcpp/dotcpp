@@ -91,8 +91,8 @@ namespace cl
 
     public: // REFLECTION
 
-        DOT_TYPE_BEGIN("System", "T[]") // TODO provide custom logic to resolve T[] into specific name
-        DOT_TYPE_END()
+        virtual Type GetType() { return typeof(); }
+        static Type typeof();
     };
 
     /// <summary>
