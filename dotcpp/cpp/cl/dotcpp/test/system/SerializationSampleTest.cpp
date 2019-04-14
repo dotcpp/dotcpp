@@ -92,10 +92,10 @@ namespace cl
         DOT_AUTO_PROP(SampleData2, DataProp)
         DOT_AUTO_PROP(List<double>, DblList)
 
-        double Foo(int dblArg, int second_arg)
+        double Foo(int dblArg, int intArg)
         {
-            received << "Foo(" << dblArg << ")" << std::endl;
-            return dblArg + 42;
+            received << "Foo(" << dblArg << "," << intArg << ")" << std::endl;
+            return dblArg + intArg;
         }
 
         void Bar(int intArg)
@@ -115,9 +115,9 @@ namespace cl
             DOT_TYPE_PROP(StringProp)
             DOT_TYPE_PROP(DataProp)
             DOT_TYPE_PROP(DblList)
-            DOT_TYPE_METHOD(Foo, "dbl_arg", "second_arg")
-            DOT_TYPE_METHOD(Bar, "dbl_arg")
-            DOT_TYPE_METHOD(StaticFoo, "g")
+            DOT_TYPE_METHOD(Foo, "dblArg", "intArg")
+            DOT_TYPE_METHOD(Bar, "intArg")
+            DOT_TYPE_METHOD(StaticFoo, "intArg")
         DOT_TYPE_END()
     };
 
