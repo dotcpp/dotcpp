@@ -47,7 +47,14 @@ namespace cl
 
     public: // CONSTRUCTORS
 
-        /// <summary>Initializes to default value that the code will treat as empty.</summary>
+        /// <summary>
+        /// Because in C\# LocalDateTime is a struct, it has default constructor
+        /// that initializes all backing variables to 0. This means that default
+        /// constructed value corresponds to 0001-01-01 00:00:00.
+        ///
+        /// Because Boost date_time library does not accept the date 0001-01-01, we
+        /// will instead use the Unix epoch 1970-01-01 as default constructed value.
+        /// </summary>
         LocalDateTime();
 
         /// <summary>Initializes a new instance of the LocalDateTime struct using the ISO calendar system.</summary>
@@ -59,8 +66,9 @@ namespace cl
         /// <summary>Initializes a new instance of the LocalDateTime struct using the ISO calendar system.</summary>
         LocalDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond);
 
-    public:
         LocalDateTime(const LocalDate& date, const LocalTime& time);
+
+        /// <summary>Create from Boost posix_time.</summary>
         LocalDateTime(const ptime& time);
 
     public:

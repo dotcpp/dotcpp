@@ -32,6 +32,13 @@ limitations under the License.
 
 namespace cl
 {
+    TEST_CASE("Constructors")
+    {
+        LocalDateTime defaultConstructed;
+        LocalDateTime janOneYearOneConstructed(1970, 1, 1, 0, 0, 0);
+        REQUIRE(defaultConstructed == janOneYearOneConstructed);
+    }
+
     TEST_CASE("Properties")
     {
         LocalDateTime d(2005, 1, 10, 12, 10, 20, 30);

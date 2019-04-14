@@ -44,7 +44,16 @@ namespace cl
     {
         typedef LocalTime self;
 
-    public:
+    public: // CONSTRUCTORS
+
+        /// <summary>
+        /// Because in C\# LocalDateTime is a struct, it has default constructor
+        /// that initializes all backing variables to 0. This means that default
+        /// constructed value corresponds to 0001-01-01 00:00:00. We will 
+        /// replicate this behavior here.
+        /// </summary>
+        LocalTime();
+
         /// <summary>Creates a local time at the given hour and minute, with second, millisecond-of-second and tick-of-millisecond values of zero.</summary>
         LocalTime(int hour, int minute);
 
@@ -54,9 +63,10 @@ namespace cl
         /// <summary>Creates a local time at the given hour, minute, second and millisecond, with a tick-of-millisecond value of zero.</summary>
         LocalTime(int hour, int minute, int second, int millisecond);
 
-    public:
-        LocalTime();
+        /// <summary>Create from Boost time_duration.</summary>
         LocalTime(const time_duration& time);
+
+        /// <summary>Create from Boost posix_time.</summary>
         LocalTime(const ptime& time);
 
     public:

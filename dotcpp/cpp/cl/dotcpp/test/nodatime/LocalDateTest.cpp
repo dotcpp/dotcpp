@@ -25,13 +25,20 @@ limitations under the License.
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
-#include <cl/dotcpp/main/system/Period.hpp>
-#include <cl/dotcpp/main/system/LocalTime.hpp>
-#include <cl/dotcpp/main/system/LocalDate.hpp>
-#include <cl/dotcpp/main/system/LocalDateTime.hpp>
+#include <cl/dotcpp/main/nodatime/Period.hpp>
+#include <cl/dotcpp/main/nodatime/LocalTime.hpp>
+#include <cl/dotcpp/main/nodatime/LocalDate.hpp>
+#include <cl/dotcpp/main/nodatime/LocalDateTime.hpp>
 
 namespace cl
 {
+    TEST_CASE("Constructors")
+    {
+        LocalDate defaultConstructed;
+        LocalDate janOneYearOneConstructed(1970, 1, 1);
+        REQUIRE(defaultConstructed == janOneYearOneConstructed);
+    }
+
     TEST_CASE("Properties")
     {
         LocalDate d(2005, 1, 10);

@@ -43,12 +43,22 @@ namespace cl
     {
         typedef LocalDate self;
 
-    public:
+    public: // CONSTRUCTORS
+
+        /// <summary>
+        /// Because in C\# LocalDate is a struct, it has default constructor
+        /// that initializes all backing variables to 0. This means that default
+        /// constructed value corresponds to 0001-01-01.
+        ///
+        /// Because Boost date_time library does not accept the date 0001-01-01, we
+        /// will instead use the Unix epoch 1970-01-01 as default constructed value.
+        /// </summary>
+        LocalDate();
+
         /// <summary>Constructs an instance for the given year, month and day in the ISO calendar.</summary>
         LocalDate(int year, int month, int day);
 
-    public:
-        LocalDate();
+        /// <summary>Create from Boost gregorian date.</summary>
         LocalDate(gdate date);
 
     public:
