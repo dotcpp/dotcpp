@@ -11,20 +11,20 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="nodatime\LocalDate.cpp" />
+    <ClCompile Include="nodatime\LocalDateTime.cpp" />
+    <ClCompile Include="nodatime\LocalTime.cpp" />
+    <ClCompile Include="nodatime\Period.cpp" />
     <ClCompile Include="system\collections\IObjectCollection.cpp" />
     <ClCompile Include="system\collections\IObjectEnumerable.cpp" />
     <ClCompile Include="system\Environment.cpp" />
     <ClCompile Include="system\Exception.cpp" />
-    <ClCompile Include="system\LocalDate.cpp" />
-    <ClCompile Include="system\LocalDateTime.cpp" />
-    <ClCompile Include="system\LocalTime.cpp" />
     <ClCompile Include="system\NullableBool.cpp" />
     <ClCompile Include="system\NullableDouble.cpp" />
     <ClCompile Include="system\NullableInt.cpp" />
     <ClCompile Include="system\NullableLong.cpp" />
     <ClCompile Include="system\Object.cpp" />
     <ClCompile Include="system\ObjectImpl.cpp" />
-    <ClCompile Include="system\Period.cpp" />
     <ClCompile Include="system\reflection\Activator.cpp" />
     <ClCompile Include="system\String.cpp" />
     <ClCompile Include="system\Type.cpp" />
@@ -42,6 +42,10 @@
     <ClInclude Include="detail\traits.hpp" />
     <ClInclude Include="implement.hpp" />
     <ClInclude Include="import.hpp" />
+    <ClInclude Include="nodatime\LocalDate.hpp" />
+    <ClInclude Include="nodatime\LocalDateTime.hpp" />
+    <ClInclude Include="nodatime\LocalTime.hpp" />
+    <ClInclude Include="nodatime\Period.hpp" />
     <ClInclude Include="system\Array.hpp" />
     <ClInclude Include="system\Array1D.hpp" />
     <ClInclude Include="system\Bool.hpp" />
@@ -66,9 +70,6 @@
     <ClInclude Include="system\Environment.hpp" />
     <ClInclude Include="system\Exception.hpp" />
     <ClInclude Include="system\Int.hpp" />
-    <ClInclude Include="system\LocalDate.hpp" />
-    <ClInclude Include="system\LocalDateTime.hpp" />
-    <ClInclude Include="system\LocalTime.hpp" />
     <ClInclude Include="system\Long.hpp" />
     <ClInclude Include="system\NullableBool.hpp" />
     <ClInclude Include="system\NullableDouble.hpp" />
@@ -76,7 +77,6 @@
     <ClInclude Include="system\NullableLong.hpp" />
     <ClInclude Include="system\Object.hpp" />
     <ClInclude Include="system\ObjectImpl.hpp" />
-    <ClInclude Include="system\Period.hpp" />
     <ClInclude Include="system\Ptr.hpp" />
     <ClInclude Include="system\reflection\Activator.hpp" />
     <ClInclude Include="system\reflection\BindingFlags.hpp" />

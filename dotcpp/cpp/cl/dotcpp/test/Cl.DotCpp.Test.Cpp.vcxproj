@@ -12,6 +12,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="nodatime\LocalDateTest.cpp" />
+    <ClCompile Include="nodatime\LocalDateTimeTest.cpp" />
+    <ClCompile Include="nodatime\LocalTimeTest.cpp" />
     <ClCompile Include="system\Array1DTest.cpp" />
     <ClCompile Include="system\BoxingTest.cpp" />
     <ClCompile Include="system\collections\generic\DictionaryTest.cpp" />
@@ -19,11 +22,7 @@
     <ClCompile Include="system\ConsoleTest.cpp" />
     <ClCompile Include="system\DoubleTest.cpp" />
     <ClCompile Include="system\ExceptionTest.cpp" />
-    <ClCompile Include="system\LocalDateTest.cpp" />
-    <ClCompile Include="system\LocalDateTimeTest.cpp" />
-    <ClCompile Include="system\LocalTimeTest.cpp" />
     <ClCompile Include="system\ObjectTest.cpp" />
-    <ClCompile Include="system\PeriodTest.cpp" />
     <ClCompile Include="system\PropertyTest.cpp" />
     <ClCompile Include="system\PtrTest.cpp" />
     <ClCompile Include="system\ReflectionTest.cpp" />
