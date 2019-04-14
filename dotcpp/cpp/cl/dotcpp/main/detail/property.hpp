@@ -199,9 +199,10 @@ namespace cl
             operator ptype() const { return this_->CAT(get, name)(name); }                   \
             CAT(name, _prop) & operator = (const CAT(name, _prop) & rhs)                     \
                 { name = rhs.name; return *this;  }                                          \
+            template <class I> decltype(auto) operator[](I const& i) const { return name[i]; }   \
+            template <class I> decltype(auto) operator[](I const& i) { return name[i]; }         \
                                                                                              \
             self* this_;                                                                     \
-                                                                                             \
         };                                                                                   \
     public:                                                                                  \
         CAT(name, _prop) name = CAT(name, _prop)(this);
@@ -230,9 +231,10 @@ namespace cl
             operator ptype() const { return this_->CAT(get, name)(name); }                   \
             CAT(name, _prop) & operator = (const CAT(name, _prop) & rhs)                     \
                 { name = rhs.operator ptype(); return *this;  }                              \
+            template <class I> decltype(auto) operator[](I const& i) const { return name[i]; }   \
+            template <class I> decltype(auto) operator[](I const& i) { return name[i]; }         \
                                                                                              \
             self* this_;                                                                     \
-                                                                                             \
         };                                                                                   \
     public:                                                                                  \
         CAT(name, _prop) name = CAT(name, _prop)(this);
@@ -272,6 +274,8 @@ namespace cl
                 { name = rhs.name; return *this;  }                                          \
             template <class T_>                                                              \
             bool operator==(T_ const& rhs) { return operator ptype() == rhs; }               \
+            template <class I> decltype(auto) operator[](I const& i) const { return name[i]; }   \
+            template <class I> decltype(auto) operator[](I const& i) { return name[i]; }         \
                                                                                              \
             self* this_;                                                                     \
         };                                                                                   \
