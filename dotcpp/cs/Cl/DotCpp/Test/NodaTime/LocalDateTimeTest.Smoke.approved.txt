@@ -1,8 +1,8 @@
-﻿Check the value of default constructed date
+﻿Default constructed
 defaultConstructed: 0001-01-01 00:00:00
-yearMonthDayOneConstructed: 0001-01-01 00:00:00
+janOneYearOneConstructed: 0001-01-01 00:00:00
 equal: True
 
-Check the value of date constructed from Y,M,D,H,M,S with and without milliseconds
+Constructed from Y,M,D,H,M,S with and without milliseconds
 withoutMilliseconds: 2003-05-01 11:15:30
 withMilliseconds: 2003-05-01 11:15:30.123

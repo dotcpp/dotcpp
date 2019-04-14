@@ -1,0 +1,7 @@
+﻿Default constructed
+defaultConstructed: 0001-01-01
+yearMonthDayOneConstructed: 0001-01-01
+equal: True
+
+Constructed from Y,M,D
+ymdConstructed: 2003-05-01

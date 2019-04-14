@@ -1,0 +1,8 @@
+﻿Default constructed
+defaultConstructed: 00:00:00
+midnightConstructed: 00:00:00
+equal: True
+
+Constructed from H,M,S with and without milliseconds
+withoutMilliseconds: 11:15:30
+withMilliseconds: 11:15:30.123

@@ -32,25 +32,25 @@ using NodaTime.Text;
 namespace Cl.DotCpp.Test
 {
     [UseReporter(typeof(DiffReporter))]
-    public class LocalDateTimeTest
+    public class LocalTimeTest
     {
         private static StringBuilder received = new StringBuilder();
-        private static LocalDateTimePattern pattern_ { get; } = LocalDateTimePattern.CreateWithInvariantCulture("uuuu'-'MM'-'dd' 'HH':'mm':'ss.FFF");
+        private static LocalTimePattern pattern_ { get; } = LocalTimePattern.CreateWithInvariantCulture("HH':'mm':'ss.FFF");
 
         [Fact]
         public void Smoke()
         {
             received.AppendLine("Default constructed");
-            var defaultConstructed = new LocalDateTime();
-            var janOneYearOneConstructed = new LocalDateTime(1, 1, 1, 0, 0, 0);
+            var defaultConstructed = new LocalTime();
+            var midnightConstructed = new LocalTime(0,0,0);
             Print(nameof(defaultConstructed), defaultConstructed);
-            Print(nameof(janOneYearOneConstructed), janOneYearOneConstructed);
-            Print("equal", defaultConstructed == janOneYearOneConstructed);
+            Print(nameof(midnightConstructed), midnightConstructed);
+            Print("equal", defaultConstructed == midnightConstructed);
 
             received.AppendLine();
-            received.AppendLine("Constructed from Y,M,D,H,M,S with and without milliseconds");
-            var withoutMilliseconds = new LocalDateTime(2003, 5, 1, 11, 15, 30);
-            var withMilliseconds = new LocalDateTime(2003, 5, 1, 11, 15, 30, 123);
+            received.AppendLine("Constructed from H,M,S with and without milliseconds");
+            var withoutMilliseconds = new LocalTime(11, 15, 30);
+            var withMilliseconds = new LocalTime(11, 15, 30, 123);
             Print(nameof(withoutMilliseconds), withoutMilliseconds);
             Print(nameof(withMilliseconds), withMilliseconds);
 
@@ -58,7 +58,7 @@ namespace Cl.DotCpp.Test
             received.Clear();
         }
 
-        void Print(string name, LocalDateTime value)
+        void Print(string name, LocalTime value)
         {
             received.AppendLine(String.Format("{0}: {1}", name, pattern_.Format(value)));
         }
