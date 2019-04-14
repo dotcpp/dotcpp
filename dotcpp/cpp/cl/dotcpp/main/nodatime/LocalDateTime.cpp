@@ -58,13 +58,13 @@ namespace cl
         : ptime(LocalDate {year, month, day}, {hour, minute, second, millisecond * 1000})
     {}
 
-    LocalDateTime::LocalDateTime(const LocalDate& date, const LocalTime& time):
-        ptime(date, time)
-    {}
-
     /// <summary>Create from Boost posix_time.</summary>
     LocalDateTime::LocalDateTime(const ptime& time)
         : ptime(time)
+    {}
+
+    LocalDateTime::LocalDateTime(const LocalDate& date, const LocalTime& time) :
+        ptime(date, time)
     {}
 
     LocalDateTime LocalDateTime::Add(const LocalDateTime& localDateTime, const Period& period)

@@ -44,6 +44,8 @@ namespace cl
     class CL_DOTCPP_MAIN LocalDateTime : public ptime
     {
         typedef LocalDateTime self;
+        friend LocalDate;
+        friend LocalTime;
 
     public: // CONSTRUCTORS
 
@@ -66,12 +68,16 @@ namespace cl
         /// <summary>Initializes a new instance of the LocalDateTime struct using the ISO calendar system.</summary>
         LocalDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond);
 
-        LocalDateTime(const LocalDate& date, const LocalTime& time);
-
         /// <summary>Create from Boost posix_time.</summary>
         LocalDateTime(const ptime& time);
 
-    public:
+    private: // CONSTRUCTORS
+
+        /// <summary>Create from date and time.</summary>
+        LocalDateTime(const LocalDate& date, const LocalTime& time);
+
+    public: // PROPERTIES
+
         /// <summary>Gets the day of this local date within the month.</summary>
         DOT_GET(LocalDate, Date, { return date(); })
 
