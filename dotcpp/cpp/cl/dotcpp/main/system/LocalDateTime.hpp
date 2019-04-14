@@ -45,7 +45,11 @@ namespace cl
     {
         typedef LocalDateTime self;
 
-    public:
+    public: // CONSTRUCTORS
+
+        /// <summary>Initializes to default value that the code will treat as empty.</summary>
+        LocalDateTime();
+
         /// <summary>Initializes a new instance of the LocalDateTime struct using the ISO calendar system.</summary>
         LocalDateTime(int year, int month, int day, int hour, int minute);
 

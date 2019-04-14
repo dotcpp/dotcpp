@@ -30,6 +30,11 @@ limitations under the License.
 
 namespace cl
 {
+    /// <summary>Initializes to default value that the code will treat as empty.</summary>
+    LocalDateTime::LocalDateTime()
+    {
+    }
+
     LocalDateTime::LocalDateTime(int year, int month, int day, int hour, int minute)
         : ptime(LocalDate {year, month, day}, {hour, minute, 0})
     {}
