@@ -35,6 +35,6 @@ namespace cl
     public: //  CONSTANTS
 
         /// <summary>Sentinel value representing uninitialized state.</summary>
-        static constexpr int64_t Empty = std::numeric_limits<int64_t>::min();
+        static constexpr int64_t Empty = INT64_MIN;
     };
 }
