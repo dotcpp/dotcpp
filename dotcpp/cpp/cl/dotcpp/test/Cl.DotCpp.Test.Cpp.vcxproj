@@ -15,6 +15,7 @@
     <ClCompile Include="nodatime\LocalDateTest.cpp" />
     <ClCompile Include="nodatime\LocalDateTimeTest.cpp" />
     <ClCompile Include="nodatime\LocalTimeTest.cpp" />
+    <ClCompile Include="nodatime\PeriodTest.cpp" />
     <ClCompile Include="system\Array1DTest.cpp" />
     <ClCompile Include="system\BoxingTest.cpp" />
     <ClCompile Include="system\collections\generic\DictionaryTest.cpp" />
