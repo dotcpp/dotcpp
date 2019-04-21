@@ -24,9 +24,36 @@ limitations under the License.
 #pragma once
 
 #include <cl/dotcpp/main/declare.hpp>
+#include <cl/dotcpp/main/system/ObjectImpl.hpp>
 
 namespace cl
 {
+    class NullableLong;
+
+    /// <summary>Wrapper around int to make it convertible to Object (boxing).</summary>
+    class LongImpl : public virtual ObjectImpl
+    {
+        friend Object;
+        friend NullableLong;
+        int64_t value_;
+
+    public: // CONSTRUCTORS
+
+        /// <summary>Create from value (box).</summary>
+        LongImpl(int64_t value) : value_(value) {}
+
+    public: // METHODS
+
+        /// <summary>Returns a value indicating whether this instance is equal to a specified object.</summary>
+        virtual bool Equals(Object obj) override;
+
+        /// <summary>Returns the hash code for this instance.</summary>
+        virtual size_t GetHashCode() override;
+
+        /// <summary>Converts the numeric value of this instance to its equivalent string representation.</summary>
+        virtual String ToString() override;
+    };
+
     /// <summary>
     /// Provides constants and static methods for long type.
     /// </summary>

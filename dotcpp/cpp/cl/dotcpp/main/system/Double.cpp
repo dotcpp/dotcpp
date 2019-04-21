@@ -22,19 +22,41 @@ limitations under the License.
 */
 
 #include <cl/dotcpp/main/implement.hpp>
+#include <cl/dotcpp/main/system/Double.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
-#include <cl/dotcpp/main/system/NullableBool.hpp>
+#include <cl/dotcpp/main/system/Type.hpp>
 
 namespace cl
 {
-    std::string NullableBool::AsString() const
+    bool DoubleImpl::Equals(Object obj)
     {
-        switch(value_)
+        if (this == &(*obj)) return true;
+
+        if (obj.is<Ptr<DoubleImpl>>())
         {
-            case 1: return "Y";
-            case 0: return "N";
-            case Bool::Empty: return "";
-            default: throw std::runtime_error("Unknown internal value in NullableBool.");
+            return value_ == obj.as<Ptr<DoubleImpl>>()->value_;
         }
+
+        return false;
+    }
+
+    size_t DoubleImpl::GetHashCode()
+    {
+        return std::hash<double>()(value_);
+    }
+
+    String DoubleImpl::ToString()
+    {
+        return std::to_string(value_);
+    }
+
+    Type DoubleImpl::typeof()
+    {
+        return cl::typeof<double>();
+    }
+
+    Type DoubleImpl::GetType()
+    {
+        return typeof();
     }
 }

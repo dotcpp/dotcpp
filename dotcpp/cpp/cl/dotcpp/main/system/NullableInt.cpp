@@ -27,36 +27,5 @@ limitations under the License.
 
 namespace cl
 {
-    bool IntImpl::Equals(Object obj)
-    {
-        if (this == &(*obj)) return true;
-
-        if (obj.is<Ptr<IntImpl>>())
-        {
-            return value_ == obj.as<Ptr<IntImpl>>()->value_;
-        }
-
-        return false;
-    }
-
-    size_t IntImpl::GetHashCode()
-    {
-        return std::hash<int>()(value_);
-    }
-
-    String IntImpl::ToString()
-    {
-        return std::to_string(value_);
-    }
-
-    /// <summary>
-    /// Create from Object.
-    ///
-    /// Error if Object does is not a boxed double.
-    /// Null Object becomes empty NullableDouble.
-    /// </summary>
-    // NullableInt::NullableInt(const Ptr<ObjectImpl>& rhs) : value_(rhs == nullptr ? Int::Empty : Ptr<IntImpl>(rhs)->value_) {}
-
-    /// <summary>Returns string representation of the object.</summary>
     std::string NullableInt::AsString() const { return value_ != Int::Empty ? std::to_string(value_) : ""; }
 }

@@ -22,19 +22,30 @@ limitations under the License.
 */
 
 #include <cl/dotcpp/main/implement.hpp>
+#include <cl/dotcpp/main/system/Long.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
-#include <cl/dotcpp/main/system/NullableBool.hpp>
 
 namespace cl
 {
-    std::string NullableBool::AsString() const
+    bool LongImpl::Equals(Object obj)
     {
-        switch(value_)
+        if (this == &(*obj)) return true;
+
+        if (obj.is<Ptr<LongImpl>>())
         {
-            case 1: return "Y";
-            case 0: return "N";
-            case Bool::Empty: return "";
-            default: throw std::runtime_error("Unknown internal value in NullableBool.");
+            return value_ == obj.as<Ptr<LongImpl>>()->value_;
         }
+
+        return false;
+    }
+
+    size_t LongImpl::GetHashCode()
+    {
+        return std::hash<int64_t>()(value_);
+    }
+
+    String LongImpl::ToString()
+    {
+        return std::to_string(value_);
     }
 }

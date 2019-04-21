@@ -15,10 +15,14 @@
     <ClCompile Include="nodatime\LocalDateTime.cpp" />
     <ClCompile Include="nodatime\LocalTime.cpp" />
     <ClCompile Include="nodatime\Period.cpp" />
+    <ClCompile Include="system\Bool.cpp" />
     <ClCompile Include="system\collections\IObjectCollection.cpp" />
     <ClCompile Include="system\collections\IObjectEnumerable.cpp" />
+    <ClCompile Include="system\Double.cpp" />
     <ClCompile Include="system\Environment.cpp" />
     <ClCompile Include="system\Exception.cpp" />
+    <ClCompile Include="system\Int.cpp" />
+    <ClCompile Include="system\Long.cpp" />
     <ClCompile Include="system\NullableBool.cpp" />
     <ClCompile Include="system\NullableDouble.cpp" />
     <ClCompile Include="system\NullableInt.cpp" />

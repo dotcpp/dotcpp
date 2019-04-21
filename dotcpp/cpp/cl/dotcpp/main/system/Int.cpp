@@ -22,19 +22,30 @@ limitations under the License.
 */
 
 #include <cl/dotcpp/main/implement.hpp>
+#include <cl/dotcpp/main/system/Int.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
-#include <cl/dotcpp/main/system/NullableBool.hpp>
 
 namespace cl
 {
-    std::string NullableBool::AsString() const
+    bool IntImpl::Equals(Object obj)
     {
-        switch(value_)
+        if (this == &(*obj)) return true;
+
+        if (obj.is<Ptr<IntImpl>>())
         {
-            case 1: return "Y";
-            case 0: return "N";
-            case Bool::Empty: return "";
-            default: throw std::runtime_error("Unknown internal value in NullableBool.");
+            return value_ == obj.as<Ptr<IntImpl>>()->value_;
         }
+
+        return false;
+    }
+
+    size_t IntImpl::GetHashCode()
+    {
+        return std::hash<int>()(value_);
+    }
+
+    String IntImpl::ToString()
+    {
+        return std::to_string(value_);
     }
 }

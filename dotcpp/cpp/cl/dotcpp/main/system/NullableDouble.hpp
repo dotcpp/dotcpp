@@ -29,37 +29,6 @@ limitations under the License.
 
 namespace cl
 {
-    class NullableDouble;
-
-    /// <summary>Wrapper around double to make it convertible to Object (boxing).</summary>
-    class DoubleImpl : public virtual ObjectImpl
-    {
-        friend Object;
-        friend NullableDouble;
-        double value_;
-
-    public: // CONSTRUCTORS
-
-        /// <summary>Create from value (box).</summary>
-        DoubleImpl(double value) : value_(value) {}
-
-    public: // METHODS
-
-        /// <summary>Returns a value indicating whether this instance is equal to a specified object.</summary>
-        virtual bool Equals(Object obj) override;
-
-        /// <summary>Returns the hash code for this instance.</summary>
-        virtual size_t GetHashCode() override;
-
-        /// <summary>Converts the numeric value of this instance to its equivalent string representation.</summary>
-        virtual String ToString() override;
-
-    public: // REFLECTION
-
-        virtual Type GetType();
-        static Type typeof();
-    };
-
     /// <summary>
     /// Nullable double is initialized to null (empty) by default ctor.
     /// Conversion to double when in null state results in an error.

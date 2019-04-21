@@ -24,9 +24,36 @@ limitations under the License.
 #pragma once
 
 #include <cl/dotcpp/main/declare.hpp>
+#include <cl/dotcpp/main/system/ObjectImpl.hpp>
 
 namespace cl
 {
+    class NullableBool;
+
+    /// <summary>Wrapper around bool to make it convertible to Object (boxing).</summary>
+    class BoolImpl : public virtual ObjectImpl
+    {
+        friend Object;
+        friend NullableBool;
+        bool value_;
+
+    public: // CONSTRUCTORS
+
+        /// <summary>Create from value (box).</summary>
+        BoolImpl(bool value) : value_(value) {}
+
+    public: // METHODS
+
+        /// <summary>Returns a value indicating whether this instance is equal to a specified object.</summary>
+        virtual bool Equals(Object obj) override;
+
+        /// <summary>Returns the hash code for this instance.</summary>
+        virtual size_t GetHashCode() override;
+
+        /// <summary>Converts the value of this instance to its equivalent string representation (either "True" or "False").</summary>
+        virtual String ToString() override;
+    };
+
     /// <summary>
     /// Provides constants and static methods for bool type.
     /// </summary>
