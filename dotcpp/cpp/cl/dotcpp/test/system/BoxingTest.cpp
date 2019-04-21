@@ -26,6 +26,7 @@ limitations under the License.
 #include <approvals/Catch.hpp>
 #include <cl/dotcpp/main/system/Object.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
+#include <cl/dotcpp/main/system/Nullable.hpp>
 #include <cl/dotcpp/main/system/NullableBool.hpp>
 #include <cl/dotcpp/main/system/NullableDouble.hpp>
 #include <cl/dotcpp/main/system/NullableInt.hpp>
@@ -76,6 +77,16 @@ namespace cl
         }
 
         {
+            // Boxing NullableBool
+            Nullable<bool> x;
+            Object boxed = x;
+            REQUIRE(((Nullable<bool>)boxed).HasValue == false);
+            Nullable<bool> y = true;
+            boxed = y;
+            REQUIRE((bool)boxed == true);
+        }
+
+        {
             // Boxing double
             double x = 1.0;
             Object boxed = x;
@@ -109,6 +120,16 @@ namespace cl
             Object boxed = x;
             REQUIRE(((NullableInt)boxed).IsEmpty());
             NullableInt y = 2;
+            boxed = y;
+            REQUIRE((int)boxed == 2);
+        }
+
+        {
+            // Boxing NullableInt
+            Nullable<int> x;
+            Object boxed = x;
+            REQUIRE(((Nullable<int>)boxed).HasValue == false);
+            Nullable<int> y = 2;
             boxed = y;
             REQUIRE((int)boxed == 2);
         }

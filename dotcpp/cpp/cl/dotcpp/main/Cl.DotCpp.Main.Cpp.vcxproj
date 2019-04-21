@@ -75,6 +75,7 @@
     <ClInclude Include="system\Exception.hpp" />
     <ClInclude Include="system\Int.hpp" />
     <ClInclude Include="system\Long.hpp" />
+    <ClInclude Include="system\Nullable.hpp" />
     <ClInclude Include="system\NullableBool.hpp" />
     <ClInclude Include="system\NullableDouble.hpp" />
     <ClInclude Include="system\NullableInt.hpp" />

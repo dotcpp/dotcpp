@@ -30,6 +30,7 @@ limitations under the License.
 
 namespace cl
 {
+    template <class T> class Nullable;
     class NullableBool;
     class NullableDouble;
     class NullableInt;
@@ -93,6 +94,10 @@ namespace cl
         /// <summary>Construct Object from NullableInt by boxing.</summary>
         Object(const NullableLong& value);
 
+        /// <summary>Construct Object from Nullable by boxing.</summary>
+        template <class T>
+        Object(const Nullable<T>& value) { if (value.HasValue) *this = value.Value; }
+
         /// <summary>Construct Object from LocalTime by boxing.</summary>
         Object(const LocalTime& value);
 
@@ -147,6 +152,10 @@ namespace cl
 
         /// <summary>Assign NullableLong to Object by boxing.</summary>
         Object& operator=(const NullableLong& value);
+
+        /// <summary>Assign Nullable to Object by boxing.</summary>
+        template <class T>
+        Object& operator=(const Nullable<T>& value) { if (value.HasValue) *this = value.Value; else *this = nullptr; return *this; }
 
         /// <summary>Assign LocalTime to Object by boxing.</summary>
         Object& operator=(const LocalTime& value);
