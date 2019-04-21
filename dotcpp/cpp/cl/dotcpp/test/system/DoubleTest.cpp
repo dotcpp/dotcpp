@@ -25,13 +25,13 @@ limitations under the License.
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
-#include <cl/dotcpp/main/system/NullableDouble.hpp>
+#include <cl/dotcpp/main/system/Nullable.hpp>
 
 namespace cl
 {
     TEST_CASE("Smoke")
     {
-        cl::NullableDouble x;
-        REQUIRE(x.IsEmpty() == true);
+        cl::Nullable<double> x;
+        REQUIRE(x.HasValue == false);
     }
 }

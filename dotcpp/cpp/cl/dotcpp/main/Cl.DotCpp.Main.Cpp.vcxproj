@@ -23,10 +23,6 @@
     <ClCompile Include="system\Exception.cpp" />
     <ClCompile Include="system\Int.cpp" />
     <ClCompile Include="system\Long.cpp" />
-    <ClCompile Include="system\NullableBool.cpp" />
-    <ClCompile Include="system\NullableDouble.cpp" />
-    <ClCompile Include="system\NullableInt.cpp" />
-    <ClCompile Include="system\NullableLong.cpp" />
     <ClCompile Include="system\Object.cpp" />
     <ClCompile Include="system\ObjectImpl.cpp" />
     <ClCompile Include="system\reflection\Activator.cpp" />
@@ -76,10 +72,6 @@
     <ClInclude Include="system\Int.hpp" />
     <ClInclude Include="system\Long.hpp" />
     <ClInclude Include="system\Nullable.hpp" />
-    <ClInclude Include="system\NullableBool.hpp" />
-    <ClInclude Include="system\NullableDouble.hpp" />
-    <ClInclude Include="system\NullableInt.hpp" />
-    <ClInclude Include="system\NullableLong.hpp" />
     <ClInclude Include="system\Object.hpp" />
     <ClInclude Include="system\ObjectImpl.hpp" />
     <ClInclude Include="system\Ptr.hpp" />

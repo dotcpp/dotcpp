@@ -28,13 +28,10 @@ limitations under the License.
 
 namespace cl
 {
-    class NullableInt;
-
     /// <summary>Wrapper around int to make it convertible to Object (boxing).</summary>
     class IntImpl : public virtual ObjectImpl
     {
         friend Object;
-        friend NullableInt;
         int value_;
 
     public: // CONSTRUCTORS

@@ -28,13 +28,10 @@ limitations under the License.
 
 namespace cl
 {
-    class NullableLong;
-
     /// <summary>Wrapper around int to make it convertible to Object (boxing).</summary>
     class LongImpl : public virtual ObjectImpl
     {
         friend Object;
-        friend NullableLong;
         int64_t value_;
 
     public: // CONSTRUCTORS

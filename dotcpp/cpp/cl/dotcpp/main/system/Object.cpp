@@ -24,10 +24,7 @@ limitations under the License.
 #include <cl/dotcpp/main/implement.hpp>
 #include <cl/dotcpp/main/system/Object.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
-#include <cl/dotcpp/main/system/NullableBool.hpp>
-#include <cl/dotcpp/main/system/NullableDouble.hpp>
-#include <cl/dotcpp/main/system/NullableInt.hpp>
-#include <cl/dotcpp/main/system/NullableLong.hpp>
+#include <cl/dotcpp/main/system/Nullable.hpp>
 #include <cl/dotcpp/main/nodatime/LocalTime.hpp>
 #include <cl/dotcpp/main/nodatime/LocalDate.hpp>
 #include <cl/dotcpp/main/nodatime/LocalDateTime.hpp>
@@ -65,26 +62,14 @@ namespace cl
     /// <summary>Construct Object from bool by boxing.</summary>
     Object::Object(bool value) : base(new BoolImpl(value)) {}
 
-    /// <summary>Construct Object from NullableBool by boxing.</summary>
-    Object::Object(const NullableBool& value) : base(value.IsEmpty() ? nullptr : new BoolImpl(value)) {}
-
     /// <summary>Construct Object from double by boxing.</summary>
     Object::Object(double value) : base(new DoubleImpl(value)) {}
-
-    /// <summary>Construct Object from NullableDouble by boxing.</summary>
-    Object::Object(const NullableDouble& value) : base( value.IsEmpty() ? nullptr : new DoubleImpl(value)) {}
 
     /// <summary>Construct Object from int by boxing.</summary>
     Object::Object(int value) : base(new IntImpl(value)) {}
 
-    /// <summary>Construct Object from NullableInt by boxing.</summary>
-    Object::Object(const NullableInt& value) : base(value.IsEmpty() ? nullptr : new IntImpl(value)) {}
-
     /// <summary>Construct Object from int by boxing.</summary>
     Object::Object(int64_t value) : base(new LongImpl(value)) {}
-
-    /// <summary>Construct Object from NullableInt by boxing.</summary>
-    Object::Object(const NullableLong& value) : base(value.IsEmpty() ? nullptr : new LongImpl(value)) {}
 
     /// <summary>Construct Object from LocalTime by boxing.</summary>
     Object::Object(const LocalTime & value) : base(new StructWrapperImpl<LocalTime>(value)) {}
@@ -104,26 +89,14 @@ namespace cl
     /// <summary>Assign bool to Object by boxing.</summary>
     Object& Object::operator=(bool value) { base::operator=(new BoolImpl(value)); return *this; }
 
-    /// <summary>Assign NullableDouble to Object by boxing.</summary>
-    Object& Object::operator=(const NullableBool& value) { base::operator=(value.IsEmpty() ? nullptr : new BoolImpl(value)); return *this; }
-
     /// <summary>Assign double to Object by boxing.</summary>
     Object& Object::operator=(double value) { base::operator=(new DoubleImpl(value)); return *this; }
-
-    /// <summary>Assign NullableDouble to Object by boxing.</summary>
-    Object& Object::operator=(const NullableDouble& value) { base::operator=(value.IsEmpty() ? nullptr : new DoubleImpl(value)); return *this; }
 
     /// <summary>Assign int to Object by boxing.</summary>
     Object& Object::operator=(int value) { base::operator=(new IntImpl(value)); return *this; }
 
-    /// <summary>Assign NullableInt to Object by boxing.</summary>
-    Object& Object::operator=(const NullableInt& value) { base::operator=(value.IsEmpty() ? nullptr : new IntImpl(value)); return *this; }
-
     /// <summary>Assign int to Object by boxing.</summary>
     Object& Object::operator=(int64_t value) { base::operator=(new LongImpl(value)); return *this; }
-
-    /// <summary>Assign NullableInt to Object by boxing.</summary>
-    Object& Object::operator=(const NullableLong& value) { base::operator=(value.IsEmpty() ? nullptr : new LongImpl(value)); return *this; }
 
     /// <summary>Assign LocalTime to Object by boxing.</summary>
     Object& Object::operator=(const LocalTime& value) { base::operator=(new StructWrapperImpl<LocalTime>(value)); return *this; }

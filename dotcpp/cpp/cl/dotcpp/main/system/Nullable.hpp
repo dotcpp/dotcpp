@@ -109,7 +109,7 @@ namespace cl
                 case 1: return true;
                 case 0: return false;
                 case Bool::Empty: throw std::runtime_error("Bool value is empty");
-                default: throw std::runtime_error("Unknown internal value in NullableBool.");
+                default: throw std::runtime_error("Unknown internal value in Nullable<bool>.");
             }
         })
 
@@ -267,7 +267,7 @@ namespace cl
         /// Supports cast (explicit constructor) from Object.
         ///
         /// Error if Object does is not a boxed long.
-        /// Null Object becomes empty NullableLong.
+        /// Null Object becomes empty Nullable.
         /// </summary>
         explicit Nullable(Object rhs) { if (!rhs.IsEmpty()) *this = (int64_t) rhs; }
 
@@ -338,7 +338,7 @@ namespace cl
         /// Supports cast (explicit constructor) from Object.
         ///
         /// Error if Object does is not a boxed double.
-        /// Null Object becomes empty NullableDouble.
+        /// Null Object becomes empty Nullable.
         /// </summary>
         explicit Nullable(Object rhs) { if (!rhs.IsEmpty()) *this = (double) rhs; }
 
