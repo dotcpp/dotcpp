@@ -28,10 +28,13 @@ limitations under the License.
 
 namespace cl
 {
+    class NullableDouble;
+
     /// <summary>Wrapper around double to make it convertible to Object (boxing).</summary>
     class DoubleImpl : public virtual ObjectImpl
     {
         friend Object;
+        friend NullableDouble;
         double value_;
 
     public: // CONSTRUCTORS

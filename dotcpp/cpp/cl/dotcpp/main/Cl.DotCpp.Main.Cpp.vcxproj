@@ -23,6 +23,10 @@
     <ClCompile Include="system\Exception.cpp" />
     <ClCompile Include="system\Int.cpp" />
     <ClCompile Include="system\Long.cpp" />
+    <ClCompile Include="system\NullableBool.cpp" />
+    <ClCompile Include="system\NullableDouble.cpp" />
+    <ClCompile Include="system\NullableInt.cpp" />
+    <ClCompile Include="system\NullableLong.cpp" />
     <ClCompile Include="system\Object.cpp" />
     <ClCompile Include="system\ObjectImpl.cpp" />
     <ClCompile Include="system\reflection\Activator.cpp" />
@@ -71,7 +75,10 @@
     <ClInclude Include="system\Exception.hpp" />
     <ClInclude Include="system\Int.hpp" />
     <ClInclude Include="system\Long.hpp" />
-    <ClInclude Include="system\Nullable.hpp" />
+    <ClInclude Include="system\NullableBool.hpp" />
+    <ClInclude Include="system\NullableDouble.hpp" />
+    <ClInclude Include="system\NullableInt.hpp" />
+    <ClInclude Include="system\NullableLong.hpp" />
     <ClInclude Include="system\Object.hpp" />
     <ClInclude Include="system\ObjectImpl.hpp" />
     <ClInclude Include="system\Ptr.hpp" />
@@ -123,11 +130,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)\bin\vc141-x64-debug\</OutDir>
+    <OutDir>$(SolutionDir)\bin\modules\vc141-x64-debug\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)\bin\vc141-x64-release\</OutDir>
+    <OutDir>$(SolutionDir)\bin\modules\vc141-x64-release\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -135,7 +142,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..;..\..\..\..\..\dependencies\cpp</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..;..\..\..\..\..\..\..\dependencies\cpp</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
@@ -156,7 +163,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..;..\..\..\..\..\dependencies\cpp</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..;..\..\..\..\..\..\..\dependencies\cpp</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>

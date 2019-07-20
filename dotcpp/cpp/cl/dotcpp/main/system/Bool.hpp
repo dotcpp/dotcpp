@@ -28,10 +28,13 @@ limitations under the License.
 
 namespace cl
 {
+    class NullableBool;
+
     /// <summary>Wrapper around bool to make it convertible to Object (boxing).</summary>
     class BoolImpl : public virtual ObjectImpl
     {
         friend Object;
+        friend NullableBool;
         bool value_;
 
     public: // CONSTRUCTORS
