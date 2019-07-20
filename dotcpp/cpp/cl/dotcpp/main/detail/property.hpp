@@ -274,6 +274,8 @@ namespace cl
                 { name = rhs.name; return *this;  }                                          \
             template <class T_>                                                              \
             bool operator==(T_ const& rhs) { return operator ptype() == rhs; }               \
+            template <class T_>                                                              \
+            bool operator!=(T_ const& rhs) { return operator ptype() != rhs; }               \
             template <class I> decltype(auto) operator[](I const& i) const { return name[i]; }   \
             template <class I> decltype(auto) operator[](I const& i) { return name[i]; }         \
                                                                                              \
