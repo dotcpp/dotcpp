@@ -28,7 +28,8 @@ limitations under the License.
 /// Methods typeof() and GetType() are thread safe because the implementation uses lambda
 /// </summary>
 
-#define DOT_TYPE_BEGIN(nspace, name, ...)                                                      \
+#define DOT_TYPE_BEGIN(nspace, name, ...)                                                         \
+        public:                                                                                   \
         virtual Type GetType() { return typeof(); }                                               \
         static Type typeof()                                                                      \
         {                                                                                         \
@@ -47,5 +48,5 @@ limitations under the License.
 #define DOT_TYPE_METHOD(meth_name, ...)          ->WithMethod(#meth_name, &self::meth_name, { __VA_ARGS__ })
 #define DOT_TYPE_CTOR(ctor_name, ...)            ->WithConstructor(&ctor_name, { __VA_ARGS__ })
 #define DOT_TYPE_INTERFACE(interface)            ->WithInterface<interface>()
-#define DOT_TYPE_BASE(base)                      ->WithBase<base>()  
+#define DOT_TYPE_BASE(...)                      ->WithBase<__VA_ARGS__>()
 #define DOT_TYPE_GENERIC_ARGUMENT(arg)           ->WithGenericArgument<arg>()

@@ -82,6 +82,9 @@ namespace cl
         /// <summary>Defines an explicit conversion of a Nullable
         /// instance to its underlying value.</summary>
         explicit operator T() { return Value; }
+
+        bool operator ==(T rhs) { return GetValueOrDefault() == rhs; }
+        bool operator ==(Nullable<T> rhs) { return GetValueOrDefault() == rhs.GetValueOrDefault(); }
     };
 
     /// <summary>
@@ -367,5 +370,9 @@ namespace cl
         /// no error occurs and the object reverts to null (empty) state.
         /// </summary>
         Nullable& operator=(double rhs) { value_ = rhs; return *this; }
+
+        bool operator ==(double rhs) { return value_ == rhs; }
+        bool operator ==(Nullable<double> rhs) { return value_ == rhs.GetValueOrDefault(); }
+
     };
 }
