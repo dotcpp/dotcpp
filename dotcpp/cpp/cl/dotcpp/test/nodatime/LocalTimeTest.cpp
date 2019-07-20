@@ -64,6 +64,9 @@ namespace cl
         LocalDate date(2005, 5, 10);
         LocalTime time(12, 10);
         REQUIRE(time.On(date) == date_time);
+
+        LocalTime str_time(1, 2, 3, 4);
+        REQUIRE(str_time.ToString() == "010203");
     }
 
     TEST_CASE("Operators")

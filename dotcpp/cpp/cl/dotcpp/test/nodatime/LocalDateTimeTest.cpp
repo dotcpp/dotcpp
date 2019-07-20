@@ -70,6 +70,9 @@ namespace cl
         LocalDateTime d2(2005, 1, 10, 12, 10);
         REQUIRE(d2.Previous(boost::gregorian::Monday) == LocalDateTime(2005, 1, 3, 12, 10));
         REQUIRE(d2.Next(boost::gregorian::Monday) == LocalDateTime(2005, 1, 17, 12, 10));
+
+        LocalDateTime str_date_time(2005, 1, 2, 3, 4, 5, 6);
+        REQUIRE(str_date_time.ToString() == "20050102030405");
     }
 
     TEST_CASE("Operators")

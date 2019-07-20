@@ -66,6 +66,9 @@ namespace cl
         LocalTime time(12, 10);
         REQUIRE(date.At(time) == date_time);
         REQUIRE(date.AtMidnight() == LocalDateTime(2005, 5, 10, 0, 0));
+
+        LocalDate str_date(2005, 1, 2);
+        REQUIRE(str_date.ToString() == "20050102");
     }
 
     TEST_CASE("Operators")

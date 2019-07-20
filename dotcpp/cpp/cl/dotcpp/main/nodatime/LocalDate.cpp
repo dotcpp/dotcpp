@@ -83,7 +83,12 @@ namespace cl
 
     String LocalDate::ToString() const
     {
-        to_iso_string(*this);
+        boost::posix_time::time_facet* facet = new boost::posix_time::time_facet();
+        facet->format("%Y%m%d");
+        std::stringstream stream;
+        stream.imbue(std::locale(std::locale::classic(), facet));
+        stream << this->AtMidnight();
+        return stream.str();
     }
 
     Period LocalDate::Minus(const LocalDate& date) const
