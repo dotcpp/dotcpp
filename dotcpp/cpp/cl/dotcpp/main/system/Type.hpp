@@ -319,6 +319,8 @@ namespace cl
         /// <summary>Get Type object for the name.</summary>
         static Type GetType(String name) { return GetTypeMap()[name]; }
 
+        virtual bool Equals(Object obj);
+
     private: // METHODS
 
         /// <summary>

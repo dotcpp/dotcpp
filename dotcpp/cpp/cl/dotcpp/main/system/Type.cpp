@@ -168,4 +168,12 @@ namespace cl
 
         return nullptr;
     }
+
+    bool TypeImpl::Equals(Object obj)
+    {
+        if (obj.is<Type>())
+            return this->FullName == ((Type)obj)->FullName;
+
+        return false;
+    }
 }
