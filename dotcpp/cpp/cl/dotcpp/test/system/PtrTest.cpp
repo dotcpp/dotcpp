@@ -86,7 +86,7 @@ namespace cl
 
         Base bd = new_Derived();
 
-        REQUIRE(bd.is<Base>() == false);
+        REQUIRE(bd.is<Base>() == true);
         REQUIRE(bd.is<Derived>() == true);
 
         REQUIRE(bd.as<Base>() != nullptr);
@@ -97,7 +97,7 @@ namespace cl
 
         Derived d = new_Derived();
 
-        REQUIRE(d.is<Base>() == false);
+        REQUIRE(d.is<Base>() == true);
         REQUIRE(d.is<Derived>() == true);
 
         REQUIRE(d.as<Base>() != nullptr);
