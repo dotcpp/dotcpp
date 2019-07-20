@@ -27,7 +27,11 @@ limitations under the License.
 #include <cl/dotcpp/main/system/Object.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
 #include <cl/dotcpp/main/system/Nullable.hpp>
+#include <cl/dotcpp/main/system/NullableBool.hpp>
+#include <cl/dotcpp/main/system/NullableDouble.hpp>
+#include <cl/dotcpp/main/system/NullableInt.hpp>
 #include <cl/dotcpp/main/system/collections/generic/List.hpp>
+#include <cl/dotcpp/main/system/NullableLong.hpp>
 #include <cl/dotcpp/main/nodatime/LocalTime.hpp>
 #include <cl/dotcpp/main/nodatime/LocalDate.hpp>
 #include <cl/dotcpp/main/nodatime/LocalDateTime.hpp>
@@ -64,6 +68,16 @@ namespace cl
 
         {
             // Boxing NullableBool
+            NullableBool x;
+            Object boxed = x;
+            REQUIRE(((NullableBool)boxed).IsEmpty());
+            NullableBool y = true;
+            boxed = y;
+            REQUIRE((bool)boxed == true);
+        }
+
+        {
+            // Boxing NullableBool
             Nullable<bool> x;
             Object boxed = x;
             REQUIRE(((Nullable<bool>)boxed).HasValue == false);
@@ -83,10 +97,10 @@ namespace cl
 
         {
             // Boxing NullableDouble
-            Nullable<double> x;
+            NullableDouble x;
             Object boxed = x;
-            REQUIRE(((Nullable<double>)boxed).HasValue == false);
-            Nullable<double> y = 2.0;
+            REQUIRE(((NullableDouble)boxed).IsEmpty());
+            NullableDouble y = 2.0;
             boxed = y;
             REQUIRE((double)boxed == 2.0);
         }
@@ -97,6 +111,16 @@ namespace cl
             Object boxed = x;
             REQUIRE((int)boxed == 1);
             boxed = 2;
+            REQUIRE((int)boxed == 2);
+        }
+
+        {
+            // Boxing NullableInt
+            NullableInt x;
+            Object boxed = x;
+            REQUIRE(((NullableInt)boxed).IsEmpty());
+            NullableInt y = 2;
+            boxed = y;
             REQUIRE((int)boxed == 2);
         }
 
@@ -121,10 +145,10 @@ namespace cl
 
         {
             // Boxing NullableLong
-            Nullable<int64_t> x;
+            NullableLong x;
             Object boxed = x;
-            REQUIRE(((Nullable<int64_t>)boxed).HasValue == false);
-            Nullable<int64_t> y = (int64_t)2;
+            REQUIRE(((NullableLong)boxed).IsEmpty());
+            NullableLong y = (int64_t)2;
             boxed = y;
             REQUIRE((int64_t)boxed == 2);
         }

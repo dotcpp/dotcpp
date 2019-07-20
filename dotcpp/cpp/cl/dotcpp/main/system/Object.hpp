@@ -31,6 +31,10 @@ limitations under the License.
 namespace cl
 {
     template <class T> class Nullable;
+    class NullableBool;
+    class NullableDouble;
+    class NullableInt;
+    class NullableLong;
     class LocalTime;
     class LocalDate;
     class LocalDateTime;
@@ -69,14 +73,26 @@ namespace cl
         /// <summary>Construct Object from bool by boxing.</summary>
         Object(bool value);
 
+        /// <summary>Construct Object from NullableBool by boxing.</summary>
+        Object(const NullableBool& value);
+
         /// <summary>Construct Object from double by boxing.</summary>
         Object(double value);
+
+        /// <summary>Construct Object from NullableDouble by boxing.</summary>
+        Object(const NullableDouble& value);
 
         /// <summary>Construct Object from int by boxing.</summary>
         Object(int value);
 
+        /// <summary>Construct Object from NullableInt by boxing.</summary>
+        Object(const NullableInt& value);
+
         /// <summary>Construct Object from int by boxing.</summary>
         Object(int64_t value);
+
+        /// <summary>Construct Object from NullableInt by boxing.</summary>
+        Object(const NullableLong& value);
 
         /// <summary>Construct Object from Nullable by boxing.</summary>
         template <class T>
@@ -116,14 +132,26 @@ namespace cl
         /// <summary>Assign bool to Object by boxing.</summary>
         Object& operator=(bool value);
 
+        /// <summary>Assign NullableDouble to Object by boxing.</summary>
+        Object& operator=(const NullableBool& value);
+
         /// <summary>Assign double to Object by boxing.</summary>
         Object& operator=(double value);
+
+        /// <summary>Assign NullableDouble to Object by boxing.</summary>
+        Object& operator=(const NullableDouble& value);
 
         /// <summary>Assign int to Object by boxing.</summary>
         Object& operator=(int value);
 
+        /// <summary>Assign NullableInt to Object by boxing.</summary>
+        Object& operator=(const NullableInt& value);
+
         /// <summary>Assign long to Object by boxing.</summary>
         Object& operator=(int64_t value);
+
+        /// <summary>Assign NullableLong to Object by boxing.</summary>
+        Object& operator=(const NullableLong& value);
 
         /// <summary>Assign Nullable to Object by boxing.</summary>
         template <class T>
