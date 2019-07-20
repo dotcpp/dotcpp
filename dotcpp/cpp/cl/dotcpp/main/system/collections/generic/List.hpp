@@ -100,7 +100,10 @@ namespace cl
         virtual void Clear() { this->clear(); }
 
         /// <summary>Determines whether an element is in the list.</summary>
-        virtual bool Contains(const T& item) { throw std::runtime_error("Not implemented.");  return false; } // TODO - implement
+        virtual bool Contains(const T& item)
+        {
+            return std::find(begin(), end(), item) != end();
+        }
 
         /// <summary>Adds the elements of the specified collection to the end of the list.</summary>
         // TODO - implement void AddRange(const IEnumerable<T>& collection);
