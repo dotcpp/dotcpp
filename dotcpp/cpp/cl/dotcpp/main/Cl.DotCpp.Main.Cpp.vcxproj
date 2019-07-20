@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="nodatime\LocalDate.cpp" />
     <ClCompile Include="nodatime\LocalDateTime.cpp" />
+    <ClCompile Include="nodatime\LocalMinute.cpp" />
     <ClCompile Include="nodatime\LocalTime.cpp" />
     <ClCompile Include="nodatime\Period.cpp" />
     <ClCompile Include="system\Bool.cpp" />
@@ -45,6 +46,7 @@
     <ClInclude Include="import.hpp" />
     <ClInclude Include="nodatime\LocalDate.hpp" />
     <ClInclude Include="nodatime\LocalDateTime.hpp" />
+    <ClInclude Include="nodatime\LocalMinute.hpp" />
     <ClInclude Include="nodatime\LocalTime.hpp" />
     <ClInclude Include="nodatime\Period.hpp" />
     <ClInclude Include="system\Array.hpp" />
