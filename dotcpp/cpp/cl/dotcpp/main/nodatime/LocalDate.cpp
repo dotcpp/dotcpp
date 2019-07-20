@@ -26,6 +26,7 @@ limitations under the License.
 #include <cl/dotcpp/main/nodatime/Period.hpp>
 #include <cl/dotcpp/main/nodatime/LocalTime.hpp>
 #include <cl/dotcpp/main/nodatime/LocalDateTime.hpp>
+#include <cl/dotcpp/main/system/String.hpp>
 
 namespace cl
 {
@@ -39,7 +40,7 @@ namespace cl
     /// </summary>
     LocalDate::LocalDate()
         : gdate(1970, 1, 1)
-    { 
+    {
     }
 
     /// <summary>Constructs an instance for the given year, month and day in the ISO calendar.</summary>
@@ -78,6 +79,11 @@ namespace cl
     bool LocalDate::Equals(const LocalDate& other) const
     {
         return *this == other;
+    }
+
+    String LocalDate::ToString() const
+    {
+        to_iso_string(*this);
     }
 
     Period LocalDate::Minus(const LocalDate& date) const

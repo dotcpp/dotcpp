@@ -23,10 +23,11 @@ limitations under the License.
 
 #include <cl/dotcpp/main/implement.hpp>
 #include <cl/dotcpp/main/nodatime/LocalDateTime.hpp>
-#include <cl/dotcpp/main/system/Object.hpp>
 #include <cl/dotcpp/main/nodatime/Period.hpp>
 #include <cl/dotcpp/main/nodatime/LocalTime.hpp>
 #include <cl/dotcpp/main/nodatime/LocalDate.hpp>
+#include <cl/dotcpp/main/system/Object.hpp>
+#include <cl/dotcpp/main/system/String.hpp>
 
 namespace cl
 {
@@ -83,6 +84,16 @@ namespace cl
     bool LocalDateTime::Equals(const LocalDateTime& other) const
     {
         return *this == other;
+    }
+
+    String LocalDateTime::ToString() const
+    {
+        boost::posix_time::time_facet* facet = new boost::posix_time::time_facet();
+        facet->format("%Y%m%d%H%M%S");
+        std::stringstream stream;
+        stream.imbue(std::locale(std::locale::classic(), facet));
+        stream << *this;
+        return stream.str();
     }
 
     Period LocalDateTime::Minus(const LocalDateTime& localDateTime) const

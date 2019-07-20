@@ -31,6 +31,7 @@ namespace cl
 {
     using gdate = boost::gregorian::date;
 
+    class String;
     class Period;
     class LocalTime;
     class LocalDateTime;
@@ -92,6 +93,9 @@ namespace cl
 
         /// <summary>Compares two LocalDate values for equality. This requires that the dates be the same, within the same calendar.</summary>
         bool Equals(const LocalDate& other) const;
+
+        /// <summary>String that represents the current object.</summary>
+        String ToString() const;
 
         /// <summary>Subtracts the specified date from this date, returning the result as a Period with units of years, months and days. Fluent alternative to operator-().</summary>
         Period Minus(const LocalDate& date) const;

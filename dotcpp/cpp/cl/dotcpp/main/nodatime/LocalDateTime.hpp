@@ -33,6 +33,7 @@ namespace cl
 {
     using boost::posix_time::ptime;
 
+    class String;
     class Period;
 
     /// <summary>
@@ -121,6 +122,9 @@ namespace cl
 
         /// <summary>Indicates whether the current object is equal to another object of the same type.</summary>
         bool Equals(const LocalDateTime& other) const;
+
+        /// <summary>String that represents the current object.</summary>
+        String ToString() const;
 
         /// <summary>Subtracts the specified date/time from this date/time, returning the result as a Period. Fluent alternative to operator-().</summary>
         Period Minus(const LocalDateTime& localDateTime) const;

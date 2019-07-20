@@ -32,6 +32,7 @@ namespace cl
     using boost::posix_time::ptime;
     using boost::posix_time::time_duration;
 
+    class String;
     class Period;
     class LocalDate;
     class LocalDateTime;
@@ -49,7 +50,7 @@ namespace cl
         /// <summary>
         /// Because in C\# LocalDateTime is a struct, it has default constructor
         /// that initializes all backing variables to 0. This means that default
-        /// constructed value corresponds to 0001-01-01 00:00:00. We will 
+        /// constructed value corresponds to 0001-01-01 00:00:00. We will
         /// replicate this behavior here.
         /// </summary>
         LocalTime();
@@ -94,6 +95,9 @@ namespace cl
         /// by checking whether the two values represent the exact same local time, down to the tick.
         /// </summary>
         bool Equals(const LocalTime& other) const;
+
+        /// <summary>String that represents the current object.</summary>
+        String ToString() const;
 
         /// <summary>Subtracts the specified time from this time, returning the result as a Period. Fluent alternative to operator-().</summary>
         Period Minus(const LocalTime& time) const;

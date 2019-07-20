@@ -25,13 +25,14 @@ limitations under the License.
 #include <cl/dotcpp/main/nodatime/LocalTime.hpp>
 #include <cl/dotcpp/main/nodatime/Period.hpp>
 #include <cl/dotcpp/main/nodatime/LocalDateTime.hpp>
+#include <cl/dotcpp/main/system/String.hpp>
 
 namespace cl
 {
     /// <summary>
     /// Because in C\# LocalDateTime is a struct, it has default constructor
     /// that initializes all backing variables to 0. This means that default
-    /// constructed value corresponds to 0001-01-01 00:00:00. We will 
+    /// constructed value corresponds to 0001-01-01 00:00:00. We will
     /// replicate this behavior here.
     /// </summary>
     LocalTime::LocalTime()
@@ -81,11 +82,23 @@ namespace cl
         return *this == other;
     }
 
-    inline Period LocalTime::Minus(const LocalTime& time) const {
+    String LocalTime::ToString() const
+    {
+        boost::posix_time::time_facet* facet = new boost::posix_time::time_facet();
+        facet->format("%H%M%S");
+        std::stringstream stream;
+        stream.imbue(std::locale(std::locale::classic(), facet));
+        stream << *this;
+        return stream.str();
+    }
+
+    Period LocalTime::Minus(const LocalTime& time) const
+    {
         return *this - time;
     }
 
-    inline LocalTime LocalTime::Minus(const Period& period) const {
+    LocalTime LocalTime::Minus(const Period& period) const
+    {
         return *this - period;
     }
 
