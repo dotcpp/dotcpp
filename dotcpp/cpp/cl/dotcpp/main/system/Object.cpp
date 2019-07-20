@@ -60,6 +60,9 @@ namespace cl
     /// <summary>Construct Object from int by boxing.</summary>
     Object::Object(int64_t value) : base(new LongImpl(value)) {}
 
+    /// <summary>Construct Object from char by boxing.</summary>
+    Object::Object(char value) : base(new CharImpl(value)) {}
+
     /// <summary>Construct Object from LocalTime by boxing.</summary>
     Object::Object(const LocalTime & value) : base(new StructWrapperImpl<LocalTime>(value)) {}
 
@@ -99,6 +102,9 @@ namespace cl
     /// <summary>Assign int to Object by boxing.</summary>
     Object& Object::operator=(int64_t value) { base::operator=(new LongImpl(value)); return *this; }
 
+    /// <summary>Assign int to Object by boxing.</summary>
+    Object& Object::operator=(char value) { base::operator=(new CharImpl(value)); return *this; }
+
     /// <summary>Assign LocalTime to Object by boxing.</summary>
     Object& Object::operator=(const LocalTime& value) { base::operator=(new StructWrapperImpl<LocalTime>(value)); return *this; }
 
@@ -119,6 +125,9 @@ namespace cl
 
     /// <summary>Convert Object to long by unboxing. Error if Object does is not a boxed long.</summary>
     Object::operator int64_t() const { return Ptr<LongImpl>(*this)->value_; }
+
+    /// <summary>Convert Object to long by unboxing. Error if Object does is not a boxed long.</summary>
+    Object::operator char() const { return Ptr<CharImpl>(*this)->value_; }
 
     /// <summary>Convert Object to LocalTime by unboxing. Error if Object does is not a boxed LocalTime.</summary>
     Object::operator LocalTime() const { return *Ptr<StructWrapperImpl<LocalTime>>(*this); }

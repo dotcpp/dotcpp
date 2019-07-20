@@ -86,6 +86,9 @@ namespace cl
         /// <summary>Construct Object from int by boxing.</summary>
         Object(int64_t value);
 
+        /// <summary>Construct Object from char by boxing.</summary>
+        Object(char value);
+
         /// <summary>Construct Object from Nullable by boxing.</summary>
         template <class T>
         Object(const Nullable<T>& value) { if (value.HasValue) *this = value.Value; }
@@ -139,6 +142,9 @@ namespace cl
         /// <summary>Assign long to Object by boxing.</summary>
         Object& operator=(int64_t value);
 
+        /// <summary>Assign char to Object by boxing.</summary>
+        Object& operator=(char value);
+
         /// <summary>Assign StructWrapper to Object by boxing.</summary>
         template <class T>
         Object& operator=(const StructWrapper<T>& value) { base::operator=(value); return *this; }
@@ -168,6 +174,9 @@ namespace cl
         /// <summary>Convert Object to long by unboxing. Error if Object does is not a boxed long.</summary>
         operator int64_t() const;
 
+        /// <summary>Convert Object to char by unboxing. Error if Object does is not a boxed long.</summary>
+        operator char() const;
+
         /// <summary>Convert Object to LocalTime by unboxing. Error if Object does is not a boxed LocalTime.</summary>
         operator LocalTime() const;
 
@@ -180,6 +189,8 @@ namespace cl
         /// <summary>Convert Object to StructWrapper by unboxing. Error if Object does is not a boxed T.</summary>
         template <class T>
         operator StructWrapper<T>() const { return this->as<StructWrapper<T>>(); }
+
+        bool operator ==(Object rhs) const { throw new_Exception("Not implemented"); return false; }
 
     };
 

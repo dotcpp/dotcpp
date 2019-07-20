@@ -25,6 +25,7 @@ limitations under the License.
 
 #include <cl/dotcpp/main/declare.hpp>
 #include <cl/dotcpp/main/detail/const_string_base.hpp>
+#include <cl/dotcpp/main/system/ObjectImpl.hpp>
 
 namespace cl
 {
@@ -42,5 +43,31 @@ namespace cl
 
         /// <summary>Create from a single ASCII character.</summary>
         Char(char c) : base(std::to_string(c)) {}
+    };
+
+    /// <summary>Wrapper around char to make it convertible to Object (boxing).</summary>
+    class CharImpl : public virtual ObjectImpl
+    {
+        friend Object;
+        char value_;
+
+    public: // CONSTRUCTORS
+
+        /// <summary>Create from value (box).</summary>
+        CharImpl(char value) : value_(value) {}
+
+    public: // METHODS
+
+        /// <summary>Returns a value indicating whether this instance is equal to a specified object.</summary>
+        virtual bool Equals(Object obj) override;
+
+        /// <summary>Returns the hash code for this instance.</summary>
+        virtual size_t GetHashCode() override;
+
+        /// <summary>Converts the numeric value of this instance to its equivalent string representation.</summary>
+        virtual String ToString() override;
+
+        static Type typeof();
+        virtual Type GetType() override;
     };
 }

@@ -16,6 +16,7 @@
     <ClCompile Include="nodatime\LocalTime.cpp" />
     <ClCompile Include="nodatime\Period.cpp" />
     <ClCompile Include="system\Bool.cpp" />
+    <ClCompile Include="system\Char.cpp" />
     <ClCompile Include="system\collections\IObjectCollection.cpp" />
     <ClCompile Include="system\collections\IObjectEnumerable.cpp" />
     <ClCompile Include="system\Double.cpp" />
