@@ -233,6 +233,8 @@ namespace cl
                 { name = rhs.operator ptype(); return *this;  }                              \
             template <class I> decltype(auto) operator[](I const& i) const { return name[i]; }   \
             template <class I> decltype(auto) operator[](I const& i) { return name[i]; }         \
+            template <class T_>                                                              \
+            bool operator==(T_ const& rhs) const { return operator ptype() == rhs; }               \
                                                                                              \
             self* this_;                                                                     \
         };                                                                                   \
@@ -309,11 +311,11 @@ namespace cl
             CAT(name, _prop) & operator = (const CAT(name, _prop) & rhs)                     \
                 { name = rhs.operator ptype(); return *this;  }                              \
             template <class T_>                                                              \
-            bool operator==(T_ const& rhs) { return operator ptype() == rhs; }               \
+            bool operator==(T_ const& rhs) const { return operator ptype() == rhs; }               \
             template <class T_>                                                              \
-            bool operator>=(T_ const& rhs) { return operator ptype() >= rhs; }               \
+            bool operator>=(T_ const& rhs) const { return operator ptype() >= rhs; }               \
             template <class T_>                                                              \
-            bool operator<=(T_ const& rhs) { return operator ptype() <= rhs; }               \
+            bool operator<=(T_ const& rhs) const { return operator ptype() <= rhs; }               \
             template <class I> decltype(auto) operator[](I const& i) const { return name[i]; }   \
             template <class I> decltype(auto) operator[](I const& i) { return name[i]; }         \
                                                                                              \
