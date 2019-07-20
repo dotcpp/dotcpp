@@ -107,6 +107,14 @@ namespace cl
         return length(); //!!! This has to be corrected for Unicode
     }
 
+    int StringImpl::IndexOfAny(Array1D<char> anyOf)
+    {
+        size_t pos = find_first_of(anyOf->data(), 0, anyOf->size());
+        if (pos != std::string::npos)
+            return pos;
+        return -1;
+    }
+
     String StringImpl::Replace(const char oldChar, const char newChar) const
     {
         String new_str = *this;
@@ -119,6 +127,13 @@ namespace cl
     {
         throw std::runtime_error("Not implemented");
        // TODO - fix return this->find(s) != std::string::npos;
+    }
+
+    bool String::IsNullOrEmpty(String value)
+    {
+        if (value == nullptr || value->empty())
+            return true;
+        return false;
     }
 
     /// <summary>Case sensitive comparison to Object.</summary>

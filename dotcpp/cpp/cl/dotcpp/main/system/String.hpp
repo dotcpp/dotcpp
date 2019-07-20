@@ -111,6 +111,10 @@ namespace cl
         /// in the sort order as the specified String.</summary>
         int compareTo(const String& strB) const;
 
+        /// <summary>Reports the zero-based index of the first occurrence in this instance of any
+        /// character in a specified array of Unicode characters.</summary>
+        int IndexOfAny(Array1D<char> anyOf);
+
         /// <summary>Returns a new string in which all occurrences of a specified string
         /// in the current instance are replaced with another specified string.</summary>
         String Replace(const String& oldValue, const String& newValue) const;
@@ -376,6 +380,9 @@ namespace cl
         /// </summary>
         template <typename ...Args>
         static String Format(const String& format, const Args& ...args);
+
+        /// <summary>Indicates whether the specified string is null or an System.String.Empty string.</summary>
+        static bool IsNullOrEmpty(String value);
 
     public: // OPERATORS
 
