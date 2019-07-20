@@ -81,7 +81,7 @@ namespace cl
              {
                  properties_ = new_List<PropertyInfo>();
              }
-             properties_->Add(new PropertyInfoPropertyImpl<Prop, Class>(name, type_, typeof<typename Prop::value_type>(), prop));
+             properties_->Add(new PropertyInfoPropertyImpl<Prop, Class>(name, type_, cl::typeof<typename Prop::value_type>(), prop));
              return this;
         }
 
@@ -99,14 +99,14 @@ namespace cl
             }
 
             Array1D<ParameterInfo> parameters = new_Array1D<ParameterInfo>(sizeof...(Args));
-            std::vector<Type> paramTypes = { typeof<Args>()... };
+            std::vector<Type> paramTypes = { cl::typeof<Args>()... };
 
             for (int i = 0; i < argsCount; ++i)
             {
                 parameters[i] = new_ParameterInfo(names[i], paramTypes[i], i);
             }
 
-            MethodInfo methodInfo_ = new MemberMethodInfoImpl<Class, Return, Args...>(name, type_, typeof<Return>(), mth);
+            MethodInfo methodInfo_ = new MemberMethodInfoImpl<Class, Return, Args...>(name, type_, cl::typeof<Return>(), mth);
             methodInfo_->Parameters = parameters;
 
             methods_->Add(methodInfo_);
@@ -128,14 +128,14 @@ namespace cl
             }
 
             Array1D<ParameterInfo> parameters = new_Array1D<ParameterInfo>(sizeof...(Args));
-            std::vector<Type> paramTypes = { typeof<Args>()... };
+            std::vector<Type> paramTypes = { cl::typeof<Args>()... };
 
             for (int i = 0; i < argsCount; ++i)
             {
                 parameters[i] = new_ParameterInfo(names[i], paramTypes[i], i);
             }
 
-            MethodInfo methodInfo_ = new StaticMethodInfoImpl<Return, Args...>(name, type_, typeof<Return>(), mth);
+            MethodInfo methodInfo_ = new StaticMethodInfoImpl<Return, Args...>(name, type_, cl::typeof<Return>(), mth);
             methodInfo_->Parameters = parameters;
 
             methods_->Add(methodInfo_);
@@ -157,7 +157,7 @@ namespace cl
             }
 
             Array1D<ParameterInfo> parameters = new_Array1D<ParameterInfo>(sizeof...(Args));
-            std::vector<Type> paramTypes = { typeof<Args>()... };
+            std::vector<Type> paramTypes = { cl::typeof<Args>()... };
 
             for (int i = 0; i < argsCount_; ++i)
             {
@@ -179,7 +179,7 @@ namespace cl
             if (!(this->base_.IsEmpty()))
                 throw Exception("Base already defined in class " + fullName_);
 
-            this->base_ = typeof<Class>();
+            this->base_ = cl::typeof<Class>();
             return this;
         }
 
@@ -190,7 +190,7 @@ namespace cl
             if (this->interfaces_.IsEmpty())
                 this->interfaces_ = new_List<Type>();
 
-            this->interfaces_->Add(typeof<Class>());
+            this->interfaces_->Add(cl::typeof<Class>());
             return this;
         }
 
@@ -201,7 +201,7 @@ namespace cl
             if (this->generic_args_.IsEmpty())
                 this->generic_args_ = new_List<Type>();
 
-            this->generic_args_->Add(typeof<Class>());
+            this->generic_args_->Add(cl::typeof<Class>());
             return this;
         }
 
@@ -383,14 +383,20 @@ namespace cl
     /// </summary>
     inline Type ObjectImpl::GetType()
     {
-        return new_TypeBuilder<ObjectImpl>("System", "Object")->Build(); // Use Lambda
+        return typeof();
+    }
+
+    inline Type ObjectImpl::typeof()
+    {
+        static Type type_ = new_TypeBuilder<ObjectImpl>("System", "Object")->Build();
+        return type_;
     }
 
     template <class T> Type ListImpl<T>::typeof()
     {
         return new_TypeBuilder<ObjectImpl>("System.Collections.Generic", "List`1")
             DOT_TYPE_CTOR(new_List<T>)
-            //DOT_TYPE_GENERIC_ARGUMENT(T)
+            DOT_TYPE_GENERIC_ARGUMENT(T)
             DOT_TYPE_INTERFACE(IObjectEnumerable)
             DOT_TYPE_INTERFACE(IObjectCollection)
             ->Build();
@@ -398,9 +404,8 @@ namespace cl
 
     template <class T> Type Array1DImpl<T>::typeof()
     {
-        // TODO provide custom logic to resolve T[] into specific name
-        return new_TypeBuilder<ObjectImpl>("System", "T[]")
-            ->Build();
+        static Type type_ = new_TypeBuilder<ObjectImpl>("System", "T[]")->Build();
+        return type_;
     }
 
     template <>

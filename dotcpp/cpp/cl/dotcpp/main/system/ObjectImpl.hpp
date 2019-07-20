@@ -66,6 +66,9 @@ namespace cl
         /// <summary>Gets the Type of the current instance.</summary>
         virtual Type GetType();
 
+        /// <summary>Gets the Type of the ObjectImpl.</summary>
+        static Type typeof();
+
         /// <summary>
         /// String that represents the current object.
         ///

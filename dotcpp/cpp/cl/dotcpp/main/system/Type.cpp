@@ -123,7 +123,7 @@ namespace cl
 
 
     TypeBuilderImpl::TypeBuilderImpl(String Name, String Namespace, String CppName)
-        : fullName_(Name + Namespace)
+        : fullName_(Name + "." + Namespace)
     {
         type_ = new TypeImpl(Name, Namespace);
         TypeImpl::GetTypeMap()[fullName_] = type_;
