@@ -55,6 +55,8 @@ namespace cl
                 this->properties_[i++] = propInfoData;
             }
         }
+        else
+            this->properties_ = new_Array1D<PropertyInfo>(0);
 
         if (!data->methods_.IsEmpty())
         {
@@ -65,6 +67,8 @@ namespace cl
                 this->methods_[i++] = methInfoData;
             }
         }
+        else
+            this->methods_ = new_Array1D<MethodInfo>(0);
 
         if (!data->ctors_.IsEmpty())
         {
@@ -75,6 +79,8 @@ namespace cl
                 this->ctors_[i++] = ctorInfoData;
             }
         }
+        else
+            this->ctors_ = new_Array1D<ConstructorInfo>(0);
 
         if (!data->interfaces_.IsEmpty())
         {
@@ -85,6 +91,8 @@ namespace cl
                 this->interfaces_[i++] = interface;
             }
         }
+        else
+            this->interfaces_ = new_Array1D<Type>(0);
 
         if (!data->generic_args_.IsEmpty())
         {
@@ -95,6 +103,8 @@ namespace cl
                 this->generic_args_[i++] = arg;
             }
         }
+        else
+            this->generic_args_ = new_Array1D<Type>(0);
 
         this->base_ = data->base_;
         this->IsClass.IsClass = data->is_class_;

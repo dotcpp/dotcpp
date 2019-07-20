@@ -160,7 +160,7 @@ namespace cl
     template <class T> Ptr<T>::Ptr(const Ptr<T>& rhs) : ptr_(rhs.ptr_) { if (ptr_) ptr_->IncrementReferenceCount(); }
     template <class T> Ptr<T>::~Ptr() { if (ptr_) ptr_->DecrementReferenceCount(); }
     template <class T> template <class R> R Ptr<T>::as() const { typename R::pointer_type ptr = dynamic_cast<typename R::pointer_type>(ptr_); return ptr; }
-    template <class T> template <class R> bool Ptr<T>::is() const { if (!ptr_) return false; return typeid(*ptr_) == typeid(typename R::element_type); }
+    template <class T> template <class R> bool Ptr<T>::is() const { return dynamic_cast<typename R::pointer_type>(ptr_); }
     template <class T> T& Ptr<T>::operator*() const
     {
         if (!ptr_)
