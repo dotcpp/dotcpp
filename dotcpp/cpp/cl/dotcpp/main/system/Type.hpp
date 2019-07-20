@@ -63,6 +63,7 @@ namespace cl
     private:
         String fullName_;
         List<PropertyInfo> properties_;
+        List<PropertyInfo> static_properties_;
         List<MethodInfo> methods_;
         List<ConstructorInfo> ctors_;
         Type type_;
@@ -70,6 +71,7 @@ namespace cl
         List<Type> interfaces_;
         List<Type> generic_args_;
         bool is_class_;
+        bool is_enum_ = false;
 
     public: // METHODS
 
@@ -169,6 +171,14 @@ namespace cl
 
             ctors_->Add(ctorInfo);
 
+            return this;
+        }
+
+        /// <summary>Set IsEnum to true.</summary>
+        TypeBuilder IsEnum()
+        {
+            this->is_class_ = false;
+            this->is_enum_ = true;
             return this;
         }
 

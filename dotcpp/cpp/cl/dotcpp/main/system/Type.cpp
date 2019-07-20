@@ -131,6 +131,7 @@ namespace cl
 
         this->base_ = data->base_;
         this->IsClass.IsClass = data->is_class_;
+        this->IsEnum.IsEnum = data->is_enum_;
     }
 
     /// <summary>
