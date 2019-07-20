@@ -355,7 +355,9 @@ namespace cl
     template <class T>
     Type typeof_impl(std::true_type) // nullable
     {
-        static Type type_ = new_TypeBuilder<Nullable<T>>("System", "Nullable")->Build();
+        static Type type_ = new_TypeBuilder<T>("System", "Nullable<" + cl::typeof<T::value_type>()->Name + ">")
+            ->WithGenericArgument<T::value_type>()
+            ->Build();
         return type_;
     }
 

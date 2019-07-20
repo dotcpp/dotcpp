@@ -42,6 +42,8 @@ namespace cl
 
     public: // PROPERTIES
 
+        typedef T value_type;
+
         /// <summary>Gets the value of the current Nullable object
         /// if it has been assigned a valid underlying value.</summary>
         DOT_GET(T, Value, { return value(); })
@@ -104,6 +106,8 @@ namespace cl
         int value_ = Bool::Empty;
 
     public: // PROPERTIES
+
+        typedef bool value_type;
 
         /// <summary>Convert to native bool, error if the object is in uninitialized (empty) state.</summary>
         DOT_GET(bool, Value, {
@@ -174,6 +178,8 @@ namespace cl
         int value_ = Int::Empty;
 
     public: // PROPERTIES
+
+        typedef int value_type;
 
         /// <summary>Convert to native double, error if the object is in uninitialized (empty) state.</summary>
         DOT_GET(int, Value, { if (value_ == Int::Empty) throw std::runtime_error("Int value is empty"); return value_; })
@@ -247,6 +253,8 @@ namespace cl
 
     public: // PROPERTIES
 
+        typedef int64_t value_type;
+
         /// <summary>Convert to native long, error if the object is in uninitialized (empty) state.</summary>
         DOT_GET(int64_t, Value, { if (value_ == Long::Empty) throw std::runtime_error("Long value is empty"); return value_; })
 
@@ -317,6 +325,8 @@ namespace cl
         double value_ = Double::Empty;
 
     public: // PROPERTIES
+
+        typedef double value_type;
 
         /// <summary>Convert to native double, error if the object is in null (empty) state.</summary>
         DOT_GET(double, Value, { if (value_ == Double::Empty) throw std::runtime_error("Double value is empty"); return value_; })
