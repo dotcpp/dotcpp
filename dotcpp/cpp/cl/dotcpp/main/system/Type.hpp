@@ -396,7 +396,7 @@ namespace cl
 
     template <class T> Type ListImpl<T>::typeof()
     {
-        return new_TypeBuilder<ObjectImpl>("System.Collections.Generic", "List`1")
+        return new_TypeBuilder<ListImpl<T>>("System.Collections.Generic", "List`1")
             DOT_TYPE_CTOR(new_List<T>)
             DOT_TYPE_GENERIC_ARGUMENT(T)
             DOT_TYPE_INTERFACE(IObjectEnumerable)
@@ -406,7 +406,12 @@ namespace cl
 
     template <class T> Type Array1DImpl<T>::typeof()
     {
-        static Type type_ = new_TypeBuilder<ObjectImpl>("System", "T[]")->Build();
+        static Type type_ = new_TypeBuilder<Array1DImpl<T>>("System", "T[]")
+            //DOT_TYPE_CTOR(new_Array1D<T>)
+            DOT_TYPE_GENERIC_ARGUMENT(T)
+            DOT_TYPE_INTERFACE(IObjectEnumerable)
+            DOT_TYPE_INTERFACE(IObjectCollection)
+            ->Build();
         return type_;
     }
 
@@ -442,6 +447,13 @@ namespace cl
     inline Type typeof<bool>()
     {
         static Type type_ = new_TypeBuilder<bool>("System", "Bool")->Build();
+        return type_;
+    }
+
+    template <>
+    inline Type typeof<char>()
+    {
+        static Type type_ = new_TypeBuilder<char>("System", "Char")->Build();
         return type_;
     }
 
