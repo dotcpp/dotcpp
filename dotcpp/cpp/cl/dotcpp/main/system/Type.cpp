@@ -46,6 +46,29 @@ namespace cl
     /// </summary>
     void TypeImpl::Fill(const TypeBuilder& data)
     {
+        if (!data->base_.IsEmpty() && data->base_->GetProperties()->Count)
+        {
+            if (data->properties_.IsEmpty())
+            {
+                data->properties_ = new_List<PropertyInfo>();
+            }
+
+            Array1D<PropertyInfo> baseProps = data->base_->GetProperties();
+            List<PropertyInfo> newProsp = new_List<PropertyInfo>();
+            for (PropertyInfo propInfoData : baseProps)
+            {
+
+                newProsp->Add(propInfoData);
+            }
+
+            for (PropertyInfo propInfoData : data->properties_)
+            {
+                newProsp->Add(propInfoData);
+            }
+
+            data->properties_ = newProsp;
+        }
+
         if (!data->properties_.IsEmpty())
         {
             this->properties_ = new_Array1D<PropertyInfo>(data->properties_->Count);
