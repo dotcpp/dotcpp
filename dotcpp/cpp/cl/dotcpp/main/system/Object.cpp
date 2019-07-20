@@ -93,6 +93,9 @@ namespace cl
     /// <summary>Forward to operator in type Ptr(T).</summary>
     bool Object::operator!=(nullptr_t) const { return base::operator!=(nullptr); }
 
+    /// <summary>Assign nullptr to Object.</summary>
+    Object& Object::operator=(nullptr_t) { base::operator=(nullptr); return *this; }
+
     /// <summary>Assign Ptr(T) to Object.</summary>
     Object& Object::operator=(const Ptr<ObjectImpl>& ptr) { base::operator=(ptr); return *this; }
 
