@@ -280,6 +280,9 @@ namespace cl
         /// <summary>Gets a value indicating whether the System.Type is a class or a delegate; that is, not a value type or interface.</summary>
         DOT_AUTO_GET(bool, IsClass);
 
+        /// <summary>Gets a value indicating whether the current System.Type represents an enumeration.</summary>
+        DOT_AUTO_GET(bool, IsEnum);
+
     public: // METHODS
 
         /// <summary>Returns all the public properties of the current Type.</summary>
@@ -364,6 +367,7 @@ namespace cl
             DOT_TYPE_CTOR(new_List<T>)
             //DOT_TYPE_GENERIC_ARGUMENT(T)
             DOT_TYPE_INTERFACE(IObjectEnumerable)
+            DOT_TYPE_INTERFACE(IObjectCollection)
             ->Build();
     }
 
@@ -375,15 +379,37 @@ namespace cl
     }
 
     template <>
-    inline Type typeof<double>() { return new_TypeBuilder<double>("System", "Double")->Build(); }
+    inline Type typeof<double>()
+    {
+        static Type type_ = new_TypeBuilder<double>("System", "Double")->Build();
+        return type_;
+    }
 
     template <>
-    inline Type typeof<int64_t>() { return new_TypeBuilder<int64_t>("System", "Int64")->Build(); }
+    inline Type typeof<int64_t>()
+    {
+        static Type type_ = new_TypeBuilder<int64_t>("System", "Int64")->Build();
+        return type_;
+    }
 
     template <>
-    inline Type typeof<int>() { return new_TypeBuilder<int>("System", "Int32")->Build(); }
+    inline Type typeof<int>()
+    {
+        static Type type_ = new_TypeBuilder<int>("System", "Int32")->Build();
+        return type_;
+    }
 
-    /// <summary>This is required to compile typeof().</summary>
     template <>
-    inline Type typeof<void>() { return new_TypeBuilder<void>("System", "Void")->Build(); } // TODO - this is not needed
+    inline Type typeof<void>()
+    {
+        static Type type_ = new_TypeBuilder<void>("System", "Void")->Build();
+        return type_;
+    }
+
+    template <>
+    inline Type typeof<bool>()
+    {
+        static Type type_ = new_TypeBuilder<bool>("System", "Bool")->Build();
+        return type_;
+    }
 }

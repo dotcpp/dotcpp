@@ -444,9 +444,9 @@ namespace cl
     };
 
     /// <summary>Helper class for fmt::format arguments conversion</summary>
-    template<>
-    struct format_forward<Object> {
-        static inline std::string convert(const Object& o) { return *o->ToString(); }
+    template<class T>
+    struct format_forward<Ptr<T>> {
+        static inline std::string convert(const Ptr<T>& o) { return *o->ToString(); }
     };
 
     template<typename ...Args>
