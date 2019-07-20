@@ -35,8 +35,13 @@ namespace cl
 
     Type StringImpl::typeof()
     {
-        return new_TypeBuilder<StringImpl>("System", "String")
-            ->Build();
+        static Type type = []()->Type
+        {
+            Type type = new_TypeBuilder<StringImpl>("System", "String")
+                ->Build();
+            return type;
+        }();
+        return type;
     }
 
     Type StringImpl::GetType()

@@ -29,8 +29,13 @@ namespace cl
 {
     Type IObjectCollectionImpl::typeof()
     {
-        return new_TypeBuilder<ObjectImpl>("System.Collections", "IObjectCollection")
-            ->Build();
+        static Type type = []()->Type
+        {
+            Type type = new_TypeBuilder<IObjectCollectionImpl>("System.Collections", "IObjectCollection")
+                ->Build();
+            return type;
+        }();
+        return type;
     }
 
     Type IObjectCollectionImpl::GetType()

@@ -29,8 +29,13 @@ namespace cl
 {
     Type IObjectEnumerableImpl::typeof()
     {
-        return new_TypeBuilder<ObjectImpl>("System.Collections", "IObjectEnumerable")
-            ->Build();
+        static Type type = []()->Type
+        {
+            Type type = new_TypeBuilder<IObjectEnumerableImpl>("System.Collections", "IObjectEnumerable")
+                ->Build();
+            return type;
+        }();
+        return type;
     }
 
     Type IObjectEnumerableImpl::GetType()
