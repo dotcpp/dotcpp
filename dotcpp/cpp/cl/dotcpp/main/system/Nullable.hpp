@@ -37,7 +37,7 @@ namespace cl
     template <class T>
     class Nullable : public std::optional<T>
     {
-        typedef Nullable self;
+        typedef Nullable<T> self;
         typedef std::optional<T> base;
 
     public: // PROPERTIES
