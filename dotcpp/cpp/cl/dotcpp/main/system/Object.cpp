@@ -22,6 +22,7 @@ limitations under the License.
 */
 
 #include <cl/dotcpp/main/implement.hpp>
+#include <cl/dotcpp/main/system/Type.hpp>
 #include <cl/dotcpp/main/system/Object.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
 #include <cl/dotcpp/main/system/Nullable.hpp>
@@ -37,6 +38,17 @@ namespace cl
     {
     public:
         StructWrapperImpl(const T& value) : T(value) {}
+
+    public:
+        static Type typeof()
+        {
+            return ::cl::typeof<T>();
+        }
+
+        virtual Type GetType() override
+        {
+            return typeof();
+        }
     };
 
     /// <summary>Construct Object from nullptr.</summary>

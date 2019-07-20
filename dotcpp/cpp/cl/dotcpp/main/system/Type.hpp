@@ -27,12 +27,16 @@ limitations under the License.
 #include <cl/dotcpp/main/detail/reflection_macro.hpp>
 #include <cl/dotcpp/main/system/Object.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
+#include <cl/dotcpp/main/system/Nullable.hpp>
 #include <cl/dotcpp/main/system/Array1D.hpp>
 #include <cl/dotcpp/main/system/collections/generic/List.hpp>
 #include <cl/dotcpp/main/system/reflection/ConstructorInfo.hpp>
 #include <cl/dotcpp/main/system/reflection/MethodInfo.hpp>
 #include <cl/dotcpp/main/system/reflection/ParameterInfo.hpp>
 #include <cl/dotcpp/main/system/reflection/PropertyInfo.hpp>
+#include <cl/dotcpp/main/nodatime/LocalDate.hpp>
+#include <cl/dotcpp/main/nodatime/LocalTime.hpp>
+#include <cl/dotcpp/main/nodatime/LocalDateTime.hpp>
 
 namespace cl
 {
@@ -250,7 +254,7 @@ namespace cl
     {
         friend class TypeBuilderImpl;
         template <class T>
-        friend Type typeof();
+        friend Type typeof_impl(std::false_type);
 
         typedef TypeImpl self;
 
@@ -338,9 +342,23 @@ namespace cl
         TypeImpl(String nspace, String name);
     };
 
-    /// <summary>Get Type object for the argument.</summary>
     template <class T>
-    Type typeof()
+    struct is_nullable : std::false_type
+    {};
+
+    template <class T>
+    struct is_nullable<Nullable<T>> : std::true_type
+    {};
+
+    template <class T>
+    Type typeof_impl(std::true_type) // nullable
+    {
+        static Type type_ = new_TypeBuilder<Nullable<T>>("System", "Nullable")->Build();
+        return type_;
+    }
+
+    template <class T>
+    Type typeof_impl(std::false_type) // not nullable
     {
         String cppname = typeid(typename T::element_type).name(); // TODO - is it faster to use typeid rather than string as key?
         auto p = TypeImpl::GetTypeMap().find(cppname);
@@ -351,6 +369,13 @@ namespace cl
         }
 
         return p->second;
+    }
+
+    /// <summary>Get Type object for the argument.</summary>
+    template <class T>
+    Type typeof()
+    {
+        return typeof_impl<T>(typename is_nullable<T>::type());
     }
 
     /// <summary>
@@ -410,6 +435,27 @@ namespace cl
     inline Type typeof<bool>()
     {
         static Type type_ = new_TypeBuilder<bool>("System", "Bool")->Build();
+        return type_;
+    }
+
+    template <>
+    inline Type typeof<LocalDate>()
+    {
+        static Type type_ = new_TypeBuilder<LocalDate>("System", "LocalDate")->Build();
+        return type_;
+    }
+
+    template <>
+    inline Type typeof<LocalTime>()
+    {
+        static Type type_ = new_TypeBuilder<LocalDate>("System", "LocalTime")->Build();
+        return type_;
+    }
+
+    template <>
+    inline Type typeof<LocalDateTime>()
+    {
+        static Type type_ = new_TypeBuilder<LocalDate>("System", "LocalDateTime")->Build();
         return type_;
     }
 }
