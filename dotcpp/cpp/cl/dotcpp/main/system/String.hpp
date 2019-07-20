@@ -115,6 +115,10 @@ namespace cl
         /// in the current instance are replaced with another specified string.</summary>
         String Replace(const String& oldValue, const String& newValue) const;
 
+        /// <summary>Returns a new string in which all occurrences of a specified character
+        /// in this instance are replaced with another specified character.</summary>
+        String Replace(const char oldChar, const char newChar) const;
+
         /// <summary>Returns a string array that contains the substrings of the current string
         /// that are delimited by any of the specified 8-bit characters.</summary>
         Array1D<String> Split(char separator) const;

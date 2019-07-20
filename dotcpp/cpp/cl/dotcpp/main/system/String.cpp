@@ -102,6 +102,13 @@ namespace cl
         return length(); //!!! This has to be corrected for Unicode
     }
 
+    String StringImpl::Replace(const char oldChar, const char newChar) const
+    {
+        String new_str = *this;
+        std::replace(new_str->begin(), new_str->end(), oldChar, newChar);
+        return new_str;
+    }
+
     ///<summary>Indicates whether the argument occurs within this string.</summary>
     bool StringImpl::Contains(String const& s) const
     {
