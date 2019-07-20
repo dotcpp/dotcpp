@@ -145,11 +145,12 @@ namespace cl
     }
 
 
-    TypeBuilderImpl::TypeBuilderImpl(String Name, String Namespace, String CppName)
-        : fullName_(Name + "." + Namespace)
+    TypeBuilderImpl::TypeBuilderImpl(String Namespace, String Name, String CppName)
+        : fullName_(Namespace + "." + Name)
     {
-        type_ = new TypeImpl(Name, Namespace);
+        type_ = new TypeImpl(Namespace, Name);
         TypeImpl::GetTypeMap()[fullName_] = type_;
+        TypeImpl::GetTypeMap()[Name] = type_;
         TypeImpl::GetTypeMap()[CppName] = type_;
     }
 

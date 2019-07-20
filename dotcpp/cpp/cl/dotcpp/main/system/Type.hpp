@@ -406,13 +406,22 @@ namespace cl
             ->Build();
     }
 
+    /// <summary>
+    /// Private ctor of the array with the zero size to use in serealization.
+    /// </summary>
+    template <class T>
+    Array1D<T> private_new_Array1D() { return new Array1DImpl<T>(0); }
+
+
+
     template <class T> Type Array1DImpl<T>::typeof()
     {
-        static Type type_ = new_TypeBuilder<Array1DImpl<T>>("System", "T[]")
+        static Type type_ = new_TypeBuilder<Array1DImpl<T>>(cl::typeof<T>()->Namespace, cl::typeof<T>()->Name +"[]")
             //DOT_TYPE_CTOR(new_Array1D<T>)
             DOT_TYPE_GENERIC_ARGUMENT(T)
             DOT_TYPE_INTERFACE(IObjectEnumerable)
             DOT_TYPE_INTERFACE(IObjectCollection)
+            DOT_TYPE_CTOR(private_new_Array1D<T>)
             ->Build();
         return type_;
     }

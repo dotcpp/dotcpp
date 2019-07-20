@@ -38,7 +38,7 @@ namespace cl
     /// Provides methods to search, sort, and manipulate lists.
     /// </summary>
     template <class T>
-    class Array1DImpl : public ArrayImpl, public detail::array_base<T>, public IObjectCollectionImpl
+    class Array1DImpl : public ArrayImpl, public detail::array_base<T>, protected IObjectCollectionImpl
     {
         typedef Array1DImpl<T> self;
         typedef detail::array_base<T> base;
@@ -46,6 +46,7 @@ namespace cl
         template <class R> friend Array1D<R> new_Array1D(int size);
         template <class R> friend Array1D<R> new_Array1D(const std::vector<R>& obj);
         template <class R> friend Array1D<R> new_Array1D(std::vector<R>&& obj);
+        template <class R> friend Array1D<R> private_new_Array1D();
 
     private: // CONSTRUCTORS
 
@@ -95,6 +96,7 @@ namespace cl
             return detail::make_obj_iterator(base::end());
         }
 
+    protected:
         /// <summary>
         /// Adds an item to the end of the collection.
         ///
