@@ -32,24 +32,6 @@ limitations under the License.
 
 namespace cl
 {
-    /// <summary>Wraps struct into object.</summary>
-    template <class T>
-    class StructWrapperImpl : public virtual ObjectImpl, public T
-    {
-    public:
-        StructWrapperImpl(const T& value) : T(value) {}
-
-    public:
-        static Type typeof()
-        {
-            return ::cl::typeof<T>();
-        }
-
-        virtual Type GetType() override
-        {
-            return typeof();
-        }
-    };
 
     /// <summary>Construct Object from nullptr.</summary>
     Object::Object(nullptr_t) : base(nullptr) {}

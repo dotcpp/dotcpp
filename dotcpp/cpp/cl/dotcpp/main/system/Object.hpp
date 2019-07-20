@@ -35,6 +35,11 @@ namespace cl
     class LocalDate;
     class LocalDateTime;
 
+    template <class T>
+    class StructWrapperImpl;
+    template <class T>
+    using StructWrapper = Ptr<StructWrapperImpl<T>>;
+
     /// <summary>Adds support for boxing value types to Ptr(ObjectImpl).</summary>
     class CL_DOTCPP_MAIN Object : public Ptr<ObjectImpl>
     {
@@ -98,6 +103,10 @@ namespace cl
         template <typename T>
         Object(detail::auto_prop<T> & value) : Object(value.operator T()) {}
 
+        /// <summary>Construct Object from struct wrapper, boxing the value if necessary.</summary>
+        template <typename T>
+        Object(StructWrapper<T> value) : base(value) {}
+
     public: // OPERATORS
 
         /// <summary>Forward to operator in type Ptr(T).</summary>
@@ -129,6 +138,10 @@ namespace cl
 
         /// <summary>Assign long to Object by boxing.</summary>
         Object& operator=(int64_t value);
+
+        /// <summary>Assign StructWrapper to Object by boxing.</summary>
+        template <class T>
+        Object& operator=(const StructWrapper<T>& value) { base::operator=(value); return *this; }
 
         /// <summary>Assign Nullable to Object by boxing.</summary>
         template <class T>
@@ -163,10 +176,34 @@ namespace cl
 
         /// <summary>Convert Object to LocalDateTime by unboxing. Error if Object does is not a boxed LocalDateTime.</summary>
         operator LocalDateTime() const;
+
+        /// <summary>Convert Object to StructWrapper by unboxing. Error if Object does is not a boxed T.</summary>
+        template <class T>
+        operator StructWrapper<T>() const { return this->as<StructWrapper<T>>(); }
+
     };
 
     /// <summary>Initializes a new instance of Object.</summary>
     inline Object new_Object() { return Object(new ObjectImpl); }
+
+    /// <summary>Wraps struct into object.</summary>
+    template <class T>
+    class StructWrapperImpl : public virtual ObjectImpl, public T
+    {
+    public:
+        StructWrapperImpl(const T& value) : T(value) {}
+
+    public:
+        static Type typeof()
+        {
+            return ::cl::typeof<T>();
+        }
+
+        virtual Type GetType() override
+        {
+            return typeof();
+        }
+    };
 }
 
 namespace std
