@@ -48,7 +48,10 @@ namespace cl
         /// This constructor is used, among other things,
         /// as argument to lock(...) to provide thread safety.
         /// </summary>
-        Object();
+        Object() = default;
+
+        /// <summary>Construct Object from nullptr.</summary>
+        Object(nullptr_t);
 
         /// <summary>Construct Object from Ptr(ObjectImpl).</summary>
         Object(const Ptr<ObjectImpl>& ptr);
@@ -97,15 +100,14 @@ namespace cl
 
     public: // OPERATORS
 
-        /// <summary>Forward to operator in type Pt(T).</summary>
-        bool operator==(nullptr_t) const { return base::operator==(nullptr); }
+        /// <summary>Forward to operator in type Ptr(T).</summary>
+        bool operator==(nullptr_t) const;
 
-        /// <summary>Forward to operator in type Pt(T).</summary>
-        template <class T>
-        bool operator!=(nullptr_t) const { return !operator==(nullptr); }
+        /// <summary>Forward to operator in type Ptr(T).</summary>
+        bool operator!=(nullptr_t) const;
 
         /// <summary>Assign Ptr(T) to Object.</summary>
-        Object& operator=(const Ptr<ObjectImpl>& ptr) { base::operator=(ptr); return *this; }
+        Object& operator=(const Ptr<ObjectImpl>& ptr);
 
         /// <summary>Assign String to Object by boxing.</summary>
         Object& operator=(const String& value);
@@ -161,7 +163,7 @@ namespace cl
     };
 
     /// <summary>Initializes a new instance of Object.</summary>
-    inline Object new_Object() { return Object(); }
+    inline Object new_Object() { return Object(new ObjectImpl); }
 }
 
 namespace std

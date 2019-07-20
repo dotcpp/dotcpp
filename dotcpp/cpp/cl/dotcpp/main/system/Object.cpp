@@ -39,13 +39,8 @@ namespace cl
         StructWrapperImpl(const T& value) : T(value) {}
     };
 
-    /// <summary>
-    /// Default constructor to create untyped Object.
-    ///
-    /// This constructor is used, among other things,
-    /// as argument to lock(...) to provide thread safety.
-    /// </summary>
-    Object::Object() : base(new ObjectImpl()) {}
+    /// <summary>Construct Object from nullptr.</summary>
+    Object::Object(nullptr_t) : base(nullptr) {}
 
     /// <summary>Construct Object from Ptr(ObjectImpl).</summary>
     Object::Object(const Ptr<ObjectImpl>& ptr) : base(ptr) {}
@@ -79,6 +74,15 @@ namespace cl
 
     /// <summary>Construct Object from LocalDateTime by boxing.</summary>
     Object::Object(const LocalDateTime & value) : base(new StructWrapperImpl<LocalDateTime>(value)) {}
+
+    /// <summary>Forward to operator in type Ptr(T).</summary>
+    bool Object::operator==(nullptr_t) const { return base::operator==(nullptr); }
+
+    /// <summary>Forward to operator in type Ptr(T).</summary>
+    bool Object::operator!=(nullptr_t) const { return base::operator!=(nullptr); }
+
+    /// <summary>Assign Ptr(T) to Object.</summary>
+    Object& Object::operator=(const Ptr<ObjectImpl>& ptr) { base::operator=(ptr); return *this; }
 
     /// <summary>Assign String to Object by boxing.</summary>
     Object& Object::operator=(const String& value) { base::operator=(value); return *this; }
