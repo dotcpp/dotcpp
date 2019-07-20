@@ -24,6 +24,7 @@ limitations under the License.
 #include <cl/dotcpp/main/implement.hpp>
 #include <cl/dotcpp/main/system/Long.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
+#include <cl/dotcpp/main/system/Type.hpp>
 
 namespace cl
 {
@@ -47,5 +48,15 @@ namespace cl
     String LongImpl::ToString()
     {
         return std::to_string(value_);
+    }
+
+    Type LongImpl::typeof()
+    {
+        return cl::typeof<int64_t>();
+    }
+
+    Type LongImpl::GetType()
+    {
+        return typeof();
     }
 }

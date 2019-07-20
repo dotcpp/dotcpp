@@ -24,6 +24,7 @@ limitations under the License.
 #include <cl/dotcpp/main/implement.hpp>
 #include <cl/dotcpp/main/system/Bool.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
+#include <cl/dotcpp/main/system/Type.hpp>
 
 namespace cl
 {
@@ -46,5 +47,15 @@ namespace cl
     String BoolImpl::ToString()
     {
         return value_ ? "True" : "False";
+    }
+
+    Type BoolImpl::typeof()
+    {
+        return cl::typeof<bool>();
+    }
+
+    Type BoolImpl::GetType()
+    {
+        return typeof();
     }
 }

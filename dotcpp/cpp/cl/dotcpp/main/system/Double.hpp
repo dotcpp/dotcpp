@@ -53,7 +53,7 @@ namespace cl
     public: // REFLECTION
 
         virtual Type GetType();
-        static Type typeof();
+        static Type typeof() override;
     };
 
     /// <summary>

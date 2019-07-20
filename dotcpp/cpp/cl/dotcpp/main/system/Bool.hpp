@@ -49,6 +49,9 @@ namespace cl
 
         /// <summary>Converts the value of this instance to its equivalent string representation (either "True" or "False").</summary>
         virtual String ToString() override;
+
+        static Type typeof();
+        virtual Type GetType() override;
     };
 
     /// <summary>

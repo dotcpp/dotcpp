@@ -24,6 +24,7 @@ limitations under the License.
 #include <cl/dotcpp/main/implement.hpp>
 #include <cl/dotcpp/main/system/Int.hpp>
 #include <cl/dotcpp/main/system/String.hpp>
+#include <cl/dotcpp/main/system/Type.hpp>
 
 namespace cl
 {
@@ -47,5 +48,15 @@ namespace cl
     String IntImpl::ToString()
     {
         return std::to_string(value_);
+    }
+
+    Type IntImpl::typeof()
+    {
+        return cl::typeof<int>();
+    }
+
+    Type IntImpl::GetType()
+    {
+        return typeof();
     }
 }
