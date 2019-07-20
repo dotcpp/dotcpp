@@ -177,7 +177,7 @@ namespace cl
         TypeBuilder WithBase()
         {
             if (!(this->base_.IsEmpty()))
-                throw Exception("Base already defined in class " + fullName_);
+                throw new_Exception("Base already defined in class " + fullName_);
 
             this->base_ = cl::typeof<Class>();
             return this;
