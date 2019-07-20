@@ -52,8 +52,8 @@ namespace cl
 
     public: // REFLECTION
 
-        virtual Type GetType();
-        static Type typeof() override;
+        static Type typeof();
+        virtual Type GetType() override;
     };
 
     /// <summary>
