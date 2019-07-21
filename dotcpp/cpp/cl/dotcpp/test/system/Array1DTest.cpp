@@ -118,6 +118,6 @@ namespace cl
         auto type = obj->GetType();
         String fullname = type->FullName;
 
-        REQUIRE(type->ToString() == "System.T[]"); // TODO provide custom logic to resolve T[] into specific name
+        REQUIRE(type->ToString() == "System.Double[]");
     }
 }
