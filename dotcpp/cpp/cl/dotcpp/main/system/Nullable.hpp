@@ -73,17 +73,17 @@ namespace cl
 
         /// <summary>Retrieves the value of the current Nullable object,
         /// or the default value of the underlying type.</summary>
-        T GetValueOrDefault() { return GetValueOrDefault(T()); }
+        T GetValueOrDefault() const { return GetValueOrDefault(T()); }
 
         /// <summary>Retrieves the value of the current Nullable<T> object,
         /// or the specified default value.</summary>
-        T GetValueOrDefault(T defaultValue) { return value_or(defaultValue); }
+        T GetValueOrDefault(T defaultValue) const { return value_or(defaultValue); }
 
     public: // OPERATORS
 
         /// <summary>Defines an explicit conversion of a Nullable
         /// instance to its underlying value.</summary>
-        explicit operator T() { return Value; }
+        explicit operator T() const { return Value; }
 
         bool operator ==(T rhs) { return GetValueOrDefault() == rhs; }
         bool operator ==(Nullable<T> rhs) { return GetValueOrDefault() == rhs.GetValueOrDefault(); }
@@ -143,11 +143,11 @@ namespace cl
 
         /// <summary>Retrieves the value of the current Nullable object,
         /// or the default value of the underlying type.</summary>
-        bool GetValueOrDefault() { return GetValueOrDefault(bool()); }
+        bool GetValueOrDefault() const { return GetValueOrDefault(bool()); }
 
         /// <summary>Retrieves the value of the current Nullable<T> object,
         /// or the specified default value.</summary>
-        bool GetValueOrDefault(bool defaultValue) { return HasValue ? value_ : defaultValue; }
+        bool GetValueOrDefault(bool defaultValue) const { return HasValue ? value_ : defaultValue; }
 
         /// <summary>Clear the value and revert to uninitialized (empty) state.</summary>
         void Clear() { value_ = Bool::Empty; }
@@ -155,7 +155,7 @@ namespace cl
     public: // OPERATORS
 
         /// <summary>Convert to native bool, error if the object is in uninitialized (empty) state.</summary>
-        explicit operator bool() { return Value; }
+        explicit operator bool() const { return Value; }
 
         /// <summary>Assign native bool.</summary>
         Nullable& operator=(bool rhs) { value_ = rhs ? 1 : 0; return *this; }
@@ -212,11 +212,11 @@ namespace cl
 
         /// <summary>Retrieves the value of the current Nullable object,
         /// or the default value of the underlying type.</summary>
-        int GetValueOrDefault() { return GetValueOrDefault(int()); }
+        int GetValueOrDefault() const { return GetValueOrDefault(int()); }
 
         /// <summary>Retrieves the value of the current Nullable<T> object,
         /// or the specified default value.</summary>
-        int GetValueOrDefault(bool defaultValue) { return HasValue ? value_ : defaultValue; }
+        int GetValueOrDefault(int defaultValue) const { return HasValue ? value_ : defaultValue; }
 
         /// <summary>Clear the value and revert to uninitialized (empty) state.</summary>
         void Clear() { value_ = Int::Empty; }
@@ -224,7 +224,7 @@ namespace cl
     public: // OPERATORS
 
         /// <summary>Convert to native int, error if the object is in uninitialized (empty) state.</summary>
-        explicit operator int() { return Value; }
+        explicit operator int() const { return Value; }
 
         /// <summary>
         /// Assign native int.
@@ -286,11 +286,11 @@ namespace cl
 
         /// <summary>Retrieves the value of the current Nullable object,
         /// or the default value of the underlying type.</summary>
-        int64_t GetValueOrDefault() { return GetValueOrDefault(int64_t()); }
+        int64_t GetValueOrDefault() const { return GetValueOrDefault(int64_t()); }
 
         /// <summary>Retrieves the value of the current Nullable<T> object,
         /// or the specified default value.</summary>
-        int64_t GetValueOrDefault(bool defaultValue) { return HasValue ? value_ : defaultValue; }
+        int64_t GetValueOrDefault(int64_t defaultValue) const { return HasValue ? value_ : defaultValue; }
 
         /// <summary>Clear the value and revert to uninitialized (empty) state.</summary>
         void Clear() { value_ = Long::Empty; }
@@ -298,7 +298,7 @@ namespace cl
     public: // OPERATORS
 
         /// <summary>Convert to native long, error if the object is in uninitialized (empty) state.</summary>
-        explicit operator int64_t() { return Value; }
+        explicit operator int64_t() const { return Value; }
 
         /// <summary>
         /// Assign native long.
@@ -359,11 +359,11 @@ namespace cl
 
         /// <summary>Retrieves the value of the current Nullable object,
         /// or the default value of the underlying type.</summary>
-        double GetValueOrDefault() { return GetValueOrDefault(double()); }
+        double GetValueOrDefault() const { return GetValueOrDefault(double()); }
 
         /// <summary>Retrieves the value of the current Nullable<T> object,
         /// or the specified default value.</summary>
-        double GetValueOrDefault(bool defaultValue) { return HasValue ? value_ : defaultValue; }
+        double GetValueOrDefault(double defaultValue) const { return HasValue ? value_ : defaultValue; }
 
         /// <summary>Clear the value and revert to uninitialized (empty) state.</summary>
         void Clear() { value_ = Double::Empty; }
@@ -371,7 +371,7 @@ namespace cl
     public: // OPERATORS
 
         /// <summary>Convert to native double, error if the object is in null (empty) state.</summary>
-        explicit operator double() { return Value; }
+        explicit operator double() const { return Value; }
 
         /// <summary>
         /// Assign native double.
@@ -381,8 +381,8 @@ namespace cl
         /// </summary>
         Nullable& operator=(double rhs) { value_ = rhs; return *this; }
 
-        bool operator ==(double rhs) { return value_ == rhs; }
-        bool operator ==(Nullable<double> rhs) { return value_ == rhs.GetValueOrDefault(); }
+        bool operator ==(double rhs) const { return value_ == rhs; }
+        bool operator ==(Nullable<double> rhs) const { return value_ == rhs.GetValueOrDefault(); }
 
     };
 }

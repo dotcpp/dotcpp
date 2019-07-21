@@ -460,6 +460,12 @@ namespace cl
         static inline std::string convert(const Ptr<T>& o) { return *o->ToString(); }
     };
 
+    /// <summary>Helper class for fmt::format arguments conversion</summary>
+    template<class T>
+    struct format_forward<Nullable<T>> {
+        static inline T convert(const Nullable<T>& o) { return o.GetValueOrDefault(); }
+    };
+
     template<typename ...Args>
     String String::Format(const String& format, const Args& ...args)
     {
