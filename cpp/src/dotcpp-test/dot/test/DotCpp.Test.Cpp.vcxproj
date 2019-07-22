@@ -12,11 +12,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="nodatime\LocalDateTest.cpp" />
-    <ClCompile Include="nodatime\LocalDateTimeTest.cpp" />
-    <ClCompile Include="nodatime\LocalMinuteTest.cpp" />
-    <ClCompile Include="nodatime\LocalTimeTest.cpp" />
-    <ClCompile Include="nodatime\PeriodTest.cpp" />
+    <ClCompile Include="noda_time\LocalDateTest.cpp" />
+    <ClCompile Include="noda_time\LocalDateTimeTest.cpp" />
+    <ClCompile Include="noda_time\LocalMinuteTest.cpp" />
+    <ClCompile Include="noda_time\LocalTimeTest.cpp" />
+    <ClCompile Include="noda_time\PeriodTest.cpp" />
     <ClCompile Include="system\Array1DTest.cpp" />
     <ClCompile Include="system\BoxingTest.cpp" />
     <ClCompile Include="system\collections\generic\DictionaryTest.cpp" />

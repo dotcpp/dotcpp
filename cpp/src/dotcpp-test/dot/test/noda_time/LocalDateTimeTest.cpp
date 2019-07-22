@@ -25,10 +25,10 @@ limitations under the License.
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <dot/system/String.hpp>
-#include <dot/nodatime/Period.hpp>
-#include <dot/nodatime/LocalTime.hpp>
-#include <dot/nodatime/LocalDate.hpp>
-#include <dot/nodatime/LocalDateTime.hpp>
+#include <dot/noda_time/Period.hpp>
+#include <dot/noda_time/LocalTime.hpp>
+#include <dot/noda_time/LocalDate.hpp>
+#include <dot/noda_time/LocalDateTime.hpp>
 
 namespace dot
 {

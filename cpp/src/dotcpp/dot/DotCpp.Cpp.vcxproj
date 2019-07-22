@@ -11,11 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="nodatime\LocalDate.cpp" />
-    <ClCompile Include="nodatime\LocalDateTime.cpp" />
-    <ClCompile Include="nodatime\LocalMinute.cpp" />
-    <ClCompile Include="nodatime\LocalTime.cpp" />
-    <ClCompile Include="nodatime\Period.cpp" />
+    <ClCompile Include="noda_time\LocalDate.cpp" />
+    <ClCompile Include="noda_time\LocalDateTime.cpp" />
+    <ClCompile Include="noda_time\LocalMinute.cpp" />
+    <ClCompile Include="noda_time\LocalTime.cpp" />
+    <ClCompile Include="noda_time\Period.cpp" />
     <ClCompile Include="system\Bool.cpp" />
     <ClCompile Include="system\Char.cpp" />
     <ClCompile Include="system\collections\IObjectCollection.cpp" />
@@ -44,11 +44,11 @@
     <ClInclude Include="detail\traits.hpp" />
     <ClInclude Include="implement.hpp" />
     <ClInclude Include="import.hpp" />
-    <ClInclude Include="nodatime\LocalDate.hpp" />
-    <ClInclude Include="nodatime\LocalDateTime.hpp" />
-    <ClInclude Include="nodatime\LocalMinute.hpp" />
-    <ClInclude Include="nodatime\LocalTime.hpp" />
-    <ClInclude Include="nodatime\Period.hpp" />
+    <ClInclude Include="noda_time\LocalDate.hpp" />
+    <ClInclude Include="noda_time\LocalDateTime.hpp" />
+    <ClInclude Include="noda_time\LocalMinute.hpp" />
+    <ClInclude Include="noda_time\LocalTime.hpp" />
+    <ClInclude Include="noda_time\Period.hpp" />
     <ClInclude Include="system\Array.hpp" />
     <ClInclude Include="system\Array1D.hpp" />
     <ClInclude Include="system\Bool.hpp" />

@@ -34,9 +34,9 @@ limitations under the License.
 #include <dot/system/reflection/MethodInfo.hpp>
 #include <dot/system/reflection/ParameterInfo.hpp>
 #include <dot/system/reflection/PropertyInfo.hpp>
-#include <dot/nodatime/LocalDate.hpp>
-#include <dot/nodatime/LocalTime.hpp>
-#include <dot/nodatime/LocalDateTime.hpp>
+#include <dot/noda_time/LocalDate.hpp>
+#include <dot/noda_time/LocalTime.hpp>
+#include <dot/noda_time/LocalDateTime.hpp>
 
 namespace dot
 {

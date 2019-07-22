@@ -22,10 +22,10 @@ limitations under the License.
 */
 
 #include <dot/implement.hpp>
-#include <dot/nodatime/LocalDateTime.hpp>
-#include <dot/nodatime/Period.hpp>
-#include <dot/nodatime/LocalTime.hpp>
-#include <dot/nodatime/LocalDate.hpp>
+#include <dot/noda_time/LocalDateTime.hpp>
+#include <dot/noda_time/Period.hpp>
+#include <dot/noda_time/LocalTime.hpp>
+#include <dot/noda_time/LocalDate.hpp>
 #include <dot/system/Object.hpp>
 #include <dot/system/String.hpp>
 

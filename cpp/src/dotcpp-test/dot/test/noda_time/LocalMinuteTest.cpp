@@ -25,8 +25,8 @@ limitations under the License.
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <dot/system/String.hpp>
-#include <dot/nodatime/LocalMinute.hpp>
-#include <dot/nodatime/LocalTime.hpp>
+#include <dot/noda_time/LocalMinute.hpp>
+#include <dot/noda_time/LocalTime.hpp>
 
 namespace dot
 {

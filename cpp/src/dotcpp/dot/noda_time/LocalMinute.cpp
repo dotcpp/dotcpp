@@ -22,8 +22,8 @@ limitations under the License.
 */
 
 #include <dot/implement.hpp>
-#include <dot/nodatime/LocalMinute.hpp>
-#include <dot/nodatime/LocalTime.hpp>
+#include <dot/noda_time/LocalMinute.hpp>
+#include <dot/noda_time/LocalTime.hpp>
 #include <dot/system/String.hpp>
 
 namespace dot
