@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cl.DotCpp.Test.Cs", "dotcpp\cs\Cl\DotCpp\Test\Cl.DotCpp.Test.Cs.csproj", "{C0498D1B-12D3-40F0-A1BF-1FA22120D0C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotCpp.Test.Cs", "src\DotCpp.Test\DotCpp.Test.Cs.csproj", "{C0498D1B-12D3-40F0-A1BF-1FA22120D0C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
