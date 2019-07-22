@@ -28,7 +28,7 @@ limitations under the License.
 #include <dot/system/String.hpp>
 #include <dot/system/Environment.hpp>
 
-namespace cl
+namespace dot
 {
     class StringBuilderImpl; using StringBuilder = Ptr<StringBuilderImpl>;
 

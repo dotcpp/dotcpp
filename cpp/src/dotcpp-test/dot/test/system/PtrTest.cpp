@@ -27,7 +27,7 @@ limitations under the License.
 #include <dot/system/String.hpp>
 #include <dot/system/Object.hpp>
 
-namespace cl
+namespace dot
 {
     class BaseImpl : public virtual ObjectImpl
     {

@@ -26,7 +26,7 @@ limitations under the License.
 #include <approvals/Catch.hpp>
 #include <dot/system/Console.hpp>
 
-namespace cl
+namespace dot
 {
     TEST_CASE("Format")
     {

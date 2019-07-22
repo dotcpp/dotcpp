@@ -27,7 +27,7 @@ limitations under the License.
 #include <dot/system/Ptr.hpp>
 #include <dot/system/collections/IObjectEnumerable.hpp>
 
-namespace cl
+namespace dot
 {
     class IObjectCollectionImpl; using IObjectCollection = Ptr<IObjectCollectionImpl>;
     class TypeImpl; using Type = Ptr<TypeImpl>;

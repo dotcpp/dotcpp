@@ -23,7 +23,7 @@ limitations under the License.
 
 #pragma once
 
-namespace cl
+namespace dot
 {
     /// <summary>
     /// All classes with reference semantics should derive from this type.

@@ -25,7 +25,7 @@ limitations under the License.
 
 #include <dot/system/collections/generic/IList.hpp>
 
-namespace cl
+namespace dot
 {
     /// <summary>
     /// Common base to List(T) and Array1D(T)

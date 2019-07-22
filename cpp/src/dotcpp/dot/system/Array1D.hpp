@@ -29,7 +29,7 @@ limitations under the License.
 #include <dot/system/collections/IObjectCollection.hpp>
 
 
-namespace cl
+namespace dot
 {
     template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
 

@@ -26,7 +26,7 @@ limitations under the License.
 
 #include <dot/declare.hpp>
 
-namespace cl
+namespace dot
 {
     namespace detail
     {

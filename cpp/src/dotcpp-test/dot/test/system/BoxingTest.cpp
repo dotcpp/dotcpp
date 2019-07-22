@@ -33,7 +33,7 @@ limitations under the License.
 #include <dot/nodatime/LocalDateTime.hpp>
 #include <dot/system/Type.hpp>
 
-namespace cl
+namespace dot
 {
     TEST_CASE("Smoke")
     {

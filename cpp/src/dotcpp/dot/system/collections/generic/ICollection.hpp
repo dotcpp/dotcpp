@@ -25,7 +25,7 @@ limitations under the License.
 
 #include <dot/system/collections/generic/IEnumerable.hpp>
 
-namespace cl
+namespace dot
 {
     template <class T> class ICollectionImpl; template <class T> using ICollection = Ptr<ICollectionImpl<T>>;
 

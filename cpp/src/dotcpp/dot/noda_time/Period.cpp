@@ -27,7 +27,7 @@ limitations under the License.
 #include <dot/nodatime/LocalDate.hpp>
 #include <dot/nodatime/LocalDateTime.hpp>
 
-namespace cl
+namespace dot
 {
     Period::Period(const time_duration& d)
         : time_duration(d)

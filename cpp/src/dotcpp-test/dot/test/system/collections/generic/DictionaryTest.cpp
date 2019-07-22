@@ -28,7 +28,7 @@ limitations under the License.
 #include <dot/system/collections/generic/Dictionary.hpp>
 #include <dot/system/Type.hpp>
 
-namespace cl
+namespace dot
 {
     Dictionary<String, String> CreateDictionary()
     {

@@ -29,7 +29,7 @@ limitations under the License.
 #include <dot/system/collections/generic/IEnumerable.hpp>
 #include <dot/system/collections/generic/IEnumerator.hpp>
 
-namespace cl
+namespace dot
 {
     ///!! Provide description Adapter class from STL deque to .NET Queue. std::deque used as container to make possible Conataints(T item) and GetEnumerator() implementation
     template <class T>

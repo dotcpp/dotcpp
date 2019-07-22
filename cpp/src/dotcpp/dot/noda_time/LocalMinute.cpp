@@ -26,7 +26,7 @@ limitations under the License.
 #include <dot/nodatime/LocalTime.hpp>
 #include <dot/system/String.hpp>
 
-namespace cl
+namespace dot
 {
     LocalMinute::LocalMinute(int hour, int minute)
     {

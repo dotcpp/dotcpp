@@ -25,7 +25,7 @@ limitations under the License.
 
 #include <dot/declare.hpp>
 
-namespace cl
+namespace dot
 {
     /// <summary>Specifies whether applicable String.split(...) method overloads
     /// include or omit empty substrings from the return value.</summary>

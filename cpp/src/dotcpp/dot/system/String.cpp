@@ -28,7 +28,7 @@ limitations under the License.
 #include <dot/system/Object.hpp>
 #include <dot/system/Type.hpp>
 
-namespace cl
+namespace dot
 {
     /// <summary>Empty string.</summary>
     String String::Empty = new_String("");

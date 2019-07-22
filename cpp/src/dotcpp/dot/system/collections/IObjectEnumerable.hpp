@@ -28,7 +28,7 @@ limitations under the License.
 #include <dot/system/Object.hpp>
 #include <dot/detail/object_iterator.hpp>
 
-namespace cl
+namespace dot
 {
     class IObjectEnumerableImpl; using IObjectEnumerable = Ptr<IObjectEnumerableImpl>;
     class TypeImpl; using Type = Ptr<TypeImpl>;

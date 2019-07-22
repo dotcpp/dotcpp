@@ -39,7 +39,7 @@ limitations under the License.
 #include <dot/system/collections/generic/List.hpp>
 
 
-namespace cl
+namespace dot
 {
     static std::stringstream received;
 

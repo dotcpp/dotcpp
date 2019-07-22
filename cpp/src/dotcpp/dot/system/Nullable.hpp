@@ -31,7 +31,7 @@ limitations under the License.
 #include <dot/system/Double.hpp>
 #include <dot/system/Object.hpp>
 
-namespace cl
+namespace dot
 {
     /// <summary>Represents a value type that can be assigned null.</summary>
     template <class T>

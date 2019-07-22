@@ -28,7 +28,7 @@ limitations under the License.
 #include <dot/system/ObjectImpl.hpp>
 #include <dot/system/Exception.hpp>
 
-namespace cl
+namespace dot
 {
     template <class T> class Nullable;
     class LocalTime;

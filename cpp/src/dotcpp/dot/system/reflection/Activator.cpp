@@ -32,7 +32,7 @@ limitations under the License.
 #include <dot/system/reflection/ConstructorInfo.hpp>
 #include <dot/system/reflection/PropertyInfo.hpp>
 
-namespace cl
+namespace dot
 {
     Object Activator::CreateInstance(Type type)
     {

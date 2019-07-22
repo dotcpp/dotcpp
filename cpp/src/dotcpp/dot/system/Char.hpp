@@ -27,7 +27,7 @@ limitations under the License.
 #include <dot/detail/const_string_base.hpp>
 #include <dot/system/ObjectImpl.hpp>
 
-namespace cl
+namespace dot
 {
     /// <summary>
     /// Represents a single character of a UTF-8 string.

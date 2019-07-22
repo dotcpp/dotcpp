@@ -38,7 +38,7 @@ limitations under the License.
 #include <dot/nodatime/LocalTime.hpp>
 #include <dot/nodatime/LocalDateTime.hpp>
 
-namespace cl
+namespace dot
 {
     class StringImpl; class String;
     class TypeImpl; using Type = Ptr<TypeImpl>;

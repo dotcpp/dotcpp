@@ -28,7 +28,7 @@ limitations under the License.
 #include <dot/system/Exception.hpp>
 #include <dot/detail/traits.hpp>
 
-namespace cl
+namespace dot
 {
     class MethodInfoImpl; using MethodInfo = Ptr<MethodInfoImpl>;
     class TypeImpl; using Type = Ptr<TypeImpl>;

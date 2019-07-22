@@ -27,7 +27,7 @@ limitations under the License.
 #include <dot/system/Int.hpp>
 #include <dot/system/ObjectImpl.hpp>
 
-namespace cl
+namespace dot
 {
     /// <summary>
     /// Wrapper for int where default constructor creates uninitialized

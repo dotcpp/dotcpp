@@ -27,7 +27,7 @@ limitations under the License.
 #include <dot/system/Long.hpp>
 #include <dot/system/ObjectImpl.hpp>
 
-namespace cl
+namespace dot
 {
     /// <summary>
     /// Wrapper for int64_t where default constructor creates uninitialized

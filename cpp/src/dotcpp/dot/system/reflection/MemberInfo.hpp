@@ -25,7 +25,7 @@ limitations under the License.
 
 #include <dot/system/Object.hpp>
 
-namespace cl
+namespace dot
 {
     class MemberInfoImpl; using MemberInfo = Ptr<MemberInfoImpl>;
     class MemberInfoDataImpl; using MemberInfoData = Ptr<MemberInfoDataImpl>;

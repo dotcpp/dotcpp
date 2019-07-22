@@ -27,7 +27,7 @@ limitations under the License.
 #include <dot/system/text/StringBuilder.hpp>
 #include <dot/system/Exception.hpp>
 
-namespace cl
+namespace dot
 {
     TEST_CASE("Smoke")
     {

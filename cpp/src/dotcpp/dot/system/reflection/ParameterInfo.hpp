@@ -25,7 +25,7 @@ limitations under the License.
 
 #include <dot/system/reflection/MemberInfo.hpp>
 
-namespace cl
+namespace dot
 {
     class ParameterInfoImpl; using ParameterInfo = Ptr<ParameterInfoImpl>;
 

@@ -27,7 +27,7 @@ limitations under the License.
 #include <boost/date_time/gregorian/gregorian.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 
-namespace cl
+namespace dot
 {
     using boost::posix_time::ptime;
     using boost::posix_time::time_duration;

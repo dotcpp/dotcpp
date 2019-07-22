@@ -26,7 +26,7 @@ limitations under the License.
 #include <dot/system/collections/generic/IList.hpp>
 #include <dot/system/collections/IObjectCollection.hpp>
 
-namespace cl
+namespace dot
 {
     template <class T> class ListImpl; template <class T> using List = Ptr<ListImpl<T>>;
     class TypeBuilderImpl; using TypeBuilder = Ptr<TypeBuilderImpl>;

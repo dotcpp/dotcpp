@@ -25,7 +25,7 @@ limitations under the License.
 #include <dot/system/Exception.hpp>
 #include <dot/system/String.hpp>
 
-namespace cl
+namespace dot
 {
     /// <summary>Create with default message.</summary>
     Exception::Exception() : base("Exception of type 'System.Exception' was thrown.") {}

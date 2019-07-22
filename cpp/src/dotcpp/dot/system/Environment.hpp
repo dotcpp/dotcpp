@@ -27,7 +27,7 @@ limitations under the License.
 #include <fmt/core.h>
 #include <dot/system/String.hpp>
 
-namespace cl
+namespace dot
 {
     /// <summary>
     /// Provides information about, and means to manipulate, the current environment and platform.

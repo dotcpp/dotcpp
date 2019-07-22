@@ -26,7 +26,7 @@ limitations under the License.
 #include <dot/system/Object.hpp>
 #include <dot/detail/iterator.hpp>
 
-namespace cl
+namespace dot
 {
     template <class T> class IEnumeratorImpl; template <class T> using IEnumerator = Ptr<IEnumeratorImpl<T>>;
 

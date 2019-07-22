@@ -27,7 +27,7 @@ limitations under the License.
 #include <dot/system/String.hpp>
 #include "cl/dotcpp/main/system/text/StringBuilder.hpp"
 
-namespace cl
+namespace dot
 {
     static std::stringstream received;
 

@@ -26,7 +26,7 @@ limitations under the License.
 #include <dot/system/Exception.hpp>
 #include <dot/system/reflection/MemberInfo.hpp>
 
-namespace cl
+namespace dot
 {
     class PropertyInfoImpl; using PropertyInfo = Ptr<PropertyInfoImpl>;
     template <class PropType, class Class> class PropertyInfoDataImpl; template <class PropType, class Class> using PropertyInfoData = Ptr<PropertyInfoDataImpl<PropType, Class>>;

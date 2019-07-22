@@ -26,7 +26,7 @@ limitations under the License.
 #include <dot/declare.hpp>
 #include <dot/detail/reference_counter.hpp>
 
-namespace cl
+namespace dot
 {
     class Null;
 

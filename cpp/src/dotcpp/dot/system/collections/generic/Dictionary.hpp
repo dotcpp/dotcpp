@@ -28,7 +28,7 @@ limitations under the License.
 #include <dot/system/collections/generic/IDictionary.hpp>
 #include <dot/system/collections/generic/List.hpp>
 
-namespace cl
+namespace dot
 {
     template <class TKey, class TValue> class DictionaryImpl;
     template <class TKey, class TValue> using Dictionary = Ptr<DictionaryImpl<TKey, TValue>>;

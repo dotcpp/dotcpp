@@ -27,7 +27,7 @@ limitations under the License.
 #include <dot/system/reflection/ParameterInfo.hpp>
 #include <dot/system/Exception.hpp>
 
-namespace cl
+namespace dot
 {
     class ConstructorInfoImpl; using ConstructorInfo = Ptr<ConstructorInfoImpl>;
     class TypeImpl; using Type = Ptr<TypeImpl>;

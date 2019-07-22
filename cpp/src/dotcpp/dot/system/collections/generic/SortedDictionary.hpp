@@ -30,7 +30,7 @@ limitations under the License.
 #include <dot/system/collections/generic/IEnumerator.hpp>
 #include <dot/system/collections/generic/List.hpp>
 
-namespace cl
+namespace dot
 {
     template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
 

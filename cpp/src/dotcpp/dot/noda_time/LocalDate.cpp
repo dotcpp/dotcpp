@@ -28,7 +28,7 @@ limitations under the License.
 #include <dot/nodatime/LocalDateTime.hpp>
 #include <dot/system/String.hpp>
 
-namespace cl
+namespace dot
 {
     /// <summary>
     /// Because in C\# LocalDate is a struct, it has default constructor

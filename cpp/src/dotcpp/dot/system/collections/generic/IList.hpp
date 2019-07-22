@@ -25,7 +25,7 @@ limitations under the License.
 
 #include <dot/system/collections/generic/ICollection.hpp>
 
-namespace cl
+namespace dot
 {
     template <class T> class IListImpl; template <class T> using IList = Ptr<IListImpl<T>>;
 

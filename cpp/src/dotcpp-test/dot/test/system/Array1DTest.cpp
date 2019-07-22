@@ -28,7 +28,7 @@ limitations under the License.
 #include <dot/system/Array1D.hpp>
 #include <dot/system/Object.hpp>
 
-namespace cl
+namespace dot
 {
     /// <summary>Sort vector in ascending order.</summary>
     static void SortDoubleVector(std::vector<double>& v)

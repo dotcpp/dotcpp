@@ -27,7 +27,7 @@ limitations under the License.
 #include <dot/system/String.hpp>
 #include <dot/system/Type.hpp>
 
-namespace cl
+namespace dot
 {
     /// <summary>
     /// Determines whether the specified object is equal to the current object.

@@ -32,7 +32,7 @@ limitations under the License.
 #include <dot/system/collections/generic/List.hpp>
 #include <dot/system/String.hpp>
 
-namespace cl
+namespace dot
 {
     /// <summary>Built Type from the current object.</summary>
     Type TypeBuilderImpl::Build()

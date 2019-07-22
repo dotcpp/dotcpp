@@ -26,7 +26,7 @@ limitations under the License.
 #include <dot/declare.hpp>
 #include <dot/system/ObjectImpl.hpp>
 
-namespace cl
+namespace dot
 {
     class ArrayImpl;
 

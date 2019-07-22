@@ -25,7 +25,7 @@ limitations under the License.
 #include <dot/system/collections/IObjectCollection.hpp>
 #include <dot/system/Type.hpp>
 
-namespace cl
+namespace dot
 {
     Type IObjectCollectionImpl::typeof()
     {

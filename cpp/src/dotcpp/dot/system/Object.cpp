@@ -30,7 +30,7 @@ limitations under the License.
 #include <dot/nodatime/LocalDate.hpp>
 #include <dot/nodatime/LocalDateTime.hpp>
 
-namespace cl
+namespace dot
 {
 
     /// <summary>Construct Object from nullptr.</summary>

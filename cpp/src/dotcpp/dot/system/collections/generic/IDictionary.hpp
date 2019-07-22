@@ -25,7 +25,7 @@ limitations under the License.
 
 #include <dot/system/collections/generic/ICollection.hpp>
 
-namespace cl
+namespace dot
 {
     template <class TKey, class TValue> class IDictionaryImpl;
     template <class TKey, class TValue> using IDictionary = Ptr<IDictionaryImpl<TKey, TValue>>;

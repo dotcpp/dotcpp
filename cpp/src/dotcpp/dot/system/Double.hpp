@@ -26,7 +26,7 @@ limitations under the License.
 #include <dot/declare.hpp>
 #include <dot/system/ObjectImpl.hpp>
 
-namespace cl
+namespace dot
 {
     /// <summary>Wrapper around double to make it convertible to Object (boxing).</summary>
     class DoubleImpl : public virtual ObjectImpl

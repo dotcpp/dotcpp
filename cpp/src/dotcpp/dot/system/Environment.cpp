@@ -24,7 +24,7 @@ limitations under the License.
 #include <dot/implement.hpp>
 #include <dot/system/Environment.hpp>
 
-namespace cl
+namespace dot
 {
     // TODO - detect OS type and change?
     String Environment::NewLine = new_String("\n");

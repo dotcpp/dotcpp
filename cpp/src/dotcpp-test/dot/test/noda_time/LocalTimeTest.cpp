@@ -30,7 +30,7 @@ limitations under the License.
 #include <dot/nodatime/LocalDate.hpp>
 #include <dot/nodatime/LocalDateTime.hpp>
 
-namespace cl
+namespace dot
 {
     TEST_CASE("Constructors")
     {

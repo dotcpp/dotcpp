@@ -27,7 +27,7 @@ limitations under the License.
 #include <dot/system/Object.hpp>
 #include <dot/system/String.hpp>
 
-namespace cl
+namespace dot
 {
     TEST_CASE("Clear Object")
     {

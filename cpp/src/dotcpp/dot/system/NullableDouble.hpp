@@ -27,7 +27,7 @@ limitations under the License.
 #include <dot/system/Double.hpp>
 #include <dot/system/ObjectImpl.hpp>
 
-namespace cl
+namespace dot
 {
     /// <summary>
     /// Nullable double is initialized to null (empty) by default ctor.

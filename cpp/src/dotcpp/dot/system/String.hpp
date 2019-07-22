@@ -30,7 +30,7 @@ limitations under the License.
 #include <dot/system/Char.hpp>
 #include <dot/system/Object.hpp>
 
-namespace cl
+namespace dot
 {
     class StringImpl; class String;
     template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;

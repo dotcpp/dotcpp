@@ -27,7 +27,7 @@ limitations under the License.
 #include <dot/system/Bool.hpp>
 #include <dot/system/ObjectImpl.hpp>
 
-namespace cl
+namespace dot
 {
     /// <summary>
     /// Wrapper for bool where default constructor creates uninitialized

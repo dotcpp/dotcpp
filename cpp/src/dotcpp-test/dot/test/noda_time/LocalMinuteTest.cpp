@@ -28,7 +28,7 @@ limitations under the License.
 #include <dot/nodatime/LocalMinute.hpp>
 #include <dot/nodatime/LocalTime.hpp>
 
-namespace cl
+namespace dot
 {
     TEST_CASE("Properties")
     {

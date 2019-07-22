@@ -29,7 +29,7 @@ limitations under the License.
 #include <dot/system/Object.hpp>
 #include <dot/system/String.hpp>
 
-namespace cl
+namespace dot
 {
     /// <summary>
     /// Because in C\# LocalDateTime is a struct, it has default constructor

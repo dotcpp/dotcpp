@@ -25,7 +25,7 @@ limitations under the License.
 
 #include <dot/declare.hpp>
 
-namespace cl
+namespace dot
 {
     class String;
     class StringImpl;

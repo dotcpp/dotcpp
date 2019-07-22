@@ -29,7 +29,7 @@ limitations under the License.
 #include <dot/nodatime/LocalTime.hpp>
 #include <dot/nodatime/LocalDate.hpp>
 
-namespace cl
+namespace dot
 {
     using boost::posix_time::ptime;
 

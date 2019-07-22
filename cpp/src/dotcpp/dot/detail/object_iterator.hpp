@@ -24,7 +24,7 @@ limitations under the License.
 #pragma once
 
 
-namespace cl
+namespace dot
 {
     namespace detail
     {

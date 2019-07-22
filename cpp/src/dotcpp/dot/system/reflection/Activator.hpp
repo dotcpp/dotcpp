@@ -26,7 +26,7 @@ limitations under the License.
 #include <dot/declare.hpp>
 #include <dot/system/Type.hpp>
 
-namespace cl
+namespace dot
 {
     /// <summary>
     /// Contains methods to create types of objects locally or remotely, or obtain 

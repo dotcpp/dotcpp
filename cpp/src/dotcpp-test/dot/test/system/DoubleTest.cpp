@@ -27,7 +27,7 @@ limitations under the License.
 #include <dot/system/String.hpp>
 #include <dot/system/Nullable.hpp>
 
-namespace cl
+namespace dot
 {
     TEST_CASE("Smoke")
     {

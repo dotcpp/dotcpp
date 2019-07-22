@@ -25,7 +25,7 @@ limitations under the License.
 
 #include <dot/declare.hpp>
 
-namespace cl
+namespace dot
 {
     /// <summary>
     /// Specifies flags that control binding and the way in which the
