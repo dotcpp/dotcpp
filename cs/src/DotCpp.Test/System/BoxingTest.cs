@@ -26,7 +26,7 @@ using Xunit;
 using Xunit.Sdk;
 using ApprovalTests;
 
-namespace Cl.DotCpp.Test
+namespace DotCpp
 {
     public class BoxingTest
     {

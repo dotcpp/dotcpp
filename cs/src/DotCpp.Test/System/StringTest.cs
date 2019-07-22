@@ -28,7 +28,7 @@ using Xunit.Sdk;
 using ApprovalTests;
 using ApprovalTests.Reporters;
 
-namespace Cl.DotCpp.Test
+namespace DotCpp
 {
     [UseReporter(typeof(DiffReporter))]
     public class StringTest

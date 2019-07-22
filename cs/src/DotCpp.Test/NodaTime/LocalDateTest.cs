@@ -29,7 +29,7 @@ using ApprovalTests.Reporters;
 using NodaTime;
 using NodaTime.Text;
 
-namespace Cl.DotCpp.Test
+namespace DotCpp
 {
     [UseReporter(typeof(DiffReporter))]
     public class LocalDateTest
