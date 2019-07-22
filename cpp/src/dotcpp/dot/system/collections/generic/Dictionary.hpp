@@ -24,9 +24,9 @@ limitations under the License.
 #pragma once
 
 #include <unordered_map>
-#include <cl/dotcpp/main/system/Exception.hpp>
-#include <cl/dotcpp/main/system/collections/generic/IDictionary.hpp>
-#include <cl/dotcpp/main/system/collections/generic/List.hpp>
+#include <dot/system/Exception.hpp>
+#include <dot/system/collections/generic/IDictionary.hpp>
+#include <dot/system/collections/generic/List.hpp>
 
 namespace cl
 {

@@ -23,10 +23,10 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/declare.hpp>
-#include <cl/dotcpp/main/system/Array.hpp>
-#include <cl/dotcpp/main/detail/array_base.hpp>
-#include <cl/dotcpp/main/system/collections/IObjectCollection.hpp>
+#include <dot/declare.hpp>
+#include <dot/system/Array.hpp>
+#include <dot/detail/array_base.hpp>
+#include <dot/system/collections/IObjectCollection.hpp>
 
 
 namespace cl

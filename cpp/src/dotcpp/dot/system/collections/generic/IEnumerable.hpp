@@ -23,7 +23,7 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/system/collections/generic/IEnumerator.hpp>
+#include <dot/system/collections/generic/IEnumerator.hpp>
 
 namespace cl
 {

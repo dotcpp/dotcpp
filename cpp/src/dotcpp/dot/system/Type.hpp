@@ -23,20 +23,20 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/detail/traits.hpp>
-#include <cl/dotcpp/main/detail/reflection_macro.hpp>
-#include <cl/dotcpp/main/system/Object.hpp>
-#include <cl/dotcpp/main/system/String.hpp>
-#include <cl/dotcpp/main/system/Nullable.hpp>
-#include <cl/dotcpp/main/system/Array1D.hpp>
-#include <cl/dotcpp/main/system/collections/generic/List.hpp>
-#include <cl/dotcpp/main/system/reflection/ConstructorInfo.hpp>
-#include <cl/dotcpp/main/system/reflection/MethodInfo.hpp>
-#include <cl/dotcpp/main/system/reflection/ParameterInfo.hpp>
-#include <cl/dotcpp/main/system/reflection/PropertyInfo.hpp>
-#include <cl/dotcpp/main/nodatime/LocalDate.hpp>
-#include <cl/dotcpp/main/nodatime/LocalTime.hpp>
-#include <cl/dotcpp/main/nodatime/LocalDateTime.hpp>
+#include <dot/detail/traits.hpp>
+#include <dot/detail/reflection_macro.hpp>
+#include <dot/system/Object.hpp>
+#include <dot/system/String.hpp>
+#include <dot/system/Nullable.hpp>
+#include <dot/system/Array1D.hpp>
+#include <dot/system/collections/generic/List.hpp>
+#include <dot/system/reflection/ConstructorInfo.hpp>
+#include <dot/system/reflection/MethodInfo.hpp>
+#include <dot/system/reflection/ParameterInfo.hpp>
+#include <dot/system/reflection/PropertyInfo.hpp>
+#include <dot/nodatime/LocalDate.hpp>
+#include <dot/nodatime/LocalTime.hpp>
+#include <dot/nodatime/LocalDateTime.hpp>
 
 namespace cl
 {

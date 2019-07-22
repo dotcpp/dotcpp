@@ -23,12 +23,12 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/system/collections/generic/List.hpp>
+#include <dot/system/collections/generic/List.hpp>
 #include <deque>
 
-#include <cl/dotcpp/main/system/collections/generic/ICollection.hpp>
-#include <cl/dotcpp/main/system/collections/generic/IEnumerable.hpp>
-#include <cl/dotcpp/main/system/collections/generic/IEnumerator.hpp>
+#include <dot/system/collections/generic/ICollection.hpp>
+#include <dot/system/collections/generic/IEnumerable.hpp>
+#include <dot/system/collections/generic/IEnumerator.hpp>
 
 namespace cl
 {

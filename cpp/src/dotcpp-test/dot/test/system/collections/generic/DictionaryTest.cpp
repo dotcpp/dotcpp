@@ -21,12 +21,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include <cl/dotcpp/test/implement.hpp>
+#include <dot/test/implement.hpp>
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
-#include <cl/dotcpp/main/system/String.hpp>
-#include <cl/dotcpp/main/system/collections/generic/Dictionary.hpp>
-#include <cl/dotcpp/main/system/Type.hpp>
+#include <dot/system/String.hpp>
+#include <dot/system/collections/generic/Dictionary.hpp>
+#include <dot/system/Type.hpp>
 
 namespace cl
 {

@@ -23,10 +23,10 @@ limitations under the License.
 
 #define FMT_HEADER_ONLY
 #include <fmt/format.h>
-#include <cl/dotcpp/main/implement.hpp>
-#include <cl/dotcpp/main/system/String.hpp>
-#include <cl/dotcpp/main/system/Object.hpp>
-#include <cl/dotcpp/main/system/Type.hpp>
+#include <dot/implement.hpp>
+#include <dot/system/String.hpp>
+#include <dot/system/Object.hpp>
+#include <dot/system/Type.hpp>
 
 namespace cl
 {

@@ -62,4 +62,4 @@ limitations under the License.
 #include <atomic>
 
 // DotCpp detail includes
-#include <cl/dotcpp/main/detail/property.hpp>
+#include <dot/detail/property.hpp>

@@ -23,7 +23,7 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/system/reflection/MemberInfo.hpp>
+#include <dot/system/reflection/MemberInfo.hpp>
 
 namespace cl
 {

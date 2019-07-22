@@ -23,10 +23,10 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/declare.hpp>
-#include <cl/dotcpp/main/system/Ptr.hpp>
-#include <cl/dotcpp/main/system/ObjectImpl.hpp>
-#include <cl/dotcpp/main/system/Exception.hpp>
+#include <dot/declare.hpp>
+#include <dot/system/Ptr.hpp>
+#include <dot/system/ObjectImpl.hpp>
+#include <dot/system/Exception.hpp>
 
 namespace cl
 {

@@ -23,7 +23,7 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/system/Object.hpp>
+#include <dot/system/Object.hpp>
 
 namespace cl
 {

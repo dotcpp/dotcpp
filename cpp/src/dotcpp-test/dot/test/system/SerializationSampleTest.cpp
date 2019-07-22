@@ -21,22 +21,22 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include <cl/dotcpp/test/implement.hpp>
+#include <dot/test/implement.hpp>
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <boost/core/typeinfo.hpp>
 #include <boost/core/demangle.hpp>
 #include <typeinfo>
 #include <iostream>
-#include <cl/dotcpp/main/system/Array1D.hpp>
-#include <cl/dotcpp/main/system/String.hpp>
-#include <cl/dotcpp/main/system/Exception.hpp>
-#include <cl/dotcpp/main/system/reflection/PropertyInfo.hpp>
-#include <cl/dotcpp/main/system/reflection/MethodInfo.hpp>
-#include <cl/dotcpp/main/system/reflection/ConstructorInfo.hpp>
-#include <cl/dotcpp/main/system/reflection/Activator.hpp>
-#include <cl/dotcpp/main/system/Type.hpp>
-#include <cl/dotcpp/main/system/collections/generic/List.hpp>
+#include <dot/system/Array1D.hpp>
+#include <dot/system/String.hpp>
+#include <dot/system/Exception.hpp>
+#include <dot/system/reflection/PropertyInfo.hpp>
+#include <dot/system/reflection/MethodInfo.hpp>
+#include <dot/system/reflection/ConstructorInfo.hpp>
+#include <dot/system/reflection/Activator.hpp>
+#include <dot/system/Type.hpp>
+#include <dot/system/collections/generic/List.hpp>
 
 
 namespace cl

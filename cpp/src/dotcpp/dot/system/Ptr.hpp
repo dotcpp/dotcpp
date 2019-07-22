@@ -23,8 +23,8 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/declare.hpp>
-#include <cl/dotcpp/main/detail/reference_counter.hpp>
+#include <dot/declare.hpp>
+#include <dot/detail/reference_counter.hpp>
 
 namespace cl
 {

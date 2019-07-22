@@ -23,8 +23,8 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/declare.hpp>
-#include <cl/dotcpp/main/system/Type.hpp>
+#include <dot/declare.hpp>
+#include <dot/system/Type.hpp>
 
 namespace cl
 {

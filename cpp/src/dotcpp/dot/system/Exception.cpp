@@ -21,9 +21,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include <cl/dotcpp/main/implement.hpp>
-#include <cl/dotcpp/main/system/Exception.hpp>
-#include <cl/dotcpp/main/system/String.hpp>
+#include <dot/implement.hpp>
+#include <dot/system/Exception.hpp>
+#include <dot/system/String.hpp>
 
 namespace cl
 {

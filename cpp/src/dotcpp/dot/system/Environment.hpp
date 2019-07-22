@@ -23,9 +23,9 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/declare.hpp>
+#include <dot/declare.hpp>
 #include <fmt/core.h>
-#include <cl/dotcpp/main/system/String.hpp>
+#include <dot/system/String.hpp>
 
 namespace cl
 {

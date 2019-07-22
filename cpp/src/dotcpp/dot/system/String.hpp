@@ -23,12 +23,12 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/declare.hpp>
+#include <dot/declare.hpp>
 #include <fmt/core.h>
-#include <cl/dotcpp/main/detail/const_string_base.hpp>
-#include <cl/dotcpp/main/system/Ptr.hpp>
-#include <cl/dotcpp/main/system/Char.hpp>
-#include <cl/dotcpp/main/system/Object.hpp>
+#include <dot/detail/const_string_base.hpp>
+#include <dot/system/Ptr.hpp>
+#include <dot/system/Char.hpp>
+#include <dot/system/Object.hpp>
 
 namespace cl
 {

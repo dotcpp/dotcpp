@@ -23,7 +23,7 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/detail/macro.hpp>
+#include <dot/detail/macro.hpp>
 
 namespace cl
 {

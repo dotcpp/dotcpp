@@ -21,12 +21,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include <cl/dotcpp/test/implement.hpp>
+#include <dot/test/implement.hpp>
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
-#include <cl/dotcpp/main/system/String.hpp>
-#include <cl/dotcpp/main/nodatime/LocalMinute.hpp>
-#include <cl/dotcpp/main/nodatime/LocalTime.hpp>
+#include <dot/system/String.hpp>
+#include <dot/nodatime/LocalMinute.hpp>
+#include <dot/nodatime/LocalTime.hpp>
 
 namespace cl
 {

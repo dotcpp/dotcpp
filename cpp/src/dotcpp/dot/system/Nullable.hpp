@@ -24,12 +24,12 @@ limitations under the License.
 #pragma once
 
 #include <optional>
-#include <cl/dotcpp/main/declare.hpp>
-#include <cl/dotcpp/main/system/Bool.hpp>
-#include <cl/dotcpp/main/system/Int.hpp>
-#include <cl/dotcpp/main/system/Long.hpp>
-#include <cl/dotcpp/main/system/Double.hpp>
-#include <cl/dotcpp/main/system/Object.hpp>
+#include <dot/declare.hpp>
+#include <dot/system/Bool.hpp>
+#include <dot/system/Int.hpp>
+#include <dot/system/Long.hpp>
+#include <dot/system/Double.hpp>
+#include <dot/system/Object.hpp>
 
 namespace cl
 {

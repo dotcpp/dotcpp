@@ -21,8 +21,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include <cl/dotcpp/main/implement.hpp>
-#include <cl/dotcpp/main/system/Environment.hpp>
+#include <dot/implement.hpp>
+#include <dot/system/Environment.hpp>
 
 namespace cl
 {

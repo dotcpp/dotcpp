@@ -23,7 +23,7 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/import.hpp>
+#include <dot/import.hpp>
 
 #ifndef CL_DOTCPP_MAIN
 #   define CL_DOTCPP_MAIN CL_DECLARE

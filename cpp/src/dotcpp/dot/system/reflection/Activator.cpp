@@ -21,16 +21,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include <cl/dotcpp/main/implement.hpp>
-#include <cl/dotcpp/main/system/reflection/Activator.hpp>
-#include <cl/dotcpp/main/system/ObjectImpl.hpp>
-#include <cl/dotcpp/main/system/Array1D.hpp>
-#include <cl/dotcpp/main/system/Exception.hpp>
-#include <cl/dotcpp/main/system/String.hpp>
-#include <cl/dotcpp/main/system/collections/generic/List.hpp>
-#include <cl/dotcpp/main/system/reflection/MethodInfo.hpp>
-#include <cl/dotcpp/main/system/reflection/ConstructorInfo.hpp>
-#include <cl/dotcpp/main/system/reflection/PropertyInfo.hpp>
+#include <dot/implement.hpp>
+#include <dot/system/reflection/Activator.hpp>
+#include <dot/system/ObjectImpl.hpp>
+#include <dot/system/Array1D.hpp>
+#include <dot/system/Exception.hpp>
+#include <dot/system/String.hpp>
+#include <dot/system/collections/generic/List.hpp>
+#include <dot/system/reflection/MethodInfo.hpp>
+#include <dot/system/reflection/ConstructorInfo.hpp>
+#include <dot/system/reflection/PropertyInfo.hpp>
 
 namespace cl
 {

@@ -23,7 +23,7 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/test/import.hpp>
+#include <dot/test/import.hpp>
 
 #ifndef CL_DOTCPP_TEST
 #   define CL_DOTCPP_TEST CL_DECLARE

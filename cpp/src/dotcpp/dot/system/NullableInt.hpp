@@ -23,9 +23,9 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/declare.hpp>
-#include <cl/dotcpp/main/system/Int.hpp>
-#include <cl/dotcpp/main/system/ObjectImpl.hpp>
+#include <dot/declare.hpp>
+#include <dot/system/Int.hpp>
+#include <dot/system/ObjectImpl.hpp>
 
 namespace cl
 {

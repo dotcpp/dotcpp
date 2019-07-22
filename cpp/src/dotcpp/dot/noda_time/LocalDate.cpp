@@ -21,12 +21,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include <cl/dotcpp/main/implement.hpp>
-#include <cl/dotcpp/main/nodatime/LocalDate.hpp>
-#include <cl/dotcpp/main/nodatime/Period.hpp>
-#include <cl/dotcpp/main/nodatime/LocalTime.hpp>
-#include <cl/dotcpp/main/nodatime/LocalDateTime.hpp>
-#include <cl/dotcpp/main/system/String.hpp>
+#include <dot/implement.hpp>
+#include <dot/nodatime/LocalDate.hpp>
+#include <dot/nodatime/Period.hpp>
+#include <dot/nodatime/LocalTime.hpp>
+#include <dot/nodatime/LocalDateTime.hpp>
+#include <dot/system/String.hpp>
 
 namespace cl
 {

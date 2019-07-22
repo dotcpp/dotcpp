@@ -23,7 +23,7 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/system/collections/generic/ICollection.hpp>
+#include <dot/system/collections/generic/ICollection.hpp>
 
 namespace cl
 {

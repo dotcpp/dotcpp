@@ -23,11 +23,11 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/declare.hpp>
+#include <dot/declare.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/date_time/gregorian/gregorian.hpp>
-#include <cl/dotcpp/main/nodatime/LocalTime.hpp>
-#include <cl/dotcpp/main/nodatime/LocalDate.hpp>
+#include <dot/nodatime/LocalTime.hpp>
+#include <dot/nodatime/LocalDate.hpp>
 
 namespace cl
 {

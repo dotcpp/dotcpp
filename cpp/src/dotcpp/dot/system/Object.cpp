@@ -21,14 +21,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include <cl/dotcpp/main/implement.hpp>
-#include <cl/dotcpp/main/system/Type.hpp>
-#include <cl/dotcpp/main/system/Object.hpp>
-#include <cl/dotcpp/main/system/String.hpp>
-#include <cl/dotcpp/main/system/Nullable.hpp>
-#include <cl/dotcpp/main/nodatime/LocalTime.hpp>
-#include <cl/dotcpp/main/nodatime/LocalDate.hpp>
-#include <cl/dotcpp/main/nodatime/LocalDateTime.hpp>
+#include <dot/implement.hpp>
+#include <dot/system/Type.hpp>
+#include <dot/system/Object.hpp>
+#include <dot/system/String.hpp>
+#include <dot/system/Nullable.hpp>
+#include <dot/nodatime/LocalTime.hpp>
+#include <dot/nodatime/LocalDate.hpp>
+#include <dot/nodatime/LocalDateTime.hpp>
 
 namespace cl
 {

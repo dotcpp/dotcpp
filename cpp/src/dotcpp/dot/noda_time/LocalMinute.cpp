@@ -21,10 +21,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include <cl/dotcpp/main/implement.hpp>
-#include <cl/dotcpp/main/nodatime/LocalMinute.hpp>
-#include <cl/dotcpp/main/nodatime/LocalTime.hpp>
-#include <cl/dotcpp/main/system/String.hpp>
+#include <dot/implement.hpp>
+#include <dot/nodatime/LocalMinute.hpp>
+#include <dot/nodatime/LocalTime.hpp>
+#include <dot/system/String.hpp>
 
 namespace cl
 {

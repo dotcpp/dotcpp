@@ -23,7 +23,7 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/system/collections/generic/IList.hpp>
+#include <dot/system/collections/generic/IList.hpp>
 
 namespace cl
 {

@@ -23,8 +23,8 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/system/Object.hpp>
-#include <cl/dotcpp/main/detail/iterator.hpp>
+#include <dot/system/Object.hpp>
+#include <dot/detail/iterator.hpp>
 
 namespace cl
 {

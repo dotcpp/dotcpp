@@ -23,8 +23,8 @@ limitations under the License.
 
 #pragma once
 
-#include <cl/dotcpp/main/system/Exception.hpp>
-#include <cl/dotcpp/main/system/reflection/MemberInfo.hpp>
+#include <dot/system/Exception.hpp>
+#include <dot/system/reflection/MemberInfo.hpp>
 
 namespace cl
 {
