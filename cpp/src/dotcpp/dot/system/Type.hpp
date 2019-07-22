@@ -83,7 +83,7 @@ namespace dot
              {
                  properties_ = new_List<PropertyInfo>();
              }
-             properties_->Add(new PropertyInfoPropertyImpl<Prop, Class>(name, type_, cl::typeof<typename Prop::value_type>(), prop));
+             properties_->Add(new PropertyInfoPropertyImpl<Prop, Class>(name, type_, dot::typeof<typename Prop::value_type>(), prop));
              return this;
         }
 
@@ -101,14 +101,14 @@ namespace dot
             }
 
             Array1D<ParameterInfo> parameters = new_Array1D<ParameterInfo>(sizeof...(Args));
-            std::vector<Type> paramTypes = { cl::typeof<Args>()... };
+            std::vector<Type> paramTypes = { dot::typeof<Args>()... };
 
             for (int i = 0; i < argsCount; ++i)
             {
                 parameters[i] = new_ParameterInfo(names[i], paramTypes[i], i);
             }
 
-            MethodInfo methodInfo_ = new MemberMethodInfoImpl<Class, Return, Args...>(name, type_, cl::typeof<Return>(), mth);
+            MethodInfo methodInfo_ = new MemberMethodInfoImpl<Class, Return, Args...>(name, type_, dot::typeof<Return>(), mth);
             methodInfo_->Parameters = parameters;
 
             methods_->Add(methodInfo_);
@@ -130,14 +130,14 @@ namespace dot
             }
 
             Array1D<ParameterInfo> parameters = new_Array1D<ParameterInfo>(sizeof...(Args));
-            std::vector<Type> paramTypes = { cl::typeof<Args>()... };
+            std::vector<Type> paramTypes = { dot::typeof<Args>()... };
 
             for (int i = 0; i < argsCount; ++i)
             {
                 parameters[i] = new_ParameterInfo(names[i], paramTypes[i], i);
             }
 
-            MethodInfo methodInfo_ = new StaticMethodInfoImpl<Return, Args...>(name, type_, cl::typeof<Return>(), mth);
+            MethodInfo methodInfo_ = new StaticMethodInfoImpl<Return, Args...>(name, type_, dot::typeof<Return>(), mth);
             methodInfo_->Parameters = parameters;
 
             methods_->Add(methodInfo_);
@@ -159,7 +159,7 @@ namespace dot
             }
 
             Array1D<ParameterInfo> parameters = new_Array1D<ParameterInfo>(sizeof...(Args));
-            std::vector<Type> paramTypes = { cl::typeof<Args>()... };
+            std::vector<Type> paramTypes = { dot::typeof<Args>()... };
 
             for (int i = 0; i < argsCount_; ++i)
             {
@@ -189,7 +189,7 @@ namespace dot
             if (!(this->base_.IsEmpty()))
                 throw new_Exception("Base already defined in class " + fullName_);
 
-            this->base_ = cl::typeof<Class>();
+            this->base_ = dot::typeof<Class>();
             return this;
         }
 
@@ -200,7 +200,7 @@ namespace dot
             if (this->interfaces_.IsEmpty())
                 this->interfaces_ = new_List<Type>();
 
-            this->interfaces_->Add(cl::typeof<Class>());
+            this->interfaces_->Add(dot::typeof<Class>());
             return this;
         }
 
@@ -211,7 +211,7 @@ namespace dot
             if (this->generic_args_.IsEmpty())
                 this->generic_args_ = new_List<Type>();
 
-            this->generic_args_->Add(cl::typeof<Class>());
+            this->generic_args_->Add(dot::typeof<Class>());
             return this;
         }
 
@@ -365,7 +365,7 @@ namespace dot
     template <class T>
     Type typeof_impl(std::true_type) // nullable
     {
-        static Type type_ = new_TypeBuilder<T>("System", "Nullable<" + cl::typeof<T::value_type>()->Name + ">")
+        static Type type_ = new_TypeBuilder<T>("System", "Nullable<" + dot::typeof<T::value_type>()->Name + ">")
             ->WithGenericArgument<T::value_type>()
             ->Build();
         return type_;
@@ -426,7 +426,7 @@ namespace dot
 
     template <class T> Type Array1DImpl<T>::typeof()
     {
-        static Type type_ = new_TypeBuilder<Array1DImpl<T>>(cl::typeof<T>()->Namespace, cl::typeof<T>()->Name +"[]")
+        static Type type_ = new_TypeBuilder<Array1DImpl<T>>(dot::typeof<T>()->Namespace, dot::typeof<T>()->Name +"[]")
             //DOT_TYPE_CTOR(new_Array1D<T>)
             DOT_TYPE_GENERIC_ARGUMENT(T)
             DOT_TYPE_INTERFACE(IObjectEnumerable)

@@ -52,7 +52,7 @@ namespace dot
 
     Type LongImpl::typeof()
     {
-        return cl::typeof<int64_t>();
+        return dot::typeof<int64_t>();
     }
 
     Type LongImpl::GetType()

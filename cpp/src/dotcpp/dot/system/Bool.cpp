@@ -51,7 +51,7 @@ namespace dot
 
     Type BoolImpl::typeof()
     {
-        return cl::typeof<bool>();
+        return dot::typeof<bool>();
     }
 
     Type BoolImpl::GetType()

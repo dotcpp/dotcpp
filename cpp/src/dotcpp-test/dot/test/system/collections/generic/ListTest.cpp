@@ -113,7 +113,7 @@ namespace dot
 
     TEST_CASE("Find")
     {
-        cl::List<String> stringList = new_List<String>();
+        dot::List<String> stringList = new_List<String>();
         stringList->Add("000");
         stringList->Add("111");
         stringList->Add("222");

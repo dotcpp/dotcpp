@@ -52,7 +52,7 @@ namespace dot
 
     Type DoubleImpl::typeof()
     {
-        return cl::typeof<double>();
+        return dot::typeof<double>();
     }
 
     Type DoubleImpl::GetType()

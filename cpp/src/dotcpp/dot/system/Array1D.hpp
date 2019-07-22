@@ -158,14 +158,14 @@ namespace std
 {
     /// <summary>Implements begin() used by STL and similar algorithms.</summary>
     template <class T>
-    auto begin(cl::Array1D<T>& obj)
+    auto begin(dot::Array1D<T>& obj)
     {
         return obj->begin();
     }
 
     /// <summary>Implements end() used by STL and similar algorithms.</summary>
     template <class T>
-    auto end(cl::Array1D<T>& obj)
+    auto end(dot::Array1D<T>& obj)
     {
         return obj->end();
     }

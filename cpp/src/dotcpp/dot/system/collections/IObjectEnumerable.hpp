@@ -61,13 +61,13 @@ namespace dot
 namespace std
 {
     /// <summary>Implements begin() used by STL and similar algorithms.</summary>
-    inline auto begin(cl::IObjectEnumerable & obj)
+    inline auto begin(dot::IObjectEnumerable & obj)
     {
         return obj->object_begin();
     }
 
     /// <summary>Implements end() used by STL and similar algorithms.</summary>
-    inline auto end(cl::IObjectEnumerable & obj)
+    inline auto end(dot::IObjectEnumerable & obj)
     {
         return obj->object_end();
     }

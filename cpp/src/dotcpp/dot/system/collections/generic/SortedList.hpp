@@ -37,14 +37,14 @@ namespace dot
     ///!!! Provide .NET description Adapter class from STL deque to .NET SortedList - collection of key/value pairs that are sorted on the key
     template <class Key, class Type >
     class SortedList : public detail::std_accessor_<
-        cl::IEnumerable< typename KeyValuePair<Key, Type>::type >
+        dot::IEnumerable< typename KeyValuePair<Key, Type>::type >
         , std::deque< typename KeyValuePair<Key, Type>::type > >
     {
     public:
 
         //!!!! Why in public section?
         typedef detail::std_accessor_<
-            cl::IEnumerable< typename KeyValuePair<Key, Type>::type >
+            dot::IEnumerable< typename KeyValuePair<Key, Type>::type >
             , std::deque< typename KeyValuePair<Key, Type>::type > > base;
 
         /// <summary>SortedList constructor that create new empty instance of SortedList.</summary>

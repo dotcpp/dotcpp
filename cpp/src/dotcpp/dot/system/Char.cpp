@@ -52,7 +52,7 @@ namespace dot
 
     Type CharImpl::typeof()
     {
-        return cl::typeof<char>();
+        return dot::typeof<char>();
     }
 
     Type CharImpl::GetType()

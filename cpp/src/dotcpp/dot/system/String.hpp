@@ -477,11 +477,11 @@ namespace std
 {
     /// <summary>Implements hash struct used by STL unordered_map for String.</summary>
     template <>
-    struct hash<cl::String> : public hash<cl::Ptr<cl::StringImpl>>
+    struct hash<dot::String> : public hash<dot::Ptr<dot::StringImpl>>
     {};
 
     /// <summary>Implements equal_to struct used by STL unordered_map for String.</summary>
     template <>
-    struct equal_to<cl::String> : public equal_to<cl::Ptr<cl::StringImpl>>
+    struct equal_to<dot::String> : public equal_to<dot::Ptr<dot::StringImpl>>
     {};
 }

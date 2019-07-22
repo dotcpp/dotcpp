@@ -52,7 +52,7 @@ namespace dot
 
     Type IntImpl::typeof()
     {
-        return cl::typeof<int>();
+        return dot::typeof<int>();
     }
 
     Type IntImpl::GetType()

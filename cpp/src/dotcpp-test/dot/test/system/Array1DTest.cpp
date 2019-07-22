@@ -87,7 +87,7 @@ namespace dot
 
     TEST_CASE("Find")
     {
-        cl::Array1D<String> stringArray = new_Array1D<String>(5);
+        dot::Array1D<String> stringArray = new_Array1D<String>(5);
         stringArray[0] = "000";
         stringArray[1] = "111";
         stringArray[2] = "222";
@@ -98,7 +98,7 @@ namespace dot
 
     TEST_CASE("Enumerator")
     {
-        cl::Array1D<String> stringArray = new_Array1D<String>(3);
+        dot::Array1D<String> stringArray = new_Array1D<String>(3);
         stringArray[0] = "000";
         stringArray[1] = "111";
         stringArray[2] = "222";

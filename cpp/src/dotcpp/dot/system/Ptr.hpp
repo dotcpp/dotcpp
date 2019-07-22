@@ -189,9 +189,9 @@ namespace std
 {
     /// <summary>Implements hash struct used by STL unordered_map for Ptr.</summary>
     template <typename T>
-    struct hash<cl::Ptr<T>>
+    struct hash<dot::Ptr<T>>
     {
-        size_t operator()(const cl::Ptr<T>& obj) const
+        size_t operator()(const dot::Ptr<T>& obj) const
         {
             return obj->GetHashCode();
         }
@@ -199,9 +199,9 @@ namespace std
 
     /// <summary>Implements equal_to struct used by STL unordered_map for Ptr.</summary>
     template <typename T>
-    struct equal_to<cl::Ptr<T>>
+    struct equal_to<dot::Ptr<T>>
     {
-        bool operator()(const cl::Ptr<T>& lhs, const cl::Ptr<T>& rhs) const
+        bool operator()(const dot::Ptr<T>& lhs, const dot::Ptr<T>& rhs) const
         {
             return lhs->Equals(rhs);
         }

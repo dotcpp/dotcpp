@@ -35,12 +35,12 @@ namespace dot
 
     ///!!! Provide .NET description Adapter class from STL set to .NET SortedSet
     template <class T>
-    class SortedSet : public detail::std_accessor_<cl::IEnumerable<T>, std::set<T> >
+    class SortedSet : public detail::std_accessor_<dot::IEnumerable<T>, std::set<T> >
     {
     public:
 
-        typedef detail::std_accessor_<cl::IEnumerable<T>, std::set<T> > base;
-        typedef cl::IEnumerable<T> cl_enumerator_type;
+        typedef detail::std_accessor_<dot::IEnumerable<T>, std::set<T> > base;
+        typedef dot::IEnumerable<T> cl_enumerator_type;
         typedef std::set<T> std_base;
 
     public:

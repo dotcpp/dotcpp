@@ -37,12 +37,12 @@ namespace dot
     ///!!! Provide .NET description Adapter class from STL map to .NET SortedDictionary - collection of key/value pairs that are sorted on the key
     template <class Key, class Type >
     class SortedDictionary : public detail::std_accessor_<
-        cl::IEnumerable< typename KeyValuePair<Key, Type>::type >
+        dot::IEnumerable< typename KeyValuePair<Key, Type>::type >
         , std::map<Key, Type> >
     {
     public:
         typedef detail::std_accessor_<
-            cl::IEnumerable< typename KeyValuePair<Key, Type>::type >
+            dot::IEnumerable< typename KeyValuePair<Key, Type>::type >
             , std::map<Key, Type> > base;
 
         /// <summary>Creates a new empty instance of SortedDictionary.</summary>

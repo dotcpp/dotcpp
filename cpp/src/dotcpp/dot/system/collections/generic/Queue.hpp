@@ -33,12 +33,12 @@ namespace dot
 {
     ///!! Provide description Adapter class from STL deque to .NET Queue. std::deque used as container to make possible Conataints(T item) and GetEnumerator() implementation
     template <class T>
-    class Queue : public detail::std_accessor_<cl::IEnumerable<T>, std::deque<T> >
+    class Queue : public detail::std_accessor_<dot::IEnumerable<T>, std::deque<T> >
     {
     public:
 
-        typedef detail::std_accessor_<cl::IEnumerable<T>, std::deque<T> > base;
-        typedef cl::IEnumerable<T> cl_enumerator_type;
+        typedef detail::std_accessor_<dot::IEnumerable<T>, std::deque<T> > base;
+        typedef dot::IEnumerable<T> cl_enumerator_type;
 
     public:
 
