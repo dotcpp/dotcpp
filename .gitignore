@@ -7,8 +7,8 @@ syntax: glob
 **/bin/Debug*
 **/bin/Release*
 **/obj
-**/x64
-**/x86
+#**/x64
+#**/x86
 /bin
 build/*
 packages/*
