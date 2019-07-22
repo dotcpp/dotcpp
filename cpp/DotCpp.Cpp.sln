@@ -7,14 +7,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencie
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DotCpp", "DotCpp", "{39369386-2822-4EF1-AF43-ADC22FC1F7EB}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Boost.Cpp", "..\third_party\boost\Boost.Cpp.vcxproj", "{05FCBA2D-EBAF-4265-94E6-CB33526C758F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Boost.Cpp", "third_party\boost\Boost.Cpp.vcxproj", "{05FCBA2D-EBAF-4265-94E6-CB33526C758F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DotCpp.Cpp", "dotcpp\dot\DotCpp.Cpp.vcxproj", "{7FA068EC-B443-4DB9-93AF-56CBC7110408}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DotCpp.Cpp", "src\dotcpp\dot\DotCpp.Cpp.vcxproj", "{7FA068EC-B443-4DB9-93AF-56CBC7110408}"
 	ProjectSection(ProjectDependencies) = postProject
 		{05FCBA2D-EBAF-4265-94E6-CB33526C758F} = {05FCBA2D-EBAF-4265-94E6-CB33526C758F}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DotCpp.Test.Cpp", "dotcpp-test\dot\test\DotCpp.Test.Cpp.vcxproj", "{04199C2F-0C9B-43F1-968F-5D7329204EF6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DotCpp.Test.Cpp", "src\dotcpp-test\dot\test\DotCpp.Test.Cpp.vcxproj", "{04199C2F-0C9B-43F1-968F-5D7329204EF6}"
 	ProjectSection(ProjectDependencies) = postProject
 		{05FCBA2D-EBAF-4265-94E6-CB33526C758F} = {05FCBA2D-EBAF-4265-94E6-CB33526C758F}
 		{7FA068EC-B443-4DB9-93AF-56CBC7110408} = {7FA068EC-B443-4DB9-93AF-56CBC7110408}
