@@ -25,7 +25,7 @@ limitations under the License.
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <dot/system/String.hpp>
-#include "cl/dotcpp/main/system/text/StringBuilder.hpp"
+#include <dot/system/text/StringBuilder.hpp>
 
 namespace dot
 {
