@@ -62,7 +62,7 @@ namespace dot
 
         DOT_GET(int, Count2,
             {
-                std::cout << "ReflectionBaseSample.getCount2" << std::endl;
+                received << "ReflectionBaseSample.getCount2" << std::endl;
                 return Count2;
             }
         )
