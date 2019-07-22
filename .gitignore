@@ -1,21 +1,15 @@
 # Using glob syntax
 syntax: glob
 
-# Build artifacts
+!paket.exe
 **/.vs
 **/CMakeFiles
-**/bin/Debug*
-**/bin/Release*
+**/_NCrunch_*
+**/_ReSharper*
+**/bin
 **/obj
-#**/x64
-#**/x86
-/bin
-build/*
-packages/*
-
-# Ignored files and folders
-!paket.exe
-**/CMakeFiles
+**/x64
+**/x86
 *.FileListAbsolute.txt
 *.aux
 *.bi
@@ -58,8 +52,6 @@ packages/*
 .DS_Store
 CMakeCache.txt
 Makefile
-_NCrunch_*
-_ReSharper*
 cmake_install.cmake
 testCaseCollection.xml
 
