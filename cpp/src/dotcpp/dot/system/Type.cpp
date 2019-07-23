@@ -38,6 +38,24 @@ namespace dot
     Type TypeBuilderImpl::Build()
     {
         type_->Fill(this);
+
+        // Fill derived types map
+        Type baseType = base_;
+        while (baseType != nullptr)
+        {
+            auto iter = TypeImpl::GetDerivedTypesMap().find(baseType->FullName);
+            if (iter == TypeImpl::GetDerivedTypesMap().end())
+            {
+                iter = TypeImpl::GetDerivedTypesMap().insert({baseType->FullName, new_List<Type>()}).first;
+            }
+            else if (iter->second == nullptr)
+            {
+                iter->second = new_List<Type>();
+            }
+            iter->second->Add(type_);
+            baseType = baseType->BaseType;
+        }
+
         return type_;
     }
 
@@ -80,6 +98,29 @@ namespace dot
         }
         else
             this->properties_ = new_Array1D<PropertyInfo>(0);
+
+        if (!data->base_.IsEmpty() && data->base_->GetMethods()->Count)
+        {
+            if (data->methods_.IsEmpty())
+            {
+                data->methods_ = new_List<MethodInfo>();
+            }
+
+            Array1D<MethodInfo> baseMethods = data->base_->GetMethods();
+            List<MethodInfo> newMethods = new_List<MethodInfo>();
+            for (MethodInfo methInfoData : baseMethods)
+            {
+
+                newMethods->Add(methInfoData);
+            }
+
+            for (MethodInfo methInfoData : data->methods_)
+            {
+                newMethods->Add(methInfoData);
+            }
+
+            data->methods_ = newMethods;
+        }
 
         if (!data->methods_.IsEmpty())
         {
@@ -200,5 +241,10 @@ namespace dot
             return this->FullName == ((Type)obj)->FullName;
 
         return false;
+    }
+
+    size_t TypeImpl::GetHashCode()
+    {
+        return this->FullName->GetHashCode();
     }
 }

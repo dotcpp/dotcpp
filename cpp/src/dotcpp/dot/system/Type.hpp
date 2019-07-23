@@ -36,6 +36,7 @@ limitations under the License.
 #include <dot/system/reflection/PropertyInfo.hpp>
 #include <dot/noda_time/LocalDate.hpp>
 #include <dot/noda_time/LocalTime.hpp>
+#include <dot/noda_time/LocalMinute.hpp>
 #include <dot/noda_time/LocalDateTime.hpp>
 
 namespace dot
@@ -74,6 +75,19 @@ namespace dot
         bool is_enum_ = false;
 
     public: // METHODS
+
+        /// <summary>Add public field of the current Type.</summary>
+        template <class Class, class Prop>
+        TypeBuilder WithField(String name, Prop Class::*prop)
+        {
+            //! TODO add to fields_ ?
+            if (properties_.IsEmpty())
+            {
+                properties_ = new_List<PropertyInfo>();
+            }
+            properties_->Add(new PropertyInfoFieldImpl<Prop, Class>(name, type_, dot::typeof<Prop>(), prop));
+            return this;
+        }
 
         /// <summary>Add public property of the current Type.</summary>
         template <class Class, class Prop>
@@ -264,7 +278,7 @@ namespace dot
     {
         friend class TypeBuilderImpl;
         template <class T>
-        friend Type typeof_impl(std::false_type);
+        friend struct typeof_impl;
 
         typedef TypeImpl self;
 
@@ -329,7 +343,15 @@ namespace dot
         /// <summary>Get Type object for the name.</summary>
         static Type GetType(String name) { return GetTypeMap()[name]; }
 
-        virtual bool Equals(Object obj);
+        /// <summary>Get derived types list for the name.</summary>
+        static List<Type> GetDerivedTypes(String name) { return GetDerivedTypesMap()[name]; }
+
+        /// <summary>Get derived types list for the type.</summary>
+        static List<Type> GetDerivedTypes(Type type) { return GetDerivedTypesMap()[type->FullName]; }
+
+        virtual bool Equals(Object obj) override;
+
+        virtual size_t GetHashCode() override;
 
     private: // METHODS
 
@@ -344,6 +366,12 @@ namespace dot
             return map_;
         }
 
+        static std::map<String, List<Type>>& GetDerivedTypesMap()
+        {
+            static std::map<String, List<Type>> map_;
+            return map_;
+        }
+
     private: // CONSTRUCTORS
 
         /// <summary>
@@ -353,44 +381,6 @@ namespace dot
         /// </summary>
         TypeImpl(String nspace, String name);
     };
-
-    template <class T>
-    struct is_nullable : std::false_type
-    {};
-
-    template <class T>
-    struct is_nullable<Nullable<T>> : std::true_type
-    {};
-
-    template <class T>
-    Type typeof_impl(std::true_type) // nullable
-    {
-        static Type type_ = new_TypeBuilder<T>("System", "Nullable<" + dot::typeof<T::value_type>()->Name + ">")
-            ->WithGenericArgument<T::value_type>()
-            ->Build();
-        return type_;
-    }
-
-    template <class T>
-    Type typeof_impl(std::false_type) // not nullable
-    {
-        String cppname = typeid(typename T::element_type).name(); // TODO - is it faster to use typeid rather than string as key?
-        auto p = TypeImpl::GetTypeMap().find(cppname);
-        if (p == TypeImpl::GetTypeMap().end())
-        {
-            Type type = T::element_type::typeof();
-            return type;
-        }
-
-        return p->second;
-    }
-
-    /// <summary>Get Type object for the argument.</summary>
-    template <class T>
-    Type typeof()
-    {
-        return typeof_impl<T>(typename is_nullable<T>::type());
-    }
 
     /// <summary>
     /// Initializes a new instance of the Type class for untyped instance of Object.
@@ -408,12 +398,14 @@ namespace dot
 
     template <class T> Type ListImpl<T>::typeof()
     {
-        return new_TypeBuilder<ListImpl<T>>("System.Collections.Generic", "List`1")
-            DOT_TYPE_CTOR(new_List<T>)
+        static Type type_ = new_TypeBuilder<ListImpl<T>>("System.Collections.Generic", "List`1")
+            //DOT_TYPE_CTOR(new_List<T>)
+            ->WithConstructor(static_cast<List<T>(*)()>(&new_List<T>), { })
             DOT_TYPE_GENERIC_ARGUMENT(T)
             DOT_TYPE_INTERFACE(IObjectEnumerable)
             DOT_TYPE_INTERFACE(IObjectCollection)
             ->Build();
+        return type_;
     }
 
     /// <summary>
@@ -436,66 +428,258 @@ namespace dot
         return type_;
     }
 
+    template <class T>
+    struct typeof_impl
+    {
+        static Type get_typeof()
+        {
+            String cppname = typeid(typename T::element_type).name(); // TODO - is it faster to use typeid rather than string as key?
+            auto p = TypeImpl::GetTypeMap().find(cppname);
+            if (p == TypeImpl::GetTypeMap().end())
+            {
+                Type type = T::element_type::typeof();
+                return type;
+            }
+
+            return p->second;
+        }
+
+    };
+
     template <>
-    inline Type typeof<double>()
+    struct typeof_impl<double>
+    {
+        static Type get_typeof()
     {
         static Type type_ = new_TypeBuilder<double>("System", "Double")->Build();
         return type_;
     }
+    };
 
     template <>
-    inline Type typeof<int64_t>()
+    struct typeof_impl<int64_t>
+    {
+        static Type get_typeof()
     {
         static Type type_ = new_TypeBuilder<int64_t>("System", "Int64")->Build();
         return type_;
     }
+    };
 
     template <>
-    inline Type typeof<int>()
+    struct typeof_impl<int>
+    {
+        static Type get_typeof()
     {
         static Type type_ = new_TypeBuilder<int>("System", "Int32")->Build();
         return type_;
     }
+    };
 
     template <>
-    inline Type typeof<void>()
+    struct typeof_impl<void>
+    {
+        static Type get_typeof()
     {
         static Type type_ = new_TypeBuilder<void>("System", "Void")->Build();
         return type_;
     }
+    };
 
     template <>
-    inline Type typeof<bool>()
+    struct typeof_impl<bool>
+    {
+        static Type get_typeof()
     {
         static Type type_ = new_TypeBuilder<bool>("System", "Bool")->Build();
         return type_;
     }
+    };
 
     template <>
-    inline Type typeof<char>()
+    struct typeof_impl<char>
+    {
+        static Type get_typeof()
     {
         static Type type_ = new_TypeBuilder<char>("System", "Char")->Build();
         return type_;
     }
+    };
 
     template <>
-    inline Type typeof<LocalDate>()
+    struct typeof_impl<LocalDate>
+    {
+        static Type get_typeof()
     {
         static Type type_ = new_TypeBuilder<LocalDate>("System", "LocalDate")->Build();
         return type_;
     }
+    };
 
     template <>
-    inline Type typeof<LocalTime>()
+    struct typeof_impl<LocalTime>
     {
-        static Type type_ = new_TypeBuilder<LocalDate>("System", "LocalTime")->Build();
-        return type_;
-    }
+        static Type get_typeof()
+        {
+            static Type type_ = new_TypeBuilder<LocalTime>("System", "LocalTime")->Build();
+            return type_;
+        }
+    };
 
     template <>
-    inline Type typeof<LocalDateTime>()
+    struct typeof_impl<LocalMinute>
     {
-        static Type type_ = new_TypeBuilder<LocalDate>("System", "LocalDateTime")->Build();
+        static Type get_typeof()
+        {
+            static Type type_ = new_TypeBuilder<LocalTime>("System", "LocalMinute")->Build();
         return type_;
     }
+    };
+
+    template <>
+    struct typeof_impl<LocalDateTime>
+    {
+        static Type get_typeof()
+        {
+            static Type type_ = new_TypeBuilder<LocalDateTime>("System", "LocalDateTime")->Build();
+            return type_;
+        }
+    };
+
+    template <class T>
+    struct typeof_impl<Nullable<T>>
+    {
+        static Type get_typeof()
+        {
+            static Type type_ = new_TypeBuilder<Nullable<T>>("System", "Nullable<" + dot::typeof<T>()->Name + ">")
+                ->template WithGenericArgument<T>()
+                ->Build();
+        return type_;
+    }
+    };
+
+    template <>
+    struct typeof_impl<std::tuple<>>
+    {
+        static Type get_typeof()
+        {
+            static Type type_ = new_TypeBuilder<std::tuple<>>("System", "Tuple<>")
+                ->Build();
+            return type_;
+        }
+
+    };
+
+    template <class ... T>
+    struct typeof_impl<std::tuple<T...>>
+    {
+        static Type get_typeof()
+        {
+            static TypeBuilder type_builder =
+            []()
+            {
+                TypeBuilder type_builder = new_TypeBuilder<std::tuple<T...>>("System", "Tuple<" + get_name<T...>() + ">");
+                set_generic_args<T ...>(type_builder);
+                type_builder->WithMethod("GetItem", &GetItem, { "tuple", "index" })
+                    ->WithMethod("SetItem", &SetItem, { "tuple", "index", "value" })
+                    ->WithConstructor(&Contructor, {})
+                    ;
+                return type_builder;
+            }();
+
+            static Type type_ = type_builder->Build();
+            return type_;
+        }
+    private:
+
+        static Object Contructor()
+        {
+            return Object(std::tuple<T...>());
+        }
+
+        struct dummy{};
+
+        template <int I, typename Dummy = dummy>
+        struct GetItemImpl
+        {
+            static Object Impl(Object tuple, int index)
+            {
+                if (I == index) return std::get<I>(*(StructWrapper<std::tuple<T...>>)tuple);
+                    else return GetItemImpl<I + 1>::Impl(tuple, index);
+            }
+        };
+        
+        template <typename Dummy>
+        struct GetItemImpl<sizeof...(T), Dummy>
+        {
+            static Object Impl(Object tuple, int index)
+            {
+                throw new_Exception("Tuple index out of bounds");            
+            }
+        };
+
+        static Object GetItem(Object tuple, int index)
+        {
+            return GetItemImpl<0>::Impl(tuple, index);
+        }
+
+        template <int I, typename Dummy = dummy>
+        struct SetItemImpl
+        {
+            static void Impl(Object tuple, int index, Object value)
+            {
+                if (I == index) std::get<I>(*(StructWrapper<std::tuple<T...>>)tuple) = (std::tuple_element_t<I, std::tuple<T...>>)value;
+                else SetItemImpl<I + 1>::Impl(tuple, index, value);
+            }
+        };
+
+        template <typename Dummy>
+        struct SetItemImpl<sizeof...(T), Dummy>
+        {
+            static void Impl(Object tuple, int index, Object value)
+            {
+                throw new_Exception("Tuple index out of bounds");
+            }
+        };
+
+        static void SetItem(Object tuple, int index, Object value)
+        {
+            SetItemImpl<0>::Impl(tuple, index, value);
+        }
+
+
+        template <class Head, class Second, class ... Tail>
+        static String get_name()
+        {
+            return dot::typeof<Head>()->Name + get_name<Second, Tail...>();
+        }
+
+        template <class Head>
+        static String get_name()
+        {
+            return dot::typeof<Head>()->Name;
+        }
+
+        template <class Head, class Second, class ... Tail>
+        static TypeBuilder set_generic_args(TypeBuilder tb)
+        {
+            return set_generic_args<Second, Tail ... >(tb->WithGenericArgument<Head>());
+        }
+
+        template <class Head>
+        static TypeBuilder set_generic_args(TypeBuilder tb)
+        {
+            return tb->WithGenericArgument<Head>();
+        }
+
+    };
+
+
+    /// <summary>Get Type object for the argument.</summary>
+    template <class T>
+    Type typeof()
+    {
+        return typeof_impl<T>::get_typeof();
+    }
+
 }
