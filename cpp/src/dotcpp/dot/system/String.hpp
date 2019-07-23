@@ -28,12 +28,12 @@ limitations under the License.
 #include <dot/detail/const_string_base.hpp>
 #include <dot/system/Ptr.hpp>
 #include <dot/system/Char.hpp>
-#include <dot/system/Object.hpp>
 
 namespace dot
 {
     class StringImpl; class String;
     template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
+    template <class T> class Nullable;
     enum class StringSplitOptions;
     class Char;
     class Comparer;
@@ -46,9 +46,15 @@ namespace dot
     /// </summary>
     class DOT_CLASS StringImpl : public virtual ObjectImpl, public detail::const_string_base
     {
+        typedef StringImpl self;
         typedef detail::const_string_base base;
         friend String new_String(const std::string& rhs);
         friend String new_String(const char* rhs);
+
+    public: // PROPERTIES
+
+        /// <summary>Gets the number of characters in the current System.String object.</summary>
+        DOT_GET(int, Length, { return this->GetLength(); })
 
     public: // CONSTRUCTORS
 
@@ -92,7 +98,7 @@ namespace dot
 
         /// <summary>Determines whether the end of this
         /// string matches the specified string.</summary>
-        bool EndsWith(const std::string& value);
+        bool EndsWith(const String& value);
 
         /// <summary>Determines whether the beginning of this
         /// string matches the specified string.</summary>
@@ -104,7 +110,7 @@ namespace dot
 
         /// <summary>Gets the number of characters in the current string.
         /// Note that for Unicode this is not the same as the number of bytes.</summary>
-        int getLength();
+        int GetLength();
 
         /// <summary>Compares this instance with a specified String object and indicates
         /// whether this instance precedes, follows, or appears in the same position
@@ -114,6 +120,14 @@ namespace dot
         /// <summary>Reports the zero-based index of the first occurrence in this instance of any
         /// character in a specified array of Unicode characters.</summary>
         int IndexOfAny(Array1D<char> anyOf);
+
+        /// <summary>Returns a new string in which all the characters in the current instance, beginning
+        /// at a specified position and continuing through the last position, have been deleted.</summary>
+        String Remove(int startIndex);
+
+        /// <summary>Returns a new string in which a specified number of characters in the current
+        /// instance beginning at a specified position have been deleted.</summary>
+        String Remove(int startIndex, int count);
 
         /// <summary>Returns a new string in which all occurrences of a specified string
         /// in the current instance are replaced with another specified string.</summary>
@@ -436,10 +450,13 @@ namespace dot
     template <class T>
     struct format_forward {
 
-        static inline auto convert_impl(const T& t, std::true_type) { return format_forward<T::value_type>::convert(t.operator T::value_type()); }
+        static inline auto convert_impl(const T& t, std::true_type)
+        {
+	        return format_forward<typename T::value_type>::convert(t.operator typename T::value_type()); 
+        }
         static inline const T& convert_impl(const T& t, std::false_type) { return t; }
 
-        static inline auto convert(const T& t) { return convert_impl(t, std::is_base_of<detail::decl_get, T>::type() ); }
+        static inline auto convert(const T& t) { return convert_impl(t, typename std::is_base_of<detail::decl_get, T>::type() ); }
     };
 
     /// <summary>Helper class for fmt::format arguments conversion</summary>

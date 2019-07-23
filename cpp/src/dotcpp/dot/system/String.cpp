@@ -26,6 +26,7 @@ limitations under the License.
 #include <dot/implement.hpp>
 #include <dot/system/String.hpp>
 #include <dot/system/Object.hpp>
+#include <dot/system/Nullable.hpp>
 #include <dot/system/Type.hpp>
 
 namespace dot
@@ -74,11 +75,10 @@ namespace dot
 
     /// <summary>Determines whether the end of this
     /// string matches the specified string.</summary>
-    bool StringImpl::EndsWith(const std::string& value)
+    bool StringImpl::EndsWith(const String& value)
     {
-        int p = length() - value.length();
-        if (p >= 0 && substr(p, value.length())
-            == value)
+        int p = length() - value->length();
+        if (p >= 0 && substr(p, value->length()) == *value)
             return true;
         return false;
     }
@@ -102,7 +102,7 @@ namespace dot
 
     /// <summary>Gets the number of characters in the current string.
     /// Note that for Unicode this is not the same as the number of bytes.</summary>
-    int StringImpl::getLength()
+    int StringImpl::GetLength()
     {
         return length(); //!!! This has to be corrected for Unicode
     }
@@ -113,6 +113,16 @@ namespace dot
         if (pos != std::string::npos)
             return pos;
         return -1;
+    }
+
+    String StringImpl::Remove(int startIndex)
+    {
+        return new_String(*this)->erase(startIndex);
+    }
+
+    String StringImpl::Remove(int startIndex, int count)
+    {
+        return new_String(*this)->erase(startIndex, count);
     }
 
     String StringImpl::Replace(const char oldChar, const char newChar) const
