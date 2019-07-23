@@ -21,6 +21,7 @@
     <ClCompile Include="system\collections\IObjectCollection.cpp" />
     <ClCompile Include="system\collections\IObjectEnumerable.cpp" />
     <ClCompile Include="system\Double.cpp" />
+    <ClCompile Include="system\Enum.cpp" />
     <ClCompile Include="system\Environment.cpp" />
     <ClCompile Include="system\Exception.cpp" />
     <ClCompile Include="system\Int.cpp" />
@@ -35,12 +36,14 @@
     <ClInclude Include="declare.hpp" />
     <ClInclude Include="detail\array_base.hpp" />
     <ClInclude Include="detail\const_string_base.hpp" />
+    <ClInclude Include="detail\enum_macro.hpp" />
     <ClInclude Include="detail\iterator.hpp" />
     <ClInclude Include="detail\macro.hpp" />
     <ClInclude Include="detail\object_iterator.hpp" />
     <ClInclude Include="detail\property.hpp" />
     <ClInclude Include="detail\reference_counter.hpp" />
     <ClInclude Include="detail\reflection_macro.hpp" />
+    <ClInclude Include="detail\struct_wrapper.hpp" />
     <ClInclude Include="detail\traits.hpp" />
     <ClInclude Include="implement.hpp" />
     <ClInclude Include="import.hpp" />
@@ -70,6 +73,7 @@
     <ClInclude Include="system\collections\IObjectEnumerable.hpp" />
     <ClInclude Include="system\Console.hpp" />
     <ClInclude Include="system\Double.hpp" />
+    <ClInclude Include="system\Enum.hpp" />
     <ClInclude Include="system\Environment.hpp" />
     <ClInclude Include="system\Exception.hpp" />
     <ClInclude Include="system\Int.hpp" />
