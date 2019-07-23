@@ -35,6 +35,7 @@ namespace dot
     class LocalTime;
     class LocalDate;
     class LocalDateTime;
+    class Object;
 
     /// <summary>
     /// Represents a period of time expressed in human chronological terms:
@@ -47,6 +48,9 @@ namespace dot
     public:
         Period(const time_duration& d);
         Period(const date_duration& d);
+
+        /// <summary>Copy constructor.</summary>
+        Period(const Period& other);
 
     public:
         /// <summary>Gets the number of days within this period.</summary>

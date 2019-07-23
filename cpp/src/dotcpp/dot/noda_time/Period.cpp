@@ -37,6 +37,11 @@ namespace dot
         : time_duration(24 * d.days(), 0, 0)
     {}
 
+    Period::Period(const Period& other)
+    {
+        *this = other;
+    }
+
     Period Period::Between(const LocalDate& start, const LocalDate& end)
     {
         return end - start;
