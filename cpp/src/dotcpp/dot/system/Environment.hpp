@@ -32,7 +32,7 @@ namespace dot
     /// <summary>
     /// Provides information about, and means to manipulate, the current environment and platform.
     /// </summary>
-    class CL_DOTCPP_MAIN Environment final
+    class DOT_CLASS Environment final
     {
     private: // CONSTRUCTORS
 

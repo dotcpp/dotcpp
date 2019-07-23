@@ -32,7 +32,7 @@ namespace dot
     /// Contains methods to create types of objects locally or remotely, or obtain 
     /// references to existing remote objects. This class cannot be inherited.
     /// </summary>
-    class CL_DOTCPP_MAIN Activator final
+    class DOT_CLASS Activator final
     {
     private: // CONSTRUCTORS
 

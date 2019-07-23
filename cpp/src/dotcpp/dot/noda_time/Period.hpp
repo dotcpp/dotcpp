@@ -40,7 +40,7 @@ namespace dot
     /// Represents a period of time expressed in human chronological terms:
     /// hours, days, weeks, months and so on.
     /// </summary>
-    class CL_DOTCPP_MAIN Period : public time_duration
+    class DOT_CLASS Period : public time_duration
     {
         typedef Period self;
 

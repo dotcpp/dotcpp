@@ -42,7 +42,7 @@ namespace dot
     /// because it has no associated time zone: "November 12th 2009 7pm, ISO calendar"
     /// occurred at different instants for different people around the world.
     ///</summary>
-    class CL_DOTCPP_MAIN LocalDateTime : public ptime
+    class DOT_CLASS LocalDateTime : public ptime
     {
         typedef LocalDateTime self;
         friend LocalDate;

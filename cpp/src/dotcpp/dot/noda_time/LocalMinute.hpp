@@ -30,7 +30,7 @@ namespace dot
     class String;
     class LocalTime;
 
-    class CL_DOTCPP_MAIN LocalMinute
+    class DOT_CLASS LocalMinute
     {
         typedef LocalMinute self;
 

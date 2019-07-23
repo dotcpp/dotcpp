@@ -31,7 +31,7 @@ namespace dot
     class StringImpl;
 
     /// <summary>Represents errors that occur during application execution.</summary>
-    class CL_DOTCPP_MAIN Exception : public std::runtime_error
+    class DOT_CLASS Exception : public std::runtime_error
     {
         typedef std::runtime_error base;
 
@@ -62,7 +62,7 @@ namespace dot
     /// this class is syntactic sugar on top of Exception class which
     /// has value semantics.
     /// </summary>
-    class CL_DOTCPP_MAIN new_Exception : public Exception
+    class DOT_CLASS new_Exception : public Exception
     {
         typedef Exception base;
 

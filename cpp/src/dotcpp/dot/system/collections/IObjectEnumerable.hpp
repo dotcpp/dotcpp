@@ -39,7 +39,7 @@ namespace dot
     /// In C\#, this interface is called IEnumerable. Because in C++ template and non-template
     /// types cannot have the same name, here it is called IObjectEnumerable.
     /// </summary>
-    class CL_DOTCPP_MAIN IObjectEnumerableImpl : public virtual ObjectImpl
+    class DOT_CLASS IObjectEnumerableImpl : public virtual ObjectImpl
     {
         typedef IObjectEnumerableImpl self;
 

@@ -25,6 +25,6 @@ limitations under the License.
 
 #include <dot/import.hpp>
 
-#ifndef CL_DOTCPP_MAIN
-#   define CL_DOTCPP_MAIN CL_IMPLEMENT
+#ifndef DOT_CLASS
+#   define DOT_CLASS DOT_IMPLEMENT
 #endif

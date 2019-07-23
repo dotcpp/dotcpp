@@ -33,7 +33,7 @@ namespace dot
     /// Represents the standard input, output, and
     /// error streams for console applications.
     /// </summary>
-    class CL_DOTCPP_MAIN Console final
+    class DOT_CLASS Console final
     {
     private: // CONSTRUCTORS
 

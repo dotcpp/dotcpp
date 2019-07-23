@@ -32,7 +32,7 @@ namespace dot
     class TypeImpl; using Type = Ptr<TypeImpl>;
 
     /// <summary>Data for MemberInfo.</summary>
-    class CL_DOTCPP_MAIN MemberInfoDataImpl : public virtual ObjectImpl
+    class DOT_CLASS MemberInfoDataImpl : public virtual ObjectImpl
     {
         typedef MemberInfoDataImpl self;
 

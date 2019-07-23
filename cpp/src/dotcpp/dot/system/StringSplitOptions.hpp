@@ -29,7 +29,7 @@ namespace dot
 {
     /// <summary>Specifies whether applicable String.split(...) method overloads
     /// include or omit empty substrings from the return value.</summary>
-    enum class CL_DOTCPP_MAIN StringSplitOptions : int
+    enum class DOT_CLASS StringSplitOptions : int
     {
         /// <summary>The return value includes array elements that contain an empty string.</summary>
         None,

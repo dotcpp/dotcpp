@@ -44,7 +44,7 @@ namespace dot
     ///
     /// The string is encoded internally as UTF-8 instead of UTF-16 used by C# System.String.
     /// </summary>
-    class CL_DOTCPP_MAIN StringImpl : public virtual ObjectImpl, public detail::const_string_base
+    class DOT_CLASS StringImpl : public virtual ObjectImpl, public detail::const_string_base
     {
         typedef detail::const_string_base base;
         friend String new_String(const std::string& rhs);
@@ -329,7 +329,7 @@ namespace dot
     /// <summary>
     /// Pointer to StringImpl that has additional constructors compared to Ptr(String)
     /// </summary>
-    class CL_DOTCPP_MAIN String : public Ptr<StringImpl>
+    class DOT_CLASS String : public Ptr<StringImpl>
     {
         typedef Ptr<StringImpl> base;
 

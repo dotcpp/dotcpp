@@ -33,7 +33,7 @@ namespace dot
 
     /// <summary>Data for PropertyInfo.</summary>
     template <class PropType, class Class>
-    class CL_DOTCPP_MAIN PropertyInfoDataImpl final : public MemberInfoDataImpl
+    class DOT_CLASS PropertyInfoDataImpl final : public MemberInfoDataImpl
     {
         typedef PropertyInfoDataImpl self;
 

@@ -40,7 +40,7 @@ namespace dot
     /// LocalDate is an immutable struct representing a date within the calendar,
     /// with no reference to a particular time zone or time of day.
     /// </summary>
-    class CL_DOTCPP_MAIN LocalDate : public gdate
+    class DOT_CLASS LocalDate : public gdate
     {
         typedef LocalDate self;
 

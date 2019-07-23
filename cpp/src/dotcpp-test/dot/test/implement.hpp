@@ -25,6 +25,6 @@ limitations under the License.
 
 #include <dot/test/import.hpp>
 
-#ifndef CL_DOTCPP_TEST
-#   define CL_DOTCPP_TEST CL_IMPLEMENT
+#ifndef DOT_TEST_CLASS
+#   define DOT_TEST_CLASS DOT_IMPLEMENT
 #endif

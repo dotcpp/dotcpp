@@ -36,7 +36,7 @@ namespace dot
     /// All classes with reference semantics should derive from this type.
     /// It works with Ptr to provide an emulation of reference semantics in C++.
     /// </summary>
-    class CL_DOTCPP_MAIN ObjectImpl : public reference_counter
+    class DOT_CLASS ObjectImpl : public reference_counter
     {
         template<typename T>
         friend class Ptr;

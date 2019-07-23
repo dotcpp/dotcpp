@@ -41,7 +41,7 @@ namespace dot
     using StructWrapper = Ptr<StructWrapperImpl<T>>;
 
     /// <summary>Adds support for boxing value types to Ptr(ObjectImpl).</summary>
-    class CL_DOTCPP_MAIN Object : public Ptr<ObjectImpl>
+    class DOT_CLASS Object : public Ptr<ObjectImpl>
     {
         typedef Ptr<ObjectImpl> base;
 

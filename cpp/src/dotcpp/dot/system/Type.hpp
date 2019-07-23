@@ -54,7 +54,7 @@ namespace dot
     template <class T> Type typeof();
 
     /// <summary>Builder for Type.</summary>
-    class CL_DOTCPP_MAIN TypeBuilderImpl final : public virtual ObjectImpl
+    class DOT_CLASS TypeBuilderImpl final : public virtual ObjectImpl
     {
         template <class>
         friend TypeBuilder new_TypeBuilder(String nspace, String name);
@@ -260,7 +260,7 @@ namespace dot
     ///
     /// \end{itemize}
     /// </summary>
-    class CL_DOTCPP_MAIN TypeImpl final : public virtual ObjectImpl
+    class DOT_CLASS TypeImpl final : public virtual ObjectImpl
     {
         friend class TypeBuilderImpl;
         template <class T>

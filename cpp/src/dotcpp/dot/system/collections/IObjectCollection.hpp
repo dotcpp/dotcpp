@@ -39,7 +39,7 @@ namespace dot
     /// and non-template types cannot have the same name, here it is
     /// called IObjectCollection.
     /// </summary>
-    class CL_DOTCPP_MAIN IObjectCollectionImpl : public IObjectEnumerableImpl
+    class DOT_CLASS IObjectCollectionImpl : public IObjectEnumerableImpl
     {
         typedef IObjectCollectionImpl self;
 

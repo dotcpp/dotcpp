@@ -41,7 +41,7 @@ namespace dot
     /// LocalTime is an immutable struct representing a time of day,
     /// with no reference to a particular calendar, time zone or date.
     /// </summary>
-    class CL_DOTCPP_MAIN LocalTime : public ptime
+    class DOT_CLASS LocalTime : public ptime
     {
         typedef LocalTime self;
 
