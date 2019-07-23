@@ -59,4 +59,9 @@ namespace dot
     {
         return typeof();
     }
+
+    int Int::Parse(String s)
+    {
+        return std::stoi(*s);
+    }
 }

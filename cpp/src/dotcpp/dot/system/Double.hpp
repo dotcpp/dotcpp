@@ -59,7 +59,7 @@ namespace dot
     /// <summary>
     /// Provides constants and static methods for double type.
     /// </summary>
-    class Double
+    class DOT_CLASS Double
     {
     public: //  CONSTANTS
 
@@ -68,6 +68,11 @@ namespace dot
 
         /// <summary>Tolerance used in comparison.</summary>
         static constexpr double Tolerance = 1e-10;
+
+    public: // STATIC
+
+        /// <summary>Converts the string representation of a number to its double-precision floating-point number equivalent.</summary>
+        static double Parse(String s);
     };
 }
 

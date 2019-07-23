@@ -28,6 +28,10 @@ limitations under the License.
 
 namespace dot
 {
+    const String Bool::FalseString = "False";
+
+    const String Bool::TrueString = "True";
+
     bool BoolImpl::Equals(Object obj)
     {
         if (this == &(*obj)) return true;
@@ -46,7 +50,7 @@ namespace dot
 
     String BoolImpl::ToString()
     {
-        return value_ ? "True" : "False";
+        return value_ ? Bool::TrueString : Bool::FalseString;
     }
 
     Type BoolImpl::typeof()
@@ -57,5 +61,13 @@ namespace dot
     Type BoolImpl::GetType()
     {
         return typeof();
+    }
+
+    bool Bool::Parse(String s)
+    {
+        if (s == Bool::FalseString) return false;
+        if (s == Bool::TrueString) return true;
+
+        throw new_Exception("value is not equivalent to TrueString or FalseString.");
     }
 }

@@ -57,11 +57,16 @@ namespace dot
     /// <summary>
     /// Provides constants and static methods for int type.
     /// </summary>
-    class Int
+    class DOT_CLASS Int
     {
     public: //  CONSTANTS
 
         /// <summary>Sentinel value representing uninitialized state.</summary>
         static constexpr int Empty = INT32_MIN;
+
+    public: // STATIC
+
+        /// <summary>Converts the string representation of a number to its 32-bit signed integer equivalent.</summary>
+        static int Parse(String s);
     };
 }

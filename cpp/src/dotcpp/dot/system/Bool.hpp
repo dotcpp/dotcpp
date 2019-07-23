@@ -57,11 +57,22 @@ namespace dot
     /// <summary>
     /// Provides constants and static methods for bool type.
     /// </summary>
-    class Bool
+    class DOT_CLASS Bool
     {
     public: //  CONSTANTS
 
         /// <summary>Sentinel value representing uninitialized state.</summary>
         static constexpr int Empty = INT32_MIN;
+
+        /// <summary>Represents the Boolean value false as a string. This field is read-only.</summary>
+        static const String FalseString;
+
+        /// <summary>Represents the Boolean value true as a string. This field is read-only.</summary>
+        static const String TrueString;
+
+    public: // STATIC
+
+        /// <summary>Converts the specified string representation of a logical value to its Boolean equivalent.</summary>
+        static bool Parse(String s);
     };
 }

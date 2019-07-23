@@ -57,11 +57,16 @@ namespace dot
     /// <summary>
     /// Provides constants and static methods for long type.
     /// </summary>
-    class Long
+    class DOT_CLASS Long
     {
     public: //  CONSTANTS
 
         /// <summary>Sentinel value representing uninitialized state.</summary>
         static constexpr int64_t Empty = INT64_MIN;
+
+    public: // STATIC
+
+        /// <summary>Converts the string representation of a number to its 64-bit signed integer equivalent.</summary>
+        static int64_t Parse(String s);
     };
 }

@@ -59,4 +59,9 @@ namespace dot
     {
         return typeof();
     }
+
+    double Double::Parse(String s)
+    {
+        return std::stod(*s);
+    }
 }

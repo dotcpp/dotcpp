@@ -59,4 +59,9 @@ namespace dot
     {
         return typeof();
     }
+
+    int64_t Long::Parse(String s)
+    {
+        return std::stoll(*s);
+    }
 }
