@@ -36,6 +36,7 @@ namespace dot
     class Period;
     class LocalDate;
     class LocalDateTime;
+    class Object;
 
     /// <summary>
     /// LocalTime is an immutable struct representing a time of day,
@@ -69,6 +70,12 @@ namespace dot
 
         /// <summary>Create from Boost posix_time.</summary>
         LocalTime(const ptime& time);
+
+        /// <summary>Create from Object.</summary>
+        LocalTime(Object const& rhs);
+
+        /// <summary>Copy constructor.</summary>
+        LocalTime(const LocalTime& other);
 
     public:
         /// <summary>Gets the hour of day of this local time, in the range 0 to 23 inclusive.</summary>

@@ -36,10 +36,16 @@ namespace dot
 
     public: // CONSTRUCTORS
 
+        /// <summary>Default constructor.</summary>
+        LocalMinute() = default;
+
         /// <summary>
         /// Creates local time to one minute precision from the specified hour and minute.
         /// </summary>
         LocalMinute(int hour, int minute);
+
+        /// <summary>Copy constructor.</summary>
+        LocalMinute(const LocalMinute& other);
 
     public: // PROPERTIES
 
@@ -75,11 +81,8 @@ namespace dot
         /// </summary>
         bool Equals(const LocalMinute& other) const;
 
-        /// <summary>Convert LocalMinute to ISO 8601 4 digit int hhmm format.</summary>
-        int ToIsoInt() const;
-
         /// <summary>Convert LocalMinute to ISO 8601 string in hh:mm format.</summary>
-        String ToIsoString() const;
+        String ToString() const;
 
     public: // OPERATORS
 

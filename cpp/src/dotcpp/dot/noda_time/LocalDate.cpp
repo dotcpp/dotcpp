@@ -26,6 +26,7 @@ limitations under the License.
 #include <dot/noda_time/Period.hpp>
 #include <dot/noda_time/LocalTime.hpp>
 #include <dot/noda_time/LocalDateTime.hpp>
+#include <dot/system/Object.hpp>
 #include <dot/system/String.hpp>
 
 namespace dot
@@ -52,6 +53,13 @@ namespace dot
     LocalDate::LocalDate(gdate date)
         : gdate(date)
     {}
+
+    LocalDate::LocalDate(const LocalDate& other)
+    {
+        *this = other;
+    }
+
+    LocalDate::LocalDate(Object const& rhs) { *this = rhs.operator LocalDate(); }
 
     LocalDate LocalDate::Add(const LocalDate& date, const Period& period)
     {
@@ -84,7 +92,7 @@ namespace dot
     String LocalDate::ToString() const
     {
         boost::posix_time::time_facet* facet = new boost::posix_time::time_facet();
-        facet->format("%Y%m%d");
+        facet->format("%Y-%m-%d");
         std::stringstream stream;
         stream.imbue(std::locale(std::locale::classic(), facet));
         stream << this->AtMidnight();

@@ -25,6 +25,7 @@ limitations under the License.
 #include <dot/noda_time/LocalMinute.hpp>
 #include <dot/noda_time/LocalTime.hpp>
 #include <dot/system/String.hpp>
+#include <dot/system/Exception.hpp>
 
 namespace dot
 {
@@ -35,6 +36,11 @@ namespace dot
 
         Hour.Hour = hour;
         Minute.Minute = minute;
+    }
+
+    LocalMinute::LocalMinute(const LocalMinute& other)
+    {
+        *this = other;
     }
 
     LocalTime LocalMinute::ToLocalTime()
@@ -59,14 +65,7 @@ namespace dot
         return *this == other;
     }
 
-    int LocalMinute::ToIsoInt() const
-    {
-        // Serialized to one minute precision in ISO 8601 4 digit int hhmm format
-        int result = Hour * 100 + Minute;
-        return result;
-    }
-
-    String LocalMinute::ToIsoString() const
+    String LocalMinute::ToString() const
     {
         // LocalMinute is serialized to ISO 8601 string in hh:mm format
         String result = String::Format("{0:02}:{1:02}", Hour, Minute);

@@ -22,11 +22,12 @@ limitations under the License.
 */
 
 #include <dot/implement.hpp>
+#include <dot/system/Object.hpp>
+#include <dot/detail/struct_wrapper.hpp>
 #include <dot/noda_time/LocalDateTime.hpp>
 #include <dot/noda_time/Period.hpp>
 #include <dot/noda_time/LocalTime.hpp>
 #include <dot/noda_time/LocalDate.hpp>
-#include <dot/system/Object.hpp>
 #include <dot/system/String.hpp>
 
 namespace dot
@@ -64,9 +65,16 @@ namespace dot
         : ptime(time)
     {}
 
+    LocalDateTime::LocalDateTime(const LocalDateTime& other)
+    {
+        *this = other;
+    }
+
     LocalDateTime::LocalDateTime(const LocalDate& date, const LocalTime& time) :
         ptime(date, time)
     {}
+
+    LocalDateTime::LocalDateTime(Object const& rhs) { *this = rhs.operator LocalDateTime(); }
 
     LocalDateTime LocalDateTime::Add(const LocalDateTime& localDateTime, const Period& period)
     {
@@ -89,11 +97,11 @@ namespace dot
     String LocalDateTime::ToString() const
     {
         boost::posix_time::time_facet* facet = new boost::posix_time::time_facet();
-        facet->format("%Y%m%d%H%M%S");
+        facet->format("%Y-%m-%d %H:%M:%S.%f");
         std::stringstream stream;
         stream.imbue(std::locale(std::locale::classic(), facet));
         stream << *this;
-        return stream.str();
+        return stream.str().substr(0, 23);
     }
 
     Period LocalDateTime::Minus(const LocalDateTime& localDateTime) const

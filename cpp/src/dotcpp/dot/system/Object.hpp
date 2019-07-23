@@ -27,10 +27,12 @@ limitations under the License.
 #include <dot/system/Ptr.hpp>
 #include <dot/system/ObjectImpl.hpp>
 #include <dot/system/Exception.hpp>
+#include <dot/system/String.hpp>
 
 namespace dot
 {
     template <class T> class Nullable;
+    class LocalMinute;
     class LocalTime;
     class LocalDate;
     class LocalDateTime;
@@ -39,6 +41,20 @@ namespace dot
     class StructWrapperImpl;
     template <class T>
     using StructWrapper = Ptr<StructWrapperImpl<T>>;
+
+    template <class T>
+    Type typeof();
+
+
+    namespace detail
+    {
+        template<class W, class T>
+        class inherit_to_string;
+        template<class W, class T>
+        class inherit_get_hashcode;
+        template<class W, class T>
+        class inherit_equals;
+    }
 
     /// <summary>Adds support for boxing value types to Ptr(ObjectImpl).</summary>
     class DOT_CLASS Object : public Ptr<ObjectImpl>
@@ -93,6 +109,9 @@ namespace dot
         template <class T>
         Object(const Nullable<T>& value) { if (value.HasValue) *this = value.Value; }
 
+        /// <summary>Construct Object from LocalMinute by boxing.</summary>
+        Object(const LocalMinute & value);
+
         /// <summary>Construct Object from LocalTime by boxing.</summary>
         Object(const LocalTime& value);
 
@@ -109,6 +128,10 @@ namespace dot
         /// <summary>Construct Object from struct wrapper, boxing the value if necessary.</summary>
         template <typename T>
         Object(StructWrapper<T> value) : base(value) {}
+
+        /// <summary>Construct Object from tuple, boxing the value if necessary.</summary>
+        template <typename ... T>
+        Object(const std::tuple<T...> & value) : Object(new StructWrapperImpl<std::tuple<T...>>(value)) {}
 
     public: // OPERATORS
 
@@ -149,9 +172,16 @@ namespace dot
         template <class T>
         Object& operator=(const StructWrapper<T>& value) { base::operator=(value); return *this; }
 
+        /// <summary>Assign tuple to Object by boxing.</summary>
+        template <typename ... T>
+        Object& operator=(const std::tuple<T...> & value) { base::operator=(new StructWrapperImpl<std::tuple<T...>>(value)); return *this; }
+
         /// <summary>Assign Nullable to Object by boxing.</summary>
         template <class T>
         Object& operator=(const Nullable<T>& value) { if (value.HasValue) *this = value.Value; else *this = nullptr; return *this; }
+
+        /// <summary>Assign LocalMinute to Object by boxing.</summary>
+        Object& operator=(const LocalMinute& value);
 
         /// <summary>Assign LocalTime to Object by boxing.</summary>
         Object& operator=(const LocalTime& value);
@@ -177,6 +207,9 @@ namespace dot
         /// <summary>Convert Object to char by unboxing. Error if Object does is not a boxed long.</summary>
         operator char() const;
 
+        /// <summary>Convert Object to LocalMinute by unboxing. Error if Object does is not a boxed LocalMinute.</summary>
+        operator LocalMinute() const;
+
         /// <summary>Convert Object to LocalTime by unboxing. Error if Object does is not a boxed LocalTime.</summary>
         operator LocalTime() const;
 
@@ -190,16 +223,35 @@ namespace dot
         template <class T>
         operator StructWrapper<T>() const { return this->as<StructWrapper<T>>(); }
 
+        /// <summary>Convert Object to tuple by unboxing. Error if Object does is not a boxed T.</summary>
+        template <class ... T>
+        operator std::tuple<T...>() const { return *this->as<StructWrapper<std::tuple<T...>>>(); }
+
         bool operator ==(Object rhs) const { throw new_Exception("Not implemented"); return false; }
 
+    public: // STATIC
+
+        /// <summary>Determines whether the specified System.Object instances are the same instance.</summary>
+        static bool ReferenceEquals(Object objA, Object objB);
     };
 
     /// <summary>Initializes a new instance of Object.</summary>
     inline Object new_Object() { return Object(new ObjectImpl); }
 
+}
+
+#include <dot/detail/struct_wrapper.hpp>
+
+namespace dot
+{
     /// <summary>Wraps struct into object.</summary>
     template <class T>
-    class StructWrapperImpl : public virtual ObjectImpl, public T
+    class StructWrapperImpl
+        : public virtual ObjectImpl
+        , public T
+        , public detail::inherit_to_string<StructWrapperImpl<T>, T>
+        , public detail::inherit_get_hashcode<StructWrapperImpl<T>, T>
+        , public detail::inherit_equals<StructWrapperImpl<T>, T>
     {
     public:
         StructWrapperImpl(const T& value) : T(value) {}
@@ -214,6 +266,12 @@ namespace dot
         {
             return typeof();
         }
+
+        virtual String ToString() override { return detail::inherit_to_string<StructWrapperImpl<T>, T>::ToString(); }
+
+        virtual size_t GetHashCode() override { return detail::inherit_get_hashcode<StructWrapperImpl<T>, T>::GetHashCode(); }
+
+        virtual bool Equals(Object obj) override { return detail::inherit_equals<StructWrapperImpl<T>, T>::Equals(obj); }
     };
 }
 

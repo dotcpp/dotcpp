@@ -24,8 +24,10 @@ limitations under the License.
 #include <dot/implement.hpp>
 #include <dot/system/Type.hpp>
 #include <dot/system/Object.hpp>
+#include <dot/detail/struct_wrapper.hpp>
 #include <dot/system/String.hpp>
 #include <dot/system/Nullable.hpp>
+#include <dot/noda_time/LocalMinute.hpp>
 #include <dot/noda_time/LocalTime.hpp>
 #include <dot/noda_time/LocalDate.hpp>
 #include <dot/noda_time/LocalDateTime.hpp>
@@ -40,7 +42,7 @@ namespace dot
     Object::Object(const Ptr<ObjectImpl>& ptr) : base(ptr) {}
 
     /// <summary>Construct Object from ObjectImpl pointer.</summary>
-    inline Object::Object(ObjectImpl* value) : base(value) {}
+    Object::Object(ObjectImpl* value) : base(value) {}
 
     /// <summary>Construct Object from String.</summary>
     Object::Object(const String& value) : base(value) {}
@@ -62,6 +64,9 @@ namespace dot
 
     /// <summary>Construct Object from char by boxing.</summary>
     Object::Object(char value) : base(new CharImpl(value)) {}
+
+    /// <summary>Construct Object from LocalMinute by boxing.</summary>
+    Object::Object(const LocalMinute & value) : base(new StructWrapperImpl<LocalMinute>(value)) {}
 
     /// <summary>Construct Object from LocalTime by boxing.</summary>
     Object::Object(const LocalTime & value) : base(new StructWrapperImpl<LocalTime>(value)) {}
@@ -105,6 +110,9 @@ namespace dot
     /// <summary>Assign int to Object by boxing.</summary>
     Object& Object::operator=(char value) { base::operator=(new CharImpl(value)); return *this; }
 
+    /// <summary>Assign LocalMinute to Object by boxing.</summary>
+    Object& Object::operator=(const LocalMinute& value) { base::operator=(new StructWrapperImpl<LocalMinute>(value)); return *this; }
+
     /// <summary>Assign LocalTime to Object by boxing.</summary>
     Object& Object::operator=(const LocalTime& value) { base::operator=(new StructWrapperImpl<LocalTime>(value)); return *this; }
 
@@ -129,6 +137,9 @@ namespace dot
     /// <summary>Convert Object to long by unboxing. Error if Object does is not a boxed long.</summary>
     Object::operator char() const { return Ptr<CharImpl>(*this)->value_; }
 
+    /// <summary>Convert Object to LocalMinute by unboxing. Error if Object does is not a boxed LocalMinute.</summary>
+    Object::operator LocalMinute() const { return *Ptr<StructWrapperImpl<LocalMinute>>(*this); }
+
     /// <summary>Convert Object to LocalTime by unboxing. Error if Object does is not a boxed LocalTime.</summary>
     Object::operator LocalTime() const { return *Ptr<StructWrapperImpl<LocalTime>>(*this); }
 
@@ -137,4 +148,9 @@ namespace dot
 
     /// <summary>Convert Object to LocalDateTime by unboxing. Error if Object does is not a boxed LocalDateTime.</summary>
     Object::operator LocalDateTime() const { return *Ptr<StructWrapperImpl<LocalDateTime>>(*this); }
+
+    bool Object::ReferenceEquals(Object objA, Object objB)
+    {
+        return &(*objA) == &(*objB);
+    }
 }

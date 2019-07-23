@@ -35,6 +35,7 @@ namespace dot
     class Period;
     class LocalTime;
     class LocalDateTime;
+    class Object;
 
     /// <summary>
     /// LocalDate is an immutable struct representing a date within the calendar,
@@ -61,6 +62,12 @@ namespace dot
 
         /// <summary>Create from Boost gregorian date.</summary>
         LocalDate(gdate date);
+
+        /// <summary>Copy constructor.</summary>
+        LocalDate(const LocalDate& other);
+
+        /// <summary>Create from Object.</summary>
+        LocalDate(Object const& rhs);
 
     public:
         /// <summary>Gets the day of this local date within the month.</summary>
