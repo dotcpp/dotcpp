@@ -40,10 +40,11 @@ namespace dot
         , public IDictionaryImpl<TKey, TValue>
         , public std::unordered_map<TKey, TValue>
     {
+        typedef DictionaryImpl<TKey, TValue> self;
         typedef std::unordered_map<TKey, TValue> base;
 
-        template <class TKey, class TValue>
-        friend Dictionary<TKey, TValue> new_Dictionary();
+        template <class TKey_, class TValue_>
+        friend Dictionary<TKey_, TValue_> new_Dictionary();
 
     private: // CONSTRUCTORS
 
@@ -57,7 +58,7 @@ namespace dot
     public: // PROPERTIES
 
         /// <summary>Gets the number of key/value pairs contained in the Dictionary.</summary>
-        DOT_IMPL_GET(int, Count, { return size(); })
+        DOT_IMPL_GET(int, Count, { return this->size(); })
 
         /// <summary>Gets a collection containing the keys in the Dictionary.</summary>
         DOT_IMPL_GET(ICollection<TKey>, Keys, {
@@ -78,27 +79,27 @@ namespace dot
         /// <summary>Adds the specified key and value to the dictionary.</summary>
         virtual void Add(const TKey& key, const TValue& value) override
         {
-            auto res = insert(KeyValuePair<TKey, TValue>(key, value));
-            if (!res.second)
-                throw new_Exception("An element with the same key already exists in the Dictionary");
+            this->Add(KeyValuePair<TKey, TValue>(key, value));
         }
 
         /// <summary>Adds the specified value to the ICollection with the specified key.</summary>
         virtual void Add(const KeyValuePair<TKey, TValue>& keyValuePair) override
         {
-            insert(keyValuePair);
+            auto res = this->insert(keyValuePair);
+            if (!res.second)
+                throw new_Exception("An element with the same key already exists in the Dictionary");
         }
 
         /// <summary>Removes all keys and values from the Dictionary.</summary>
         virtual void Clear() override
         {
-            clear();
+            this->clear();
         }
 
         /// <summary>Determines whether the ICollection contains a specific key and value.</summary>
         virtual bool Contains(const KeyValuePair<TKey, TValue>& keyValuePair) override
         {
-            auto iter = find(keyValuePair.first);
+            auto iter = this->find(keyValuePair.first);
             if (iter != end())
             {
                 return std::equal_to<TValue>()(keyValuePair.second, iter->second);
@@ -109,7 +110,7 @@ namespace dot
         /// <summary>Determines whether the Dictionary contains the specified key.</summary>
         virtual bool ContainsKey(const TKey& key) override
         {
-            return find(key) != end();
+            return this->find(key) != end();
         }
 
         /// <summary>Determines whether the Dictionary contains a specific value.</summary>
@@ -138,13 +139,25 @@ namespace dot
         /// <summary>Removes the value with the specified key from the Dictionary.</summary>
         virtual bool Remove(const TKey& key) override
         {
-            return erase(key) != 0;
+            return this->erase(key) != 0;
+        }
+
+        /// <summary>Removes a key and value from the dictionary.</summary>
+        virtual bool Remove(const KeyValuePair<TKey, TValue>& keyValuePair) override
+        {
+            auto iter = this->find(keyValuePair.first);
+            if (iter != end() && std::equal_to<TValue>()(keyValuePair.second, iter->second))
+            {
+                this->erase(iter);
+                return true;
+            }
+            return false;
         }
 
         /// <summary>Gets the value associated with the specified key.</summary>
         bool TryGetValue(const TKey& key, TValue& value)
         {
-            auto iter = find(key);
+            auto iter = this->find(key);
             if (iter != end())
             {
                 value = iter->second;

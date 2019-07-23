@@ -50,5 +50,8 @@ namespace dot
 
         /// <summary>Determines whether the list contains a specific value.</summary>
         virtual bool Contains(const T& item) = 0;
+
+        /// <summary>Removes the first occurrence of a specific object from the ICollection.</summary>
+        virtual bool Remove(const T& item) = 0;
     };
 }
