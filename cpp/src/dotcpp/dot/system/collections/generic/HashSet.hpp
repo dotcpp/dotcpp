@@ -24,92 +24,139 @@ limitations under the License.
 #pragma once
 
 #include <unordered_set>
-
-#include <dot/system/collections/generic/ICollection.hpp>
-#include <dot/system/collections/generic/IEnumerable.hpp>
-#include <dot/system/collections/generic/IEnumerator.hpp>
+#include <dot/system/Exception.hpp>
+#include <dot/system/collections/generic/ISet.hpp>
+#include <dot/system/collections/generic/List.hpp>
 
 namespace dot
 {
     template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
 
-    /// Adapter class from STL has_set to .NET HashSet
-    template <class T>
-    class HashSet : public std::unordered_set<T>
-    {
-    public:
+    template <class T> class HashSetImpl;
+    template <class T> using HashSet = Ptr<HashSetImpl<T>>;
 
+    /// <summary>Represents a set of values.</summary>
+    template <class T>
+    class HashSetImpl
+        : public virtual ObjectImpl
+        , public ISetImpl<T>
+        , public std::unordered_set<T>
+    {
+        typedef HashSetImpl<T> self;
         typedef std::unordered_set<T> base;
 
-    public:
+        template <class T_> friend HashSet<T_> new_HashSet();
+        template <class T_> friend HashSet<T_> new_HashSet(IEnumerable<T_> collection);
 
-        /// <summary>Initializes a new instance of the HashSet.</summary>
-        HashSet() : base()
+    protected: // CONSTRUCTORS
+
+        /// <summary>Initializes a new instance of the HashSet class that is empty
+        /// and uses the default equality comparer for the set type.</summary>
+        HashSetImpl() = default;
+
+        /// <summary>
+        /// Initializes a new instance of the HashSet class that uses the default
+        /// equality comparer for the set type, contains elements copied from the specified
+        /// collection, and has sufficient capacity to accommodate the number of elements copied.
+        /// </summary>
+        explicit HashSetImpl(IEnumerable<T> collection)
         {
+            for (T const & item : collection)
+                this->Add(item);
         }
 
-        /// <summary>Gets number of elements in HashSet.</summary>
-        inline int getCount() const
+    public: // PROPERTIES
+
+        /// <summary>Gets the number of elements that are contained in a set.</summary>
+        DOT_IMPL_GET(int, Count, { return this->size(); })
+
+    public: // METHODS
+
+        /// <summary>Adds the specified element to a set.</summary>
+        virtual void Add(const T& item) override
         {
-            return this->get().size();
+            std::pair<typename base::iterator, bool> res = this->insert(item);
+            //return res.second;
         }
 
-        /// <summary>Adds the specified element to the HashSet.</summary>
-        inline bool add(T item);
+        /// <summary>Removes all elements from a HashSet object.</summary>
+        virtual void Clear() override
+        {
+            this->clear();
+        }
 
-        /// <summary>Removes all keys and values from the HashSet.</summary>
-        inline void clear();
+        /// <summary>Determines whether a HashSet object contains the specified element.</summary>
+        virtual bool Contains(const T& item) override
+        {
+            auto iter = this->find(item);
+            return iter != this->end();
+        }
 
-        /// <summary>Searches element in HashSet.</summary>
-        inline bool contains(const T& item) const;
+        /// <summary>Removes the specified element from a HashSet object.</summary>
+        virtual bool Remove(const T& item) override
+        {
+            return this->erase(item) != 0;
+        }
 
-        /// <summary>Copies HashSet elements to array starting at then begining of arrray.</summary>
-        void copyTo(Array1D<T>& arr) const;
+        /// <summary>Returns an enumerator that iterates through the HashSet.</summary>
+        virtual IEnumerator<T> GetEnumerator() override
+        {
+            return new_Enumerator(base::begin(), base::end());
+        }
 
-        /// <summary>Copies HashSet elements to array starting at specified index.</summary>
-        void copyTo(Array1D<T>& arr, int arrIndex) const;
+        /// <summary>Returns random access begin iterator of the underlying std::unordered_set.</summary>
+        typename base::iterator begin() { return base::begin(); }
 
-        /// <summary>Copies range of HashSet elements to array starting at specified index.</summary>
-        void copyTo(Array1D<T>& arr, int arrIndex, int count) const;
+        /// <summary>Returns random access end iterator of the underlying std::unordered_set.</summary>
+        typename base::iterator end() { return base::end(); }
+
+        /// <summary>Sets the capacity of a HashSet object to the actual number of elements
+        /// it contains,rounded up to a nearby, implementation-specific value.</summary>
+        void TrimExcess()
+        {
+            this->reserve(this->size());
+        }
+
+        /// <summary>Searches the set for a given value and returns the equal value it finds, if any.</summary>
+        bool TryGetValue(const T& equalValue, T& actualValue)
+        {
+            auto iter = this->find(equalValue);
+            if (iter != this->end())
+            {
+                actualValue = *iter;
+                return true;
+            }
+            return false;
+        }
 
         /// <summary>Removes all elements in the specified collection from the current HashSet object.</summary>
-        inline void exceptWith(const IEnumerable<T>& other);
+        virtual void ExceptWith(IEnumerable<T> other) override
+        {
+            for (T const& item : other)
+            {
+                this->Remove(item);
+            }
+        }
 
-        /// <summary>Modifies the current HashSet to contain only elements that are present in that object and in the specified collection.</summary>
-        inline void intersectWith(const IEnumerable<T>& other);
+        /// <summary>Modifies the current HashSet object to contain only elements
+        /// that are present in that object and in the specified collection.</summary>
+        virtual void IntersectWith(IEnumerable<T> other) override
+        {
+            List<T> left = new_List<T>();
+            for (T const& item : other)
+            {
+                if (this->Contains(item))
+                    left->Add(item);
+            }
 
-        /// <summary>Determines whether a HashSet object is a proper subset of the specified collection.</summary>
-        inline bool isProperSubsetOf(const IEnumerable<T>& other) const;
-
-        /// <summary>Determines whether a HashSet is a proper superset of the specified collection.</summary>
-        inline bool isProperSupersetOf(const IEnumerable<T>& other) const;
-
-        /// <summary>Determines whether a HashSet is a subset of the specified collection.</summary>
-        inline bool isSubsetOf(const IEnumerable<T>& other) const;
-
-        /// <summary>Determines whether a HashSet is a superset of the specified collection.</summary>
-        inline bool isSupersetOf(const IEnumerable<T>& other) const;
-
-        /// <summary>Determines whether the current HashSet and a specified collection share common elements.</summary>
-        inline bool overlaps(const IEnumerable<T>& other) const;
-
-        /// <summary>Removes the first occurrence of a specific object from the HashSet.</summary>
-        inline bool remove(const T& item);
-
-        /// <summary>Removes all the elements that match the predicate conditions.</summary>
-        template <class Predicate>
-        inline int removeWhere(Predicate match);
-
-        /// <summary>Determines whether a HashSet object and the specified collection contain the same elements.</summary>
-        inline bool setEquals(const IEnumerable<T>& other) const;
-
-        /// <summary>Modifies the current HashSet to contain only elements that are present either in that object or in the specified collection, but not both.</summary>
-        inline void symmetricExceptWith(const IEnumerable<T>& other);
-
-        /// <summary>Sets the capacity to the actual number of elements in the List, if that number is less than a threshold value.</summary>
-        inline void trimExcess();
-
-        /// <summary>Modifies the current HashSet to contain all elements that are present in itself and the specified collection.</summary>
-        inline void unionWith(const IEnumerable<T>& other);
+            this->Clear();
+            for (T const& item : left) this->Add(item);
+        }
     };
+
+    template <class T>
+    inline HashSet<T> new_HashSet() { return new HashSetImpl<T>(); }
+
+    template <class T>
+    inline HashSet<T> new_HashSet(IEnumerable<T> collection) { return new HashSetImpl<T>(collection); }
 }
