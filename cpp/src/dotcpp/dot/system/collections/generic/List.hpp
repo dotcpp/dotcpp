@@ -39,6 +39,9 @@ namespace dot
     class ListImpl : public IListImpl<T>, public virtual ObjectImpl, public std::vector<T>, public IObjectCollectionImpl
     {
         template <class R> friend List<R> new_List();
+        template <class R> friend List<R> new_List(const std::vector<R> & obj);
+        template <class R> friend List<R> new_List(std::vector<R>&& obj);
+        template <class R> friend List<R> new_List(const std::initializer_list<R> & obj);
 
         typedef ListImpl<T> self;
         typedef std::vector<T> base;
@@ -51,6 +54,12 @@ namespace dot
         /// This constructor is private. Use new_List() function instead.
         /// </summary>
         ListImpl() {}
+
+        explicit ListImpl(const std::vector<T>& obj) : base(obj) {}
+
+        explicit ListImpl(std::vector<T>&& obj) : base(obj) {}
+
+        explicit ListImpl(const std::initializer_list<T>& obj) : base(obj) {}
 
     public: // METHODS
 
@@ -108,6 +117,18 @@ namespace dot
         /// <summary>Adds the elements of the specified collection to the end of the list.</summary>
         // TODO - implement void AddRange(const IEnumerable<T>& collection);
 
+        /// <summary>Removes the first occurrence of a specific object from the List.</summary>
+        virtual bool Remove(const T& item)
+        {
+            auto iter = std::find(begin(), end(), item);
+            if (iter != end())
+            {
+                this->erase(iter);
+                return true;
+            }
+            return false;
+        }
+
         /// <summary>Copies the elements of the current List(T) to a new array.</summary>
         Array1D<T> ToArray() const { return new_Array1D(*this); }
 
@@ -130,4 +151,14 @@ namespace dot
     /// </summary>
     template <class T>
     List<T> new_List() { return new ListImpl<T>(); }
+
+    template <class T>
+    List<T> new_List(const std::vector<T> & obj) { return new ListImpl<T>(obj); }
+
+    template <class T>
+    List<T> new_List(std::vector<T>&& obj) { return new ListImpl<T>(std::forward<std::vector<T>>(obj)); }
+
+    template <class T>
+    List<T> new_List(const std::initializer_list<T> & obj) { return new ListImpl<T>(obj); }
+
 }
