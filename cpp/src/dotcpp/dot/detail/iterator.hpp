@@ -54,10 +54,10 @@ namespace dot
             virtual std::unique_ptr<std_iterator_base> copy() = 0;
 
             /// Get wrapper (const version)
-            virtual std::reference_wrapper<T> const get() const = 0;
+            virtual T get() const = 0;
 
             /// Get wrapper (non-const version)
-            virtual std::reference_wrapper<T> get() = 0;
+            //virtual std::reference_wrapper<T> get() = 0;
 
             /// Equality
             virtual bool operator ==(std_iterator_base<T> const& iter) = 0;
@@ -107,16 +107,16 @@ namespace dot
             }
 
             /// Get reference to the underlying type (const version)
-            virtual std::reference_wrapper<value_type> const get() const override
+            virtual value_type get() const override
             {
-                return std::reference_wrapper<value_type >(*iter_);
+                return (*iter_);
             }
 
             /// Get reference to the underlying type (non-const version)
-            virtual std::reference_wrapper<value_type> get() override
-            {
-                return std::reference_wrapper<value_type >(*iter_);
-            }
+            //virtual std::reference_wrapper<value_type> get() override
+            //{
+            //    return std::reference_wrapper<value_type >(*iter_);
+            //}
 
             /// Equality
             virtual bool operator==(std_iterator_base<value_type> const& iter) override
@@ -178,16 +178,16 @@ namespace dot
             }
 
             /// Get reference to the underlying type (const version)
-            inline T const& get() const
+            inline T get() const
             {
                 return iter_->get();
             }
 
             /// Get reference to the underlying type (non-const version)
-            inline T& get()
-            {
-                return iter_->get();
-            }
+            //inline T& get()
+            //{
+            //    return iter_->get();
+            //}
 
             /// Equality
             inline bool operator==(std_iterator_wrapper const& iter)
@@ -202,16 +202,16 @@ namespace dot
             }
 
             /// Dereference (const version)
-            inline T const& operator*() const
+            inline T operator*() const
             {
                 return get();
             }
 
             /// Dereference (non-const version)
-            inline T& operator*()
-            {
-                return get();
-            }
+            //inline T& operator*()
+            //{
+            //    return get();
+            //}
         };
     }
 }

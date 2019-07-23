@@ -58,16 +58,16 @@ namespace dot
     };
 }
 
-namespace std
+namespace dot
 {
     /// <summary>Implements begin() used by STL and similar algorithms.</summary>
-    inline auto begin(dot::IObjectEnumerable & obj)
+    inline dot::detail::std_object_iterator_wrapper begin(dot::Ptr<dot::IObjectEnumerableImpl> & obj)
     {
         return obj->object_begin();
     }
 
     /// <summary>Implements end() used by STL and similar algorithms.</summary>
-    inline auto end(dot::IObjectEnumerable & obj)
+    inline dot::detail::std_object_iterator_wrapper end(dot::Ptr<dot::IObjectEnumerableImpl> & obj)
     {
         return obj->object_end();
     }

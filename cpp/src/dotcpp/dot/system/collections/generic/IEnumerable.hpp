@@ -53,18 +53,40 @@ namespace dot
             return detail::std_iterator_wrapper<T>(std::move(GetEnumerator()->end_iterator_));
         }
     };
+}
+
+namespace dot
+{
+
+    inline dot::detail::std_object_iterator_wrapper begin(dot::Ptr<dot::IObjectEnumerableImpl> & obj);
+    inline dot::detail::std_object_iterator_wrapper end(dot::Ptr<dot::IObjectEnumerableImpl>& obj);
 
     /// <summary>Implements begin() used by STL and similar algorithms.</summary>
     template <class T>
-    auto begin(Ptr<T> & obj)
+    auto begin(dot::Ptr<T> & obj)
     {
         return obj->begin();
     }
 
     /// <summary>Implements end() used by STL and similar algorithms.</summary>
     template <class T>
-    auto end(Ptr<T> & obj)
+    auto end(dot::Ptr<T> & obj)
     {
         return obj->end();
     }
+
+    /// <summary>Implements begin() used by STL and similar algorithms.</summary>
+    template <class T>
+    auto begin(dot::Ptr<T> const& obj)
+    {
+        return obj->begin();
+    }
+
+    /// <summary>Implements end() used by STL and similar algorithms.</summary>
+    template <class T>
+    auto end(dot::Ptr<T> const& obj)
+    {
+        return obj->end();
+    }
+
 }

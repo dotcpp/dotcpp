@@ -59,15 +59,7 @@ namespace dot
         /// <summary>
         /// Gets the element in the collection at the current position of the enumerator (const version).
         /// </summary>
-        const T& getCurrent() const
-        {
-            return current_iterator_->get();
-        }
-
-        /// <summary>
-        /// Gets the element in the collection at the current position of the enumerator (non-const version).
-        /// </summary>
-        T& getCurrent()
+        T getCurrent() const
         {
             return current_iterator_->get();
         }
