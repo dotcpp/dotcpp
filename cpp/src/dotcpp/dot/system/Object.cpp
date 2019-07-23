@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (C) 2003-present CompatibL
+Copyright (C) 2015-present The DotCpp Authors.
 
 This file is part of .C++, a native C++ implementation of
 popular .NET class library APIs developed to facilitate
