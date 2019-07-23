@@ -46,16 +46,19 @@ namespace dot
 
         /// <summary>Gets the value of the current Nullable object
         /// if it has been assigned a valid underlying value.</summary>
-        DOT_GET(T, Value, { return value(); })
+        DOT_GET(T, Value, { return this->value(); })
 
         /// <summary>Gets a value indicating whether the current Nullable
         /// object has a valid value of its underlying type.</summary>
-        DOT_GET(bool, HasValue, { return has_value(); })
+        DOT_GET(bool, HasValue, { return this->has_value(); })
 
     public: // CONSTRUCTORS
 
         /// <summary>Default constructor of Nullable.</summary>
         Nullable() = default;
+
+        /// <summary>Construct Nullable from nullptr.</summary>
+        Nullable(nullptr_t) {}
 
         /// <summary>Initializes a new instance of the Nullable
         /// structure to the specified value.</summary>
@@ -68,6 +71,9 @@ namespace dot
         /// Null Object becomes empty Nullable.
         /// </summary>
         explicit Nullable(Object rhs) { if (!rhs.IsEmpty()) *this = (T) rhs; }
+
+        /// <summary>Copy constructor.</summary>
+        Nullable(const Nullable& other) { *this = other; }
 
     public: // METHODS
 
@@ -84,6 +90,11 @@ namespace dot
         /// <summary>Defines an explicit conversion of a Nullable
         /// instance to its underlying value.</summary>
         explicit operator T() const { return Value; }
+
+        Nullable& operator=(nullptr_t) { this->reset(); return *this; }
+
+        bool operator==(nullptr_t) { return !this->HasValue; }
+        bool operator!=(nullptr_t) { return this->HasValue; }
 
         bool operator ==(T rhs) { return GetValueOrDefault() == rhs; }
         bool operator ==(Nullable<T> rhs) { return GetValueOrDefault() == rhs.GetValueOrDefault(); }
@@ -138,6 +149,9 @@ namespace dot
         /// Null Object becomes empty Nullable.
         /// </summary>
         explicit Nullable(Object rhs) { if (!rhs.IsEmpty()) *this = (bool) rhs; }
+
+        /// <summary>Copy constructor.</summary>
+        Nullable(const Nullable& other) { *this = other; }
 
     public: // METHODS
 
@@ -207,6 +221,9 @@ namespace dot
         /// Null Object becomes empty Nullable.
         /// </summary>
         explicit Nullable(Object rhs) { if (!rhs.IsEmpty()) *this = (int) rhs; }
+
+        /// <summary>Copy constructor.</summary>
+        Nullable(const Nullable& other) { *this = other; }
 
     public: // METHODS
 
@@ -282,6 +299,9 @@ namespace dot
         /// </summary>
         explicit Nullable(Object rhs) { if (!rhs.IsEmpty()) *this = (int64_t) rhs; }
 
+        /// <summary>Copy constructor.</summary>
+        Nullable(const Nullable& other) { *this = other; }
+
     public: // METHODS
 
         /// <summary>Retrieves the value of the current Nullable object,
@@ -354,6 +374,9 @@ namespace dot
         /// Null Object becomes empty Nullable.
         /// </summary>
         explicit Nullable(Object rhs) { if (!rhs.IsEmpty()) *this = (double) rhs; }
+
+        /// <summary>Copy constructor.</summary>
+        Nullable(const Nullable& other) { *this = other; }
 
     public: // METHODS
 
