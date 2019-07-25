@@ -47,6 +47,7 @@ namespace dot
 
         LocalTime localTime(12, 10);
         REQUIRE(localMinute.ToLocalTime() == localTime);
+        REQUIRE(localMinute.ToString() == "12:10");
 
         REQUIRE(localMinute.CompareTo(localMinute2) == 0);
         REQUIRE(localMinute.CompareTo(localMinuteAfter) == -1);
@@ -59,10 +60,6 @@ namespace dot
         REQUIRE(localMinute.Equals(localMinute2) == true);
         REQUIRE(localMinute.Equals(localMinuteAfter) == false);
         REQUIRE(localMinute.Equals(localMinuteBefore) == false);
-
-        LocalMinute localMinuteStr(1, 0);
-        REQUIRE(localMinuteStr.ToIsoInt() == 100);
-        REQUIRE(localMinuteStr.ToIsoString() == "01:00");
     }
 
     TEST_CASE("Operators")
