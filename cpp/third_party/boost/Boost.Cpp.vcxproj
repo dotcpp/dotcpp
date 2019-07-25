@@ -72,12 +72,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\bin\vc141-x64-debug\</OutDir>
-    <TargetName>libboost_date_time-vc141-mt-gd-x64-1_69</TargetName>
+    <TargetName>libboost_date_time-vc141-mt-gd-x64-1_70</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)\bin\vc141-x64-release\</OutDir>
-    <TargetName>libboost_date_time-vc141-mt-x64-1_69</TargetName>
+    <TargetName>libboost_date_time-vc141-mt-x64-1_70</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
