@@ -34,18 +34,18 @@ namespace dot
     /// <summary>Empty string.</summary>
     String String::Empty = new_String("");
 
-    Type StringImpl::typeof()
+    dot::Type StringImpl::typeof()
     {
-        static Type type = []()->Type
+        static dot::Type type = []()->dot::Type
         {
-            Type type = new_TypeBuilder<StringImpl>("System", "String")
+            dot::Type type = dot::new_TypeBuilder<StringImpl>("System", "String")
                 ->Build();
             return type;
         }();
         return type;
     }
 
-    Type StringImpl::GetType()
+    dot::Type StringImpl::GetType()
     {
         return typeof();
     }
