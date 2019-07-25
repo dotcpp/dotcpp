@@ -30,12 +30,12 @@ limitations under the License.
 
 #define DOT_TYPE_BEGIN(nspace, name, ...)                                                         \
         public:                                                                                   \
-        virtual Type GetType() { return typeof(); }                                               \
-        static Type typeof()                                                                      \
+        virtual dot::Type GetType() { return typeof(); }                                               \
+        static dot::Type typeof()                                                                      \
         {                                                                                         \
-            static Type type = []()-> Type                                                        \
+            static dot::Type type = []()-> Type                                                        \
             {                                                                                     \
-                Type type = new_TypeBuilder<self>(nspace, name)
+                dot::Type type = dot::new_TypeBuilder<self>(nspace, name)
 
 #define DOT_TYPE_END()                                                                         \
                     ->Build();                                                                    \
