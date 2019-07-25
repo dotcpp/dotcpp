@@ -156,12 +156,6 @@ namespace dot
 
     class TypeBuilderImpl;
 
-    template <class Prop, class Class>
-    struct prop_wrapper;
-
-    template <class Prop, class Class>
-    prop_wrapper<Class, Prop> make_prop(Prop Class::*prop_);
-
     /// <summary>
     /// Implementation of PropertyInfo for a property defined using a macro.
     /// </summary>
@@ -175,10 +169,7 @@ namespace dot
             , typename std::enable_if<std::is_base_of<detail::decl_get, PropType>::value>::type *);
         friend TypeBuilderImpl;
 
-        template <class Prop_, class Class_>
-        friend prop_wrapper<Class_, Prop_> make_prop(Prop_ Class_::*prop_);
-
-    private: // FIELDS
+    public: // FIELDS //! TODO make private
 
         /// <summary>Pointer to property defined using a macro.</summary>
         property_ptr_type prop_;
