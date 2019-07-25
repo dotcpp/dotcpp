@@ -32,16 +32,16 @@ public:                                                                 \
     typedef StructWrapperImpl<self>* pointer_type;                      \
     using Enum::Enum;                                                   \
                                                                         \
-    operator Object() { return new StructWrapperImpl<self>(*this); }    \
+    operator dot::Object() { return new StructWrapperImpl<self>(*this); }    \
     operator int() const { return value_; }                             \
     self& operator=(int rhs) { value_ = rhs; return *this; }            \
     self& operator=(const self& other) { value_ = other.value_; return *this; } \
-    virtual Type GetType() { return typeof(); }                         \
-    static Type typeof()                                                \
+    virtual dot::Type GetType() { return typeof(); }                         \
+    static dot::Type typeof()                                                \
     {                                                                   \
-        static Type type = []()->Type                                   \
+        static dot::Type type = []()->Type                                   \
         {                                                               \
-            Type type = new_TypeBuilder<self>(nspace, name)             \
+            dot::Type type = dot::new_TypeBuilder<self>(nspace, name)             \
                 ->IsEnum()                                              \
                 ->WithConstructor(&self::new_Self, {})                  \
                 ->WithBase<Enum>()                                      \
@@ -52,11 +52,11 @@ public:                                                                 \
     }                                                                   \
                                                                         \
 protected:                                                              \
-    virtual Dictionary<String, int> GetEnumMap() override               \
+    virtual dot::Dictionary<dot::String, int> GetEnumMap() override               \
     {                                                                   \
-        static Dictionary<String, int> enumMap_ = []()                  \
+        static dot::Dictionary<dot::String, int> enumMap_ = []()                  \
         {                                                               \
-            auto map_ = new_Dictionary<String, int>();
+            auto map_ = dot::new_Dictionary<dot::String, int>();
 
 
 #define DOT_ENUM_VALUE(value) \
