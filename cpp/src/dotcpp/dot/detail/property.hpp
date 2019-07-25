@@ -275,8 +275,8 @@ namespace dot
 
 
 #define __DOT_PROP_STRUCT_FLUENT__(ptype, name)         \
-    Ptr<self> operator()(const value_type& value)       \
-        { *this = value; return Ptr<self>(this_); }
+    dot::Ptr<self> operator()(const value_type& value)       \
+        { *this = value; return dot::Ptr<self>(this_); }
 
 
 #define __DOT_PROP_STRUCT_PROP__(ptype, name)           \

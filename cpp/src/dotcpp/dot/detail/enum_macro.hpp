@@ -25,21 +25,21 @@ limitations under the License.
 
 #define DOT_ENUM_BEGIN(nspace, name)                                    \
 private:                                                                \
-    static Object new_Self() { return self(); }                         \
+    static dot::Object new_Self() { return self(); }                         \
                                                                         \
 public:                                                                 \
     typedef self element_type;                                          \
-    typedef StructWrapperImpl<self>* pointer_type;                      \
-    using Enum::Enum;                                                   \
+    typedef dot::StructWrapperImpl<self>* pointer_type;                      \
+    using dot::Enum::Enum;                                                   \
                                                                         \
-    operator dot::Object() { return new StructWrapperImpl<self>(*this); }    \
+    operator dot::Object() { return new dot::StructWrapperImpl<self>(*this); }    \
     operator int() const { return value_; }                             \
     self& operator=(int rhs) { value_ = rhs; return *this; }            \
     self& operator=(const self& other) { value_ = other.value_; return *this; } \
     virtual dot::Type GetType() { return typeof(); }                         \
     static dot::Type typeof()                                                \
     {                                                                   \
-        static dot::Type type = []()->Type                                   \
+        static dot::Type type = []()->dot::Type                                   \
         {                                                               \
             dot::Type type = dot::new_TypeBuilder<self>(nspace, name)             \
                 ->IsEnum()                                              \

@@ -33,7 +33,7 @@ limitations under the License.
         virtual dot::Type GetType() { return typeof(); }                                               \
         static dot::Type typeof()                                                                      \
         {                                                                                         \
-            static dot::Type type = []()-> Type                                                        \
+            static dot::Type type = []()-> dot::Type                                                        \
             {                                                                                     \
                 dot::Type type = dot::new_TypeBuilder<self>(nspace, name)
 
