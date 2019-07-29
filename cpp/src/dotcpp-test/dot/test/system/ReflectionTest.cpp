@@ -25,7 +25,7 @@ limitations under the License.
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <dot/system/Array1D.hpp>
-#include <dot/system/String.hpp>
+#include <dot/system/string.hpp>
 #include <dot/system/Exception.hpp>
 #include <dot/system/reflection/PropertyInfo.hpp>
 #include <dot/system/reflection/MethodInfo.hpp>

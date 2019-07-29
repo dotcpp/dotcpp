@@ -31,9 +31,9 @@ namespace dot
     TEST_CASE("Format")
     {
         int x = 1;
-        String s = "{1}";
+        string s = "{1}";
         Console::WriteLine("{0}, {1}", x, "str");
-        Console::WriteLine(String("{0}"));
+        Console::WriteLine(string("{0}"));
         Console::WriteLine(s);
         Console::WriteLine(2);
     }

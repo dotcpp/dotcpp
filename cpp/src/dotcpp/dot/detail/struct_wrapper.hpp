@@ -26,7 +26,7 @@ limitations under the License.
 namespace dot
 {
     class object_impl;
-    class String;
+    class string;
     class object;
     class object_impl;
 
@@ -37,29 +37,29 @@ namespace dot
         {};
 
         /// <summary>
-        /// objects inherit this structure in case their inner struct class has method ToString
+        /// objects inherit this structure in case their inner struct class has method to_string
         /// so object also have these method.
         /// </summary>
         template <class W, class T>
         class obj_to_string : public virtual object_impl
         {
         public:
-            virtual String ToString() override { return static_cast<T*>(static_cast<W*>(this))->ToString(); }
+            virtual string to_string() override { return static_cast<T*>(static_cast<W*>(this))->to_string(); }
         };
 
-        /// <summary>Detects existance of ToString method.</summary>
+        /// <summary>Detects existance of to_string method.</summary>
         template<class T>
         struct has_to_string
         {
         private:
             static dummy_no_to_string detect(...);
-            template<class U> static decltype(std::declval<U>().ToString()) detect(const U&);
+            template<class U> static decltype(std::declval<U>().to_string()) detect(const U&);
         public:
             static constexpr bool value = !std::is_same<dummy_no_to_string, decltype(detect(std::declval<T>()))>::value;
             typedef std::integral_constant<bool, value> type;
         };
 
-        /// <summary>For inheritance of ToString method.</summary>
+        /// <summary>For inheritance of to_string method.</summary>
         template<class W, class T>
         class inherit_to_string : public std::conditional<
                 has_to_string<T>::value,

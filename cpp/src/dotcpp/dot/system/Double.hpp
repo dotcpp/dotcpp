@@ -48,7 +48,7 @@ namespace dot
         virtual size_t GetHashCode() override;
 
         /// <summary>Converts the numeric value of this instance to its equivalent string representation.</summary>
-        virtual String ToString() override;
+        virtual string to_string() override;
 
     public: // REFLECTION
 
@@ -72,7 +72,7 @@ namespace dot
     public: // STATIC
 
         /// <summary>Converts the string representation of a number to its double-precision floating-point number equivalent.</summary>
-        static double Parse(String s);
+        static double Parse(string s);
     };
 }
 

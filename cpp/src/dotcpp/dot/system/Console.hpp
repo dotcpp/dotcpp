@@ -25,7 +25,7 @@ limitations under the License.
 
 #include <dot/declare.hpp>
 #include <fmt/core.h>
-#include <dot/system/String.hpp>
+#include <dot/system/string.hpp>
 
 namespace dot
 {
@@ -48,9 +48,9 @@ namespace dot
         /// to the standard output stream using the specified format information.
         /// </summary>
         template <typename First, typename ...Args>
-        static void Write(const String& format, const First& f, const Args& ...args)
+        static void Write(const string& format, const First& f, const Args& ...args)
         {
-            std::cout << *String::Format(format, f, args...);
+            std::cout << *string::Format(format, f, args...);
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace dot
         template <typename T>
         static void Write(const T& arg)
         {
-            std::cout << *String::Format("{0}", arg);
+            std::cout << *string::Format("{0}", arg);
         }
 
         /// <summary>

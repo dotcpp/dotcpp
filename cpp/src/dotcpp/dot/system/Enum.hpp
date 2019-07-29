@@ -65,7 +65,7 @@ namespace dot
     public: // METHODS
 
         /// <summary>Converts the value of this instance to its equivalent string representation.</summary>
-        String ToString();
+        string to_string();
 
         /// <summary>Returns the hash code for the value of this instance.</summary>
         size_t GetHashCode();
@@ -79,11 +79,11 @@ namespace dot
         /// Converts the string representation of the name or numeric value of
         /// one or more enumerated constants to an equivalent enumerated object.
         /// </summary>
-        static object Parse(Type enumType, String value);
+        static object Parse(Type enumType, string value);
 
     protected: // PROTECTED
 
-        virtual Dictionary<String, int> GetEnumMap() = 0;
+        virtual Dictionary<string, int> GetEnumMap() = 0;
 
     public: // OPERATORS
 

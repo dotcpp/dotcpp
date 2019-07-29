@@ -26,7 +26,7 @@ limitations under the License.
 #include <dot/system/objectimpl.hpp>
 #include <dot/system/Array1D.hpp>
 #include <dot/system/Exception.hpp>
-#include <dot/system/String.hpp>
+#include <dot/system/string.hpp>
 #include <dot/system/collections/generic/List.hpp>
 #include <dot/system/reflection/MethodInfo.hpp>
 #include <dot/system/reflection/ConstructorInfo.hpp>
@@ -46,7 +46,7 @@ namespace dot
         // If no constructors
         if (ctors.IsEmpty() || ctors->Count == 0)
         {
-            throw new_Exception(String::Format("Type {0}.{1} does not have registered constructors", type->Namespace, type->Name));
+            throw new_Exception(string::Format("Type {0}.{1} does not have registered constructors", type->Namespace, type->Name));
         }
 
         // Search for best matched constructor
@@ -69,7 +69,7 @@ namespace dot
             // Compare all parameters types
             for (int i = 0; i < paramsCount; ++i)
             {
-                if ((String)ctorParams[i]->ParameterType->Name != params[i]->GetType()->Name)
+                if ((string)ctorParams[i]->ParameterType->Name != params[i]->GetType()->Name)
                 {
                     matches = false;
                     break;
@@ -93,12 +93,12 @@ namespace dot
         return best_ctor->Invoke(params);
     }
 
-    object Activator::CreateInstance(String assemblyName, String typeName)
+    object Activator::CreateInstance(string assemblyName, string typeName)
     {
         return CreateInstance(TypeImpl::GetType(typeName), nullptr);
     }
 
-    object Activator::CreateInstance(String assemblyName, String typeName, Array1D<object> params)
+    object Activator::CreateInstance(string assemblyName, string typeName, Array1D<object> params)
     {
         return CreateInstance(TypeImpl::GetType(typeName), params);
     }

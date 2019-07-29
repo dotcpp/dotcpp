@@ -30,7 +30,7 @@ limitations under the License.
 #include <dot/system/reflection/ConstructorInfo.hpp>
 #include <dot/system/Array1D.hpp>
 #include <dot/system/collections/generic/List.hpp>
-#include <dot/system/String.hpp>
+#include <dot/system/string.hpp>
 
 namespace dot
 {
@@ -180,14 +180,14 @@ namespace dot
     ///
     /// This constructor is private. Use TypeBuilder->Build() method instead.
     /// </summary>
-    TypeImpl::TypeImpl(String nspace, String name)
+    TypeImpl::TypeImpl(string nspace, string name)
     {
         this->Namespace.Namespace = nspace;
         this->Name.Name = name;
     }
 
 
-    TypeBuilderImpl::TypeBuilderImpl(String Namespace, String Name, String CppName)
+    TypeBuilderImpl::TypeBuilderImpl(string Namespace, string Name, string CppName)
         : fullName_(Namespace + "." + Name)
     {
         type_ = new TypeImpl(Namespace, Name);
@@ -196,7 +196,7 @@ namespace dot
         TypeImpl::GetTypeMap()[CppName] = type_;
     }
 
-    PropertyInfo TypeImpl::GetProperty(String name)
+    PropertyInfo TypeImpl::GetProperty(string name)
     {
         if (properties_.IsEmpty()) return nullptr;
 
@@ -209,7 +209,7 @@ namespace dot
         return nullptr;
     }
 
-    MethodInfo TypeImpl::GetMethod(String name)
+    MethodInfo TypeImpl::GetMethod(string name)
     {
         if (methods_.IsEmpty()) return nullptr;
 
@@ -222,7 +222,7 @@ namespace dot
         return nullptr;
     }
 
-    Type TypeImpl::GetInterface(String name)
+    Type TypeImpl::GetInterface(string name)
     {
         if (interfaces_.IsEmpty()) return nullptr;
 

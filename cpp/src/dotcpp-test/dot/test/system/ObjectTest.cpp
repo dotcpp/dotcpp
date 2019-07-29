@@ -25,7 +25,7 @@ limitations under the License.
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <dot/system/object.hpp>
-#include <dot/system/String.hpp>
+#include <dot/system/string.hpp>
 
 namespace dot
 {
@@ -41,9 +41,9 @@ namespace dot
 
     TEST_CASE("Equals")
     {
-        object a = new_String("str");
-        object b = new_String("str");
-        object c = new_String("str1");
+        object a = make_string("str");
+        object b = make_string("str");
+        object c = make_string("str1");
 
         REQUIRE(a->Equals(a));
         REQUIRE(a->Equals(b));

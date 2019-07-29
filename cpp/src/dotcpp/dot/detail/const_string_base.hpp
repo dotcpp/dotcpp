@@ -30,10 +30,10 @@ namespace dot
     namespace detail
     {
         /// <summary>
-        /// This class is used as base class of StringImpl.
+        /// This class is used as base class of string_impl.
         ///
         /// The objective is to make it possible to pass this class to functions
-        /// accepting  std::string. Because C# String is immutable, const_string_base
+        /// accepting  std::string. Because C# string is immutable, const_string_base
         /// derives from std::string and then hides all non-const methods.
         /// </summary>
         class const_string_base : public std::string

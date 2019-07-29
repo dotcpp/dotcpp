@@ -26,7 +26,7 @@ limitations under the License.
 #include <dot/detail/traits.hpp>
 #include <dot/detail/reflection_macro.hpp>
 #include <dot/system/object.hpp>
-#include <dot/system/String.hpp>
+#include <dot/system/string.hpp>
 #include <dot/system/Nullable.hpp>
 #include <dot/system/Array1D.hpp>
 #include <dot/system/collections/generic/List.hpp>
@@ -41,10 +41,10 @@ limitations under the License.
 
 namespace dot
 {
-    class StringImpl; class String;
+    class string_impl; class string;
     class TypeImpl; using Type = ptr<TypeImpl>;
     class TypeBuilderImpl; using TypeBuilder = ptr<TypeBuilderImpl>;
-    class StringImpl; class String;
+    class string_impl; class string;
     class MethodInfoImpl; using MethodInfo = ptr<MethodInfoImpl>;
     class ConstructorInfoImpl; using ConstructorInfo = ptr<ConstructorInfoImpl>;
     class PropertyInfoImpl; using PropertyInfo = ptr<PropertyInfoImpl>;
@@ -58,11 +58,11 @@ namespace dot
     class DOT_CLASS TypeBuilderImpl final : public virtual object_impl
     {
         template <class>
-        friend TypeBuilder new_TypeBuilder(String nspace, String name);
+        friend TypeBuilder new_TypeBuilder(string nspace, string name);
         friend class TypeImpl;
 
     private:
-        String fullName_;
+        string fullName_;
         List<PropertyInfo> properties_;
         List<PropertyInfo> static_properties_;
         List<MethodInfo> methods_;
@@ -78,7 +78,7 @@ namespace dot
 
         /// <summary>Add public field of the current Type.</summary>
         template <class Class, class Prop>
-        TypeBuilder WithField(String name, Prop Class::*prop)
+        TypeBuilder WithField(string name, Prop Class::*prop)
         {
             //! TODO add to fields_ ?
             if (properties_.IsEmpty())
@@ -91,7 +91,7 @@ namespace dot
 
         /// <summary>Add public property of the current Type.</summary>
         template <class Class, class Prop>
-        TypeBuilder WithProperty(String name, Prop Class::*prop)
+        TypeBuilder WithProperty(string name, Prop Class::*prop)
         {
              if (properties_.IsEmpty())
              {
@@ -103,7 +103,7 @@ namespace dot
 
         /// <summary>Add public member method of the current Type.</summary>
         template <class Class, class Return, class ... Args>
-        TypeBuilder WithMethod(String name, Return(Class::*mth) (Args ...), std::vector<String> const& names) // TODO Change to List? Make overload?
+        TypeBuilder WithMethod(string name, Return(Class::*mth) (Args ...), std::vector<string> const& names) // TODO Change to List? Make overload?
         {
             const int argsCount = sizeof...(Args);
             if (argsCount != names.size())
@@ -132,7 +132,7 @@ namespace dot
 
         /// <summary>Add public static method of the current Type.</summary>
         template <class Return, class ... Args>
-        TypeBuilder WithMethod(String name, Return(*mth) (Args ...), std::vector<String> const& names) // TODO Change to List? Make overload?
+        TypeBuilder WithMethod(string name, Return(*mth) (Args ...), std::vector<string> const& names) // TODO Change to List? Make overload?
         {
             const int argsCount = sizeof...(Args);
             if (argsCount != names.size())
@@ -161,7 +161,7 @@ namespace dot
 
         /// <summary>Add public constructor of the current Type.</summary>
         template <class Class, class ... Args>
-        TypeBuilder WithConstructor(Class(*ctor)(Args...), std::vector<String> const& names) // TODO Change to List? Make overload?
+        TypeBuilder WithConstructor(Class(*ctor)(Args...), std::vector<string> const& names) // TODO Change to List? Make overload?
         {
             const int argsCount_ = sizeof...(Args);
             if (argsCount_ != names.size())
@@ -240,14 +240,14 @@ namespace dot
         ///
         /// This constructor is private. Use new_TypeBuilder() function instead.
         /// </summary>
-        TypeBuilderImpl(String nspace, String name, String cppname);
+        TypeBuilderImpl(string nspace, string name, string cppname);
     };
 
     /// <summary>
     /// Create an empty instance of TypeBuilder.
     /// </summary>
     template <class T>
-    inline TypeBuilder new_TypeBuilder(String nspace, String name)
+    inline TypeBuilder new_TypeBuilder(string nspace, string name)
     {
         TypeBuilder td = new TypeBuilderImpl(nspace, name, typeid(T).name());
         td->is_class_ = std::is_base_of<object_impl, T>::value;
@@ -294,13 +294,13 @@ namespace dot
     public: // PROPERTIES
 
         /// <summary>Gets the name of the current type, excluding namespace.</summary>
-        DOT_AUTO_GET(String, Name)
+        DOT_AUTO_GET(string, Name)
 
         /// <summary>Gets the fully qualified name of the type, including its namespace but not its assembly.</summary>
-        DOT_AUTO_GET(String, Namespace)
+        DOT_AUTO_GET(string, Namespace)
 
         /// <summary>Gets the fully qualified name of the type, including its namespace but not its assembly.</summary>
-        DOT_GET(String, FullName, { return String::Format("{0}.{1}", this->Namespace, this->Name); }) // TODO - replace by String::Join
+        DOT_GET(string, FullName, { return string::Format("{0}.{1}", this->Namespace, this->Name); }) // TODO - replace by string::Join
 
         /// <summary>Gets the base type if current type.</summary>
         DOT_GET(Type, BaseType, { return base_; })
@@ -329,22 +329,22 @@ namespace dot
         Array1D<Type> GetGenericArguments() { return generic_args_; }
 
         /// <summary>Searches for the public property with the specified name.</summary>
-        PropertyInfo GetProperty(String name);
+        PropertyInfo GetProperty(string name);
 
         /// <summary>Searches for the public method with the specified name.</summary>
-        MethodInfo GetMethod(String name);
+        MethodInfo GetMethod(string name);
 
         /// <summary>Searches for the interface with the specified name.</summary>
-        Type GetInterface(String name);
+        Type GetInterface(string name);
 
         /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() override { return FullName; }
+        virtual string to_string() override { return FullName; }
 
         /// <summary>Get Type object for the name.</summary>
-        static Type GetType(String name) { return GetTypeMap()[name]; }
+        static Type GetType(string name) { return GetTypeMap()[name]; }
 
         /// <summary>Get derived types list for the name.</summary>
-        static List<Type> GetDerivedTypes(String name) { return GetDerivedTypesMap()[name]; }
+        static List<Type> GetDerivedTypes(string name) { return GetDerivedTypesMap()[name]; }
 
         /// <summary>Get derived types list for the type.</summary>
         static List<Type> GetDerivedTypes(Type type) { return GetDerivedTypesMap()[type->FullName]; }
@@ -360,15 +360,15 @@ namespace dot
         /// </summary>
         void Fill(const TypeBuilder& data);
 
-        static std::map<String, Type>& GetTypeMap()
+        static std::map<string, Type>& GetTypeMap()
         {
-            static std::map<String, Type> map_;
+            static std::map<string, Type> map_;
             return map_;
         }
 
-        static std::map<String, List<Type>>& GetDerivedTypesMap()
+        static std::map<string, List<Type>>& GetDerivedTypesMap()
         {
-            static std::map<String, List<Type>> map_;
+            static std::map<string, List<Type>> map_;
             return map_;
         }
 
@@ -379,7 +379,7 @@ namespace dot
         ///
         /// This constructor is private. Use TypeBuilder->Build() method instead.
         /// </summary>
-        TypeImpl(String nspace, String name);
+        TypeImpl(string nspace, string name);
     };
 
     /// <summary>
@@ -429,7 +429,7 @@ namespace dot
     {
         static Type get_typeof()
         {
-            String cppname = typeid(typename T::element_type).name(); // TODO - is it faster to use typeid rather than string as key?
+            string cppname = typeid(typename T::element_type).name(); // TODO - is it faster to use typeid rather than string as key?
             auto p = TypeImpl::GetTypeMap().find(cppname);
             if (p == TypeImpl::GetTypeMap().end())
             {
@@ -645,13 +645,13 @@ namespace dot
 
 
         template <class Head, class Second, class ... Tail>
-        static String get_name()
+        static string get_name()
         {
             return dot::typeof<Head>()->Name + get_name<Second, Tail...>();
         }
 
         template <class Head>
-        static String get_name()
+        static string get_name()
         {
             return dot::typeof<Head>()->Name;
         }

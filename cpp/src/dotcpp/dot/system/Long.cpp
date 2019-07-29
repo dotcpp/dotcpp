@@ -23,7 +23,7 @@ limitations under the License.
 
 #include <dot/implement.hpp>
 #include <dot/system/Long.hpp>
-#include <dot/system/String.hpp>
+#include <dot/system/string.hpp>
 #include <dot/system/Type.hpp>
 
 namespace dot
@@ -45,7 +45,7 @@ namespace dot
         return std::hash<int64_t>()(value_);
     }
 
-    String LongImpl::ToString()
+    string LongImpl::to_string()
     {
         return std::to_string(value_);
     }
@@ -60,7 +60,7 @@ namespace dot
         return typeof();
     }
 
-    int64_t Long::Parse(String s)
+    int64_t Long::Parse(string s)
     {
         return std::stoll(*s);
     }

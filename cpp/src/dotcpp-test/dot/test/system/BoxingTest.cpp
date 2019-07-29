@@ -25,7 +25,7 @@ limitations under the License.
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <dot/system/object.hpp>
-#include <dot/system/String.hpp>
+#include <dot/system/string.hpp>
 #include <dot/system/Nullable.hpp>
 #include <dot/system/collections/generic/List.hpp>
 #include <dot/noda_time/LocalTime.hpp>

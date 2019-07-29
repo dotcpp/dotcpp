@@ -27,7 +27,7 @@ limitations under the License.
 #include <dot/system/ptr.hpp>
 #include <dot/system/objectimpl.hpp>
 #include <dot/system/Exception.hpp>
-#include <dot/system/String.hpp>
+#include <dot/system/string.hpp>
 
 namespace dot
 {
@@ -84,8 +84,8 @@ namespace dot
         /// <summary>Construct object from object_impl pointer.</summary>
         object(object_impl* value);
 
-        /// <summary>Construct object from String.</summary>
-        object(const String& value);
+        /// <summary>Construct object from string.</summary>
+        object(const string& value);
 
         /// <summary>Construct object from const string.</summary>
         object(const char* value);
@@ -147,8 +147,8 @@ namespace dot
         /// <summary>Assign ptr(T) to object.</summary>
         object& operator=(const ptr<object_impl>& p);
 
-        /// <summary>Assign String to object by boxing.</summary>
-        object& operator=(const String& value);
+        /// <summary>Assign string to object by boxing.</summary>
+        object& operator=(const string& value);
 
         /// <summary>Assign const string to object by boxing.</summary>
         object& operator=(const char* value);
@@ -267,7 +267,7 @@ namespace dot
             return typeof();
         }
 
-        virtual String ToString() override { return detail::inherit_to_string<StructWrapperImpl<T>, T>::ToString(); }
+        virtual string to_string() override { return detail::inherit_to_string<StructWrapperImpl<T>, T>::to_string(); }
 
         virtual size_t GetHashCode() override { return detail::inherit_get_hashcode<StructWrapperImpl<T>, T>::GetHashCode(); }
 

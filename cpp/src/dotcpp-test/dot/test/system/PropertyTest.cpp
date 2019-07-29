@@ -24,8 +24,8 @@ limitations under the License.
 #include <dot/test/implement.hpp>
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
-#include <dot/system/String.hpp>
-#include <dot/system/text/StringBuilder.hpp>
+#include <dot/system/string.hpp>
+#include <dot/system/text/stringbuilder.hpp>
 
 namespace dot
 {
@@ -84,7 +84,7 @@ namespace dot
         DOT_AUTO_PROP(int, DeclaredProp2)
 
         // Properties that have native type
-        DOT_AUTO_PROP(String, StringProp)
+        DOT_AUTO_PROP(string, string_prop)
         DOT_AUTO_PROP(int, IntegerProp)
         DOT_AUTO_PROP(double, DoubleProp)
 
@@ -103,30 +103,30 @@ namespace dot
 
     TEST_CASE("PropertySemantics")
     {
-        StringBuilder received = new_StringBuilder();
+        string_builder received = make_string_builder();
 
         PropertySampleData obj = new_PropertySampleData();
         obj->DeclaredProp = 100;
         obj->DeclaredProp2 = 200;
         obj->DeclaredGet3 = 50;
         obj->RegularProp = 25;
-        obj->StringProp = "abc";
+        obj->string_prop = "abc";
         obj->IntegerProp = 123;
         obj->DoubleProp = 3.1415;
         obj->DataProp = new_PropertySampleData();
-        obj->DataProp->StringProp = "xyz";
+        obj->DataProp->string_prop = "xyz";
 
-        received->AppendLine(String::Format("RegularGet: {0}", obj->RegularGet));
-        received->AppendLine(String::Format("RegularProp: {0}", obj->RegularProp));
-        received->AppendLine(String::Format("DeclaredGet: {0}", obj->DeclaredGet));
-        received->AppendLine(String::Format("DeclaredGet2: {0}", obj->DeclaredGet2));
-        received->AppendLine(String::Format("DeclaredGet3: {0}", obj->DeclaredGet3));
-        received->AppendLine(String::Format("DeclaredProp: {0}", obj->DeclaredProp));
-        received->AppendLine(String::Format("DeclaredProp2: {0}", obj->DeclaredProp2));
-        received->AppendLine(String::Format("StringProp: {0}", std::string(obj->StringProp->c_str())));
-        received->AppendLine(String::Format("IntegerProp: {0}", obj->IntegerProp));
-        received->AppendLine(String::Format("DoubleProp: {0}", obj->DoubleProp));
-        received->AppendLine(String::Format("DataProp->StringProp: {0}", std::string(obj->DataProp->StringProp->c_str())));
+        received->AppendLine(string::Format("RegularGet: {0}", obj->RegularGet));
+        received->AppendLine(string::Format("RegularProp: {0}", obj->RegularProp));
+        received->AppendLine(string::Format("DeclaredGet: {0}", obj->DeclaredGet));
+        received->AppendLine(string::Format("DeclaredGet2: {0}", obj->DeclaredGet2));
+        received->AppendLine(string::Format("DeclaredGet3: {0}", obj->DeclaredGet3));
+        received->AppendLine(string::Format("DeclaredProp: {0}", obj->DeclaredProp));
+        received->AppendLine(string::Format("DeclaredProp2: {0}", obj->DeclaredProp2));
+        received->AppendLine(string::Format("string_prop: {0}", std::string(obj->string_prop->c_str())));
+        received->AppendLine(string::Format("IntegerProp: {0}", obj->IntegerProp));
+        received->AppendLine(string::Format("DoubleProp: {0}", obj->DoubleProp));
+        received->AppendLine(string::Format("DataProp->string_prop: {0}", std::string(obj->DataProp->string_prop->c_str())));
 
         Approvals::verify(*received);
     }

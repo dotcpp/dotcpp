@@ -24,7 +24,7 @@ limitations under the License.
 #include <dot/test/implement.hpp>
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
-#include <dot/system/String.hpp>
+#include <dot/system/string.hpp>
 #include <dot/system/Array1D.hpp>
 #include <dot/system/object.hpp>
 
@@ -71,7 +71,7 @@ namespace dot
 
     TEST_CASE("Iterators")
     {
-        Array1D<String> stringArray = new_Array1D<String>(3);
+        Array1D<string> stringArray = new_Array1D<string>(3);
         stringArray[0] = "000";
         stringArray[1] = "111";
         stringArray[2] = "222";
@@ -79,7 +79,7 @@ namespace dot
         REQUIRE(stringArray[2] == "222");
 
         int i = 0;
-        for (String str : stringArray)
+        for (string str : stringArray)
         {
             REQUIRE(stringArray[i++] == str);
         }
@@ -87,7 +87,7 @@ namespace dot
 
     TEST_CASE("Find")
     {
-        dot::Array1D<String> stringArray = new_Array1D<String>(5);
+        dot::Array1D<string> stringArray = new_Array1D<string>(5);
         stringArray[0] = "000";
         stringArray[1] = "111";
         stringArray[2] = "222";
@@ -98,7 +98,7 @@ namespace dot
 
     TEST_CASE("Enumerator")
     {
-        dot::Array1D<String> stringArray = new_Array1D<String>(3);
+        dot::Array1D<string> stringArray = new_Array1D<string>(3);
         stringArray[0] = "000";
         stringArray[1] = "111";
         stringArray[2] = "222";
@@ -106,18 +106,18 @@ namespace dot
 
         int i = 0;
 
-        for (String str : stringArray)
+        for (string str : stringArray)
         {
-            REQUIRE((stringArray.as<Array1D<String>>())[i++] == str);
+            REQUIRE((stringArray.as<Array1D<string>>())[i++] == str);
         }
     }
 
-    TEST_CASE("ToString")
+    TEST_CASE("to_string")
     {
         Array1D<double> obj = new_Array1D<double>(3);
         auto type = obj->GetType();
-        String fullname = type->FullName;
+        string fullname = type->FullName;
 
-        REQUIRE(type->ToString() == "System.Double[]");
+        REQUIRE(type->to_string() == "System.Double[]");
     }
 }

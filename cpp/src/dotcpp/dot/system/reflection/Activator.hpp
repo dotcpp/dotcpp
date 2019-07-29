@@ -49,9 +49,9 @@ namespace dot
         static object CreateInstance(Type type, Array1D<object> params);
 
         /// <summary>Creates an instance of the type whose name is specified, using the named assembly and default constructor.</summary>
-        static object CreateInstance(String assemblyName, String typeName);
+        static object CreateInstance(string assemblyName, string typeName);
 
         /// <summary>Creates an instance of the type whose name is specified, using the named assembly and default constructor.</summary>
-        static object CreateInstance(String assemblyName, String typeName, Array1D<object> params);
+        static object CreateInstance(string assemblyName, string typeName, Array1D<object> params);
     };
 }

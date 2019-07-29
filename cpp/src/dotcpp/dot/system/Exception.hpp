@@ -27,8 +27,8 @@ limitations under the License.
 
 namespace dot
 {
-    class String;
-    class StringImpl;
+    class string;
+    class string_impl;
 
     /// <summary>Represents errors that occur during application execution.</summary>
     class DOT_CLASS Exception : public std::runtime_error
@@ -47,12 +47,12 @@ namespace dot
         Exception(const char* msg);
 
         /// <summary>Create with a specified error message.</summary>
-        Exception(String msg);
+        Exception(string msg);
 
     public: // METHODS
 
         /// <summary>Message that describes the current exception.</summary>
-        virtual String Message() const;
+        virtual string Message() const;
     };
 
     /// <summary>
@@ -78,6 +78,6 @@ namespace dot
         new_Exception(const char* msg);
 
         /// <summary>Create with a specified error message.</summary>
-        new_Exception(String msg);
+        new_Exception(string msg);
     };
 }

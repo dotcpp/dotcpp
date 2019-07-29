@@ -24,7 +24,7 @@ limitations under the License.
 #include <dot/test/implement.hpp>
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
-#include <dot/system/String.hpp>
+#include <dot/system/string.hpp>
 #include <dot/noda_time/LocalMinute.hpp>
 #include <dot/noda_time/LocalTime.hpp>
 
@@ -47,7 +47,7 @@ namespace dot
 
         LocalTime localTime(12, 10);
         REQUIRE(localMinute.ToLocalTime() == localTime);
-        REQUIRE(localMinute.ToString() == "12:10");
+        REQUIRE(localMinute.to_string() == "12:10");
 
         REQUIRE(localMinute.CompareTo(localMinute2) == 0);
         REQUIRE(localMinute.CompareTo(localMinuteAfter) == -1);

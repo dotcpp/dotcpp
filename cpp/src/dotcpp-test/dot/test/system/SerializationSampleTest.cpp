@@ -29,7 +29,7 @@ limitations under the License.
 #include <typeinfo>
 #include <iostream>
 #include <dot/system/Array1D.hpp>
-#include <dot/system/String.hpp>
+#include <dot/system/string.hpp>
 #include <dot/system/Exception.hpp>
 #include <dot/system/reflection/PropertyInfo.hpp>
 #include <dot/system/reflection/MethodInfo.hpp>
@@ -86,7 +86,7 @@ namespace dot
 
     public:
 
-        DOT_AUTO_PROP(String, StringProp)
+        DOT_AUTO_PROP(string, string_prop)
         DOT_AUTO_PROP(int, IntegerProp)
         DOT_AUTO_PROP(double, DoubleProp)
         DOT_AUTO_PROP(SampleData2, DataProp)
@@ -112,7 +112,7 @@ namespace dot
 
         DOT_TYPE_BEGIN("System.Test", "SampleData")
             DOT_TYPE_CTOR(new_SampleData)
-            DOT_TYPE_PROP(StringProp)
+            DOT_TYPE_PROP(string_prop)
             DOT_TYPE_PROP(DataProp)
             DOT_TYPE_PROP(DblList)
             DOT_TYPE_METHOD(Foo, "dblArg", "intArg")
@@ -123,7 +123,7 @@ namespace dot
 
     SampleData new_SampleData() { return new SampleDataImpl; }
 
-    String ObjToString(object obj)
+    string Objto_string(object obj)
     {
         if (obj.IsEmpty()) return "";
 
@@ -136,24 +136,24 @@ namespace dot
             List<double> vec = (List<double>)obj;
             for (object item : vec)
             {
-                ss << *(ObjToString(item));
+                ss << *(Objto_string(item));
             }
 
         }
-        else if (type == typeof<String>())
+        else if (type == typeof<string>())
         {
-            ss << *(String)obj << "|";
+            ss << *(string)obj << "|";
         }
         else if (type->IsClass)
         {
             for (PropertyInfo prop : type->GetProperties())
             {
-                ss << *(ObjToString(prop->GetValue(obj)));
+                ss << *(Objto_string(prop->GetValue(obj)));
             }
         }
         else
         {
-            ss << *(obj->ToString()) << "|";
+            ss << *(obj->to_string()) << "|";
         }
 
 
@@ -164,22 +164,22 @@ namespace dot
     TEST_CASE("SimpleSerialization")
     {
         SampleData obj = new_SampleData();
-        obj->StringProp = "str";
+        obj->string_prop = "str";
         obj->DataProp = new SampleData2Impl();
         obj->DataProp->DataProp = new_SampleData();
-        obj->DataProp->DataProp->StringProp = "internal str";
+        obj->DataProp->DataProp->string_prop = "internal str";
         obj->DblList = new_List<double>();
         obj->DblList->Add(1.);
         obj->DblList->Add(3.);
         obj->DblList->Add(2.);
 
-        String s = ObjToString(obj);
+        string s = Objto_string(obj);
 
         Type type = obj->GetType();
 
         SampleData dt = (SampleData)Activator::CreateInstance(obj->GetType());
 
-        // obj->StringProp = "abc";
+        // obj->string_prop = "abc";
         // obj->IntegerProp = 42;
         // obj->DoubleProp = 1.23;
 
@@ -201,9 +201,9 @@ namespace dot
         for (PropertyInfo& prop : vec_prop)
         {
             object val = prop->GetValue(obj);
-            String name = prop->Name;
+            string name = prop->Name;
             Type prop_type = prop->PropertyType;
-            String prop_type_name = prop_type->Name;
+            string prop_type_name = prop_type->Name;
         }
 
         Approvals::verify(received.str());

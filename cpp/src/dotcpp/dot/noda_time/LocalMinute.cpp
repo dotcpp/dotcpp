@@ -24,15 +24,15 @@ limitations under the License.
 #include <dot/implement.hpp>
 #include <dot/noda_time/LocalMinute.hpp>
 #include <dot/noda_time/LocalTime.hpp>
-#include <dot/system/String.hpp>
+#include <dot/system/string.hpp>
 #include <dot/system/Exception.hpp>
 
 namespace dot
 {
     LocalMinute::LocalMinute(int hour, int minute)
     {
-        if (hour < 0 || hour > 23) throw new_Exception(String::Format("Hour {0} specified in LocalMinute constructor is not between 0 and 23.", hour));
-        if (minute < 0 || minute > 59) throw new_Exception(String::Format("Minute {0} specified in LocalMinute constructor is not between 0 and 59.", minute));
+        if (hour < 0 || hour > 23) throw new_Exception(string::Format("Hour {0} specified in LocalMinute constructor is not between 0 and 23.", hour));
+        if (minute < 0 || minute > 59) throw new_Exception(string::Format("Minute {0} specified in LocalMinute constructor is not between 0 and 59.", minute));
 
         Hour.Hour = hour;
         Minute.Minute = minute;
@@ -65,10 +65,10 @@ namespace dot
         return *this == other;
     }
 
-    String LocalMinute::ToString() const
+    string LocalMinute::to_string() const
     {
         // LocalMinute is serialized to ISO 8601 string in hh:mm format
-        String result = String::Format("{0:02}:{1:02}", Hour, Minute);
+        string result = string::Format("{0:02}:{1:02}", Hour, Minute);
         return result;
     }
 

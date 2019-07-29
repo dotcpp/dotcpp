@@ -25,7 +25,7 @@ limitations under the License.
 
 #include <dot/declare.hpp>
 #include <fmt/core.h>
-#include <dot/system/String.hpp>
+#include <dot/system/string.hpp>
 
 namespace dot
 {
@@ -45,6 +45,6 @@ namespace dot
         /// <summary>
         /// Gets the newline string defined for this environment.
         /// </summary>
-        static String NewLine;
+        static string NewLine;
     };
 }

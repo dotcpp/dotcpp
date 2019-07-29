@@ -25,7 +25,7 @@ limitations under the License.
 #include <dot/system/Type.hpp>
 #include <dot/system/object.hpp>
 #include <dot/detail/struct_wrapper.hpp>
-#include <dot/system/String.hpp>
+#include <dot/system/string.hpp>
 #include <dot/system/Nullable.hpp>
 #include <dot/noda_time/LocalMinute.hpp>
 #include <dot/noda_time/LocalTime.hpp>
@@ -44,11 +44,11 @@ namespace dot
     /// <summary>Construct object from object_impl pointer.</summary>
     object::object(object_impl* value) : base(value) {}
 
-    /// <summary>Construct object from String.</summary>
-    object::object(const String& value) : base(value) {}
+    /// <summary>Construct object from string.</summary>
+    object::object(const string& value) : base(value) {}
 
     /// <summary>Construct object from const string.</summary>
-    object::object(const char* value) : base(String(value)) {}
+    object::object(const char* value) : base(string(value)) {}
 
     /// <summary>Construct object from bool by boxing.</summary>
     object::object(bool value) : base(new BoolImpl(value)) {}
@@ -89,11 +89,11 @@ namespace dot
     /// <summary>Assign ptr(T) to object.</summary>
     object& object::operator=(const ptr<object_impl>& p) { base::operator=(p); return *this; }
 
-    /// <summary>Assign String to object by boxing.</summary>
-    object& object::operator=(const String& value) { base::operator=(value); return *this; }
+    /// <summary>Assign string to object by boxing.</summary>
+    object& object::operator=(const string& value) { base::operator=(value); return *this; }
 
     /// <summary>Assign const string to object by boxing.</summary>
-    object& object::operator=(const char* value) { base::operator=(String(value)); return *this; }
+    object& object::operator=(const char* value) { base::operator=(string(value)); return *this; }
 
     /// <summary>Assign bool to object by boxing.</summary>
     object& object::operator=(bool value) { base::operator=(new BoolImpl(value)); return *this; }

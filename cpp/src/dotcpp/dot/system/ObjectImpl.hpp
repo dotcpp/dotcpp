@@ -29,7 +29,7 @@ limitations under the License.
 namespace dot
 {
     class object;
-    class StringImpl; class String;
+    class string_impl; class string;
     class TypeImpl; using Type = ptr<TypeImpl>;
 
     /// <summary>
@@ -70,13 +70,13 @@ namespace dot
         static Type typeof();
 
         /// <summary>
-        /// String that represents the current object.
+        /// string that represents the current object.
         ///
         /// Default implementation in object returns full name
         /// of the class by calling GetType().FullName. Derived types
         /// can override this method to provide custom conversion
         /// to string.
         /// </summary>
-        virtual String ToString();
+        virtual string to_string();
     };
 }

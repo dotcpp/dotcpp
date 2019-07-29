@@ -24,7 +24,7 @@ limitations under the License.
 #include <dot/test/implement.hpp>
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
-#include <dot/system/text/StringBuilder.hpp>
+#include <dot/system/text/stringbuilder.hpp>
 #include <dot/system/Exception.hpp>
 
 namespace dot
@@ -33,9 +33,9 @@ namespace dot
     {
         int x = 1;
         double y = 2.5;
-        const String s = "{0}";
+        const string s = "{0}";
 
-        StringBuilder result = new_StringBuilder();
+        string_builder result = make_string_builder();
         result->Append("abc");
         result->Append(123);
         result->AppendLine();
@@ -44,8 +44,8 @@ namespace dot
 
         result->AppendFormat(s, x);
         result->AppendLine();
-        result->AppendLine(String::Format("{0:.3f}", y));
-        result->AppendLine(String::Format("{0}, {1}", "123", "456"));
+        result->AppendLine(string::Format("{0:.3f}", y));
+        result->AppendLine(string::Format("{0}, {1}", "123", "456"));
 
         Approvals::verify(*result);
     }

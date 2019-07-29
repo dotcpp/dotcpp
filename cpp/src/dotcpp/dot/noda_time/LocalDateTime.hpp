@@ -33,7 +33,7 @@ namespace dot
 {
     using boost::posix_time::ptime;
 
-    class String;
+    class string;
     class Period;
     class object;
 
@@ -132,7 +132,7 @@ namespace dot
         bool Equals(const LocalDateTime& other) const;
 
         /// <summary>String that represents the current object.</summary>
-        String ToString() const;
+        string to_string() const;
 
         /// <summary>Subtracts the specified date/time from this date/time, returning the result as a Period. Fluent alternative to operator-().</summary>
         Period Minus(const LocalDateTime& localDateTime) const;

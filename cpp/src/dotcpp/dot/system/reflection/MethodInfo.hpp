@@ -45,7 +45,7 @@ namespace dot
     public: // METHODS
 
         /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() override { return "MethodInfo"; }
+        virtual string to_string() override { return "MethodInfo"; }
 
         /// <summary>Gets the parameters of this method.</summary>
         virtual Array1D<ParameterInfo> GetParameters()
@@ -70,7 +70,7 @@ namespace dot
         ///
         /// This constructor is protected. It is used by derived classes only.
         /// </summary>
-        MethodInfoImpl(const String& name, Type declaringType, Type returnType)
+        MethodInfoImpl(const string& name, Type declaringType, Type returnType)
             : MemberInfoImpl(name, declaringType)
         {
             ReturnType.ReturnType = returnType;
@@ -94,7 +94,7 @@ namespace dot
     public: // METHODS
 
         /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() override { return "MemberMethodInfo"; }
+        virtual string to_string() override { return "MemberMethodInfo"; }
 
         /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
         template <int ... I>
@@ -128,7 +128,7 @@ namespace dot
         /// This constructor is private. Use new_MethodInfo(...)
         /// function with matching signature instead.
         /// </summary>
-        MemberMethodInfoImpl(const String& name, Type declaringType, Type returnType, method_type p)
+        MemberMethodInfoImpl(const string& name, Type declaringType, Type returnType, method_type p)
             : MethodInfoImpl(name, declaringType, returnType)
             , ptr_(p)
         {}
@@ -150,7 +150,7 @@ namespace dot
     public: // METHODS
 
         /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() override { return "StaticMethodInfo"; }
+        virtual string to_string() override { return "StaticMethodInfo"; }
 
         /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
         template <int ... I>
@@ -184,7 +184,7 @@ namespace dot
         /// This constructor is private. Use new_MethodInfo(...)
         /// function with matching signature instead.
         /// </summary>
-        StaticMethodInfoImpl(const String& name, Type declaringType, Type returnType, method_type p)
+        StaticMethodInfoImpl(const string& name, Type declaringType, Type returnType, method_type p)
             : MethodInfoImpl(name, declaringType, returnType)
             , ptr_(p)
         {}

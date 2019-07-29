@@ -24,7 +24,7 @@ limitations under the License.
 #include <dot/test/implement.hpp>
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
-#include <dot/system/String.hpp>
+#include <dot/system/string.hpp>
 #include <dot/noda_time/Period.hpp>
 #include <dot/noda_time/LocalTime.hpp>
 #include <dot/noda_time/LocalDate.hpp>
@@ -66,7 +66,7 @@ namespace dot
         REQUIRE(time.On(date) == date_time);
 
         LocalTime str_time(1, 2, 3, 4);
-        REQUIRE(str_time.ToString() == "010203");
+        REQUIRE(str_time.to_string() == "010203");
     }
 
     TEST_CASE("Operators")

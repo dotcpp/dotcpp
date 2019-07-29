@@ -34,7 +34,7 @@ namespace dot
     /// </summary>
     class ParameterInfoImpl : public virtual object_impl
     {
-        friend ParameterInfo new_ParameterInfo(String , Type, int);
+        friend ParameterInfo new_ParameterInfo(string , Type, int);
 
         typedef ParameterInfoImpl self;
 
@@ -44,7 +44,7 @@ namespace dot
         DOT_AUTO_GET(Type, ParameterType)
 
         /// <summary>Gets the name of this parameter.</summary>
-        DOT_AUTO_GET(String, Name)
+        DOT_AUTO_GET(string, Name)
 
         /// <summary>Gets the zero-based position of the parameter in the formal parameter list.</summary>
         DOT_AUTO_GET(int, Position)
@@ -57,7 +57,7 @@ namespace dot
         /// This constructor is private. Use new_ParameterInfo(...)
         /// function with matching signature instead.
         /// </summary>
-        ParameterInfoImpl(String name, Type parameterType, int position)
+        ParameterInfoImpl(string name, Type parameterType, int position)
         {
             ParameterType.ParameterType = parameterType;
             Name.Name = name;
@@ -68,7 +68,7 @@ namespace dot
     /// <summary>
     /// Create from parameter name, parameter type, and parameter position.
     /// </summary>
-    inline ParameterInfo new_ParameterInfo(String name, Type parameterType, int position)
+    inline ParameterInfo new_ParameterInfo(string name, Type parameterType, int position)
     {
         return new ParameterInfoImpl(name, parameterType, position);
     }

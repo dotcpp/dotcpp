@@ -23,7 +23,7 @@ limitations under the License.
 
 #include <dot/implement.hpp>
 #include <dot/system/Double.hpp>
-#include <dot/system/String.hpp>
+#include <dot/system/string.hpp>
 #include <dot/system/Type.hpp>
 
 namespace dot
@@ -45,7 +45,7 @@ namespace dot
         return std::hash<double>()(value_);
     }
 
-    String DoubleImpl::ToString()
+    string DoubleImpl::to_string()
     {
         return std::to_string(value_);
     }
@@ -60,7 +60,7 @@ namespace dot
         return typeof();
     }
 
-    double Double::Parse(String s)
+    double Double::Parse(string s)
     {
         return std::stod(*s);
     }

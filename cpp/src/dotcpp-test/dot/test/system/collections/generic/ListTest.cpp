@@ -27,7 +27,7 @@ limitations under the License.
 #include <dot/system/collections/generic/IEnumerable.hpp>
 #include <dot/system/Array1D.hpp>
 #include <dot/system/collections/generic/List.hpp>
-#include <dot/system/String.hpp>
+#include <dot/system/string.hpp>
 #include <dot/system/Type.hpp>
 
 namespace dot
@@ -35,7 +35,7 @@ namespace dot
     static std::stringstream received;
 
     /// <summary>Print double vector to received on one line in JSON format.</summary>
-    static void PrintList(String name, List<double> v)
+    static void PrintList(string name, List<double> v)
     {
         received << "\"" << *name << "\" : [ ";
         for (int i = 0; i < v->Count; ++i)
@@ -82,7 +82,7 @@ namespace dot
         // Access by object
         object obj = b;
         // TODO - uncomment next line when output matches C#
-        // received << obj->ToString() << std::endl;
+        // received << obj->to_string() << std::endl;
 
         Approvals::verify(received.str());
         received.clear();
@@ -90,14 +90,14 @@ namespace dot
 
     TEST_CASE("Iterators")
     {
-        List<String> stringList = new_List<String>();
+        List<string> stringList = new_List<string>();
         stringList->Add("000");
         stringList->Add("111");
         stringList->Add("222");
         REQUIRE(stringList->Count == 3);
 
         int i = 0;
-        for (String str : stringList)
+        for (string str : stringList)
         {
             REQUIRE(stringList[i++] == str);
         }
@@ -105,7 +105,7 @@ namespace dot
 
     TEST_CASE("Capacity")
     {
-        List<String> stringList = new_List<String>();
+        List<string> stringList = new_List<string>();
         stringList->Capacity = 100;
         REQUIRE(stringList->Capacity == 100);
         REQUIRE(stringList->capacity() == 100);
@@ -113,7 +113,7 @@ namespace dot
 
     TEST_CASE("Find")
     {
-        dot::List<String> stringList = new_List<String>();
+        dot::List<string> stringList = new_List<string>();
         stringList->Add("000");
         stringList->Add("111");
         stringList->Add("222");
@@ -127,7 +127,7 @@ namespace dot
     TEST_CASE("Enumerator")
     {
         // Create list
-        List<String> stringList = new_List<String>();
+        List<string> stringList = new_List<string>();
         stringList->Add("000");
         stringList->Add("111");
         stringList->Add("222");
@@ -135,20 +135,20 @@ namespace dot
 
         // Iterate using foreach
         int i = 0;
-        for (String str : stringList)
+        for (string str : stringList)
         {
             REQUIRE(stringList[i++] == str);
         }
 
         i = 0;
-        for (String str : stringList.as<IEnumerable<String>>())
+        for (string str : stringList.as<IEnumerable<string>>())
         {
             REQUIRE(stringList[i++] == str);
         }
 
         // Iterate using enumerator
         i = 0;
-        IEnumerator<String> en = stringList->GetEnumerator();
+        IEnumerator<string> en = stringList->GetEnumerator();
 
         for (; en->MoveNext();)
         {

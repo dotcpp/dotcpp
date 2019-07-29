@@ -42,7 +42,7 @@ namespace dot
     public: // METHODS
 
         /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() override { return "ConstructorInfo"; }
+        virtual string to_string() override { return "ConstructorInfo"; }
 
         /// <summary>Gets the parameters of this constructor.</summary>
         virtual Array1D<ParameterInfo> GetParameters()
@@ -84,7 +84,7 @@ namespace dot
     public: // METHODS
 
         /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() override { return "MemberConstructorInfo"; }
+        virtual string to_string() override { return "MemberConstructorInfo"; }
 
         /// <summary>Invokes the constructor reflected by this ConstructorInfo instance.</summary>
         template <int ... I>

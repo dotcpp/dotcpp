@@ -23,7 +23,7 @@ limitations under the License.
 
 #include <dot/implement.hpp>
 #include <dot/system/Exception.hpp>
-#include <dot/system/String.hpp>
+#include <dot/system/string.hpp>
 
 namespace dot
 {
@@ -37,10 +37,10 @@ namespace dot
     Exception::Exception(const char* msg) : base(msg ? msg : "") {}
 
     /// <summary>Create with a specified error message.</summary>
-    Exception::Exception(String msg) : base(*msg) {}
+    Exception::Exception(string msg) : base(*msg) {}
 
     /// <summary>Message that describes the current exception.</summary>
-    String Exception::Message() const { return String(what()); }
+    string Exception::Message() const { return string(what()); }
 
     /// <summary>Create with default message.</summary>
     new_Exception::new_Exception() {}
@@ -52,5 +52,5 @@ namespace dot
     new_Exception::new_Exception(const char* msg) : base(msg) {}
 
     /// <summary>Create with a specified error message.</summary>
-    new_Exception::new_Exception(String msg) : base(msg) {}
+    new_Exception::new_Exception(string msg) : base(msg) {}
 }

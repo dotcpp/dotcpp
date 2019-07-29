@@ -24,18 +24,18 @@ limitations under the License.
 #include <dot/test/implement.hpp>
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
-#include <dot/system/String.hpp>
+#include <dot/system/string.hpp>
 #include <dot/system/collections/generic/Dictionary.hpp>
 #include <dot/system/Type.hpp>
 
 namespace dot
 {
-    Dictionary<String, String> CreateDictionary()
+    Dictionary<string, string> CreateDictionary()
     {
-        Dictionary<String, String> dict = new_Dictionary<String, String>();
+        Dictionary<string, string> dict = new_Dictionary<string, string>();
 
         dict->Add("a", "b");
-        dict->Add(KeyValuePair<String, String>("c", "d"));
+        dict->Add(KeyValuePair<string, string>("c", "d"));
         dict->Add("", "");
 
         return dict;
@@ -43,19 +43,19 @@ namespace dot
 
     TEST_CASE("Properties")
     {
-        Dictionary<String, String> dict = CreateDictionary();
+        Dictionary<string, string> dict = CreateDictionary();
 
         REQUIRE(dict->Count == 3);
 
         // Keys
-        ICollection<String> keys = dict->Keys;
+        ICollection<string> keys = dict->Keys;
         REQUIRE(keys->Count == 3);
         //REQUIRE(keys->Contains("a"));  // TODO uncomment when implemented
         //REQUIRE(keys->Contains("c"));
         //REQUIRE(keys->Contains(""));
 
         // Values
-        ICollection<String> values = dict->Values;
+        ICollection<string> values = dict->Values;
         REQUIRE(values->Count == 3);
         //REQUIRE(values->Contains("b"));  // TODO uncomment when implemented
         //REQUIRE(values->Contains("d"));
@@ -64,23 +64,23 @@ namespace dot
 
     TEST_CASE("Methods")
     {
-        Dictionary<String, String> dict = CreateDictionary();
+        Dictionary<string, string> dict = CreateDictionary();
 
         // Get
         REQUIRE(dict["a"] == "b");
         REQUIRE(dict["c"] == "d");
         REQUIRE(dict[""] == "");
 
-        String s = "";
+        string s = "";
         dict->TryGetValue("b", s);
         REQUIRE(s == "");
         dict->TryGetValue("a", s);
         REQUIRE(s == "b");
 
         // Contains
-        REQUIRE(dict->Contains(KeyValuePair<String, String>("a", "b")));
-        REQUIRE(dict->Contains(KeyValuePair<String, String>("c", "d")));
-        REQUIRE(dict->Contains(KeyValuePair<String, String>("", "")));
+        REQUIRE(dict->Contains(KeyValuePair<string, string>("a", "b")));
+        REQUIRE(dict->Contains(KeyValuePair<string, string>("c", "d")));
+        REQUIRE(dict->Contains(KeyValuePair<string, string>("", "")));
 
         REQUIRE(dict->ContainsKey("a"));
         REQUIRE(dict->ContainsKey("c"));
@@ -105,9 +105,9 @@ namespace dot
 
     TEST_CASE("Interfaces")
     {
-        Dictionary<String, String> dict = new_Dictionary<String, String>();
+        Dictionary<string, string> dict = new_Dictionary<string, string>();
 
-        IDictionary<String, String> idict = dict;
+        IDictionary<string, string> idict = dict;
         idict->Add("a", "b");
         idict->Add("c", "d");
         idict->Add("e", "f");
@@ -124,7 +124,7 @@ namespace dot
         object obj2 = object("str2");
         object obj3 = object("str2");
 
-        Dictionary<object, String> dict = new_Dictionary<object, String>();
+        Dictionary<object, string> dict = new_Dictionary<object, string>();
         dict->Add(obj0, "val0");
         CHECK_NOTHROW(dict->Add(obj1, "val1"));
 

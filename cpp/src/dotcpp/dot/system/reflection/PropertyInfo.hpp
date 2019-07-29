@@ -74,7 +74,7 @@ namespace dot
         DOT_AUTO_GET(Type, PropertyType)
 
         /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() override { return "PropertyInfo"; }
+        virtual string to_string() override { return "PropertyInfo"; }
 
         /// <summary>Returns the property value of a specified object.</summary>
         virtual object GetValue(object obj) = 0;
@@ -90,7 +90,7 @@ namespace dot
         ///
         /// This constructor is protected. It is used by derived classes only.
         /// </summary>
-        PropertyInfoImpl(String name, Type declaringType, Type propertyType)
+        PropertyInfoImpl(string name, Type declaringType, Type propertyType)
             : MemberInfoImpl(name, declaringType)
         {
             PropertyType.PropertyType = propertyType;
@@ -106,7 +106,7 @@ namespace dot
         typedef PropType Class::* property_ptr_type;
 
         template <class PropType1, class Class1>
-        friend PropertyInfo new_PropertyInfo(String , Type , Type , PropType1 Class1::*
+        friend PropertyInfo new_PropertyInfo(string , Type , Type , PropType1 Class1::*
             , typename std::enable_if<!std::is_base_of<detail::decl_get, PropType>::value>::type *);
 
     private: // FIELDS
@@ -123,7 +123,7 @@ namespace dot
         /// This constructor is private. Use new_PropertyInfo(...)
         /// function with matching signature instead.
         /// </summary>
-        PropertyInfoFieldImpl(String name, Type declaringType, Type propertyType, property_ptr_type prop)
+        PropertyInfoFieldImpl(string name, Type declaringType, Type propertyType, property_ptr_type prop)
             : PropertyInfoImpl(name, declaringType, propertyType)
             , prop_(prop)
         {}
@@ -148,7 +148,7 @@ namespace dot
     /// and pointer to property defined as a field (member variable).
     /// </summary>
     template <class PropType, class Class>
-    PropertyInfo new_PropertyInfo(String name, Type declaringType, Type propertyType, PropType Class::* prop
+    PropertyInfo new_PropertyInfo(string name, Type declaringType, Type propertyType, PropType Class::* prop
         , typename std::enable_if<!std::is_base_of<detail::decl_get, PropType>::value>::type * p = 0)
     {
         return new PropertyInfoFieldImpl<PropType, Class>(name, declaringType, propertyType, prop);
@@ -165,7 +165,7 @@ namespace dot
         typedef PropType Class::* property_ptr_type;
 
         template <class PropType1, class Class1>
-        friend PropertyInfo new_PropertyInfo(String, Type, Type, PropType1 Class1::*
+        friend PropertyInfo new_PropertyInfo(string, Type, Type, PropType1 Class1::*
             , typename std::enable_if<std::is_base_of<detail::decl_get, PropType>::value>::type *);
         friend TypeBuilderImpl;
 
@@ -183,7 +183,7 @@ namespace dot
         /// This constructor is private. Use new_PropertyInfo(...)
         /// function with matching signature instead.
         /// </summary>
-        PropertyInfoPropertyImpl(String name, Type declaringType, Type propertyType, property_ptr_type prop)
+        PropertyInfoPropertyImpl(string name, Type declaringType, Type propertyType, property_ptr_type prop)
             : PropertyInfoImpl(name, declaringType, propertyType)
             , prop_(prop)
         {}
@@ -219,7 +219,7 @@ namespace dot
     /// and pointer to property defined using a macro.
     /// </summary>
     template <class PropType, class Class>
-    PropertyInfo new_PropertyInfo(String name, Type declaringType, Type propertyType, PropType Class::* prop
+    PropertyInfo new_PropertyInfo(string name, Type declaringType, Type propertyType, PropType Class::* prop
         , typename std::enable_if<std::is_base_of<detail::decl_get, PropType>::value>::type * p = 0)
     {
         return new PropertyInfoPropertyImpl<PropType, Class>(name, declaringType, propertyType, prop);

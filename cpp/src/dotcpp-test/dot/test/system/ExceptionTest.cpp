@@ -24,14 +24,14 @@ limitations under the License.
 #include <dot/test/implement.hpp>
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
-#include <dot/system/text/StringBuilder.hpp>
+#include <dot/system/text/stringbuilder.hpp>
 #include <dot/system/Exception.hpp>
 
 namespace dot
 {
     TEST_CASE("Smoke")
     {
-        StringBuilder received = new_StringBuilder();
+        string_builder received = make_string_builder();
 
         try
         {

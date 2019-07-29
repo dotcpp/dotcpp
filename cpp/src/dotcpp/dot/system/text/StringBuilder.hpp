@@ -25,40 +25,40 @@ limitations under the License.
 
 #include <dot/declare.hpp>
 #include <fmt/core.h>
-#include <dot/system/String.hpp>
+#include <dot/system/string.hpp>
 #include <dot/system/Environment.hpp>
 
 namespace dot
 {
-    class StringBuilderImpl; using StringBuilder = ptr<StringBuilderImpl>;
+    class string_builder_impl; using string_builder = ptr<string_builder_impl>;
 
     /// <summary>
     /// Builds a string incrementally.
     /// </summary>
-    class StringBuilderImpl final : public virtual object_impl, public std::string
+    class string_builder_impl final : public virtual object_impl, public std::string
     {
         typedef std::string base;
-        friend StringBuilder new_StringBuilder();
+        friend string_builder make_string_builder();
 
     private: // CONSTRUCTORS
 
         /// <summary>
-        /// Initializes an empty instance of the StringBuilder class.
+        /// Initializes an empty instance of the string_builder class.
         ///
-        /// This constructor is private. Use new_StringBuilder(...)
+        /// This constructor is private. Use make_string_builder(...)
         /// function with matching signature instead.
         /// </summary>
-        StringBuilderImpl() = default;
+        string_builder_impl() = default;
 
     public: // METHODS
 
         /// <summary>A string representing the current type.</summary>
-        virtual String ToString() override
+        virtual string to_string() override
         {
             // Returns a copy of the string, not a reference to the same string
-            // Further changes to StringBuilder will not affect the previously
+            // Further changes to string_builder will not affect the previously
             // returned string.
-            return new_String(*this);
+            return make_string(*this);
         }
 
         /// <summary>
@@ -67,9 +67,9 @@ namespace dot
         /// string representation of a corresponding object argument.
         /// </summary>
         template <typename First, typename ...Args>
-        void AppendFormat(const String& format, const First& f, const Args& ...args)
+        void AppendFormat(const string& format, const First& f, const Args& ...args)
         {
-            *this += *String::Format(format, f, args...);
+            *this += *string::Format(format, f, args...);
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace dot
         template <typename T>
         void Append(const T& arg)
         {
-            *this += *String::Format("{0}", arg);
+            *this += *string::Format("{0}", arg);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace dot
         }
 
         /// <summary>
-        /// Removes all characters from the current StringBuilder instance.
+        /// Removes all characters from the current string_builder instance.
         /// </summary>
         void Clear()
         {
@@ -110,7 +110,7 @@ namespace dot
     };
 
     /// <summary>
-    /// Initializes an empty instance of the StringBuilder class.
+    /// Initializes an empty instance of the string_builder class.
     /// </summary>
-    inline StringBuilder new_StringBuilder() { return new StringBuilderImpl(); }
+    inline string_builder make_string_builder() { return new string_builder_impl(); }
 }

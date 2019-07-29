@@ -39,7 +39,7 @@ namespace dot
     public: // PROPERTIES
 
         /// <summary>Gets the name of the current member.</summary>
-        DOT_AUTO_PROP(String, Name)
+        DOT_AUTO_PROP(string, Name)
 
     protected: // CONSTRUCTORS
 
@@ -61,13 +61,13 @@ namespace dot
     public: // METHODS
 
         /// <summary>Gets the name of the current member.</summary>
-        DOT_AUTO_GET(String, Name)
+        DOT_AUTO_GET(string, Name)
 
         /// <summary>Gets the class that declares this member.</summary>
         DOT_AUTO_GET(Type, DeclaringType)
 
         /// <summary>A string representing the name of the current type.</summary>
-        virtual String ToString() override { return "MemberInfo"; }
+        virtual string to_string() override { return "MemberInfo"; }
 
     protected: // CONSTRUCTORS
 
@@ -76,7 +76,7 @@ namespace dot
         ///
         /// This constructor is protected. It is used by derived classes only.
         /// </summary>
-        MemberInfoImpl(const String& name, Type declaringType)
+        MemberInfoImpl(const string& name, Type declaringType)
         {
             Name.Name = name;
             DeclaringType.DeclaringType = declaringType;

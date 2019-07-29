@@ -31,7 +31,7 @@ namespace dot
 {
     using gdate = boost::gregorian::date;
 
-    class String;
+    class string;
     class Period;
     class LocalTime;
     class LocalDateTime;
@@ -102,7 +102,7 @@ namespace dot
         bool Equals(const LocalDate& other) const;
 
         /// <summary>String that represents the current object.</summary>
-        String ToString() const;
+        string to_string() const;
 
         /// <summary>Subtracts the specified date from this date, returning the result as a Period with units of years, months and days. Fluent alternative to operator-().</summary>
         Period Minus(const LocalDate& date) const;

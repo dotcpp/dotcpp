@@ -28,7 +28,7 @@ limitations under the License.
 
 namespace dot
 {
-    String Enum::ToString()
+    string Enum::to_string()
     {
         auto valuesMap = GetEnumMap();
 
@@ -57,7 +57,7 @@ namespace dot
         return false;
     }
 
-    object Enum::Parse(Type enumType, String value)
+    object Enum::Parse(Type enumType, string value)
     {
         object enum_obj = Activator::CreateInstance(enumType);
         Enum* en = dynamic_cast<Enum*>(enum_obj.operator->());

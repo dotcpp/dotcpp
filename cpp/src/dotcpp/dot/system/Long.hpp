@@ -48,7 +48,7 @@ namespace dot
         virtual size_t GetHashCode() override;
 
         /// <summary>Converts the numeric value of this instance to its equivalent string representation.</summary>
-        virtual String ToString() override;
+        virtual string to_string() override;
 
         static Type typeof();
         virtual Type GetType() override;
@@ -67,6 +67,6 @@ namespace dot
     public: // STATIC
 
         /// <summary>Converts the string representation of a number to its 64-bit signed integer equivalent.</summary>
-        static int64_t Parse(String s);
+        static int64_t Parse(string s);
     };
 }

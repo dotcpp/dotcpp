@@ -24,7 +24,7 @@ limitations under the License.
 #include <dot/test/implement.hpp>
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
-#include <dot/system/String.hpp>
+#include <dot/system/string.hpp>
 #include <dot/noda_time/Period.hpp>
 #include <dot/noda_time/LocalTime.hpp>
 #include <dot/noda_time/LocalDate.hpp>
@@ -72,7 +72,7 @@ namespace dot
         REQUIRE(d2.Next(boost::gregorian::Monday) == LocalDateTime(2005, 1, 17, 12, 10));
 
         LocalDateTime str_date_time(2005, 1, 2, 3, 4, 5, 6);
-        REQUIRE(str_date_time.ToString() == "20050102030405");
+        REQUIRE(str_date_time.to_string() == "20050102030405");
     }
 
     TEST_CASE("Operators")

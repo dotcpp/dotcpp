@@ -48,7 +48,7 @@ namespace dot
         virtual size_t GetHashCode() override;
 
         /// <summary>Converts the value of this instance to its equivalent string representation (either "True" or "False").</summary>
-        virtual String ToString() override;
+        virtual string to_string() override;
 
         static Type typeof();
         virtual Type GetType() override;
@@ -65,14 +65,14 @@ namespace dot
         static constexpr int Empty = INT32_MIN;
 
         /// <summary>Represents the Boolean value false as a string. This field is read-only.</summary>
-        static const String FalseString;
+        static const string false_string;
 
         /// <summary>Represents the Boolean value true as a string. This field is read-only.</summary>
-        static const String TrueString;
+        static const string true_string;
 
     public: // STATIC
 
         /// <summary>Converts the specified string representation of a logical value to its Boolean equivalent.</summary>
-        static bool Parse(String s);
+        static bool Parse(string s);
     };
 }

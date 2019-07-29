@@ -25,7 +25,7 @@ limitations under the License.
 #include <dot/noda_time/LocalTime.hpp>
 #include <dot/noda_time/Period.hpp>
 #include <dot/noda_time/LocalDateTime.hpp>
-#include <dot/system/String.hpp>
+#include <dot/system/string.hpp>
 #include <dot/system/object.hpp>
 
 namespace dot
@@ -90,7 +90,7 @@ namespace dot
         return *this == other;
     }
 
-    String LocalTime::ToString() const
+    string LocalTime::to_string() const
     {
         boost::posix_time::time_facet* facet = new boost::posix_time::time_facet();
         facet->format("%H:%M:%S.%f");

@@ -23,7 +23,7 @@ limitations under the License.
 
 #include <dot/implement.hpp>
 #include <dot/system/Int.hpp>
-#include <dot/system/String.hpp>
+#include <dot/system/string.hpp>
 #include <dot/system/Type.hpp>
 
 namespace dot
@@ -45,7 +45,7 @@ namespace dot
         return std::hash<char>()(value_);
     }
 
-    String CharImpl::ToString()
+    string CharImpl::to_string()
     {
         return std::to_string(value_);
     }
