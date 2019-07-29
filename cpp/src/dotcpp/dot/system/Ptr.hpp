@@ -36,9 +36,9 @@ namespace dot
     /// type conversion using 'is' and 'as'.
     /// </summary>
     template <class T>
-    class Ptr
+    class ptr
     {
-        template<class R> friend class Ptr;
+        template<class R> friend class ptr;
 
     public: // TYPEDEF
 
@@ -52,31 +52,31 @@ namespace dot
     public: // CONSTRUCTORS
 
         /// <summary>Create empty pointer.</summary>
-        Ptr();
+        ptr();
 
         /// <summary>
         /// Take ownership of raw pointer to template argument type.
         /// This also permits construction from null pointer.
         /// </summary>
-        Ptr(T* ptr);
+        ptr(T* p);
 
         /// <summary>Implicit conversion from derived to base pointer (does not use dynamic cast).</summary>
-        template <class R> Ptr(const Ptr<R>& rhs, typename std::enable_if<std::is_base_of<T, R>::value>::type* p = 0);
+        template <class R> ptr(const ptr<R>& rhs, typename std::enable_if<std::is_base_of<T, R>::value>::type* p = 0);
 
         /// <summary>
         /// Explicit conversion from base to derived or sibling pointer (uses dynamic cast).
         ///
         /// Error message if the cast fails because the two types are unrelated.
         /// </summary>
-        template <class R> explicit Ptr(const Ptr<R>& rhs, typename std::enable_if<!std::is_base_of<T, R>::value>::type* p = 0);
+        template <class R> explicit ptr(const ptr<R>& rhs, typename std::enable_if<!std::is_base_of<T, R>::value>::type* p = 0);
 
         /// <summary>Copy constructor for the pointer (does not copy T).</summary>
-        Ptr(const Ptr<T>& rhs);
+        ptr(const ptr<T>& rhs);
 
     public: // DESTRUCTOR
 
         /// <summary>Decrements reference count if not empty.</summary>
-        ~Ptr();
+        ~ptr();
 
     public: // METHODS
 
@@ -101,11 +101,11 @@ namespace dot
 
         /// <summary>Returns true if the argument contains
         /// pointer to the same instance as self.</summary>
-        bool operator==(const Ptr<T>& rhs) const;
+        bool operator==(const ptr<T>& rhs) const;
 
         /// <summary>Returns true if the argument does
         /// not contain pointer to the same instance as self.</summary>
-        bool operator!=(const Ptr<T>& rhs) const;
+        bool operator!=(const ptr<T>& rhs) const;
 
         /// <summary>Supports ptr == nullptr.</summary>
         bool operator==(nullptr_t) const;
@@ -117,15 +117,15 @@ namespace dot
         /// Take ownership of raw pointer to template argument type.
         /// This also permits assignment of pointer to type derived from T.
         /// </summary>
-        Ptr<T>& operator=(T* rhs);
+        ptr<T>& operator=(T* rhs);
 
         /// <summary>
         /// Assign pointer to template argument base type. // TODO - use SFINAE to detemine if dynamic cast is needed
         /// </summary>
-        template <class R> Ptr<T>& operator=(const Ptr<R>& rhs);
+        template <class R> ptr<T>& operator=(const ptr<R>& rhs);
 
         /// <summary>Assign pointer of the same type.</summary>
-        Ptr<T>& operator=(const Ptr<T>& rhs);
+        ptr<T>& operator=(const ptr<T>& rhs);
 
         /// <summary>Const indexer operator for arrays.</summary>
         template <class I>
@@ -136,72 +136,72 @@ namespace dot
         decltype(auto) operator[](I const& i);
     };
 
-    template <class T> Ptr<T>::Ptr() : ptr_(nullptr) {}
-    template <class T> Ptr<T>::Ptr(T* ptr) : ptr_(ptr) { if (ptr_) ptr_->IncrementReferenceCount(); }
-    template <class T> template <class R> Ptr<T>::Ptr(const Ptr<R>& rhs, typename std::enable_if<std::is_base_of<T, R>::value>::type* p) : ptr_(rhs.ptr_) { if (ptr_) ptr_->IncrementReferenceCount(); }
-    template <class T> template <class R> Ptr<T>::Ptr(const Ptr<R>& rhs, typename std::enable_if<!std::is_base_of<T, R>::value>::type* p) : ptr_(nullptr)
+    template <class T> ptr<T>::ptr() : ptr_(nullptr) {}
+    template <class T> ptr<T>::ptr(T* p) : ptr_(p) { if (ptr_) ptr_->IncrementReferenceCount(); }
+    template <class T> template <class R> ptr<T>::ptr(const ptr<R>& rhs, typename std::enable_if<std::is_base_of<T, R>::value>::type* p) : ptr_(rhs.ptr_) { if (ptr_) ptr_->IncrementReferenceCount(); }
+    template <class T> template <class R> ptr<T>::ptr(const ptr<R>& rhs, typename std::enable_if<!std::is_base_of<T, R>::value>::type* p) : ptr_(nullptr)
     {
         // If argument is null, ptr_ should also remain null
         if (rhs.ptr_)
         {
             // Perform dynamic cast from base to derived
-            T* ptr = dynamic_cast<T*>(rhs.ptr_);
+            T* p = dynamic_cast<T*>(rhs.ptr_);
 
             // Check that dynamic cast succeeded
-            if (!ptr) throw std::runtime_error("Cast cannot be performed."); // TODO Use typeof(...) and GetType() to provide specific types in the error message
+            if (!p) throw std::runtime_error("Cast cannot be performed."); // TODO Use typeof(...) and GetType() to provide specific types in the error message
 
             // Current pointer now contains the result of dynamic_cast
-            ptr_ = ptr;
+            ptr_ = p;
 
             // Increment reference count
             ptr_->IncrementReferenceCount();
         }
     }
-    template <class T> Ptr<T>::Ptr(const Ptr<T>& rhs) : ptr_(rhs.ptr_) { if (ptr_) ptr_->IncrementReferenceCount(); }
-    template <class T> Ptr<T>::~Ptr() { if (ptr_) ptr_->DecrementReferenceCount(); }
-    template <class T> template <class R> R Ptr<T>::as() const { typename R::pointer_type ptr = dynamic_cast<typename R::pointer_type>(ptr_); return ptr; }
-    template <class T> template <class R> bool Ptr<T>::is() const { return dynamic_cast<typename R::pointer_type>(ptr_); }
-    template <class T> T& Ptr<T>::operator*() const
+    template <class T> ptr<T>::ptr(const ptr<T>& rhs) : ptr_(rhs.ptr_) { if (ptr_) ptr_->IncrementReferenceCount(); }
+    template <class T> ptr<T>::~ptr() { if (ptr_) ptr_->DecrementReferenceCount(); }
+    template <class T> template <class R> R ptr<T>::as() const { typename R::pointer_type p = dynamic_cast<typename R::pointer_type>(ptr_); return p; }
+    template <class T> template <class R> bool ptr<T>::is() const { return dynamic_cast<typename R::pointer_type>(ptr_); }
+    template <class T> T& ptr<T>::operator*() const
     {
         if (!ptr_)
         throw std::runtime_error("Pointer is not initialized");
     return *ptr_;
     }
-    template <class T> T* Ptr<T>::operator->() const
+    template <class T> T* ptr<T>::operator->() const
     {
         if (!ptr_)
             throw std::runtime_error("Pointer is not initialized");
         return ptr_;
     }
-    template <class T> bool Ptr<T>::operator==(const Ptr<T>& rhs) const { return ptr_ == rhs.ptr_; } // TODO check when comparison is performed by value
-    template <class T> bool Ptr<T>::operator!=(const Ptr<T>& rhs) const { return ptr_ != rhs.ptr_; } // TODO check when comparison is performed by value
-    template <class T> bool Ptr<T>::operator==(nullptr_t) const { return ptr_ == nullptr; }
-    template <class T> bool Ptr<T>::operator!=(nullptr_t) const { return ptr_ != nullptr; }
-    template <class T> Ptr<T>& Ptr<T>::operator=(T* rhs) { if (ptr_) ptr_->DecrementReferenceCount(); if (rhs) rhs->IncrementReferenceCount(); ptr_ = rhs; return *this; }
-    template <class T> template <class R> Ptr<T>& Ptr<T>::operator=(const Ptr<R>& rhs) { if (ptr_) ptr_->DecrementReferenceCount(); if (rhs.ptr_) rhs.ptr_->IncrementReferenceCount(); ptr_ = rhs.ptr_; return *this; }
-    template <class T> Ptr<T>& Ptr<T>::operator=(const Ptr<T>& rhs) { if (ptr_) ptr_->DecrementReferenceCount(); if (rhs.ptr_) rhs.ptr_->IncrementReferenceCount(); ptr_ = rhs.ptr_; return *this; }
-    template <class T> template <class I> decltype(auto) Ptr<T>::operator[](I const& i) const { return (*ptr_)[i]; }
-    template <class T> template <class I> decltype(auto) Ptr<T>::operator[](I const& i) { return (*ptr_)[i]; }
-    template <class T> bool Ptr<T>::IsEmpty() { return !ptr_; }
+    template <class T> bool ptr<T>::operator==(const ptr<T>& rhs) const { return ptr_ == rhs.ptr_; } // TODO check when comparison is performed by value
+    template <class T> bool ptr<T>::operator!=(const ptr<T>& rhs) const { return ptr_ != rhs.ptr_; } // TODO check when comparison is performed by value
+    template <class T> bool ptr<T>::operator==(nullptr_t) const { return ptr_ == nullptr; }
+    template <class T> bool ptr<T>::operator!=(nullptr_t) const { return ptr_ != nullptr; }
+    template <class T> ptr<T>& ptr<T>::operator=(T* rhs) { if (ptr_) ptr_->DecrementReferenceCount(); if (rhs) rhs->IncrementReferenceCount(); ptr_ = rhs; return *this; }
+    template <class T> template <class R> ptr<T>& ptr<T>::operator=(const ptr<R>& rhs) { if (ptr_) ptr_->DecrementReferenceCount(); if (rhs.ptr_) rhs.ptr_->IncrementReferenceCount(); ptr_ = rhs.ptr_; return *this; }
+    template <class T> ptr<T>& ptr<T>::operator=(const ptr<T>& rhs) { if (ptr_) ptr_->DecrementReferenceCount(); if (rhs.ptr_) rhs.ptr_->IncrementReferenceCount(); ptr_ = rhs.ptr_; return *this; }
+    template <class T> template <class I> decltype(auto) ptr<T>::operator[](I const& i) const { return (*ptr_)[i]; }
+    template <class T> template <class I> decltype(auto) ptr<T>::operator[](I const& i) { return (*ptr_)[i]; }
+    template <class T> bool ptr<T>::IsEmpty() { return !ptr_; }
 }
 
 namespace std
 {
-    /// <summary>Implements hash struct used by STL unordered_map for Ptr.</summary>
+    /// <summary>Implements hash struct used by STL unordered_map for ptr.</summary>
     template <typename T>
-    struct hash<dot::Ptr<T>>
+    struct hash<dot::ptr<T>>
     {
-        size_t operator()(const dot::Ptr<T>& obj) const
+        size_t operator()(const dot::ptr<T>& obj) const
         {
             return obj->GetHashCode();
         }
     };
 
-    /// <summary>Implements equal_to struct used by STL unordered_map for Ptr.</summary>
+    /// <summary>Implements equal_to struct used by STL unordered_map for ptr.</summary>
     template <typename T>
-    struct equal_to<dot::Ptr<T>>
+    struct equal_to<dot::ptr<T>>
     {
-        bool operator()(const dot::Ptr<T>& lhs, const dot::Ptr<T>& rhs) const
+        bool operator()(const dot::ptr<T>& lhs, const dot::ptr<T>& rhs) const
         {
             return lhs->Equals(rhs);
         }

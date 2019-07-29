@@ -27,7 +27,7 @@ limitations under the License.
 
 namespace dot
 {
-    template <class T> class ICollectionImpl; template <class T> using ICollection = Ptr<ICollectionImpl<T>>;
+    template <class T> class ICollectionImpl; template <class T> using ICollection = ptr<ICollectionImpl<T>>;
 
     /// <summary>
     /// Defines methods to manipulate generic collections.

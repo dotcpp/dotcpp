@@ -29,8 +29,8 @@ limitations under the License.
 
 namespace dot
 {
-    class ConstructorInfoImpl; using ConstructorInfo = Ptr<ConstructorInfoImpl>;
-    class TypeImpl; using Type = Ptr<TypeImpl>;
+    class ConstructorInfoImpl; using ConstructorInfo = ptr<ConstructorInfoImpl>;
+    class TypeImpl; using Type = ptr<TypeImpl>;
 
     /// <summary>
     /// Obtains information about the attributes of a constructor and provides access to constructor metadata.
@@ -110,9 +110,9 @@ namespace dot
         /// This constructor is private. Use new_ConstructorInfo(...)
         /// function with matching signature instead.
         /// </summary>
-        MemberConstructorInfoImpl(Type declaringType, ctor_type ptr)
+        MemberConstructorInfoImpl(Type declaringType, ctor_type p)
             : ConstructorInfoImpl(declaringType)
-            , ptr_(ptr)
+            , ptr_(p)
         {}
     };
 }

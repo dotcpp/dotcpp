@@ -39,7 +39,7 @@ namespace dot
         }
     };
 
-    using Base = Ptr<BaseImpl>;
+    using Base = ptr<BaseImpl>;
     Base new_Base() { return new BaseImpl; }
 
     class DerivedImpl : public BaseImpl
@@ -53,7 +53,7 @@ namespace dot
 
     };
 
-    using Derived = Ptr<DerivedImpl>;
+    using Derived = ptr<DerivedImpl>;
     Derived new_Derived() { return new DerivedImpl; }
 
     TEST_CASE("Smoke")

@@ -32,7 +32,7 @@ limitations under the License.
 
 namespace dot
 {
-    template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
+    template <class T> class Array1DImpl; template <class T> using Array1D = ptr<Array1DImpl<T>>;
 
     ///!!! Provide .NET description Adapter class from STL map to .NET SortedDictionary - collection of key/value pairs that are sorted on the key
     template <class Key, class Type >

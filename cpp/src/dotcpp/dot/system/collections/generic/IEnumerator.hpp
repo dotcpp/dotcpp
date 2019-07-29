@@ -28,7 +28,7 @@ limitations under the License.
 
 namespace dot
 {
-    template <class T> class IEnumeratorImpl; template <class T> using IEnumerator = Ptr<IEnumeratorImpl<T>>;
+    template <class T> class IEnumeratorImpl; template <class T> using IEnumerator = ptr<IEnumeratorImpl<T>>;
 
     /// <summary>
     /// Supports a simple iteration over a generic collection.

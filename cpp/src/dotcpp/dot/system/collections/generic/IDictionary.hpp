@@ -28,7 +28,7 @@ limitations under the License.
 namespace dot
 {
     template <class TKey, class TValue> class IDictionaryImpl;
-    template <class TKey, class TValue> using IDictionary = Ptr<IDictionaryImpl<TKey, TValue>>;
+    template <class TKey, class TValue> using IDictionary = ptr<IDictionaryImpl<TKey, TValue>>;
 
     template <class TKey, class TValue>
     using KeyValuePair = std::pair<const TKey, TValue>;

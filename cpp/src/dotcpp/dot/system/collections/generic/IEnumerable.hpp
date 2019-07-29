@@ -27,8 +27,8 @@ limitations under the License.
 
 namespace dot
 {
-    template <class T> class IEnumerableImpl; template <class T> using IEnumerable = Ptr<IEnumerableImpl<T>>;
-    template <class T> class IEnumeratorImpl; template <class T> using IEnumerator = Ptr<IEnumeratorImpl<T>>;
+    template <class T> class IEnumerableImpl; template <class T> using IEnumerable = ptr<IEnumerableImpl<T>>;
+    template <class T> class IEnumeratorImpl; template <class T> using IEnumerator = ptr<IEnumeratorImpl<T>>;
 
     /// <summary>
     /// Exposes the enumerator, which supports a simple iteration over a collection of a specified type.
@@ -58,33 +58,33 @@ namespace dot
 namespace dot
 {
 
-    inline dot::detail::std_object_iterator_wrapper begin(dot::Ptr<dot::IObjectEnumerableImpl> & obj);
-    inline dot::detail::std_object_iterator_wrapper end(dot::Ptr<dot::IObjectEnumerableImpl>& obj);
+    inline dot::detail::std_object_iterator_wrapper begin(dot::ptr<dot::IObjectEnumerableImpl> & obj);
+    inline dot::detail::std_object_iterator_wrapper end(dot::ptr<dot::IObjectEnumerableImpl>& obj);
 
     /// <summary>Implements begin() used by STL and similar algorithms.</summary>
     template <class T>
-    auto begin(dot::Ptr<T> & obj)
+    auto begin(dot::ptr<T> & obj)
     {
         return obj->begin();
     }
 
     /// <summary>Implements end() used by STL and similar algorithms.</summary>
     template <class T>
-    auto end(dot::Ptr<T> & obj)
+    auto end(dot::ptr<T> & obj)
     {
         return obj->end();
     }
 
     /// <summary>Implements begin() used by STL and similar algorithms.</summary>
     template <class T>
-    auto begin(dot::Ptr<T> const& obj)
+    auto begin(dot::ptr<T> const& obj)
     {
         return obj->begin();
     }
 
     /// <summary>Implements end() used by STL and similar algorithms.</summary>
     template <class T>
-    auto end(dot::Ptr<T> const& obj)
+    auto end(dot::ptr<T> const& obj)
     {
         return obj->end();
     }

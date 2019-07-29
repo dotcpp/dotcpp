@@ -28,8 +28,8 @@ limitations under the License.
 
 namespace dot
 {
-    template <class T> class ListImpl; template <class T> using List = Ptr<ListImpl<T>>;
-    class TypeBuilderImpl; using TypeBuilder = Ptr<TypeBuilderImpl>;
+    template <class T> class ListImpl; template <class T> using List = ptr<ListImpl<T>>;
+    class TypeBuilderImpl; using TypeBuilder = ptr<TypeBuilderImpl>;
 
     /// <summary>
     /// Represents a strongly typed list of objects that can be accessed by index.

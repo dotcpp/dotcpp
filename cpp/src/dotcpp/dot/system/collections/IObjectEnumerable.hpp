@@ -24,14 +24,14 @@ limitations under the License.
 #pragma once
 
 #include <dot/declare.hpp>
-#include <dot/system/Ptr.hpp>
+#include <dot/system/ptr.hpp>
 #include <dot/system/Object.hpp>
 #include <dot/detail/object_iterator.hpp>
 
 namespace dot
 {
-    class IObjectEnumerableImpl; using IObjectEnumerable = Ptr<IObjectEnumerableImpl>;
-    class TypeImpl; using Type = Ptr<TypeImpl>;
+    class IObjectEnumerableImpl; using IObjectEnumerable = ptr<IObjectEnumerableImpl>;
+    class TypeImpl; using Type = ptr<TypeImpl>;
 
     /// <summary>
     /// Supports a simple iteration over a non-generic collection.
@@ -61,13 +61,13 @@ namespace dot
 namespace dot
 {
     /// <summary>Implements begin() used by STL and similar algorithms.</summary>
-    inline dot::detail::std_object_iterator_wrapper begin(dot::Ptr<dot::IObjectEnumerableImpl> & obj)
+    inline dot::detail::std_object_iterator_wrapper begin(dot::ptr<dot::IObjectEnumerableImpl> & obj)
     {
         return obj->object_begin();
     }
 
     /// <summary>Implements end() used by STL and similar algorithms.</summary>
-    inline dot::detail::std_object_iterator_wrapper end(dot::Ptr<dot::IObjectEnumerableImpl> & obj)
+    inline dot::detail::std_object_iterator_wrapper end(dot::ptr<dot::IObjectEnumerableImpl> & obj)
     {
         return obj->object_end();
     }

@@ -32,9 +32,9 @@ namespace dot
     {
         if (this == &(*obj)) return true;
 
-        if (obj.is<Ptr<LongImpl>>())
+        if (obj.is<ptr<LongImpl>>())
         {
-            return value_ == obj.as<Ptr<LongImpl>>()->value_;
+            return value_ == obj.as<ptr<LongImpl>>()->value_;
         }
 
         return false;

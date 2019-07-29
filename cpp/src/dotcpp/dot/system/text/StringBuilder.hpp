@@ -30,7 +30,7 @@ limitations under the License.
 
 namespace dot
 {
-    class StringBuilderImpl; using StringBuilder = Ptr<StringBuilderImpl>;
+    class StringBuilderImpl; using StringBuilder = ptr<StringBuilderImpl>;
 
     /// <summary>
     /// Builds a string incrementally.

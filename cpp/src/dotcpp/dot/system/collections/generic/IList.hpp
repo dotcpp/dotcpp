@@ -27,7 +27,7 @@ limitations under the License.
 
 namespace dot
 {
-    template <class T> class IListImpl; template <class T> using IList = Ptr<IListImpl<T>>;
+    template <class T> class IListImpl; template <class T> using IList = ptr<IListImpl<T>>;
 
     /// <summary>
     /// Represents a collection of objects that can be individually accessed by index.

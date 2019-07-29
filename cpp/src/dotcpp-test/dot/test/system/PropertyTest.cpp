@@ -31,7 +31,7 @@ namespace dot
 {
     static std::stringstream received;
 
-    class PropertySampleBaseDataImpl; using PropertySampleBaseData = Ptr<PropertySampleBaseDataImpl>;
+    class PropertySampleBaseDataImpl; using PropertySampleBaseData = ptr<PropertySampleBaseDataImpl>;
 
     class PropertySampleBaseDataImpl : public virtual ObjectImpl
     {
@@ -60,7 +60,7 @@ namespace dot
         PropertySampleBaseDataImpl() = default;
     };
 
-    class PropertySampleDataImpl; using PropertySampleData = Ptr<PropertySampleDataImpl>;
+    class PropertySampleDataImpl; using PropertySampleData = ptr<PropertySampleDataImpl>;
 
     class PropertySampleDataImpl : public PropertySampleBaseDataImpl
     {

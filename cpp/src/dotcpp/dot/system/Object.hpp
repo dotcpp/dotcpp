@@ -24,7 +24,7 @@ limitations under the License.
 #pragma once
 
 #include <dot/declare.hpp>
-#include <dot/system/Ptr.hpp>
+#include <dot/system/ptr.hpp>
 #include <dot/system/ObjectImpl.hpp>
 #include <dot/system/Exception.hpp>
 #include <dot/system/String.hpp>
@@ -40,7 +40,7 @@ namespace dot
     template <class T>
     class StructWrapperImpl;
     template <class T>
-    using StructWrapper = Ptr<StructWrapperImpl<T>>;
+    using StructWrapper = ptr<StructWrapperImpl<T>>;
 
     template <class T>
     Type typeof();
@@ -56,10 +56,10 @@ namespace dot
         class inherit_equals;
     }
 
-    /// <summary>Adds support for boxing value types to Ptr(ObjectImpl).</summary>
-    class DOT_CLASS Object : public Ptr<ObjectImpl>
+    /// <summary>Adds support for boxing value types to ptr(ObjectImpl).</summary>
+    class DOT_CLASS Object : public ptr<ObjectImpl>
     {
-        typedef Ptr<ObjectImpl> base;
+        typedef ptr<ObjectImpl> base;
 
     public: // CONSTRUCTORS
 
@@ -74,12 +74,12 @@ namespace dot
         /// <summary>Construct Object from nullptr.</summary>
         Object(nullptr_t);
 
-        /// <summary>Construct Object from Ptr(ObjectImpl).</summary>
-        Object(const Ptr<ObjectImpl>& ptr);
+        /// <summary>Construct Object from ptr(ObjectImpl).</summary>
+        Object(const ptr<ObjectImpl>& p);
 
-        /// <summary>Construct Object from Ptr(T).</summary>
+        /// <summary>Construct Object from ptr(T).</summary>
         template <class T>
-        Object(const Ptr<T>& ptr) : base(ptr) {}
+        Object(const ptr<T>& p) : base(p) {}
 
         /// <summary>Construct Object from ObjectImpl pointer.</summary>
         Object(ObjectImpl* value);
@@ -135,17 +135,17 @@ namespace dot
 
     public: // OPERATORS
 
-        /// <summary>Forward to operator in type Ptr(T).</summary>
+        /// <summary>Forward to operator in type ptr(T).</summary>
         bool operator==(nullptr_t) const;
 
-        /// <summary>Forward to operator in type Ptr(T).</summary>
+        /// <summary>Forward to operator in type ptr(T).</summary>
         bool operator!=(nullptr_t) const;
 
         /// <summary>Assign nullptr to Object.</summary>
         Object& operator=(nullptr_t);
 
-        /// <summary>Assign Ptr(T) to Object.</summary>
-        Object& operator=(const Ptr<ObjectImpl>& ptr);
+        /// <summary>Assign ptr(T) to Object.</summary>
+        Object& operator=(const ptr<ObjectImpl>& p);
 
         /// <summary>Assign String to Object by boxing.</summary>
         Object& operator=(const String& value);
@@ -279,11 +279,11 @@ namespace std
 {
     /// <summary>Implements hash struct used by STL unordered_map for Object.</summary>
     template <>
-    struct hash<dot::Object> : public hash<dot::Ptr<dot::ObjectImpl>>
+    struct hash<dot::Object> : public hash<dot::ptr<dot::ObjectImpl>>
     {};
 
     /// <summary>Implements equal_to struct used by STL unordered_map for Object.</summary>
     template <>
-    struct equal_to<dot::Object> : public equal_to<dot::Ptr<dot::ObjectImpl>>
+    struct equal_to<dot::Object> : public equal_to<dot::ptr<dot::ObjectImpl>>
     {};
 }

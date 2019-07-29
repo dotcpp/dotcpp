@@ -113,7 +113,7 @@ namespace dot
         }
     };
 
-    using ReflectionBaseSample = Ptr<ReflectionBaseSampleImpl>;
+    using ReflectionBaseSample = ptr<ReflectionBaseSampleImpl>;
     ReflectionBaseSample new_ReflectionBaseSample() { return new ReflectionBaseSampleImpl; }
 
     class ReflectionDerivedSampleImpl : public ReflectionBaseSampleImpl
@@ -132,7 +132,7 @@ namespace dot
         )
     };
 
-    using ReflectionDerivedSample = Ptr<ReflectionDerivedSampleImpl>;
+    using ReflectionDerivedSample = ptr<ReflectionDerivedSampleImpl>;
     ReflectionDerivedSample new_ReflectionDerivedSample() { return new ReflectionDerivedSampleImpl; }
 
     TEST_CASE("PropertyInfo")

@@ -43,8 +43,8 @@ namespace dot
 {
     static std::stringstream received;
 
-    class SampleDataImpl; using SampleData = Ptr<SampleDataImpl>;
-    class SampleData2Impl; using SampleData2 = Ptr<SampleData2Impl>;
+    class SampleDataImpl; using SampleData = ptr<SampleDataImpl>;
+    class SampleData2Impl; using SampleData2 = ptr<SampleData2Impl>;
 
     class SampleData2Impl : public virtual ObjectImpl
     {
@@ -77,7 +77,7 @@ namespace dot
         }
     };
 
-    class SampleDataImpl; using SampleData = Ptr<SampleDataImpl>;
+    class SampleDataImpl; using SampleData = ptr<SampleDataImpl>;
     SampleData new_SampleData();
 
     class SampleDataImpl : public virtual ObjectImpl

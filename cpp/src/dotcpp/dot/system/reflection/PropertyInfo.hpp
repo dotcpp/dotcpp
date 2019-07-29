@@ -28,8 +28,8 @@ limitations under the License.
 
 namespace dot
 {
-    class PropertyInfoImpl; using PropertyInfo = Ptr<PropertyInfoImpl>;
-    template <class PropType, class Class> class PropertyInfoDataImpl; template <class PropType, class Class> using PropertyInfoData = Ptr<PropertyInfoDataImpl<PropType, Class>>;
+    class PropertyInfoImpl; using PropertyInfo = ptr<PropertyInfoImpl>;
+    template <class PropType, class Class> class PropertyInfoDataImpl; template <class PropType, class Class> using PropertyInfoData = ptr<PropertyInfoDataImpl<PropType, Class>>;
 
     /// <summary>Data for PropertyInfo.</summary>
     template <class PropType, class Class>
@@ -133,13 +133,13 @@ namespace dot
         /// <summary>Returns the property value of a specified object.</summary>
         virtual Object GetValue(Object obj) override
         {
-            return (*Ptr<Class>(obj)).*prop_;
+            return (*ptr<Class>(obj)).*prop_;
         }
 
         /// <summary>Sets the property value of a specified object.</summary>
         virtual void SetValue(Object obj, Object value) override
         {
-            (*Ptr<Class>(obj)).*prop_ = (PropType)value;
+            (*ptr<Class>(obj)).*prop_ = (PropType)value;
         }
     };
 
@@ -191,13 +191,13 @@ namespace dot
         /// <summary>Returns the property value of a specified object.</summary>
         virtual Object GetValue(Object obj) override
         {
-            return (typename PropType::value_type)((*Ptr<Class>(obj)).*prop_);
+            return (typename PropType::value_type)((*ptr<Class>(obj)).*prop_);
         }
 
         // Prop has operator =
         void SetValue_impl(Object obj, Object value, std::true_type)
         {
-            (*Ptr<Class>(obj)).*prop_ = (typename PropType::value_type)(value);
+            (*ptr<Class>(obj)).*prop_ = (typename PropType::value_type)(value);
         }
 
         // Prop does not have operator =

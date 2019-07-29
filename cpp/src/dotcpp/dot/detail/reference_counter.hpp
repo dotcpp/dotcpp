@@ -27,7 +27,7 @@ namespace dot
 {
     /// <summary>
     /// All classes with reference semantics should derive from this type.
-    /// It works with Ptr to provide an emulation of reference semantics in C++.
+    /// It works with ptr to provide an emulation of reference semantics in C++.
     /// </summary>
     class reference_counter
     {
@@ -40,7 +40,7 @@ namespace dot
 
         /// <summary>
         /// Virtual destructor to ensure that destructor
-        /// of the derived type is called by Ptr.
+        /// of the derived type is called by ptr.
         /// </summary>
         virtual ~reference_counter() = default;
 

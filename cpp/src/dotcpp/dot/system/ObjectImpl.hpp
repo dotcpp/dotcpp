@@ -24,22 +24,22 @@ limitations under the License.
 #pragma once
 
 #include <dot/declare.hpp>
-#include <dot/system/Ptr.hpp>
+#include <dot/system/ptr.hpp>
 
 namespace dot
 {
     class Object;
     class StringImpl; class String;
-    class TypeImpl; using Type = Ptr<TypeImpl>;
+    class TypeImpl; using Type = ptr<TypeImpl>;
 
     /// <summary>
     /// All classes with reference semantics should derive from this type.
-    /// It works with Ptr to provide an emulation of reference semantics in C++.
+    /// It works with ptr to provide an emulation of reference semantics in C++.
     /// </summary>
     class DOT_CLASS ObjectImpl : public reference_counter
     {
         template<typename T>
-        friend class Ptr;
+        friend class ptr;
         friend class Object;
 
     public: // METHODS

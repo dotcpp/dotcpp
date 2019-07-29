@@ -35,9 +35,9 @@ namespace dot
     bool BoolImpl::Equals(Object obj)
     {
         if (this == &(*obj)) return true;
-        if (obj.is<Ptr<BoolImpl>>())
+        if (obj.is<ptr<BoolImpl>>())
         {
-            return value_ == obj.as<Ptr<BoolImpl>>()->value_;
+            return value_ == obj.as<ptr<BoolImpl>>()->value_;
         }
 
         return false;

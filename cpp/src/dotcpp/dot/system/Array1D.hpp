@@ -31,7 +31,7 @@ limitations under the License.
 
 namespace dot
 {
-    template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
+    template <class T> class Array1DImpl; template <class T> using Array1D = ptr<Array1DImpl<T>>;
 
     /// <summary>
     /// Represents a strongly typed list of objects that can be accessed by index.

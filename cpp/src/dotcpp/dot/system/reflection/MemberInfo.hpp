@@ -27,9 +27,9 @@ limitations under the License.
 
 namespace dot
 {
-    class MemberInfoImpl; using MemberInfo = Ptr<MemberInfoImpl>;
-    class MemberInfoDataImpl; using MemberInfoData = Ptr<MemberInfoDataImpl>;
-    class TypeImpl; using Type = Ptr<TypeImpl>;
+    class MemberInfoImpl; using MemberInfo = ptr<MemberInfoImpl>;
+    class MemberInfoDataImpl; using MemberInfoData = ptr<MemberInfoDataImpl>;
+    class TypeImpl; using Type = ptr<TypeImpl>;
 
     /// <summary>Data for MemberInfo.</summary>
     class DOT_CLASS MemberInfoDataImpl : public virtual ObjectImpl

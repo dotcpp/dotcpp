@@ -42,14 +42,14 @@ limitations under the License.
 namespace dot
 {
     class StringImpl; class String;
-    class TypeImpl; using Type = Ptr<TypeImpl>;
-    class TypeBuilderImpl; using TypeBuilder = Ptr<TypeBuilderImpl>;
+    class TypeImpl; using Type = ptr<TypeImpl>;
+    class TypeBuilderImpl; using TypeBuilder = ptr<TypeBuilderImpl>;
     class StringImpl; class String;
-    class MethodInfoImpl; using MethodInfo = Ptr<MethodInfoImpl>;
-    class ConstructorInfoImpl; using ConstructorInfo = Ptr<ConstructorInfoImpl>;
-    class PropertyInfoImpl; using PropertyInfo = Ptr<PropertyInfoImpl>;
-    template <class T> class ListImpl; template <class T> using List = Ptr<ListImpl<T>>;
-    template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
+    class MethodInfoImpl; using MethodInfo = ptr<MethodInfoImpl>;
+    class ConstructorInfoImpl; using ConstructorInfo = ptr<ConstructorInfoImpl>;
+    class PropertyInfoImpl; using PropertyInfo = ptr<PropertyInfoImpl>;
+    template <class T> class ListImpl; template <class T> using List = ptr<ListImpl<T>>;
+    template <class T> class Array1DImpl; template <class T> using Array1D = ptr<Array1DImpl<T>>;
     template <class Class, class ... Args> class MemberConstructorInfoImpl;
 
     template <class T> Type typeof();

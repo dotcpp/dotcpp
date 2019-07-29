@@ -24,13 +24,13 @@ limitations under the License.
 #pragma once
 
 #include <dot/declare.hpp>
-#include <dot/system/Ptr.hpp>
+#include <dot/system/ptr.hpp>
 #include <dot/system/collections/IObjectEnumerable.hpp>
 
 namespace dot
 {
-    class IObjectCollectionImpl; using IObjectCollection = Ptr<IObjectCollectionImpl>;
-    class TypeImpl; using Type = Ptr<TypeImpl>;
+    class IObjectCollectionImpl; using IObjectCollection = ptr<IObjectCollectionImpl>;
+    class TypeImpl; using Type = ptr<TypeImpl>;
 
     /// <summary>
     /// Supports a collection API over a non-generic collection.

@@ -29,7 +29,7 @@ limitations under the License.
 #include <dot/system/Object.hpp>
 #include <dot/system/String.hpp>
 #include <dot/system/Type.hpp>
-#include <dot/system/Ptr.hpp>
+#include <dot/system/ptr.hpp>
 #include <dot/system/Bool.hpp>
 #include <dot/system/Double.hpp>
 #include <dot/system/Int.hpp>

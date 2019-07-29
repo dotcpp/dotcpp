@@ -30,8 +30,8 @@ limitations under the License.
 
 namespace dot
 {
-    class MethodInfoImpl; using MethodInfo = Ptr<MethodInfoImpl>;
-    class TypeImpl; using Type = Ptr<TypeImpl>;
+    class MethodInfoImpl; using MethodInfo = ptr<MethodInfoImpl>;
+    class TypeImpl; using Type = ptr<TypeImpl>;
 
     /// <summary>
     /// Obtains information about the attributes of a method and provides access to method metadata.
@@ -100,14 +100,14 @@ namespace dot
         template <int ... I>
         Object Invoke_impl(Object obj, Array1D<Object> params, detail::index_sequence<I...>, std::false_type)
         {
-            return ((*Ptr<Class>(obj)).*ptr_)(params[I]...);
+            return ((*ptr<Class>(obj)).*ptr_)(params[I]...);
         }
 
         /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
         template <int ... I>
         Object Invoke_impl(Object obj, Array1D<Object> params, detail::index_sequence<I...>, std::true_type)
         {
-            ((*Ptr<Class>(obj)).*ptr_)(params[I]...);
+            ((*ptr<Class>(obj)).*ptr_)(params[I]...);
             return Object();
         }
 
@@ -128,9 +128,9 @@ namespace dot
         /// This constructor is private. Use new_MethodInfo(...)
         /// function with matching signature instead.
         /// </summary>
-        MemberMethodInfoImpl(const String& name, Type declaringType, Type returnType, method_type ptr)
+        MemberMethodInfoImpl(const String& name, Type declaringType, Type returnType, method_type p)
             : MethodInfoImpl(name, declaringType, returnType)
-            , ptr_(ptr)
+            , ptr_(p)
         {}
     };
 
@@ -184,9 +184,9 @@ namespace dot
         /// This constructor is private. Use new_MethodInfo(...)
         /// function with matching signature instead.
         /// </summary>
-        StaticMethodInfoImpl(const String& name, Type declaringType, Type returnType, method_type ptr)
+        StaticMethodInfoImpl(const String& name, Type declaringType, Type returnType, method_type p)
             : MethodInfoImpl(name, declaringType, returnType)
-            , ptr_(ptr)
+            , ptr_(p)
         {}
     };
 }

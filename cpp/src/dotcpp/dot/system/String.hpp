@@ -26,13 +26,13 @@ limitations under the License.
 #include <dot/declare.hpp>
 #include <fmt/core.h>
 #include <dot/detail/const_string_base.hpp>
-#include <dot/system/Ptr.hpp>
+#include <dot/system/ptr.hpp>
 #include <dot/system/Char.hpp>
 
 namespace dot
 {
     class StringImpl; class String;
-    template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
+    template <class T> class Array1DImpl; template <class T> using Array1D = ptr<Array1DImpl<T>>;
     template <class T> class Nullable;
     enum class StringSplitOptions;
     class Char;
@@ -341,11 +341,11 @@ namespace dot
     };
 
     /// <summary>
-    /// Pointer to StringImpl that has additional constructors compared to Ptr(String)
+    /// Pointer to StringImpl that has additional constructors compared to ptr(String)
     /// </summary>
-    class DOT_CLASS String : public Ptr<StringImpl>
+    class DOT_CLASS String : public ptr<StringImpl>
     {
-        typedef Ptr<StringImpl> base;
+        typedef ptr<StringImpl> base;
 
     public: // CONSTANTS
 
@@ -361,7 +361,7 @@ namespace dot
         /// Take ownership of raw pointer to template argument type.
         /// This also permits construction from null pointer.
         /// </summary>
-        String(StringImpl* ptr) : base(ptr) {}
+        String(StringImpl* p) : base(p) {}
 
         /// <summary>
         /// Create from std::string.
@@ -384,7 +384,7 @@ namespace dot
         /// Error if Object does is not a boxed int.
         /// Null Object becomes empty NullableInt.
         /// </summary>
-        explicit String(const Ptr<ObjectImpl>& rhs) : base(rhs) {}
+        explicit String(const ptr<ObjectImpl>& rhs) : base(rhs) {}
 
     public: // STATIC
 
@@ -413,10 +413,10 @@ namespace dot
         bool operator!=(const char* rhs) const { return !operator==(rhs); }
 
         /// <summary>Case sensitive comparison to string literal.</summary>
-        bool operator==(const Ptr<StringImpl>& rhs) const { return *this == *rhs; }
+        bool operator==(const ptr<StringImpl>& rhs) const { return *this == *rhs; }
 
         /// <summary>Case sensitive comparison to string literal.</summary>
-        bool operator!=(const Ptr<StringImpl>& rhs) const { return !operator==(rhs); }
+        bool operator!=(const ptr<StringImpl>& rhs) const { return !operator==(rhs); }
 
         /// <summary>Case sensitive comparison to Object.</summary>
         bool operator==(const Object& rhs) const;
@@ -473,8 +473,8 @@ namespace dot
 
     /// <summary>Helper class for fmt::format arguments conversion</summary>
     template<class T>
-    struct format_forward<Ptr<T>> {
-        static inline std::string convert(const Ptr<T>& o) { return *o->ToString(); }
+    struct format_forward<ptr<T>> {
+        static inline std::string convert(const ptr<T>& o) { return *o->ToString(); }
     };
 
     /// <summary>Helper class for fmt::format arguments conversion</summary>
@@ -494,11 +494,11 @@ namespace std
 {
     /// <summary>Implements hash struct used by STL unordered_map for String.</summary>
     template <>
-    struct hash<dot::String> : public hash<dot::Ptr<dot::StringImpl>>
+    struct hash<dot::String> : public hash<dot::ptr<dot::StringImpl>>
     {};
 
     /// <summary>Implements equal_to struct used by STL unordered_map for String.</summary>
     template <>
-    struct equal_to<dot::String> : public equal_to<dot::Ptr<dot::StringImpl>>
+    struct equal_to<dot::String> : public equal_to<dot::ptr<dot::StringImpl>>
     {};
 }

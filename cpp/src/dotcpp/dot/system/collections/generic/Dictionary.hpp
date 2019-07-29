@@ -31,7 +31,7 @@ limitations under the License.
 namespace dot
 {
     template <class TKey, class TValue> class DictionaryImpl;
-    template <class TKey, class TValue> using Dictionary = Ptr<DictionaryImpl<TKey, TValue>>;
+    template <class TKey, class TValue> using Dictionary = ptr<DictionaryImpl<TKey, TValue>>;
 
     /// <summary>Represents a collection of keys and values.</summary>
     template <class TKey, class TValue>

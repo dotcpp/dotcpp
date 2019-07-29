@@ -32,9 +32,9 @@ namespace dot
     {
         if (this == &(*obj)) return true;
 
-        if (obj.is<Ptr<CharImpl>>())
+        if (obj.is<ptr<CharImpl>>())
         {
-            return value_ == obj.as<Ptr<CharImpl>>()->value_;
+            return value_ == obj.as<ptr<CharImpl>>()->value_;
         }
 
         return false;

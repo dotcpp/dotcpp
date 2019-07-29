@@ -27,7 +27,7 @@ limitations under the License.
 
 namespace dot
 {
-    class ParameterInfoImpl; using ParameterInfo = Ptr<ParameterInfoImpl>;
+    class ParameterInfoImpl; using ParameterInfo = ptr<ParameterInfoImpl>;
 
     /// <summary>
     /// Discovers the attributes of a parameter and provides access to parameter metadata.

@@ -30,10 +30,10 @@ limitations under the License.
 
 namespace dot
 {
-    template <class T> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
+    template <class T> class Array1DImpl; template <class T> using Array1D = ptr<Array1DImpl<T>>;
 
     template <class T> class HashSetImpl;
-    template <class T> using HashSet = Ptr<HashSetImpl<T>>;
+    template <class T> using HashSet = ptr<HashSetImpl<T>>;
 
     /// <summary>Represents a set of values.</summary>
     template <class T>

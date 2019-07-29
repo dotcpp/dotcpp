@@ -30,7 +30,7 @@ namespace dot
 {
     class ArrayImpl;
 
-    template <class> class Array1DImpl; template <class T> using Array1D = Ptr<Array1DImpl<T>>;
+    template <class> class Array1DImpl; template <class T> using Array1D = ptr<Array1DImpl<T>>;
 
     /// <summary>
     /// Common base to List(T) and Array1D(T)
@@ -49,9 +49,9 @@ namespace dot
         DOT_DECL_GET(int, Count)
     };
 
-    class Array : public Ptr<ArrayImpl>
+    class Array : public ptr<ArrayImpl>
     {
-        typedef Ptr<ArrayImpl> base;
+        typedef ptr<ArrayImpl> base;
 
     public: // CONSTRUCTORS
 
@@ -61,7 +61,7 @@ namespace dot
         Array() : base() {}
 
         /// <summary>Construct Array from pointer to derived types.</summary>
-        Array(const Ptr<ArrayImpl>& ptr) : base(ptr) {}
+        Array(const ptr<ArrayImpl>& p) : base(p) {}
 
     public: // STATIC
 
