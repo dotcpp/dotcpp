@@ -25,7 +25,7 @@ limitations under the License.
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <dot/system/String.hpp>
-#include <dot/system/Object.hpp>
+#include <dot/system/object.hpp>
 
 namespace dot
 {
@@ -40,8 +40,8 @@ namespace dot
         String s2 = "abc";
         REQUIRE(s2 == "abc");
 
-        // Cast to Object and back
-        Object obj1 = s1;
+        // Cast to object and back
+        object obj1 = s1;
         // TODO String s11 = obj1.cast<String>();
         // TODO  REQUIRE(s11 == "abc");
     }
@@ -96,8 +96,8 @@ namespace dot
 
         // Compare two strings that have the same value but are not
         // the same instances after casting one or both to object
-        REQUIRE(str == (Object)str2);
-        // TODO - fix by implemnenting Equals(...) REQUIRE((Object)str == str2);
-        // TODO - fix by implemnenting Equals(...) REQUIRE((Object)str == (Object)str2);
+        REQUIRE(str == object(str2));
+        // TODO - fix by implemnenting Equals(...) REQUIRE((object)str == str2);
+        // TODO - fix by implemnenting Equals(...) REQUIRE((object)str == (object)str2);
     }
 }

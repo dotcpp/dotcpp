@@ -24,7 +24,7 @@ limitations under the License.
 
 #include <dot/implement.hpp>
 #include <dot/system/Type.hpp>
-#include <dot/system/ObjectImpl.hpp>
+#include <dot/system/objectimpl.hpp>
 #include <dot/system/reflection/PropertyInfo.hpp>
 #include <dot/system/reflection/MethodInfo.hpp>
 #include <dot/system/reflection/ConstructorInfo.hpp>
@@ -235,7 +235,7 @@ namespace dot
         return nullptr;
     }
 
-    bool TypeImpl::Equals(Object obj)
+    bool TypeImpl::Equals(object obj)
     {
         if (obj.is<Type>())
             return this->FullName == ((Type)obj)->FullName;

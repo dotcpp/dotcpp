@@ -54,7 +54,7 @@ namespace dot
         }
 
         /// <summary>Invokes specified method with given parameters.</summary>
-        virtual Object Invoke(Object, Array1D<Object>) = 0;
+        virtual object Invoke(object, Array1D<object>) = 0;
 
         /// <summary>Gets the return type of this method.</summary>
         DOT_AUTO_GET(Type, ReturnType);
@@ -98,21 +98,21 @@ namespace dot
 
         /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
         template <int ... I>
-        Object Invoke_impl(Object obj, Array1D<Object> params, detail::index_sequence<I...>, std::false_type)
+        object Invoke_impl(object obj, Array1D<object> params, detail::index_sequence<I...>, std::false_type)
         {
             return ((*ptr<Class>(obj)).*ptr_)(params[I]...);
         }
 
         /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
         template <int ... I>
-        Object Invoke_impl(Object obj, Array1D<Object> params, detail::index_sequence<I...>, std::true_type)
+        object Invoke_impl(object obj, Array1D<object> params, detail::index_sequence<I...>, std::true_type)
         {
             ((*ptr<Class>(obj)).*ptr_)(params[I]...);
-            return Object();
+            return object();
         }
 
         /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
-        virtual Object Invoke(Object obj, Array1D<Object> params)
+        virtual object Invoke(object obj, Array1D<object> params)
         {
             if (params->Count != Parameters->Count)
                 throw new_Exception("Wrong number of parameters for method " + this->DeclaringType->Name + "." + this->Name);
@@ -154,21 +154,21 @@ namespace dot
 
         /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
         template <int ... I>
-        Object Invoke_impl(Object obj, Array1D<Object> params, detail::index_sequence<I...>, std::false_type)
+        object Invoke_impl(object obj, Array1D<object> params, detail::index_sequence<I...>, std::false_type)
         {
             return (*ptr_)(params[I]...);
         }
 
         /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
         template <int ... I>
-        Object Invoke_impl(Object obj, Array1D<Object> params, detail::index_sequence<I...>, std::true_type)
+        object Invoke_impl(object obj, Array1D<object> params, detail::index_sequence<I...>, std::true_type)
         {
             (*ptr_)(params[I]...);
-            return Object();
+            return object();
         }
 
         /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
-        virtual Object Invoke(Object obj, Array1D<Object> params)
+        virtual object Invoke(object obj, Array1D<object> params)
         {
             if (params->Count != Parameters->Count)
                 throw new_Exception("Wrong number of parameters for method " + this->DeclaringType->Name + "." + this->Name);

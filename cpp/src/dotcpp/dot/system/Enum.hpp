@@ -56,8 +56,8 @@ namespace dot
         /// <summary>Copy constructor.</summary>
         Enum(const Enum& rhs) : value_(rhs.value_) {}
 
-        /// <summary>Constructor from Object.</summary>
-        Enum(Object rhs)
+        /// <summary>Constructor from object.</summary>
+        Enum(object rhs)
         {
             value_ = dynamic_cast<Enum&>(*rhs).value_;
         }
@@ -71,7 +71,7 @@ namespace dot
         size_t GetHashCode();
 
         /// <summary>Returns a value indicating whether this instance is equal to a specified object.</summary>
-        bool Equals(Object obj);
+        bool Equals(object obj);
 
     public: // STATIC
 
@@ -79,7 +79,7 @@ namespace dot
         /// Converts the string representation of the name or numeric value of
         /// one or more enumerated constants to an equivalent enumerated object.
         /// </summary>
-        static Object Parse(Type enumType, String value);
+        static object Parse(Type enumType, String value);
 
     protected: // PROTECTED
 

@@ -32,7 +32,7 @@ namespace dot
     /// <summary>
     /// Discovers the attributes of a parameter and provides access to parameter metadata.
     /// </summary>
-    class ParameterInfoImpl : public virtual ObjectImpl
+    class ParameterInfoImpl : public virtual object_impl
     {
         friend ParameterInfo new_ParameterInfo(String , Type, int);
 

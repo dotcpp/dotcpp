@@ -52,10 +52,10 @@ namespace dot
             virtual std::unique_ptr<std_object_iterator_base> copy() = 0;
 
             /// Get wrapper (const version)
-            virtual Object const get() const = 0;
+            virtual object const get() const = 0;
 
             /// Get wrapper (non-const version)
-            virtual Object get() = 0;
+            virtual object get() = 0;
 
             /// Equality
             virtual bool operator ==(std_object_iterator_base const& iter) = 0;
@@ -64,10 +64,10 @@ namespace dot
             virtual bool operator !=(std_object_iterator_base const& iter) = 0;
 
             /// Dereference (const version)
-            inline Object const operator*() const { return get(); }
+            inline object const operator*() const { return get(); }
 
             /// Dereference (non-const version)
-            inline Object operator*() { return get(); }
+            inline object operator*() { return get(); }
 
         };
 
@@ -78,7 +78,7 @@ namespace dot
         template <class Iterator>
         struct std_object_iterator : std_object_iterator_base
         {
-            typedef Object value_type;
+            typedef object value_type;
             typedef std_object_iterator_base base;
             Iterator iter_;
 
@@ -164,13 +164,13 @@ namespace dot
             }
 
             /// Get reference to the underlying type (const version)
-            inline Object get() const
+            inline object get() const
             {
                 return iter_->get();
             }
 
             /// Get reference to the underlying type (non-const version)
-            inline Object get()
+            inline object get()
             {
                 return iter_->get();
             }
@@ -188,13 +188,13 @@ namespace dot
             }
 
             /// Dereference (const version)
-            inline Object operator*() const
+            inline object operator*() const
             {
                 return get();
             }
 
             /// Dereference (non-const version)
-            inline Object operator*()
+            inline object operator*()
             {
                 return get();
             }

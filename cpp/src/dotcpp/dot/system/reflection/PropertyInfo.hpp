@@ -77,10 +77,10 @@ namespace dot
         virtual String ToString() override { return "PropertyInfo"; }
 
         /// <summary>Returns the property value of a specified object.</summary>
-        virtual Object GetValue(Object obj) = 0;
+        virtual object GetValue(object obj) = 0;
 
         /// <summary>Sets the property value of a specified object.</summary>
-        virtual void SetValue(Object obj, Object value) = 0;
+        virtual void SetValue(object obj, object value) = 0;
 
     protected: // CONSTRUCTORS
 
@@ -131,13 +131,13 @@ namespace dot
     private: // METHODS
 
         /// <summary>Returns the property value of a specified object.</summary>
-        virtual Object GetValue(Object obj) override
+        virtual object GetValue(object obj) override
         {
             return (*ptr<Class>(obj)).*prop_;
         }
 
         /// <summary>Sets the property value of a specified object.</summary>
-        virtual void SetValue(Object obj, Object value) override
+        virtual void SetValue(object obj, object value) override
         {
             (*ptr<Class>(obj)).*prop_ = (PropType)value;
         }
@@ -189,26 +189,26 @@ namespace dot
         {}
 
         /// <summary>Returns the property value of a specified object.</summary>
-        virtual Object GetValue(Object obj) override
+        virtual object GetValue(object obj) override
         {
             return (typename PropType::value_type)((*ptr<Class>(obj)).*prop_);
         }
 
         // Prop has operator =
-        void SetValue_impl(Object obj, Object value, std::true_type)
+        void SetValue_impl(object obj, object value, std::true_type)
         {
             (*ptr<Class>(obj)).*prop_ = (typename PropType::value_type)(value);
         }
 
         // Prop does not have operator =
-        void SetValue_impl(Object obj, Object value, std::false_type)
+        void SetValue_impl(object obj, object value, std::false_type)
         {
             throw new_Exception("Attempting to use SetValue on read-only property.");
         }
 
         // Property might be read-only (operator =(value) = delete; )
         // SetValue throws exception in case of setting read-only DOT_PROP
-        virtual void SetValue(Object obj, Object value) override
+        virtual void SetValue(object obj, object value) override
         {
             SetValue_impl(obj, value, typename std::is_base_of<detail::decl_prop, PropType>::type());
         }

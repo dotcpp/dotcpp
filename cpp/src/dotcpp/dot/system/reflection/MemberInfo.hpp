@@ -23,7 +23,7 @@ limitations under the License.
 
 #pragma once
 
-#include <dot/system/Object.hpp>
+#include <dot/system/object.hpp>
 
 namespace dot
 {
@@ -32,7 +32,7 @@ namespace dot
     class TypeImpl; using Type = ptr<TypeImpl>;
 
     /// <summary>Data for MemberInfo.</summary>
-    class DOT_CLASS MemberInfoDataImpl : public virtual ObjectImpl
+    class DOT_CLASS MemberInfoDataImpl : public virtual object_impl
     {
         typedef MemberInfoDataImpl self;
 
@@ -54,7 +54,7 @@ namespace dot
     /// <summary>
     /// Obtains information about the attributes of a member and provides access to member metadata.
     /// </summary>
-    class MemberInfoImpl : public virtual ObjectImpl
+    class MemberInfoImpl : public virtual object_impl
     {
         typedef MemberInfoImpl self;
 

@@ -25,7 +25,7 @@ limitations under the License.
 
 #include <dot/declare.hpp>
 #include <dot/detail/const_string_base.hpp>
-#include <dot/system/ObjectImpl.hpp>
+#include <dot/system/objectimpl.hpp>
 
 namespace dot
 {
@@ -45,10 +45,10 @@ namespace dot
         Char(char c) : base(std::to_string(c)) {}
     };
 
-    /// <summary>Wrapper around char to make it convertible to Object (boxing).</summary>
-    class CharImpl : public virtual ObjectImpl
+    /// <summary>Wrapper around char to make it convertible to object (boxing).</summary>
+    class CharImpl : public virtual object_impl
     {
-        friend Object;
+        friend object;
         char value_;
 
     public: // CONSTRUCTORS
@@ -59,7 +59,7 @@ namespace dot
     public: // METHODS
 
         /// <summary>Returns a value indicating whether this instance is equal to a specified object.</summary>
-        virtual bool Equals(Object obj) override;
+        virtual bool Equals(object obj) override;
 
         /// <summary>Returns the hash code for this instance.</summary>
         virtual size_t GetHashCode() override;

@@ -25,23 +25,23 @@ limitations under the License.
 
 namespace dot
 {
-    class ObjectImpl;
+    class object_impl;
     class String;
-    class Object;
-    class ObjectImpl;
+    class object;
+    class object_impl;
 
     namespace detail
     {
         /// <summary>Empty structure.</summary>
-        class dummy_no_to_string : public virtual ObjectImpl
+        class dummy_no_to_string : public virtual object_impl
         {};
 
         /// <summary>
-        /// Objects inherit this structure in case their inner struct class has method ToString
+        /// objects inherit this structure in case their inner struct class has method ToString
         /// so object also have these method.
         /// </summary>
         template <class W, class T>
-        class obj_to_string : public virtual ObjectImpl
+        class obj_to_string : public virtual object_impl
         {
         public:
             virtual String ToString() override { return static_cast<T*>(static_cast<W*>(this))->ToString(); }
@@ -69,15 +69,15 @@ namespace dot
         {};
 
         /// <summary>Empty structure.</summary>
-        class dummy_no_get_hashcode : public virtual ObjectImpl
+        class dummy_no_get_hashcode : public virtual object_impl
         {};
 
         /// <summary>
-        /// Objects inherit this structure in case their inner struct class has method GetHashCode
+        /// objects inherit this structure in case their inner struct class has method GetHashCode
         /// so object also have these method.
         /// </summary>
         template <class W, class T>
-        class obj_get_hashcode : public virtual ObjectImpl
+        class obj_get_hashcode : public virtual object_impl
         {
         public:
             virtual size_t GetHashCode() override { return static_cast<T*>(static_cast<W*>(this))->GetHashCode(); }
@@ -105,18 +105,18 @@ namespace dot
         {};
 
         /// <summary>Empty structure.</summary>
-        class dummy_no_equals : public virtual ObjectImpl
+        class dummy_no_equals : public virtual object_impl
         {};
 
         /// <summary>
-        /// Objects inherit this structure in case their inner struct class has method Equals
+        /// objects inherit this structure in case their inner struct class has method Equals
         /// so object also have these method.
         /// </summary>
         template <class W, class T>
-        class obj_equals : public virtual ObjectImpl
+        class obj_equals : public virtual object_impl
         {
         public:
-            virtual bool Equals(Object obj) override { return static_cast<T*>(static_cast<W*>(this))->Equals(obj); }
+            virtual bool Equals(object obj) override { return static_cast<T*>(static_cast<W*>(this))->Equals(obj); }
         };
 
         /// <summary>Detects existance of Equals method.</summary>
@@ -125,7 +125,7 @@ namespace dot
         {
         private:
             static dummy_no_equals detect(...);
-            template<class U> static decltype(std::declval<U>().Equals(std::declval<Object>())) detect(const U&);
+            template<class U> static decltype(std::declval<U>().Equals(std::declval<object>())) detect(const U&);
         public:
             static constexpr bool value = !std::is_same<dummy_no_equals, decltype(detect(std::declval<T>()))>::value;
             typedef std::integral_constant<bool, value> type;

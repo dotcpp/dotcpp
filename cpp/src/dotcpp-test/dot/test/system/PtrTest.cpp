@@ -25,11 +25,11 @@ limitations under the License.
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <dot/system/String.hpp>
-#include <dot/system/Object.hpp>
+#include <dot/system/object.hpp>
 
 namespace dot
 {
-    class BaseImpl : public virtual ObjectImpl
+    class BaseImpl : public virtual object_impl
     {
     public:
 

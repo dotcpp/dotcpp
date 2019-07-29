@@ -34,7 +34,7 @@ namespace dot
     /// Exposes the enumerator, which supports a simple iteration over a collection of a specified type.
     /// </summary>
     template <class T>
-    class IEnumerableImpl : public virtual ObjectImpl
+    class IEnumerableImpl : public virtual object_impl
     {
     public: // METHODS
 

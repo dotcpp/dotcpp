@@ -102,9 +102,9 @@ namespace dot
         ///
         /// In C\#, the non-generic method is implemented for the interface
         /// but not for the class to avoid ambiguous conversions. Because
-        /// in C++ this cannot be done, here this method has Object prefix.
+        /// in C++ this cannot be done, here this method has object prefix.
         /// </summary>
-        virtual void ObjectAdd(Object item) { this->push_back((T)item); }
+        virtual void objectAdd(object item) { this->push_back((T)item); }
 
 
     public: // OPERATORS

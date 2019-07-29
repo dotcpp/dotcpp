@@ -35,7 +35,7 @@ namespace dot
 
     class String;
     class Period;
-    class Object;
+    class object;
 
     /// <summary>
     /// A date and time in a particular calendar system.
@@ -73,8 +73,8 @@ namespace dot
         /// <summary>Create from Boost posix_time.</summary>
         LocalDateTime(const ptime& time);
         
-        /// <summary>Create from Object.</summary>
-        LocalDateTime(Object const& rhs);
+        /// <summary>Create from object.</summary>
+        LocalDateTime(object const& rhs);
 
 
         /// <summary>Copy constructor.</summary>

@@ -23,7 +23,7 @@ limitations under the License.
 
 #include <dot/implement.hpp>
 #include <dot/system/reflection/Activator.hpp>
-#include <dot/system/ObjectImpl.hpp>
+#include <dot/system/objectimpl.hpp>
 #include <dot/system/Array1D.hpp>
 #include <dot/system/Exception.hpp>
 #include <dot/system/String.hpp>
@@ -34,12 +34,12 @@ limitations under the License.
 
 namespace dot
 {
-    Object Activator::CreateInstance(Type type)
+    object Activator::CreateInstance(Type type)
     {
         return CreateInstance(type, nullptr);
     }
 
-    Object Activator::CreateInstance(Type type, Array1D<Object> params)
+    object Activator::CreateInstance(Type type, Array1D<object> params)
     {
         Array1D<ConstructorInfo> ctors = type->GetConstructors();
 
@@ -93,12 +93,12 @@ namespace dot
         return best_ctor->Invoke(params);
     }
 
-    Object Activator::CreateInstance(String assemblyName, String typeName)
+    object Activator::CreateInstance(String assemblyName, String typeName)
     {
         return CreateInstance(TypeImpl::GetType(typeName), nullptr);
     }
 
-    Object Activator::CreateInstance(String assemblyName, String typeName, Array1D<Object> params)
+    object Activator::CreateInstance(String assemblyName, String typeName, Array1D<object> params)
     {
         return CreateInstance(TypeImpl::GetType(typeName), params);
     }

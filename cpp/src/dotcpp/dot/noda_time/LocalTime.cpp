@@ -26,7 +26,7 @@ limitations under the License.
 #include <dot/noda_time/Period.hpp>
 #include <dot/noda_time/LocalDateTime.hpp>
 #include <dot/system/String.hpp>
-#include <dot/system/Object.hpp>
+#include <dot/system/object.hpp>
 
 namespace dot
 {
@@ -65,7 +65,7 @@ namespace dot
         : ptime(time)
     {}
 
-    LocalTime::LocalTime(Object const& rhs) { *this = rhs.operator LocalTime(); }
+    LocalTime::LocalTime(object const& rhs) { *this = rhs.operator LocalTime(); }
 
     LocalTime::LocalTime(const LocalTime& other)
     {

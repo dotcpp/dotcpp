@@ -25,7 +25,7 @@ limitations under the License.
 #include <fmt/format.h>
 #include <dot/implement.hpp>
 #include <dot/system/String.hpp>
-#include <dot/system/Object.hpp>
+#include <dot/system/object.hpp>
 #include <dot/system/Nullable.hpp>
 #include <dot/system/Type.hpp>
 
@@ -51,7 +51,7 @@ namespace dot
     }
 
 
-    bool StringImpl::Equals(Object obj)
+    bool StringImpl::Equals(object obj)
     {
         if (this == &(*obj)) return true;
 
@@ -146,8 +146,8 @@ namespace dot
         return false;
     }
 
-    /// <summary>Case sensitive comparison to Object.</summary>
-    bool String::operator==(const Object& rhs) const
+    /// <summary>Case sensitive comparison to object.</summary>
+    bool String::operator==(const object& rhs) const
     {
         // If rhs is null, return false. Otherwise, check if
         // the other object is a string. If yes, compare by value.

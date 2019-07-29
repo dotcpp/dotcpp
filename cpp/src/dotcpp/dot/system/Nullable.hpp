@@ -29,7 +29,7 @@ limitations under the License.
 #include <dot/system/Int.hpp>
 #include <dot/system/Long.hpp>
 #include <dot/system/Double.hpp>
-#include <dot/system/Object.hpp>
+#include <dot/system/object.hpp>
 
 namespace dot
 {
@@ -65,12 +65,12 @@ namespace dot
         Nullable(T value) : base(value) {}
 
         /// <summary>
-        /// Supports cast (explicit constructor) from Object.
+        /// Supports cast (explicit constructor) from object.
         ///
-        /// Error if Object does is not a boxed T.
-        /// Null Object becomes empty Nullable.
+        /// Error if object does is not a boxed T.
+        /// Null object becomes empty Nullable.
         /// </summary>
-        explicit Nullable(Object rhs) { if (!rhs.IsEmpty()) *this = (T) rhs; }
+        explicit Nullable(object rhs) { if (!rhs.IsEmpty()) *this = (T) rhs; }
 
         /// <summary>Copy constructor.</summary>
         Nullable(const Nullable& other) { *this = other; }
@@ -143,12 +143,12 @@ namespace dot
         Nullable(bool value) : value_(value ? 1 : 0) {}
 
         /// <summary>
-        /// Supports cast (explicit constructor) from Object.
+        /// Supports cast (explicit constructor) from object.
         ///
-        /// Error if Object does is not a boxed boolean.
-        /// Null Object becomes empty Nullable.
+        /// Error if object does is not a boxed boolean.
+        /// Null object becomes empty Nullable.
         /// </summary>
-        explicit Nullable(Object rhs) { if (!rhs.IsEmpty()) *this = (bool) rhs; }
+        explicit Nullable(object rhs) { if (!rhs.IsEmpty()) *this = (bool) rhs; }
 
         /// <summary>Copy constructor.</summary>
         Nullable(const Nullable& other) { *this = other; }
@@ -215,12 +215,12 @@ namespace dot
         Nullable(int value) : value_(value) {}
 
         /// <summary>
-        /// Supports cast (explicit constructor) from Object.
+        /// Supports cast (explicit constructor) from object.
         ///
-        /// Error if Object does is not a boxed int.
-        /// Null Object becomes empty Nullable.
+        /// Error if object does is not a boxed int.
+        /// Null object becomes empty Nullable.
         /// </summary>
-        explicit Nullable(Object rhs) { if (!rhs.IsEmpty()) *this = (int) rhs; }
+        explicit Nullable(object rhs) { if (!rhs.IsEmpty()) *this = (int) rhs; }
 
         /// <summary>Copy constructor.</summary>
         Nullable(const Nullable& other) { *this = other; }
@@ -292,12 +292,12 @@ namespace dot
         Nullable(int64_t value) : value_(value) {}
 
         /// <summary>
-        /// Supports cast (explicit constructor) from Object.
+        /// Supports cast (explicit constructor) from object.
         ///
-        /// Error if Object does is not a boxed long.
-        /// Null Object becomes empty Nullable.
+        /// Error if object does is not a boxed long.
+        /// Null object becomes empty Nullable.
         /// </summary>
-        explicit Nullable(Object rhs) { if (!rhs.IsEmpty()) *this = (int64_t) rhs; }
+        explicit Nullable(object rhs) { if (!rhs.IsEmpty()) *this = (int64_t) rhs; }
 
         /// <summary>Copy constructor.</summary>
         Nullable(const Nullable& other) { *this = other; }
@@ -368,12 +368,12 @@ namespace dot
         Nullable(double value) : value_(value) {}
 
         /// <summary>
-        /// Supports cast (explicit constructor) from Object.
+        /// Supports cast (explicit constructor) from object.
         ///
-        /// Error if Object does is not a boxed double.
-        /// Null Object becomes empty Nullable.
+        /// Error if object does is not a boxed double.
+        /// Null object becomes empty Nullable.
         /// </summary>
-        explicit Nullable(Object rhs) { if (!rhs.IsEmpty()) *this = (double) rhs; }
+        explicit Nullable(object rhs) { if (!rhs.IsEmpty()) *this = (double) rhs; }
 
         /// <summary>Copy constructor.</summary>
         Nullable(const Nullable& other) { *this = other; }

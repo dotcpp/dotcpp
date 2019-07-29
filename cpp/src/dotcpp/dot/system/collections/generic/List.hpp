@@ -36,7 +36,7 @@ namespace dot
     /// Provides methods to search, sort, and manipulate lists.
     /// </summary>
     template <class T>
-    class ListImpl : public IListImpl<T>, public virtual ObjectImpl, public std::vector<T>, public IObjectCollectionImpl
+    class ListImpl : public IListImpl<T>, public virtual object_impl, public std::vector<T>, public IObjectCollectionImpl
     {
         template <class R> friend List<R> new_List();
         template <class R> friend List<R> new_List(const std::vector<R> & obj);
@@ -101,9 +101,9 @@ namespace dot
         ///
         /// In C\#, the non-generic method is implemented for the interface
         /// but not for the class to avoid ambiguous conversions. Because
-        /// in C++ this cannot be done, here this method has Object prefix.
+        /// in C++ this cannot be done, here this method has object prefix.
         /// </summary>
-        virtual void ObjectAdd(Object item) { this->push_back((T)item); }
+        virtual void objectAdd(object item) { this->push_back((T)item); }
 
         /// <summary>Removes all elements from the list.</summary>
         virtual void Clear() { this->clear(); }

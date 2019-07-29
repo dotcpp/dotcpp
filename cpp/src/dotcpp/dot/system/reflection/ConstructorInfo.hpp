@@ -51,7 +51,7 @@ namespace dot
         }
 
         /// <summary>Invokes specified constructor with given parameters.</summary>
-        virtual Object Invoke(Array1D<Object>) = 0;
+        virtual object Invoke(Array1D<object>) = 0;
 
     protected: // CONSTRUCTORS
 
@@ -88,13 +88,13 @@ namespace dot
 
         /// <summary>Invokes the constructor reflected by this ConstructorInfo instance.</summary>
         template <int ... I>
-        Object Invoke_impl(Array1D<Object> params, detail::index_sequence<I...>)
+        object Invoke_impl(Array1D<object> params, detail::index_sequence<I...>)
         {
             return (*ptr_)(params[I]...);
         }
 
         /// <summary>Invokes the constructor reflected by this ConstructorInfo instance.</summary>
-        virtual Object Invoke(Array1D<Object> params)
+        virtual object Invoke(Array1D<object> params)
         {
             if ((params.IsEmpty() && Parameters->Count != 0) || (!params.IsEmpty() && (params->Count != Parameters->Count)))
                 throw new_Exception("Wrong number of parameters for constructor " + this->DeclaringType->Name + "." + this->Name);

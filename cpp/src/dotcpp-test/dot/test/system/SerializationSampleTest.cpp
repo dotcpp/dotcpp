@@ -46,7 +46,7 @@ namespace dot
     class SampleDataImpl; using SampleData = ptr<SampleDataImpl>;
     class SampleData2Impl; using SampleData2 = ptr<SampleData2Impl>;
 
-    class SampleData2Impl : public virtual ObjectImpl
+    class SampleData2Impl : public virtual object_impl
     {
         typedef SampleData2Impl self;
 
@@ -80,7 +80,7 @@ namespace dot
     class SampleDataImpl; using SampleData = ptr<SampleDataImpl>;
     SampleData new_SampleData();
 
-    class SampleDataImpl : public virtual ObjectImpl
+    class SampleDataImpl : public virtual object_impl
     {
         typedef SampleDataImpl self;  // This typedef will be used inside property macro and inside registration macro.
 
@@ -123,7 +123,7 @@ namespace dot
 
     SampleData new_SampleData() { return new SampleDataImpl; }
 
-    String ObjToString(Object obj)
+    String ObjToString(object obj)
     {
         if (obj.IsEmpty()) return "";
 
@@ -134,7 +134,7 @@ namespace dot
         if (!type->GetInterface("IObjectEnumerable").IsEmpty())
         {
             IObjectEnumerable vec = (IObjectEnumerable)obj;
-            for (Object item : vec)
+            for (object item : vec)
             {
                 ss << *(ObjToString(item));
             }
@@ -186,21 +186,21 @@ namespace dot
         //Type type2 = obj2->GetType();
         auto vec_prop = obj->GetType()->GetProperties();
 
-        Array1D<dot::Object> paramsFoo = new_Array1D<Object>(2);
+        Array1D<dot::object> paramsFoo = new_Array1D<object>(2);
         paramsFoo[0] = 15;
         paramsFoo[1] = 42;
         double ret = obj->GetType()->GetMethods()[0]->Invoke(obj, paramsFoo);
 
-        Array1D<dot::Object> paramsBar = new_Array1D<Object>(1);
+        Array1D<dot::object> paramsBar = new_Array1D<object>(1);
         paramsBar[0] = 15;
         obj->GetType()->GetMethods()[1]->Invoke(obj, paramsBar);
 
-        Object o2 = obj->GetType()->GetConstructors()[0]->Invoke({});
+        object o2 = obj->GetType()->GetConstructors()[0]->Invoke({});
 
         /* TODO - Restore test
         for (PropertyInfo& prop : vec_prop)
         {
-            Object val = prop->GetValue(obj);
+            object val = prop->GetValue(obj);
             String name = prop->Name;
             Type prop_type = prop->PropertyType;
             String prop_type_name = prop_type->Name;

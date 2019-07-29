@@ -37,7 +37,7 @@ namespace dot
 {
     static std::stringstream received;
 
-    class ReflectionBaseSampleImpl : public virtual ObjectImpl
+    class ReflectionBaseSampleImpl : public virtual object_impl
     {
         typedef ReflectionBaseSampleImpl self;
 
@@ -143,7 +143,7 @@ namespace dot
         obj->IntFld = 15;
         obj->Count = 15;
 
-        Object x = obj->Count;
+        object x = obj->Count;
 
         Type type = obj->GetType();
         Array1D<PropertyInfo> props = type->GetProperties();
@@ -169,7 +169,7 @@ namespace dot
         REQUIRE(obj2->Count == -15);
         REQUIRE(int(props[2]->GetValue(obj2)) == -15);
 
-        Array1D<Object> params = new_Array1D<Object>(1);
+        Array1D<object> params = new_Array1D<object>(1);
         params[0] = 15;
         REQUIRE(int(type->GetMethods()[0]->Invoke(obj2, params)) == 42 + 15);
         */

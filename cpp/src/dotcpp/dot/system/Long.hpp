@@ -24,14 +24,14 @@ limitations under the License.
 #pragma once
 
 #include <dot/declare.hpp>
-#include <dot/system/ObjectImpl.hpp>
+#include <dot/system/objectimpl.hpp>
 
 namespace dot
 {
-    /// <summary>Wrapper around int to make it convertible to Object (boxing).</summary>
-    class LongImpl : public virtual ObjectImpl
+    /// <summary>Wrapper around int to make it convertible to object (boxing).</summary>
+    class LongImpl : public virtual object_impl
     {
-        friend Object;
+        friend object;
         int64_t value_;
 
     public: // CONSTRUCTORS
@@ -42,7 +42,7 @@ namespace dot
     public: // METHODS
 
         /// <summary>Returns a value indicating whether this instance is equal to a specified object.</summary>
-        virtual bool Equals(Object obj) override;
+        virtual bool Equals(object obj) override;
 
         /// <summary>Returns the hash code for this instance.</summary>
         virtual size_t GetHashCode() override;

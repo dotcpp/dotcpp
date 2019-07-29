@@ -28,7 +28,7 @@ limitations under the License.
 
 namespace dot
 {
-    class Object;
+    class object;
     class StringImpl; class String;
     class TypeImpl; using Type = ptr<TypeImpl>;
 
@@ -36,26 +36,26 @@ namespace dot
     /// All classes with reference semantics should derive from this type.
     /// It works with ptr to provide an emulation of reference semantics in C++.
     /// </summary>
-    class DOT_CLASS ObjectImpl : public reference_counter
+    class DOT_CLASS object_impl : public reference_counter
     {
         template<typename T>
         friend class ptr;
-        friend class Object;
+        friend class object;
 
     public: // METHODS
 
         /// <summary>
         /// Determines whether the specified object is equal to the current object.
         ///
-        /// Default implementation in Object compares pointers. Derived classes
+        /// Default implementation in object compares pointers. Derived classes
         /// can override this method to compare by value.
         /// </summary>
-        virtual bool Equals(Object obj);
+        virtual bool Equals(object obj);
 
         /// <summary>
         /// Serves as the default hash function.
         ///
-        /// Default implementation in Object uses hash based on the pointer.
+        /// Default implementation in object uses hash based on the pointer.
         /// Derived classes can override this method to provide value based hash.
         ///
         /// Methods Equals() and GetHashCode() must always be overriden together
@@ -66,13 +66,13 @@ namespace dot
         /// <summary>Gets the Type of the current instance.</summary>
         virtual Type GetType();
 
-        /// <summary>Gets the Type of the ObjectImpl.</summary>
+        /// <summary>Gets the Type of the object_impl.</summary>
         static Type typeof();
 
         /// <summary>
         /// String that represents the current object.
         ///
-        /// Default implementation in Object returns full name
+        /// Default implementation in object returns full name
         /// of the class by calling GetType().FullName. Derived types
         /// can override this method to provide custom conversion
         /// to string.

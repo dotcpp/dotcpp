@@ -44,7 +44,7 @@ namespace dot
     ///
     /// The string is encoded internally as UTF-8 instead of UTF-16 used by C# System.String.
     /// </summary>
-    class DOT_CLASS StringImpl : public virtual ObjectImpl, public detail::const_string_base
+    class DOT_CLASS StringImpl : public virtual object_impl, public detail::const_string_base
     {
         typedef StringImpl self;
         typedef detail::const_string_base base;
@@ -88,7 +88,7 @@ namespace dot
 
         /// <summary>Determines whether this instance and a specified object,
         /// which must also be a String object, have the same value.</summary>
-        virtual bool Equals(Object obj) override;
+        virtual bool Equals(object obj) override;
 
         /// <summary>Returns the hash code for this string.</summary>
         virtual size_t GetHashCode() override;
@@ -248,29 +248,29 @@ namespace dot
         static String Concat(const IEnumerable<T>& values);
 
         /// <summary>Creates the string representation of a specified object.</summary>
-        static String Concat(const Object& arg0);
+        static String Concat(const object& arg0);
 
-        /// <summary>Concatenates the string representations of the elements in a specified Object array.</summary>
-        static String Concat(const Array1D<Object>& args);
+        /// <summary>Concatenates the string representations of the elements in a specified object array.</summary>
+        static String Concat(const Array1D<object>& args);
 
         /// <summary>Concatenates the elements of a specified String array.</summary>
         static String Concat(const Array1D<String>& values);
 
         /// <summary>Concatenates the string representations of two specified objects.</summary>
-        static String Concat(const Object& arg0, const Object& arg1);
+        static String Concat(const object& arg0, const object& arg1);
 
         /// <summary>Concatenates two specified instances of String.</summary>
         static String Concat(const String& str0, const String& str1);
 
         /// <summary>Concatenates the string representations of three specified objects.</summary>
-        static String Concat(const Object& arg0, const Object& arg1, const Object& arg2);
+        static String Concat(const object& arg0, const object& arg1, const object& arg2);
 
         /// <summary>Concatenates three specified instances of String.</summary>
         static String Concat(const String& str0, const String& str1, const String& str2);
 
         /// <summary>Concatenates the string representations of four specified objects and any
         /// objects specified in an optional variable length parameter list.</summary>
-        static String Concat(const Object& arg0, const Object& arg1, const Object& arg2, const Object& arg3);
+        static String Concat(const object& arg0, const object& arg1, const object& arg2, const object& arg3);
 
         /// <summary>Concatenates four specified instances of System.String.</summary>
         static String Concat(const String& str0, const String& str1, const String& str2, const String& str3);
@@ -287,24 +287,24 @@ namespace dot
 
         /// <summary>Replaces one or more format items in a specified string with the string representation
         /// of a specified object.</summary>
-        static String Format(const String& format, const Object& arg0);
+        static String Format(const String& format, const object& arg0);
 
         /// <summary>Replaces the format item (e.g. {0}, {1}, etc.) in a specified string
         /// with the string representation of a corresponding object in a specified array.</summary>
-        static String Format(const String& format, const Array1D<Object>& args);
+        static String Format(const String& format, const Array1D<object>& args);
 
         /// <summary>Replaces the format item in a specified string with the string representation
         /// of a corresponding object in a specified array. A specified parameter supplies
         /// culture-specific formatting information.</summary>
-        static String Format(const ITFormatProvider& provider, const String& format, const Array1D<Object>& args);
+        static String Format(const ITFormatProvider& provider, const String& format, const Array1D<object>& args);
 
         /// <summary>Replaces the format items in a specified string with the string representation
         /// of two specified objects.</summary>
-        static String Format(const String& format, const Object& arg0, const Object& arg1);
+        static String Format(const String& format, const object& arg0, const object& arg1);
 
         /// <summary>Replaces the format items in a specified string with the string representation
         /// of three specified objects.</summary>
-        static String Format(const String& format, const Object& arg0, const Object& arg1, const Object& arg2);
+        static String Format(const String& format, const object& arg0, const object& arg1, const object& arg2);
 
         /// <summary>Indicates whether the specified string is null or empty.
         /// Note that null string and empty string are not the same.</summary>
@@ -327,7 +327,7 @@ namespace dot
 
         /// <summary>Concatenates the elements of an object array, using the specified separator
         /// between each element.</summary>
-        static String Join(const String& separator, const Array1D<Object>& values);
+        static String Join(const String& separator, const Array1D<object>& values);
 
         /// <summary>Concatenates all the elements of a string array, using the specified separator
         /// between each element.</summary>
@@ -379,12 +379,12 @@ namespace dot
         String(const String& rhs) : base(rhs) {}
 
         /// <summary>
-        /// Supports cast (explicit constructor) from Object.
+        /// Supports cast (explicit constructor) from object.
         ///
-        /// Error if Object does is not a boxed int.
-        /// Null Object becomes empty NullableInt.
+        /// Error if object does is not a boxed int.
+        /// Null object becomes empty NullableInt.
         /// </summary>
-        explicit String(const ptr<ObjectImpl>& rhs) : base(rhs) {}
+        explicit String(const ptr<object_impl>& rhs) : base(rhs) {}
 
     public: // STATIC
 
@@ -418,11 +418,11 @@ namespace dot
         /// <summary>Case sensitive comparison to string literal.</summary>
         bool operator!=(const ptr<StringImpl>& rhs) const { return !operator==(rhs); }
 
-        /// <summary>Case sensitive comparison to Object.</summary>
-        bool operator==(const Object& rhs) const;
+        /// <summary>Case sensitive comparison to object.</summary>
+        bool operator==(const object& rhs) const;
 
-        /// <summary>Case sensitive comparison to Object.</summary>
-        bool operator!=(const Object& rhs) const { return !operator==(rhs); }
+        /// <summary>Case sensitive comparison to object.</summary>
+        bool operator!=(const object& rhs) const { return !operator==(rhs); }
 
     private: // STATIC
 

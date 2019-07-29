@@ -38,7 +38,7 @@ namespace dot
     /// <summary>Represents a set of values.</summary>
     template <class T>
     class HashSetImpl
-        : public virtual ObjectImpl
+        : public virtual object_impl
         , public ISetImpl<T>
         , public std::unordered_set<T>
     {

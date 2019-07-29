@@ -32,7 +32,7 @@ namespace dot
 
     const String Bool::TrueString = "True";
 
-    bool BoolImpl::Equals(Object obj)
+    bool BoolImpl::Equals(object obj)
     {
         if (this == &(*obj)) return true;
         if (obj.is<ptr<BoolImpl>>())

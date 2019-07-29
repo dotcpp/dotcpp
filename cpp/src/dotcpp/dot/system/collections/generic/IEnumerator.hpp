@@ -23,7 +23,7 @@ limitations under the License.
 
 #pragma once
 
-#include <dot/system/Object.hpp>
+#include <dot/system/object.hpp>
 #include <dot/detail/iterator.hpp>
 
 namespace dot
@@ -34,7 +34,7 @@ namespace dot
     /// Supports a simple iteration over a generic collection.
     /// </summary>
     template <class T>
-    class IEnumeratorImpl : public virtual ObjectImpl
+    class IEnumeratorImpl : public virtual object_impl
     {
         template <class Iterator> friend IEnumerator<typename Iterator::value_type> new_Enumerator(Iterator const&, Iterator const&);
         template <class R> friend class IEnumerableImpl;

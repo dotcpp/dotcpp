@@ -26,7 +26,7 @@ limitations under the License.
 #include <approvals/Catch.hpp>
 #include <dot/system/String.hpp>
 #include <dot/system/Array1D.hpp>
-#include <dot/system/Object.hpp>
+#include <dot/system/object.hpp>
 
 namespace dot
 {
@@ -60,8 +60,8 @@ namespace dot
         SortDoubleVector(*a);
         REQUIRE(a[0] == 0.0);
 
-        // Access by Object
-        Object obj = b;
+        // Access by object
+        object obj = b;
         REQUIRE(((Array1D<double>)b)->Count == 3);
 
         // Check that methods that should throw actually throw

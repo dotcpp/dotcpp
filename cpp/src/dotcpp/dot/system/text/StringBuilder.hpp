@@ -35,7 +35,7 @@ namespace dot
     /// <summary>
     /// Builds a string incrementally.
     /// </summary>
-    class StringBuilderImpl final : public virtual ObjectImpl, public std::string
+    class StringBuilderImpl final : public virtual object_impl, public std::string
     {
         typedef std::string base;
         friend StringBuilder new_StringBuilder();

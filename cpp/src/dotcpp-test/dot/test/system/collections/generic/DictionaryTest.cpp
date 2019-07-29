@@ -117,14 +117,14 @@ namespace dot
         REQUIRE(dict["e"] == "f");
     }
 
-    TEST_CASE("Object key")
+    TEST_CASE("object key")
     {
-        Object obj0 = new_Object();
-        Object obj1 = new_Object();
-        Object obj2 = Object("str2");
-        Object obj3 = Object("str2");
+        object obj0 = new_object();
+        object obj1 = new_object();
+        object obj2 = object("str2");
+        object obj3 = object("str2");
 
-        Dictionary<Object, String> dict = new_Dictionary<Object, String>();
+        Dictionary<object, String> dict = new_Dictionary<object, String>();
         dict->Add(obj0, "val0");
         CHECK_NOTHROW(dict->Add(obj1, "val1"));
 

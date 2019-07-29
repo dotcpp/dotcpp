@@ -25,7 +25,7 @@ limitations under the License.
 
 #include <dot/declare.hpp>
 #include <dot/system/ptr.hpp>
-#include <dot/system/Object.hpp>
+#include <dot/system/object.hpp>
 #include <dot/detail/object_iterator.hpp>
 
 namespace dot
@@ -39,7 +39,7 @@ namespace dot
     /// In C\#, this interface is called IEnumerable. Because in C++ template and non-template
     /// types cannot have the same name, here it is called IObjectEnumerable.
     /// </summary>
-    class DOT_CLASS IObjectEnumerableImpl : public virtual ObjectImpl
+    class DOT_CLASS IObjectEnumerableImpl : public virtual object_impl
     {
         typedef IObjectEnumerableImpl self;
 

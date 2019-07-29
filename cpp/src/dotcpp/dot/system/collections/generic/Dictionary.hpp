@@ -36,7 +36,7 @@ namespace dot
     /// <summary>Represents a collection of keys and values.</summary>
     template <class TKey, class TValue>
     class DictionaryImpl
-        : public virtual ObjectImpl
+        : public virtual object_impl
         , public IDictionaryImpl<TKey, TValue>
         , public std::unordered_map<TKey, TValue>
     {

@@ -26,7 +26,7 @@ limitations under the License.
 #include <dot/declare.hpp>
 
 // DotCpp includes
-#include <dot/system/Object.hpp>
+#include <dot/system/object.hpp>
 #include <dot/system/String.hpp>
 #include <dot/system/Type.hpp>
 #include <dot/system/ptr.hpp>

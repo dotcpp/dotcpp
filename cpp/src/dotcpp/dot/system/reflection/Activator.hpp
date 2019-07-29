@@ -43,15 +43,15 @@ namespace dot
     public: // METHODS
 
         /// <summary>Creates an instance of the specified type using that type's default constructor.</summary>
-        static Object CreateInstance(Type type);
+        static object CreateInstance(Type type);
 
         /// <summary>Creates an instance of the specified type using the constructor that best matches the specified parameters.</summary>
-        static Object CreateInstance(Type type, Array1D<Object> params);
+        static object CreateInstance(Type type, Array1D<object> params);
 
         /// <summary>Creates an instance of the type whose name is specified, using the named assembly and default constructor.</summary>
-        static Object CreateInstance(String assemblyName, String typeName);
+        static object CreateInstance(String assemblyName, String typeName);
 
         /// <summary>Creates an instance of the type whose name is specified, using the named assembly and default constructor.</summary>
-        static Object CreateInstance(String assemblyName, String typeName, Array1D<Object> params);
+        static object CreateInstance(String assemblyName, String typeName, Array1D<object> params);
     };
 }

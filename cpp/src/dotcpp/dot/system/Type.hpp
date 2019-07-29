@@ -25,7 +25,7 @@ limitations under the License.
 
 #include <dot/detail/traits.hpp>
 #include <dot/detail/reflection_macro.hpp>
-#include <dot/system/Object.hpp>
+#include <dot/system/object.hpp>
 #include <dot/system/String.hpp>
 #include <dot/system/Nullable.hpp>
 #include <dot/system/Array1D.hpp>
@@ -55,7 +55,7 @@ namespace dot
     template <class T> Type typeof();
 
     /// <summary>Builder for Type.</summary>
-    class DOT_CLASS TypeBuilderImpl final : public virtual ObjectImpl
+    class DOT_CLASS TypeBuilderImpl final : public virtual object_impl
     {
         template <class>
         friend TypeBuilder new_TypeBuilder(String nspace, String name);
@@ -250,7 +250,7 @@ namespace dot
     inline TypeBuilder new_TypeBuilder(String nspace, String name)
     {
         TypeBuilder td = new TypeBuilderImpl(nspace, name, typeid(T).name());
-        td->is_class_ = std::is_base_of<ObjectImpl, T>::value;
+        td->is_class_ = std::is_base_of<object_impl, T>::value;
         return td;
     }
 
@@ -267,14 +267,14 @@ namespace dot
     ///
     /// \begin{itemize}
     ///
-    /// \item The instance Object.GetType method returns a Type object that represents the type of an instance.
-    /// Because all managed types derive from Object, the GetType method can be called on an instance of any type.
+    /// \item The instance object.GetType method returns a Type object that represents the type of an instance.
+    /// Because all managed types derive from object, the GetType method can be called on an instance of any type.
     ///
     /// \item The typeof method obtains the Type object for the argument type.
     ///
     /// \end{itemize}
     /// </summary>
-    class DOT_CLASS TypeImpl final : public virtual ObjectImpl
+    class DOT_CLASS TypeImpl final : public virtual object_impl
     {
         friend class TypeBuilderImpl;
         template <class T>
@@ -349,7 +349,7 @@ namespace dot
         /// <summary>Get derived types list for the type.</summary>
         static List<Type> GetDerivedTypes(Type type) { return GetDerivedTypesMap()[type->FullName]; }
 
-        virtual bool Equals(Object obj) override;
+        virtual bool Equals(object obj) override;
 
         virtual size_t GetHashCode() override;
 
@@ -383,16 +383,16 @@ namespace dot
     };
 
     /// <summary>
-    /// Initializes a new instance of the Type class for untyped instance of Object.
+    /// Initializes a new instance of the Type class for untyped instance of object.
     /// </summary>
-    inline Type ObjectImpl::GetType()
+    inline Type object_impl::GetType()
     {
         return typeof();
     }
 
-    inline Type ObjectImpl::typeof()
+    inline Type object_impl::typeof()
     {
-        static Type type_ = new_TypeBuilder<ObjectImpl>("System", "Object")->Build();
+        static Type type_ = new_TypeBuilder<object_impl>("System", "object")->Build();
         return type_;
     }
 
@@ -592,9 +592,9 @@ namespace dot
         }
     private:
 
-        static Object Contructor()
+        static object Contructor()
         {
-            return Object(std::tuple<T...>());
+            return object(std::tuple<T...>());
         }
 
         struct dummy{};
@@ -602,7 +602,7 @@ namespace dot
         template <int I, typename Dummy = dummy>
         struct GetItemImpl
         {
-            static Object Impl(Object tuple, int index)
+            static object Impl(object tuple, int index)
             {
                 if (I == index) return std::get<I>(*(StructWrapper<std::tuple<T...>>)tuple);
                     else return GetItemImpl<I + 1>::Impl(tuple, index);
@@ -612,13 +612,13 @@ namespace dot
         template <typename Dummy>
         struct GetItemImpl<sizeof...(T), Dummy>
         {
-            static Object Impl(Object tuple, int index)
+            static object Impl(object tuple, int index)
             {
                 throw new_Exception("Tuple index out of bounds");            
             }
         };
 
-        static Object GetItem(Object tuple, int index)
+        static object GetItem(object tuple, int index)
         {
             return GetItemImpl<0>::Impl(tuple, index);
         }
@@ -626,7 +626,7 @@ namespace dot
         template <int I, typename Dummy = dummy>
         struct SetItemImpl
         {
-            static void Impl(Object tuple, int index, Object value)
+            static void Impl(object tuple, int index, object value)
             {
                 if (I == index) std::get<I>(*(StructWrapper<std::tuple<T...>>)tuple) = (std::tuple_element_t<I, std::tuple<T...>>)value;
                 else SetItemImpl<I + 1>::Impl(tuple, index, value);
@@ -636,13 +636,13 @@ namespace dot
         template <typename Dummy>
         struct SetItemImpl<sizeof...(T), Dummy>
         {
-            static void Impl(Object tuple, int index, Object value)
+            static void Impl(object tuple, int index, object value)
             {
                 throw new_Exception("Tuple index out of bounds");
             }
         };
 
-        static void SetItem(Object tuple, int index, Object value)
+        static void SetItem(object tuple, int index, object value)
         {
             SetItemImpl<0>::Impl(tuple, index, value);
         }

@@ -79,8 +79,8 @@ namespace dot
         std::sort(a->begin(), a->end());
         PrintList("Sorted", a);
 
-        // Access by Object
-        Object obj = b;
+        // Access by object
+        object obj = b;
         // TODO - uncomment next line when output matches C#
         // received << obj->ToString() << std::endl;
 

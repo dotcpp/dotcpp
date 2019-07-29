@@ -24,7 +24,7 @@ limitations under the License.
 #pragma once
 
 #include <dot/declare.hpp>
-#include <dot/system/ObjectImpl.hpp>
+#include <dot/system/objectimpl.hpp>
 
 namespace dot
 {
@@ -35,7 +35,7 @@ namespace dot
     /// <summary>
     /// Common base to List(T) and Array1D(T)
     /// </summary>
-    class ArrayImpl : public virtual ObjectImpl
+    class ArrayImpl : public virtual object_impl
     {
         template <class T> friend class Array1DImpl;
         template <class T> friend class Array2DImpl;

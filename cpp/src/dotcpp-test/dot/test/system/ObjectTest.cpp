@@ -24,15 +24,15 @@ limitations under the License.
 #include <dot/test/implement.hpp>
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
-#include <dot/system/Object.hpp>
+#include <dot/system/object.hpp>
 #include <dot/system/String.hpp>
 
 namespace dot
 {
-    TEST_CASE("Clear Object")
+    TEST_CASE("Clear object")
     {
-        Object a = new_Object();
-        Object b = new_Object();
+        object a = new_object();
+        object b = new_object();
 
         REQUIRE(a->Equals(a) == true);
         REQUIRE(a->Equals(b) == false);
@@ -41,9 +41,9 @@ namespace dot
 
     TEST_CASE("Equals")
     {
-        Object a = new_String("str");
-        Object b = new_String("str");
-        Object c = new_String("str1");
+        object a = new_String("str");
+        object b = new_String("str");
+        object c = new_String("str1");
 
         REQUIRE(a->Equals(a));
         REQUIRE(a->Equals(b));

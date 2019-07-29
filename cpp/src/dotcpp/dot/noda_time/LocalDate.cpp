@@ -26,7 +26,7 @@ limitations under the License.
 #include <dot/noda_time/Period.hpp>
 #include <dot/noda_time/LocalTime.hpp>
 #include <dot/noda_time/LocalDateTime.hpp>
-#include <dot/system/Object.hpp>
+#include <dot/system/object.hpp>
 #include <dot/system/String.hpp>
 
 namespace dot
@@ -59,7 +59,7 @@ namespace dot
         *this = other;
     }
 
-    LocalDate::LocalDate(Object const& rhs) { *this = rhs.operator LocalDate(); }
+    LocalDate::LocalDate(object const& rhs) { *this = rhs.operator LocalDate(); }
 
     LocalDate LocalDate::Add(const LocalDate& date, const Period& period)
     {

@@ -24,7 +24,7 @@ limitations under the License.
 #include <dot/test/implement.hpp>
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
-#include <dot/system/Object.hpp>
+#include <dot/system/object.hpp>
 #include <dot/system/String.hpp>
 #include <dot/system/Nullable.hpp>
 #include <dot/system/collections/generic/List.hpp>
@@ -44,10 +44,10 @@ namespace dot
             obj->Add(2.);
             obj->Add(3.);
 
-            Object boxed = obj;
+            object boxed = obj;
             IObjectEnumerable list = IObjectEnumerable(boxed);
             int i = 0;
-            for (Object item : list)
+            for (object item : list)
             {
                 REQUIRE((double)item == ++i);
             }
@@ -56,7 +56,7 @@ namespace dot
         {
             // Boxing bool
             bool x = false;
-            Object boxed = x;
+            object boxed = x;
             REQUIRE((bool)boxed == false);
             boxed = true;
             REQUIRE((bool)boxed == true);
@@ -65,7 +65,7 @@ namespace dot
         {
             // Boxing NullableBool
             Nullable<bool> x;
-            Object boxed = x;
+            object boxed = x;
             REQUIRE(((Nullable<bool>)boxed).HasValue == false);
             Nullable<bool> y = true;
             boxed = y;
@@ -75,7 +75,7 @@ namespace dot
         {
             // Boxing double
             double x = 1.0;
-            Object boxed = x;
+            object boxed = x;
             REQUIRE((double)boxed == 1.0);
             boxed = 2.0;
             REQUIRE((double)boxed == 2.0);
@@ -84,7 +84,7 @@ namespace dot
         {
             // Boxing NullableDouble
             Nullable<double> x;
-            Object boxed = x;
+            object boxed = x;
             REQUIRE(((Nullable<double>)boxed).HasValue == false);
             Nullable<double> y = 2.0;
             boxed = y;
@@ -94,7 +94,7 @@ namespace dot
         {
             // Boxing int
             int x = 1;
-            Object boxed = x;
+            object boxed = x;
             REQUIRE((int)boxed == 1);
             boxed = 2;
             REQUIRE((int)boxed == 2);
@@ -103,7 +103,7 @@ namespace dot
         {
             // Boxing NullableInt
             Nullable<int> x;
-            Object boxed = x;
+            object boxed = x;
             REQUIRE(((Nullable<int>)boxed).HasValue == false);
             Nullable<int> y = 2;
             boxed = y;
@@ -113,7 +113,7 @@ namespace dot
         {
             // Boxing int64_t
             int64_t x = 1;
-            Object boxed = x;
+            object boxed = x;
             REQUIRE((int64_t)boxed == 1);
             boxed = (int64_t)2;
             REQUIRE((int64_t)boxed == 2);
@@ -122,7 +122,7 @@ namespace dot
         {
             // Boxing NullableLong
             Nullable<int64_t> x;
-            Object boxed = x;
+            object boxed = x;
             REQUIRE(((Nullable<int64_t>)boxed).HasValue == false);
             Nullable<int64_t> y = (int64_t)2;
             boxed = y;
@@ -134,7 +134,7 @@ namespace dot
             LocalTime time(12, 0);
             LocalTime time2(12, 0);
 
-            Object boxed = time;
+            object boxed = time;
             CHECK_NOTHROW((LocalTime) boxed);
 
             REQUIRE((LocalTime) boxed == time);
@@ -146,7 +146,7 @@ namespace dot
             LocalDate date(2005, 1, 1);
             LocalDate date2(2005, 1, 1);
 
-            Object boxed = date;
+            object boxed = date;
             CHECK_NOTHROW((LocalDate) boxed);
 
             REQUIRE((LocalDate) boxed == date);
@@ -158,7 +158,7 @@ namespace dot
             LocalDateTime date(2005, 1, 1, 12, 0);
             LocalDateTime date2(2005, 1, 1, 12, 0);
 
-            Object boxed = date;
+            object boxed = date;
             CHECK_NOTHROW((LocalDateTime) boxed);
 
             REQUIRE((LocalDateTime) boxed == date);

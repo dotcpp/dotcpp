@@ -47,7 +47,7 @@ namespace dot
         return std::hash<int>()(value_);
     }
 
-    bool Enum::Equals(Object obj)
+    bool Enum::Equals(object obj)
     {
         if (obj->GetType()->Equals(GetType()))
         {
@@ -57,9 +57,9 @@ namespace dot
         return false;
     }
 
-    Object Enum::Parse(Type enumType, String value)
+    object Enum::Parse(Type enumType, String value)
     {
-        Object enum_obj = Activator::CreateInstance(enumType);
+        object enum_obj = Activator::CreateInstance(enumType);
         Enum* en = dynamic_cast<Enum*>(enum_obj.operator->());
         auto valuesMap = en->GetEnumMap();
 

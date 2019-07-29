@@ -33,7 +33,7 @@ namespace dot
 
     class PropertySampleBaseDataImpl; using PropertySampleBaseData = ptr<PropertySampleBaseDataImpl>;
 
-    class PropertySampleBaseDataImpl : public virtual ObjectImpl
+    class PropertySampleBaseDataImpl : public virtual object_impl
     {
         friend PropertySampleBaseData new_PropertySampleBaseData();
 
