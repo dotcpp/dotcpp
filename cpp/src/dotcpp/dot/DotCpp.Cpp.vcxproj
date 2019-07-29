@@ -18,8 +18,6 @@
     <ClCompile Include="noda_time\Period.cpp" />
     <ClCompile Include="system\Bool.cpp" />
     <ClCompile Include="system\Char.cpp" />
-    <ClCompile Include="system\collections\IObjectCollection.cpp" />
-    <ClCompile Include="system\collections\IObjectEnumerable.cpp" />
     <ClCompile Include="system\Double.cpp" />
     <ClCompile Include="system\Enum.cpp" />
     <ClCompile Include="system\Environment.cpp" />
@@ -69,8 +67,6 @@
     <ClInclude Include="system\collections\generic\SortedDictionary.hpp" />
     <ClInclude Include="system\collections\generic\SortedList.hpp" />
     <ClInclude Include="system\collections\generic\SortedSet.hpp" />
-    <ClInclude Include="system\collections\IObjectCollection.hpp" />
-    <ClInclude Include="system\collections\IObjectEnumerable.hpp" />
     <ClInclude Include="system\Console.hpp" />
     <ClInclude Include="system\Double.hpp" />
     <ClInclude Include="system\Enum.hpp" />

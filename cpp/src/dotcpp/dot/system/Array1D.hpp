@@ -26,7 +26,6 @@ limitations under the License.
 #include <dot/declare.hpp>
 #include <dot/system/Array.hpp>
 #include <dot/detail/array_base.hpp>
-#include <dot/system/collections/IObjectCollection.hpp>
 
 
 namespace dot
@@ -38,7 +37,7 @@ namespace dot
     /// Provides methods to search, sort, and manipulate lists.
     /// </summary>
     template <class T>
-    class Array1DImpl : public ArrayImpl, public detail::array_base<T>, protected IObjectCollectionImpl
+    class Array1DImpl : public ArrayImpl, public detail::array_base<T>
     {
         typedef Array1DImpl<T> self;
         typedef detail::array_base<T> base;
@@ -83,18 +82,6 @@ namespace dot
 
         /// <summary>Returns random access end iterator of the underlying std::vector.</summary>
         auto end() { return base::end(); }
-
-        /// <summary>Returns forward begin object iterator.</summary>
-        virtual detail::std_object_iterator_wrapper object_begin()
-        {
-            return detail::make_obj_iterator(base::begin());
-        }
-
-        /// <summary>Returns forward end object iterator.</summary>
-        virtual detail::std_object_iterator_wrapper object_end()
-        {
-            return detail::make_obj_iterator(base::end());
-        }
 
     protected:
         /// <summary>

@@ -131,9 +131,9 @@ namespace dot
 
         std::stringstream ss;
 
-        if (!type->GetInterface("IObjectEnumerable").IsEmpty())
+        if (type->Name == "List`1")
         {
-            IObjectEnumerable vec = (IObjectEnumerable)obj;
+            List<double> vec = (List<double>)obj;
             for (object item : vec)
             {
                 ss << *(ObjToString(item));

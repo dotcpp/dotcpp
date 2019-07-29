@@ -45,7 +45,7 @@ namespace dot
             obj->Add(3.);
 
             object boxed = obj;
-            IObjectEnumerable list = IObjectEnumerable(boxed);
+            List<double> list = List<double>(boxed);
             int i = 0;
             for (object item : list)
             {

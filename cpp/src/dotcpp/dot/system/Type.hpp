@@ -402,8 +402,6 @@ namespace dot
             //DOT_TYPE_CTOR(new_List<T>)
             ->WithConstructor(static_cast<List<T>(*)()>(&new_List<T>), { })
             DOT_TYPE_GENERIC_ARGUMENT(T)
-            DOT_TYPE_INTERFACE(IObjectEnumerable)
-            DOT_TYPE_INTERFACE(IObjectCollection)
             ->Build();
         return type_;
     }
@@ -421,8 +419,6 @@ namespace dot
         static Type type_ = new_TypeBuilder<Array1DImpl<T>>(dot::typeof<T>()->Namespace, dot::typeof<T>()->Name +"[]")
             //DOT_TYPE_CTOR(new_Array1D<T>)
             DOT_TYPE_GENERIC_ARGUMENT(T)
-            DOT_TYPE_INTERFACE(IObjectEnumerable)
-            DOT_TYPE_INTERFACE(IObjectCollection)
             DOT_TYPE_CTOR(private_new_Array1D<T>)
             ->Build();
         return type_;

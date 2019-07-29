@@ -57,10 +57,6 @@ namespace dot
 
 namespace dot
 {
-
-    inline dot::detail::std_object_iterator_wrapper begin(dot::ptr<dot::IObjectEnumerableImpl> & obj);
-    inline dot::detail::std_object_iterator_wrapper end(dot::ptr<dot::IObjectEnumerableImpl>& obj);
-
     /// <summary>Implements begin() used by STL and similar algorithms.</summary>
     template <class T>
     auto begin(dot::ptr<T> & obj)
