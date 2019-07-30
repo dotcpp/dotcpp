@@ -112,7 +112,7 @@ namespace dot
 
         DOT_TYPE_BEGIN("System.Test", "SampleData")
             DOT_TYPE_CTOR(new_SampleData)
-            DOT_TYPE_PROP(string_prop)
+            ->WithProperty("StringProp", &self::string_prop)
             DOT_TYPE_PROP(DataProp)
             DOT_TYPE_PROP(DblList)
             DOT_TYPE_METHOD(Foo, "dblArg", "intArg")

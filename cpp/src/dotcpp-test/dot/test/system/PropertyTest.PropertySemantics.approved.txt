@@ -5,8 +5,8 @@ DeclaredGet2: 0
 DeclaredGet3: 50
 DeclaredProp: 100
 DeclaredProp2: 200
-StringProp: abc
+string_prop: abc
 IntegerProp: 123
 DoubleProp: 3.1415
-DataProp->StringProp: xyz
+DataProp->string_prop: xyz
 
