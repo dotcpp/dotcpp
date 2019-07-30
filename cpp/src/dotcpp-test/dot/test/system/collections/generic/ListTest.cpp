@@ -38,7 +38,7 @@ namespace dot
     static void PrintList(string name, List<double> v)
     {
         received << "\"" << *name << "\" : [ ";
-        for (int i = 0; i < v->Count; ++i)
+        for (int i = 0; i < v->count(); ++i)
         {
             if (i > 0) received << ", ";
             received << v[i];
@@ -53,10 +53,10 @@ namespace dot
         a->Add(1.0);
         a->Add(2.0);
 
-        REQUIRE(a->Count == 3);
+        REQUIRE(a->count() == 3);
 
         auto b = a->ToArray();
-        REQUIRE(b->Count == 3);
+        REQUIRE(b->count() == 3);
         REQUIRE(b[2] == 2.0);
     }
 
@@ -71,8 +71,8 @@ namespace dot
         b->Add(0.0);
 
         // Check size of the original class and the interface
-        REQUIRE(a->Count == 3);
-        REQUIRE(b->Count == 3);
+        REQUIRE(a->count() == 3);
+        REQUIRE(b->count() == 3);
 
         // Access the underlying std::vector<double> class
         PrintList("Unsorted", a);
@@ -94,7 +94,7 @@ namespace dot
         stringList->Add("000");
         stringList->Add("111");
         stringList->Add("222");
-        REQUIRE(stringList->Count == 3);
+        REQUIRE(stringList->count() == 3);
 
         int i = 0;
         for (string str : stringList)
@@ -131,7 +131,7 @@ namespace dot
         stringList->Add("000");
         stringList->Add("111");
         stringList->Add("222");
-        REQUIRE(stringList->Count == 3);
+        REQUIRE(stringList->count() == 3);
 
         // Iterate using foreach
         int i = 0;

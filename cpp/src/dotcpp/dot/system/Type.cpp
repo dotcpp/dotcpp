@@ -63,7 +63,7 @@ namespace dot
     /// </summary>
     void type_impl::Fill(const TypeBuilder& data)
     {
-        if (!data->base_.IsEmpty() && data->base_->GetMethods()->Count)
+        if (!data->base_.IsEmpty() && data->base_->GetMethods()->count())
         {
             if (data->methods_.IsEmpty())
             {
@@ -88,7 +88,7 @@ namespace dot
 
         if (!data->methods_.IsEmpty())
         {
-            this->methods_ = new_Array1D<MethodInfo>(data->methods_->Count);
+            this->methods_ = new_Array1D<MethodInfo>(data->methods_->count());
             int i = 0;
             for (MethodInfo methInfoData : data->methods_)
             {
@@ -100,7 +100,7 @@ namespace dot
 
         if (!data->ctors_.IsEmpty())
         {
-            this->ctors_ = new_Array1D<ConstructorInfo>(data->ctors_->Count);
+            this->ctors_ = new_Array1D<ConstructorInfo>(data->ctors_->count());
             int i = 0;
             for (ConstructorInfo ctorInfoData : data->ctors_)
             {
@@ -112,7 +112,7 @@ namespace dot
 
         if (!data->interfaces_.IsEmpty())
         {
-            this->interfaces_ = new_Array1D<type_t>(data->interfaces_->Count);
+            this->interfaces_ = new_Array1D<type_t>(data->interfaces_->count());
             int i = 0;
             for (type_t interface : data->interfaces_)
             {
@@ -124,7 +124,7 @@ namespace dot
 
         if (!data->generic_args_.IsEmpty())
         {
-            this->generic_args_ = new_Array1D<type_t>(data->generic_args_->Count);
+            this->generic_args_ = new_Array1D<type_t>(data->generic_args_->count());
             int i = 0;
             for (type_t arg : data->generic_args_)
             {

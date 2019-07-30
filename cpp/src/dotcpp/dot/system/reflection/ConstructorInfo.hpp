@@ -96,7 +96,7 @@ namespace dot
         /// <summary>Invokes the constructor reflected by this ConstructorInfo instance.</summary>
         virtual object Invoke(Array1D<object> params)
         {
-            if ((params.IsEmpty() && Parameters->Count != 0) || (!params.IsEmpty() && (params->Count != Parameters->Count)))
+            if ((params.IsEmpty() && Parameters->count() != 0) || (!params.IsEmpty() && (params->count() != Parameters->count())))
                 throw new_Exception("Wrong number of parameters for constructor " + this->DeclaringType->Name + "." + this->Name);
 
             return Invoke_impl(params, typename detail::make_index_sequence<sizeof...(Args)>::type());

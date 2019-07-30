@@ -75,7 +75,7 @@ namespace dot
         typename base::iterator end() { return base::end(); }
 
         /// <summary>The number of items contained in the list.</summary>
-        DOT_IMPL_GET(int, Count, { return this->size(); })
+        int count() override { return this->size(); }
 
         /// <summary>The total number of elements the internal data structure can hold without resizing.</summary>
         DOT_PROP(int, Capacity, { return this->capacity(); }, { this->reserve(value); });

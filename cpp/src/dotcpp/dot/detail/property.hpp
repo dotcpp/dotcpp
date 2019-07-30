@@ -325,51 +325,8 @@ namespace dot
         )
 
 
-#define DOT_AUTO_GET(ptype, name)                                       \
-    private:                                                            \
-        __DOT_PROP_DECL_AUTO_GET__(ptype, name)                         \
-        __DOT_PROP_STRUCT__(ptype, name, ::dot::detail::decl_get,        \
-            __DOT_PROP_STRUCT_GETTER__(ptype, name)                     \
-            __DOT_PROP_STRUCT_AUTO_COPY__(ptype, name)                  \
-            __DOT_PROP_STRUCT_AUTO__(ptype, name)                       \
-        )
-
-
-#define DOT_AUTO_PROP(ptype, name)                                      \
-    private:                                                            \
-        __DOT_PROP_DECL_AUTO_GET__(ptype, name)                         \
-        __DOT_PROP_DECL_AUTO_SET__(ptype, name)                         \
-        __DOT_PROP_STRUCT__(ptype, name, ::dot::detail::decl_prop,       \
-            __DOT_PROP_STRUCT_PROP__(ptype, name)                       \
-            __DOT_PROP_STRUCT_AUTO__(ptype, name)                       \
-        )
-
-
-#define DOT_FLUENT(ptype, name, getter, setter)                         \
-    private:                                                            \
-        __DOT_PROP_DECL_GET__(ptype, name, getter)                      \
-        __DOT_PROP_DECL_SET__(ptype, name, setter)                      \
-        __DOT_PROP_STRUCT__(ptype, name, ::dot::detail::decl_prop,       \
-            __DOT_PROP_STRUCT_PROP__(ptype, name)                       \
-            __DOT_PROP_STRUCT_FLUENT__(ptype, name)                     \
-        )
-
-
-#define DOT_AUTO_FLUENT(ptype, name)                                    \
-    private:                                                            \
-        __DOT_PROP_DECL_AUTO_GET__(ptype, name)                         \
-        __DOT_PROP_DECL_AUTO_SET__(ptype, name)                         \
-        __DOT_PROP_STRUCT__(ptype, name, ::dot::detail::decl_prop,       \
-            __DOT_PROP_STRUCT_PROP__(ptype, name)                       \
-            __DOT_PROP_STRUCT_AUTO__(ptype, name)                       \
-            __DOT_PROP_STRUCT_FLUENT__(ptype, name)                     \
-        )
-
 
 #define DOT_DECL_GET(ptype, name) DOT_GET(ptype, name, = 0;)
-
-
-#define DOT_DECL_PROP(ptype, name) DOT_PROP(ptype, name, = 0;, = 0;)
 
 
 #define DOT_DECL_FLUENT(ptype, name) DOT_FLUENT(ptype, name, = 0;, = 0;)

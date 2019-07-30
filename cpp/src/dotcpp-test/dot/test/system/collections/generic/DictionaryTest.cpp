@@ -45,18 +45,18 @@ namespace dot
     {
         Dictionary<string, string> dict = CreateDictionary();
 
-        REQUIRE(dict->Count == 3);
+        REQUIRE(dict->count() == 3);
 
         // Keys
         ICollection<string> keys = dict->Keys;
-        REQUIRE(keys->Count == 3);
+        REQUIRE(keys->count() == 3);
         //REQUIRE(keys->Contains("a"));  // TODO uncomment when implemented
         //REQUIRE(keys->Contains("c"));
         //REQUIRE(keys->Contains(""));
 
         // Values
         ICollection<string> values = dict->Values;
-        REQUIRE(values->Count == 3);
+        REQUIRE(values->count() == 3);
         //REQUIRE(values->Contains("b"));  // TODO uncomment when implemented
         //REQUIRE(values->Contains("d"));
         //REQUIRE(values->Contains(""));
@@ -94,13 +94,13 @@ namespace dot
 
         // Remove
         dict->Remove("a");
-        REQUIRE(dict->Count == 2);
+        REQUIRE(dict->count() == 2);
         REQUIRE(dict->ContainsKey("a") == false);
         REQUIRE(dict->ContainsValue("b") == false);
 
         // Clear
         dict->Clear();
-        REQUIRE(dict->Count == 0);
+        REQUIRE(dict->count() == 0);
     }
 
     TEST_CASE("Interfaces")

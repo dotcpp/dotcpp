@@ -46,7 +46,7 @@ namespace dot
     public: // METHODS
 
         /// <summary>The number of items contained in all dimensions of the list.</summary>
-        DOT_DECL_GET(int, Count)
+        virtual int count() = 0;
     };
 
     class Array : public ptr<ArrayImpl>

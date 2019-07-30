@@ -127,9 +127,9 @@ namespace dot
         /*
         ReflectionBaseSample obj = new_ReflectionBaseSample();
         obj->IntFld = 15;
-        obj->Count = 15;
+        obj->count() = 15;
 
-        object x = obj->Count;
+        object x = obj->count();
 
         type_t type = obj->type();
         Array1D<PropertyInfo> props = type->GetProperties();
@@ -146,13 +146,13 @@ namespace dot
         REQUIRE(int(private_int_prop->GetValue(obj)) == 42);
 
         props[2]->SetValue(obj, 2384);
-        REQUIRE(obj->Count == 2384);
+        REQUIRE(obj->count() == 2384);
         REQUIRE(int(props[2]->GetValue(obj)) == 2384);
 
         ReflectionDerivedSample obj2 = new_ReflectionDerivedSample();
 
         props[2]->SetValue(obj2, -15);
-        REQUIRE(obj2->Count == -15);
+        REQUIRE(obj2->count() == -15);
         REQUIRE(int(props[2]->GetValue(obj2)) == -15);
 
         Array1D<object> params = new_Array1D<object>(1);

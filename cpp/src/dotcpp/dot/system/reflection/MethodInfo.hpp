@@ -114,7 +114,7 @@ namespace dot
         /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
         virtual object Invoke(object obj, Array1D<object> params)
         {
-            if (params->Count != Parameters->Count)
+            if (params->count() != Parameters->count())
                 throw new_Exception("Wrong number of parameters for method " + this->DeclaringType->Name + "." + this->Name);
 
             return Invoke_impl(obj, params, typename detail::make_index_sequence<sizeof...(Args)>::type(), typename std::is_same<Return, void>::type());
@@ -170,7 +170,7 @@ namespace dot
         /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
         virtual object Invoke(object obj, Array1D<object> params)
         {
-            if (params->Count != Parameters->Count)
+            if (params->count() != Parameters->count())
                 throw new_Exception("Wrong number of parameters for method " + this->DeclaringType->Name + "." + this->Name);
 
             return Invoke_impl(obj, params, typename detail::make_index_sequence<sizeof...(Args)>::type(), typename std::is_same<Return, void>::type());

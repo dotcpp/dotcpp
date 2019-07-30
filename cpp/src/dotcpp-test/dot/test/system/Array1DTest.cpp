@@ -44,7 +44,7 @@ namespace dot
         stringArray[1] = 1.0;
         stringArray[2] = 2.0;
 
-        REQUIRE(stringArray->Count == 3);
+        REQUIRE(stringArray->count() == 3);
     }
 
     TEST_CASE("Interfaces")
@@ -53,8 +53,8 @@ namespace dot
         Array b = a;
  
         // Check size of the original class and the interface
-        REQUIRE(a->Count == 3);
-        REQUIRE(b->Count == 3);
+        REQUIRE(a->count() == 3);
+        REQUIRE(b->count() == 3);
 
         // Access the underlying std::vector<double> class
         SortDoubleVector(*a);
@@ -62,7 +62,7 @@ namespace dot
 
         // Access by object
         object obj = b;
-        REQUIRE(((Array1D<double>)b)->Count == 3);
+        REQUIRE(((Array1D<double>)b)->count() == 3);
 
         // Check that methods that should throw actually throw
         // CHECK_THROWS_AS(b->Add(0.0), Exception);
@@ -75,7 +75,7 @@ namespace dot
         stringArray[0] = "000";
         stringArray[1] = "111";
         stringArray[2] = "222";
-        REQUIRE(stringArray->Count == 3);
+        REQUIRE(stringArray->count() == 3);
         REQUIRE(stringArray[2] == "222");
 
         int i = 0;
@@ -102,7 +102,7 @@ namespace dot
         stringArray[0] = "000";
         stringArray[1] = "111";
         stringArray[2] = "222";
-        REQUIRE(stringArray->Count == 3);
+        REQUIRE(stringArray->count() == 3);
 
         int i = 0;
 

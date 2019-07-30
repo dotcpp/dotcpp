@@ -58,7 +58,7 @@ namespace dot
     public: // PROPERTIES
 
         /// <summary>Gets the number of key/value pairs contained in the Dictionary.</summary>
-        DOT_IMPL_GET(int, Count, { return this->size(); })
+        int count() override { return this->size(); }
 
         /// <summary>Gets a collection containing the keys in the Dictionary.</summary>
         DOT_IMPL_GET(ICollection<TKey>, Keys, {

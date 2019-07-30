@@ -43,7 +43,7 @@ namespace dot
         Array1D<ConstructorInfo> ctors = type->GetConstructors();
 
         // If no constructors
-        if (ctors.IsEmpty() || ctors->Count == 0)
+        if (ctors.IsEmpty() || ctors->count() == 0)
         {
             throw new_Exception(string::format("type_t {0}.{1} does not have registered constructors", type->Namespace, type->Name));
         }
@@ -53,7 +53,7 @@ namespace dot
         int paramsCount = 0;
         if (!params.IsEmpty())
         {
-            paramsCount = params->Count;
+            paramsCount = params->count();
         }
 
         for (auto ctor : ctors)
@@ -62,7 +62,7 @@ namespace dot
             bool matches = true;
 
             // Continue if different parameters count
-            if (ctorParams->Count != paramsCount)
+            if (ctorParams->count() != paramsCount)
                 continue;
 
             // Compare all parameters types
