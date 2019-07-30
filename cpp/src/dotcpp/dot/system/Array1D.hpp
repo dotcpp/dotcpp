@@ -93,7 +93,6 @@ namespace dot
         /// </summary>
         virtual void objectAdd(object item) { this->push_back((T)item); }
 
-
     public: // OPERATORS
 
         /// <summary>Gets or sets the element at the specified index (const version).</summary>

@@ -30,7 +30,6 @@ limitations under the License.
 #include <dot/system/collections/generic/List.hpp>
 #include <dot/system/reflection/MethodInfo.hpp>
 #include <dot/system/reflection/ConstructorInfo.hpp>
-#include <dot/system/reflection/PropertyInfo.hpp>
 
 namespace dot
 {

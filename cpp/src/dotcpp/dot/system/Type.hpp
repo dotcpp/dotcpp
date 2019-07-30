@@ -33,7 +33,6 @@ limitations under the License.
 #include <dot/system/reflection/ConstructorInfo.hpp>
 #include <dot/system/reflection/MethodInfo.hpp>
 #include <dot/system/reflection/ParameterInfo.hpp>
-#include <dot/system/reflection/PropertyInfo.hpp>
 #include <dot/noda_time/LocalDate.hpp>
 #include <dot/noda_time/LocalTime.hpp>
 #include <dot/noda_time/LocalMinute.hpp>
@@ -47,7 +46,6 @@ namespace dot
     class string_impl; class string;
     class MethodInfoImpl; using MethodInfo = ptr<MethodInfoImpl>;
     class ConstructorInfoImpl; using ConstructorInfo = ptr<ConstructorInfoImpl>;
-    class PropertyInfoImpl; using PropertyInfo = ptr<PropertyInfoImpl>;
     template <class T> class ListImpl; template <class T> using List = ptr<ListImpl<T>>;
     template <class T> class Array1DImpl; template <class T> using Array1D = ptr<Array1DImpl<T>>;
     template <class Class, class ... Args> class MemberConstructorInfoImpl;
@@ -63,8 +61,6 @@ namespace dot
 
     private:
         string fullName_;
-        List<PropertyInfo> properties_;
-        List<PropertyInfo> static_properties_;
         List<MethodInfo> methods_;
         List<ConstructorInfo> ctors_;
         type_t type_;
@@ -80,25 +76,8 @@ namespace dot
         template <class Class, class Prop>
         TypeBuilder WithField(string name, Prop Class::*prop)
         {
-            //! TODO add to fields_ ?
-            if (properties_.IsEmpty())
-            {
-                properties_ = new_List<PropertyInfo>();
-            }
-            properties_->Add(new PropertyInfoFieldImpl<Prop, Class>(name, type_, dot::typeof<Prop>(), prop));
+            // TODO - implement
             return this;
-        }
-
-        /// <summary>Add public property of the current Type.</summary>
-        template <class Class, class Prop>
-        TypeBuilder WithProperty(string name, Prop Class::*prop)
-        {
-             if (properties_.IsEmpty())
-             {
-                 properties_ = new_List<PropertyInfo>();
-             }
-             properties_->Add(new PropertyInfoPropertyImpl<Prop, Class>(name, type_, dot::typeof<typename Prop::value_type>(), prop));
-             return this;
         }
 
         /// <summary>Add public member method of the current Type.</summary>
@@ -284,7 +263,6 @@ namespace dot
 
     private: // FIELDS
 
-        Array1D<PropertyInfo> properties_;
         Array1D<MethodInfo> methods_;
         Array1D<ConstructorInfo> ctors_;
         Array1D<type_t> interfaces_;
@@ -313,9 +291,6 @@ namespace dot
 
     public: // METHODS
 
-        /// <summary>Returns all the public properties of the current Type.</summary>
-        Array1D<PropertyInfo> GetProperties() { return properties_; }
-
         /// <summary>Returns methods of the current type.</summary>
         Array1D<MethodInfo> GetMethods() { return methods_; }
 
@@ -327,9 +302,6 @@ namespace dot
 
         /// <summary>Returns interfaces of the current type.</summary>
         Array1D<type_t> GetGenericArguments() { return generic_args_; }
-
-        /// <summary>Searches for the public property with the specified name.</summary>
-        PropertyInfo GetProperty(string name);
 
         /// <summary>Searches for the public method with the specified name.</summary>
         MethodInfo GetMethod(string name);

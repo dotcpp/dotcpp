@@ -27,7 +27,6 @@ limitations under the License.
 #include <dot/system/Array1D.hpp>
 #include <dot/system/string.hpp>
 #include <dot/system/Exception.hpp>
-#include <dot/system/reflection/PropertyInfo.hpp>
 #include <dot/system/reflection/MethodInfo.hpp>
 #include <dot/system/reflection/ConstructorInfo.hpp>
 #include <dot/system/type.hpp>
@@ -94,19 +93,6 @@ namespace dot
                     //->WithProperty("Count2", &ReflectionBaseSampleImpl::Count2)
 
                     ->Build();
-
-                /*
-                data->Properties = new_Array1D<PropertyInfo>(4);
-                data->Properties[0] = new_PropertyInfo("IntFld", type, nullptr, &ReflectionBaseSampleImpl::IntFld);
-                data->Properties[1] = new_PropertyInfo("PrivateIntFld", type, nullptr, &ReflectionBaseSampleImpl::PrivateIntFld);
-                data->Properties[2] = new_PropertyInfo("Count", type, nullptr, &ReflectionBaseSampleImpl::Count);
-                data->Properties[3] = new_PropertyInfo("Count2", type, nullptr, &ReflectionBaseSampleImpl::Count2 );
-
-                data->Methods = new_Array1D<MethodInfo>(1);
-                data->Methods[0] = new_MethodInfo("SampleMethod", type, &ReflectionBaseSampleImpl::SampleMethod); // TODO - not part of C# API, use builder pattern for MethodInfo
-                data->Methods[0]->Parameters = new_Array1D<ParameterInfo>(1);
-                data->Methods[0]->Parameters[0] = new_ParameterInfo("param", nullptr, 0);
-                */
             }();
 
             return type;

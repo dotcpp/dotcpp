@@ -31,7 +31,6 @@ limitations under the License.
 #include <dot/system/Array1D.hpp>
 #include <dot/system/string.hpp>
 #include <dot/system/Exception.hpp>
-#include <dot/system/reflection/PropertyInfo.hpp>
 #include <dot/system/reflection/MethodInfo.hpp>
 #include <dot/system/reflection/ConstructorInfo.hpp>
 #include <dot/system/reflection/Activator.hpp>
@@ -61,8 +60,7 @@ namespace dot
             static type_t type = []()-> type_t
             {
                 type_t type = make_type_builder<self>("System.Test", "SampleData2")
-                    ->WithProperty("DataProp", &self::DataProp)
-
+                    ->WithField("DataProp", &self::DataProp)
                     ->Build();
 
                 return type;
@@ -112,9 +110,9 @@ namespace dot
 
         DOT_TYPE_BEGIN("System.Test", "SampleData")
             DOT_TYPE_CTOR(new_SampleData)
-            ->WithProperty("StringProp", &self::string_prop)
-            DOT_TYPE_PROP(DataProp)
-            DOT_TYPE_PROP(DblList)
+            ->WithField("StringProp", &self::string_prop)
+            ->WithField("DataProp", &self::DataProp)
+            ->WithField("DblList", &self::DblList)
             DOT_TYPE_METHOD(Foo, "dblArg", "intArg")
             DOT_TYPE_METHOD(Bar, "intArg")
             DOT_TYPE_METHOD(StaticFoo, "intArg")
@@ -146,10 +144,6 @@ namespace dot
         }
         else if (type->IsClass)
         {
-            for (PropertyInfo prop : type->GetProperties())
-            {
-                ss << *(Objto_string(prop->GetValue(obj)));
-            }
         }
         else
         {
@@ -179,13 +173,6 @@ namespace dot
 
         SampleData dt = (SampleData)Activator::CreateInstance(obj->type());
 
-        // obj->string_prop = "abc";
-        // obj->IntegerProp = 42;
-        // obj->DoubleProp = 1.23;
-
-        //type_t type2 = obj2->type();
-        auto vec_prop = obj->type()->GetProperties();
-
         Array1D<dot::object> paramsFoo = new_Array1D<object>(2);
         paramsFoo[0] = 15;
         paramsFoo[1] = 42;
@@ -196,18 +183,5 @@ namespace dot
         obj->type()->GetMethods()[1]->Invoke(obj, paramsBar);
 
         object o2 = obj->type()->GetConstructors()[0]->Invoke({});
-
-        /* TODO - Restore test
-        for (PropertyInfo& prop : vec_prop)
-        {
-            object val = prop->GetValue(obj);
-            string name = prop->Name;
-            type_t prop_type = prop->PropertyType;
-            string prop_type_name = prop_type->Name;
-        }
-
-        Approvals::verify(received.str());
-        received.clear();
-        */
     }
 }

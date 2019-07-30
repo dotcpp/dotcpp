@@ -25,7 +25,6 @@ limitations under the License.
 #include <dot/implement.hpp>
 #include <dot/system/type.hpp>
 #include <dot/system/objectimpl.hpp>
-#include <dot/system/reflection/PropertyInfo.hpp>
 #include <dot/system/reflection/MethodInfo.hpp>
 #include <dot/system/reflection/ConstructorInfo.hpp>
 #include <dot/system/Array1D.hpp>
@@ -64,41 +63,6 @@ namespace dot
     /// </summary>
     void type_impl::Fill(const TypeBuilder& data)
     {
-        if (!data->base_.IsEmpty() && data->base_->GetProperties()->Count)
-        {
-            if (data->properties_.IsEmpty())
-            {
-                data->properties_ = new_List<PropertyInfo>();
-            }
-
-            Array1D<PropertyInfo> baseProps = data->base_->GetProperties();
-            List<PropertyInfo> newProsp = new_List<PropertyInfo>();
-            for (PropertyInfo propInfoData : baseProps)
-            {
-
-                newProsp->Add(propInfoData);
-            }
-
-            for (PropertyInfo propInfoData : data->properties_)
-            {
-                newProsp->Add(propInfoData);
-            }
-
-            data->properties_ = newProsp;
-        }
-
-        if (!data->properties_.IsEmpty())
-        {
-            this->properties_ = new_Array1D<PropertyInfo>(data->properties_->Count);
-            int i = 0;
-            for (PropertyInfo propInfoData : data->properties_)
-            {
-                this->properties_[i++] = propInfoData;
-            }
-        }
-        else
-            this->properties_ = new_Array1D<PropertyInfo>(0);
-
         if (!data->base_.IsEmpty() && data->base_->GetMethods()->Count)
         {
             if (data->methods_.IsEmpty())
@@ -194,19 +158,6 @@ namespace dot
         type_impl::GetTypeMap()[fullName_] = type_;
         type_impl::GetTypeMap()[Name] = type_;
         type_impl::GetTypeMap()[CppName] = type_;
-    }
-
-    PropertyInfo type_impl::GetProperty(string name)
-    {
-        if (properties_.IsEmpty()) return nullptr;
-
-        for (auto prop : properties_)
-        {
-            if (prop->Name == name)
-                return prop;
-        }
-
-        return nullptr;
     }
 
     MethodInfo type_impl::GetMethod(string name)
