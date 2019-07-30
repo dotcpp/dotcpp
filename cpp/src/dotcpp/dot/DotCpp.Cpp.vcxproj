@@ -56,10 +56,6 @@
     <ClInclude Include="system\collections\generic\Dictionary.hpp" />
     <ClInclude Include="system\collections\generic\HashSet.hpp" />
     <ClInclude Include="system\collections\generic\List.hpp" />
-    <ClInclude Include="system\collections\generic\ListBase.hpp" />
-    <ClInclude Include="system\collections\generic\Queue.hpp" />
-    <ClInclude Include="system\collections\generic\SortedDictionary.hpp" />
-    <ClInclude Include="system\collections\generic\SortedList.hpp" />
     <ClInclude Include="system\collections\generic\SortedSet.hpp" />
     <ClInclude Include="system\Console.hpp" />
     <ClInclude Include="system\Double.hpp" />
@@ -78,7 +74,6 @@
     <ClInclude Include="system\reflection\MemberInfo.hpp" />
     <ClInclude Include="system\reflection\MethodInfo.hpp" />
     <ClInclude Include="system\reflection\ParameterInfo.hpp" />
-    <ClInclude Include="system\reflection\PropertyInfo.hpp" />
     <ClInclude Include="system\String.hpp" />
     <ClInclude Include="system\StringSplitOptions.hpp" />
     <ClInclude Include="system\text\StringBuilder.hpp" />
