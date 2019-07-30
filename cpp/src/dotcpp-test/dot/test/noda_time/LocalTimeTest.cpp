@@ -50,23 +50,24 @@ namespace dot
 
     TEST_CASE("Methods")
     {
-        LocalTime t(12, 10, 20, 30);
-        REQUIRE(t.PlusHours(1) == LocalTime(13, 10, 20, 30));
-        REQUIRE(t.PlusMinutes(1) == LocalTime(12, 11, 20, 30));
-        REQUIRE(t.PlusSeconds(1) == LocalTime(12, 10, 21, 30));
-        REQUIRE(t.PlusMilliseconds(1) == LocalTime(12, 10, 20, 31));
+        LocalTime t1(12, 10, 20, 30);
+        REQUIRE(t1.PlusHours(1) == LocalTime(13, 10, 20, 30));
+        REQUIRE(t1.PlusMinutes(1) == LocalTime(12, 11, 20, 30));
+        REQUIRE(t1.PlusSeconds(1) == LocalTime(12, 10, 21, 30));
+        REQUIRE(t1.PlusMilliseconds(1) == LocalTime(12, 10, 20, 31));
 
-        t = LocalTime(23, 59);
-        REQUIRE(t.PlusHours(2) == LocalTime(1, 59));
-        REQUIRE(t.PlusMinutes(2) == LocalTime(0, 1));
+        LocalTime t2(23, 59);
+        REQUIRE(t2.PlusHours(2) == LocalTime(1, 59));
+        REQUIRE(t2.PlusMinutes(2) == LocalTime(0, 1));
 
-        LocalDateTime date_time(2005, 5, 10, 12, 10);
-        LocalDate date(2005, 5, 10);
-        LocalTime time(12, 10);
-        REQUIRE(time.On(date) == date_time);
+        LocalDateTime dt3(2005, 5, 10, 12, 10);
+        LocalDate d3(2005, 5, 10);
+        LocalTime t3(12, 10);
+        REQUIRE(t3.On(d3) == dt3);
 
-        LocalTime str_time(1, 2, 3, 4);
-        REQUIRE(str_time.to_string() == "010203");
+        LocalTime t4(1, 2, 3, 4);
+        string t4_str = t4.to_string();
+        REQUIRE(t4_str == "01:02:03.004");
     }
 
     TEST_CASE("Operators")

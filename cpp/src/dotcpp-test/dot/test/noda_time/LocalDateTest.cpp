@@ -51,24 +51,25 @@ namespace dot
 
     TEST_CASE("Methods")
     {
-        LocalDate d(2005, 1, 10);
-        REQUIRE(d.PlusDays(10) == LocalDate(2005, 1, 20));
-        REQUIRE(d.PlusWeeks(1) == LocalDate(2005, 1, 17));
-        REQUIRE(d.PlusMonths(1) == LocalDate(2005, 2, 10));
-        REQUIRE(d.PlusYears(1) == LocalDate(2006, 1, 10));
+        LocalDate d1(2005, 1, 10);
+        REQUIRE(d1.PlusDays(10) == LocalDate(2005, 1, 20));
+        REQUIRE(d1.PlusWeeks(1) == LocalDate(2005, 1, 17));
+        REQUIRE(d1.PlusMonths(1) == LocalDate(2005, 2, 10));
+        REQUIRE(d1.PlusYears(1) == LocalDate(2006, 1, 10));
 
         LocalDate d2(2005, 1, 10);
         REQUIRE(d2.Previous(boost::gregorian::Monday) == LocalDate(2005, 1, 3));
         REQUIRE(d2.Next(boost::gregorian::Monday) == LocalDate(2005, 1, 17));
 
-        LocalDateTime date_time(2005, 5, 10, 12, 10);
-        LocalDate date(2005, 5, 10);
-        LocalTime time(12, 10);
-        REQUIRE(date.At(time) == date_time);
-        REQUIRE(date.AtMidnight() == LocalDateTime(2005, 5, 10, 0, 0));
+        LocalDateTime dt3(2005, 5, 10, 12, 10);
+        LocalDate d3(2005, 5, 10);
+        LocalTime t3(12, 10);
+        REQUIRE(d3.At(t3) == dt3);
+        REQUIRE(d3.AtMidnight() == LocalDateTime(2005, 5, 10, 0, 0));
 
-        LocalDate str_date(2005, 1, 2);
-        REQUIRE(str_date.to_string() == "20050102");
+        LocalDate d4(2005, 1, 2);
+        string d4_str = d4.to_string();
+        REQUIRE(d4_str == "2005-01-02");
     }
 
     TEST_CASE("Operators")

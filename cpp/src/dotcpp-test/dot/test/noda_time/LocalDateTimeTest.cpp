@@ -57,22 +57,23 @@ namespace dot
 
     TEST_CASE("Methods")
     {
-        LocalDateTime d(2005, 1, 10, 12, 10, 20, 30);
-        REQUIRE(d.PlusDays(10) == LocalDateTime(2005, 1, 20, 12, 10, 20, 30));
-        REQUIRE(d.PlusWeeks(1) == LocalDateTime(2005, 1, 17, 12, 10, 20, 30));
-        REQUIRE(d.PlusMonths(1) == LocalDateTime(2005, 2, 10, 12, 10, 20, 30));
-        REQUIRE(d.PlusYears(1) == LocalDateTime(2006, 1, 10, 12, 10, 20, 30));
-        REQUIRE(d.PlusHours(1) == LocalDateTime(2005, 1, 10, 13, 10, 20, 30));
-        REQUIRE(d.PlusMinutes(1) == LocalDateTime(2005, 1, 10, 12, 11, 20, 30));
-        REQUIRE(d.PlusSeconds(1) == LocalDateTime(2005, 1, 10, 12, 10, 21, 30));
-        REQUIRE(d.PlusMilliseconds(1) == LocalDateTime(2005, 1, 10, 12, 10, 20, 31));
+        LocalDateTime dt1(2005, 1, 10, 12, 10, 20, 30);
+        REQUIRE(dt1.PlusDays(10) == LocalDateTime(2005, 1, 20, 12, 10, 20, 30));
+        REQUIRE(dt1.PlusWeeks(1) == LocalDateTime(2005, 1, 17, 12, 10, 20, 30));
+        REQUIRE(dt1.PlusMonths(1) == LocalDateTime(2005, 2, 10, 12, 10, 20, 30));
+        REQUIRE(dt1.PlusYears(1) == LocalDateTime(2006, 1, 10, 12, 10, 20, 30));
+        REQUIRE(dt1.PlusHours(1) == LocalDateTime(2005, 1, 10, 13, 10, 20, 30));
+        REQUIRE(dt1.PlusMinutes(1) == LocalDateTime(2005, 1, 10, 12, 11, 20, 30));
+        REQUIRE(dt1.PlusSeconds(1) == LocalDateTime(2005, 1, 10, 12, 10, 21, 30));
+        REQUIRE(dt1.PlusMilliseconds(1) == LocalDateTime(2005, 1, 10, 12, 10, 20, 31));
 
-        LocalDateTime d2(2005, 1, 10, 12, 10);
-        REQUIRE(d2.Previous(boost::gregorian::Monday) == LocalDateTime(2005, 1, 3, 12, 10));
-        REQUIRE(d2.Next(boost::gregorian::Monday) == LocalDateTime(2005, 1, 17, 12, 10));
+        LocalDateTime dt2(2005, 1, 10, 12, 10);
+        REQUIRE(dt2.Previous(boost::gregorian::Monday) == LocalDateTime(2005, 1, 3, 12, 10));
+        REQUIRE(dt2.Next(boost::gregorian::Monday) == LocalDateTime(2005, 1, 17, 12, 10));
 
-        LocalDateTime str_date_time(2005, 1, 2, 3, 4, 5, 6);
-        REQUIRE(str_date_time.to_string() == "20050102030405");
+        LocalDateTime dt3(2005, 1, 2, 3, 4, 5, 6);
+        string dt3_str = dt3.to_string();
+        REQUIRE(dt3_str == "2005-01-02 03:04:05.006");
     }
 
     TEST_CASE("Operators")
