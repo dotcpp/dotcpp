@@ -27,7 +27,7 @@ limitations under the License.
 #include <dot/system/Array1D.hpp>
 #include <dot/system/Exception.hpp>
 #include <dot/system/string.hpp>
-#include <dot/system/collections/generic/List.hpp>
+#include <dot/system/collections/generic/list.hpp>
 #include <dot/system/reflection/MethodInfo.hpp>
 #include <dot/system/reflection/ConstructorInfo.hpp>
 

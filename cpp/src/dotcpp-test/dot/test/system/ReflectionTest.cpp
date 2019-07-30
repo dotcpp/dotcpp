@@ -30,7 +30,7 @@ limitations under the License.
 #include <dot/system/reflection/MethodInfo.hpp>
 #include <dot/system/reflection/ConstructorInfo.hpp>
 #include <dot/system/type.hpp>
-#include <dot/system/collections/generic/List.hpp>
+#include <dot/system/collections/generic/list.hpp>
 
 namespace dot
 {
@@ -42,33 +42,9 @@ namespace dot
 
     public: // FIELDS
 
-        int IntFld;
-        double DblFld;
-        List<double> DblListFld;
-
-    public: // PROPERTIES
-
-        DOT_PROP(int, Count,
-            {
-                received << "ReflectionBaseSample.getCount" << std::endl;
-                return Count;
-            },
-            {
-                received << "ReflectionBaseSample.setCount" << std::endl;
-                Count = value;
-            }
-        )
-
-        DOT_GET(int, Count2,
-            {
-                received << "ReflectionBaseSample.getCount2" << std::endl;
-                return Count2;
-            }
-        )
-
-    private: // FIELDS
-
-        int PrivateIntFld = 42;
+        int int_field;
+        double double_field;
+        list<double> double_list_field_field;
 
     public: // METHODS
 
@@ -104,18 +80,9 @@ namespace dot
 
     class ReflectionDerivedSampleImpl : public ReflectionBaseSampleImpl
     {
-    public: // PROPERTIES
+    public: // FIELDS
 
-        DOT_IMPL_PROP(int, Count,
-            {
-                received << "ReflectionDerivedSample.getCount" << std::endl;
-                return Count;
-            },
-            {
-                received << "ReflectionDerivedSample.setCount" << std::endl;
-                Count = value;
-            }
-        )
+        int int_field_in_derived_class;
     };
 
     using ReflectionDerivedSample = ptr<ReflectionDerivedSampleImpl>;

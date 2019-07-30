@@ -25,7 +25,7 @@ limitations under the License.
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <dot/system/Array1D.hpp>
-#include <dot/system/collections/generic/List.hpp>
+#include <dot/system/collections/generic/list.hpp>
 #include <dot/system/string.hpp>
 #include <dot/system/type.hpp>
 
@@ -34,7 +34,7 @@ namespace dot
     static std::stringstream received;
 
     /// <summary>Print double vector to received on one line in JSON format.</summary>
-    static void PrintList(string name, List<double> v)
+    static void PrintList(string name, list<double> v)
     {
         received << "\"" << *name << "\" : [ ";
         for (int i = 0; i < v->count(); ++i)
@@ -47,27 +47,27 @@ namespace dot
 
     TEST_CASE("Smoke")
     {
-        List<double> a = new_List<double>();
-        a->Add(0.0);
-        a->Add(1.0);
-        a->Add(2.0);
+        list<double> a = make_list<double>();
+        a->add(0.0);
+        a->add(1.0);
+        a->add(2.0);
 
         REQUIRE(a->count() == 3);
 
-        auto b = a->ToArray();
+        auto b = a->to_array();
         REQUIRE(b->count() == 3);
         REQUIRE(b[2] == 2.0);
     }
 
     TEST_CASE("Interfaces")
     {
-        List<double> a = new_List<double>();
+        list<double> a = make_list<double>();
 
         // Add elements to List interface
-        List<double> b = a;
-        b->Add(2.0);
-        b->Add(1.0);
-        b->Add(0.0);
+        list<double> b = a;
+        b->add(2.0);
+        b->add(1.0);
+        b->add(0.0);
 
         // Check size of the original class and the interface
         REQUIRE(a->count() == 3);
@@ -89,37 +89,36 @@ namespace dot
 
     TEST_CASE("Iterators")
     {
-        List<string> stringList = new_List<string>();
-        stringList->Add("000");
-        stringList->Add("111");
-        stringList->Add("222");
-        REQUIRE(stringList->count() == 3);
+        list<string> string_list = make_list<string>();
+        string_list->add("000");
+        string_list->add("111");
+        string_list->add("222");
+        REQUIRE(string_list->count() == 3);
 
         int i = 0;
-        for (string str : stringList)
+        for (string str : string_list)
         {
-            REQUIRE(stringList[i++] == str);
+            REQUIRE(string_list[i++] == str);
         }
     }
 
     TEST_CASE("Capacity")
     {
-        List<string> stringList = new_List<string>();
-        stringList->Capacity = 100;
-        REQUIRE(stringList->Capacity == 100);
-        REQUIRE(stringList->capacity() == 100);
+        list<string> string_list = make_list<string>();
+        string_list->set_capacity(100);
+        REQUIRE(string_list->capacity() == 100);
     }
 
     TEST_CASE("Find")
     {
-        dot::List<string> stringList = new_List<string>();
-        stringList->Add("000");
-        stringList->Add("111");
-        stringList->Add("222");
-        stringList->Add("333");
-        stringList->Add("444");
+        dot::list<string> string_list = make_list<string>();
+        string_list->add("000");
+        string_list->add("111");
+        string_list->add("222");
+        string_list->add("333");
+        string_list->add("444");
 
-        // TODO stringList.findLast([](std::string const& s) { return s == "222"; }) = "57";
-        // TODO REQUIRE(stringList.findLastIndex([](std::string const& s) { return s == "111"; }) == 0);
+        // TODO string_list.findLast([](std::string const& s) { return s == "222"; }) = "57";
+        // TODO REQUIRE(string_list.findLastIndex([](std::string const& s) { return s == "111"; }) == 0);
     }
 }

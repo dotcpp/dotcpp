@@ -26,7 +26,7 @@ limitations under the License.
 #include <unordered_set>
 #include <dot/system/Exception.hpp>
 #include <dot/system/collections/generic/ISet.hpp>
-#include <dot/system/collections/generic/List.hpp>
+#include <dot/system/collections/generic/list.hpp>
 
 namespace dot
 {
@@ -135,11 +135,11 @@ namespace dot
         /// that are present in that object and in the specified collection.</summary>
         virtual void IntersectWith(IEnumerable<T> other) override
         {
-            List<T> left = new_List<T>();
+            list<T> left = make_list<T>();
             for (T const& item : other)
             {
                 if (this->Contains(item))
-                    left->Add(item);
+                    left->add(item);
             }
 
             this->Clear();

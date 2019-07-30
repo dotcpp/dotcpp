@@ -28,7 +28,7 @@ limitations under the License.
 #include <dot/system/reflection/MethodInfo.hpp>
 #include <dot/system/reflection/ConstructorInfo.hpp>
 #include <dot/system/Array1D.hpp>
-#include <dot/system/collections/generic/List.hpp>
+#include <dot/system/collections/generic/list.hpp>
 #include <dot/system/string.hpp>
 
 namespace dot
@@ -45,13 +45,13 @@ namespace dot
             auto iter = type_impl::GetDerivedTypesMap().find(base_type->FullName);
             if (iter == type_impl::GetDerivedTypesMap().end())
             {
-                iter = type_impl::GetDerivedTypesMap().insert({base_type->FullName, new_List<type_t>()}).first;
+                iter = type_impl::GetDerivedTypesMap().insert({base_type->FullName, make_list<type_t>()}).first;
             }
             else if (iter->second == nullptr)
             {
-                iter->second = new_List<type_t>();
+                iter->second = make_list<type_t>();
             }
-            iter->second->Add(type_);
+            iter->second->add(type_);
             base_type = base_type->BaseType;
         }
 
@@ -67,20 +67,20 @@ namespace dot
         {
             if (data->methods_.IsEmpty())
             {
-                data->methods_ = new_List<MethodInfo>();
+                data->methods_ = make_list<MethodInfo>();
             }
 
             Array1D<MethodInfo> baseMethods = data->base_->GetMethods();
-            List<MethodInfo> newMethods = new_List<MethodInfo>();
+            list<MethodInfo> newMethods = make_list<MethodInfo>();
             for (MethodInfo methInfoData : baseMethods)
             {
 
-                newMethods->Add(methInfoData);
+                newMethods->add(methInfoData);
             }
 
             for (MethodInfo methInfoData : data->methods_)
             {
-                newMethods->Add(methInfoData);
+                newMethods->add(methInfoData);
             }
 
             data->methods_ = newMethods;

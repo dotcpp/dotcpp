@@ -35,7 +35,7 @@ limitations under the License.
 #include <dot/system/reflection/ConstructorInfo.hpp>
 #include <dot/system/reflection/Activator.hpp>
 #include <dot/system/type.hpp>
-#include <dot/system/collections/generic/List.hpp>
+#include <dot/system/collections/generic/list.hpp>
 
 
 namespace dot
@@ -51,7 +51,7 @@ namespace dot
 
     public: // PROPERTIES
 
-        SampleData DataProp;
+        SampleData data_field;
 
     public: // STATIC
 
@@ -60,7 +60,7 @@ namespace dot
             static type_t type = []()-> type_t
             {
                 type_t type = make_type_builder<self>("System.Test", "SampleData2")
-                    ->WithField("DataProp", &self::DataProp)
+                    ->WithField("data_field", &self::data_field)
                     ->Build();
 
                 return type;
@@ -84,11 +84,11 @@ namespace dot
 
     public:
 
-        string string_prop;
+        string string_field;
         int IntegerProp;
         double DoubleProp;
-        SampleData2 DataProp;
-        List<double> DblList;
+        SampleData2 data_field;
+        list<double> double_list_field;
 
         double Foo(int dblArg, int intArg)
         {
@@ -110,9 +110,9 @@ namespace dot
 
         DOT_TYPE_BEGIN("System.Test", "SampleData")
             DOT_TYPE_CTOR(new_SampleData)
-            ->WithField("StringProp", &self::string_prop)
-            ->WithField("DataProp", &self::DataProp)
-            ->WithField("DblList", &self::DblList)
+            ->WithField("StringProp", &self::string_field)
+            ->WithField("data_field", &self::data_field)
+            ->WithField("double_list_field", &self::double_list_field)
             DOT_TYPE_METHOD(Foo, "dblArg", "intArg")
             DOT_TYPE_METHOD(Bar, "intArg")
             DOT_TYPE_METHOD(StaticFoo, "intArg")
@@ -131,7 +131,7 @@ namespace dot
 
         if (type->Name == "List`1")
         {
-            List<double> vec = (List<double>)obj;
+            list<double> vec = (list<double>)obj;
             for (object item : vec)
             {
                 ss << *(Objto_string(item));
@@ -158,14 +158,14 @@ namespace dot
     TEST_CASE("SimpleSerialization")
     {
         SampleData obj = new_SampleData();
-        obj->string_prop = "str";
-        obj->DataProp = new SampleData2Impl();
-        obj->DataProp->DataProp = new_SampleData();
-        obj->DataProp->DataProp->string_prop = "internal str";
-        obj->DblList = new_List<double>();
-        obj->DblList->Add(1.);
-        obj->DblList->Add(3.);
-        obj->DblList->Add(2.);
+        obj->string_field = "str";
+        obj->data_field = new SampleData2Impl();
+        obj->data_field->data_field = new_SampleData();
+        obj->data_field->data_field->string_field = "internal str";
+        obj->double_list_field = make_list<double>();
+        obj->double_list_field->add(1.);
+        obj->double_list_field->add(3.);
+        obj->double_list_field->add(2.);
 
         string s = Objto_string(obj);
 

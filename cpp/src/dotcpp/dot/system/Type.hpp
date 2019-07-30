@@ -29,7 +29,7 @@ limitations under the License.
 #include <dot/system/string.hpp>
 #include <dot/system/nullable.hpp>
 #include <dot/system/Array1D.hpp>
-#include <dot/system/collections/generic/List.hpp>
+#include <dot/system/collections/generic/list.hpp>
 #include <dot/system/reflection/ConstructorInfo.hpp>
 #include <dot/system/reflection/MethodInfo.hpp>
 #include <dot/system/reflection/ParameterInfo.hpp>
@@ -46,7 +46,7 @@ namespace dot
     class string_impl; class string;
     class MethodInfoImpl; using MethodInfo = ptr<MethodInfoImpl>;
     class ConstructorInfoImpl; using ConstructorInfo = ptr<ConstructorInfoImpl>;
-    template <class T> class ListImpl; template <class T> using List = ptr<ListImpl<T>>;
+    template <class T> class list_impl; template <class T> using list = ptr<list_impl<T>>;
     template <class T> class Array1DImpl; template <class T> using Array1D = ptr<Array1DImpl<T>>;
     template <class Class, class ... Args> class MemberConstructorInfoImpl;
 
@@ -61,12 +61,12 @@ namespace dot
 
     private:
         string fullName_;
-        List<MethodInfo> methods_;
-        List<ConstructorInfo> ctors_;
+        list<MethodInfo> methods_;
+        list<ConstructorInfo> ctors_;
         type_t type_;
         type_t base_;
-        List<type_t> interfaces_;
-        List<type_t> generic_args_;
+        list<type_t> interfaces_;
+        list<type_t> generic_args_;
         bool is_class_;
         bool is_enum_ = false;
 
@@ -90,7 +90,7 @@ namespace dot
 
             if (methods_.IsEmpty())
             {
-                methods_ = new_List<MethodInfo>();
+                methods_ = make_list<MethodInfo>();
             }
 
             Array1D<ParameterInfo> parameters = new_Array1D<ParameterInfo>(sizeof...(Args));
@@ -104,7 +104,7 @@ namespace dot
             MethodInfo methodInfo_ = new MemberMethodInfoImpl<Class, Return, Args...>(name, type_, dot::typeof<Return>(), mth);
             methodInfo_->Parameters = parameters;
 
-            methods_->Add(methodInfo_);
+            methods_->add(methodInfo_);
 
             return this;
         }
@@ -119,7 +119,7 @@ namespace dot
 
             if (methods_.IsEmpty())
             {
-                methods_ = new_List<MethodInfo>();
+                methods_ = make_list<MethodInfo>();
             }
 
             Array1D<ParameterInfo> parameters = new_Array1D<ParameterInfo>(sizeof...(Args));
@@ -133,7 +133,7 @@ namespace dot
             MethodInfo methodInfo_ = new StaticMethodInfoImpl<Return, Args...>(name, type_, dot::typeof<Return>(), mth);
             methodInfo_->Parameters = parameters;
 
-            methods_->Add(methodInfo_);
+            methods_->add(methodInfo_);
 
             return this;
         }
@@ -148,7 +148,7 @@ namespace dot
 
             if (ctors_.IsEmpty())
             {
-                ctors_ = new_List<ConstructorInfo>();
+                ctors_ = make_list<ConstructorInfo>();
             }
 
             Array1D<ParameterInfo> parameters = new_Array1D<ParameterInfo>(sizeof...(Args));
@@ -162,7 +162,7 @@ namespace dot
             ConstructorInfo ctorInfo = new MemberConstructorInfoImpl<Class, Args...>(type_, ctor);
             ctorInfo->Parameters = parameters;
 
-            ctors_->Add(ctorInfo);
+            ctors_->add(ctorInfo);
 
             return this;
         }
@@ -191,9 +191,9 @@ namespace dot
         TypeBuilder WithInterface()
         {
             if (this->interfaces_.IsEmpty())
-                this->interfaces_ = new_List<type_t>();
+                this->interfaces_ = make_list<type_t>();
 
-            this->interfaces_->Add(dot::typeof<Class>());
+            this->interfaces_->add(dot::typeof<Class>());
             return this;
         }
 
@@ -202,9 +202,9 @@ namespace dot
         TypeBuilder WithGenericArgument()
         {
             if (this->generic_args_.IsEmpty())
-                this->generic_args_ = new_List<type_t>();
+                this->generic_args_ = make_list<type_t>();
 
-            this->generic_args_->Add(dot::typeof<Class>());
+            this->generic_args_->add(dot::typeof<Class>());
             return this;
         }
 
@@ -316,10 +316,10 @@ namespace dot
         static type_t GetType(string name) { return GetTypeMap()[name]; }
 
         /// <summary>Get derived types list for the name.</summary>
-        static List<type_t> GetDerivedTypes(string name) { return GetDerivedTypesMap()[name]; }
+        static list<type_t> GetDerivedTypes(string name) { return GetDerivedTypesMap()[name]; }
 
         /// <summary>Get derived types list for the type.</summary>
-        static List<type_t> GetDerivedTypes(type_t type) { return GetDerivedTypesMap()[type->FullName]; }
+        static list<type_t> GetDerivedTypes(type_t type) { return GetDerivedTypesMap()[type->FullName]; }
 
         bool equals(object obj) override;
 
@@ -338,9 +338,9 @@ namespace dot
             return map_;
         }
 
-        static std::map<string, List<type_t>>& GetDerivedTypesMap()
+        static std::map<string, list<type_t>>& GetDerivedTypesMap()
         {
-            static std::map<string, List<type_t>> map_;
+            static std::map<string, list<type_t>> map_;
             return map_;
         }
 
@@ -368,11 +368,11 @@ namespace dot
         return type_;
     }
 
-    template <class T> type_t ListImpl<T>::typeof()
+    template <class T> type_t list_impl<T>::typeof()
     {
-        static type_t type_ = make_type_builder<ListImpl<T>>("System.Collections.Generic", "List`1")
-            //DOT_TYPE_CTOR(new_List<T>)
-            ->WithConstructor(static_cast<List<T>(*)()>(&new_List<T>), { })
+        static type_t type_ = make_type_builder<list_impl<T>>("System.Collections.Generic", "List`1")
+            //DOT_TYPE_CTOR(make_list<T>)
+            ->WithConstructor(static_cast<list<T>(*)()>(&make_list<T>), { })
             DOT_TYPE_GENERIC_ARGUMENT(T)
             ->Build();
         return type_;

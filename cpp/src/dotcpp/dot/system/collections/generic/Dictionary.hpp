@@ -25,7 +25,7 @@ limitations under the License.
 
 #include <unordered_map>
 #include <dot/system/Exception.hpp>
-#include <dot/system/collections/generic/List.hpp>
+#include <dot/system/collections/generic/list.hpp>
 
 namespace dot
 {
@@ -62,18 +62,18 @@ namespace dot
         int count() { return this->size(); }
 
         /// <summary>Gets a collection containing the keys in the dictionary.</summary>
-        List<TKey> keys()
+        list<TKey> keys()
         {
-            List<TKey> list = new_List<TKey>();
-            for (auto& x : *this) list->Add(x.first);
+            list<TKey> list = make_list<TKey>();
+            for (auto& x : *this) list->add(x.first);
             return list;
         }
 
         /// <summary>Gets a collection containing the values in the dictionary.</summary>
-        List<TValue> values()
+        list<TValue> values()
         {
-            List<TValue> list = new_List<TValue>();
-            for (auto& x : *this) list->Add(x.second);
+            list<TValue> list = make_list<TValue>();
+            for (auto& x : *this) list->add(x.second);
             return list;
         }
 

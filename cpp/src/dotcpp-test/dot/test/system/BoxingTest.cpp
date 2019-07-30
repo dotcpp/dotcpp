@@ -27,7 +27,7 @@ limitations under the License.
 #include <dot/system/object.hpp>
 #include <dot/system/string.hpp>
 #include <dot/system/nullable.hpp>
-#include <dot/system/collections/generic/List.hpp>
+#include <dot/system/collections/generic/list.hpp>
 #include <dot/noda_time/LocalTime.hpp>
 #include <dot/noda_time/LocalDate.hpp>
 #include <dot/noda_time/LocalDateTime.hpp>
@@ -38,16 +38,16 @@ namespace dot
     TEST_CASE("Smoke")
     {
         {
-            //Boxing Enumerable
-            List<double> obj = new_List<double>();
-            obj->Add(1.);
-            obj->Add(2.);
-            obj->Add(3.);
+            // Boxing list of double
+            list<double> obj = make_list<double>();
+            obj->add(1.);
+            obj->add(2.);
+            obj->add(3.);
 
             object boxed = obj;
-            List<double> list = List<double>(boxed);
+            list<double> unboxed = (list<double>)boxed;
             int i = 0;
-            for (object item : list)
+            for (object item : unboxed)
             {
                 REQUIRE((double)item == ++i);
             }
