@@ -129,7 +129,7 @@ namespace dot
         int CompareTo(const LocalDateTime& other) const;
 
         /// <summary>Indicates whether the current object is equal to another object of the same type.</summary>
-        bool Equals(const LocalDateTime& other) const;
+        bool equals(const LocalDateTime& other) const;
 
         /// <summary>String that represents the current object.</summary>
         string to_string() const;

@@ -35,7 +35,7 @@ namespace dot
     /// Default implementation in object compares pointers. Derived classes
     /// can override this method to compare by value.
     /// </summary>
-    bool object_impl::Equals(object obj)
+    bool object_impl::equals(object obj)
     {
         return this == &(*obj);
     }

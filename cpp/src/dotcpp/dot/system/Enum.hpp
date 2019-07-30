@@ -71,7 +71,7 @@ namespace dot
         size_t hash_code();
 
         /// <summary>Returns a value indicating whether this instance is equal to a specified object.</summary>
-        bool Equals(object obj);
+        bool equals(object obj);
 
     public: // STATIC
 

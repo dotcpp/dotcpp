@@ -321,7 +321,7 @@ namespace dot
         /// <summary>Get derived types list for the type.</summary>
         static List<type_t> GetDerivedTypes(type_t type) { return GetDerivedTypesMap()[type->FullName]; }
 
-        bool equals(object obj) override;
+        virtual bool Equals(object obj) override;
 
         virtual size_t hash_code() override;
 

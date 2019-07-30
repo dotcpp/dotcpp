@@ -28,7 +28,7 @@ limitations under the License.
 
 namespace dot
 {
-    bool CharImpl::Equals(object obj)
+    bool CharImpl::equals(object obj)
     {
         if (this == &(*obj)) return true;
 

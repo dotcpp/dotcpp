@@ -116,7 +116,7 @@ namespace dot
         class obj_equals : public virtual object_impl
         {
         public:
-            virtual bool Equals(object obj) override { return static_cast<T*>(static_cast<W*>(this))->Equals(obj); }
+            bool equals(object obj) override { return static_cast<T*>(static_cast<W*>(this))->equals(obj); }
         };
 
         /// <summary>Detects existance of Equals method.</summary>

@@ -79,7 +79,7 @@ namespace dot
         static Period Between(const LocalTime& start, const LocalTime& end);
 
         /// <summary>Compares the given period for equality with this one.</summary>
-        bool Equals(const Period& other) const;
+        bool equals(const Period& other) const;
 
         /// <summary>Creates a period representing the specified number of days.</summary>
         static Period FromDays(int days);

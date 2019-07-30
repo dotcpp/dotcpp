@@ -50,7 +50,7 @@ namespace dot
         /// Default implementation in object compares pointers. Derived classes
         /// can override this method to compare by value.
         /// </summary>
-        virtual bool Equals(object obj);
+        virtual bool equals(object obj);
 
         /// <summary>
         /// Serves as the default hash function.

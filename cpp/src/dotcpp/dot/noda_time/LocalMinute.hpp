@@ -79,7 +79,7 @@ namespace dot
         /// by checking whether the two values represent the exact same
         /// local minute.
         /// </summary>
-        bool Equals(const LocalMinute& other) const;
+        bool equals(const LocalMinute& other) const;
 
         /// <summary>Convert LocalMinute to ISO 8601 string in hh:mm format.</summary>
         string to_string() const;

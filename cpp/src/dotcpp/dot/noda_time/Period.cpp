@@ -57,7 +57,7 @@ namespace dot
         return end - start;
     }
 
-    bool Period::Equals(const Period& other) const
+    bool Period::equals(const Period& other) const
     {
         return *this == other;
     }

@@ -99,7 +99,7 @@ namespace dot
         int CompareTo(const LocalDate& other) const;
 
         /// <summary>Compares two LocalDate values for equality. This requires that the dates be the same, within the same calendar.</summary>
-        bool Equals(const LocalDate& other) const;
+        bool equals(const LocalDate& other) const;
 
         /// <summary>String that represents the current object.</summary>
         string to_string() const;

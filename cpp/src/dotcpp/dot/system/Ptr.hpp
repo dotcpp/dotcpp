@@ -231,7 +231,7 @@ namespace std
     {
         bool operator()(const dot::ptr<T>& lhs, const dot::ptr<T>& rhs) const
         {
-            return lhs->Equals(rhs);
+            return lhs->equals(rhs);
         }
     };
 }

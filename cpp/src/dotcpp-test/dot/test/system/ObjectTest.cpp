@@ -34,8 +34,8 @@ namespace dot
         object a = new_object();
         object b = new_object();
 
-        REQUIRE(a->Equals(a) == true);
-        REQUIRE(a->Equals(b) == false);
+        REQUIRE(a->equals(a) == true);
+        REQUIRE(a->equals(b) == false);
         REQUIRE(a->hash_code() != b->hash_code());
     }
 
@@ -45,9 +45,9 @@ namespace dot
         object b = make_string("str");
         object c = make_string("str1");
 
-        REQUIRE(a->Equals(a));
-        REQUIRE(a->Equals(b));
-        REQUIRE(a->Equals(c) == false);
+        REQUIRE(a->equals(a));
+        REQUIRE(a->equals(b));
+        REQUIRE(a->equals(c) == false);
 
         REQUIRE(a->hash_code() == a->hash_code());
         REQUIRE(a->hash_code() == b->hash_code());

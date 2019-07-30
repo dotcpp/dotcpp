@@ -28,7 +28,7 @@ limitations under the License.
 
 namespace dot
 {
-    bool IntImpl::Equals(object obj)
+    bool IntImpl::equals(object obj)
     {
         if (this == &(*obj)) return true;
 

@@ -101,7 +101,7 @@ namespace dot
         /// Compares this local time with the specified one for equality,
         /// by checking whether the two values represent the exact same local time, down to the tick.
         /// </summary>
-        bool Equals(const LocalTime& other) const;
+        bool equals(const LocalTime& other) const;
 
         /// <summary>String that represents the current object.</summary>
         string to_string() const;

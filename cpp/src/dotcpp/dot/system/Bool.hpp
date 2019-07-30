@@ -42,7 +42,7 @@ namespace dot
     public: // METHODS
 
         /// <summary>Returns a value indicating whether this instance is equal to a specified object.</summary>
-        virtual bool Equals(object obj) override;
+        bool equals(object obj) override;
 
         /// <summary>Returns the hash code for this instance.</summary>
         virtual size_t hash_code() override;

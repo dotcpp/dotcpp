@@ -51,7 +51,7 @@ namespace dot
     }
 
 
-    bool string_impl::Equals(object obj)
+    bool string_impl::equals(object obj)
     {
         if (this == &(*obj)) return true;
 

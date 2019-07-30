@@ -84,7 +84,7 @@ namespace dot
         return *this > other ? 1 : -1;
     }
 
-    bool LocalDate::Equals(const LocalDate& other) const
+    bool LocalDate::equals(const LocalDate& other) const
     {
         return *this == other;
     }

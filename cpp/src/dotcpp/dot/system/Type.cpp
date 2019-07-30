@@ -186,7 +186,7 @@ namespace dot
         return nullptr;
     }
 
-    bool type_impl::Equals(object obj)
+    bool type_impl::equals(object obj)
     {
         if (obj.is<type_t>())
             return this->FullName == ((type_t)obj)->FullName;

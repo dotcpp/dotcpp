@@ -74,7 +74,7 @@ namespace dot
 
         /// <summary>Determines whether this instance and a specified object,
         /// which must also be a string object, have the same value.</summary>
-        virtual bool Equals(object obj) override;
+        bool equals(object obj) override;
 
         /// <summary>Returns the hash code for this string.</summary>
         virtual size_t hash_code() override;

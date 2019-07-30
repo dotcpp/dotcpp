@@ -60,7 +60,7 @@ namespace dot
         return std::hash<int>()(MinuteOfDay);
     }
 
-    bool LocalMinute::Equals(const LocalMinute& other) const
+    bool LocalMinute::equals(const LocalMinute& other) const
     {
         return *this == other;
     }

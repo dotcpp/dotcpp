@@ -57,9 +57,9 @@ namespace dot
         REQUIRE(localMinute.hash_code() != localMinuteBefore.hash_code());
         REQUIRE(localMinute.hash_code() != localMinuteAfter.hash_code());
 
-        REQUIRE(localMinute.Equals(localMinute2) == true);
-        REQUIRE(localMinute.Equals(localMinuteAfter) == false);
-        REQUIRE(localMinute.Equals(localMinuteBefore) == false);
+        REQUIRE(localMinute.equals(localMinute2) == true);
+        REQUIRE(localMinute.equals(localMinuteAfter) == false);
+        REQUIRE(localMinute.equals(localMinuteBefore) == false);
     }
 
     TEST_CASE("Operators")

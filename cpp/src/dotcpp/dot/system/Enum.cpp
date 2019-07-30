@@ -47,9 +47,9 @@ namespace dot
         return std::hash<int>()(value_);
     }
 
-    bool Enum::Equals(object obj)
+    bool Enum::equals(object obj)
     {
-        if (obj->type()->Equals(type()))
+        if (obj->type()->equals(type()))
         {
             Enum* en = dynamic_cast<Enum*>(obj.operator->());
             return en->value_ == value_;
