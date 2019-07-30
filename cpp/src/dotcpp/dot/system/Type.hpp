@@ -323,7 +323,7 @@ namespace dot
 
         virtual bool Equals(object obj) override;
 
-        virtual size_t GetHashCode() override;
+        virtual size_t hash_code() override;
 
     private: // METHODS
 

@@ -194,8 +194,8 @@ namespace dot
         return false;
     }
 
-    size_t type_impl::GetHashCode()
+    size_t type_impl::hash_code()
     {
-        return this->FullName->GetHashCode();
+        return this->FullName->hash_code();
     }
 }

@@ -72,7 +72,7 @@ namespace dot
         int CompareTo(const LocalMinute& other) const;
 
         /// <summary>Returns a hash code for this local time.</summary>
-        size_t GetHashCode() const;
+        size_t hash_code() const;
 
         /// <summary>
         /// Compares this local time with the specified one for equality,

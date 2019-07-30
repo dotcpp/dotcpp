@@ -53,9 +53,9 @@ namespace dot
         REQUIRE(localMinute.CompareTo(localMinuteAfter) == -1);
         REQUIRE(localMinute.CompareTo(localMinuteBefore) == 1);
 
-        REQUIRE(localMinute.GetHashCode() == localMinute2.GetHashCode());
-        REQUIRE(localMinute.GetHashCode() != localMinuteBefore.GetHashCode());
-        REQUIRE(localMinute.GetHashCode() != localMinuteAfter.GetHashCode());
+        REQUIRE(localMinute.hash_code() == localMinute2.hash_code());
+        REQUIRE(localMinute.hash_code() != localMinuteBefore.hash_code());
+        REQUIRE(localMinute.hash_code() != localMinuteAfter.hash_code());
 
         REQUIRE(localMinute.Equals(localMinute2) == true);
         REQUIRE(localMinute.Equals(localMinuteAfter) == false);

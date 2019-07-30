@@ -63,7 +63,7 @@ namespace dot
         return false;
     }
 
-    size_t string_impl::GetHashCode()
+    size_t string_impl::hash_code()
     {
         return std::hash<std::string>()(*this);
     }

@@ -68,7 +68,7 @@ namespace dot
         string to_string();
 
         /// <summary>Returns the hash code for the value of this instance.</summary>
-        size_t GetHashCode();
+        size_t hash_code();
 
         /// <summary>Returns a value indicating whether this instance is equal to a specified object.</summary>
         bool Equals(object obj);

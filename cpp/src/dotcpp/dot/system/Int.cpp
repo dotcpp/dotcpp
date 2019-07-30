@@ -40,7 +40,7 @@ namespace dot
         return false;
     }
 
-    size_t IntImpl::GetHashCode()
+    size_t IntImpl::hash_code()
     {
         return std::hash<int>()(value_);
     }

@@ -55,7 +55,7 @@ namespace dot
         return 0;
     }
 
-    size_t LocalMinute::GetHashCode() const
+    size_t LocalMinute::hash_code() const
     {
         return std::hash<int>()(MinuteOfDay);
     }

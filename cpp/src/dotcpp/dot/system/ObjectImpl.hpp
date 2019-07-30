@@ -58,10 +58,10 @@ namespace dot
         /// Default implementation in object uses hash based on the pointer.
         /// Derived classes can override this method to provide value based hash.
         ///
-        /// Methods Equals() and GetHashCode() must always be overriden together
+        /// Methods Equals() and hash_code() must always be overriden together
         /// to avoid the situation when objects are equal but hash is not.
         /// </summary>
-        virtual size_t GetHashCode();
+        virtual size_t hash_code();
 
         /// <summary>Gets the type_t of the current instance.</summary>
         virtual type_t type();

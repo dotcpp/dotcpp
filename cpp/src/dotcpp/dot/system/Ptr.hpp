@@ -221,7 +221,7 @@ namespace std
     {
         size_t operator()(const dot::ptr<T>& obj) const
         {
-            return obj->GetHashCode();
+            return obj->hash_code();
         }
     };
 

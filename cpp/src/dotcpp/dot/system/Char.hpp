@@ -62,7 +62,7 @@ namespace dot
         virtual bool Equals(object obj) override;
 
         /// <summary>Returns the hash code for this instance.</summary>
-        virtual size_t GetHashCode() override;
+        virtual size_t hash_code() override;
 
         /// <summary>Converts the numeric value of this instance to its equivalent string representation.</summary>
         virtual string to_string() override;

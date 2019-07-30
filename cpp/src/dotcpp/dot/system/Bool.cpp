@@ -43,7 +43,7 @@ namespace dot
         return false;
     }
 
-    size_t BoolImpl::GetHashCode()
+    size_t BoolImpl::hash_code()
     {
         return std::hash<bool>()(value_);
     }

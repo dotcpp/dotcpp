@@ -36,7 +36,7 @@ namespace dot
 
         REQUIRE(a->Equals(a) == true);
         REQUIRE(a->Equals(b) == false);
-        REQUIRE(a->GetHashCode() != b->GetHashCode());
+        REQUIRE(a->hash_code() != b->hash_code());
     }
 
     TEST_CASE("Equals")
@@ -49,8 +49,8 @@ namespace dot
         REQUIRE(a->Equals(b));
         REQUIRE(a->Equals(c) == false);
 
-        REQUIRE(a->GetHashCode() == a->GetHashCode());
-        REQUIRE(a->GetHashCode() == b->GetHashCode());
-        REQUIRE(a->GetHashCode() != c->GetHashCode());
+        REQUIRE(a->hash_code() == a->hash_code());
+        REQUIRE(a->hash_code() == b->hash_code());
+        REQUIRE(a->hash_code() != c->hash_code());
     }
 }

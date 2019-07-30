@@ -40,7 +40,7 @@ namespace dot
         return false;
     }
 
-    size_t LongImpl::GetHashCode()
+    size_t LongImpl::hash_code()
     {
         return std::hash<int64_t>()(value_);
     }

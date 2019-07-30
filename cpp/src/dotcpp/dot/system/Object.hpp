@@ -269,7 +269,7 @@ namespace dot
 
         virtual string to_string() override { return detail::inherit_to_string<StructWrapperImpl<T>, T>::to_string(); }
 
-        virtual size_t GetHashCode() override { return detail::inherit_get_hashcode<StructWrapperImpl<T>, T>::GetHashCode(); }
+        virtual size_t hash_code() override { return detail::inherit_get_hashcode<StructWrapperImpl<T>, T>::hash_code(); }
 
         virtual bool Equals(object obj) override { return detail::inherit_equals<StructWrapperImpl<T>, T>::Equals(obj); }
     };

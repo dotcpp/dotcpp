@@ -73,29 +73,29 @@ namespace dot
         {};
 
         /// <summary>
-        /// objects inherit this structure in case their inner struct class has method GetHashCode
+        /// objects inherit this structure in case their inner struct class has method hash_code
         /// so object also have these method.
         /// </summary>
         template <class W, class T>
         class obj_get_hashcode : public virtual object_impl
         {
         public:
-            virtual size_t GetHashCode() override { return static_cast<T*>(static_cast<W*>(this))->GetHashCode(); }
+            virtual size_t hash_code() override { return static_cast<T*>(static_cast<W*>(this))->hash_code(); }
         };
 
-        /// <summary>Detects existance of GetHashCode method.</summary>
+        /// <summary>Detects existance of hash_code method.</summary>
         template<class T>
         struct has_get_hashcode
         {
         private:
             static dummy_no_get_hashcode detect(...);
-            template<class U> static decltype(std::declval<U>().GetHashCode()) detect(const U&);
+            template<class U> static decltype(std::declval<U>().hash_code()) detect(const U&);
         public:
             static constexpr bool value = !std::is_same<dummy_no_get_hashcode, decltype(detect(std::declval<T>()))>::value;
             typedef std::integral_constant<bool, value> type;
         };
 
-        /// <summary>For inheritance of GetHashCode method.</summary>
+        /// <summary>For inheritance of hash_code method.</summary>
         template<class W, class T>
         class inherit_get_hashcode : public std::conditional<
             has_get_hashcode<T>::value,

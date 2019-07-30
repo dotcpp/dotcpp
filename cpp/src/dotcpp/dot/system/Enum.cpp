@@ -42,7 +42,7 @@ namespace dot
         return std::to_string(value_);
     }
 
-    size_t Enum::GetHashCode()
+    size_t Enum::hash_code()
     {
         return std::hash<int>()(value_);
     }
