@@ -44,10 +44,10 @@ namespace dot
         type_t ParameterType; // TODO - convert to method
 
         /// <summary>Gets the name of this parameter.</summary>
-        DOT_AUTO_GET(string, Name)
+        string Name;  // TODO - convert to method
 
         /// <summary>Gets the zero-based position of the parameter in the formal parameter list.</summary>
-        DOT_AUTO_GET(int, Position)
+        int Position;  // TODO - convert to method
 
     private: // CONSTRUCTORS
 
@@ -57,11 +57,11 @@ namespace dot
         /// This constructor is private. Use new_ParameterInfo(...)
         /// function with matching signature instead.
         /// </summary>
-        ParameterInfoImpl(string name, type_t parameterType, int position)
+        ParameterInfoImpl(string name, type_t parameter_type, int position)
         {
-            ParameterType = parameterType;
-            Name.Name = name;
-            Position.Position = position;
+            ParameterType = parameter_type;
+            Name = name;
+            Position = position;
         }
     };
 

@@ -52,7 +52,7 @@ namespace dot
 
     public: // PROPERTIES
 
-        DOT_AUTO_PROP(SampleData, DataProp)
+        SampleData DataProp;
 
     public: // STATIC
 
@@ -86,11 +86,11 @@ namespace dot
 
     public:
 
-        DOT_AUTO_PROP(string, string_prop)
-        DOT_AUTO_PROP(int, IntegerProp)
-        DOT_AUTO_PROP(double, DoubleProp)
-        DOT_AUTO_PROP(SampleData2, DataProp)
-        DOT_AUTO_PROP(List<double>, DblList)
+        string string_prop;
+        int IntegerProp;
+        double DoubleProp;
+        SampleData2 DataProp;
+        List<double> DblList;
 
         double Foo(int dblArg, int intArg)
         {

@@ -34,8 +34,8 @@ namespace dot
         if (hour < 0 || hour > 23) throw new_Exception(string::format("Hour {0} specified in LocalMinute constructor is not between 0 and 23.", hour));
         if (minute < 0 || minute > 59) throw new_Exception(string::format("Minute {0} specified in LocalMinute constructor is not between 0 and 59.", minute));
 
-        Hour.Hour = hour;
-        Minute.Minute = minute;
+        Hour = hour;
+        Minute = minute;
     }
 
     LocalMinute::LocalMinute(const LocalMinute& other)

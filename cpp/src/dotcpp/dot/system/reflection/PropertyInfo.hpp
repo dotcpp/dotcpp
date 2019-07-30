@@ -40,10 +40,10 @@ namespace dot
     public: // PROPERTIES
 
         /// <summary>type_t of this property.</summary>
-        DOT_AUTO_PROP(type_t, PropertyType)
+        type_t PropertyType; // TODO - replace by method
 
         /// <summary>Property pointer.</summary>
-        DOT_AUTO_PROP(PropType Class::*, PropertyPointer)
+        PropType Class::* PropertyPointer; // TODO - replace by method
 
     private: // CONSTRUCTORS
 

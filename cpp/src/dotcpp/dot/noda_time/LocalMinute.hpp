@@ -50,10 +50,10 @@ namespace dot
     public: // PROPERTIES
 
         /// <summary>The hour of day, in the range 0 to 23 inclusive.</summary>
-        DOT_AUTO_GET(int, Hour)
+        int Hour;  // TODO - replace by method
 
         /// <summary>The minute of the hour, in the range 0 to 59 inclusive.</summary>
-        DOT_AUTO_GET(int, Minute)
+        int Minute; // TODO - replace by method
 
         /// <summary>The minute of the day, in the range 0 to 59 inclusive.</summary>
         DOT_GET(int, MinuteOfDay,

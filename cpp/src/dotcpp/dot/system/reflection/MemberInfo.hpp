@@ -39,7 +39,7 @@ namespace dot
     public: // PROPERTIES
 
         /// <summary>Gets the name of the current member.</summary>
-        DOT_AUTO_PROP(string, Name)
+        string Name; // TODO - replace by method
 
     protected: // CONSTRUCTORS
 
@@ -61,7 +61,7 @@ namespace dot
     public: // METHODS
 
         /// <summary>Gets the name of the current member.</summary>
-        DOT_AUTO_GET(string, Name)
+        string Name; // TODO - convert to method
 
         /// <summary>Gets the class that declares this member.</summary>
         type_t DeclaringType; // TODO - convert to method
@@ -78,7 +78,7 @@ namespace dot
         /// </summary>
         MemberInfoImpl(const string& name, type_t declaringType)
         {
-            Name.Name = name;
+            Name = name;
             DeclaringType = declaringType;
         }
     };
