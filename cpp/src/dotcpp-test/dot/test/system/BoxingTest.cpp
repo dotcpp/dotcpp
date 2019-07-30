@@ -66,7 +66,7 @@ namespace dot
             // Boxing nullableBool
             nullable<bool> x;
             object boxed = x;
-            REQUIRE(((nullable<bool>)boxed).HasValue == false);
+            REQUIRE(((nullable<bool>)boxed).has_value() == false);
             nullable<bool> y = true;
             boxed = y;
             REQUIRE((bool)boxed == true);
@@ -85,7 +85,7 @@ namespace dot
             // Boxing nullableDouble
             nullable<double> x;
             object boxed = x;
-            REQUIRE(((nullable<double>)boxed).HasValue == false);
+            REQUIRE(((nullable<double>)boxed).has_value() == false);
             nullable<double> y = 2.0;
             boxed = y;
             REQUIRE((double)boxed == 2.0);
@@ -104,7 +104,7 @@ namespace dot
             // Boxing nullableInt
             nullable<int> x;
             object boxed = x;
-            REQUIRE(((nullable<int>)boxed).HasValue == false);
+            REQUIRE(((nullable<int>)boxed).has_value() == false);
             nullable<int> y = 2;
             boxed = y;
             REQUIRE((int)boxed == 2);
@@ -123,7 +123,7 @@ namespace dot
             // Boxing nullableLong
             nullable<int64_t> x;
             object boxed = x;
-            REQUIRE(((nullable<int64_t>)boxed).HasValue == false);
+            REQUIRE(((nullable<int64_t>)boxed).has_value() == false);
             nullable<int64_t> y = (int64_t)2;
             boxed = y;
             REQUIRE((int64_t)boxed == 2);

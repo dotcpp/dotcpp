@@ -312,7 +312,7 @@ namespace dot
     /// <summary>Helper class for fmt::format arguments conversion</summary>
     template<class T>
     struct format_forward<nullable<T>> {
-        static inline T convert(const nullable<T>& o) { return o.GetValueOrDefault(); }
+        static inline T convert(const nullable<T>& o) { return o.value_or_default(); }
     };
 
     template<typename ...Args>

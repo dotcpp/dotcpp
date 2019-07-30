@@ -107,7 +107,7 @@ namespace dot
 
         /// <summary>Construct object from nullable by boxing.</summary>
         template <class T>
-        object(const nullable<T>& value) { if (value.HasValue) *this = value.Value; }
+        object(const nullable<T>& value) { if (value.has_value()) *this = value.value(); }
 
         /// <summary>Construct object from LocalMinute by boxing.</summary>
         object(const LocalMinute & value);
@@ -178,7 +178,7 @@ namespace dot
 
         /// <summary>Assign nullable to object by boxing.</summary>
         template <class T>
-        object& operator=(const nullable<T>& value) { if (value.HasValue) *this = value.Value; else *this = nullptr; return *this; }
+        object& operator=(const nullable<T>& value) { if (value.has_value()) *this = value.value(); else *this = nullptr; return *this; }
 
         /// <summary>Assign LocalMinute to object by boxing.</summary>
         object& operator=(const LocalMinute& value);

@@ -32,6 +32,6 @@ namespace dot
     TEST_CASE("Smoke")
     {
         dot::nullable<double> x;
-        REQUIRE(x.HasValue == false);
+        REQUIRE(x.has_value() == false);
     }
 }

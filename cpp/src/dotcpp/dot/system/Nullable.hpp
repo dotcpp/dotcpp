@@ -46,11 +46,11 @@ namespace dot
 
         /// <summary>Gets the value of the current nullable object
         /// if it has been assigned a valid underlying value.</summary>
-        DOT_GET(T, Value, { return this->value(); })
+        T value() const { return this->value(); }
 
         /// <summary>Gets a value indicating whether the current nullable
         /// object has a valid value of its underlying type.</summary>
-        DOT_GET(bool, HasValue, { return this->has_value(); })
+        bool has_value() const { return this->has_value(); }
 
     public: // CONSTRUCTORS
 
@@ -79,25 +79,25 @@ namespace dot
 
         /// <summary>Retrieves the value of the current nullable object,
         /// or the default value of the underlying type.</summary>
-        T GetValueOrDefault() const { return GetValueOrDefault(T()); }
+        T value_or_default() const { return value_or_default(T()); }
 
         /// <summary>Retrieves the value of the current nullable<T> object,
         /// or the specified default value.</summary>
-        T GetValueOrDefault(T defaultValue) const { return value_or(defaultValue); }
+        T value_or_default(T default_value) const { return value_or(default_value); }
 
     public: // OPERATORS
 
         /// <summary>Defines an explicit conversion of a nullable
         /// instance to its underlying value.</summary>
-        explicit operator T() const { return Value; }
+        explicit operator T() const { return value(); }
 
         nullable& operator=(nullptr_t) { this->reset(); return *this; }
 
-        bool operator==(nullptr_t) { return !this->HasValue; }
-        bool operator!=(nullptr_t) { return this->HasValue; }
+        bool operator==(nullptr_t) { return !this->has_value(); }
+        bool operator!=(nullptr_t) { return this->has_value(); }
 
-        bool operator ==(T rhs) { return GetValueOrDefault() == rhs; }
-        bool operator ==(nullable<T> rhs) { return GetValueOrDefault() == rhs.GetValueOrDefault(); }
+        bool operator ==(T rhs) { return value_or_default() == rhs; }
+        bool operator ==(nullable<T> rhs) { return value_or_default() == rhs.value_or_default(); }
     };
 
     /// <summary>
@@ -121,7 +121,8 @@ namespace dot
         typedef bool value_type;
 
         /// <summary>Convert to native bool, error if the object is in uninitialized (empty) state.</summary>
-        DOT_GET(bool, Value, {
+        bool value() const
+        {
             switch (value_)
             {
                 case 1: return true;
@@ -129,10 +130,10 @@ namespace dot
                 case Bool::Empty: throw std::runtime_error("Bool value is empty");
                 default: throw std::runtime_error("Unknown internal value in nullable<bool>.");
             }
-        })
+        }
 
         /// <summary>Returns true if the object is in uninitialized (empty) state.</summary>
-        DOT_GET(bool, HasValue, { return value_ != Bool::Empty; })
+        bool has_value() const { return value_ != Bool::Empty; }
 
     public: // CONSTRUCTORS
 
@@ -157,19 +158,16 @@ namespace dot
 
         /// <summary>Retrieves the value of the current nullable object,
         /// or the default value of the underlying type.</summary>
-        bool GetValueOrDefault() const { return GetValueOrDefault(bool()); }
+        bool value_or_default() const { return value_or_default(bool()); }
 
         /// <summary>Retrieves the value of the current nullable<T> object,
         /// or the specified default value.</summary>
-        bool GetValueOrDefault(bool defaultValue) const { return HasValue ? value_ : defaultValue; }
-
-        /// <summary>Clear the value and revert to uninitialized (empty) state.</summary>
-        void Clear() { value_ = Bool::Empty; }
+        bool value_or_default(bool default_value) const { return has_value() ? value_ : default_value; }
 
     public: // OPERATORS
 
         /// <summary>Convert to native bool, error if the object is in uninitialized (empty) state.</summary>
-        explicit operator bool() const { return Value; }
+        explicit operator bool() const { return value(); }
 
         /// <summary>Assign native bool.</summary>
         nullable& operator=(bool rhs) { value_ = rhs ? 1 : 0; return *this; }
@@ -196,10 +194,10 @@ namespace dot
         typedef int value_type;
 
         /// <summary>Convert to native double, error if the object is in uninitialized (empty) state.</summary>
-        DOT_GET(int, Value, { if (value_ == Int::Empty) throw std::runtime_error("Int value is empty"); return value_; })
+        int value() const { if (value_ == Int::Empty) throw std::runtime_error("Int value is empty"); return value_; }
 
         /// <summary>Returns true if the object is in uninitialized (empty) state.</summary>
-        DOT_GET(bool, HasValue, { return value_ != Int::Empty; })
+        bool has_value() const { return value_ != Int::Empty; }
 
     public: // CONSTRUCTORS
 
@@ -229,19 +227,16 @@ namespace dot
 
         /// <summary>Retrieves the value of the current nullable object,
         /// or the default value of the underlying type.</summary>
-        int GetValueOrDefault() const { return GetValueOrDefault(int()); }
+        int value_or_default() const { return value_or_default(int()); }
 
         /// <summary>Retrieves the value of the current nullable<T> object,
         /// or the specified default value.</summary>
-        int GetValueOrDefault(int defaultValue) const { return HasValue ? value_ : defaultValue; }
-
-        /// <summary>Clear the value and revert to uninitialized (empty) state.</summary>
-        void Clear() { value_ = Int::Empty; }
+        int value_or_default(int default_value) const { return has_value() ? value_ : default_value; }
 
     public: // OPERATORS
 
         /// <summary>Convert to native int, error if the object is in uninitialized (empty) state.</summary>
-        explicit operator int() const { return Value; }
+        explicit operator int() const { return value(); }
 
         /// <summary>
         /// Assign native int.
@@ -273,10 +268,10 @@ namespace dot
         typedef int64_t value_type;
 
         /// <summary>Convert to native long, error if the object is in uninitialized (empty) state.</summary>
-        DOT_GET(int64_t, Value, { if (value_ == Long::Empty) throw std::runtime_error("Long value is empty"); return value_; })
+        int64_t value() const { if (value_ == Long::Empty) throw std::runtime_error("Long value is empty"); return value_; }
 
         /// <summary>Returns true if the object is in uninitialized (empty) state.</summary>
-        DOT_GET(bool, HasValue, { return value_ != Long::Empty; })
+        bool has_value() const { return value_ != Long::Empty; }
 
     public: // CONSTRUCTORS
 
@@ -306,19 +301,16 @@ namespace dot
 
         /// <summary>Retrieves the value of the current nullable object,
         /// or the default value of the underlying type.</summary>
-        int64_t GetValueOrDefault() const { return GetValueOrDefault(int64_t()); }
+        int64_t value_or_default() const { return value_or_default(int64_t()); }
 
         /// <summary>Retrieves the value of the current nullable<T> object,
         /// or the specified default value.</summary>
-        int64_t GetValueOrDefault(int64_t defaultValue) const { return HasValue ? value_ : defaultValue; }
-
-        /// <summary>Clear the value and revert to uninitialized (empty) state.</summary>
-        void Clear() { value_ = Long::Empty; }
+        int64_t value_or_default(int64_t default_value) const { return has_value() ? value_ : default_value; }
 
     public: // OPERATORS
 
         /// <summary>Convert to native long, error if the object is in uninitialized (empty) state.</summary>
-        explicit operator int64_t() const { return Value; }
+        explicit operator int64_t() const { return value(); }
 
         /// <summary>
         /// Assign native long.
@@ -349,10 +341,10 @@ namespace dot
         typedef double value_type;
 
         /// <summary>Convert to native double, error if the object is in null (empty) state.</summary>
-        DOT_GET(double, Value, { if (value_ == Double::Empty) throw std::runtime_error("Double value is empty"); return value_; })
+        double value() const { if (value_ == Double::Empty) throw std::runtime_error("Double value is empty"); return value_; }
 
         /// <summary>Returns true if the object is in uninitialized (empty) state.</summary>
-        DOT_GET(bool, HasValue, { return value_ != Double::Empty; })
+        bool has_value() const { return value_ != Double::Empty; }
 
     public: // CONSTRUCTORS
 
@@ -382,19 +374,16 @@ namespace dot
 
         /// <summary>Retrieves the value of the current nullable object,
         /// or the default value of the underlying type.</summary>
-        double GetValueOrDefault() const { return GetValueOrDefault(double()); }
+        double value_or_default() const { return value_or_default(double()); }
 
         /// <summary>Retrieves the value of the current nullable<T> object,
         /// or the specified default value.</summary>
-        double GetValueOrDefault(double defaultValue) const { return HasValue ? value_ : defaultValue; }
-
-        /// <summary>Clear the value and revert to uninitialized (empty) state.</summary>
-        void Clear() { value_ = Double::Empty; }
+        double value_or_default(double default_value) const { return has_value() ? value_ : default_value; }
 
     public: // OPERATORS
 
         /// <summary>Convert to native double, error if the object is in null (empty) state.</summary>
-        explicit operator double() const { return Value; }
+        explicit operator double() const { return value(); }
 
         /// <summary>
         /// Assign native double.
@@ -405,7 +394,7 @@ namespace dot
         nullable& operator=(double rhs) { value_ = rhs; return *this; }
 
         bool operator ==(double rhs) const { return value_ == rhs; }
-        bool operator ==(nullable<double> rhs) const { return value_ == rhs.GetValueOrDefault(); }
+        bool operator ==(nullable<double> rhs) const { return value_ == rhs.value_or_default(); }
 
     };
 }
