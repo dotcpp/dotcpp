@@ -164,8 +164,8 @@ namespace dot
     template <class T> T& ptr<T>::operator*() const
     {
         if (!ptr_)
-        throw std::runtime_error("Pointer is not initialized");
-    return *ptr_;
+            throw std::runtime_error("Pointer is not initialized");
+        return *ptr_;
     }
     template <class T> T* ptr<T>::operator->() const
     {
@@ -183,6 +183,34 @@ namespace dot
     template <class T> template <class I> decltype(auto) ptr<T>::operator[](I const& i) const { return (*ptr_)[i]; }
     template <class T> template <class I> decltype(auto) ptr<T>::operator[](I const& i) { return (*ptr_)[i]; }
     template <class T> bool ptr<T>::IsEmpty() { return !ptr_; }
+
+    /// <summary>Implements begin() used by STL and similar algorithms.</summary>
+    template <class T>
+    auto begin(dot::ptr<T> & obj)
+    {
+        return obj->begin();
+    }
+
+    /// <summary>Implements end() used by STL and similar algorithms.</summary>
+    template <class T>
+    auto end(dot::ptr<T> & obj)
+    {
+        return obj->end();
+    }
+
+    /// <summary>Implements begin() used by STL and similar algorithms.</summary>
+    template <class T>
+    auto begin(dot::ptr<T> const& obj)
+    {
+        return obj->begin();
+    }
+
+    /// <summary>Implements end() used by STL and similar algorithms.</summary>
+    template <class T>
+    auto end(dot::ptr<T> const& obj)
+    {
+        return obj->end();
+    }
 }
 
 namespace std

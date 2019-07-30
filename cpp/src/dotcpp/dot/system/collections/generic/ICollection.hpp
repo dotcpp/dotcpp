@@ -23,7 +23,7 @@ limitations under the License.
 
 #pragma once
 
-#include <dot/system/collections/generic/IEnumerable.hpp>
+#include <dot/system/ptr.hpp>
 
 namespace dot
 {
@@ -33,7 +33,7 @@ namespace dot
     /// Defines methods to manipulate generic collections.
     /// </summary>
     template <class T>
-    class ICollectionImpl : public IEnumerableImpl<T>
+    class ICollectionImpl : public virtual object_impl
     {
         typedef ICollectionImpl<T> self;
 

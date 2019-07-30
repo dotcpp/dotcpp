@@ -24,7 +24,6 @@ limitations under the License.
 #include <dot/test/implement.hpp>
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
-#include <dot/system/collections/generic/IEnumerable.hpp>
 #include <dot/system/Array1D.hpp>
 #include <dot/system/collections/generic/List.hpp>
 #include <dot/system/string.hpp>
@@ -122,45 +121,5 @@ namespace dot
 
         // TODO stringList.findLast([](std::string const& s) { return s == "222"; }) = "57";
         // TODO REQUIRE(stringList.findLastIndex([](std::string const& s) { return s == "111"; }) == 0);
-    }
-
-    TEST_CASE("Enumerator")
-    {
-        // Create list
-        List<string> stringList = new_List<string>();
-        stringList->Add("000");
-        stringList->Add("111");
-        stringList->Add("222");
-        REQUIRE(stringList->count() == 3);
-
-        // Iterate using foreach
-        int i = 0;
-        for (string str : stringList)
-        {
-            REQUIRE(stringList[i++] == str);
-        }
-
-        i = 0;
-        for (string str : stringList.as<IEnumerable<string>>())
-        {
-            REQUIRE(stringList[i++] == str);
-        }
-
-        // Iterate using enumerator
-        i = 0;
-        IEnumerator<string> en = stringList->GetEnumerator();
-
-        for (; en->MoveNext();)
-        {
-            REQUIRE(stringList[i++] == en->getCurrent());
-        }
-
-        // Reset the enumerator and iterate again
-        i = 0;
-        en->Reset();
-        for (; en->MoveNext();)
-        {
-            REQUIRE(stringList[i++] == en->getCurrent());
-        }
     }
 }

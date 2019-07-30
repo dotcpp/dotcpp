@@ -24,11 +24,8 @@ limitations under the License.
 #pragma once
 
 #include <dot/system/collections/generic/List.hpp>
-#include <deque>
-
 #include <dot/system/collections/generic/ICollection.hpp>
-#include <dot/system/collections/generic/IEnumerable.hpp>
-#include <dot/system/collections/generic/IEnumerator.hpp>
+#include <deque>
 
 namespace dot
 {

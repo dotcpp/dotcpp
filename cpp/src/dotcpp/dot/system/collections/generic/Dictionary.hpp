@@ -124,12 +124,6 @@ namespace dot
             return false;
         }
 
-        /// <summary>Returns an enumerator that iterates through the Dictionary.</summary>
-        virtual IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator() override
-        {
-           return new_Enumerator(base::begin(), base::end());
-        }
-
         /// <summary>Returns random access begin iterator of the underlying std::unordered_map.</summary>
         typename base::iterator begin() { return base::begin(); }
 

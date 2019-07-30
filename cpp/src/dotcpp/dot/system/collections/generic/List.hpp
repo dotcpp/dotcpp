@@ -62,12 +62,6 @@ namespace dot
 
     public: // METHODS
 
-        /// <summary>Returns an enumerator that iterates through the collection.</summary>
-        virtual IEnumerator<T> GetEnumerator()
-        {
-            return new_Enumerator(std::vector<T>::begin(), std::vector<T>::end());
-        }
-
         /// <summary>Returns random access begin iterator of the underlying std::vector.</summary>
         typename base::iterator begin() { return base::begin(); }
 

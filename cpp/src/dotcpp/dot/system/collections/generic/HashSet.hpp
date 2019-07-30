@@ -98,12 +98,6 @@ namespace dot
             return this->erase(item) != 0;
         }
 
-        /// <summary>Returns an enumerator that iterates through the HashSet.</summary>
-        virtual IEnumerator<T> GetEnumerator() override
-        {
-            return new_Enumerator(base::begin(), base::end());
-        }
-
         /// <summary>Returns random access begin iterator of the underlying std::unordered_set.</summary>
         typename base::iterator begin() { return base::begin(); }
 
