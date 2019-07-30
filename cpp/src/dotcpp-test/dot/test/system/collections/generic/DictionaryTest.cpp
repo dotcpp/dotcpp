@@ -48,14 +48,14 @@ namespace dot
         REQUIRE(dict->count() == 3);
 
         // Keys
-        ICollection<string> keys = dict->Keys;
+        List<string> keys = dict->keys();
         REQUIRE(keys->count() == 3);
         //REQUIRE(keys->Contains("a"));  // TODO uncomment when implemented
         //REQUIRE(keys->Contains("c"));
         //REQUIRE(keys->Contains(""));
 
         // Values
-        ICollection<string> values = dict->Values;
+        List<string> values = dict->values();
         REQUIRE(values->count() == 3);
         //REQUIRE(values->Contains("b"));  // TODO uncomment when implemented
         //REQUIRE(values->Contains("d"));
@@ -106,11 +106,9 @@ namespace dot
     TEST_CASE("Interfaces")
     {
         Dictionary<string, string> dict = new_Dictionary<string, string>();
-
-        IDictionary<string, string> idict = dict;
-        idict->Add("a", "b");
-        idict->Add("c", "d");
-        idict->Add("e", "f");
+        dict->Add("a", "b");
+        dict->Add("c", "d");
+        dict->Add("e", "f");
 
         REQUIRE(dict["a"] == "b");
         REQUIRE(dict["c"] == "d");

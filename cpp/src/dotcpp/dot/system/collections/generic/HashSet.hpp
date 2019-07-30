@@ -39,7 +39,6 @@ namespace dot
     template <class T>
     class HashSetImpl
         : public virtual object_impl
-        , public ISetImpl<T>
         , public std::unordered_set<T>
     {
         typedef HashSetImpl<T> self;
@@ -68,32 +67,32 @@ namespace dot
     public: // PROPERTIES
 
         /// <summary>Gets the number of elements that are contained in the set.</summary>
-        int count() override { return this->size(); }
+        int count() { return this->size(); }
 
     public: // METHODS
 
         /// <summary>Adds the specified element to a set.</summary>
-        virtual void Add(const T& item) override
+        void Add(const T& item)
         {
             std::pair<typename base::iterator, bool> res = this->insert(item);
             //return res.second;
         }
 
         /// <summary>Removes all elements from a HashSet object.</summary>
-        virtual void Clear() override
+        virtual void Clear()
         {
             this->clear();
         }
 
         /// <summary>Determines whether a HashSet object contains the specified element.</summary>
-        virtual bool Contains(const T& item) override
+        virtual bool Contains(const T& item)
         {
             auto iter = this->find(item);
             return iter != this->end();
         }
 
         /// <summary>Removes the specified element from a HashSet object.</summary>
-        virtual bool Remove(const T& item) override
+        virtual bool Remove(const T& item)
         {
             return this->erase(item) != 0;
         }

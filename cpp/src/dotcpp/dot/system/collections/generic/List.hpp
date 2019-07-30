@@ -23,7 +23,7 @@ limitations under the License.
 
 #pragma once
 
-#include <dot/system/collections/generic/IList.hpp>
+#include <dot/system/ptr.hpp>
 
 namespace dot
 {
@@ -35,7 +35,7 @@ namespace dot
     /// Provides methods to search, sort, and manipulate lists.
     /// </summary>
     template <class T>
-    class ListImpl : public IListImpl<T>, public virtual object_impl, public std::vector<T>
+    class ListImpl : public virtual object_impl, public std::vector<T>
     {
         template <class R> friend List<R> new_List();
         template <class R> friend List<R> new_List(const std::vector<R> & obj);
@@ -69,13 +69,13 @@ namespace dot
         typename base::iterator end() { return base::end(); }
 
         /// <summary>The number of items contained in the list.</summary>
-        int count() override { return this->size(); }
+        int count() { return this->size(); }
 
         /// <summary>The total number of elements the internal data structure can hold without resizing.</summary>
         DOT_PROP(int, Capacity, { return this->capacity(); }, { this->reserve(value); });
 
         /// <summary>Adds an object to the end of the list.</summary>
-        virtual void Add(const T& item) { this->push_back(item); }
+        void Add(const T& item) { this->push_back(item); }
 
         /// <summary>
         /// Adds an item to the end of the collection.
@@ -141,5 +141,4 @@ namespace dot
 
     template <class T>
     List<T> new_List(const std::initializer_list<T> & obj) { return new ListImpl<T>(obj); }
-
 }

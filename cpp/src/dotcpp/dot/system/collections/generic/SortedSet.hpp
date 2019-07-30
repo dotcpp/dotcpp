@@ -25,7 +25,7 @@ limitations under the License.
 
 #include <set>
 
-#include <dot/system/collections/generic/ICollection.hpp>
+#include <dot/system/ptr.hpp>
 
 namespace dot
 {

@@ -63,8 +63,8 @@ namespace dot
     {
         List<double> a = new_List<double>();
 
-        // Add elements to IList interface
-        IList<double> b = a;
+        // Add elements to List interface
+        List<double> b = a;
         b->Add(2.0);
         b->Add(1.0);
         b->Add(0.0);
