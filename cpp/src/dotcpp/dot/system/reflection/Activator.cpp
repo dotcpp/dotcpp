@@ -46,7 +46,7 @@ namespace dot
         // If no constructors
         if (ctors.IsEmpty() || ctors->Count == 0)
         {
-            throw new_Exception(string::Format("Type {0}.{1} does not have registered constructors", type->Namespace, type->Name));
+            throw new_Exception(string::format("Type {0}.{1} does not have registered constructors", type->Namespace, type->Name));
         }
 
         // Search for best matched constructor

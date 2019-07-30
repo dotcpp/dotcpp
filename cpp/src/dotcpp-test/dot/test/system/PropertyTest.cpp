@@ -116,17 +116,17 @@ namespace dot
         obj->DataProp = new_PropertySampleData();
         obj->DataProp->string_prop = "xyz";
 
-        received->AppendLine(string::Format("RegularGet: {0}", obj->RegularGet));
-        received->AppendLine(string::Format("RegularProp: {0}", obj->RegularProp));
-        received->AppendLine(string::Format("DeclaredGet: {0}", obj->DeclaredGet));
-        received->AppendLine(string::Format("DeclaredGet2: {0}", obj->DeclaredGet2));
-        received->AppendLine(string::Format("DeclaredGet3: {0}", obj->DeclaredGet3));
-        received->AppendLine(string::Format("DeclaredProp: {0}", obj->DeclaredProp));
-        received->AppendLine(string::Format("DeclaredProp2: {0}", obj->DeclaredProp2));
-        received->AppendLine(string::Format("string_prop: {0}", std::string(obj->string_prop->c_str())));
-        received->AppendLine(string::Format("IntegerProp: {0}", obj->IntegerProp));
-        received->AppendLine(string::Format("DoubleProp: {0}", obj->DoubleProp));
-        received->AppendLine(string::Format("DataProp->string_prop: {0}", std::string(obj->DataProp->string_prop->c_str())));
+        received->AppendLine(string::format("RegularGet: {0}", obj->RegularGet));
+        received->AppendLine(string::format("RegularProp: {0}", obj->RegularProp));
+        received->AppendLine(string::format("DeclaredGet: {0}", obj->DeclaredGet));
+        received->AppendLine(string::format("DeclaredGet2: {0}", obj->DeclaredGet2));
+        received->AppendLine(string::format("DeclaredGet3: {0}", obj->DeclaredGet3));
+        received->AppendLine(string::format("DeclaredProp: {0}", obj->DeclaredProp));
+        received->AppendLine(string::format("DeclaredProp2: {0}", obj->DeclaredProp2));
+        received->AppendLine(string::format("string_prop: {0}", std::string(obj->string_prop->c_str())));
+        received->AppendLine(string::format("IntegerProp: {0}", obj->IntegerProp));
+        received->AppendLine(string::format("DoubleProp: {0}", obj->DoubleProp));
+        received->AppendLine(string::format("DataProp->string_prop: {0}", std::string(obj->DataProp->string_prop->c_str())));
 
         Approvals::verify(*received);
     }

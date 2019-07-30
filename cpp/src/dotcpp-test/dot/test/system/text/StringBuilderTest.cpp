@@ -44,8 +44,8 @@ namespace dot
 
         result->AppendFormat(s, x);
         result->AppendLine();
-        result->AppendLine(string::Format("{0:.3f}", y));
-        result->AppendLine(string::Format("{0}, {1}", "123", "456"));
+        result->AppendLine(string::format("{0:.3f}", y));
+        result->AppendLine(string::format("{0}, {1}", "123", "456"));
 
         Approvals::verify(*result);
     }

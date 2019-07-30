@@ -75,7 +75,7 @@ namespace dot
 
     /// <summary>Determines whether the end of this
     /// string matches the specified string.</summary>
-    bool string_impl::EndsWith(const string& value)
+    bool string_impl::ends_with(const string& value)
     {
         int p = length() - value->length();
         if (p >= 0 && substr(p, value->length()) == *value)
@@ -85,7 +85,7 @@ namespace dot
 
     /// <summary>Determines whether the beginning of this
     /// string matches the specified string.</summary>
-    bool string_impl::StartsWith(const string& value)
+    bool string_impl::starts_with(const string& value)
     {
         int p = length() - value->length();
         if (p >= 0 && substr(0, value->length()) == *value)
@@ -95,19 +95,12 @@ namespace dot
 
     /// <summary>Retrieves a substring which starts at the specified
     /// character position and has the specified length.</summary>
-    string string_impl::Substring(int startIndex, int length)
+    string string_impl::substring(int startIndex, int length)
     {
         return make_string(this->substr(startIndex, length));
     }
 
-    /// <summary>Gets the number of characters in the current string.
-    /// Note that for Unicode this is not the same as the number of bytes.</summary>
-    int string_impl::GetLength()
-    {
-        return length(); //!!! This has to be corrected for Unicode
-    }
-
-    int string_impl::IndexOfAny(Array1D<char> anyOf)
+    int string_impl::index_of_any(Array1D<char> anyOf)
     {
         size_t pos = find_first_of(anyOf->data(), 0, anyOf->size());
         if (pos != std::string::npos)
@@ -115,31 +108,24 @@ namespace dot
         return -1;
     }
 
-    string string_impl::Remove(int startIndex)
+    string string_impl::remove(int startIndex)
     {
         return make_string(*this)->erase(startIndex);
     }
 
-    string string_impl::Remove(int startIndex, int count)
+    string string_impl::remove(int startIndex, int count)
     {
         return make_string(*this)->erase(startIndex, count);
     }
 
-    string string_impl::Replace(const char oldChar, const char newChar) const
+    string string_impl::replace(const char oldChar, const char newChar) const
     {
         string new_str = *this;
         std::replace(new_str->begin(), new_str->end(), oldChar, newChar);
         return new_str;
     }
 
-    ///<summary>Indicates whether the argument occurs within this string.</summary>
-    bool string_impl::Contains(string const& s) const
-    {
-        throw std::runtime_error("Not implemented");
-       // TODO - fix return this->find(s) != std::string::npos;
-    }
-
-    bool string::IsNullOrEmpty(string value)
+    bool string::is_null_or_empty(string value)
     {
         if (value == nullptr || value->empty())
             return true;

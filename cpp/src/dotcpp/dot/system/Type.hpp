@@ -300,7 +300,7 @@ namespace dot
         DOT_AUTO_GET(string, Namespace)
 
         /// <summary>Gets the fully qualified name of the type, including its namespace but not its assembly.</summary>
-        DOT_GET(string, FullName, { return string::Format("{0}.{1}", this->Namespace, this->Name); }) // TODO - replace by string::Join
+        DOT_GET(string, FullName, { return string::format("{0}.{1}", this->Namespace, this->Name); }) // TODO - replace by string::Join
 
         /// <summary>Gets the base type if current type.</summary>
         DOT_GET(Type, BaseType, { return base_; })

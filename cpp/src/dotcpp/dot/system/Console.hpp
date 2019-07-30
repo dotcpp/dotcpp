@@ -50,7 +50,7 @@ namespace dot
         template <typename First, typename ...Args>
         static void Write(const string& format, const First& f, const Args& ...args)
         {
-            std::cout << *string::Format(format, f, args...);
+            std::cout << *string::format(format, f, args...);
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace dot
         template <typename T>
         static void Write(const T& arg)
         {
-            std::cout << *string::Format("{0}", arg);
+            std::cout << *string::format("{0}", arg);
         }
 
         /// <summary>

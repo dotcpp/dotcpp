@@ -69,7 +69,7 @@ namespace dot
         template <typename First, typename ...Args>
         void AppendFormat(const string& format, const First& f, const Args& ...args)
         {
-            *this += *string::Format(format, f, args...);
+            *this += *string::format(format, f, args...);
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace dot
         template <typename T>
         void Append(const T& arg)
         {
-            *this += *string::Format("{0}", arg);
+            *this += *string::format("{0}", arg);
         }
 
         /// <summary>

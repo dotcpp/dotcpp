@@ -52,33 +52,33 @@ namespace dot
         double y = 2.5;
         const string s = "{0}";
 
-        REQUIRE(string::Format(s, x) == "1");
-        REQUIRE(string::Format("{0:.3f}", y) == "2.500");
-        REQUIRE(string::Format(s, s) == "{0}");
-        REQUIRE(string::Format("{0}, {1}", s, s) == "{0}, {0}");
+        REQUIRE(string::format(s, x) == "1");
+        REQUIRE(string::format("{0:.3f}", y) == "2.500");
+        REQUIRE(string::format(s, s) == "{0}");
+        REQUIRE(string::format("{0}, {1}", s, s) == "{0}, {0}");
 
-        REQUIRE(string::Format(string("{0}, {1}, {2}"), 1, "str1", string("str2")) == "1, str1, str2");
-        REQUIRE(string::Format("123") == "123");
+        REQUIRE(string::format(string("{0}, {1}, {2}"), 1, "str1", string("str2")) == "1, str1, str2");
+        REQUIRE(string::format("123") == "123");
         
-        REQUIRE(string::Format("{0}, {1}, {2}", 'a', 'b', 'c') == "a, b, c");
-        REQUIRE(string::Format("{}, {}, {}", 'a', 'b', 'c') == "a, b, c");
-        REQUIRE(string::Format("{2}, {1}, {0}", 'a', 'b', 'c') == "c, b, a");
-        REQUIRE(string::Format("{0}{1}{0}", "abra", "cad") == "abracadabra");
+        REQUIRE(string::format("{0}, {1}, {2}", 'a', 'b', 'c') == "a, b, c");
+        REQUIRE(string::format("{}, {}, {}", 'a', 'b', 'c') == "a, b, c");
+        REQUIRE(string::format("{2}, {1}, {0}", 'a', 'b', 'c') == "c, b, a");
+        REQUIRE(string::format("{0}{1}{0}", "abra", "cad") == "abracadabra");
         
-        REQUIRE(string::Format("{:<15}", "left aligned") == "left aligned   ");
-        REQUIRE(string::Format("{:>15}", "right aligned") == "  right aligned");
-        REQUIRE(string::Format("{:^16}", "centered") == "    centered    ");
-        REQUIRE(string::Format("{:*^16}", "centered") == "****centered****");
-        REQUIRE(string::Format("{:<{}}", "left aligned", 15) == "left aligned   ");
+        REQUIRE(string::format("{:<15}", "left aligned") == "left aligned   ");
+        REQUIRE(string::format("{:>15}", "right aligned") == "  right aligned");
+        REQUIRE(string::format("{:^16}", "centered") == "    centered    ");
+        REQUIRE(string::format("{:*^16}", "centered") == "****centered****");
+        REQUIRE(string::format("{:<{}}", "left aligned", 15) == "left aligned   ");
 
-        REQUIRE(string::Format("{:.{}f}", 3.14, 1) == "3.1");
-        REQUIRE(string::Format("{:+f}; {:+f}", 3.14, -3.14) == "+3.140000; -3.140000");
-        REQUIRE(string::Format("{: f}; {: f}", 3.14, -3.14) == " 3.140000; -3.140000");
-        REQUIRE(string::Format("{:-f}; {:-f}", 3.14, -3.14) == "3.140000; -3.140000");
+        REQUIRE(string::format("{:.{}f}", 3.14, 1) == "3.1");
+        REQUIRE(string::format("{:+f}; {:+f}", 3.14, -3.14) == "+3.140000; -3.140000");
+        REQUIRE(string::format("{: f}; {: f}", 3.14, -3.14) == " 3.140000; -3.140000");
+        REQUIRE(string::format("{:-f}; {:-f}", 3.14, -3.14) == "3.140000; -3.140000");
 
-        REQUIRE(string::Format("int: {0:d};  hex: {0:x};  oct: {0:o}; bin: {0:b}", 42) == "int: 42;  hex: 2a;  oct: 52; bin: 101010");
-        REQUIRE(string::Format("int: {0:d};  hex: {0:#x};  oct: {0:#o};  bin: {0:#b}", 42) == "int: 42;  hex: 0x2a;  oct: 052;  bin: 0b101010");
-        REQUIRE(string::Format("{:#04x}", 0) == "0x00");
+        REQUIRE(string::format("int: {0:d};  hex: {0:x};  oct: {0:o}; bin: {0:b}", 42) == "int: 42;  hex: 2a;  oct: 52; bin: 101010");
+        REQUIRE(string::format("int: {0:d};  hex: {0:#x};  oct: {0:#o};  bin: {0:#b}", 42) == "int: 42;  hex: 0x2a;  oct: 052;  bin: 0b101010");
+        REQUIRE(string::format("{:#04x}", 0) == "0x00");
     }
 
     TEST_CASE("Compare")
