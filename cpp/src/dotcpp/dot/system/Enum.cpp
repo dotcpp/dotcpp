@@ -23,7 +23,7 @@ limitations under the License.
 
 #include <dot/implement.hpp>
 #include <dot/system/Enum.hpp>
-#include <dot/system/Type.hpp>
+#include <dot/system/type.hpp>
 #include <dot/system/reflection/Activator.hpp>
 
 namespace dot
@@ -49,7 +49,7 @@ namespace dot
 
     bool Enum::Equals(object obj)
     {
-        if (obj->GetType()->Equals(GetType()))
+        if (obj->type()->Equals(type()))
         {
             Enum* en = dynamic_cast<Enum*>(obj.operator->());
             return en->value_ == value_;
@@ -57,7 +57,7 @@ namespace dot
         return false;
     }
 
-    object Enum::Parse(Type enumType, string value)
+    object Enum::Parse(type_t enumType, string value)
     {
         object enum_obj = Activator::CreateInstance(enumType);
         Enum* en = dynamic_cast<Enum*>(enum_obj.operator->());

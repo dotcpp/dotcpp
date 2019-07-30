@@ -34,19 +34,19 @@ limitations under the License.
 
 namespace dot
 {
-    object Activator::CreateInstance(Type type)
+    object Activator::CreateInstance(type_t type)
     {
         return CreateInstance(type, nullptr);
     }
 
-    object Activator::CreateInstance(Type type, Array1D<object> params)
+    object Activator::CreateInstance(type_t type, Array1D<object> params)
     {
         Array1D<ConstructorInfo> ctors = type->GetConstructors();
 
         // If no constructors
         if (ctors.IsEmpty() || ctors->Count == 0)
         {
-            throw new_Exception(string::format("Type {0}.{1} does not have registered constructors", type->Namespace, type->Name));
+            throw new_Exception(string::format("type_t {0}.{1} does not have registered constructors", type->Namespace, type->Name));
         }
 
         // Search for best matched constructor
@@ -69,7 +69,7 @@ namespace dot
             // Compare all parameters types
             for (int i = 0; i < paramsCount; ++i)
             {
-                if ((string)ctorParams[i]->ParameterType->Name != params[i]->GetType()->Name)
+                if ((string)ctorParams[i]->ParameterType->Name != params[i]->type()->Name)
                 {
                     matches = false;
                     break;
@@ -95,11 +95,11 @@ namespace dot
 
     object Activator::CreateInstance(string assemblyName, string typeName)
     {
-        return CreateInstance(TypeImpl::GetType(typeName), nullptr);
+        return CreateInstance(type_impl::GetType(typeName), nullptr);
     }
 
     object Activator::CreateInstance(string assemblyName, string typeName, Array1D<object> params)
     {
-        return CreateInstance(TypeImpl::GetType(typeName), params);
+        return CreateInstance(type_impl::GetType(typeName), params);
     }
 }

@@ -24,7 +24,7 @@ limitations under the License.
 #include <dot/implement.hpp>
 #include <dot/system/Bool.hpp>
 #include <dot/system/string.hpp>
-#include <dot/system/Type.hpp>
+#include <dot/system/type.hpp>
 
 namespace dot
 {
@@ -53,12 +53,12 @@ namespace dot
         return value_ ? Bool::true_string : Bool::false_string;
     }
 
-    Type BoolImpl::typeof()
+    type_t BoolImpl::typeof()
     {
         return dot::typeof<bool>();
     }
 
-    Type BoolImpl::GetType()
+    type_t BoolImpl::type()
     {
         return typeof();
     }

@@ -50,8 +50,8 @@ namespace dot
         /// <summary>Converts the value of this instance to its equivalent string representation (either "True" or "False").</summary>
         virtual string to_string() override;
 
-        static Type typeof();
-        virtual Type GetType() override;
+        static type_t typeof();
+        virtual type_t type() override;
     };
 
     /// <summary>

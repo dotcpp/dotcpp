@@ -129,8 +129,8 @@ namespace dot
 
     public: // REFLECTION
 
-        virtual Type GetType() { return typeof(); }
-        static Type typeof();
+        virtual type_t type() { return typeof(); }
+        static type_t typeof();
     };
 
     /// <summary>

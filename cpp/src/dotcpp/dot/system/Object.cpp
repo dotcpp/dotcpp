@@ -22,7 +22,7 @@ limitations under the License.
 */
 
 #include <dot/implement.hpp>
-#include <dot/system/Type.hpp>
+#include <dot/system/type.hpp>
 #include <dot/system/object.hpp>
 #include <dot/detail/struct_wrapper.hpp>
 #include <dot/system/string.hpp>

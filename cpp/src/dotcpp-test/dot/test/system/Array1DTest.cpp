@@ -115,7 +115,7 @@ namespace dot
     TEST_CASE("to_string")
     {
         Array1D<double> obj = new_Array1D<double>(3);
-        auto type = obj->GetType();
+        auto type = obj->type();
         string fullname = type->FullName;
 
         REQUIRE(type->to_string() == "System.Double[]");

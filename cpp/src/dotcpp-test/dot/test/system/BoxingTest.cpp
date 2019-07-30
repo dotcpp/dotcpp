@@ -31,7 +31,7 @@ limitations under the License.
 #include <dot/noda_time/LocalTime.hpp>
 #include <dot/noda_time/LocalDate.hpp>
 #include <dot/noda_time/LocalDateTime.hpp>
-#include <dot/system/Type.hpp>
+#include <dot/system/type.hpp>
 
 namespace dot
 {

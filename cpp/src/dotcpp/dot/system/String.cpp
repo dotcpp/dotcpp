@@ -27,25 +27,25 @@ limitations under the License.
 #include <dot/system/string.hpp>
 #include <dot/system/object.hpp>
 #include <dot/system/Nullable.hpp>
-#include <dot/system/Type.hpp>
+#include <dot/system/type.hpp>
 
 namespace dot
 {
     /// <summary>Empty string.</summary>
     string string::Empty = make_string("");
 
-    dot::Type string_impl::typeof()
+    dot::type_t string_impl::typeof()
     {
-        static dot::Type type = []()->dot::Type
+        static dot::type_t type = []()->dot::type_t
         {
-            dot::Type type = dot::new_TypeBuilder<string_impl>("System", "string")
+            dot::type_t type = dot::make_type_builder<string_impl>("System", "string")
                 ->Build();
             return type;
         }();
         return type;
     }
 
-    dot::Type string_impl::GetType()
+    dot::type_t string_impl::type()
     {
         return typeof();
     }

@@ -31,7 +31,7 @@ limitations under the License.
 namespace dot
 {
     class MethodInfoImpl; using MethodInfo = ptr<MethodInfoImpl>;
-    class TypeImpl; using Type = ptr<TypeImpl>;
+    class type_impl; using type_t = ptr<type_impl>;
 
     /// <summary>
     /// Obtains information about the attributes of a method and provides access to method metadata.
@@ -57,7 +57,7 @@ namespace dot
         virtual object Invoke(object, Array1D<object>) = 0;
 
         /// <summary>Gets the return type of this method.</summary>
-        DOT_AUTO_GET(Type, ReturnType);
+        type_t ReturnType; // TODO - convert to method
 
     protected: // FIELDS
 
@@ -70,10 +70,10 @@ namespace dot
         ///
         /// This constructor is protected. It is used by derived classes only.
         /// </summary>
-        MethodInfoImpl(const string& name, Type declaringType, Type returnType)
+        MethodInfoImpl(const string& name, type_t declaringType, type_t returnType)
             : MemberInfoImpl(name, declaringType)
         {
-            ReturnType.ReturnType = returnType;
+            ReturnType = returnType;
         }
     };
 
@@ -128,7 +128,7 @@ namespace dot
         /// This constructor is private. Use new_MethodInfo(...)
         /// function with matching signature instead.
         /// </summary>
-        MemberMethodInfoImpl(const string& name, Type declaringType, Type returnType, method_type p)
+        MemberMethodInfoImpl(const string& name, type_t declaringType, type_t returnType, method_type p)
             : MethodInfoImpl(name, declaringType, returnType)
             , ptr_(p)
         {}
@@ -184,7 +184,7 @@ namespace dot
         /// This constructor is private. Use new_MethodInfo(...)
         /// function with matching signature instead.
         /// </summary>
-        StaticMethodInfoImpl(const string& name, Type declaringType, Type returnType, method_type p)
+        StaticMethodInfoImpl(const string& name, type_t declaringType, type_t returnType, method_type p)
             : MethodInfoImpl(name, declaringType, returnType)
             , ptr_(p)
         {}

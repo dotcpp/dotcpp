@@ -36,12 +36,12 @@ public:                                                                 \
     operator int() const { return value_; }                             \
     self& operator=(int rhs) { value_ = rhs; return *this; }            \
     self& operator=(const self& other) { value_ = other.value_; return *this; } \
-    virtual dot::Type GetType() { return typeof(); }                         \
-    static dot::Type typeof()                                                \
+    virtual dot::type_t type() { return typeof(); }                         \
+    static dot::type_t typeof()                                                \
     {                                                                   \
-        static dot::Type type = []()->dot::Type                                   \
+        static dot::type_t type = []()->dot::type_t                                   \
         {                                                               \
-            dot::Type type = dot::new_TypeBuilder<self>(nspace, name)             \
+            dot::type_t type = dot::make_type_builder<self>(nspace, name)             \
                 ->IsEnum()                                              \
                 ->WithConstructor(&self::new_Self, {})                  \
                 ->WithBase<Enum>()                                      \

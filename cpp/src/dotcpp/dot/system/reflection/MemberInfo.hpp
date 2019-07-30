@@ -29,7 +29,7 @@ namespace dot
 {
     class MemberInfoImpl; using MemberInfo = ptr<MemberInfoImpl>;
     class MemberInfoDataImpl; using MemberInfoData = ptr<MemberInfoDataImpl>;
-    class TypeImpl; using Type = ptr<TypeImpl>;
+    class type_impl; using type_t = ptr<type_impl>;
 
     /// <summary>Data for MemberInfo.</summary>
     class DOT_CLASS MemberInfoDataImpl : public virtual object_impl
@@ -64,7 +64,7 @@ namespace dot
         DOT_AUTO_GET(string, Name)
 
         /// <summary>Gets the class that declares this member.</summary>
-        DOT_AUTO_GET(Type, DeclaringType)
+        type_t DeclaringType; // TODO - convert to method
 
         /// <summary>A string representing the name of the current type.</summary>
         virtual string to_string() override { return "MemberInfo"; }
@@ -76,10 +76,10 @@ namespace dot
         ///
         /// This constructor is protected. It is used by derived classes only.
         /// </summary>
-        MemberInfoImpl(const string& name, Type declaringType)
+        MemberInfoImpl(const string& name, type_t declaringType)
         {
             Name.Name = name;
-            DeclaringType.DeclaringType = declaringType;
+            DeclaringType = declaringType;
         }
     };
 }

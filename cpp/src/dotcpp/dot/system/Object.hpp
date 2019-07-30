@@ -43,7 +43,7 @@ namespace dot
     using StructWrapper = ptr<StructWrapperImpl<T>>;
 
     template <class T>
-    Type typeof();
+    type_t typeof();
 
 
     namespace detail
@@ -257,12 +257,12 @@ namespace dot
         StructWrapperImpl(const T& value) : T(value) {}
 
     public:
-        static Type typeof()
+        static type_t typeof()
         {
             return ::dot::typeof<T>();
         }
 
-        virtual Type GetType() override
+        virtual type_t type() override
         {
             return typeof();
         }

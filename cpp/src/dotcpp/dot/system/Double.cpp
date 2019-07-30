@@ -24,7 +24,7 @@ limitations under the License.
 #include <dot/implement.hpp>
 #include <dot/system/Double.hpp>
 #include <dot/system/string.hpp>
-#include <dot/system/Type.hpp>
+#include <dot/system/type.hpp>
 
 namespace dot
 {
@@ -50,12 +50,12 @@ namespace dot
         return std::to_string(value_);
     }
 
-    Type DoubleImpl::typeof()
+    type_t DoubleImpl::typeof()
     {
         return dot::typeof<double>();
     }
 
-    Type DoubleImpl::GetType()
+    type_t DoubleImpl::type()
     {
         return typeof();
     }

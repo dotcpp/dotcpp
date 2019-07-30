@@ -26,7 +26,7 @@ limitations under the License.
 #include <approvals/Catch.hpp>
 #include <dot/system/string.hpp>
 #include <dot/system/collections/generic/Dictionary.hpp>
-#include <dot/system/Type.hpp>
+#include <dot/system/type.hpp>
 
 namespace dot
 {

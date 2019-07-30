@@ -28,7 +28,7 @@ limitations under the License.
 #include <dot/system/Array1D.hpp>
 #include <dot/system/collections/generic/List.hpp>
 #include <dot/system/string.hpp>
-#include <dot/system/Type.hpp>
+#include <dot/system/type.hpp>
 
 namespace dot
 {

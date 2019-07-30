@@ -35,17 +35,17 @@ namespace dot
     template <class T> class Array1DImpl; template <class T> using Array1D = ptr<Array1DImpl<T>>;
 
     ///!!! Provide .NET description Adapter class from STL deque to .NET SortedList - collection of key/value pairs that are sorted on the key
-    template <class Key, class Type >
+    template <class Key, class type_t >
     class SortedList : public detail::std_accessor_<
-        dot::IEnumerable< typename KeyValuePair<Key, Type>::type >
-        , std::deque< typename KeyValuePair<Key, Type>::type > >
+        dot::IEnumerable< typename KeyValuePair<Key, type_t>::type >
+        , std::deque< typename KeyValuePair<Key, type_t>::type > >
     {
     public:
 
         //!!!! Why in public section?
         typedef detail::std_accessor_<
-            dot::IEnumerable< typename KeyValuePair<Key, Type>::type >
-            , std::deque< typename KeyValuePair<Key, Type>::type > > base;
+            dot::IEnumerable< typename KeyValuePair<Key, type_t>::type >
+            , std::deque< typename KeyValuePair<Key, type_t>::type > > base;
 
         /// <summary>SortedList constructor that create new empty instance of SortedList.</summary>
         SortedList() : base()
@@ -62,13 +62,13 @@ namespace dot
         inline List<Key> getKeys() const;
 
         /// <summary>Gets List of values.</summary>
-        inline List<Type> getValues() const;
+        inline List<type_t> getValues() const;
 
         /// <summary>Gets value reference associated with the specified key.</summary>
         inline Type& operator[] (Key key);
 
         /// <summary>Adds the specified key and value to the SortedList.</summary>
-        inline void add(Key key, Type value);
+        inline void add(Key key, type_t value);
 
         /// <summary>Removes all keys and values from the SortedList.</summary>
         inline void clear();
@@ -77,13 +77,13 @@ namespace dot
         inline bool containsKey(Key key) const;
 
         /// <summary>Determines whether the SortedList contains the specified value.</summary>
-        inline bool containsValue(Type value) const;
+        inline bool containsValue(type_t value) const;
 
         /// <summary>Searches for the specified key and returns index within the entire SortedList.</summary>
         inline int indexOfKey(Key key) const;
 
         /// <summary>Searches for the specified value and returns index within the entire SortedList.</summary>
-        inline int indexOfValue(Type value) const;
+        inline int indexOfValue(type_t value) const;
 
         /// <summary>Removes the value with the specified key from the SortedList.</summary>
         inline bool remove(Key key);

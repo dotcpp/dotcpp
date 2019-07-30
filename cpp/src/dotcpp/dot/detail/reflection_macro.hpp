@@ -25,17 +25,17 @@ limitations under the License.
 #pragma once
 
 /// <summary>
-/// Methods typeof() and GetType() are thread safe because the implementation uses lambda
+/// Methods typeof() and type() are thread safe because the implementation uses lambda
 /// </summary>
 
 #define DOT_TYPE_BEGIN(nspace, name, ...)                                                         \
         public:                                                                                   \
-        virtual dot::Type GetType() { return typeof(); }                                               \
-        static dot::Type typeof()                                                                      \
+        virtual dot::type_t type() { return typeof(); }                                               \
+        static dot::type_t typeof()                                                                      \
         {                                                                                         \
-            static dot::Type type = []()-> dot::Type                                                        \
+            static dot::type_t type = []()-> dot::type_t                                                        \
             {                                                                                     \
-                dot::Type type = dot::new_TypeBuilder<self>(nspace, name)
+                dot::type_t type = dot::make_type_builder<self>(nspace, name)
 
 #define DOT_TYPE_END()                                                                         \
                     ->Build();                                                                    \

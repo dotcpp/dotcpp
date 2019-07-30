@@ -148,7 +148,7 @@ namespace dot
             T* p = dynamic_cast<T*>(rhs.ptr_);
 
             // Check that dynamic cast succeeded
-            if (!p) throw std::runtime_error("Cast cannot be performed."); // TODO Use typeof(...) and GetType() to provide specific types in the error message
+            if (!p) throw std::runtime_error("Cast cannot be performed."); // TODO Use typeof(...) and type() to provide specific types in the error message
 
             // Current pointer now contains the result of dynamic_cast
             ptr_ = p;

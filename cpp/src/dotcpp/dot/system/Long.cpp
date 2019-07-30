@@ -24,7 +24,7 @@ limitations under the License.
 #include <dot/implement.hpp>
 #include <dot/system/Long.hpp>
 #include <dot/system/string.hpp>
-#include <dot/system/Type.hpp>
+#include <dot/system/type.hpp>
 
 namespace dot
 {
@@ -50,12 +50,12 @@ namespace dot
         return std::to_string(value_);
     }
 
-    Type LongImpl::typeof()
+    type_t LongImpl::typeof()
     {
         return dot::typeof<int64_t>();
     }
 
-    Type LongImpl::GetType()
+    type_t LongImpl::type()
     {
         return typeof();
     }

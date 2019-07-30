@@ -30,7 +30,7 @@ limitations under the License.
 #include <dot/system/reflection/PropertyInfo.hpp>
 #include <dot/system/reflection/MethodInfo.hpp>
 #include <dot/system/reflection/ConstructorInfo.hpp>
-#include <dot/system/Type.hpp>
+#include <dot/system/type.hpp>
 #include <dot/system/collections/generic/List.hpp>
 
 namespace dot
@@ -79,14 +79,14 @@ namespace dot
             return 42 + param;
         }
 
-        virtual Type GetType()
+        virtual type_t type()
         {
-            // Converts to Type with thread safety guarantee as per C++ Standard
-            static Type typeLambda = []()->Type
+            // Converts to type_t with thread safety guarantee as per C++ Standard
+            static type_t type = []()->type_t
             {
-                received << "Creating Type (this should run only once)." << std::endl;
+                received << "Creating type_t (this should run only once)." << std::endl;
 
-                return new_TypeBuilder<ReflectionBaseSampleImpl>("System.Test", "ReflectionBaseSample")
+                return make_type_builder<ReflectionBaseSampleImpl>("System.Test", "ReflectionBaseSample")
 
                     //->WithProperty("IntFld", &ReflectionBaseSampleImpl::IntFld)
                     //->WithProperty("PrivateIntFld", &ReflectionBaseSampleImpl::PrivateIntFld)
@@ -109,7 +109,7 @@ namespace dot
                 */
             }();
 
-            return typeLambda;
+            return type;
         }
     };
 
@@ -145,7 +145,7 @@ namespace dot
 
         object x = obj->Count;
 
-        Type type = obj->GetType();
+        type_t type = obj->type();
         Array1D<PropertyInfo> props = type->GetProperties();
         PropertyInfo int_prop = props[0];
         REQUIRE(int_prop->Name == "IntFld");

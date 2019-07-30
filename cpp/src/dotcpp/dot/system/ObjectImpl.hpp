@@ -30,7 +30,7 @@ namespace dot
 {
     class object;
     class string_impl; class string;
-    class TypeImpl; using Type = ptr<TypeImpl>;
+    class type_impl; using type_t = ptr<type_impl>;
 
     /// <summary>
     /// All classes with reference semantics should derive from this type.
@@ -63,17 +63,17 @@ namespace dot
         /// </summary>
         virtual size_t GetHashCode();
 
-        /// <summary>Gets the Type of the current instance.</summary>
-        virtual Type GetType();
+        /// <summary>Gets the type_t of the current instance.</summary>
+        virtual type_t type();
 
-        /// <summary>Gets the Type of the object_impl.</summary>
-        static Type typeof();
+        /// <summary>Gets the type_t of the object_impl.</summary>
+        static type_t typeof();
 
         /// <summary>
         /// string that represents the current object.
         ///
         /// Default implementation in object returns full name
-        /// of the class by calling GetType().FullName. Derived types
+        /// of the class by calling type().FullName. Derived types
         /// can override this method to provide custom conversion
         /// to string.
         /// </summary>

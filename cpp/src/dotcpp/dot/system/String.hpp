@@ -168,8 +168,8 @@ namespace dot
 
     public: // REFLECTION
 
-        virtual Type GetType();
-        static Type typeof();
+        virtual type_t type();
+        static type_t typeof();
     };
 
     /// <summary>

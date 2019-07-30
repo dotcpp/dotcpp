@@ -35,15 +35,15 @@ namespace dot
     template <class T> class Array1DImpl; template <class T> using Array1D = ptr<Array1DImpl<T>>;
 
     ///!!! Provide .NET description Adapter class from STL map to .NET SortedDictionary - collection of key/value pairs that are sorted on the key
-    template <class Key, class Type >
+    template <class Key, class type_t >
     class SortedDictionary : public detail::std_accessor_<
-        dot::IEnumerable< typename KeyValuePair<Key, Type>::type >
-        , std::map<Key, Type> >
+        dot::IEnumerable< typename KeyValuePair<Key, type_t>::type >
+        , std::map<Key, type_t> >
     {
     public:
         typedef detail::std_accessor_<
-            dot::IEnumerable< typename KeyValuePair<Key, Type>::type >
-            , std::map<Key, Type> > base;
+            dot::IEnumerable< typename KeyValuePair<Key, type_t>::type >
+            , std::map<Key, type_t> > base;
 
         /// <summary>Creates a new empty instance of SortedDictionary.</summary>
         SortedDictionary() : base()
@@ -59,15 +59,15 @@ namespace dot
         inline List<Key> keys()
         {
             List<Key> keys;
-            std::for_each(this->get().begin(), this->get().end(), [&keys] (std::pair<Key, Type> const& pair) { keys.add(pair.first); });
+            std::for_each(this->get().begin(), this->get().end(), [&keys] (std::pair<Key, type_t> const& pair) { keys.add(pair.first); });
             return keys;
         }
 
         /// <summary>Gets List of values.</summary>
-        inline List<Type> values()
+        inline List<type_t> values()
         {
-            List<Type> values;
-            std::for_each(this->get().begin(), this->get().end(), [&values] (std::pair<Key, Type> const& pair) { values.add(pair.second); });
+            List<type_t> values;
+            std::for_each(this->get().begin(), this->get().end(), [&values] (std::pair<Key, type_t> const& pair) { values.add(pair.second); });
             return values;
         }
 
@@ -78,15 +78,15 @@ namespace dot
         }
 
         /// <summary>Gets value reference associated with the specified key.</summary>
-        inline Type const& operator[] (Key key) const
+        inline type_t const& operator[] (Key key) const
         {
             return this->get()[key];
         }
 
         /// <summary>Adds the specified key and value to the SortedDictionary.</summary>
-        inline void add(Key key, Type value)
+        inline void add(Key key, type_t value)
         {
-            this->get().insert(std::pair<Key, Type>(key, value));
+            this->get().insert(std::pair<Key, type_t>(key, value));
         }
 
         /// <summary>Removes all keys and values from the SortedDictionary
@@ -102,7 +102,7 @@ namespace dot
         }
 
         /// <summary>Determines whether the SortedDictionary contains the specified value.</summary>
-        inline bool containsValue(Type value) const
+        inline bool containsValue(type_t value) const
         {
             for (auto it = this->get().begin(); it < this->get().end(); it++)
             {
@@ -112,7 +112,7 @@ namespace dot
         }
 
         /// <summary>Copies SortedDictionary elements to array starting at specified index.</summary>
-        inline void copyTo(Array1D<typename KeyValuePair<Key, Type>::type>& arr, int arrIndex) const
+        inline void copyTo(Array1D<typename KeyValuePair<Key, type_t>::type>& arr, int arrIndex) const
         {
             /*if (arrIndex +  this->get().count() > arr.length())
                 throw Exeption();*/

@@ -25,7 +25,7 @@ limitations under the License.
 #include <dot/system/objectimpl.hpp>
 #include <dot/system/object.hpp>
 #include <dot/system/string.hpp>
-#include <dot/system/Type.hpp>
+#include <dot/system/type.hpp>
 
 namespace dot
 {
@@ -58,12 +58,12 @@ namespace dot
     /// string that represents the current object.
     ///
     /// Default implementation in object returns full name
-    /// of the class by calling GetType().FullName. Derived types
+    /// of the class by calling type().FullName. Derived types
     /// can override this method to provide custom conversion
     /// to string.
     /// </summary>
     string object_impl::to_string()
     {
-        return GetType()->FullName;
+        return type()->FullName;
     }
 }

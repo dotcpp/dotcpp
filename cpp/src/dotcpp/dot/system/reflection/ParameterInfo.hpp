@@ -34,14 +34,14 @@ namespace dot
     /// </summary>
     class ParameterInfoImpl : public virtual object_impl
     {
-        friend ParameterInfo new_ParameterInfo(string , Type, int);
+        friend ParameterInfo new_ParameterInfo(string , type_t, int);
 
         typedef ParameterInfoImpl self;
 
     public: // METHODS
 
         /// <summary>Gets the type of this parameter.</summary>
-        DOT_AUTO_GET(Type, ParameterType)
+        type_t ParameterType; // TODO - convert to method
 
         /// <summary>Gets the name of this parameter.</summary>
         DOT_AUTO_GET(string, Name)
@@ -57,9 +57,9 @@ namespace dot
         /// This constructor is private. Use new_ParameterInfo(...)
         /// function with matching signature instead.
         /// </summary>
-        ParameterInfoImpl(string name, Type parameterType, int position)
+        ParameterInfoImpl(string name, type_t parameterType, int position)
         {
-            ParameterType.ParameterType = parameterType;
+            ParameterType = parameterType;
             Name.Name = name;
             Position.Position = position;
         }
@@ -68,7 +68,7 @@ namespace dot
     /// <summary>
     /// Create from parameter name, parameter type, and parameter position.
     /// </summary>
-    inline ParameterInfo new_ParameterInfo(string name, Type parameterType, int position)
+    inline ParameterInfo new_ParameterInfo(string name, type_t parameterType, int position)
     {
         return new ParameterInfoImpl(name, parameterType, position);
     }

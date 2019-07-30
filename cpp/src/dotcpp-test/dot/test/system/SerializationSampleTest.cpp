@@ -35,7 +35,7 @@ limitations under the License.
 #include <dot/system/reflection/MethodInfo.hpp>
 #include <dot/system/reflection/ConstructorInfo.hpp>
 #include <dot/system/reflection/Activator.hpp>
-#include <dot/system/Type.hpp>
+#include <dot/system/type.hpp>
 #include <dot/system/collections/generic/List.hpp>
 
 
@@ -56,11 +56,11 @@ namespace dot
 
     public: // STATIC
 
-        static Type typeof()
+        static type_t typeof()
         {
-            static Type type = []()-> Type
+            static type_t type = []()-> type_t
             {
-                Type type = new_TypeBuilder<self>("System.Test", "SampleData2")
+                type_t type = make_type_builder<self>("System.Test", "SampleData2")
                     ->WithProperty("DataProp", &self::DataProp)
 
                     ->Build();
@@ -71,7 +71,7 @@ namespace dot
             return type;
         }
 
-        virtual Type GetType()
+        virtual type_t type()
         {
             return typeof();
         }
@@ -127,7 +127,7 @@ namespace dot
     {
         if (obj.IsEmpty()) return "";
 
-        Type type = obj->GetType();
+        type_t type = obj->type();
 
         std::stringstream ss;
 
@@ -175,34 +175,34 @@ namespace dot
 
         string s = Objto_string(obj);
 
-        Type type = obj->GetType();
+        type_t type = obj->type();
 
-        SampleData dt = (SampleData)Activator::CreateInstance(obj->GetType());
+        SampleData dt = (SampleData)Activator::CreateInstance(obj->type());
 
         // obj->string_prop = "abc";
         // obj->IntegerProp = 42;
         // obj->DoubleProp = 1.23;
 
-        //Type type2 = obj2->GetType();
-        auto vec_prop = obj->GetType()->GetProperties();
+        //type_t type2 = obj2->type();
+        auto vec_prop = obj->type()->GetProperties();
 
         Array1D<dot::object> paramsFoo = new_Array1D<object>(2);
         paramsFoo[0] = 15;
         paramsFoo[1] = 42;
-        double ret = obj->GetType()->GetMethods()[0]->Invoke(obj, paramsFoo);
+        double ret = obj->type()->GetMethods()[0]->Invoke(obj, paramsFoo);
 
         Array1D<dot::object> paramsBar = new_Array1D<object>(1);
         paramsBar[0] = 15;
-        obj->GetType()->GetMethods()[1]->Invoke(obj, paramsBar);
+        obj->type()->GetMethods()[1]->Invoke(obj, paramsBar);
 
-        object o2 = obj->GetType()->GetConstructors()[0]->Invoke({});
+        object o2 = obj->type()->GetConstructors()[0]->Invoke({});
 
         /* TODO - Restore test
         for (PropertyInfo& prop : vec_prop)
         {
             object val = prop->GetValue(obj);
             string name = prop->Name;
-            Type prop_type = prop->PropertyType;
+            type_t prop_type = prop->PropertyType;
             string prop_type_name = prop_type->Name;
         }
 

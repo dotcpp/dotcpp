@@ -25,7 +25,7 @@ limitations under the License.
 
 #include <dot/declare.hpp>
 #include <dot/detail/enum_macro.hpp>
-#include <dot/system/Type.hpp>
+#include <dot/system/type.hpp>
 #include <dot/system/collections/generic/Dictionary.hpp>
 
 namespace dot
@@ -79,7 +79,7 @@ namespace dot
         /// Converts the string representation of the name or numeric value of
         /// one or more enumerated constants to an equivalent enumerated object.
         /// </summary>
-        static object Parse(Type enumType, string value);
+        static object Parse(type_t enumType, string value);
 
     protected: // PROTECTED
 

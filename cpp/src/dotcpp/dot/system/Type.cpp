@@ -23,7 +23,7 @@ limitations under the License.
 
 
 #include <dot/implement.hpp>
-#include <dot/system/Type.hpp>
+#include <dot/system/type.hpp>
 #include <dot/system/objectimpl.hpp>
 #include <dot/system/reflection/PropertyInfo.hpp>
 #include <dot/system/reflection/MethodInfo.hpp>
@@ -34,26 +34,26 @@ limitations under the License.
 
 namespace dot
 {
-    /// <summary>Built Type from the current object.</summary>
-    Type TypeBuilderImpl::Build()
+    /// <summary>Built type_t from the current object.</summary>
+    type_t TypeBuilderImpl::Build()
     {
         type_->Fill(this);
 
         // Fill derived types map
-        Type baseType = base_;
-        while (baseType != nullptr)
+        type_t base_type = base_;
+        while (base_type != nullptr)
         {
-            auto iter = TypeImpl::GetDerivedTypesMap().find(baseType->FullName);
-            if (iter == TypeImpl::GetDerivedTypesMap().end())
+            auto iter = type_impl::GetDerivedTypesMap().find(base_type->FullName);
+            if (iter == type_impl::GetDerivedTypesMap().end())
             {
-                iter = TypeImpl::GetDerivedTypesMap().insert({baseType->FullName, new_List<Type>()}).first;
+                iter = type_impl::GetDerivedTypesMap().insert({base_type->FullName, new_List<type_t>()}).first;
             }
             else if (iter->second == nullptr)
             {
-                iter->second = new_List<Type>();
+                iter->second = new_List<type_t>();
             }
             iter->second->Add(type_);
-            baseType = baseType->BaseType;
+            base_type = base_type->BaseType;
         }
 
         return type_;
@@ -62,7 +62,7 @@ namespace dot
     /// <summary>
     /// Fill data from builder.
     /// </summary>
-    void TypeImpl::Fill(const TypeBuilder& data)
+    void type_impl::Fill(const TypeBuilder& data)
     {
         if (!data->base_.IsEmpty() && data->base_->GetProperties()->Count)
         {
@@ -148,27 +148,27 @@ namespace dot
 
         if (!data->interfaces_.IsEmpty())
         {
-            this->interfaces_ = new_Array1D<Type>(data->interfaces_->Count);
+            this->interfaces_ = new_Array1D<type_t>(data->interfaces_->Count);
             int i = 0;
-            for (Type interface : data->interfaces_)
+            for (type_t interface : data->interfaces_)
             {
                 this->interfaces_[i++] = interface;
             }
         }
         else
-            this->interfaces_ = new_Array1D<Type>(0);
+            this->interfaces_ = new_Array1D<type_t>(0);
 
         if (!data->generic_args_.IsEmpty())
         {
-            this->generic_args_ = new_Array1D<Type>(data->generic_args_->Count);
+            this->generic_args_ = new_Array1D<type_t>(data->generic_args_->Count);
             int i = 0;
-            for (Type arg : data->generic_args_)
+            for (type_t arg : data->generic_args_)
             {
                 this->generic_args_[i++] = arg;
             }
         }
         else
-            this->generic_args_ = new_Array1D<Type>(0);
+            this->generic_args_ = new_Array1D<type_t>(0);
 
         this->base_ = data->base_;
         this->IsClass.IsClass = data->is_class_;
@@ -180,7 +180,7 @@ namespace dot
     ///
     /// This constructor is private. Use TypeBuilder->Build() method instead.
     /// </summary>
-    TypeImpl::TypeImpl(string nspace, string name)
+    type_impl::type_impl(string nspace, string name)
     {
         this->Namespace.Namespace = nspace;
         this->Name.Name = name;
@@ -190,13 +190,13 @@ namespace dot
     TypeBuilderImpl::TypeBuilderImpl(string Namespace, string Name, string CppName)
         : fullName_(Namespace + "." + Name)
     {
-        type_ = new TypeImpl(Namespace, Name);
-        TypeImpl::GetTypeMap()[fullName_] = type_;
-        TypeImpl::GetTypeMap()[Name] = type_;
-        TypeImpl::GetTypeMap()[CppName] = type_;
+        type_ = new type_impl(Namespace, Name);
+        type_impl::GetTypeMap()[fullName_] = type_;
+        type_impl::GetTypeMap()[Name] = type_;
+        type_impl::GetTypeMap()[CppName] = type_;
     }
 
-    PropertyInfo TypeImpl::GetProperty(string name)
+    PropertyInfo type_impl::GetProperty(string name)
     {
         if (properties_.IsEmpty()) return nullptr;
 
@@ -209,7 +209,7 @@ namespace dot
         return nullptr;
     }
 
-    MethodInfo TypeImpl::GetMethod(string name)
+    MethodInfo type_impl::GetMethod(string name)
     {
         if (methods_.IsEmpty()) return nullptr;
 
@@ -222,7 +222,7 @@ namespace dot
         return nullptr;
     }
 
-    Type TypeImpl::GetInterface(string name)
+    type_t type_impl::GetInterface(string name)
     {
         if (interfaces_.IsEmpty()) return nullptr;
 
@@ -235,15 +235,15 @@ namespace dot
         return nullptr;
     }
 
-    bool TypeImpl::Equals(object obj)
+    bool type_impl::Equals(object obj)
     {
-        if (obj.is<Type>())
-            return this->FullName == ((Type)obj)->FullName;
+        if (obj.is<type_t>())
+            return this->FullName == ((type_t)obj)->FullName;
 
         return false;
     }
 
-    size_t TypeImpl::GetHashCode()
+    size_t type_impl::GetHashCode()
     {
         return this->FullName->GetHashCode();
     }

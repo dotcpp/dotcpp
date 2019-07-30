@@ -24,7 +24,7 @@ limitations under the License.
 #pragma once
 
 #include <dot/declare.hpp>
-#include <dot/system/Type.hpp>
+#include <dot/system/type.hpp>
 
 namespace dot
 {
@@ -43,10 +43,10 @@ namespace dot
     public: // METHODS
 
         /// <summary>Creates an instance of the specified type using that type's default constructor.</summary>
-        static object CreateInstance(Type type);
+        static object CreateInstance(type_t type);
 
         /// <summary>Creates an instance of the specified type using the constructor that best matches the specified parameters.</summary>
-        static object CreateInstance(Type type, Array1D<object> params);
+        static object CreateInstance(type_t type, Array1D<object> params);
 
         /// <summary>Creates an instance of the type whose name is specified, using the named assembly and default constructor.</summary>
         static object CreateInstance(string assemblyName, string typeName);
