@@ -25,13 +25,13 @@ limitations under the License.
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <dot/system/string.hpp>
-#include <dot/system/Nullable.hpp>
+#include <dot/system/nullable.hpp>
 
 namespace dot
 {
     TEST_CASE("Smoke")
     {
-        dot::Nullable<double> x;
+        dot::nullable<double> x;
         REQUIRE(x.HasValue == false);
     }
 }

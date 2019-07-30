@@ -31,7 +31,7 @@ limitations under the License.
 
 namespace dot
 {
-    template <class T> class Nullable;
+    template <class T> class nullable;
     class LocalMinute;
     class LocalTime;
     class LocalDate;
@@ -105,9 +105,9 @@ namespace dot
         /// <summary>Construct object from char by boxing.</summary>
         object(char value);
 
-        /// <summary>Construct object from Nullable by boxing.</summary>
+        /// <summary>Construct object from nullable by boxing.</summary>
         template <class T>
-        object(const Nullable<T>& value) { if (value.HasValue) *this = value.Value; }
+        object(const nullable<T>& value) { if (value.HasValue) *this = value.Value; }
 
         /// <summary>Construct object from LocalMinute by boxing.</summary>
         object(const LocalMinute & value);
@@ -176,9 +176,9 @@ namespace dot
         template <typename ... T>
         object& operator=(const std::tuple<T...> & value) { base::operator=(new StructWrapperImpl<std::tuple<T...>>(value)); return *this; }
 
-        /// <summary>Assign Nullable to object by boxing.</summary>
+        /// <summary>Assign nullable to object by boxing.</summary>
         template <class T>
-        object& operator=(const Nullable<T>& value) { if (value.HasValue) *this = value.Value; else *this = nullptr; return *this; }
+        object& operator=(const nullable<T>& value) { if (value.HasValue) *this = value.Value; else *this = nullptr; return *this; }
 
         /// <summary>Assign LocalMinute to object by boxing.</summary>
         object& operator=(const LocalMinute& value);

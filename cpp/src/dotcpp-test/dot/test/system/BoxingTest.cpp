@@ -26,7 +26,7 @@ limitations under the License.
 #include <approvals/Catch.hpp>
 #include <dot/system/object.hpp>
 #include <dot/system/string.hpp>
-#include <dot/system/Nullable.hpp>
+#include <dot/system/nullable.hpp>
 #include <dot/system/collections/generic/List.hpp>
 #include <dot/noda_time/LocalTime.hpp>
 #include <dot/noda_time/LocalDate.hpp>
@@ -63,11 +63,11 @@ namespace dot
         }
 
         {
-            // Boxing NullableBool
-            Nullable<bool> x;
+            // Boxing nullableBool
+            nullable<bool> x;
             object boxed = x;
-            REQUIRE(((Nullable<bool>)boxed).HasValue == false);
-            Nullable<bool> y = true;
+            REQUIRE(((nullable<bool>)boxed).HasValue == false);
+            nullable<bool> y = true;
             boxed = y;
             REQUIRE((bool)boxed == true);
         }
@@ -82,11 +82,11 @@ namespace dot
         }
 
         {
-            // Boxing NullableDouble
-            Nullable<double> x;
+            // Boxing nullableDouble
+            nullable<double> x;
             object boxed = x;
-            REQUIRE(((Nullable<double>)boxed).HasValue == false);
-            Nullable<double> y = 2.0;
+            REQUIRE(((nullable<double>)boxed).HasValue == false);
+            nullable<double> y = 2.0;
             boxed = y;
             REQUIRE((double)boxed == 2.0);
         }
@@ -101,11 +101,11 @@ namespace dot
         }
 
         {
-            // Boxing NullableInt
-            Nullable<int> x;
+            // Boxing nullableInt
+            nullable<int> x;
             object boxed = x;
-            REQUIRE(((Nullable<int>)boxed).HasValue == false);
-            Nullable<int> y = 2;
+            REQUIRE(((nullable<int>)boxed).HasValue == false);
+            nullable<int> y = 2;
             boxed = y;
             REQUIRE((int)boxed == 2);
         }
@@ -120,11 +120,11 @@ namespace dot
         }
 
         {
-            // Boxing NullableLong
-            Nullable<int64_t> x;
+            // Boxing nullableLong
+            nullable<int64_t> x;
             object boxed = x;
-            REQUIRE(((Nullable<int64_t>)boxed).HasValue == false);
-            Nullable<int64_t> y = (int64_t)2;
+            REQUIRE(((nullable<int64_t>)boxed).HasValue == false);
+            nullable<int64_t> y = (int64_t)2;
             boxed = y;
             REQUIRE((int64_t)boxed == 2);
         }

@@ -33,7 +33,7 @@ namespace dot
 {
     class string_impl; class string;
     template <class T> class Array1DImpl; template <class T> using Array1D = ptr<Array1DImpl<T>>;
-    template <class T> class Nullable;
+    template <class T> class nullable;
     enum class string_split_options;
     class Char;
 
@@ -214,7 +214,7 @@ namespace dot
         /// Supports cast (explicit constructor) from object.
         ///
         /// Error if object does is not a boxed int.
-        /// Null object becomes empty NullableInt.
+        /// Null object becomes empty nullableInt.
         /// </summary>
         explicit string(const ptr<object_impl>& rhs) : base(rhs) {}
 
@@ -311,8 +311,8 @@ namespace dot
 
     /// <summary>Helper class for fmt::format arguments conversion</summary>
     template<class T>
-    struct format_forward<Nullable<T>> {
-        static inline T convert(const Nullable<T>& o) { return o.GetValueOrDefault(); }
+    struct format_forward<nullable<T>> {
+        static inline T convert(const nullable<T>& o) { return o.GetValueOrDefault(); }
     };
 
     template<typename ...Args>

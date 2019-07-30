@@ -27,7 +27,7 @@ limitations under the License.
 #include <dot/detail/reflection_macro.hpp>
 #include <dot/system/object.hpp>
 #include <dot/system/string.hpp>
-#include <dot/system/Nullable.hpp>
+#include <dot/system/nullable.hpp>
 #include <dot/system/Array1D.hpp>
 #include <dot/system/collections/generic/List.hpp>
 #include <dot/system/reflection/ConstructorInfo.hpp>
@@ -515,11 +515,11 @@ namespace dot
     };
 
     template <class T>
-    struct typeof_impl<Nullable<T>>
+    struct typeof_impl<nullable<T>>
     {
         static type_t get_typeof()
         {
-            static type_t type_ = make_type_builder<Nullable<T>>("System", "Nullable<" + dot::typeof<T>()->Name + ">")
+            static type_t type_ = make_type_builder<nullable<T>>("System", "nullable<" + dot::typeof<T>()->Name + ">")
                 ->template WithGenericArgument<T>()
                 ->Build();
         return type_;
