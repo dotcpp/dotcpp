@@ -52,7 +52,6 @@
     <ClInclude Include="system\collections\generic\Dictionary.hpp" />
     <ClInclude Include="system\collections\generic\HashSet.hpp" />
     <ClInclude Include="system\collections\generic\List.hpp" />
-    <ClInclude Include="system\collections\generic\SortedSet.hpp" />
     <ClInclude Include="system\Console.hpp" />
     <ClInclude Include="system\Double.hpp" />
     <ClInclude Include="system\Enum.hpp" />
