@@ -26,7 +26,7 @@ limitations under the License.
 #include <dot/declare.hpp>
 #include <fmt/core.h>
 #include <dot/system/string.hpp>
-#include <dot/system/Environment.hpp>
+#include <dot/system/environment.hpp>
 
 namespace dot
 {
@@ -97,7 +97,7 @@ namespace dot
         /// </summary>
         void AppendLine()
         {
-            *this += *Environment::NewLine;
+            *this += *environment::new_line;
         }
 
         /// <summary>

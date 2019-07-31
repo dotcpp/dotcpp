@@ -22,10 +22,10 @@ limitations under the License.
 */
 
 #include <dot/implement.hpp>
-#include <dot/system/Environment.hpp>
+#include <dot/system/environment.hpp>
 
 namespace dot
 {
     // TODO - detect OS type and change?
-    string Environment::NewLine = make_string("\n");
+    string environment::new_line = make_string("\n");
 }
