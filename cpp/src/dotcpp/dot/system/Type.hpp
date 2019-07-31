@@ -505,11 +505,11 @@ namespace dot
     };
 
     template <>
-    struct typeof_impl<LocalDateTime>
+    struct typeof_impl<local_date_time>
     {
         static type_t get_typeof()
         {
-            static type_t type_ = make_type_builder<LocalDateTime>("System", "LocalDateTime")->Build();
+            static type_t type_ = make_type_builder<local_date_time>("System", "localDateTime")->Build();
             return type_;
         }
     };

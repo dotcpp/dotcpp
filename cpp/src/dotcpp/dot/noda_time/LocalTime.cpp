@@ -31,7 +31,7 @@ limitations under the License.
 namespace dot
 {
     /// <summary>
-    /// Because in C\# LocalDateTime is a struct, it has default constructor
+    /// Because in C\# local_date_time is a struct, it has default constructor
     /// that initializes all backing variables to 0. This means that default
     /// constructed value corresponds to 0001-01-01 00:00:00. We will
     /// replicate this behavior here.
@@ -110,7 +110,7 @@ namespace dot
         return *this - period;
     }
 
-    LocalDateTime LocalTime::On(const local_date& date)
+    local_date_time LocalTime::On(const local_date& date)
     {
         return {date, *this};
     }

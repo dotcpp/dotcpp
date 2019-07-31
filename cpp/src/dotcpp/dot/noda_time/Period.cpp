@@ -47,7 +47,7 @@ namespace dot
         return end - start;
     }
 
-    Period Period::Between(const LocalDateTime& start, const LocalDateTime& end)
+    Period Period::Between(const local_date_time& start, const local_date_time& end)
     {
         return end - start;
     }

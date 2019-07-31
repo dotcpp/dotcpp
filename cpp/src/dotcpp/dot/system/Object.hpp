@@ -35,7 +35,7 @@ namespace dot
     class LocalMinute;
     class LocalTime;
     class local_date;
-    class LocalDateTime;
+    class local_date_time;
 
     template <class T>
     class StructWrapperImpl;
@@ -118,8 +118,8 @@ namespace dot
         /// <summary>Construct object from local_date by boxing.</summary>
         object(const local_date& value);
 
-        /// <summary>Construct object from LocalDateTime by boxing.</summary>
-        object(const LocalDateTime& value);
+        /// <summary>Construct object from local_date_time by boxing.</summary>
+        object(const local_date_time& value);
 
         /// <summary>Construct object from struct wrapper, boxing the value if necessary.</summary>
         template <typename T>
@@ -185,8 +185,8 @@ namespace dot
         /// <summary>Assign local_date to object by boxing.</summary>
         object& operator=(const local_date& value);
 
-        /// <summary>Assign LocalDateTime to object by boxing.</summary>
-        object& operator=(const LocalDateTime& value);
+        /// <summary>Assign local_date_time to object by boxing.</summary>
+        object& operator=(const local_date_time& value);
 
         /// <summary>Convert object to bool by unboxing. Error if object does is not a boxed double.</summary>
         operator bool() const;
@@ -212,8 +212,8 @@ namespace dot
         /// <summary>Convert object to local_date by unboxing. Error if object does is not a boxed local_date.</summary>
         operator local_date() const;
 
-        /// <summary>Convert object to LocalDateTime by unboxing. Error if object does is not a boxed LocalDateTime.</summary>
-        operator LocalDateTime() const;
+        /// <summary>Convert object to local_date_time by unboxing. Error if object does is not a boxed local_date_time.</summary>
+        operator local_date_time() const;
 
         /// <summary>Convert object to StructWrapper by unboxing. Error if object does is not a boxed T.</summary>
         template <class T>

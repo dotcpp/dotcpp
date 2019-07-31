@@ -33,55 +33,54 @@ limitations under the License.
 namespace dot
 {
     /// <summary>
-    /// Because in C\# LocalDateTime is a struct, it has default constructor
+    /// In C\# local datetime is a struct, and as all structs has default constructor
     /// that initializes all backing variables to 0. This means that default
-    /// constructed value corresponds to 0001-01-01 00:00:00.
-    ///
-    /// Because Boost date_time library does not accept the date 0001-01-01, we
-    /// will instead use the Unix epoch 1970-01-01 as default constructed value.
+    /// constructed value corresponds to 0001-01-01 00:00:00. Because Boost date_time
+    /// library does not accept the date 0001-01-01, we will instead use the Unix epoch
+    /// 1970-01-01 as default constructed value.
     /// </summary>
-    LocalDateTime::LocalDateTime()
+    local_date_time::local_date_time()
         : ptime(local_date{ 1970, 1, 1 }, { 0, 0, 0 })
     {
     }
 
-    /// <summary>Initializes a new instance of the LocalDateTime struct using the ISO calendar system.</summary>
-    LocalDateTime::LocalDateTime(int year, int month, int day, int hour, int minute)
+    /// <summary>Initializes a new instance of the local_date_time struct using the ISO calendar system.</summary>
+    local_date_time::local_date_time(int year, int month, int day, int hour, int minute)
         : ptime(local_date {year, month, day}, {hour, minute, 0})
     {}
 
-    /// <summary>Initializes a new instance of the LocalDateTime struct using the ISO calendar system.</summary>
-    LocalDateTime::LocalDateTime(int year, int month, int day, int hour, int minute, int second)
+    /// <summary>Initializes a new instance of the local_date_time struct using the ISO calendar system.</summary>
+    local_date_time::local_date_time(int year, int month, int day, int hour, int minute, int second)
         : ptime(local_date {year, month, day}, {hour, minute, second})
     {}
 
-    /// <summary>Initializes a new instance of the LocalDateTime struct using the ISO calendar system.</summary>
-    LocalDateTime::LocalDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond)
+    /// <summary>Initializes a new instance of the local_date_time struct using the ISO calendar system.</summary>
+    local_date_time::local_date_time(int year, int month, int day, int hour, int minute, int second, int millisecond)
         : ptime(local_date {year, month, day}, {hour, minute, second, millisecond * 1000})
     {}
 
     /// <summary>Create from Boost posix_time.</summary>
-    LocalDateTime::LocalDateTime(const ptime& time)
+    local_date_time::local_date_time(const ptime& time)
         : ptime(time)
     {}
 
-    LocalDateTime::LocalDateTime(const LocalDateTime& other)
+    local_date_time::local_date_time(const local_date_time& other)
     {
         *this = other;
     }
 
-    LocalDateTime::LocalDateTime(const local_date& date, const LocalTime& time) :
+    local_date_time::local_date_time(const local_date& date, const LocalTime& time) :
         ptime(date, time)
     {}
 
-    LocalDateTime::LocalDateTime(object const& rhs) { *this = rhs.operator LocalDateTime(); }
+    local_date_time::local_date_time(object const& rhs) { *this = rhs.operator local_date_time(); }
 
-    LocalDateTime LocalDateTime::Add(const LocalDateTime& localDateTime, const Period& period)
+    local_date_time local_date_time::Add(const local_date_time& local_date_time, const Period& period)
     {
-        return localDateTime + period;
+        return local_date_time + period;
     }
 
-    int LocalDateTime::CompareTo(const LocalDateTime& other) const
+    int local_date_time::compare_to(const local_date_time& other) const
     {
         if (*this == other)
             return 0;
@@ -89,12 +88,12 @@ namespace dot
         return *this > other ? 1 : -1;
     }
 
-    bool LocalDateTime::equals(const LocalDateTime& other) const
+    bool local_date_time::equals(const local_date_time& other) const
     {
         return *this == other;
     }
 
-    string LocalDateTime::to_string() const
+    string local_date_time::to_string() const
     {
         boost::posix_time::time_facet* facet = new boost::posix_time::time_facet();
         facet->format("%Y-%m-%d %H:%M:%S.%f");
@@ -104,122 +103,122 @@ namespace dot
         return stream.str().substr(0, 23);
     }
 
-    Period LocalDateTime::Minus(const LocalDateTime& localDateTime) const
+    Period local_date_time::Minus(const local_date_time& local_date_time) const
     {
-        return *this - localDateTime;
+        return *this - local_date_time;
     }
 
-    LocalDateTime LocalDateTime::Minus(const Period& period) const
+    local_date_time local_date_time::Minus(const Period& period) const
     {
         return *this - period;
     }
 
-    LocalDateTime LocalDateTime::Next(int targetDayOfWeek) const
+    local_date_time local_date_time::Next(int targetDayOfWeek) const
     {
         return {local_date(date()).next(targetDayOfWeek), time_of_day()};
     }
 
-    LocalDateTime LocalDateTime::Plus(const Period& period) const
+    local_date_time local_date_time::Plus(const Period& period) const
     {
         return *this + period;
     }
 
-    LocalDateTime LocalDateTime::PlusDays(int days) const
+    local_date_time local_date_time::PlusDays(int days) const
     {
         return *this + boost::gregorian::days(days);
     }
 
-    LocalDateTime LocalDateTime::PlusHours(int64_t hours) const
+    local_date_time local_date_time::PlusHours(int64_t hours) const
     {
         return *this + boost::posix_time::hours(hours);
     }
 
-    LocalDateTime LocalDateTime::PlusMilliseconds(int64_t milliseconds) const
+    local_date_time local_date_time::PlusMilliseconds(int64_t milliseconds) const
     {
         return *this + boost::posix_time::milliseconds(milliseconds);
     }
 
-    LocalDateTime LocalDateTime::PlusMinutes(int64_t minutes) const
+    local_date_time local_date_time::PlusMinutes(int64_t minutes) const
     {
         return *this + boost::posix_time::minutes(minutes);
     }
 
-    LocalDateTime LocalDateTime::PlusMonths(int months) const
+    local_date_time local_date_time::PlusMonths(int months) const
     {
         return *this + boost::gregorian::months(months);
     }
 
-    LocalDateTime LocalDateTime::PlusSeconds(int64_t seconds) const
+    local_date_time local_date_time::PlusSeconds(int64_t seconds) const
     {
         return *this + boost::posix_time::seconds(seconds);
     }
 
-    LocalDateTime LocalDateTime::PlusWeeks(int weeks) const
+    local_date_time local_date_time::PlusWeeks(int weeks) const
     {
         return *this + boost::gregorian::weeks(weeks);
     }
 
-    LocalDateTime LocalDateTime::PlusYears(int years) const
+    local_date_time local_date_time::PlusYears(int years) const
     {
         return *this + boost::gregorian::years(years);
     }
 
-    LocalDateTime LocalDateTime::Previous(int targetDayOfWeek) const
+    local_date_time local_date_time::Previous(int targetDayOfWeek) const
     {
         return {local_date(date()).previous(targetDayOfWeek), time_of_day()};
     }
 
-    Period LocalDateTime::Subtract(const LocalDateTime& lhs, const LocalDateTime& rhs)
+    Period local_date_time::Subtract(const local_date_time& lhs, const local_date_time& rhs)
     {
         return lhs - rhs;
     }
 
-    LocalDateTime LocalDateTime::Subtract(const LocalDateTime& localDateTime, const Period& period)
+    local_date_time local_date_time::Subtract(const local_date_time& local_date_time, const Period& period)
     {
-        return localDateTime - period;
+        return local_date_time - period;
     }
 
-    LocalDateTime LocalDateTime::operator+(const Period& period) const
+    local_date_time local_date_time::operator+(const Period& period) const
     {
         return static_cast<ptime>(*this) + static_cast<time_duration>(period);
     }
 
-    bool LocalDateTime::operator==(const LocalDateTime& other) const
+    bool local_date_time::operator==(const local_date_time& other) const
     {
         return static_cast<ptime>(*this) == static_cast<ptime>(other);
     }
 
-    bool LocalDateTime::operator!=(const LocalDateTime& other) const
+    bool local_date_time::operator!=(const local_date_time& other) const
     {
         return static_cast<ptime>(*this) != static_cast<ptime>(other);
     }
 
-    bool LocalDateTime::operator>(const LocalDateTime& other) const
+    bool local_date_time::operator>(const local_date_time& other) const
     {
         return static_cast<ptime>(*this) > static_cast<ptime>(other);
     }
 
-    bool LocalDateTime::operator>=(const LocalDateTime& other) const
+    bool local_date_time::operator>=(const local_date_time& other) const
     {
         return static_cast<ptime>(*this) >= static_cast<ptime>(other);
     }
 
-    bool LocalDateTime::operator<(const LocalDateTime& other) const
+    bool local_date_time::operator<(const local_date_time& other) const
     {
         return static_cast<ptime>(*this) < static_cast<ptime>(other);
     }
 
-    bool LocalDateTime::operator<=(const LocalDateTime& other) const
+    bool local_date_time::operator<=(const local_date_time& other) const
     {
         return static_cast<ptime>(*this) <= static_cast<ptime>(other);
     }
 
-    Period LocalDateTime::operator-(const LocalDateTime& other) const
+    Period local_date_time::operator-(const local_date_time& other) const
     {
         return static_cast<ptime>(*this) - static_cast<ptime>(other);
     }
 
-    LocalDateTime LocalDateTime::operator-(const Period& period) const
+    local_date_time local_date_time::operator-(const Period& period) const
     {
         return static_cast<ptime>(*this) - static_cast<time_duration>(period);
     }

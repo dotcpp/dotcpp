@@ -34,7 +34,7 @@ namespace dot
 
     class LocalTime;
     class local_date;
-    class LocalDateTime;
+    class local_date_time;
     class object;
 
     /// <summary>
@@ -77,7 +77,7 @@ namespace dot
         static Period Between(const local_date& start, const local_date& end);
 
         /// <summary>Returns the exact difference between two date/times.</summary>
-        static Period Between(const LocalDateTime& start, const LocalDateTime& end);
+        static Period Between(const local_date_time& start, const local_date_time& end);
 
         /// <summary>Returns the exact difference between two times.</summary>
         static Period Between(const LocalTime& start, const LocalTime& end);

@@ -35,16 +35,16 @@ namespace dot
     TEST_CASE("Create")
     {
         {
-            LocalDateTime date1(2005, 1, 1, 0, 0);
-            LocalDateTime date2(2006, 1, 1, 0, 0);
+            local_date_time date1(2005, 1, 1, 0, 0);
+            local_date_time date2(2006, 1, 1, 0, 0);
 
             Period p = Period::Between(date1, date2);
             REQUIRE(p.days() == 365);
         }
 
         {
-            LocalDateTime date1(2005, 1, 1, 1, 11, 11, 111);
-            LocalDateTime date2(2005, 1, 10, 2, 22, 22, 222);
+            local_date_time date1(2005, 1, 1, 1, 11, 11, 111);
+            local_date_time date2(2005, 1, 10, 2, 22, 22, 222);
             Period p = Period::Between(date1, date2);
             REQUIRE(p.days() == 9);
             REQUIRE(p.hours() == 1);
@@ -100,9 +100,9 @@ namespace dot
 
     TEST_CASE("Methods")
     {
-        LocalDateTime date1(2005, 1, 1, 0, 0, 0, 0);
-        LocalDateTime date2(2005, 1, 2, 1, 1, 1, 1);
-        LocalDateTime date3(2005, 1, 3, 2, 2, 2, 2);
+        local_date_time date1(2005, 1, 1, 0, 0, 0, 0);
+        local_date_time date2(2005, 1, 2, 1, 1, 1, 1);
+        local_date_time date3(2005, 1, 3, 2, 2, 2, 2);
         Period p1 = Period::Between(date1, date2);
         Period p2 = Period::Between(date2, date3);
         Period p3 = Period::Between(date1, date3);

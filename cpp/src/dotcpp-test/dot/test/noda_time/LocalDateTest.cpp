@@ -61,11 +61,11 @@ namespace dot
         REQUIRE(d2.previous(boost::gregorian::Monday) == local_date(2005, 1, 3));
         REQUIRE(d2.next(boost::gregorian::Monday) == local_date(2005, 1, 17));
 
-        LocalDateTime dt3(2005, 5, 10, 12, 10);
+        local_date_time dt3(2005, 5, 10, 12, 10);
         local_date d3(2005, 5, 10);
         LocalTime t3(12, 10);
         REQUIRE(d3.at(t3) == dt3);
-        REQUIRE(d3.at_midnight() == LocalDateTime(2005, 5, 10, 0, 0));
+        REQUIRE(d3.at_midnight() == local_date_time(2005, 5, 10, 0, 0));
 
         local_date d4(2005, 1, 2);
         string d4_str = d4.to_string();

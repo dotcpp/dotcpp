@@ -34,14 +34,14 @@ namespace dot
 {
     TEST_CASE("Constructors")
     {
-        LocalDateTime defaultConstructed;
-        LocalDateTime janOneYearOneConstructed(1970, 1, 1, 0, 0, 0);
+        local_date_time defaultConstructed;
+        local_date_time janOneYearOneConstructed(1970, 1, 1, 0, 0, 0);
         REQUIRE(defaultConstructed == janOneYearOneConstructed);
     }
 
     TEST_CASE("Properties")
     {
-        LocalDateTime d(2005, 1, 10, 12, 10, 20, 30);
+        local_date_time d(2005, 1, 10, 12, 10, 20, 30);
         REQUIRE((local_date)d.date() == local_date(2005, 1, 10));
         REQUIRE(d.year() == 2005);
         REQUIRE(d.month() == 1);
@@ -57,31 +57,31 @@ namespace dot
 
     TEST_CASE("Methods")
     {
-        LocalDateTime dt1(2005, 1, 10, 12, 10, 20, 30);
-        REQUIRE(dt1.PlusDays(10) == LocalDateTime(2005, 1, 20, 12, 10, 20, 30));
-        REQUIRE(dt1.PlusWeeks(1) == LocalDateTime(2005, 1, 17, 12, 10, 20, 30));
-        REQUIRE(dt1.PlusMonths(1) == LocalDateTime(2005, 2, 10, 12, 10, 20, 30));
-        REQUIRE(dt1.PlusYears(1) == LocalDateTime(2006, 1, 10, 12, 10, 20, 30));
-        REQUIRE(dt1.PlusHours(1) == LocalDateTime(2005, 1, 10, 13, 10, 20, 30));
-        REQUIRE(dt1.PlusMinutes(1) == LocalDateTime(2005, 1, 10, 12, 11, 20, 30));
-        REQUIRE(dt1.PlusSeconds(1) == LocalDateTime(2005, 1, 10, 12, 10, 21, 30));
-        REQUIRE(dt1.PlusMilliseconds(1) == LocalDateTime(2005, 1, 10, 12, 10, 20, 31));
+        local_date_time dt1(2005, 1, 10, 12, 10, 20, 30);
+        REQUIRE(dt1.PlusDays(10) == local_date_time(2005, 1, 20, 12, 10, 20, 30));
+        REQUIRE(dt1.PlusWeeks(1) == local_date_time(2005, 1, 17, 12, 10, 20, 30));
+        REQUIRE(dt1.PlusMonths(1) == local_date_time(2005, 2, 10, 12, 10, 20, 30));
+        REQUIRE(dt1.PlusYears(1) == local_date_time(2006, 1, 10, 12, 10, 20, 30));
+        REQUIRE(dt1.PlusHours(1) == local_date_time(2005, 1, 10, 13, 10, 20, 30));
+        REQUIRE(dt1.PlusMinutes(1) == local_date_time(2005, 1, 10, 12, 11, 20, 30));
+        REQUIRE(dt1.PlusSeconds(1) == local_date_time(2005, 1, 10, 12, 10, 21, 30));
+        REQUIRE(dt1.PlusMilliseconds(1) == local_date_time(2005, 1, 10, 12, 10, 20, 31));
 
-        LocalDateTime dt2(2005, 1, 10, 12, 10);
-        REQUIRE(dt2.Previous(boost::gregorian::Monday) == LocalDateTime(2005, 1, 3, 12, 10));
-        REQUIRE(dt2.Next(boost::gregorian::Monday) == LocalDateTime(2005, 1, 17, 12, 10));
+        local_date_time dt2(2005, 1, 10, 12, 10);
+        REQUIRE(dt2.Previous(boost::gregorian::Monday) == local_date_time(2005, 1, 3, 12, 10));
+        REQUIRE(dt2.Next(boost::gregorian::Monday) == local_date_time(2005, 1, 17, 12, 10));
 
-        LocalDateTime dt3(2005, 1, 2, 3, 4, 5, 6);
+        local_date_time dt3(2005, 1, 2, 3, 4, 5, 6);
         string dt3_str = dt3.to_string();
         REQUIRE(dt3_str == "2005-01-02 03:04:05.006");
     }
 
     TEST_CASE("Operators")
     {
-        LocalDateTime d(2005, 5, 10, 12, 0, 0, 0);
-        LocalDateTime d1(2005, 5, 10, 12, 0, 0, 0);
-        LocalDateTime d2(2005, 5, 15, 13, 1, 1, 1);
-        LocalDateTime d3(2005, 5, 20, 14, 2, 2, 2);
+        local_date_time d(2005, 5, 10, 12, 0, 0, 0);
+        local_date_time d1(2005, 5, 10, 12, 0, 0, 0);
+        local_date_time d2(2005, 5, 15, 13, 1, 1, 1);
+        local_date_time d3(2005, 5, 20, 14, 2, 2, 2);
 
         Period p1 = Period::Between(d1, d2);
         Period p2 = Period::Between(d2, d3);

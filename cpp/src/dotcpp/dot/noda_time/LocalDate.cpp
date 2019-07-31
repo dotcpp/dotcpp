@@ -65,12 +65,12 @@ namespace dot
         return date + period;
     }
 
-    LocalDateTime local_date::at(const LocalTime& time) const
+    local_date_time local_date::at(const LocalTime& time) const
     {
         return *this + time;
     }
 
-    LocalDateTime local_date::at_midnight() const
+    local_date_time local_date::at_midnight() const
     {
         return *this + LocalTime(0, 0);
     }
@@ -159,7 +159,7 @@ namespace dot
         return date + period;
     }
 
-    LocalDateTime local_date::operator+(const LocalTime& time) const
+    local_date_time local_date::operator+(const LocalTime& time) const
     {
         return {*this, time};
     }

@@ -35,7 +35,7 @@ namespace dot
     class string;
     class Period;
     class local_date;
-    class LocalDateTime;
+    class local_date_time;
     class object;
 
     /// <summary>
@@ -49,7 +49,7 @@ namespace dot
     public: // CONSTRUCTORS
 
         /// <summary>
-        /// Because in C\# LocalDateTime is a struct, it has default constructor
+        /// Because in C\# local_date_time is a struct, it has default constructor
         /// that initializes all backing variables to 0. This means that default
         /// constructed value corresponds to 0001-01-01 00:00:00. We will
         /// replicate this behavior here.
@@ -112,8 +112,8 @@ namespace dot
         /// <summary>Subtracts the specified period from this time. Fluent alternative to operator-().</summary>
         LocalTime Minus(const Period& period) const;
 
-        /// <summary>Combines this LocalTime with the given local_date into a single LocalDateTime. Fluent alternative to operator+().</summary>
-        LocalDateTime On(const local_date& date);
+        /// <summary>Combines this LocalTime with the given local_date into a single local_date_time. Fluent alternative to operator+().</summary>
+        local_date_time On(const local_date& date);
 
         /// <summary>Adds the specified period to this time. Fluent alternative to operator+().</summary>
         LocalTime Plus(const Period& period) const;
