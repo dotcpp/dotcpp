@@ -42,10 +42,10 @@ namespace dot
     TEST_CASE("Properties")
     {
         LocalTime t(12, 10, 20, 30);
-        REQUIRE(t.Hour == 12);
-        REQUIRE(t.Minute == 10);
-        REQUIRE(t.Second == 20);
-        REQUIRE(t.Millisecond == 30);
+        REQUIRE(t.hour() == 12);
+        REQUIRE(t.minute() == 10);
+        REQUIRE(t.second() == 20);
+        REQUIRE(t.millisecond() == 30);
     }
 
     TEST_CASE("Methods")

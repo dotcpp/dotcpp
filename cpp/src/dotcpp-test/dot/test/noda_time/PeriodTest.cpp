@@ -39,60 +39,62 @@ namespace dot
             LocalDateTime date2(2006, 1, 1, 0, 0);
 
             Period p = Period::Between(date1, date2);
-            REQUIRE(p.Days == 365);
+            REQUIRE(p.days() == 365);
         }
 
         {
             LocalDateTime date1(2005, 1, 1, 1, 11, 11, 111);
             LocalDateTime date2(2005, 1, 10, 2, 22, 22, 222);
             Period p = Period::Between(date1, date2);
-            REQUIRE(p.Days == 9);
-            REQUIRE(p.Hours == 1);
-            REQUIRE(p.Minutes == 11);
-            REQUIRE(p.Seconds == 11);
-            REQUIRE(p.Milliseconds == 111);
+            REQUIRE(p.days() == 9);
+            REQUIRE(p.hours() == 1);
+            REQUIRE(p.minutes() == 11);
+            REQUIRE(p.seconds() == 11);
+            REQUIRE(p.milliseconds() == 111);
         }
 
         {
             LocalDate date1(2005, 1, 1);
             LocalDate date2(2005, 1, 10);
             Period p = Period::Between(date1, date2);
-            REQUIRE(p.Days == 9);
-            REQUIRE(p.Hours == 0);
-            REQUIRE(p.Minutes == 0);
-            REQUIRE(p.Seconds == 0);
-            REQUIRE(p.Milliseconds == 0);
+            REQUIRE(p.days() == 9);
+            REQUIRE(p.hours() == 0);
+            REQUIRE(p.minutes() == 0);
+            REQUIRE(p.seconds() == 0);
+            REQUIRE(p.milliseconds() == 0);
+
         }
 
         {
             LocalTime time1(1, 11, 11, 111);
             LocalTime time2(2, 22, 22, 222);
             Period p = Period::Between(time2, time1);
-            REQUIRE(p.Days == 0);
-            REQUIRE(p.Hours == -1);
-            REQUIRE(p.Minutes == -11);
-            REQUIRE(p.Seconds == -11);
-            REQUIRE(p.Milliseconds == -111);
+            REQUIRE(p.days() == 0);
+            REQUIRE(p.hours() == -1);
+            REQUIRE(p.minutes() == -11);
+            REQUIRE(p.seconds() == -11);
+            REQUIRE(p.milliseconds() == -111);
+
         }
 
         {
             Period p = Period::FromWeeks(1);
-            REQUIRE(p.Days == 7);
+            REQUIRE(p.days() == 7);
 
             p = Period::FromDays(1);
-            REQUIRE(p.Days == 1);
+            REQUIRE(p.days() == 1);
 
             p = Period::FromHours(1);
-            REQUIRE(p.Hours == 1);
+            REQUIRE(p.hours() == 1);
 
             p = Period::FromMinutes(1);
-            REQUIRE(p.Minutes == 1);
+            REQUIRE(p.minutes() == 1);
 
             p = Period::FromSeconds(1);
-            REQUIRE(p.Seconds == 1);
+            REQUIRE(p.seconds() == 1);
 
             p = Period::FromMilliseconds(1);
-            REQUIRE(p.Milliseconds == 1);
+            REQUIRE(p.milliseconds() == 1);
         }
     }
 

@@ -35,7 +35,7 @@ namespace dot
         LocalMinute t(12, 10);
         REQUIRE(t.Hour == 12);
         REQUIRE(t.Minute == 10);
-        REQUIRE(t.MinuteOfDay == 730);
+        REQUIRE(t.minute_of_day() == 730);
     }
 
     TEST_CASE("Methods")

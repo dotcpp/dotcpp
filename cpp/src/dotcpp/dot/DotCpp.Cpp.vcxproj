@@ -35,9 +35,7 @@
     <ClInclude Include="detail\array_base.hpp" />
     <ClInclude Include="detail\const_string_base.hpp" />
     <ClInclude Include="detail\enum_macro.hpp" />
-    <ClInclude Include="detail\iterator.hpp" />
     <ClInclude Include="detail\macro.hpp" />
-    <ClInclude Include="detail\property.hpp" />
     <ClInclude Include="detail\reference_counter.hpp" />
     <ClInclude Include="detail\reflection_macro.hpp" />
     <ClInclude Include="detail\struct_wrapper.hpp" />

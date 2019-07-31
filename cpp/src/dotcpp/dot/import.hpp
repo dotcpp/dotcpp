@@ -60,6 +60,3 @@ limitations under the License.
 #include <iomanip>
 #include <algorithm>
 #include <atomic>
-
-// DotCpp detail includes
-#include <dot/detail/property.hpp>

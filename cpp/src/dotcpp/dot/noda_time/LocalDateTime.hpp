@@ -46,6 +46,7 @@ namespace dot
     class DOT_CLASS LocalDateTime : public ptime
     {
         typedef LocalDateTime self;
+        typedef ptime base;
         friend LocalDate;
         friend LocalTime;
 
@@ -72,7 +73,7 @@ namespace dot
 
         /// <summary>Create from Boost posix_time.</summary>
         LocalDateTime(const ptime& time);
-        
+
         /// <summary>Create from object.</summary>
         LocalDateTime(object const& rhs);
 
@@ -87,38 +88,35 @@ namespace dot
 
     public: // PROPERTIES
 
-        /// <summary>Gets the day of this local date within the month.</summary>
-        DOT_GET(LocalDate, Date, { return date(); })
-
         /// <summary>Gets the day of this local date and time within the month.</summary>
-        DOT_GET(int, Day, { return date().day(); })
+        int day() const { return date().day(); }
 
         /// <summary>Gets the week day of this local date and time expressed as an IsoDayOfWeek value.</summary>
-        DOT_GET(int, DayOfWeek, { return date().day_of_week(); })
+        int day_of_week() const { return date().day_of_week(); }
 
         /// <summary>Gets the day of this local date and time within the year.</summary>
-        DOT_GET(int, DayOfYear, { return date().day_of_year(); })
+        int day_of_year() const { return date().day_of_year(); }
 
         /// <summary>Gets the hour of day of this local date and time, in the range 0 to 23 inclusive.</summary>
-        DOT_GET(int, Hour, { return static_cast<int>(time_of_day().hours()); })
+        int hour() const { return static_cast<int>(base::time_of_day().hours()); }
 
         /// <summary>Gets the millisecond of this local date and time within the second, in the range 0 to 999 inclusive.</summary>
-        DOT_GET(int, Millisecond, { return static_cast<int>(time_of_day().fractional_seconds() / 1000); })
+        int millisecond() const { return static_cast<int>(base::time_of_day().fractional_seconds() / 1000); }
 
         /// <summary>Gets the minute of this local date and time, in the range 0 to 59 inclusive.</summary>
-        DOT_GET(int, Minute, { return static_cast<int>(time_of_day().minutes()); })
+        int minute() const { return static_cast<int>(base::time_of_day().minutes()); }
 
         /// <summary>Gets the month of this local date and time within the year.</summary>
-        DOT_GET(int, Month, { return date().month(); })
+        int month() const { return date().month(); }
 
         /// <summary>Gets the second of this local date and time within the minute, in the range 0 to 59 inclusive.</summary>
-        DOT_GET(int, Second, { return static_cast<int>(time_of_day().seconds()); })
+        int second() const { return static_cast<int>(base::time_of_day().seconds()); }
 
         /// <summary>Gets the time portion of this local date and time as a LocalTime.</summary>
-        DOT_GET(LocalTime, TimeOfDay, { return time_of_day(); })
+        LocalTime time_of_day() const { return base::time_of_day(); }
 
         /// <summary>Gets the year of this local date and time.</summary>
-        DOT_GET(int, Year, { return date().year(); })
+        int year() const { return date().year(); }
 
 
     public:

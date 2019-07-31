@@ -70,22 +70,6 @@ namespace dot
         LocalDate(object const& rhs);
 
     public:
-        /// <summary>Gets the day of this local date within the month.</summary>
-        DOT_GET(int, Day, { return day(); })
-
-        /// <summary>Gets the week day of this local date expressed as an IsoDayOfWeek value.</summary>
-        DOT_GET(int, DayOfWeek, { return day_of_week(); })
-
-        /// <summary>Gets the day of this local date within the year.</summary>
-        DOT_GET(int, DayOfYear, { return day_of_year(); })
-
-        /// <summary>Gets the month of this local date within the year.</summary>
-        DOT_GET(int, Month, { return month(); })
-
-        /// <summary>Gets the year of this local date.</summary>
-        DOT_GET(int, Year, { return year(); })
-
-    public:
         /// <summary>Adds the specified period to the date. Friendly alternative to operator+().</summary>
         static LocalDate Add(const LocalDate& date, const Period& period);
 

@@ -44,6 +44,7 @@ namespace dot
     class DOT_CLASS Period : public time_duration
     {
         typedef Period self;
+        typedef time_duration base;
 
     public:
         Period(const time_duration& d);
@@ -54,19 +55,22 @@ namespace dot
 
     public:
         /// <summary>Gets the number of days within this period.</summary>
-        DOT_GET(int, Days, { return static_cast<int>(hours() / 24); })
+        int days() const
+        {
+            return static_cast<int>(base::hours() / 24);
+        }
 
         /// <summary>Gets the number of hours within this period.</summary>
-        DOT_GET(int64_t, Hours, { return hours() % 24; })
+        int64_t hours() const
+        {
+            return base::hours() % 24; // base::hours() returns total number of hours
+        }
 
         /// <summary>Gets the number of milliseconds within this period.</summary>
-        DOT_GET(int64_t, Milliseconds, { return fractional_seconds() / 1000; })
-
-        /// <summary>Gets the number of minutes within this period.</summary>
-        DOT_GET(int64_t, Minutes, { return minutes(); })
-
-        /// <summary>Gets the number of seconds within this period.</summary>
-        DOT_GET(int64_t, Seconds, { return seconds(); })
+        int64_t milliseconds() const
+        {
+            return fractional_seconds() / 1000;
+        }
 
     public:
         /// <summary>Returns the exact difference between two dates.</summary>
@@ -108,7 +112,7 @@ namespace dot
 
         /// <summary>Compares two periods for equality.</summary>
         bool operator==(const Period& other) const;
-        
+
         /// <summary>Compares two periods for inequality.</summary>
         bool operator!=(const Period& other) const;
 

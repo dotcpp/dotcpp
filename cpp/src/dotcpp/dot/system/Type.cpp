@@ -42,17 +42,17 @@ namespace dot
         type_t base_type = base_;
         while (base_type != nullptr)
         {
-            auto iter = type_impl::GetDerivedTypesMap().find(base_type->FullName);
+            auto iter = type_impl::GetDerivedTypesMap().find(base_type->FullName());
             if (iter == type_impl::GetDerivedTypesMap().end())
             {
-                iter = type_impl::GetDerivedTypesMap().insert({base_type->FullName, make_list<type_t>()}).first;
+                iter = type_impl::GetDerivedTypesMap().insert({base_type->FullName(), make_list<type_t>()}).first;
             }
             else if (iter->second == nullptr)
             {
                 iter->second = make_list<type_t>();
             }
             iter->second->add(type_);
-            base_type = base_type->BaseType;
+            base_type = base_type->BaseType();
         }
 
         return type_;
@@ -189,13 +189,13 @@ namespace dot
     bool type_impl::equals(object obj)
     {
         if (obj.is<type_t>())
-            return this->FullName == ((type_t)obj)->FullName;
+            return this->FullName() == ((type_t)obj)->FullName();
 
         return false;
     }
 
     size_t type_impl::hash_code()
     {
-        return this->FullName->hash_code();
+        return this->FullName()->hash_code();
     }
 }

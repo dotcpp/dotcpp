@@ -116,7 +116,7 @@ namespace dot
     {
         Array1D<double> obj = new_Array1D<double>(3);
         auto type = obj->type();
-        string fullname = type->FullName;
+        string fullname = type->FullName();
 
         REQUIRE(type->to_string() == "System.Double[]");
     }

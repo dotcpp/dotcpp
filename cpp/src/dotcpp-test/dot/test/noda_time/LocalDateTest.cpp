@@ -42,11 +42,11 @@ namespace dot
     TEST_CASE("Properties")
     {
         LocalDate d(2005, 1, 10);
-        REQUIRE(d.Year == 2005);
-        REQUIRE(d.Month == 1);
-        REQUIRE(d.Day == 10);
-        REQUIRE(d.DayOfWeek == boost::gregorian::Monday);
-        REQUIRE(d.DayOfYear == 10);
+        REQUIRE(d.year() == 2005);
+        REQUIRE(d.month() == 1);
+        REQUIRE(d.day() == 10);
+        REQUIRE(d.day_of_week() == boost::gregorian::Monday);
+        REQUIRE(d.day_of_year() == 10);
     }
 
     TEST_CASE("Methods")

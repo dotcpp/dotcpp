@@ -114,6 +114,6 @@ namespace dot
 
     Period::operator date_duration() const
     {
-        return date_duration(hours() / 24);
+        return date_duration(base::hours() / 24);
     }
 }

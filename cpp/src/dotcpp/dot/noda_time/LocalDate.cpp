@@ -111,7 +111,7 @@ namespace dot
 
     LocalDate LocalDate::Next(int targetDayOfWeek) const
     {
-        if (DayOfWeek == targetDayOfWeek)
+        if (day_of_week() == targetDayOfWeek)
             return PlusWeeks(1);
         auto wd = boost::gregorian::greg_weekday(targetDayOfWeek);
         return boost::gregorian::next_weekday(*this, wd);
@@ -144,7 +144,7 @@ namespace dot
 
     LocalDate LocalDate::Previous(int targetDayOfWeek) const
     {
-        if (DayOfWeek == targetDayOfWeek)
+        if (day_of_week() == targetDayOfWeek)
             return PlusWeeks(-1);
         auto wd = boost::gregorian::greg_weekday(targetDayOfWeek);
         return boost::gregorian::previous_weekday(*this, wd);

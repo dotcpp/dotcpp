@@ -278,10 +278,10 @@ namespace dot
         string Namespace; // TODO - replace by method
 
         /// <summary>Gets the fully qualified name of the type, including its namespace but not its assembly.</summary>
-        DOT_GET(string, FullName, { return string::format("{0}.{1}", this->Namespace, this->Name); }) // TODO - replace by string::Join
+        string FullName() const { return string::format("{0}.{1}", this->Namespace, this->Name); } // TODO - replace by string::Join
 
         /// <summary>Gets the base type if current type.</summary>
-        DOT_GET(type_t, BaseType, { return base_; })
+        type_t BaseType() { return base_; }
 
         /// <summary>Gets a value indicating whether the System.type_t is a class or a delegate; that is, not a value type or interface.</summary>
         bool IsClass; // TODO - replace by method
@@ -310,7 +310,7 @@ namespace dot
         type_t GetInterface(string name);
 
         /// <summary>A string representing the name of the current type.</summary>
-        virtual string to_string() override { return FullName; }
+        virtual string to_string() override { return FullName(); }
 
         /// <summary>Get type_t object for the name.</summary>
         static type_t GetType(string name) { return GetTypeMap()[name]; }
@@ -319,7 +319,7 @@ namespace dot
         static list<type_t> GetDerivedTypes(string name) { return GetDerivedTypesMap()[name]; }
 
         /// <summary>Get derived types list for the type.</summary>
-        static list<type_t> GetDerivedTypes(type_t type) { return GetDerivedTypesMap()[type->FullName]; }
+        static list<type_t> GetDerivedTypes(type_t type) { return GetDerivedTypesMap()[type->FullName()]; }
 
         bool equals(object obj) override;
 

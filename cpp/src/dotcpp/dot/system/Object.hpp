@@ -121,10 +121,6 @@ namespace dot
         /// <summary>Construct object from LocalDateTime by boxing.</summary>
         object(const LocalDateTime& value);
 
-        /// <summary>Construct object from auto property, boxing the value if necessary.</summary>
-        template <typename T>
-        object(detail::auto_prop<T> & value) : object(value.operator T()) {}
-
         /// <summary>Construct object from struct wrapper, boxing the value if necessary.</summary>
         template <typename T>
         object(StructWrapper<T> value) : base(value) {}

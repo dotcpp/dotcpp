@@ -42,17 +42,17 @@ namespace dot
     TEST_CASE("Properties")
     {
         LocalDateTime d(2005, 1, 10, 12, 10, 20, 30);
-        REQUIRE((LocalDate)d.Date == LocalDate(2005, 1, 10));
-        REQUIRE(d.Year == 2005);
-        REQUIRE(d.Month == 1);
-        REQUIRE(d.Day == 10);
-        REQUIRE(d.DayOfWeek == boost::gregorian::Monday);
-        REQUIRE(d.DayOfYear == 10);
-        REQUIRE((LocalTime)d.TimeOfDay == LocalTime(12, 10, 20, 30));
-        REQUIRE(d.Hour == 12);
-        REQUIRE(d.Minute == 10);
-        REQUIRE(d.Second == 20);
-        REQUIRE(d.Millisecond == 30);
+        REQUIRE((LocalDate)d.date() == LocalDate(2005, 1, 10));
+        REQUIRE(d.year() == 2005);
+        REQUIRE(d.month() == 1);
+        REQUIRE(d.day() == 10);
+        REQUIRE(d.day_of_week() == boost::gregorian::Monday);
+        REQUIRE(d.day_of_year() == 10);
+        REQUIRE((LocalTime)d.time_of_day() == LocalTime(12, 10, 20, 30));
+        REQUIRE(d.hour() == 12);
+        REQUIRE(d.minute() == 10);
+        REQUIRE(d.second() == 20);
+        REQUIRE(d.millisecond() == 30);
     }
 
     TEST_CASE("Methods")
