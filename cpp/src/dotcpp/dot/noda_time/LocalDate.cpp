@@ -60,22 +60,22 @@ namespace dot
 
     local_date::local_date(object const& rhs) { *this = rhs.operator local_date(); }
 
-    local_date local_date::Add(const local_date& date, const Period& period)
+    local_date local_date::add(const local_date& date, const Period& period)
     {
         return date + period;
     }
 
-    LocalDateTime local_date::At(const LocalTime& time) const
+    LocalDateTime local_date::at(const LocalTime& time) const
     {
         return *this + time;
     }
 
-    LocalDateTime local_date::AtMidnight() const
+    LocalDateTime local_date::at_midnight() const
     {
         return *this + LocalTime(0, 0);
     }
 
-    int local_date::CompareTo(const local_date& other) const
+    int local_date::compare_to(const local_date& other) const
     {
         if (*this == other)
             return 0;
@@ -94,67 +94,67 @@ namespace dot
         facet->format("%Y-%m-%d");
         std::stringstream stream;
         stream.imbue(std::locale(std::locale::classic(), facet));
-        stream << this->AtMidnight();
+        stream << this->at_midnight();
         return stream.str();
     }
 
-    Period local_date::Minus(const local_date& date) const
+    Period local_date::minus(const local_date& date) const
     {
         return *this - date;
     }
 
-    local_date local_date::Minus(const Period& period) const
+    local_date local_date::minus(const Period& period) const
     {
         return *this - period;
     }
 
-    local_date local_date::Next(int targetDayOfWeek) const
+    local_date local_date::next(int target_day_of_week) const
     {
-        if (day_of_week() == targetDayOfWeek)
-            return PlusWeeks(1);
-        auto wd = boost::gregorian::greg_weekday(targetDayOfWeek);
+        if (day_of_week() == target_day_of_week)
+            return plus_weeks(1);
+        auto wd = boost::gregorian::greg_weekday(target_day_of_week);
         return boost::gregorian::next_weekday(*this, wd);
     }
 
-    local_date local_date::Plus(const Period& period) const
+    local_date local_date::plus(const Period& period) const
     {
         return *this + period;
     }
 
-    local_date local_date::PlusDays(int days) const
+    local_date local_date::plus_days(int days) const
     {
         return *this + boost::gregorian::days(days);
     }
 
-    local_date local_date::PlusMonths(int months) const
+    local_date local_date::plus_months(int months) const
     {
         return *this + boost::gregorian::months(months);
     }
 
-    local_date local_date::PlusWeeks(int weeks) const
+    local_date local_date::plus_weeks(int weeks) const
     {
         return *this + boost::gregorian::weeks(weeks);
     }
 
-    local_date local_date::PlusYears(int years) const
+    local_date local_date::plus_years(int years) const
     {
         return *this + boost::gregorian::years(years);
     }
 
-    local_date local_date::Previous(int targetDayOfWeek) const
+    local_date local_date::previous(int target_day_of_week) const
     {
-        if (day_of_week() == targetDayOfWeek)
-            return PlusWeeks(-1);
-        auto wd = boost::gregorian::greg_weekday(targetDayOfWeek);
+        if (day_of_week() == target_day_of_week)
+            return plus_weeks(-1);
+        auto wd = boost::gregorian::greg_weekday(target_day_of_week);
         return boost::gregorian::previous_weekday(*this, wd);
     }
 
-    Period local_date::Subtract(const local_date& lhs, const local_date& rhs)
+    Period local_date::subtract(const local_date& lhs, const local_date& rhs)
     {
         return lhs - rhs;
     }
 
-    local_date local_date::Subtract(const local_date& date, const Period& period)
+    local_date local_date::subtract(const local_date& date, const Period& period)
     {
         return date + period;
     }

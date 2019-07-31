@@ -34,9 +34,9 @@ namespace dot
 {
     TEST_CASE("Constructors")
     {
-        local_date defaultConstructed;
-        local_date janOneYearOneConstructed(1970, 1, 1);
-        REQUIRE(defaultConstructed == janOneYearOneConstructed);
+        local_date default_constructed;
+        local_date jan_one_year_one_constructed(1970, 1, 1);
+        REQUIRE(default_constructed == jan_one_year_one_constructed);
     }
 
     TEST_CASE("Properties")
@@ -52,20 +52,20 @@ namespace dot
     TEST_CASE("Methods")
     {
         local_date d1(2005, 1, 10);
-        REQUIRE(d1.PlusDays(10) == local_date(2005, 1, 20));
-        REQUIRE(d1.PlusWeeks(1) == local_date(2005, 1, 17));
-        REQUIRE(d1.PlusMonths(1) == local_date(2005, 2, 10));
-        REQUIRE(d1.PlusYears(1) == local_date(2006, 1, 10));
+        REQUIRE(d1.plus_days(10) == local_date(2005, 1, 20));
+        REQUIRE(d1.plus_weeks(1) == local_date(2005, 1, 17));
+        REQUIRE(d1.plus_months(1) == local_date(2005, 2, 10));
+        REQUIRE(d1.plus_years(1) == local_date(2006, 1, 10));
 
         local_date d2(2005, 1, 10);
-        REQUIRE(d2.Previous(boost::gregorian::Monday) == local_date(2005, 1, 3));
-        REQUIRE(d2.Next(boost::gregorian::Monday) == local_date(2005, 1, 17));
+        REQUIRE(d2.previous(boost::gregorian::Monday) == local_date(2005, 1, 3));
+        REQUIRE(d2.next(boost::gregorian::Monday) == local_date(2005, 1, 17));
 
         LocalDateTime dt3(2005, 5, 10, 12, 10);
         local_date d3(2005, 5, 10);
         LocalTime t3(12, 10);
-        REQUIRE(d3.At(t3) == dt3);
-        REQUIRE(d3.AtMidnight() == LocalDateTime(2005, 5, 10, 0, 0));
+        REQUIRE(d3.at(t3) == dt3);
+        REQUIRE(d3.at_midnight() == LocalDateTime(2005, 5, 10, 0, 0));
 
         local_date d4(2005, 1, 2);
         string d4_str = d4.to_string();

@@ -70,16 +70,16 @@ namespace dot
 
     public:
         /// <summary>Adds the specified period to the date. Friendly alternative to operator+().</summary>
-        static local_date Add(const local_date& date, const Period& period);
+        static local_date add(const local_date& date, const Period& period);
 
         /// <summary>Combines this local_date with the given LocalTime into a single LocalDateTime. Fluent alternative to operator+().</summary>
-        LocalDateTime At(const LocalTime& time) const;
+        LocalDateTime at(const LocalTime& time) const;
 
         /// <summary>Gets a LocalDateTime at midnight on the date represented by this local date.</summary>
-        LocalDateTime AtMidnight() const;
+        LocalDateTime at_midnight() const;
 
         /// <summary>Indicates whether this date is earlier, later or the same as another one.</summary>
-        int CompareTo(const local_date& other) const;
+        int compare_to(const local_date& other) const;
 
         /// <summary>Compares two local_date values for equality. This requires that the dates be the same, within the same calendar.</summary>
         bool equals(const local_date& other) const;
@@ -88,45 +88,45 @@ namespace dot
         string to_string() const;
 
         /// <summary>Subtracts the specified date from this date, returning the result as a Period with units of years, months and days. Fluent alternative to operator-().</summary>
-        Period Minus(const local_date& date) const;
+        Period minus(const local_date& date) const;
 
         /// <summary>Subtracts the specified period from this date. Fluent alternative to operator-().</summary>
-        local_date Minus(const Period& period) const;
+        local_date minus(const Period& period) const;
 
         /// <summary>
         /// Returns the next local_date falling on the specified IsoDayOfWeek.
         /// This is a strict "next" - if this date on already falls on the target day of the week,
         /// the returned value will be a week later.
         /// </summary>
-        local_date Next(int targetDayOfWeek) const;
+        local_date next(int target_day_of_week) const;
 
         /// <summary>Adds the specified period to this date. Fluent alternative to operator+().</summary>
-        local_date Plus(const Period& period) const;
+        local_date plus(const Period& period) const;
 
         /// <summary>Returns a new local_date representing the current value with the given number of days added.</summary>
-        local_date PlusDays(int days) const;
+        local_date plus_days(int days) const;
 
         /// <summary>Returns a new local_date representing the current value with the given number of months added.</summary>
-        local_date PlusMonths(int months) const;
+        local_date plus_months(int months) const;
 
         /// <summary>Returns a new local_date representing the current value with the given number of weeks added.</summary>
-        local_date PlusWeeks(int weeks) const;
+        local_date plus_weeks(int weeks) const;
 
         /// <summary>Returns a new local_date representing the current value with the given number of years added.</summary>
-        local_date PlusYears(int years) const;
+        local_date plus_years(int years) const;
 
         /// <summary>
         /// Returns the previous local_date falling on the specified IsoDayOfWeek.
         /// This is a strict "previous" - if this date on already falls on the
         /// target day of the week, the returned value will be a week earlier.
         /// </summary>
-        local_date Previous(int targetDayOfWeek) const;
+        local_date previous(int target_day_of_week) const;
 
         /// <summary>Subtracts one date from another, returning the result as a Period with units of years, months and days.</summary>
-        static Period Subtract(const local_date& lhs, const local_date& rhs);
+        static Period subtract(const local_date& lhs, const local_date& rhs);
 
         /// <summary>Subtracts the specified period from the date. Friendly alternative to operator-().</summary>
-        static local_date Subtract(const local_date& date, const Period& period);
+        static local_date subtract(const local_date& date, const Period& period);
 
     public:
         /// <summary>Combines the given local_date and LocalTime components into a single LocalDateTime.</summary>

@@ -116,7 +116,7 @@ namespace dot
 
     LocalDateTime LocalDateTime::Next(int targetDayOfWeek) const
     {
-        return {local_date(date()).Next(targetDayOfWeek), time_of_day()};
+        return {local_date(date()).next(targetDayOfWeek), time_of_day()};
     }
 
     LocalDateTime LocalDateTime::Plus(const Period& period) const
@@ -166,7 +166,7 @@ namespace dot
 
     LocalDateTime LocalDateTime::Previous(int targetDayOfWeek) const
     {
-        return {local_date(date()).Previous(targetDayOfWeek), time_of_day()};
+        return {local_date(date()).previous(targetDayOfWeek), time_of_day()};
     }
 
     Period LocalDateTime::Subtract(const LocalDateTime& lhs, const LocalDateTime& rhs)
