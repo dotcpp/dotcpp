@@ -27,7 +27,7 @@ limitations under the License.
 #include <dot/system/objectimpl.hpp>
 #include <dot/system/reflection/MethodInfo.hpp>
 #include <dot/system/reflection/ConstructorInfo.hpp>
-#include <dot/system/Array1D.hpp>
+#include <dot/system/array1d.hpp>
 #include <dot/system/collections/generic/list.hpp>
 #include <dot/system/string.hpp>
 
@@ -70,7 +70,7 @@ namespace dot
                 data->methods_ = make_list<MethodInfo>();
             }
 
-            Array1D<MethodInfo> baseMethods = data->base_->GetMethods();
+            array<MethodInfo> baseMethods = data->base_->GetMethods();
             list<MethodInfo> newMethods = make_list<MethodInfo>();
             for (MethodInfo methInfoData : baseMethods)
             {
@@ -88,7 +88,7 @@ namespace dot
 
         if (!data->methods_.IsEmpty())
         {
-            this->methods_ = new_Array1D<MethodInfo>(data->methods_->count());
+            this->methods_ = make_array<MethodInfo>(data->methods_->count());
             int i = 0;
             for (MethodInfo methInfoData : data->methods_)
             {
@@ -96,11 +96,11 @@ namespace dot
             }
         }
         else
-            this->methods_ = new_Array1D<MethodInfo>(0);
+            this->methods_ = make_array<MethodInfo>(0);
 
         if (!data->ctors_.IsEmpty())
         {
-            this->ctors_ = new_Array1D<ConstructorInfo>(data->ctors_->count());
+            this->ctors_ = make_array<ConstructorInfo>(data->ctors_->count());
             int i = 0;
             for (ConstructorInfo ctorInfoData : data->ctors_)
             {
@@ -108,11 +108,11 @@ namespace dot
             }
         }
         else
-            this->ctors_ = new_Array1D<ConstructorInfo>(0);
+            this->ctors_ = make_array<ConstructorInfo>(0);
 
         if (!data->interfaces_.IsEmpty())
         {
-            this->interfaces_ = new_Array1D<type_t>(data->interfaces_->count());
+            this->interfaces_ = make_array<type_t>(data->interfaces_->count());
             int i = 0;
             for (type_t interface : data->interfaces_)
             {
@@ -120,11 +120,11 @@ namespace dot
             }
         }
         else
-            this->interfaces_ = new_Array1D<type_t>(0);
+            this->interfaces_ = make_array<type_t>(0);
 
         if (!data->generic_args_.IsEmpty())
         {
-            this->generic_args_ = new_Array1D<type_t>(data->generic_args_->count());
+            this->generic_args_ = make_array<type_t>(data->generic_args_->count());
             int i = 0;
             for (type_t arg : data->generic_args_)
             {
@@ -132,7 +132,7 @@ namespace dot
             }
         }
         else
-            this->generic_args_ = new_Array1D<type_t>(0);
+            this->generic_args_ = make_array<type_t>(0);
 
         this->base_ = data->base_;
         this->IsClass = data->is_class_;

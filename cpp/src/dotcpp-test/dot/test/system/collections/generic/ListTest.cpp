@@ -24,7 +24,7 @@ limitations under the License.
 #include <dot/test/implement.hpp>
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
-#include <dot/system/Array1D.hpp>
+#include <dot/system/array1d.hpp>
 #include <dot/system/collections/generic/list.hpp>
 #include <dot/system/string.hpp>
 #include <dot/system/type.hpp>

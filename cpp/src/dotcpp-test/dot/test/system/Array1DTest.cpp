@@ -25,7 +25,7 @@ limitations under the License.
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <dot/system/string.hpp>
-#include <dot/system/Array1D.hpp>
+#include <dot/system/array1d.hpp>
 #include <dot/system/object.hpp>
 
 namespace dot
@@ -39,7 +39,7 @@ namespace dot
 
     TEST_CASE("Smoke")
     {
-        Array1D<double> stringArray = new_Array1D<double>(3);
+        array<double> stringArray = make_array<double>(3);
         stringArray[0] = 0.0;
         stringArray[1] = 1.0;
         stringArray[2] = 2.0;
@@ -47,22 +47,20 @@ namespace dot
         REQUIRE(stringArray->count() == 3);
     }
 
-    TEST_CASE("Interfaces")
+    TEST_CASE("Methods")
     {
-        Array1D<double> a = new_Array1D<double>(3);
-        Array b = a;
+        array<double> a = make_array<double>(3);
  
         // Check size of the original class and the interface
         REQUIRE(a->count() == 3);
-        REQUIRE(b->count() == 3);
 
         // Access the underlying std::vector<double> class
         SortDoubleVector(*a);
         REQUIRE(a[0] == 0.0);
 
         // Access by object
-        object obj = b;
-        REQUIRE(((Array1D<double>)b)->count() == 3);
+        object obj = a;
+        REQUIRE(((array<double>)obj)->count() == 3);
 
         // Check that methods that should throw actually throw
         // CHECK_THROWS_AS(b->Add(0.0), Exception);
@@ -71,7 +69,7 @@ namespace dot
 
     TEST_CASE("Iterators")
     {
-        Array1D<string> stringArray = new_Array1D<string>(3);
+        array<string> stringArray = make_array<string>(3);
         stringArray[0] = "000";
         stringArray[1] = "111";
         stringArray[2] = "222";
@@ -87,7 +85,7 @@ namespace dot
 
     TEST_CASE("Find")
     {
-        dot::Array1D<string> stringArray = new_Array1D<string>(5);
+        dot::array<string> stringArray = make_array<string>(5);
         stringArray[0] = "000";
         stringArray[1] = "111";
         stringArray[2] = "222";
@@ -98,7 +96,7 @@ namespace dot
 
     TEST_CASE("Enumerator")
     {
-        dot::Array1D<string> stringArray = new_Array1D<string>(3);
+        dot::array<string> stringArray = make_array<string>(3);
         stringArray[0] = "000";
         stringArray[1] = "111";
         stringArray[2] = "222";
@@ -108,13 +106,13 @@ namespace dot
 
         for (string str : stringArray)
         {
-            REQUIRE((stringArray.as<Array1D<string>>())[i++] == str);
+            REQUIRE((stringArray.as<array<string>>())[i++] == str);
         }
     }
 
     TEST_CASE("to_string")
     {
-        Array1D<double> obj = new_Array1D<double>(3);
+        array<double> obj = make_array<double>(3);
         auto type = obj->type();
         string fullname = type->FullName();
 

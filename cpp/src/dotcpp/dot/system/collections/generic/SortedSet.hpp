@@ -29,7 +29,7 @@ limitations under the License.
 
 namespace dot
 {
-    template <class T> class Array1DImpl; template <class T> using Array1D = ptr<Array1DImpl<T>>;
+    template <class T> class array_impl; template <class T> using array = ptr<array_impl<T>>;
 
     ///!!! Provide .NET description Adapter class from STL set to .NET SortedSet
     template <class T>
@@ -68,13 +68,13 @@ namespace dot
         inline bool contains(const T& item);
 
         /// <summary>Copies SortedSet elements to array starting at then begining of array.</summary>
-        void copyTo(Array1D<T>& arr);
+        void copyTo(array<T>& arr);
 
         /// <summary>Copies SortedSet elements to array starting at specified index.</summary>
-        void copyTo(Array1D<T>& arr, int index);
+        void copyTo(array<T>& arr, int index);
 
         /// <summary>Copies a specified number of SortedSet elements to array starting at specified index.</summary>
-        void copyTo(Array1D<T>& arr, int index, int count);
+        void copyTo(array<T>& arr, int index, int count);
 
         /// <summary>Removes all elements in the specified collection from the current SortedSet object.</summary>
         inline void exceptWith(const IEnumerable<T>& other);

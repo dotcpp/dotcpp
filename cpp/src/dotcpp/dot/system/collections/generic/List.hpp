@@ -107,7 +107,7 @@ namespace dot
         }
 
         /// <summary>Copies the elements of the current List(T) to a new array.</summary>
-        Array1D<T> to_array() const { return new_Array1D(*this); }
+        array<T> to_array() const { return make_array(*this); }
 
     public: // OPERATORS
 

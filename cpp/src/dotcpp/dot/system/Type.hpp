@@ -28,7 +28,7 @@ limitations under the License.
 #include <dot/system/object.hpp>
 #include <dot/system/string.hpp>
 #include <dot/system/nullable.hpp>
-#include <dot/system/Array1D.hpp>
+#include <dot/system/array1d.hpp>
 #include <dot/system/collections/generic/list.hpp>
 #include <dot/system/reflection/ConstructorInfo.hpp>
 #include <dot/system/reflection/MethodInfo.hpp>
@@ -47,7 +47,7 @@ namespace dot
     class MethodInfoImpl; using MethodInfo = ptr<MethodInfoImpl>;
     class ConstructorInfoImpl; using ConstructorInfo = ptr<ConstructorInfoImpl>;
     template <class T> class list_impl; template <class T> using list = ptr<list_impl<T>>;
-    template <class T> class Array1DImpl; template <class T> using Array1D = ptr<Array1DImpl<T>>;
+    template <class T> class array_impl; template <class T> using array = ptr<array_impl<T>>;
     template <class Class, class ... Args> class MemberConstructorInfoImpl;
 
     template <class T> type_t typeof();
@@ -93,7 +93,7 @@ namespace dot
                 methods_ = make_list<MethodInfo>();
             }
 
-            Array1D<ParameterInfo> parameters = new_Array1D<ParameterInfo>(sizeof...(Args));
+            array<ParameterInfo> parameters = make_array<ParameterInfo>(sizeof...(Args));
             std::vector<type_t> paramTypes = { dot::typeof<Args>()... };
 
             for (int i = 0; i < argsCount; ++i)
@@ -122,7 +122,7 @@ namespace dot
                 methods_ = make_list<MethodInfo>();
             }
 
-            Array1D<ParameterInfo> parameters = new_Array1D<ParameterInfo>(sizeof...(Args));
+            array<ParameterInfo> parameters = make_array<ParameterInfo>(sizeof...(Args));
             std::vector<type_t> paramTypes = { dot::typeof<Args>()... };
 
             for (int i = 0; i < argsCount; ++i)
@@ -151,7 +151,7 @@ namespace dot
                 ctors_ = make_list<ConstructorInfo>();
             }
 
-            Array1D<ParameterInfo> parameters = new_Array1D<ParameterInfo>(sizeof...(Args));
+            array<ParameterInfo> parameters = make_array<ParameterInfo>(sizeof...(Args));
             std::vector<type_t> paramTypes = { dot::typeof<Args>()... };
 
             for (int i = 0; i < argsCount_; ++i)
@@ -263,10 +263,10 @@ namespace dot
 
     private: // FIELDS
 
-        Array1D<MethodInfo> methods_;
-        Array1D<ConstructorInfo> ctors_;
-        Array1D<type_t> interfaces_;
-        Array1D<type_t> generic_args_;
+        array<MethodInfo> methods_;
+        array<ConstructorInfo> ctors_;
+        array<type_t> interfaces_;
+        array<type_t> generic_args_;
         type_t base_;
 
     public: // PROPERTIES
@@ -292,16 +292,16 @@ namespace dot
     public: // METHODS
 
         /// <summary>Returns methods of the current type.</summary>
-        Array1D<MethodInfo> GetMethods() { return methods_; }
+        array<MethodInfo> GetMethods() { return methods_; }
 
         /// <summary>Returns constructors of the current type.</summary>
-        Array1D<ConstructorInfo> GetConstructors() { return ctors_; }
+        array<ConstructorInfo> GetConstructors() { return ctors_; }
 
         /// <summary>Returns interfaces of the current type.</summary>
-        Array1D<type_t> GetInterfaces() { return interfaces_; }
+        array<type_t> GetInterfaces() { return interfaces_; }
 
         /// <summary>Returns interfaces of the current type.</summary>
-        Array1D<type_t> GetGenericArguments() { return generic_args_; }
+        array<type_t> GetGenericArguments() { return generic_args_; }
 
         /// <summary>Searches for the public method with the specified name.</summary>
         MethodInfo GetMethod(string name);
@@ -378,20 +378,11 @@ namespace dot
         return type_;
     }
 
-    /// <summary>
-    /// Private ctor of the array with the zero size to use in serealization.
-    /// </summary>
-    template <class T>
-    Array1D<T> private_new_Array1D() { return new Array1DImpl<T>(0); }
-
-
-
-    template <class T> type_t Array1DImpl<T>::typeof()
+    template <class T> type_t array_impl<T>::typeof()
     {
-        static type_t type_ = make_type_builder<Array1DImpl<T>>(dot::typeof<T>()->Namespace, dot::typeof<T>()->Name +"[]")
-            //DOT_TYPE_CTOR(new_Array1D<T>)
+        static type_t type_ = make_type_builder<array_impl<T>>(dot::typeof<T>()->Namespace, dot::typeof<T>()->Name +"[]")
+            //DOT_TYPE_CTOR(make_array<T>)
             DOT_TYPE_GENERIC_ARGUMENT(T)
-            DOT_TYPE_CTOR(private_new_Array1D<T>)
             ->Build();
         return type_;
     }

@@ -35,5 +35,5 @@ limitations under the License.
 #include <dot/system/Int.hpp>
 #include <dot/system/Long.hpp>
 #include <dot/system/nullable.hpp>
-#include <dot/system/Array1D.hpp>
+#include <dot/system/array1d.hpp>
 #include <dot/system/collections/generic/list.hpp>

@@ -24,7 +24,7 @@ limitations under the License.
 #include <dot/implement.hpp>
 #include <dot/system/reflection/Activator.hpp>
 #include <dot/system/objectimpl.hpp>
-#include <dot/system/Array1D.hpp>
+#include <dot/system/array1d.hpp>
 #include <dot/system/Exception.hpp>
 #include <dot/system/string.hpp>
 #include <dot/system/collections/generic/list.hpp>
@@ -38,9 +38,9 @@ namespace dot
         return CreateInstance(type, nullptr);
     }
 
-    object Activator::CreateInstance(type_t type, Array1D<object> params)
+    object Activator::CreateInstance(type_t type, array<object> params)
     {
-        Array1D<ConstructorInfo> ctors = type->GetConstructors();
+        array<ConstructorInfo> ctors = type->GetConstructors();
 
         // If no constructors
         if (ctors.IsEmpty() || ctors->count() == 0)
@@ -97,7 +97,7 @@ namespace dot
         return CreateInstance(type_impl::GetType(typeName), nullptr);
     }
 
-    object Activator::CreateInstance(string assemblyName, string typeName, Array1D<object> params)
+    object Activator::CreateInstance(string assemblyName, string typeName, array<object> params)
     {
         return CreateInstance(type_impl::GetType(typeName), params);
     }

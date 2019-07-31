@@ -24,74 +24,63 @@ limitations under the License.
 #pragma once
 
 #include <dot/declare.hpp>
-#include <dot/system/Array.hpp>
-#include <dot/detail/array_base.hpp>
-
+#include <dot/system/ptr.hpp>
+#include <vector>
 
 namespace dot
 {
-    template <class T> class Array1DImpl; template <class T> using Array1D = ptr<Array1DImpl<T>>;
+    template <class T> class array_impl; template <class T> using array = ptr<array_impl<T>>;
 
     /// <summary>
     /// Represents a strongly typed list of objects that can be accessed by index.
     /// Provides methods to search, sort, and manipulate lists.
     /// </summary>
     template <class T>
-    class Array1DImpl : public ArrayImpl, public detail::array_base<T>
+    class array_impl : public virtual object_impl, public std::vector<T>
     {
-        typedef Array1DImpl<T> self;
-        typedef detail::array_base<T> base;
+        typedef array_impl<T> self;
+        typedef std::vector<T> base;
 
-        template <class R> friend Array1D<R> new_Array1D(int size);
-        template <class R> friend Array1D<R> new_Array1D(const std::vector<R>& obj);
-        template <class R> friend Array1D<R> new_Array1D(std::vector<R>&& obj);
-        template <class R> friend Array1D<R> private_new_Array1D();
+        template <class R> friend array<R> make_array(int size);
+        template <class R> friend array<R> make_array(const std::vector<R>& obj);
+        template <class R> friend array<R> make_array(std::vector<R>&& obj);
 
     private: // CONSTRUCTORS
 
         /// <summary>
         /// Initializes a new instance of the array with the specified size.
         ///
-        /// This constructor is private. Use new_Array1D(size) function instead.
+        /// This constructor is private. Use make_array(...) function instead.
         /// </summary>
-        explicit Array1DImpl(int size) : base(size) {}
+        explicit array_impl(int size) : base(size) {}
 
         /// <summary>
         /// Create from std::vector using copy ctor.
         ///
-        /// This constructor is private. Use new_Array1D(size) function instead.
+        /// This constructor is private. Use make_array(...) function instead.
         /// </summary>
-        explicit Array1DImpl(const std::vector<T>& obj) : base(obj) {}
+        explicit array_impl(const std::vector<T>& obj) : base(obj) {}
 
         /// <summary>
         /// Create from std::vector using move ctor.
         ///
-        /// This constructor is private. Use new_Array1D(size) function instead.
+        /// This constructor is private. Use make_array(...) function instead.
         /// </summary>
-        explicit Array1DImpl(std::vector<T>&& obj) : base(obj) {}
-
-    public: // PROPERTIES
-
-        /// <summary>The number of items contained in the array.</summary>
-        int count() override { return this->size(); }
+        explicit array_impl(std::vector<T>&& obj) : base(obj) {}
 
     public: // METHODS
 
-        /// <summary>Returns random access begin iterator of the underlying std::vector.</summary>
-        auto begin() { return base::begin(); }
+        /// <summary>The number of items contained in the array.</summary>
+        int count() { return size(); }
 
-        /// <summary>Returns random access end iterator of the underlying std::vector.</summary>
-        auto end() { return base::end(); }
+        /// <summary>Delete methods from the base class std::vector that modify array size.</summary>
+        void push_back(const T& obj) = delete;
 
-    protected:
-        /// <summary>
-        /// Adds an item to the end of the collection.
-        ///
-        /// In C\#, the non-generic method is implemented for the interface
-        /// but not for the class to avoid ambiguous conversions. Because
-        /// in C++ this cannot be done, here this method has object prefix.
-        /// </summary>
-        virtual void objectAdd(object item) { this->push_back((T)item); }
+        /// <summary>Delete methods from the base class std::vector that modify array size.</summary>
+        T pop_back(const T& obj) = delete;
+
+        /// <summary>Delete methods from the base class std::vector that modify array size.</summary>
+        void resize(size_t size) = delete;
 
     public: // OPERATORS
 
@@ -100,6 +89,22 @@ namespace dot
 
         /// <summary>Gets or sets the element at the specified index (non-const version).</summary>
         T& operator[](int i) { return base::operator[](size_t(i)); }
+
+    public: // STATIC
+
+        /// <summary>
+        /// Sorts the elements in a one-dimensional Array
+        /// using default comparer of array elements.
+        ///
+        /// In C#, this method takes Array base and there is
+        /// an error message if the array is multidimensional.
+        /// In C+, we will detect this error at compile time.
+        /// </summary>
+        template <class T>
+        static void sort(const array<T> obj)
+        {
+            std::sort(obj->begin(), obj->end());
+        }
 
     public: // REFLECTION
 
@@ -111,47 +116,33 @@ namespace dot
     /// Initializes a new instance of the array with the specified size.
     /// </summary>
     template <class T>
-    Array1D<T> new_Array1D(int size) { return new Array1DImpl<T>(size); }
+    array<T> make_array(int size) { return new array_impl<T>(size); }
 
     /// <summary>
     /// Create from std::vector using copy ctor.
     /// </summary>
     template <class T>
-    Array1D<T> new_Array1D(const std::vector<T>& obj) { return new Array1DImpl<T>(obj); }
+    array<T> make_array(const std::vector<T>& obj) { return new array_impl<T>(obj); }
 
     /// <summary>
     /// Create from std::vector using move ctor.
     /// </summary>
     template <class T>
-    Array1D<T> new_Array1D(std::vector<T>&& obj) { return new Array1DImpl<T>(obj); }
-
-    /// <summary>
-    /// Sorts the elements in a one-dimensional Array
-    /// using default comparer of array elements.
-    ///
-    /// In C#, this method takes Array base and there is
-    /// an error message if the array is multidimensional.
-    /// In C+, we will detect this error at compile time.
-    /// </summary>
-    template <class T>
-    void Array::Sort(const Array1D<T> obj)
-    {
-        std::sort(obj->begin(), obj->end());
-    }
+    array<T> make_array(std::vector<T>&& obj) { return new array_impl<T>(obj); }
 }
 
 namespace std
 {
     /// <summary>Implements begin() used by STL and similar algorithms.</summary>
     template <class T>
-    auto begin(dot::Array1D<T>& obj)
+    auto begin(dot::array<T>& obj)
     {
         return obj->begin();
     }
 
     /// <summary>Implements end() used by STL and similar algorithms.</summary>
     template <class T>
-    auto end(dot::Array1D<T>& obj)
+    auto end(dot::array<T>& obj)
     {
         return obj->end();
     }

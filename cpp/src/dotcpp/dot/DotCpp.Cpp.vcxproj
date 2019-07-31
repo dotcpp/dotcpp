@@ -32,7 +32,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="declare.hpp" />
-    <ClInclude Include="detail\array_base.hpp" />
     <ClInclude Include="detail\const_string_base.hpp" />
     <ClInclude Include="detail\enum_macro.hpp" />
     <ClInclude Include="detail\macro.hpp" />
@@ -47,7 +46,6 @@
     <ClInclude Include="noda_time\LocalMinute.hpp" />
     <ClInclude Include="noda_time\LocalTime.hpp" />
     <ClInclude Include="noda_time\Period.hpp" />
-    <ClInclude Include="system\Array.hpp" />
     <ClInclude Include="system\Array1D.hpp" />
     <ClInclude Include="system\Bool.hpp" />
     <ClInclude Include="system\Char.hpp" />
