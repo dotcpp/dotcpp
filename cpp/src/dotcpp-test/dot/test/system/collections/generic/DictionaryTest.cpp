@@ -25,25 +25,25 @@ limitations under the License.
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <dot/system/string.hpp>
-#include <dot/system/collections/generic/Dictionary.hpp>
+#include <dot/system/collections/generic/dictionary.hpp>
 #include <dot/system/type.hpp>
 
 namespace dot
 {
-    Dictionary<string, string> CreateDictionary()
+    dictionary<string, string> Createdictionary()
     {
-        Dictionary<string, string> dict = new_Dictionary<string, string>();
+        dictionary<string, string> dict = make_dictionary<string, string>();
 
-        dict->Add("a", "b");
-        dict->Add(KeyValuePair<string, string>("c", "d"));
-        dict->Add("", "");
+        dict->add("a", "b");
+        dict->add(KeyValuePair<string, string>("c", "d"));
+        dict->add("", "");
 
         return dict;
     }
 
     TEST_CASE("Properties")
     {
-        Dictionary<string, string> dict = CreateDictionary();
+        dictionary<string, string> dict = Createdictionary();
 
         REQUIRE(dict->count() == 3);
 
@@ -64,7 +64,7 @@ namespace dot
 
     TEST_CASE("Methods")
     {
-        Dictionary<string, string> dict = CreateDictionary();
+        dictionary<string, string> dict = Createdictionary();
 
         // Get
         REQUIRE(dict["a"] == "b");
@@ -72,43 +72,38 @@ namespace dot
         REQUIRE(dict[""] == "");
 
         string s = "";
-        dict->TryGetValue("b", s);
+        dict->try_get_value("b", s);
         REQUIRE(s == "");
-        dict->TryGetValue("a", s);
+        dict->try_get_value("a", s);
         REQUIRE(s == "b");
 
-        // Contains
-        REQUIRE(dict->Contains(KeyValuePair<string, string>("a", "b")));
-        REQUIRE(dict->Contains(KeyValuePair<string, string>("c", "d")));
-        REQUIRE(dict->Contains(KeyValuePair<string, string>("", "")));
+        REQUIRE(dict->contains_key("a"));
+        REQUIRE(dict->contains_key("c"));
+        REQUIRE(dict->contains_key(""));
+        REQUIRE(dict->contains_key("b") == false);
 
-        REQUIRE(dict->ContainsKey("a"));
-        REQUIRE(dict->ContainsKey("c"));
-        REQUIRE(dict->ContainsKey(""));
-        REQUIRE(dict->ContainsKey("b") == false);
-
-        REQUIRE(dict->ContainsValue("b"));
-        REQUIRE(dict->ContainsValue("d"));
-        REQUIRE(dict->ContainsValue(""));
-        REQUIRE(dict->ContainsValue("a") == false);
+        REQUIRE(dict->contains_value("b"));
+        REQUIRE(dict->contains_value("d"));
+        REQUIRE(dict->contains_value(""));
+        REQUIRE(dict->contains_value("a") == false);
 
         // Remove
-        dict->Remove("a");
+        dict->remove("a");
         REQUIRE(dict->count() == 2);
-        REQUIRE(dict->ContainsKey("a") == false);
-        REQUIRE(dict->ContainsValue("b") == false);
+        REQUIRE(dict->contains_key("a") == false);
+        REQUIRE(dict->contains_value("b") == false);
 
         // Clear
-        dict->Clear();
+        dict->clear();
         REQUIRE(dict->count() == 0);
     }
 
     TEST_CASE("Interfaces")
     {
-        Dictionary<string, string> dict = new_Dictionary<string, string>();
-        dict->Add("a", "b");
-        dict->Add("c", "d");
-        dict->Add("e", "f");
+        dictionary<string, string> dict = make_dictionary<string, string>();
+        dict->add("a", "b");
+        dict->add("c", "d");
+        dict->add("e", "f");
 
         REQUIRE(dict["a"] == "b");
         REQUIRE(dict["c"] == "d");
@@ -122,12 +117,12 @@ namespace dot
         object obj2 = object("str2");
         object obj3 = object("str2");
 
-        Dictionary<object, string> dict = new_Dictionary<object, string>();
-        dict->Add(obj0, "val0");
-        CHECK_NOTHROW(dict->Add(obj1, "val1"));
+        dictionary<object, string> dict = make_dictionary<object, string>();
+        dict->add(obj0, "val0");
+        CHECK_NOTHROW(dict->add(obj1, "val1"));
 
-        dict->Add(obj2, "val2");
-        CHECK_THROWS(dict->Add(obj3, "val3"));
+        dict->add(obj2, "val2");
+        CHECK_THROWS(dict->add(obj3, "val3"));
 
         REQUIRE(dict[obj0] == "val0");
         REQUIRE(dict[obj1] == "val1");

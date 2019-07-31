@@ -52,11 +52,11 @@ public:                                                                 \
     }                                                                   \
                                                                         \
 protected:                                                              \
-    virtual dot::Dictionary<dot::string, int> GetEnumMap() override               \
+    virtual dot::dictionary<dot::string, int> GetEnumMap() override               \
     {                                                                   \
-        static dot::Dictionary<dot::string, int> enumMap_ = []()                  \
+        static dot::dictionary<dot::string, int> enumMap_ = []()                  \
         {                                                               \
-            auto map_ = dot::new_Dictionary<dot::string, int>();
+            auto map_ = dot::make_dictionary<dot::string, int>();
 
 
 #define DOT_ENUM_VALUE(value) \

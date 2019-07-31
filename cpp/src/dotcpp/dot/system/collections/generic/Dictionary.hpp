@@ -29,32 +29,32 @@ limitations under the License.
 
 namespace dot
 {
-    template <class TKey, class TValue> class DictionaryImpl;
-    template <class TKey, class TValue> using Dictionary = ptr<DictionaryImpl<TKey, TValue>>;
+    template <class TKey, class TValue> class dictionary_impl;
+    template <class TKey, class TValue> using dictionary = ptr<dictionary_impl<TKey, TValue>>;
 
     template <class TKey, class TValue>
     using KeyValuePair = std::pair<const TKey, TValue>;
 
     /// <summary>Represents a collection of keys and values.</summary>
     template <class TKey, class TValue>
-    class DictionaryImpl
+    class dictionary_impl
         : public virtual object_impl
         , public std::unordered_map<TKey, TValue>
     {
-        typedef DictionaryImpl<TKey, TValue> self;
+        typedef dictionary_impl<TKey, TValue> self;
         typedef std::unordered_map<TKey, TValue> base;
 
         template <class TKey_, class TValue_>
-        friend Dictionary<TKey_, TValue_> new_Dictionary();
+        friend dictionary<TKey_, TValue_> make_dictionary();
 
     private: // CONSTRUCTORS
 
         /// <summary>
-        /// Initializes a new instance of Dictionary.
+        /// Initializes a new instance of dictionary.
         ///
-        /// This constructor is private. Use new_Dictionary() function instead.
+        /// This constructor is private. Use make_dictionary() function instead.
         /// </summary>
-        DictionaryImpl() : base() {}
+        dictionary_impl() : base() {}
 
     public: // PROPERTIES
 
@@ -80,44 +80,27 @@ namespace dot
     public: // METHODS
 
         /// <summary>Adds the specified key and value to the dictionary.</summary>
-        void Add(const TKey& key, const TValue& value)
+        void add(const TKey& key, const TValue& value)
         {
-            this->Add(KeyValuePair<TKey, TValue>(key, value));
+            this->add(KeyValuePair<TKey, TValue>(key, value));
         }
 
         /// <summary>Adds the specified value to the ICollection with the specified key.</summary>
-        void Add(const KeyValuePair<TKey, TValue>& keyValuePair)
+        void add(const KeyValuePair<TKey, TValue>& keyValuePair)
         {
             auto res = this->insert(keyValuePair);
             if (!res.second)
                 throw new_Exception("An element with the same key already exists in the dictionary");
         }
 
-        /// <summary>Removes all keys and values from the Dictionary.</summary>
-        void Clear()
-        {
-            this->clear();
-        }
-
-        /// <summary>Determines whether the ICollection contains a specific key and value.</summary>
-        bool Contains(const KeyValuePair<TKey, TValue>& keyValuePair)
-        {
-            auto iter = this->find(keyValuePair.first);
-            if (iter != end())
-            {
-                return std::equal_to<TValue>()(keyValuePair.second, iter->second);
-            }
-            return false;
-        }
-
-        /// <summary>Determines whether the Dictionary contains the specified key.</summary>
-        bool ContainsKey(const TKey& key)
+        /// <summary>Determines whether the dictionary contains the specified key.</summary>
+        bool contains_key(const TKey& key)
         {
             return this->find(key) != end();
         }
 
-        /// <summary>Determines whether the Dictionary contains a specific value.</summary>
-        virtual bool ContainsValue(const TValue& value)
+        /// <summary>Determines whether the dictionary contains a specific value.</summary>
+        virtual bool contains_value(const TValue& value)
         {
             for (auto& x : *this)
             {
@@ -127,32 +110,14 @@ namespace dot
             return false;
         }
 
-        /// <summary>Returns random access begin iterator of the underlying std::unordered_map.</summary>
-        typename base::iterator begin() { return base::begin(); }
-
-        /// <summary>Returns random access end iterator of the underlying std::unordered_map.</summary>
-        typename base::iterator end() { return base::end(); }
-
-        /// <summary>Removes the value with the specified key from the Dictionary.</summary>
-        bool Remove(const TKey& key)
+        /// <summary>Removes the value with the specified key from the dictionary.</summary>
+        bool remove(const TKey& key)
         {
             return this->erase(key) != 0;
         }
 
-        /// <summary>Removes a key and value from the dictionary.</summary>
-        bool Remove(const KeyValuePair<TKey, TValue>& keyValuePair)
-        {
-            auto iter = this->find(keyValuePair.first);
-            if (iter != end() && std::equal_to<TValue>()(keyValuePair.second, iter->second))
-            {
-                this->erase(iter);
-                return true;
-            }
-            return false;
-        }
-
         /// <summary>Gets the value associated with the specified key.</summary>
-        bool TryGetValue(const TKey& key, TValue& value)
+        bool try_get_value(const TKey& key, TValue& value)
         {
             auto iter = this->find(key);
             if (iter != end())
@@ -166,13 +131,13 @@ namespace dot
     public: // OPERATORS
 
         /// <summary>Gets or sets the value associated with the specified key.</summary>
-        virtual TValue& operator[](const TKey& key)
+        TValue& operator[](const TKey& key)
         {
             return base::operator[](key);
         }
     };
 
-    /// <summary>Initializes a new instance of Dictionary.</summary>
+    /// <summary>Initializes a new instance of dictionary.</summary>
     template <class TKey, class TValue>
-    inline Dictionary<TKey, TValue> new_Dictionary() { return new DictionaryImpl<TKey, TValue>(); }
+    inline dictionary<TKey, TValue> make_dictionary() { return new dictionary_impl<TKey, TValue>(); }
 }

@@ -64,7 +64,7 @@ namespace dot
         auto valuesMap = en->GetEnumMap();
 
         int intValue = 0;
-        if(!valuesMap->TryGetValue(value, intValue))
+        if(!valuesMap->try_get_value(value, intValue))
         {
             throw new_Exception("value is outside the range of the underlying type of enumType.");
         }

@@ -26,7 +26,7 @@ limitations under the License.
 #include <dot/declare.hpp>
 #include <dot/detail/enum_macro.hpp>
 #include <dot/system/type.hpp>
-#include <dot/system/collections/generic/Dictionary.hpp>
+#include <dot/system/collections/generic/dictionary.hpp>
 
 namespace dot
 {
@@ -83,7 +83,7 @@ namespace dot
 
     protected: // PROTECTED
 
-        virtual Dictionary<string, int> GetEnumMap() = 0;
+        virtual dictionary<string, int> GetEnumMap() = 0;
 
     public: // OPERATORS
 

@@ -85,7 +85,7 @@ namespace dot
         }
 
         /// <summary>Determines whether a HashSet object contains the specified element.</summary>
-        virtual bool Contains(const T& item)
+        virtual bool contains(const T& item)
         {
             auto iter = this->find(item);
             return iter != this->end();
@@ -111,7 +111,7 @@ namespace dot
         }
 
         /// <summary>Searches the set for a given value and returns the equal value it finds, if any.</summary>
-        bool TryGetValue(const T& equalValue, T& actualValue)
+        bool try_get_value(const T& equalValue, T& actualValue)
         {
             auto iter = this->find(equalValue);
             if (iter != this->end())
@@ -138,7 +138,7 @@ namespace dot
             list<T> left = make_list<T>();
             for (T const& item : other)
             {
-                if (this->Contains(item))
+                if (this->contains(item))
                     left->add(item);
             }
 
