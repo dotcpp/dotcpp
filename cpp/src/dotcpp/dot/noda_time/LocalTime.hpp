@@ -95,7 +95,7 @@ namespace dot
         static LocalTime Add(const LocalTime& time, const Period& period);
 
         /// <summary>Indicates whether this time is earlier, later or the same as another one.</summary>
-        int CompareTo(const LocalTime& other) const;
+        int compare_to(const LocalTime& other) const;
 
         /// <summary>
         /// Compares this local time with the specified one for equality,

@@ -32,7 +32,7 @@ limitations under the License.
 namespace dot
 {
     template <class T> class nullable;
-    class LocalMinute;
+    class local_minute;
     class LocalTime;
     class local_date;
     class local_date_time;
@@ -109,8 +109,8 @@ namespace dot
         template <class T>
         object(const nullable<T>& value) { if (value.has_value()) *this = value.value(); }
 
-        /// <summary>Construct object from LocalMinute by boxing.</summary>
-        object(const LocalMinute & value);
+        /// <summary>Construct object from local_minute by boxing.</summary>
+        object(const local_minute & value);
 
         /// <summary>Construct object from LocalTime by boxing.</summary>
         object(const LocalTime& value);
@@ -176,8 +176,8 @@ namespace dot
         template <class T>
         object& operator=(const nullable<T>& value) { if (value.has_value()) *this = value.value(); else *this = nullptr; return *this; }
 
-        /// <summary>Assign LocalMinute to object by boxing.</summary>
-        object& operator=(const LocalMinute& value);
+        /// <summary>Assign local_minute to object by boxing.</summary>
+        object& operator=(const local_minute& value);
 
         /// <summary>Assign LocalTime to object by boxing.</summary>
         object& operator=(const LocalTime& value);
@@ -203,8 +203,8 @@ namespace dot
         /// <summary>Convert object to char by unboxing. Error if object does is not a boxed long.</summary>
         operator char() const;
 
-        /// <summary>Convert object to LocalMinute by unboxing. Error if object does is not a boxed LocalMinute.</summary>
-        operator LocalMinute() const;
+        /// <summary>Convert object to local_minute by unboxing. Error if object does is not a boxed local_minute.</summary>
+        operator local_minute() const;
 
         /// <summary>Convert object to LocalTime by unboxing. Error if object does is not a boxed LocalTime.</summary>
         operator LocalTime() const;

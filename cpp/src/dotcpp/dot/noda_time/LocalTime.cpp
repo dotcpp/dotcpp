@@ -77,7 +77,7 @@ namespace dot
         return time + period;
     }
 
-    int LocalTime::CompareTo(const LocalTime& other) const
+    int LocalTime::compare_to(const LocalTime& other) const
     {
         if (*this == other)
             return 0;

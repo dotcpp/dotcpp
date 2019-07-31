@@ -495,11 +495,11 @@ namespace dot
     };
 
     template <>
-    struct typeof_impl<LocalMinute>
+    struct typeof_impl<local_minute>
     {
         static type_t get_typeof()
         {
-            static type_t type_ = make_type_builder<LocalTime>("System", "LocalMinute")->Build();
+            static type_t type_ = make_type_builder<LocalTime>("System", "local_minute")->Build();
         return type_;
     }
     };

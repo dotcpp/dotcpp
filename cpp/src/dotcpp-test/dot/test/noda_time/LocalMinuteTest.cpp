@@ -32,26 +32,26 @@ namespace dot
 {
     TEST_CASE("Properties")
     {
-        LocalMinute t(12, 10);
-        REQUIRE(t.Hour == 12);
-        REQUIRE(t.Minute == 10);
+        local_minute t(12, 10);
+        REQUIRE(t.hour() == 12);
+        REQUIRE(t.minute() == 10);
         REQUIRE(t.minute_of_day() == 730);
     }
 
     TEST_CASE("Methods")
     {
-        LocalMinute localMinute(12, 10);
-        LocalMinute localMinute2(12, 10);
-        LocalMinute localMinuteAfter(13, 20);
-        LocalMinute localMinuteBefore(11, 0);
+        local_minute localMinute(12, 10);
+        local_minute localMinute2(12, 10);
+        local_minute localMinuteAfter(13, 20);
+        local_minute localMinuteBefore(11, 0);
 
         LocalTime localTime(12, 10);
-        REQUIRE(localMinute.ToLocalTime() == localTime);
+        REQUIRE(localMinute.to_local_time() == localTime);
         REQUIRE(localMinute.to_string() == "12:10");
 
-        REQUIRE(localMinute.CompareTo(localMinute2) == 0);
-        REQUIRE(localMinute.CompareTo(localMinuteAfter) == -1);
-        REQUIRE(localMinute.CompareTo(localMinuteBefore) == 1);
+        REQUIRE(localMinute.compare_to(localMinute2) == 0);
+        REQUIRE(localMinute.compare_to(localMinuteAfter) == -1);
+        REQUIRE(localMinute.compare_to(localMinuteBefore) == 1);
 
         REQUIRE(localMinute.hash_code() == localMinute2.hash_code());
         REQUIRE(localMinute.hash_code() != localMinuteBefore.hash_code());
@@ -64,10 +64,10 @@ namespace dot
 
     TEST_CASE("Operators")
     {
-        LocalMinute t(12, 0);
-        LocalMinute t1(12, 0);
-        LocalMinute t2(13, 1);
-        LocalMinute t3(14, 2);
+        local_minute t(12, 0);
+        local_minute t1(12, 0);
+        local_minute t2(13, 1);
+        local_minute t3(14, 2);
 
         REQUIRE(t1 == t);
         REQUIRE(t1 != t2);

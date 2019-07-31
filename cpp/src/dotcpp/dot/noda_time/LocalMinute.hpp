@@ -30,46 +30,46 @@ namespace dot
     class string;
     class LocalTime;
 
-    class DOT_CLASS LocalMinute
+    class DOT_CLASS local_minute
     {
-        typedef LocalMinute self;
+        typedef local_minute self;
 
     public: // CONSTRUCTORS
 
         /// <summary>Default constructor.</summary>
-        LocalMinute() = default;
+        local_minute() = default;
 
         /// <summary>
         /// Creates local time to one minute precision from the specified hour and minute.
         /// </summary>
-        LocalMinute(int hour, int minute);
+        local_minute(int hour, int minute);
 
         /// <summary>Copy constructor.</summary>
-        LocalMinute(const LocalMinute& other);
+        local_minute(const local_minute& other);
 
     public: // PROPERTIES
 
         /// <summary>The hour of day, in the range 0 to 23 inclusive.</summary>
-        int Hour;  // TODO - replace by method
+        int hour() const { return hour_; }
 
         /// <summary>The minute of the hour, in the range 0 to 59 inclusive.</summary>
-        int Minute; // TODO - replace by method
+        int minute() const { return minute_; }
 
         /// <summary>The minute of the day, in the range 0 to 59 inclusive.</summary>
         int minute_of_day() const
         {
-            return 60 * this->Hour + this->Minute;
+            return 60 * hour() + minute();
         }
 
     public: // METHODS
 
-        /// <summary>Converts this LocalMinute to LocalTime.</summary>
-        LocalTime ToLocalTime();
+        /// <summary>Converts this local_minute to LocalTime.</summary>
+        LocalTime to_local_time() const;
 
         /// <summary>
         /// Indicates whether this time is earlier, later or the same as another one.
         /// </summary>
-        int CompareTo(const LocalMinute& other) const;
+        int compare_to(const local_minute& other) const;
 
         /// <summary>Returns a hash code for this local time.</summary>
         size_t hash_code() const;
@@ -79,9 +79,9 @@ namespace dot
         /// by checking whether the two values represent the exact same
         /// local minute.
         /// </summary>
-        bool equals(const LocalMinute& other) const;
+        bool equals(const local_minute& other) const;
 
-        /// <summary>Convert LocalMinute to ISO 8601 string in hh:mm format.</summary>
+        /// <summary>Convert local_minute to ISO 8601 string in hh:mm format.</summary>
         string to_string() const;
 
     public: // OPERATORS
@@ -90,33 +90,37 @@ namespace dot
         /// Compares two local times for equality, by checking whether
         /// they represent the exact same local time, down to the tick.
         /// </summary>
-        bool operator==(const LocalMinute& other) const;
+        bool operator==(const local_minute& other) const;
 
         /// <summary>Compares two local times for inequality.</summary>
-        bool operator!=(const LocalMinute& other) const;
+        bool operator!=(const local_minute& other) const;
 
         /// <summary>
-        /// Compares two LocalMinute values to see if the left one
+        /// Compares two local_minute values to see if the left one
         /// is strictly earlier than the right one.
         /// </summary>
-        bool operator<(const LocalMinute& other) const;
+        bool operator<(const local_minute& other) const;
 
         /// <summary>
-        /// Compares two LocalMinute values to see if the left one
+        /// Compares two local_minute values to see if the left one
         /// is earlier than or equal to the right one.
         /// </summary>
-        bool operator<=(const LocalMinute& other) const;
+        bool operator<=(const local_minute& other) const;
 
         /// <summary>
-        /// Compares two LocalMinute values to see if the left one
+        /// Compares two local_minute values to see if the left one
         /// is strictly later than the right one.
         /// </summary>
-        bool operator>(const LocalMinute& other) const;
+        bool operator>(const local_minute& other) const;
 
         /// <summary>
-        /// Compares two LocalMinute values to see if the left one
+        /// Compares two local_minute values to see if the left one
         /// is later than or equal to the right one.
         /// </summary>
-        bool operator>=(const LocalMinute& other) const;
+        bool operator>=(const local_minute& other) const;
+
+    private:
+        int hour_;
+        int minute_;
     };
 }
