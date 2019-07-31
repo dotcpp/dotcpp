@@ -34,14 +34,14 @@ namespace dot
 {
     TEST_CASE("Constructors")
     {
-        LocalDate defaultConstructed;
-        LocalDate janOneYearOneConstructed(1970, 1, 1);
+        local_date defaultConstructed;
+        local_date janOneYearOneConstructed(1970, 1, 1);
         REQUIRE(defaultConstructed == janOneYearOneConstructed);
     }
 
     TEST_CASE("Properties")
     {
-        LocalDate d(2005, 1, 10);
+        local_date d(2005, 1, 10);
         REQUIRE(d.year() == 2005);
         REQUIRE(d.month() == 1);
         REQUIRE(d.day() == 10);
@@ -51,33 +51,33 @@ namespace dot
 
     TEST_CASE("Methods")
     {
-        LocalDate d1(2005, 1, 10);
-        REQUIRE(d1.PlusDays(10) == LocalDate(2005, 1, 20));
-        REQUIRE(d1.PlusWeeks(1) == LocalDate(2005, 1, 17));
-        REQUIRE(d1.PlusMonths(1) == LocalDate(2005, 2, 10));
-        REQUIRE(d1.PlusYears(1) == LocalDate(2006, 1, 10));
+        local_date d1(2005, 1, 10);
+        REQUIRE(d1.PlusDays(10) == local_date(2005, 1, 20));
+        REQUIRE(d1.PlusWeeks(1) == local_date(2005, 1, 17));
+        REQUIRE(d1.PlusMonths(1) == local_date(2005, 2, 10));
+        REQUIRE(d1.PlusYears(1) == local_date(2006, 1, 10));
 
-        LocalDate d2(2005, 1, 10);
-        REQUIRE(d2.Previous(boost::gregorian::Monday) == LocalDate(2005, 1, 3));
-        REQUIRE(d2.Next(boost::gregorian::Monday) == LocalDate(2005, 1, 17));
+        local_date d2(2005, 1, 10);
+        REQUIRE(d2.Previous(boost::gregorian::Monday) == local_date(2005, 1, 3));
+        REQUIRE(d2.Next(boost::gregorian::Monday) == local_date(2005, 1, 17));
 
         LocalDateTime dt3(2005, 5, 10, 12, 10);
-        LocalDate d3(2005, 5, 10);
+        local_date d3(2005, 5, 10);
         LocalTime t3(12, 10);
         REQUIRE(d3.At(t3) == dt3);
         REQUIRE(d3.AtMidnight() == LocalDateTime(2005, 5, 10, 0, 0));
 
-        LocalDate d4(2005, 1, 2);
+        local_date d4(2005, 1, 2);
         string d4_str = d4.to_string();
         REQUIRE(d4_str == "2005-01-02");
     }
 
     TEST_CASE("Operators")
     {
-        LocalDate d(2005, 5, 10);
-        LocalDate d1(2005, 5, 10);
-        LocalDate d2(2005, 5, 15);
-        LocalDate d3(2005, 5, 20);
+        local_date d(2005, 5, 10);
+        local_date d1(2005, 5, 10);
+        local_date d2(2005, 5, 15);
+        local_date d3(2005, 5, 20);
 
         Period p1 = Period::Between(d1, d2);
         Period p2 = Period::Between(d2, d3);

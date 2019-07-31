@@ -110,7 +110,7 @@ namespace dot
         return *this - period;
     }
 
-    LocalDateTime LocalTime::On(const LocalDate& date)
+    LocalDateTime LocalTime::On(const local_date& date)
     {
         return {date, *this};
     }

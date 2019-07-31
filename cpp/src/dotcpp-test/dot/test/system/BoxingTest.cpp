@@ -142,15 +142,15 @@ namespace dot
         }
 
         {
-            // Boxing LocalDate
-            LocalDate date(2005, 1, 1);
-            LocalDate date2(2005, 1, 1);
+            // Boxing local_date
+            local_date date(2005, 1, 1);
+            local_date date2(2005, 1, 1);
 
             object boxed = date;
-            CHECK_NOTHROW((LocalDate) boxed);
+            CHECK_NOTHROW((local_date) boxed);
 
-            REQUIRE((LocalDate) boxed == date);
-            REQUIRE((LocalDate) boxed == date2);
+            REQUIRE((local_date) boxed == date);
+            REQUIRE((local_date) boxed == date2);
         }
 
         {

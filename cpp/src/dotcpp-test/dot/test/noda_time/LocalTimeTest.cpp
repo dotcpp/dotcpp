@@ -61,7 +61,7 @@ namespace dot
         REQUIRE(t2.PlusMinutes(2) == LocalTime(0, 1));
 
         LocalDateTime dt3(2005, 5, 10, 12, 10);
-        LocalDate d3(2005, 5, 10);
+        local_date d3(2005, 5, 10);
         LocalTime t3(12, 10);
         REQUIRE(t3.On(d3) == dt3);
 

@@ -47,7 +47,7 @@ namespace dot
     {
         typedef LocalDateTime self;
         typedef ptime base;
-        friend LocalDate;
+        friend local_date;
         friend LocalTime;
 
     public: // CONSTRUCTORS
@@ -84,7 +84,7 @@ namespace dot
     private: // CONSTRUCTORS
 
         /// <summary>Create from date and time.</summary>
-        LocalDateTime(const LocalDate& date, const LocalTime& time);
+        LocalDateTime(const local_date& date, const LocalTime& time);
 
     public: // PROPERTIES
 

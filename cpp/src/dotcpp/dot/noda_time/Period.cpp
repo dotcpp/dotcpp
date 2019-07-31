@@ -42,7 +42,7 @@ namespace dot
         *this = other;
     }
 
-    Period Period::Between(const LocalDate& start, const LocalDate& end)
+    Period Period::Between(const local_date& start, const local_date& end)
     {
         return end - start;
     }

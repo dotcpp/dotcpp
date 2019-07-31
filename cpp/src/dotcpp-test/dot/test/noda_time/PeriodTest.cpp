@@ -54,8 +54,8 @@ namespace dot
         }
 
         {
-            LocalDate date1(2005, 1, 1);
-            LocalDate date2(2005, 1, 10);
+            local_date date1(2005, 1, 1);
+            local_date date2(2005, 1, 10);
             Period p = Period::Between(date1, date2);
             REQUIRE(p.days() == 9);
             REQUIRE(p.hours() == 0);

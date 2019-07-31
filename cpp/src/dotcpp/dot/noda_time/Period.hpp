@@ -33,7 +33,7 @@ namespace dot
     using boost::gregorian::date_duration;
 
     class LocalTime;
-    class LocalDate;
+    class local_date;
     class LocalDateTime;
     class object;
 
@@ -74,7 +74,7 @@ namespace dot
 
     public:
         /// <summary>Returns the exact difference between two dates.</summary>
-        static Period Between(const LocalDate& start, const LocalDate& end);
+        static Period Between(const local_date& start, const local_date& end);
 
         /// <summary>Returns the exact difference between two date/times.</summary>
         static Period Between(const LocalDateTime& start, const LocalDateTime& end);

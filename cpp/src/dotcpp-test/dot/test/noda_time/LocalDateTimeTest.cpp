@@ -42,7 +42,7 @@ namespace dot
     TEST_CASE("Properties")
     {
         LocalDateTime d(2005, 1, 10, 12, 10, 20, 30);
-        REQUIRE((LocalDate)d.date() == LocalDate(2005, 1, 10));
+        REQUIRE((local_date)d.date() == local_date(2005, 1, 10));
         REQUIRE(d.year() == 2005);
         REQUIRE(d.month() == 1);
         REQUIRE(d.day() == 10);

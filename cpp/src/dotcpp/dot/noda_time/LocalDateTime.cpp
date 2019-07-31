@@ -41,23 +41,23 @@ namespace dot
     /// will instead use the Unix epoch 1970-01-01 as default constructed value.
     /// </summary>
     LocalDateTime::LocalDateTime()
-        : ptime(LocalDate{ 1970, 1, 1 }, { 0, 0, 0 })
+        : ptime(local_date{ 1970, 1, 1 }, { 0, 0, 0 })
     {
     }
 
     /// <summary>Initializes a new instance of the LocalDateTime struct using the ISO calendar system.</summary>
     LocalDateTime::LocalDateTime(int year, int month, int day, int hour, int minute)
-        : ptime(LocalDate {year, month, day}, {hour, minute, 0})
+        : ptime(local_date {year, month, day}, {hour, minute, 0})
     {}
 
     /// <summary>Initializes a new instance of the LocalDateTime struct using the ISO calendar system.</summary>
     LocalDateTime::LocalDateTime(int year, int month, int day, int hour, int minute, int second)
-        : ptime(LocalDate {year, month, day}, {hour, minute, second})
+        : ptime(local_date {year, month, day}, {hour, minute, second})
     {}
 
     /// <summary>Initializes a new instance of the LocalDateTime struct using the ISO calendar system.</summary>
     LocalDateTime::LocalDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond)
-        : ptime(LocalDate {year, month, day}, {hour, minute, second, millisecond * 1000})
+        : ptime(local_date {year, month, day}, {hour, minute, second, millisecond * 1000})
     {}
 
     /// <summary>Create from Boost posix_time.</summary>
@@ -70,7 +70,7 @@ namespace dot
         *this = other;
     }
 
-    LocalDateTime::LocalDateTime(const LocalDate& date, const LocalTime& time) :
+    LocalDateTime::LocalDateTime(const local_date& date, const LocalTime& time) :
         ptime(date, time)
     {}
 
@@ -116,7 +116,7 @@ namespace dot
 
     LocalDateTime LocalDateTime::Next(int targetDayOfWeek) const
     {
-        return {LocalDate(date()).Next(targetDayOfWeek), time_of_day()};
+        return {local_date(date()).Next(targetDayOfWeek), time_of_day()};
     }
 
     LocalDateTime LocalDateTime::Plus(const Period& period) const
@@ -166,7 +166,7 @@ namespace dot
 
     LocalDateTime LocalDateTime::Previous(int targetDayOfWeek) const
     {
-        return {LocalDate(date()).Previous(targetDayOfWeek), time_of_day()};
+        return {local_date(date()).Previous(targetDayOfWeek), time_of_day()};
     }
 
     Period LocalDateTime::Subtract(const LocalDateTime& lhs, const LocalDateTime& rhs)

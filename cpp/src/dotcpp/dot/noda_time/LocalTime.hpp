@@ -34,7 +34,7 @@ namespace dot
 
     class string;
     class Period;
-    class LocalDate;
+    class local_date;
     class LocalDateTime;
     class object;
 
@@ -112,8 +112,8 @@ namespace dot
         /// <summary>Subtracts the specified period from this time. Fluent alternative to operator-().</summary>
         LocalTime Minus(const Period& period) const;
 
-        /// <summary>Combines this LocalTime with the given LocalDate into a single LocalDateTime. Fluent alternative to operator+().</summary>
-        LocalDateTime On(const LocalDate& date);
+        /// <summary>Combines this LocalTime with the given local_date into a single LocalDateTime. Fluent alternative to operator+().</summary>
+        LocalDateTime On(const local_date& date);
 
         /// <summary>Adds the specified period to this time. Fluent alternative to operator+().</summary>
         LocalTime Plus(const Period& period) const;
