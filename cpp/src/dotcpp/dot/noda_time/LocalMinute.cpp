@@ -43,9 +43,9 @@ namespace dot
         *this = other;
     }
 
-    LocalTime local_minute::to_local_time() const
+    local_time local_minute::to_local_time() const
     {
-        return LocalTime(hour(), minute());
+        return local_time(hour(), minute());
     }
 
     int local_minute::compare_to(const local_minute& other) const

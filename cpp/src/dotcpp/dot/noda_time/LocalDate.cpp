@@ -65,14 +65,14 @@ namespace dot
         return date + period;
     }
 
-    local_date_time local_date::at(const LocalTime& time) const
+    local_date_time local_date::at(const local_time& time) const
     {
         return *this + time;
     }
 
     local_date_time local_date::at_midnight() const
     {
-        return *this + LocalTime(0, 0);
+        return *this + local_time(0, 0);
     }
 
     int local_date::compare_to(const local_date& other) const
@@ -159,7 +159,7 @@ namespace dot
         return date + period;
     }
 
-    local_date_time local_date::operator+(const LocalTime& time) const
+    local_date_time local_date::operator+(const local_time& time) const
     {
         return {*this, time};
     }

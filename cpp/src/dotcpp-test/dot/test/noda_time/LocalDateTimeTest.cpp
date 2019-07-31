@@ -48,7 +48,7 @@ namespace dot
         REQUIRE(d.day() == 10);
         REQUIRE(d.day_of_week() == boost::gregorian::Monday);
         REQUIRE(d.day_of_year() == 10);
-        REQUIRE((LocalTime)d.time_of_day() == LocalTime(12, 10, 20, 30));
+        REQUIRE((local_time)d.time_of_day() == local_time(12, 10, 20, 30));
         REQUIRE(d.hour() == 12);
         REQUIRE(d.minute() == 10);
         REQUIRE(d.second() == 20);

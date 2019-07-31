@@ -28,7 +28,7 @@ limitations under the License.
 namespace dot
 {
     class string;
-    class LocalTime;
+    class local_time;
 
     class DOT_CLASS local_minute
     {
@@ -63,8 +63,8 @@ namespace dot
 
     public: // METHODS
 
-        /// <summary>Converts this local_minute to LocalTime.</summary>
-        LocalTime to_local_time() const;
+        /// <summary>Converts this local_minute to local_time.</summary>
+        local_time to_local_time() const;
 
         /// <summary>
         /// Indicates whether this time is earlier, later or the same as another one.

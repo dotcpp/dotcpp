@@ -66,8 +66,8 @@ namespace dot
         }
 
         {
-            LocalTime time1(1, 11, 11, 111);
-            LocalTime time2(2, 22, 22, 222);
+            local_time time1(1, 11, 11, 111);
+            local_time time2(2, 22, 22, 222);
             Period p = Period::Between(time2, time1);
             REQUIRE(p.days() == 0);
             REQUIRE(p.hours() == -1);

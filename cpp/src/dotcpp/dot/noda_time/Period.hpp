@@ -32,7 +32,7 @@ namespace dot
     using boost::posix_time::time_duration;
     using boost::gregorian::date_duration;
 
-    class LocalTime;
+    class local_time;
     class local_date;
     class local_date_time;
     class object;
@@ -80,7 +80,7 @@ namespace dot
         static Period Between(const local_date_time& start, const local_date_time& end);
 
         /// <summary>Returns the exact difference between two times.</summary>
-        static Period Between(const LocalTime& start, const LocalTime& end);
+        static Period Between(const local_time& start, const local_time& end);
 
         /// <summary>Compares the given period for equality with this one.</summary>
         bool equals(const Period& other) const;

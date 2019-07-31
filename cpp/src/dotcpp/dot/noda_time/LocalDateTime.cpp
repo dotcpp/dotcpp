@@ -69,7 +69,7 @@ namespace dot
         *this = other;
     }
 
-    local_date_time::local_date_time(const local_date& date, const LocalTime& time) :
+    local_date_time::local_date_time(const local_date& date, const local_time& time) :
         ptime(date, time)
     {}
 

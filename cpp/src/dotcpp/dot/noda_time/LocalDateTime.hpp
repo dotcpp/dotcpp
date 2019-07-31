@@ -48,7 +48,7 @@ namespace dot
         typedef local_date_time self;
         typedef ptime base;
         friend local_date;
-        friend LocalTime;
+        friend local_time;
 
     public: // CONSTRUCTORS
 
@@ -83,7 +83,7 @@ namespace dot
     private: // CONSTRUCTORS
 
         /// <summary>Create from date and time.</summary>
-        local_date_time(const local_date& date, const LocalTime& time);
+        local_date_time(const local_date& date, const local_time& time);
 
     public: // PROPERTIES
 
@@ -111,8 +111,8 @@ namespace dot
         /// <summary>Gets the second of this local date and time within the minute, in the range 0 to 59 inclusive.</summary>
         int second() const { return static_cast<int>(base::time_of_day().seconds()); }
 
-        /// <summary>Gets the time portion of this local date and time as a LocalTime.</summary>
-        LocalTime time_of_day() const { return base::time_of_day(); }
+        /// <summary>Gets the time portion of this local date and time as a local_time.</summary>
+        local_time time_of_day() const { return base::time_of_day(); }
 
         /// <summary>Gets the year of this local date and time.</summary>
         int year() const { return date().year(); }

@@ -45,7 +45,7 @@ namespace dot
         local_minute localMinuteAfter(13, 20);
         local_minute localMinuteBefore(11, 0);
 
-        LocalTime localTime(12, 10);
+        local_time localTime(12, 10);
         REQUIRE(localMinute.to_local_time() == localTime);
         REQUIRE(localMinute.to_string() == "12:10");
 

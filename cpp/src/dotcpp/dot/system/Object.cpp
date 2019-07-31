@@ -68,8 +68,8 @@ namespace dot
     /// <summary>Construct object from local_minute by boxing.</summary>
     object::object(const local_minute & value) : base(new StructWrapperImpl<local_minute>(value)) {}
 
-    /// <summary>Construct object from LocalTime by boxing.</summary>
-    object::object(const LocalTime & value) : base(new StructWrapperImpl<LocalTime>(value)) {}
+    /// <summary>Construct object from local_time by boxing.</summary>
+    object::object(const local_time & value) : base(new StructWrapperImpl<local_time>(value)) {}
 
     /// <summary>Construct object from local_date by boxing.</summary>
     object::object(const local_date & value) : base(new StructWrapperImpl<local_date>(value)) {}
@@ -113,8 +113,8 @@ namespace dot
     /// <summary>Assign local_minute to object by boxing.</summary>
     object& object::operator=(const local_minute& value) { base::operator=(new StructWrapperImpl<local_minute>(value)); return *this; }
 
-    /// <summary>Assign LocalTime to object by boxing.</summary>
-    object& object::operator=(const LocalTime& value) { base::operator=(new StructWrapperImpl<LocalTime>(value)); return *this; }
+    /// <summary>Assign local_time to object by boxing.</summary>
+    object& object::operator=(const local_time& value) { base::operator=(new StructWrapperImpl<local_time>(value)); return *this; }
 
     /// <summary>Assign local_date to object by boxing.</summary>
     object& object::operator=(const local_date& value) { base::operator=(new StructWrapperImpl<local_date>(value)); return *this; }
@@ -140,8 +140,8 @@ namespace dot
     /// <summary>Convert object to local_minute by unboxing. Error if object does is not a boxed local_minute.</summary>
     object::operator local_minute() const { return *ptr<StructWrapperImpl<local_minute>>(*this); }
 
-    /// <summary>Convert object to LocalTime by unboxing. Error if object does is not a boxed LocalTime.</summary>
-    object::operator LocalTime() const { return *ptr<StructWrapperImpl<LocalTime>>(*this); }
+    /// <summary>Convert object to local_time by unboxing. Error if object does is not a boxed local_time.</summary>
+    object::operator local_time() const { return *ptr<StructWrapperImpl<local_time>>(*this); }
 
     /// <summary>Convert object to local_date by unboxing. Error if object does is not a boxed local_date.</summary>
     object::operator local_date() const { return *ptr<StructWrapperImpl<local_date>>(*this); }

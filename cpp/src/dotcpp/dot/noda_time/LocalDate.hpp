@@ -33,7 +33,7 @@ namespace dot
 
     class string;
     class Period;
-    class LocalTime;
+    class local_time;
     class local_date_time;
     class object;
 
@@ -72,8 +72,8 @@ namespace dot
         /// <summary>Adds the specified period to the date. Friendly alternative to operator+().</summary>
         static local_date add(const local_date& date, const Period& period);
 
-        /// <summary>Combines this local_date with the given LocalTime into a single local_date_time. Fluent alternative to operator+().</summary>
-        local_date_time at(const LocalTime& time) const;
+        /// <summary>Combines this local_date with the given local_time into a single local_date_time. Fluent alternative to operator+().</summary>
+        local_date_time at(const local_time& time) const;
 
         /// <summary>Gets a local_date_time at midnight on the date represented by this local date.</summary>
         local_date_time at_midnight() const;
@@ -129,8 +129,8 @@ namespace dot
         static local_date subtract(const local_date& date, const Period& period);
 
     public:
-        /// <summary>Combines the given local_date and LocalTime components into a single local_date_time.</summary>
-        local_date_time operator+(const LocalTime& time) const;
+        /// <summary>Combines the given local_date and local_time components into a single local_date_time.</summary>
+        local_date_time operator+(const local_time& time) const;
 
         /// <summary>Adds the specified period to the date.</summary>
         local_date operator+(const Period& period) const;

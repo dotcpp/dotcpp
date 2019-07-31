@@ -130,15 +130,15 @@ namespace dot
         }
 
         {
-            // Boxing LocalTime
-            LocalTime time(12, 0);
-            LocalTime time2(12, 0);
+            // Boxing local_time
+            local_time time(12, 0);
+            local_time time2(12, 0);
 
             object boxed = time;
-            CHECK_NOTHROW((LocalTime) boxed);
+            CHECK_NOTHROW((local_time) boxed);
 
-            REQUIRE((LocalTime) boxed == time);
-            REQUIRE((LocalTime) boxed == time2);
+            REQUIRE((local_time) boxed == time);
+            REQUIRE((local_time) boxed == time2);
         }
 
         {

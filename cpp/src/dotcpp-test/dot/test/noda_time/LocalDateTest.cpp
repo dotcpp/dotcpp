@@ -63,7 +63,7 @@ namespace dot
 
         local_date_time dt3(2005, 5, 10, 12, 10);
         local_date d3(2005, 5, 10);
-        LocalTime t3(12, 10);
+        local_time t3(12, 10);
         REQUIRE(d3.at(t3) == dt3);
         REQUIRE(d3.at_midnight() == local_date_time(2005, 5, 10, 0, 0));
 

@@ -33,7 +33,7 @@ namespace dot
 {
     template <class T> class nullable;
     class local_minute;
-    class LocalTime;
+    class local_time;
     class local_date;
     class local_date_time;
 
@@ -112,8 +112,8 @@ namespace dot
         /// <summary>Construct object from local_minute by boxing.</summary>
         object(const local_minute & value);
 
-        /// <summary>Construct object from LocalTime by boxing.</summary>
-        object(const LocalTime& value);
+        /// <summary>Construct object from local_time by boxing.</summary>
+        object(const local_time& value);
 
         /// <summary>Construct object from local_date by boxing.</summary>
         object(const local_date& value);
@@ -179,8 +179,8 @@ namespace dot
         /// <summary>Assign local_minute to object by boxing.</summary>
         object& operator=(const local_minute& value);
 
-        /// <summary>Assign LocalTime to object by boxing.</summary>
-        object& operator=(const LocalTime& value);
+        /// <summary>Assign local_time to object by boxing.</summary>
+        object& operator=(const local_time& value);
 
         /// <summary>Assign local_date to object by boxing.</summary>
         object& operator=(const local_date& value);
@@ -206,8 +206,8 @@ namespace dot
         /// <summary>Convert object to local_minute by unboxing. Error if object does is not a boxed local_minute.</summary>
         operator local_minute() const;
 
-        /// <summary>Convert object to LocalTime by unboxing. Error if object does is not a boxed LocalTime.</summary>
-        operator LocalTime() const;
+        /// <summary>Convert object to local_time by unboxing. Error if object does is not a boxed local_time.</summary>
+        operator local_time() const;
 
         /// <summary>Convert object to local_date by unboxing. Error if object does is not a boxed local_date.</summary>
         operator local_date() const;
