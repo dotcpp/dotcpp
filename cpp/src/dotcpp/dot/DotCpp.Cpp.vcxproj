@@ -66,6 +66,7 @@
     <ClInclude Include="system\reflection\Activator.hpp" />
     <ClInclude Include="system\reflection\BindingFlags.hpp" />
     <ClInclude Include="system\reflection\ConstructorInfo.hpp" />
+    <ClInclude Include="system\reflection\FieldInfo.hpp" />
     <ClInclude Include="system\reflection\MemberInfo.hpp" />
     <ClInclude Include="system\reflection\MethodInfo.hpp" />
     <ClInclude Include="system\reflection\ParameterInfo.hpp" />

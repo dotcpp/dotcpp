@@ -44,7 +44,7 @@ limitations under the License.
             return type;                                                                          \
         }                                                                                         \
 
-#define DOT_TYPE_PROP(prop_name)             ->WithProperty(#prop_name, &self::prop_name)
+#define DOT_TYPE_PROP(prop_name)             ->WithField(#prop_name, &self::prop_name)
 #define DOT_TYPE_METHOD(meth_name, ...)          ->WithMethod(#meth_name, &self::meth_name, { __VA_ARGS__ })
 #define DOT_TYPE_CTOR(ctor_name, ...)            ->WithConstructor(&ctor_name, { __VA_ARGS__ })
 #define DOT_TYPE_INTERFACE(interface)            ->template WithInterface<interface>()

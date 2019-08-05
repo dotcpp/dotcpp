@@ -33,6 +33,7 @@ limitations under the License.
 #include <dot/system/reflection/ConstructorInfo.hpp>
 #include <dot/system/reflection/MethodInfo.hpp>
 #include <dot/system/reflection/ParameterInfo.hpp>
+#include <dot/system/reflection/FieldInfo.hpp>
 #include <dot/noda_time/LocalDate.hpp>
 #include <dot/noda_time/LocalTime.hpp>
 #include <dot/noda_time/LocalMinute.hpp>
@@ -63,6 +64,7 @@ namespace dot
         string fullName_;
         list<MethodInfo> methods_;
         list<ConstructorInfo> ctors_;
+        list<field_info> fields_;
         type_t type_;
         type_t base_;
         list<type_t> interfaces_;
@@ -76,7 +78,11 @@ namespace dot
         template <class Class, class Prop>
         TypeBuilder WithField(string name, Prop Class::*prop)
         {
-            // TODO - implement
+            if (fields_.IsEmpty())
+            {
+                fields_ = make_list<field_info>();
+            }
+            fields_->add(make_field_info<Prop, Class>(name, type_, dot::typeof<Prop>(), prop));
             return this;
         }
 
