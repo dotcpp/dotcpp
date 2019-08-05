@@ -25,27 +25,23 @@ limitations under the License.
 
 #include <unordered_set>
 #include <dot/system/Exception.hpp>
-#include <dot/system/collections/generic/ISet.hpp>
+#include <dot/system/array1d.hpp>
 #include <dot/system/collections/generic/list.hpp>
 
 namespace dot
 {
-    template <class T> class array_impl; template <class T> using array = ptr<array_impl<T>>;
-
     template <class T> class HashSetImpl;
     template <class T> using HashSet = ptr<HashSetImpl<T>>;
 
     /// <summary>Represents a set of values.</summary>
     template <class T>
-    class HashSetImpl
-        : public virtual object_impl
-        , public std::unordered_set<T>
+    class HashSetImpl : public virtual object_impl, public std::unordered_set<T>
     {
         typedef HashSetImpl<T> self;
         typedef std::unordered_set<T> base;
 
-        template <class T_> friend HashSet<T_> new_HashSet();
-        template <class T_> friend HashSet<T_> new_HashSet(IEnumerable<T_> collection);
+        template <class R> friend HashSet<R> new_HashSet();
+        template <class R> friend HashSet<R> new_HashSet(list<R> collection);
 
     protected: // CONSTRUCTORS
 
@@ -58,7 +54,7 @@ namespace dot
         /// equality comparer for the set type, contains elements copied from the specified
         /// collection, and has sufficient capacity to accommodate the number of elements copied.
         /// </summary>
-        explicit HashSetImpl(IEnumerable<T> collection)
+        explicit HashSetImpl(list<T> collection)
         {
             for (T const & item : collection)
                 this->Add(item);
@@ -79,29 +75,23 @@ namespace dot
         }
 
         /// <summary>Removes all elements from a HashSet object.</summary>
-        virtual void Clear()
+        void Clear()
         {
             this->clear();
         }
 
         /// <summary>Determines whether a HashSet object contains the specified element.</summary>
-        virtual bool contains(const T& item)
+        bool contains(const T& item)
         {
             auto iter = this->find(item);
             return iter != this->end();
         }
 
         /// <summary>Removes the specified element from a HashSet object.</summary>
-        virtual bool Remove(const T& item)
+        bool Remove(const T& item)
         {
             return this->erase(item) != 0;
         }
-
-        /// <summary>Returns random access begin iterator of the underlying std::unordered_set.</summary>
-        typename base::iterator begin() { return base::begin(); }
-
-        /// <summary>Returns random access end iterator of the underlying std::unordered_set.</summary>
-        typename base::iterator end() { return base::end(); }
 
         /// <summary>Sets the capacity of a HashSet object to the actual number of elements
         /// it contains,rounded up to a nearby, implementation-specific value.</summary>
@@ -123,7 +113,7 @@ namespace dot
         }
 
         /// <summary>Removes all elements in the specified collection from the current HashSet object.</summary>
-        virtual void ExceptWith(IEnumerable<T> other) override
+        void ExceptWith(list<T> other)
         {
             for (T const& item : other)
             {
@@ -133,7 +123,7 @@ namespace dot
 
         /// <summary>Modifies the current HashSet object to contain only elements
         /// that are present in that object and in the specified collection.</summary>
-        virtual void IntersectWith(IEnumerable<T> other) override
+        void IntersectWith(list<T> other)
         {
             list<T> left = make_list<T>();
             for (T const& item : other)
@@ -151,5 +141,5 @@ namespace dot
     inline HashSet<T> new_HashSet() { return new HashSetImpl<T>(); }
 
     template <class T>
-    inline HashSet<T> new_HashSet(IEnumerable<T> collection) { return new HashSetImpl<T>(collection); }
+    inline HashSet<T> new_HashSet(list<T> collection) { return new HashSetImpl<T>(collection); }
 }
