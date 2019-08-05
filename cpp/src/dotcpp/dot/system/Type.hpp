@@ -579,7 +579,7 @@ namespace dot
         {
             static object Impl(object tuple, int index)
             {
-                if (I == index) return std::get<I>(*(StructWrapper<std::tuple<T...>>)tuple);
+                if (I == index) return std::get<I>(*(struct_wrapper<std::tuple<T...>>)tuple);
                     else return GetItemImpl<I + 1>::Impl(tuple, index);
             }
         };
@@ -603,7 +603,7 @@ namespace dot
         {
             static void Impl(object tuple, int index, object value)
             {
-                if (I == index) std::get<I>(*(StructWrapper<std::tuple<T...>>)tuple) = (std::tuple_element_t<I, std::tuple<T...>>)value;
+                if (I == index) std::get<I>(*(struct_wrapper<std::tuple<T...>>)tuple) = (std::tuple_element_t<I, std::tuple<T...>>)value;
                 else SetItemImpl<I + 1>::Impl(tuple, index, value);
             }
         };

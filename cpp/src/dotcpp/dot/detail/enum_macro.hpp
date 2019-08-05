@@ -29,10 +29,10 @@ private:                                                                \
                                                                         \
 public:                                                                 \
     typedef self element_type;                                          \
-    typedef dot::StructWrapperImpl<self>* pointer_type;                      \
+    typedef dot::struct_wrapper_impl<self>* pointer_type;                      \
     using dot::Enum::Enum;                                                   \
                                                                         \
-    operator dot::object() { return new dot::StructWrapperImpl<self>(*this); }    \
+    operator dot::object() { return new dot::struct_wrapper_impl<self>(*this); }    \
     operator int() const { return value_; }                             \
     self& operator=(int rhs) { value_ = rhs; return *this; }            \
     self& operator=(const self& other) { value_ = other.value_; return *this; } \

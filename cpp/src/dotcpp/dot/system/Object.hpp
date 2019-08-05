@@ -38,9 +38,9 @@ namespace dot
     class local_date_time;
 
     template <class T>
-    class StructWrapperImpl;
+    class struct_wrapper_impl;
     template <class T>
-    using StructWrapper = ptr<StructWrapperImpl<T>>;
+    using struct_wrapper = ptr<struct_wrapper_impl<T>>;
 
     template <class T>
     type_t typeof();
@@ -123,11 +123,11 @@ namespace dot
 
         /// <summary>Construct object from struct wrapper, boxing the value if necessary.</summary>
         template <typename T>
-        object(StructWrapper<T> value) : base(value) {}
+        object(struct_wrapper<T> value) : base(value) {}
 
         /// <summary>Construct object from tuple, boxing the value if necessary.</summary>
         template <typename ... T>
-        object(const std::tuple<T...> & value) : object(new StructWrapperImpl<std::tuple<T...>>(value)) {}
+        object(const std::tuple<T...> & value) : object(new struct_wrapper_impl<std::tuple<T...>>(value)) {}
 
     public: // OPERATORS
 
@@ -164,13 +164,13 @@ namespace dot
         /// <summary>Assign char to object by boxing.</summary>
         object& operator=(char value);
 
-        /// <summary>Assign StructWrapper to object by boxing.</summary>
+        /// <summary>Assign struct_wrapper to object by boxing.</summary>
         template <class T>
-        object& operator=(const StructWrapper<T>& value) { base::operator=(value); return *this; }
+        object& operator=(const struct_wrapper<T>& value) { base::operator=(value); return *this; }
 
         /// <summary>Assign tuple to object by boxing.</summary>
         template <typename ... T>
-        object& operator=(const std::tuple<T...> & value) { base::operator=(new StructWrapperImpl<std::tuple<T...>>(value)); return *this; }
+        object& operator=(const std::tuple<T...> & value) { base::operator=(new struct_wrapper_impl<std::tuple<T...>>(value)); return *this; }
 
         /// <summary>Assign nullable to object by boxing.</summary>
         template <class T>
@@ -215,13 +215,13 @@ namespace dot
         /// <summary>Convert object to local_date_time by unboxing. Error if object does is not a boxed local_date_time.</summary>
         operator local_date_time() const;
 
-        /// <summary>Convert object to StructWrapper by unboxing. Error if object does is not a boxed T.</summary>
+        /// <summary>Convert object to struct_wrapper by unboxing. Error if object does is not a boxed T.</summary>
         template <class T>
-        operator StructWrapper<T>() const { return this->as<StructWrapper<T>>(); }
+        operator struct_wrapper<T>() const { return this->as<struct_wrapper<T>>(); }
 
         /// <summary>Convert object to tuple by unboxing. Error if object does is not a boxed T.</summary>
         template <class ... T>
-        operator std::tuple<T...>() const { return *this->as<StructWrapper<std::tuple<T...>>>(); }
+        operator std::tuple<T...>() const { return *this->as<struct_wrapper<std::tuple<T...>>>(); }
 
         bool operator ==(object rhs) const { throw exception("Not implemented"); return false; }
 
@@ -242,15 +242,15 @@ namespace dot
 {
     /// <summary>Wraps struct into object.</summary>
     template <class T>
-    class StructWrapperImpl
+    class struct_wrapper_impl
         : public virtual object_impl
         , public T
-        , public detail::inherit_to_string<StructWrapperImpl<T>, T>
-        , public detail::inherit_get_hashcode<StructWrapperImpl<T>, T>
-        , public detail::inherit_equals<StructWrapperImpl<T>, T>
+        , public detail::inherit_to_string<struct_wrapper_impl<T>, T>
+        , public detail::inherit_get_hashcode<struct_wrapper_impl<T>, T>
+        , public detail::inherit_equals<struct_wrapper_impl<T>, T>
     {
     public:
-        StructWrapperImpl(const T& value) : T(value) {}
+        struct_wrapper_impl(const T& value) : T(value) {}
 
     public:
         static type_t typeof()
@@ -263,11 +263,11 @@ namespace dot
             return typeof();
         }
 
-        virtual string to_string() override { return detail::inherit_to_string<StructWrapperImpl<T>, T>::to_string(); }
+        virtual string to_string() override { return detail::inherit_to_string<struct_wrapper_impl<T>, T>::to_string(); }
 
-        virtual size_t hash_code() override { return detail::inherit_get_hashcode<StructWrapperImpl<T>, T>::hash_code(); }
+        virtual size_t hash_code() override { return detail::inherit_get_hashcode<struct_wrapper_impl<T>, T>::hash_code(); }
 
-        bool equals(object obj) override { return detail::inherit_equals<StructWrapperImpl<T>, T>::equals(obj); }
+        bool equals(object obj) override { return detail::inherit_equals<struct_wrapper_impl<T>, T>::equals(obj); }
     };
 }
 
