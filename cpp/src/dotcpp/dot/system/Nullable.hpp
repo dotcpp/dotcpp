@@ -114,7 +114,7 @@ namespace dot
         typedef nullable self;
 
     private:
-        int value_ = Bool::Empty;
+        int value_ = bool_impl::empty;
 
     public: // PROPERTIES
 
@@ -127,18 +127,18 @@ namespace dot
             {
                 case 1: return true;
                 case 0: return false;
-                case Bool::Empty: throw std::runtime_error("Bool value is empty");
+                case bool_impl::empty: throw std::runtime_error("Bool value is empty");
                 default: throw std::runtime_error("Unknown internal value in nullable<bool>.");
             }
         }
 
         /// <summary>Returns true if the object is in uninitialized (empty) state.</summary>
-        bool has_value() const { return value_ != Bool::Empty; }
+        bool has_value() const { return value_ != bool_impl::empty; }
 
     public: // CONSTRUCTORS
 
         /// <summary>Creates in uninitialized (empty) state.</summary>
-        nullable() : value_(Bool::Empty) {}
+        nullable() : value_(bool_impl::empty) {}
 
         /// <summary>Create from native bool.</summary>
         nullable(bool value) : value_(value ? 1 : 0) {}

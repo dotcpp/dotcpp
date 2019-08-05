@@ -29,7 +29,7 @@ limitations under the License.
 namespace dot
 {
     /// <summary>Wrapper around bool to make it convertible to object (boxing).</summary>
-    class BoolImpl : public virtual object_impl
+    class bool_impl : public virtual object_impl
     {
         friend object;
         bool value_;
@@ -37,7 +37,23 @@ namespace dot
     public: // CONSTRUCTORS
 
         /// <summary>Create from value (box).</summary>
-        BoolImpl(bool value) : value_(value) {}
+        bool_impl(bool value) : value_(value) {}
+
+    public: //  CONSTANTS
+
+        /// <summary>Sentinel value representing uninitialized state.</summary>
+        static constexpr int empty = INT32_MIN;
+
+        /// <summary>Represents the Boolean value false as a string. This field is read-only.</summary>
+        static const string false_string;
+
+        /// <summary>Represents the Boolean value true as a string. This field is read-only.</summary>
+        static const string true_string;
+
+    public: // STATIC
+
+        /// <summary>Converts the specified string representation of a logical value to its Boolean equivalent.</summary>
+        static bool parse(string s);
 
     public: // METHODS
 
@@ -54,25 +70,4 @@ namespace dot
         virtual type_t type() override;
     };
 
-    /// <summary>
-    /// Provides constants and static methods for bool type.
-    /// </summary>
-    class DOT_CLASS Bool
-    {
-    public: //  CONSTANTS
-
-        /// <summary>Sentinel value representing uninitialized state.</summary>
-        static constexpr int Empty = INT32_MIN;
-
-        /// <summary>Represents the Boolean value false as a string. This field is read-only.</summary>
-        static const string false_string;
-
-        /// <summary>Represents the Boolean value true as a string. This field is read-only.</summary>
-        static const string true_string;
-
-    public: // STATIC
-
-        /// <summary>Converts the specified string representation of a logical value to its Boolean equivalent.</summary>
-        static bool Parse(string s);
-    };
 }

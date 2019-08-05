@@ -51,7 +51,7 @@ namespace dot
     object::object(const char* value) : base(string(value)) {}
 
     /// <summary>Construct object from bool by boxing.</summary>
-    object::object(bool value) : base(new BoolImpl(value)) {}
+    object::object(bool value) : base(new bool_impl(value)) {}
 
     /// <summary>Construct object from double by boxing.</summary>
     object::object(double value) : base(new DoubleImpl(value)) {}
@@ -96,7 +96,7 @@ namespace dot
     object& object::operator=(const char* value) { base::operator=(string(value)); return *this; }
 
     /// <summary>Assign bool to object by boxing.</summary>
-    object& object::operator=(bool value) { base::operator=(new BoolImpl(value)); return *this; }
+    object& object::operator=(bool value) { base::operator=(new bool_impl(value)); return *this; }
 
     /// <summary>Assign double to object by boxing.</summary>
     object& object::operator=(double value) { base::operator=(new DoubleImpl(value)); return *this; }
@@ -123,7 +123,7 @@ namespace dot
     object& object::operator=(const local_date_time& value) { base::operator=(new StructWrapperImpl<local_date_time>(value)); return *this; }
 
     /// <summary>Convert object to bool by unboxing. Error if object does is not a boxed double.</summary>
-    object::operator bool() const { return ptr<BoolImpl>(*this)->value_; }
+    object::operator bool() const { return ptr<bool_impl>(*this)->value_; }
 
     /// <summary>Convert object to double by unboxing. Error if object does is not a boxed double.</summary>
     object::operator double() const { return ptr<DoubleImpl>(*this)->value_; }
