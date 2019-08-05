@@ -35,11 +35,11 @@ namespace dot
 
         try
         {
-            throw new_Exception("Runtime error");
+            throw exception("Runtime error");
         }
-        catch(Exception e)
+        catch(exception e)
         {
-            received->AppendLine(e.Message());
+            received->append_line(e.message());
         }
 
         Approvals::verify(*received);

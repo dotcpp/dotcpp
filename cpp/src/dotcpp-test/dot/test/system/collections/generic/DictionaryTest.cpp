@@ -35,7 +35,7 @@ namespace dot
         dictionary<string, string> dict = make_dictionary<string, string>();
 
         dict->add("a", "b");
-        dict->add(KeyValuePair<string, string>("c", "d"));
+        dict->add(std::pair<string, string>("c", "d"));
         dict->add("", "");
 
         return dict;

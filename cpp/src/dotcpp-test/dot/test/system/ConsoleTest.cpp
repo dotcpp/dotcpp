@@ -24,7 +24,7 @@ limitations under the License.
 #include <dot/test/implement.hpp>
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
-#include <dot/system/Console.hpp>
+#include <dot/system/console.hpp>
 
 namespace dot
 {
@@ -32,9 +32,9 @@ namespace dot
     {
         int x = 1;
         string s = "{1}";
-        Console::WriteLine("{0}, {1}", x, "str");
-        Console::WriteLine(string("{0}"));
-        Console::WriteLine(s);
-        Console::WriteLine(2);
+        console::write_line("{0}, {1}", x, "str");
+        console::write_line(string("{0}"));
+        console::write_line(s);
+        console::write_line(2);
     }
 }

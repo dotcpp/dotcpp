@@ -36,16 +36,16 @@ namespace dot
         const string s = "{0}";
 
         string_builder result = make_string_builder();
-        result->Append("abc");
-        result->Append(123);
-        result->AppendLine();
-        result->AppendLine("xyz");
-        result->AppendLine();
+        result->append("abc");
+        result->append(123);
+        result->append_line();
+        result->append_line("xyz");
+        result->append_line();
 
-        result->AppendFormat(s, x);
-        result->AppendLine();
-        result->AppendLine(string::format("{0:.3f}", y));
-        result->AppendLine(string::format("{0}, {1}", "123", "456"));
+        result->append_format(s, x);
+        result->append_line();
+        result->append_line(string::format("{0:.3f}", y));
+        result->append_line(string::format("{0}, {1}", "123", "456"));
 
         Approvals::verify(*result);
     }

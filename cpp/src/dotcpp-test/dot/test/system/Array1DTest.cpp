@@ -114,7 +114,7 @@ namespace dot
     {
         array<double> obj = make_array<double>(3);
         auto type = obj->type();
-        string fullname = type->FullName();
+        string fullname = type->full_name();
 
         REQUIRE(type->to_string() == "System.Double[]");
     }

@@ -78,22 +78,22 @@ namespace dot
         }
 
         {
-            period p = period::FromWeeks(1);
+            period p = period::from_weeks(1);
             REQUIRE(p.days() == 7);
 
-            p = period::FromDays(1);
+            p = period::from_days(1);
             REQUIRE(p.days() == 1);
 
-            p = period::FromHours(1);
+            p = period::from_hours(1);
             REQUIRE(p.hours() == 1);
 
-            p = period::FromMinutes(1);
+            p = period::from_minutes(1);
             REQUIRE(p.minutes() == 1);
 
-            p = period::FromSeconds(1);
+            p = period::from_seconds(1);
             REQUIRE(p.seconds() == 1);
 
-            p = period::FromMilliseconds(1);
+            p = period::from_milliseconds(1);
             REQUIRE(p.milliseconds() == 1);
         }
     }

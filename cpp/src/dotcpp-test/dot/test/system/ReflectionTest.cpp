@@ -68,7 +68,7 @@ namespace dot
                     //->WithProperty("Count", &ReflectionBaseSampleImpl::Count)
                     //->WithProperty("Count2", &ReflectionBaseSampleImpl::Count2)
 
-                    ->Build();
+                    ->build();
             }();
 
             return type;
