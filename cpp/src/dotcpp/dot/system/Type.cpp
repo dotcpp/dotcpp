@@ -63,9 +63,9 @@ namespace dot
     /// </summary>
     void type_impl::fill(const type_builder& data)
     {
-        if (!data->base_.IsEmpty() && data->base_->get_methods()->count())
+        if (!data->base_.is_empty() && data->base_->get_methods()->count())
         {
-            if (data->methods_.IsEmpty())
+            if (data->methods_.is_empty())
             {
                 data->methods_ = make_list<method_info>();
             }
@@ -86,7 +86,7 @@ namespace dot
             data->methods_ = new_methods;
         }
 
-        if (!data->methods_.IsEmpty())
+        if (!data->methods_.is_empty())
         {
             this->methods_ = make_array<method_info>(data->methods_->count());
             int i = 0;
@@ -98,7 +98,7 @@ namespace dot
         else
             this->methods_ = make_array<method_info>(0);
 
-        if (!data->ctors_.IsEmpty())
+        if (!data->ctors_.is_empty())
         {
             this->ctors_ = make_array<constructor_info>(data->ctors_->count());
             int i = 0;
@@ -110,7 +110,7 @@ namespace dot
         else
             this->ctors_ = make_array<constructor_info>(0);
 
-        if (!data->interfaces_.IsEmpty())
+        if (!data->interfaces_.is_empty())
         {
             this->interfaces_ = make_array<type_t>(data->interfaces_->count());
             int i = 0;
@@ -122,7 +122,7 @@ namespace dot
         else
             this->interfaces_ = make_array<type_t>(0);
 
-        if (!data->generic_args_.IsEmpty())
+        if (!data->generic_args_.is_empty())
         {
             this->generic_args_ = make_array<type_t>(data->generic_args_->count());
             int i = 0;
@@ -162,7 +162,7 @@ namespace dot
 
     method_info type_impl::get_method(string name)
     {
-        if (methods_.IsEmpty()) return nullptr;
+        if (methods_.is_empty()) return nullptr;
 
         for (auto method : methods_)
         {
@@ -175,7 +175,7 @@ namespace dot
 
     type_t type_impl::get_interface(string name)
     {
-        if (interfaces_.IsEmpty()) return nullptr;
+        if (interfaces_.is_empty()) return nullptr;
 
         for (auto interface : interfaces_)
         {

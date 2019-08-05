@@ -78,7 +78,7 @@ namespace dot
         template <class class_t, class fld>
         type_builder with_field(string name, fld class_t::*prop)
         {
-            if (fields_.IsEmpty())
+            if (fields_.is_empty())
             {
                 fields_ = make_list<field_info>();
             }
@@ -94,7 +94,7 @@ namespace dot
             if (args_count != names.size())
                 throw exception("Wrong number of parameters for method " + full_name_);
 
-            if (methods_.IsEmpty())
+            if (methods_.is_empty())
             {
                 methods_ = make_list<method_info>();
             }
@@ -123,7 +123,7 @@ namespace dot
             if (args_count != names.size())
                 throw exception("Wrong number of parameters for method " + full_name_);
 
-            if (methods_.IsEmpty())
+            if (methods_.is_empty())
             {
                 methods_ = make_list<method_info>();
             }
@@ -152,7 +152,7 @@ namespace dot
             if (args_count != names.size())
                 throw exception("Wrong number of parameters for method " + full_name_);
 
-            if (ctors_.IsEmpty())
+            if (ctors_.is_empty())
             {
                 ctors_ = make_list<constructor_info>();
             }
@@ -185,7 +185,7 @@ namespace dot
         template <class class_t>
         type_builder with_base()
         {
-            if (!(this->base_.IsEmpty()))
+            if (!(this->base_.is_empty()))
                 throw exception("Base already defined in class " + full_name_);
 
             this->base_ = dot::typeof<class_t>();
@@ -196,7 +196,7 @@ namespace dot
         template <class class_t>
         type_builder with_interface()
         {
-            if (this->interfaces_.IsEmpty())
+            if (this->interfaces_.is_empty())
                 this->interfaces_ = make_list<type_t>();
 
             this->interfaces_->add(dot::typeof<class_t>());
@@ -207,7 +207,7 @@ namespace dot
         template <class class_t>
         type_builder with_generic_argument()
         {
-            if (this->generic_args_.IsEmpty())
+            if (this->generic_args_.is_empty())
                 this->generic_args_ = make_list<type_t>();
 
             this->generic_args_->add(dot::typeof<class_t>());

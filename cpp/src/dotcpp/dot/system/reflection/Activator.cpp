@@ -43,7 +43,7 @@ namespace dot
         array<constructor_info> ctors = type->get_constructors();
 
         // If no constructors
-        if (ctors.IsEmpty() || ctors->count() == 0)
+        if (ctors.is_empty() || ctors->count() == 0)
         {
             throw exception(string::format("type_t {0}.{1} does not have registered constructors", type->name_space, type->name));
         }
@@ -51,7 +51,7 @@ namespace dot
         // Search for best matched constructor
         constructor_info best_ctor = nullptr;
         int params_count = 0;
-        if (!params.IsEmpty())
+        if (!params.is_empty())
         {
             params_count = params->count();
         }

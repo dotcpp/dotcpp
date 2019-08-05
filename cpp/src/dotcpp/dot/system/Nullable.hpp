@@ -70,7 +70,7 @@ namespace dot
         /// Error if object does is not a boxed T.
         /// Null object becomes empty nullable.
         /// </summary>
-        explicit nullable(object rhs) { if (!rhs.IsEmpty()) *this = (T) rhs; }
+        explicit nullable(object rhs) { if (!rhs.is_empty()) *this = (T) rhs; }
 
         /// <summary>Copy constructor.</summary>
         nullable(const nullable& other) { *this = other; }
@@ -149,7 +149,7 @@ namespace dot
         /// Error if object does is not a boxed boolean.
         /// Null object becomes empty nullable.
         /// </summary>
-        explicit nullable(object rhs) { if (!rhs.IsEmpty()) *this = (bool) rhs; }
+        explicit nullable(object rhs) { if (!rhs.is_empty()) *this = (bool) rhs; }
 
         /// <summary>Copy constructor.</summary>
         nullable(const nullable& other) { *this = other; }
@@ -218,7 +218,7 @@ namespace dot
         /// Error if object does is not a boxed int.
         /// Null object becomes empty nullable.
         /// </summary>
-        explicit nullable(object rhs) { if (!rhs.IsEmpty()) *this = (int) rhs; }
+        explicit nullable(object rhs) { if (!rhs.is_empty()) *this = (int) rhs; }
 
         /// <summary>Copy constructor.</summary>
         nullable(const nullable& other) { *this = other; }
@@ -292,7 +292,7 @@ namespace dot
         /// Error if object does is not a boxed long.
         /// Null object becomes empty nullable.
         /// </summary>
-        explicit nullable(object rhs) { if (!rhs.IsEmpty()) *this = (int64_t) rhs; }
+        explicit nullable(object rhs) { if (!rhs.is_empty()) *this = (int64_t) rhs; }
 
         /// <summary>Copy constructor.</summary>
         nullable(const nullable& other) { *this = other; }
@@ -365,7 +365,7 @@ namespace dot
         /// Error if object does is not a boxed double.
         /// Null object becomes empty nullable.
         /// </summary>
-        explicit nullable(object rhs) { if (!rhs.IsEmpty()) *this = (double) rhs; }
+        explicit nullable(object rhs) { if (!rhs.is_empty()) *this = (double) rhs; }
 
         /// <summary>Copy constructor.</summary>
         nullable(const nullable& other) { *this = other; }

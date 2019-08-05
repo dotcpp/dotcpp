@@ -89,7 +89,7 @@ namespace dot
         bool is() const;
 
         /// <summary>Returns true if pointer holds object, and false otherwise.</summary>
-        bool IsEmpty();
+        bool is_empty();
 
     public: // OPERATORS
 
@@ -137,8 +137,8 @@ namespace dot
     };
 
     template <class T> ptr<T>::ptr() : ptr_(nullptr) {}
-    template <class T> ptr<T>::ptr(T* p) : ptr_(p) { if (ptr_) ptr_->IncrementReferenceCount(); }
-    template <class T> template <class R> ptr<T>::ptr(const ptr<R>& rhs, typename std::enable_if<std::is_base_of<T, R>::value>::type* p) : ptr_(rhs.ptr_) { if (ptr_) ptr_->IncrementReferenceCount(); }
+    template <class T> ptr<T>::ptr(T* p) : ptr_(p) { if (ptr_) ptr_->increment_reference_count(); }
+    template <class T> template <class R> ptr<T>::ptr(const ptr<R>& rhs, typename std::enable_if<std::is_base_of<T, R>::value>::type* p) : ptr_(rhs.ptr_) { if (ptr_) ptr_->increment_reference_count(); }
     template <class T> template <class R> ptr<T>::ptr(const ptr<R>& rhs, typename std::enable_if<!std::is_base_of<T, R>::value>::type* p) : ptr_(nullptr)
     {
         // If argument is null, ptr_ should also remain null
@@ -154,11 +154,11 @@ namespace dot
             ptr_ = p;
 
             // Increment reference count
-            ptr_->IncrementReferenceCount();
+            ptr_->increment_reference_count();
         }
     }
-    template <class T> ptr<T>::ptr(const ptr<T>& rhs) : ptr_(rhs.ptr_) { if (ptr_) ptr_->IncrementReferenceCount(); }
-    template <class T> ptr<T>::~ptr() { if (ptr_) ptr_->DecrementReferenceCount(); }
+    template <class T> ptr<T>::ptr(const ptr<T>& rhs) : ptr_(rhs.ptr_) { if (ptr_) ptr_->increment_reference_count(); }
+    template <class T> ptr<T>::~ptr() { if (ptr_) ptr_->decrement_reference_count(); }
     template <class T> template <class R> R ptr<T>::as() const { typename R::pointer_type p = dynamic_cast<typename R::pointer_type>(ptr_); return p; }
     template <class T> template <class R> bool ptr<T>::is() const { return dynamic_cast<typename R::pointer_type>(ptr_); }
     template <class T> T& ptr<T>::operator*() const
@@ -177,12 +177,12 @@ namespace dot
     template <class T> bool ptr<T>::operator!=(const ptr<T>& rhs) const { return ptr_ != rhs.ptr_; } // TODO check when comparison is performed by value
     template <class T> bool ptr<T>::operator==(nullptr_t) const { return ptr_ == nullptr; }
     template <class T> bool ptr<T>::operator!=(nullptr_t) const { return ptr_ != nullptr; }
-    template <class T> ptr<T>& ptr<T>::operator=(T* rhs) { if (ptr_) ptr_->DecrementReferenceCount(); if (rhs) rhs->IncrementReferenceCount(); ptr_ = rhs; return *this; }
-    template <class T> template <class R> ptr<T>& ptr<T>::operator=(const ptr<R>& rhs) { if (ptr_) ptr_->DecrementReferenceCount(); if (rhs.ptr_) rhs.ptr_->IncrementReferenceCount(); ptr_ = rhs.ptr_; return *this; }
-    template <class T> ptr<T>& ptr<T>::operator=(const ptr<T>& rhs) { if (ptr_) ptr_->DecrementReferenceCount(); if (rhs.ptr_) rhs.ptr_->IncrementReferenceCount(); ptr_ = rhs.ptr_; return *this; }
+    template <class T> ptr<T>& ptr<T>::operator=(T* rhs) { if (ptr_) ptr_->decrement_reference_count(); if (rhs) rhs->increment_reference_count(); ptr_ = rhs; return *this; }
+    template <class T> template <class R> ptr<T>& ptr<T>::operator=(const ptr<R>& rhs) { if (ptr_) ptr_->decrement_reference_count(); if (rhs.ptr_) rhs.ptr_->increment_reference_count(); ptr_ = rhs.ptr_; return *this; }
+    template <class T> ptr<T>& ptr<T>::operator=(const ptr<T>& rhs) { if (ptr_) ptr_->decrement_reference_count(); if (rhs.ptr_) rhs.ptr_->increment_reference_count(); ptr_ = rhs.ptr_; return *this; }
     template <class T> template <class I> decltype(auto) ptr<T>::operator[](I const& i) const { return (*ptr_)[i]; }
     template <class T> template <class I> decltype(auto) ptr<T>::operator[](I const& i) { return (*ptr_)[i]; }
-    template <class T> bool ptr<T>::IsEmpty() { return !ptr_; }
+    template <class T> bool ptr<T>::is_empty() { return !ptr_; }
 
     /// <summary>Implements begin() used by STL and similar algorithms.</summary>
     template <class T>

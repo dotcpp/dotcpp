@@ -47,13 +47,13 @@ namespace dot
     public: // METHODS
 
         /// <summary>Increment reference count.</summary>
-        void IncrementReferenceCount()
+        void increment_reference_count()
         {
             ++reference_count_;
         }
 
         /// <summary>Decrement reference count, deletes if decremented count is zero.</summary>
-        void DecrementReferenceCount()
+        void decrement_reference_count()
         {
             if (!--reference_count_)
             {
