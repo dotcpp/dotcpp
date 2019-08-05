@@ -29,7 +29,7 @@ limitations under the License.
 namespace dot
 {
     /// <summary>Wrapper around double to make it convertible to object (boxing).</summary>
-    class DoubleImpl : public virtual object_impl
+    class double_impl : public virtual object_impl
     {
         friend object;
         double value_;
@@ -37,7 +37,20 @@ namespace dot
     public: // CONSTRUCTORS
 
         /// <summary>Create from value (box).</summary>
-        DoubleImpl(double value) : value_(value) {}
+        double_impl(double value) : value_(value) {}
+
+    public: //  CONSTANTS
+
+        /// <summary>Sentinel value representing uninitialized state.</summary>
+        static constexpr double empty = -1e100;
+
+        /// <summary>Tolerance used in comparison.</summary>
+        static constexpr double tolerance = 1e-10;
+
+    public: // STATIC
+
+        /// <summary>Converts the string representation of a number to its double-precision floating-point number equivalent.</summary>
+        static double parse(string s);
 
     public: // METHODS
 
@@ -56,23 +69,5 @@ namespace dot
         virtual type_t type() override;
     };
 
-    /// <summary>
-    /// Provides constants and static methods for double type.
-    /// </summary>
-    class DOT_CLASS Double
-    {
-    public: //  CONSTANTS
-
-        /// <summary>Sentinel value representing uninitialized state.</summary>
-        static constexpr double Empty = -1e100;
-
-        /// <summary>Tolerance used in comparison.</summary>
-        static constexpr double Tolerance = 1e-10;
-
-    public: // STATIC
-
-        /// <summary>Converts the string representation of a number to its double-precision floating-point number equivalent.</summary>
-        static double Parse(string s);
-    };
 }
 

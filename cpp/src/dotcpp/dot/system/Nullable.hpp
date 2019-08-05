@@ -334,22 +334,22 @@ namespace dot
         typedef nullable self;
 
     private:
-        double value_ = Double::Empty;
+        double value_ = double_impl::empty;
 
     public: // PROPERTIES
 
         typedef double value_type;
 
         /// <summary>Convert to native double, error if the object is in null (empty) state.</summary>
-        double value() const { if (value_ == Double::Empty) throw std::runtime_error("Double value is empty"); return value_; }
+        double value() const { if (value_ == double_impl::empty) throw std::runtime_error("Double value is empty"); return value_; }
 
         /// <summary>Returns true if the object is in uninitialized (empty) state.</summary>
-        bool has_value() const { return value_ != Double::Empty; }
+        bool has_value() const { return value_ != double_impl::empty; }
 
     public: // CONSTRUCTORS
 
         /// <summary>Creates in uninitialized (empty) state.</summary>
-        nullable() : value_(Double::Empty) {}
+        nullable() : value_(double_impl::empty) {}
 
         /// <summary>
         /// Create from native double.

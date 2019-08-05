@@ -54,7 +54,7 @@ namespace dot
     object::object(bool value) : base(new bool_impl(value)) {}
 
     /// <summary>Construct object from double by boxing.</summary>
-    object::object(double value) : base(new DoubleImpl(value)) {}
+    object::object(double value) : base(new double_impl(value)) {}
 
     /// <summary>Construct object from int by boxing.</summary>
     object::object(int value) : base(new IntImpl(value)) {}
@@ -63,7 +63,7 @@ namespace dot
     object::object(int64_t value) : base(new LongImpl(value)) {}
 
     /// <summary>Construct object from char by boxing.</summary>
-    object::object(char value) : base(new CharImpl(value)) {}
+    object::object(char value) : base(new char_impl(value)) {}
 
     /// <summary>Construct object from local_minute by boxing.</summary>
     object::object(const local_minute & value) : base(new StructWrapperImpl<local_minute>(value)) {}
@@ -99,7 +99,7 @@ namespace dot
     object& object::operator=(bool value) { base::operator=(new bool_impl(value)); return *this; }
 
     /// <summary>Assign double to object by boxing.</summary>
-    object& object::operator=(double value) { base::operator=(new DoubleImpl(value)); return *this; }
+    object& object::operator=(double value) { base::operator=(new double_impl(value)); return *this; }
 
     /// <summary>Assign int to object by boxing.</summary>
     object& object::operator=(int value) { base::operator=(new IntImpl(value)); return *this; }
@@ -108,7 +108,7 @@ namespace dot
     object& object::operator=(int64_t value) { base::operator=(new LongImpl(value)); return *this; }
 
     /// <summary>Assign int to object by boxing.</summary>
-    object& object::operator=(char value) { base::operator=(new CharImpl(value)); return *this; }
+    object& object::operator=(char value) { base::operator=(new char_impl(value)); return *this; }
 
     /// <summary>Assign local_minute to object by boxing.</summary>
     object& object::operator=(const local_minute& value) { base::operator=(new StructWrapperImpl<local_minute>(value)); return *this; }
@@ -126,7 +126,7 @@ namespace dot
     object::operator bool() const { return ptr<bool_impl>(*this)->value_; }
 
     /// <summary>Convert object to double by unboxing. Error if object does is not a boxed double.</summary>
-    object::operator double() const { return ptr<DoubleImpl>(*this)->value_; }
+    object::operator double() const { return ptr<double_impl>(*this)->value_; }
 
     /// <summary>Convert object to int by unboxing. Error if object does is not a boxed int.</summary>
     object::operator int() const { return ptr<IntImpl>(*this)->value_; }
@@ -135,7 +135,7 @@ namespace dot
     object::operator int64_t() const { return ptr<LongImpl>(*this)->value_; }
 
     /// <summary>Convert object to long by unboxing. Error if object does is not a boxed long.</summary>
-    object::operator char() const { return ptr<CharImpl>(*this)->value_; }
+    object::operator char() const { return ptr<char_impl>(*this)->value_; }
 
     /// <summary>Convert object to local_minute by unboxing. Error if object does is not a boxed local_minute.</summary>
     object::operator local_minute() const { return *ptr<StructWrapperImpl<local_minute>>(*this); }
