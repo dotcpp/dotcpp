@@ -67,7 +67,7 @@ namespace dot
         /// string representation of a corresponding object argument.
         /// </summary>
         template <typename First, typename ...Args>
-        void AppendFormat(const string& format, const First& f, const Args& ...args)
+        void append_format(const string& format, const First& f, const Args& ...args)
         {
             *this += *string::format(format, f, args...);
         }
@@ -76,7 +76,7 @@ namespace dot
         /// Appends the string representation of a specified object to this instance.
         /// </summary>
         template <typename T>
-        void Append(const T& arg)
+        void append(const T& arg)
         {
             *this += *string::format("{0}", arg);
         }
@@ -86,16 +86,16 @@ namespace dot
         /// line terminator, to the end of this instance.
         /// </summary>
         template <typename ...Args>
-        void AppendLine(const Args& ...args)
+        void append_line(const Args& ...args)
         {
-            Append(args...);
-            AppendLine();
+            append(args...);
+            append_line();
         }
 
         /// <summary>
         /// Appends the default line terminator, to the end of this instance.
         /// </summary>
-        void AppendLine()
+        void append_line()
         {
             *this += *environment::new_line;
         }
@@ -103,7 +103,7 @@ namespace dot
         /// <summary>
         /// Removes all characters from the current string_builder instance.
         /// </summary>
-        void Clear()
+        void clear()
         {
             this->clear();
         }
