@@ -30,34 +30,34 @@ limitations under the License.
 
 namespace dot
 {
-    template <class T> class HashSetImpl;
-    template <class T> using HashSet = ptr<HashSetImpl<T>>;
+    template <class T> class hash_set_impl;
+    template <class T> using hash_set = ptr<hash_set_impl<T>>;
 
     /// <summary>Represents a set of values.</summary>
     template <class T>
-    class HashSetImpl : public virtual object_impl, public std::unordered_set<T>
+    class hash_set_impl : public virtual object_impl, public std::unordered_set<T>
     {
-        typedef HashSetImpl<T> self;
+        typedef hash_set_impl<T> self;
         typedef std::unordered_set<T> base;
 
-        template <class R> friend HashSet<R> new_HashSet();
-        template <class R> friend HashSet<R> new_HashSet(list<R> collection);
+        template <class R> friend hash_set<R> make_hash_set();
+        template <class R> friend hash_set<R> make_hash_set(list<R> collection);
 
     protected: // CONSTRUCTORS
 
         /// <summary>Initializes a new instance of the HashSet class that is empty
         /// and uses the default equality comparer for the set type.</summary>
-        HashSetImpl() = default;
+        hash_set_impl() = default;
 
         /// <summary>
         /// Initializes a new instance of the HashSet class that uses the default
         /// equality comparer for the set type, contains elements copied from the specified
         /// collection, and has sufficient capacity to accommodate the number of elements copied.
         /// </summary>
-        explicit HashSetImpl(list<T> collection)
+        explicit hash_set_impl(list<T> collection)
         {
             for (T const & item : collection)
-                this->Add(item);
+                this->add(item);
         }
 
     public: // PROPERTIES
@@ -68,16 +68,10 @@ namespace dot
     public: // METHODS
 
         /// <summary>Adds the specified element to a set.</summary>
-        void Add(const T& item)
+        void add(const T& item)
         {
             std::pair<typename base::iterator, bool> res = this->insert(item);
             //return res.second;
-        }
-
-        /// <summary>Removes all elements from a HashSet object.</summary>
-        void Clear()
-        {
-            this->clear();
         }
 
         /// <summary>Determines whether a HashSet object contains the specified element.</summary>
@@ -88,22 +82,22 @@ namespace dot
         }
 
         /// <summary>Removes the specified element from a HashSet object.</summary>
-        bool Remove(const T& item)
+        bool remove(const T& item)
         {
             return this->erase(item) != 0;
         }
 
         /// <summary>Sets the capacity of a HashSet object to the actual number of elements
         /// it contains,rounded up to a nearby, implementation-specific value.</summary>
-        void TrimExcess()
+        void trim_excess()
         {
             this->reserve(this->size());
         }
 
         /// <summary>Searches the set for a given value and returns the equal value it finds, if any.</summary>
-        bool try_get_value(const T& equalValue, T& actualValue)
+        bool try_get_value(const T& equal_value, T& actual_value)
         {
-            auto iter = this->find(equalValue);
+            auto iter = this->find(equal_value);
             if (iter != this->end())
             {
                 actualValue = *iter;
@@ -113,7 +107,7 @@ namespace dot
         }
 
         /// <summary>Removes all elements in the specified collection from the current HashSet object.</summary>
-        void ExceptWith(list<T> other)
+        void except_with(list<T> other)
         {
             for (T const& item : other)
             {
@@ -123,7 +117,7 @@ namespace dot
 
         /// <summary>Modifies the current HashSet object to contain only elements
         /// that are present in that object and in the specified collection.</summary>
-        void IntersectWith(list<T> other)
+        void intersect_with(list<T> other)
         {
             list<T> left = make_list<T>();
             for (T const& item : other)
@@ -132,14 +126,14 @@ namespace dot
                     left->add(item);
             }
 
-            this->Clear();
-            for (T const& item : left) this->Add(item);
+            this->clear();
+            for (T const& item : left) this->add(item);
         }
     };
 
     template <class T>
-    inline HashSet<T> new_HashSet() { return new HashSetImpl<T>(); }
+    inline hash_set<T> make_hash_set() { return new hash_set_impl<T>(); }
 
     template <class T>
-    inline HashSet<T> new_HashSet(list<T> collection) { return new HashSetImpl<T>(collection); }
+    inline hash_set<T> make_hash_set(list<T> collection) { return new hash_set_impl<T>(collection); }
 }
