@@ -46,7 +46,7 @@ namespace dot
     };
 
     /// <summary>Wrapper around char to make it convertible to object (boxing).</summary>
-    class CharImpl : public virtual object_impl
+    class char_impl : public virtual object_impl
     {
         friend object;
         char value_;
@@ -54,7 +54,7 @@ namespace dot
     public: // CONSTRUCTORS
 
         /// <summary>Create from value (box).</summary>
-        CharImpl(char value) : value_(value) {}
+        char_impl(char value) : value_(value) {}
 
     public: // METHODS
 
