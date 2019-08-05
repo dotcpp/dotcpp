@@ -29,7 +29,7 @@ limitations under the License.
 namespace dot
 {
     /// <summary>Wrapper around int to make it convertible to object (boxing).</summary>
-    class LongImpl : public virtual object_impl
+    class long_impl : public virtual object_impl
     {
         friend object;
         int64_t value_;
@@ -37,7 +37,17 @@ namespace dot
     public: // CONSTRUCTORS
 
         /// <summary>Create from value (box).</summary>
-        LongImpl(int64_t value) : value_(value) {}
+        long_impl(int64_t value) : value_(value) {}
+
+    public: //  CONSTANTS
+
+        /// <summary>Sentinel value representing uninitialized state.</summary>
+        static constexpr int64_t empty = INT64_MIN;
+
+    public: // STATIC
+
+        /// <summary>Converts the string representation of a number to its 64-bit signed integer equivalent.</summary>
+        static int64_t parse(string s);
 
     public: // METHODS
 
@@ -54,19 +64,4 @@ namespace dot
         virtual type_t type() override;
     };
 
-    /// <summary>
-    /// Provides constants and static methods for long type.
-    /// </summary>
-    class DOT_CLASS Long
-    {
-    public: //  CONSTANTS
-
-        /// <summary>Sentinel value representing uninitialized state.</summary>
-        static constexpr int64_t Empty = INT64_MIN;
-
-    public: // STATIC
-
-        /// <summary>Converts the string representation of a number to its 64-bit signed integer equivalent.</summary>
-        static int64_t Parse(string s);
-    };
 }

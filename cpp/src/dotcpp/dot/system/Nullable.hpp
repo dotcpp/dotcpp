@@ -261,22 +261,22 @@ namespace dot
         typedef nullable self;
 
     private:
-        int64_t value_ = Long::Empty;
+        int64_t value_ = long_impl::empty;
 
     public: // PROPERTIES
 
         typedef int64_t value_type;
 
         /// <summary>Convert to native long, error if the object is in uninitialized (empty) state.</summary>
-        int64_t value() const { if (value_ == Long::Empty) throw std::runtime_error("Long value is empty"); return value_; }
+        int64_t value() const { if (value_ == long_impl::empty) throw std::runtime_error("long_impl value is empty"); return value_; }
 
         /// <summary>Returns true if the object is in uninitialized (empty) state.</summary>
-        bool has_value() const { return value_ != Long::Empty; }
+        bool has_value() const { return value_ != long_impl::empty; }
 
     public: // CONSTRUCTORS
 
         /// <summary>Creates in uninitialized (empty) state.</summary>
-        nullable() : value_(Long::Empty) {}
+        nullable() : value_(long_impl::empty) {}
 
         /// <summary>
         /// Create from native long.
