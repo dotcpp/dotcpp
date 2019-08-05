@@ -32,7 +32,7 @@ namespace dot
     using gdate = boost::gregorian::date;
 
     class string;
-    class Period;
+    class period;
     class local_time;
     class local_date_time;
     class object;
@@ -70,7 +70,7 @@ namespace dot
 
     public:
         /// <summary>Adds the specified period to the date. Friendly alternative to operator+().</summary>
-        static local_date add(const local_date& date, const Period& period);
+        static local_date add(const local_date& date, const period& period);
 
         /// <summary>Combines this local_date with the given local_time into a single local_date_time. Fluent alternative to operator+().</summary>
         local_date_time at(const local_time& time) const;
@@ -87,11 +87,11 @@ namespace dot
         /// <summary>String that represents the current object.</summary>
         string to_string() const;
 
-        /// <summary>Subtracts the specified date from this date, returning the result as a Period with units of years, months and days. Fluent alternative to operator-().</summary>
-        Period minus(const local_date& date) const;
+        /// <summary>Subtracts the specified date from this date, returning the result as a period with units of years, months and days. Fluent alternative to operator-().</summary>
+        period minus(const local_date& date) const;
 
         /// <summary>Subtracts the specified period from this date. Fluent alternative to operator-().</summary>
-        local_date minus(const Period& period) const;
+        local_date minus(const period& period) const;
 
         /// <summary>
         /// Returns the next local_date falling on the specified IsoDayOfWeek.
@@ -101,7 +101,7 @@ namespace dot
         local_date next(int target_day_of_week) const;
 
         /// <summary>Adds the specified period to this date. Fluent alternative to operator+().</summary>
-        local_date plus(const Period& period) const;
+        local_date plus(const period& period) const;
 
         /// <summary>Returns a new local_date representing the current value with the given number of days added.</summary>
         local_date plus_days(int days) const;
@@ -122,18 +122,18 @@ namespace dot
         /// </summary>
         local_date previous(int target_day_of_week) const;
 
-        /// <summary>Subtracts one date from another, returning the result as a Period with units of years, months and days.</summary>
-        static Period subtract(const local_date& lhs, const local_date& rhs);
+        /// <summary>Subtracts one date from another, returning the result as a period with units of years, months and days.</summary>
+        static period subtract(const local_date& lhs, const local_date& rhs);
 
         /// <summary>Subtracts the specified period from the date. Friendly alternative to operator-().</summary>
-        static local_date subtract(const local_date& date, const Period& period);
+        static local_date subtract(const local_date& date, const period& period);
 
     public:
         /// <summary>Combines the given local_date and local_time components into a single local_date_time.</summary>
         local_date_time operator+(const local_time& time) const;
 
         /// <summary>Adds the specified period to the date.</summary>
-        local_date operator+(const Period& period) const;
+        local_date operator+(const period& period) const;
 
         /// <summary>Compares two local_date values for equality. This requires that the dates be the same, within the same calendar.</summary>
         bool operator==(const local_date& other) const;
@@ -153,10 +153,10 @@ namespace dot
         /// <summary>Compares two dates to see if the left one is earlier than or equal to the right one.</summary>
         bool operator<=(const local_date& other) const;
 
-        /// <summary>Subtracts one date from another, returning the result as a Period with units of years, months and days.</summary>
-        Period operator-(const local_date& other) const;
+        /// <summary>Subtracts one date from another, returning the result as a period with units of years, months and days.</summary>
+        period operator-(const local_date& other) const;
 
-        /// <summary>Subtracts the specified period from the date. This is a convenience operator over the Minus(Period) method.</summary>
-        local_date operator-(const Period& period) const;
+        /// <summary>Subtracts the specified period from the date. This is a convenience operator over the Minus(period) method.</summary>
+        local_date operator-(const period& period) const;
     };
 }

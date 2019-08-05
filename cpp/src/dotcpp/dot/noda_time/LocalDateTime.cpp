@@ -75,7 +75,7 @@ namespace dot
 
     local_date_time::local_date_time(object const& rhs) { *this = rhs.operator local_date_time(); }
 
-    local_date_time local_date_time::Add(const local_date_time& local_date_time, const Period& period)
+    local_date_time local_date_time::Add(const local_date_time& local_date_time, const period& period)
     {
         return local_date_time + period;
     }
@@ -103,12 +103,12 @@ namespace dot
         return stream.str().substr(0, 23);
     }
 
-    Period local_date_time::Minus(const local_date_time& local_date_time) const
+    period local_date_time::Minus(const local_date_time& local_date_time) const
     {
         return *this - local_date_time;
     }
 
-    local_date_time local_date_time::Minus(const Period& period) const
+    local_date_time local_date_time::Minus(const period& period) const
     {
         return *this - period;
     }
@@ -118,7 +118,7 @@ namespace dot
         return {local_date(date()).next(targetDayOfWeek), time_of_day()};
     }
 
-    local_date_time local_date_time::Plus(const Period& period) const
+    local_date_time local_date_time::Plus(const period& period) const
     {
         return *this + period;
     }
@@ -168,17 +168,17 @@ namespace dot
         return {local_date(date()).previous(targetDayOfWeek), time_of_day()};
     }
 
-    Period local_date_time::Subtract(const local_date_time& lhs, const local_date_time& rhs)
+    period local_date_time::Subtract(const local_date_time& lhs, const local_date_time& rhs)
     {
         return lhs - rhs;
     }
 
-    local_date_time local_date_time::Subtract(const local_date_time& local_date_time, const Period& period)
+    local_date_time local_date_time::Subtract(const local_date_time& local_date_time, const period& period)
     {
         return local_date_time - period;
     }
 
-    local_date_time local_date_time::operator+(const Period& period) const
+    local_date_time local_date_time::operator+(const period& period) const
     {
         return static_cast<ptime>(*this) + static_cast<time_duration>(period);
     }
@@ -213,12 +213,12 @@ namespace dot
         return static_cast<ptime>(*this) <= static_cast<ptime>(other);
     }
 
-    Period local_date_time::operator-(const local_date_time& other) const
+    period local_date_time::operator-(const local_date_time& other) const
     {
         return static_cast<ptime>(*this) - static_cast<ptime>(other);
     }
 
-    local_date_time local_date_time::operator-(const Period& period) const
+    local_date_time local_date_time::operator-(const period& period) const
     {
         return static_cast<ptime>(*this) - static_cast<time_duration>(period);
     }

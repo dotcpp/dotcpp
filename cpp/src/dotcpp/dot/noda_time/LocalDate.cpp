@@ -60,7 +60,7 @@ namespace dot
 
     local_date::local_date(object const& rhs) { *this = rhs.operator local_date(); }
 
-    local_date local_date::add(const local_date& date, const Period& period)
+    local_date local_date::add(const local_date& date, const period& period)
     {
         return date + period;
     }
@@ -98,12 +98,12 @@ namespace dot
         return stream.str();
     }
 
-    Period local_date::minus(const local_date& date) const
+    period local_date::minus(const local_date& date) const
     {
         return *this - date;
     }
 
-    local_date local_date::minus(const Period& period) const
+    local_date local_date::minus(const period& period) const
     {
         return *this - period;
     }
@@ -116,7 +116,7 @@ namespace dot
         return boost::gregorian::next_weekday(*this, wd);
     }
 
-    local_date local_date::plus(const Period& period) const
+    local_date local_date::plus(const period& period) const
     {
         return *this + period;
     }
@@ -149,12 +149,12 @@ namespace dot
         return boost::gregorian::previous_weekday(*this, wd);
     }
 
-    Period local_date::subtract(const local_date& lhs, const local_date& rhs)
+    period local_date::subtract(const local_date& lhs, const local_date& rhs)
     {
         return lhs - rhs;
     }
 
-    local_date local_date::subtract(const local_date& date, const Period& period)
+    local_date local_date::subtract(const local_date& date, const period& period)
     {
         return date + period;
     }
@@ -164,7 +164,7 @@ namespace dot
         return {*this, time};
     }
 
-    local_date local_date::operator+(const Period& period) const
+    local_date local_date::operator+(const period& period) const
     {
         return static_cast<gdate>(*this) + static_cast<date_duration>(period);
     }
@@ -199,12 +199,12 @@ namespace dot
         return static_cast<gdate>(*this) <= static_cast<gdate>(other);
     }
 
-    Period local_date::operator-(const local_date& other) const
+    period local_date::operator-(const local_date& other) const
     {
         return static_cast<gdate>(*this) - static_cast<gdate>(other);
     }
 
-    local_date local_date::operator-(const Period& period) const
+    local_date local_date::operator-(const period& period) const
     {
         return static_cast<gdate>(*this) - static_cast<date_duration>(period);
     }

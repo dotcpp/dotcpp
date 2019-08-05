@@ -486,7 +486,7 @@ namespace dot
     {
         static type_t get_typeof()
         {
-            static type_t type_ = make_type_builder<local_time>("System", "local_time")->Build();
+            static type_t type_ = make_type_builder<local_time>("System", "LocalTime")->Build();
             return type_;
         }
     };
@@ -496,7 +496,7 @@ namespace dot
     {
         static type_t get_typeof()
         {
-            static type_t type_ = make_type_builder<local_time>("System", "local_minute")->Build();
+            static type_t type_ = make_type_builder<local_time>("System", "LocalMinute")->Build();
         return type_;
     }
     };
@@ -506,7 +506,17 @@ namespace dot
     {
         static type_t get_typeof()
         {
-            static type_t type_ = make_type_builder<local_date_time>("System", "localDateTime")->Build();
+            static type_t type_ = make_type_builder<local_date_time>("System", "LocalDateTime")->Build();
+            return type_;
+        }
+    };
+
+    template <>
+    struct typeof_impl<period>
+    {
+        static type_t get_typeof()
+        {
+            static type_t type_ = make_type_builder<local_date_time>("System", "Period")->Build();
             return type_;
         }
     };

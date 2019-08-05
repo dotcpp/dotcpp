@@ -41,17 +41,17 @@ namespace dot
     /// Represents a period of time expressed in human chronological terms:
     /// hours, days, weeks, months and so on.
     /// </summary>
-    class DOT_CLASS Period : public time_duration
+    class DOT_CLASS period : public time_duration
     {
-        typedef Period self;
+        typedef period self;
         typedef time_duration base;
 
     public:
-        Period(const time_duration& d);
-        Period(const date_duration& d);
+        period(const time_duration& d);
+        period(const date_duration& d);
 
         /// <summary>Copy constructor.</summary>
-        Period(const Period& other);
+        period(const period& other);
 
     public:
         /// <summary>Gets the number of days within this period.</summary>
@@ -74,47 +74,47 @@ namespace dot
 
     public:
         /// <summary>Returns the exact difference between two dates.</summary>
-        static Period Between(const local_date& start, const local_date& end);
+        static period between(const local_date& start, const local_date& end);
 
         /// <summary>Returns the exact difference between two date/times.</summary>
-        static Period Between(const local_date_time& start, const local_date_time& end);
+        static period between(const local_date_time& start, const local_date_time& end);
 
         /// <summary>Returns the exact difference between two times.</summary>
-        static Period Between(const local_time& start, const local_time& end);
+        static period between(const local_time& start, const local_time& end);
 
         /// <summary>Compares the given period for equality with this one.</summary>
-        bool equals(const Period& other) const;
+        bool equals(const period& other) const;
 
         /// <summary>Creates a period representing the specified number of days.</summary>
-        static Period FromDays(int days);
+        static period from_days(int days);
 
         /// <summary>Creates a period representing the specified number of hours.</summary>
-        static Period FromHours(int64_t hours);
+        static period from_hours(int64_t hours);
 
         /// <summary>Creates a period representing the specified number of milliseconds.</summary>
-        static Period FromMilliseconds(int64_t milliseconds);
+        static period from_milliseconds(int64_t milliseconds);
 
         /// <summary>Creates a period representing the specified number of minutes.</summary>
-        static Period FromMinutes(int64_t minutes);
+        static period from_minutes(int64_t minutes);
 
         /// <summary>Creates a period representing the specified number of seconds.</summary>
-        static Period FromSeconds(int64_t seconds);
+        static period from_seconds(int64_t seconds);
 
         /// <summary>Creates a period representing the specified number of weeks.</summary>
-        static Period FromWeeks(int weeks);
+        static period from_weeks(int weeks);
 
     public:
         /// <summary>Adds two periods together, by simply adding the values for each property.</summary>
-        Period operator+(const Period& other) const;
+        period operator+(const period& other) const;
 
         /// <summary>Subtracts one period from another, by simply subtracting each property value.</summary>
-        Period operator-(const Period& other) const;
+        period operator-(const period& other) const;
 
         /// <summary>Compares two periods for equality.</summary>
-        bool operator==(const Period& other) const;
+        bool operator==(const period& other) const;
 
         /// <summary>Compares two periods for inequality.</summary>
-        bool operator!=(const Period& other) const;
+        bool operator!=(const period& other) const;
 
     public:
         operator date_duration() const;

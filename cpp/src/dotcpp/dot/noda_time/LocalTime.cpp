@@ -72,7 +72,7 @@ namespace dot
         *this = other;
     }
 
-    local_time local_time::Add(const local_time& time, const Period& period)
+    local_time local_time::Add(const local_time& time, const period& period)
     {
         return time + period;
     }
@@ -100,12 +100,12 @@ namespace dot
         return stream.str().substr(0, 12);
     }
 
-    Period local_time::Minus(const local_time& time) const
+    period local_time::Minus(const local_time& time) const
     {
         return *this - time;
     }
 
-    local_time local_time::Minus(const Period& period) const
+    local_time local_time::Minus(const period& period) const
     {
         return *this - period;
     }
@@ -115,7 +115,7 @@ namespace dot
         return {date, *this};
     }
 
-    local_time local_time::Plus(const Period& period) const
+    local_time local_time::Plus(const period& period) const
     {
         return *this + period;
     }
@@ -140,17 +140,17 @@ namespace dot
         return *this + boost::posix_time::seconds(seconds);
     }
 
-    Period local_time::Subtract(const local_time& lhs, const local_time& rhs)
+    period local_time::Subtract(const local_time& lhs, const local_time& rhs)
     {
         return lhs - rhs;
     }
 
-    local_time local_time::Subtract(const local_time& time, const Period& period)
+    local_time local_time::Subtract(const local_time& time, const period& period)
     {
         return time - period;
     }
 
-    local_time local_time::operator+(const Period& period) const
+    local_time local_time::operator+(const period& period) const
     {
         return static_cast<ptime>(*this) + static_cast<time_duration>(period);
     }
@@ -185,12 +185,12 @@ namespace dot
         return time_of_day() <= other.time_of_day();
     }
 
-    Period local_time::operator-(const local_time& other) const
+    period local_time::operator-(const local_time& other) const
     {
         return static_cast<ptime>(*this) - static_cast<ptime>(other);
     }
 
-    local_time local_time::operator-(const Period& period) const
+    local_time local_time::operator-(const period& period) const
     {
         return static_cast<ptime>(*this) - static_cast<time_duration>(period);
     }

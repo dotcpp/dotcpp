@@ -33,7 +33,7 @@ namespace dot
     using boost::posix_time::time_duration;
 
     class string;
-    class Period;
+    class period;
     class local_date;
     class local_date_time;
     class object;
@@ -92,7 +92,7 @@ namespace dot
 
     public:
         /// <summary>Adds the specified period to the time. Friendly alternative to operator+().</summary>
-        static local_time Add(const local_time& time, const Period& period);
+        static local_time Add(const local_time& time, const period& period);
 
         /// <summary>Indicates whether this time is earlier, later or the same as another one.</summary>
         int compare_to(const local_time& other) const;
@@ -106,17 +106,17 @@ namespace dot
         /// <summary>String that represents the current object.</summary>
         string to_string() const;
 
-        /// <summary>Subtracts the specified time from this time, returning the result as a Period. Fluent alternative to operator-().</summary>
-        Period Minus(const local_time& time) const;
+        /// <summary>Subtracts the specified time from this time, returning the result as a period. Fluent alternative to operator-().</summary>
+        period Minus(const local_time& time) const;
 
         /// <summary>Subtracts the specified period from this time. Fluent alternative to operator-().</summary>
-        local_time Minus(const Period& period) const;
+        local_time Minus(const period& period) const;
 
         /// <summary>Combines this local_time with the given local_date into a single local_date_time. Fluent alternative to operator+().</summary>
         local_date_time On(const local_date& date);
 
         /// <summary>Adds the specified period to this time. Fluent alternative to operator+().</summary>
-        local_time Plus(const Period& period) const;
+        local_time Plus(const period& period) const;
 
         /// <summary>Returns a new local_time representing the current value with the given number of hours added.</summary>
         local_time PlusHours(int64_t hours) const;
@@ -130,18 +130,18 @@ namespace dot
         /// <summary>Returns a new local_time representing the current value with the given number of seconds added.</summary>
         local_time PlusSeconds(int64_t seconds) const;
 
-        /// <summary>Subtracts one time from another, returning the result as a Period with units of years, months and days.</summary>
-        static Period Subtract(const local_time& lhs, const local_time& rhs);
+        /// <summary>Subtracts one time from another, returning the result as a period with units of years, months and days.</summary>
+        static period Subtract(const local_time& lhs, const local_time& rhs);
 
         /// <summary>Subtracts the specified period from the time. Friendly alternative to operator-().</summary>
-        static local_time Subtract(const local_time& time, const Period& period);
+        static local_time Subtract(const local_time& time, const period& period);
 
     public:
         /// <summary>
         /// Creates a new local time by adding a period to an existing time.
         /// The period must not contain any date-related units (days etc) with non-zero values.
         /// </summary>
-        local_time operator+(const Period& period) const;
+        local_time operator+(const period& period) const;
 
         /// <summary>Compares two local times for equality, by checking whether they represent the exact same local time, down to the tick.</summary>
         bool operator==(const local_time& other) const;
@@ -161,15 +161,15 @@ namespace dot
         /// <summary>Compares two local_time values to see if the left one is earlier than or equal to the right one.</summary>
         bool operator<=(const local_time& other) const;
 
-        /// <summary>Subtracts one time from another, returning the result as a Period.</summary>
-        Period operator-(const local_time& other) const;
+        /// <summary>Subtracts one time from another, returning the result as a period.</summary>
+        period operator-(const local_time& other) const;
 
         /// <summary>
         /// Creates a new local time by subtracting a period from an existing time.
         /// The period must not contain any date-related units (days etc) with non-zero values.
-        /// This is a convenience operator over the Minus(Period) method.
+        /// This is a convenience operator over the Minus(period) method.
         /// </summary>
-        local_time operator-(const Period& period) const;
+        local_time operator-(const period& period) const;
 
     public:
         operator time_duration() const;
