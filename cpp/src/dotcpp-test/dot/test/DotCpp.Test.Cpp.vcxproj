@@ -12,24 +12,24 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="noda_time\LocalDateTest.cpp" />
-    <ClCompile Include="noda_time\LocalDateTimeTest.cpp" />
-    <ClCompile Include="noda_time\LocalMinuteTest.cpp" />
-    <ClCompile Include="noda_time\LocalTimeTest.cpp" />
-    <ClCompile Include="noda_time\PeriodTest.cpp" />
-    <ClCompile Include="system\Array1DTest.cpp" />
-    <ClCompile Include="system\BoxingTest.cpp" />
-    <ClCompile Include="system\collections\generic\DictionaryTest.cpp" />
-    <ClCompile Include="system\collections\generic\ListTest.cpp" />
-    <ClCompile Include="system\ConsoleTest.cpp" />
-    <ClCompile Include="system\DoubleTest.cpp" />
-    <ClCompile Include="system\ExceptionTest.cpp" />
-    <ClCompile Include="system\ObjectTest.cpp" />
-    <ClCompile Include="system\PtrTest.cpp" />
-    <ClCompile Include="system\ReflectionTest.cpp" />
-    <ClCompile Include="system\SerializationSampleTest.cpp" />
-    <ClCompile Include="system\StringTest.cpp" />
-    <ClCompile Include="system\text\StringBuilderTest.cpp" />
+    <ClCompile Include="noda_time\local_date_test.cpp" />
+    <ClCompile Include="noda_time\local_date_time_test.cpp" />
+    <ClCompile Include="noda_time\local_minute_test.cpp" />
+    <ClCompile Include="noda_time\local_time_test.cpp" />
+    <ClCompile Include="noda_time\period_test.cpp" />
+    <ClCompile Include="system\array_test.cpp" />
+    <ClCompile Include="system\boxing_test.cpp" />
+    <ClCompile Include="system\collections\generic\dictionary_test.cpp" />
+    <ClCompile Include="system\collections\generic\list_test.cpp" />
+    <ClCompile Include="system\console_test.cpp" />
+    <ClCompile Include="system\double_test.cpp" />
+    <ClCompile Include="system\exception_test.cpp" />
+    <ClCompile Include="system\object_test.cpp" />
+    <ClCompile Include="system\ptr_test.cpp" />
+    <ClCompile Include="system\reflection_test.cpp" />
+    <ClCompile Include="system\serialization_test.cpp" />
+    <ClCompile Include="system\string_test.cpp" />
+    <ClCompile Include="system\text\string_builder_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="declare.hpp" />
