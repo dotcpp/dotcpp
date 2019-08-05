@@ -33,13 +33,13 @@ namespace dot
     /// Represents the standard input, output, and
     /// error streams for console applications.
     /// </summary>
-    class DOT_CLASS Console final
+    class DOT_CLASS console final
     {
     private: // CONSTRUCTORS
 
-        Console() = delete;
-        Console(const Console&) = delete;
-        Console& operator=(const Console&) = delete;
+        console() = delete;
+        console(const console&) = delete;
+        console& operator=(const console&) = delete;
 
     public: // STATIC
 
@@ -48,7 +48,7 @@ namespace dot
         /// to the standard output stream using the specified format information.
         /// </summary>
         template <typename First, typename ...Args>
-        static void Write(const string& format, const First& f, const Args& ...args)
+        static void write(const string& format, const First& f, const Args& ...args)
         {
             std::cout << *string::format(format, f, args...);
         }
@@ -58,7 +58,7 @@ namespace dot
         /// to the standard output stream.
         /// </summary>
         template <typename T>
-        static void Write(const T& arg)
+        static void write(const T& arg)
         {
             std::cout << *string::format("{0}", arg);
         }
@@ -69,9 +69,9 @@ namespace dot
         /// stream using the specified format information.
         /// </summary>
         template <typename ...Args>
-        static void WriteLine(const Args& ...args)
+        static void write_line(const Args& ...args)
         {
-            Write(args...);
+            write(args...);
             std::cout << std::endl;
         }
     };
