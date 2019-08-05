@@ -38,15 +38,15 @@ limitations under the License.
                 dot::type_t type = dot::make_type_builder<self>(nspace, name)
 
 #define DOT_TYPE_END()                                                                         \
-                    ->Build();                                                                    \
+                    ->build();                                                                    \
                 return type;                                                                      \
             }();                                                                                  \
             return type;                                                                          \
         }                                                                                         \
 
-#define DOT_TYPE_PROP(prop_name)             ->WithField(#prop_name, &self::prop_name)
-#define DOT_TYPE_METHOD(meth_name, ...)          ->WithMethod(#meth_name, &self::meth_name, { __VA_ARGS__ })
-#define DOT_TYPE_CTOR(ctor_name, ...)            ->WithConstructor(&ctor_name, { __VA_ARGS__ })
-#define DOT_TYPE_INTERFACE(interface)            ->template WithInterface<interface>()
-#define DOT_TYPE_BASE(...)                      ->template WithBase<__VA_ARGS__>()
-#define DOT_TYPE_GENERIC_ARGUMENT(arg)           ->template WithGenericArgument< arg >()
+#define DOT_TYPE_PROP(prop_name)             ->with_field(#prop_name, &self::prop_name)
+#define DOT_TYPE_METHOD(meth_name, ...)          ->with_method(#meth_name, &self::meth_name, { __VA_ARGS__ })
+#define DOT_TYPE_CTOR(ctor_name, ...)            ->with_constructor(&ctor_name, { __VA_ARGS__ })
+#define DOT_TYPE_INTERFACE(interface)            ->template with_interface<interface>()
+#define DOT_TYPE_BASE(...)                      ->template with_base<__VA_ARGS__>()
+#define DOT_TYPE_GENERIC_ARGUMENT(arg)           ->template with_generic_argument< arg >()

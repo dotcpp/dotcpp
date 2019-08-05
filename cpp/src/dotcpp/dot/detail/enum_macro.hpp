@@ -43,7 +43,7 @@ public:                                                                 \
         {                                                               \
             dot::type_t type = dot::make_type_builder<self>(nspace, name)             \
                 ->IsEnum()                                              \
-                ->WithConstructor(&self::new_Self, {})                  \
+                ->with_constructor(&self::new_Self, {})                  \
                 ->WithBase<Enum>()                                      \
                 ->Build();                                              \
             return type;                                                \

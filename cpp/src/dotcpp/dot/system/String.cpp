@@ -39,7 +39,7 @@ namespace dot
         static dot::type_t type = []()->dot::type_t
         {
             dot::type_t type = dot::make_type_builder<string_impl>("System", "string")
-                ->Build();
+                ->build();
             return type;
         }();
         return type;

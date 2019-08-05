@@ -59,7 +59,7 @@ namespace dot
 
     object enum_base::parse(type_t enumType, string value)
     {
-        object enum_obj = Activator::CreateInstance(enumType);
+        object enum_obj = activator::create_instance(enumType);
         enum_base* en = dynamic_cast<enum_base*>(enum_obj.operator->());
         auto valuesMap = en->get_enum_map();
 

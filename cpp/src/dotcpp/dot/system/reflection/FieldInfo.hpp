@@ -33,7 +33,7 @@ namespace dot
     /// <summary>
     /// Discovers the attributes of a field and provides access to field metadata.
     /// </summary>
-    class field_info_base_impl : public MemberInfoImpl
+    class field_info_base_impl : public member_info_impl
     {
         typedef field_info_base_impl self;
 
@@ -60,7 +60,7 @@ namespace dot
         /// This constructor is protected. It is used by derived classes only.
         /// </summary>
         field_info_base_impl(string name, type_t declaring_type, type_t field_type)
-            : MemberInfoImpl(name, declaring_type)
+            : member_info_impl(name, declaring_type)
         {
             this->field_type = field_type;
         }
@@ -121,6 +121,6 @@ namespace dot
         return new field_info_impl<field_type, class_>(name, declaring_type, field_type, field);
     }
 
-    class TypeBuilderImpl;
+    class type_builder_impl;
 
 }

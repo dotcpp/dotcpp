@@ -64,6 +64,6 @@ namespace dot
     /// </summary>
     string object_impl::to_string()
     {
-        return type()->FullName();
+        return type()->full_name();
     }
 }

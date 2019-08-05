@@ -29,15 +29,15 @@ limitations under the License.
 
 namespace dot
 {
-    class ConstructorInfoImpl; using ConstructorInfo = ptr<ConstructorInfoImpl>;
+    class constructor_info_impl; using constructor_info = ptr<constructor_info_impl>;
     class type_impl; using type_t = ptr<type_impl>;
 
     /// <summary>
     /// Obtains information about the attributes of a constructor and provides access to constructor metadata.
     /// </summary>
-    class ConstructorInfoImpl : public MemberInfoImpl
+    class constructor_info_impl : public member_info_impl
     {
-        friend class TypeBuilderImpl;
+        friend class type_builder_impl;
 
     public: // METHODS
 
@@ -45,37 +45,37 @@ namespace dot
         virtual string to_string() override { return "ConstructorInfo"; }
 
         /// <summary>Gets the parameters of this constructor.</summary>
-        virtual array<ParameterInfo> GetParameters()
+        virtual array<parameter_info> get_parameters()
         {
-            return Parameters;
+            return parameters;
         }
 
         /// <summary>Invokes specified constructor with given parameters.</summary>
-        virtual object Invoke(array<object>) = 0;
+        virtual object invoke(array<object>) = 0;
 
     protected: // CONSTRUCTORS
 
-        array<ParameterInfo> Parameters;
+        array<parameter_info> parameters;
 
         /// <summary>
         /// Create from declaring type
         ///
         /// This constructor is protected. It is used by derived classes only.
         /// </summary>
-        ConstructorInfoImpl(type_t declaringType)
-            : MemberInfoImpl(".ctor", declaringType)
+        constructor_info_impl(type_t declaring_type)
+            : member_info_impl(".ctor", declaring_type)
         {}
     };
 
     /// <summary>
     /// Obtains information about the attributes of a constructor and provides access to constructor metadata.
     /// </summary>
-    template <class Class, class ... Args>
-    class MemberConstructorInfoImpl : public ConstructorInfoImpl
+    template <class class_, class ... args>
+    class member_constructor_info_impl : public constructor_info_impl
     {
 
-        friend class TypeBuilderImpl;
-        typedef Class(*ctor_type)(Args...);
+        friend class type_builder_impl;
+        typedef class_(*ctor_type)(args...);
 
     private: // FIELDS
 
@@ -88,18 +88,18 @@ namespace dot
 
         /// <summary>Invokes the constructor reflected by this ConstructorInfo instance.</summary>
         template <int ... I>
-        object Invoke_impl(array<object> params, detail::index_sequence<I...>)
+        object invoke_impl(array<object> params, detail::index_sequence<I...>)
         {
             return (*ptr_)(params[I]...);
         }
 
         /// <summary>Invokes the constructor reflected by this ConstructorInfo instance.</summary>
-        virtual object Invoke(array<object> params)
+        virtual object invoke(array<object> params)
         {
-            if ((params.IsEmpty() && Parameters->count() != 0) || (!params.IsEmpty() && (params->count() != Parameters->count())))
-                throw exception("Wrong number of parameters for constructor " + this->DeclaringType->Name + "." + this->Name);
+            if ((params.IsEmpty() && parameters->count() != 0) || (!params.IsEmpty() && (params->count() != parameters->count())))
+                throw exception("Wrong number of parameters for constructor " + this->declaring_type->name + "." + this->name);
 
-            return Invoke_impl(params, typename detail::make_index_sequence<sizeof...(Args)>::type());
+            return invoke_impl(params, typename detail::make_index_sequence<sizeof...(args)>::type());
         }
 
     private: // CONSTRUCTORS
@@ -110,8 +110,8 @@ namespace dot
         /// This constructor is private. Use new_ConstructorInfo(...)
         /// function with matching signature instead.
         /// </summary>
-        MemberConstructorInfoImpl(type_t declaringType, ctor_type p)
-            : ConstructorInfoImpl(declaringType)
+        member_constructor_info_impl(type_t declaring_type, ctor_type p)
+            : constructor_info_impl(declaring_type)
             , ptr_(p)
         {}
     };

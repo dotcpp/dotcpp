@@ -29,29 +29,29 @@ limitations under the License.
 namespace dot
 {
     /// <summary>
-    /// contains methods to create types of objects locally or remotely, or obtain 
+    /// contains methods to create types of objects locally or remotely, or obtain
     /// references to existing remote objects. This class cannot be inherited.
     /// </summary>
-    class DOT_CLASS Activator final
+    class DOT_CLASS activator final
     {
     private: // CONSTRUCTORS
 
-        Activator() = delete;
-        Activator(const Activator&) = delete;
-        Activator operator=(const Activator&) = delete;
+        activator() = delete;
+        activator(const activator&) = delete;
+        activator operator=(const activator&) = delete;
 
     public: // METHODS
 
         /// <summary>Creates an instance of the specified type using that type's default constructor.</summary>
-        static object CreateInstance(type_t type);
+        static object create_instance(type_t type);
 
         /// <summary>Creates an instance of the specified type using the constructor that best matches the specified parameters.</summary>
-        static object CreateInstance(type_t type, array<object> params);
+        static object create_instance(type_t type, array<object> params);
 
         /// <summary>Creates an instance of the type whose name is specified, using the named assembly and default constructor.</summary>
-        static object CreateInstance(string assemblyName, string typeName);
+        static object create_instance(string assembly_name, string type_name);
 
         /// <summary>Creates an instance of the type whose name is specified, using the named assembly and default constructor.</summary>
-        static object CreateInstance(string assemblyName, string typeName, array<object> params);
+        static object create_instance(string assembly_name, string type_name, array<object> params);
     };
 }

@@ -99,7 +99,7 @@ namespace dot
     public:
 
         DOT_TYPE_BEGIN("System", "Enum")
-            ->IsEnum()
+            ->is_enum()
         DOT_TYPE_END()
     };
 }

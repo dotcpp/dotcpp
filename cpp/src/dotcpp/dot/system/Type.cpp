@@ -34,25 +34,25 @@ limitations under the License.
 namespace dot
 {
     /// <summary>Built type_t from the current object.</summary>
-    type_t TypeBuilderImpl::Build()
+    type_t type_builder_impl::build()
     {
-        type_->Fill(this);
+        type_->fill(this);
 
         // Fill derived types map
         type_t base_type = base_;
         while (base_type != nullptr)
         {
-            auto iter = type_impl::GetDerivedTypesMap().find(base_type->FullName());
-            if (iter == type_impl::GetDerivedTypesMap().end())
+            auto iter = type_impl::get_derived_types_map().find(base_type->full_name());
+            if (iter == type_impl::get_derived_types_map().end())
             {
-                iter = type_impl::GetDerivedTypesMap().insert({base_type->FullName(), make_list<type_t>()}).first;
+                iter = type_impl::get_derived_types_map().insert({base_type->full_name(), make_list<type_t>()}).first;
             }
             else if (iter->second == nullptr)
             {
                 iter->second = make_list<type_t>();
             }
             iter->second->add(type_);
-            base_type = base_type->BaseType();
+            base_type = base_type->base_type();
         }
 
         return type_;
@@ -61,54 +61,54 @@ namespace dot
     /// <summary>
     /// Fill data from builder.
     /// </summary>
-    void type_impl::Fill(const TypeBuilder& data)
+    void type_impl::fill(const type_builder& data)
     {
-        if (!data->base_.IsEmpty() && data->base_->GetMethods()->count())
+        if (!data->base_.IsEmpty() && data->base_->get_methods()->count())
         {
             if (data->methods_.IsEmpty())
             {
-                data->methods_ = make_list<MethodInfo>();
+                data->methods_ = make_list<method_info>();
             }
 
-            array<MethodInfo> baseMethods = data->base_->GetMethods();
-            list<MethodInfo> newMethods = make_list<MethodInfo>();
-            for (MethodInfo methInfoData : baseMethods)
+            array<method_info> base_methods = data->base_->get_methods();
+            list<method_info> new_methods = make_list<method_info>();
+            for (method_info meth_info_data : base_methods)
             {
 
-                newMethods->add(methInfoData);
+                new_methods->add(meth_info_data);
             }
 
-            for (MethodInfo methInfoData : data->methods_)
+            for (method_info meth_info_data : data->methods_)
             {
-                newMethods->add(methInfoData);
+                new_methods->add(meth_info_data);
             }
 
-            data->methods_ = newMethods;
+            data->methods_ = new_methods;
         }
 
         if (!data->methods_.IsEmpty())
         {
-            this->methods_ = make_array<MethodInfo>(data->methods_->count());
+            this->methods_ = make_array<method_info>(data->methods_->count());
             int i = 0;
-            for (MethodInfo methInfoData : data->methods_)
+            for (method_info meth_info_data : data->methods_)
             {
-                this->methods_[i++] = methInfoData;
+                this->methods_[i++] = meth_info_data;
             }
         }
         else
-            this->methods_ = make_array<MethodInfo>(0);
+            this->methods_ = make_array<method_info>(0);
 
         if (!data->ctors_.IsEmpty())
         {
-            this->ctors_ = make_array<ConstructorInfo>(data->ctors_->count());
+            this->ctors_ = make_array<constructor_info>(data->ctors_->count());
             int i = 0;
-            for (ConstructorInfo ctorInfoData : data->ctors_)
+            for (constructor_info ctor_info_data : data->ctors_)
             {
-                this->ctors_[i++] = ctorInfoData;
+                this->ctors_[i++] = ctor_info_data;
             }
         }
         else
-            this->ctors_ = make_array<ConstructorInfo>(0);
+            this->ctors_ = make_array<constructor_info>(0);
 
         if (!data->interfaces_.IsEmpty())
         {
@@ -135,51 +135,51 @@ namespace dot
             this->generic_args_ = make_array<type_t>(0);
 
         this->base_ = data->base_;
-        this->IsClass = data->is_class_;
-        this->IsEnum = data->is_enum_;
+        this->is_class = data->is_class_;
+        this->is_enum = data->is_enum_;
     }
 
     /// <summary>
     /// Create from builder.
     ///
-    /// This constructor is private. Use TypeBuilder->Build() method instead.
+    /// This constructor is private. Use type_builder->Build() method instead.
     /// </summary>
     type_impl::type_impl(string nspace, string name)
     {
-        this->Namespace = nspace;
-        this->Name = name;
+        this->name_space = nspace;
+        this->name = name;
     }
 
 
-    TypeBuilderImpl::TypeBuilderImpl(string Namespace, string Name, string CppName)
-        : fullName_(Namespace + "." + Name)
+    type_builder_impl::type_builder_impl(string name_space, string name, string cpp_name)
+        : full_name_(name_space + "." + name)
     {
-        type_ = new type_impl(Namespace, Name);
-        type_impl::GetTypeMap()[fullName_] = type_;
-        type_impl::GetTypeMap()[Name] = type_;
-        type_impl::GetTypeMap()[CppName] = type_;
+        type_ = new type_impl(name_space, name);
+        type_impl::get_type_map()[full_name_] = type_;
+        type_impl::get_type_map()[name] = type_;
+        type_impl::get_type_map()[cpp_name] = type_;
     }
 
-    MethodInfo type_impl::GetMethod(string name)
+    method_info type_impl::get_method(string name)
     {
         if (methods_.IsEmpty()) return nullptr;
 
         for (auto method : methods_)
         {
-            if (method->Name == name)
+            if (method->name == name)
                 return method;
         }
 
         return nullptr;
     }
 
-    type_t type_impl::GetInterface(string name)
+    type_t type_impl::get_interface(string name)
     {
         if (interfaces_.IsEmpty()) return nullptr;
 
         for (auto interface : interfaces_)
         {
-            if (interface->Name == name)
+            if (interface->name == name)
                 return interface;
         }
 
@@ -189,13 +189,13 @@ namespace dot
     bool type_impl::equals(object obj)
     {
         if (obj.is<type_t>())
-            return this->FullName() == ((type_t)obj)->FullName();
+            return this->full_name() == ((type_t)obj)->full_name();
 
         return false;
     }
 
     size_t type_impl::hash_code()
     {
-        return this->FullName()->hash_code();
+        return this->full_name()->hash_code();
     }
 }

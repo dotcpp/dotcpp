@@ -33,42 +33,42 @@ limitations under the License.
 
 namespace dot
 {
-    object Activator::CreateInstance(type_t type)
+    object activator::create_instance(type_t type)
     {
-        return CreateInstance(type, nullptr);
+        return create_instance(type, nullptr);
     }
 
-    object Activator::CreateInstance(type_t type, array<object> params)
+    object activator::create_instance(type_t type, array<object> params)
     {
-        array<ConstructorInfo> ctors = type->GetConstructors();
+        array<constructor_info> ctors = type->get_constructors();
 
         // If no constructors
         if (ctors.IsEmpty() || ctors->count() == 0)
         {
-            throw exception(string::format("type_t {0}.{1} does not have registered constructors", type->Namespace, type->Name));
+            throw exception(string::format("type_t {0}.{1} does not have registered constructors", type->name_space, type->name));
         }
 
         // Search for best matched constructor
-        ConstructorInfo best_ctor = nullptr;
-        int paramsCount = 0;
+        constructor_info best_ctor = nullptr;
+        int params_count = 0;
         if (!params.IsEmpty())
         {
-            paramsCount = params->count();
+            params_count = params->count();
         }
 
         for (auto ctor : ctors)
         {
-            auto ctorParams = ctor->GetParameters();
+            auto ctor_params = ctor->get_parameters();
             bool matches = true;
 
             // Continue if different parameters count
-            if (ctorParams->count() != paramsCount)
+            if (ctor_params->count() != params_count)
                 continue;
 
             // Compare all parameters types
-            for (int i = 0; i < paramsCount; ++i)
+            for (int i = 0; i < params_count; ++i)
             {
-                if ((string)ctorParams[i]->ParameterType->Name != params[i]->type()->Name)
+                if ((string)ctor_params[i]->parameter_type->name != params[i]->type()->name)
                 {
                     matches = false;
                     break;
@@ -89,16 +89,16 @@ namespace dot
             throw exception("No matching public constructor was found.");
         }
 
-        return best_ctor->Invoke(params);
+        return best_ctor->invoke(params);
     }
 
-    object Activator::CreateInstance(string assemblyName, string typeName)
+    object activator::create_instance(string assembly_name, string type_name)
     {
-        return CreateInstance(type_impl::GetType(typeName), nullptr);
+        return create_instance(type_impl::get_type(type_name), nullptr);
     }
 
-    object Activator::CreateInstance(string assemblyName, string typeName, array<object> params)
+    object activator::create_instance(string assembly_name, string type_name, array<object> params)
     {
-        return CreateInstance(type_impl::GetType(typeName), params);
+        return create_instance(type_impl::get_type(type_name), params);
     }
 }

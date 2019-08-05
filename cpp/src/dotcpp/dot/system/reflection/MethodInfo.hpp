@@ -30,17 +30,17 @@ limitations under the License.
 
 namespace dot
 {
-    class MethodInfoImpl; using MethodInfo = ptr<MethodInfoImpl>;
+    class method_info_impl; using method_info = ptr<method_info_impl>;
     class type_impl; using type_t = ptr<type_impl>;
 
     /// <summary>
     /// Obtains information about the attributes of a method and provides access to method metadata.
     /// </summary>
-    class MethodInfoImpl : public MemberInfoImpl
+    class method_info_impl : public member_info_impl
     {
-        friend class TypeBuilderImpl;
+        friend class type_builder_impl;
 
-        typedef MethodInfoImpl self;
+        typedef method_info_impl self;
 
     public: // METHODS
 
@@ -48,20 +48,20 @@ namespace dot
         virtual string to_string() override { return "MethodInfo"; }
 
         /// <summary>Gets the parameters of this method.</summary>
-        virtual array<ParameterInfo> GetParameters()
+        virtual array<parameter_info> GetParameters()
         {
-            return Parameters;
+            return parameters;
         }
 
         /// <summary>Invokes specified method with given parameters.</summary>
-        virtual object Invoke(object, array<object>) = 0;
+        virtual object invoke(object, array<object>) = 0;
 
         /// <summary>Gets the return type of this method.</summary>
-        type_t ReturnType; // TODO - convert to method
+        type_t return_type; // TODO - convert to method
 
     protected: // FIELDS
 
-        array<ParameterInfo> Parameters;
+        array<parameter_info> parameters;
 
     protected: // CONSTRUCTORS
 
@@ -70,21 +70,21 @@ namespace dot
         ///
         /// This constructor is protected. It is used by derived classes only.
         /// </summary>
-        MethodInfoImpl(const string& name, type_t declaringType, type_t returnType)
-            : MemberInfoImpl(name, declaringType)
+        method_info_impl(const string& name, type_t declaring_type, type_t return_type)
+            : member_info_impl(name, declaring_type)
         {
-            ReturnType = returnType;
+            this->return_type = return_type;
         }
     };
 
     /// <summary>
     /// Obtains information about the attributes of a non-static method and provides access to method metadata.
     /// </summary>
-    template <class Class, class Return, class ... Args>
-    class MemberMethodInfoImpl : public MethodInfoImpl
+    template <class class_, class return_t, class ... args>
+    class member_method_info_impl : public method_info_impl
     {
-        friend class TypeBuilderImpl;
-        typedef Return (Class::*method_type)(Args...);
+        friend class type_builder_impl;
+        typedef return_t (class_::*method_type)(args...);
 
     private: // FIELDS
 
@@ -96,28 +96,28 @@ namespace dot
         /// <summary>A string representing the name of the current type.</summary>
         virtual string to_string() override { return "MemberMethodInfo"; }
 
-        /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
+        /// <summary>Invokes the method reflected by this method_info instance.</summary>
         template <int ... I>
-        object Invoke_impl(object obj, array<object> params, detail::index_sequence<I...>, std::false_type)
+        object invoke_impl(object obj, array<object> params, detail::index_sequence<I...>, std::false_type)
         {
-            return ((*ptr<Class>(obj)).*ptr_)(params[I]...);
+            return ((*ptr<class_>(obj)).*ptr_)(params[I]...);
         }
 
-        /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
+        /// <summary>Invokes the method reflected by this method_info instance.</summary>
         template <int ... I>
         object Invoke_impl(object obj, array<object> params, detail::index_sequence<I...>, std::true_type)
         {
-            ((*ptr<Class>(obj)).*ptr_)(params[I]...);
+            ((*ptr<class_>(obj)).*ptr_)(params[I]...);
             return object();
         }
 
         /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
-        virtual object Invoke(object obj, array<object> params)
+        virtual object invoke(object obj, array<object> params)
         {
-            if (params->count() != Parameters->count())
-                throw exception("Wrong number of parameters for method " + this->DeclaringType->Name + "." + this->Name);
+            if (params->count() != parameters->count())
+                throw exception("Wrong number of parameters for method " + this->declaring_type->name + "." + this->name);
 
-            return Invoke_impl(obj, params, typename detail::make_index_sequence<sizeof...(Args)>::type(), typename std::is_same<Return, void>::type());
+            return invoke_impl(obj, params, typename detail::make_index_sequence<sizeof...(args)>::type(), typename std::is_same<return_t, void>::type());
         }
 
     private: // CONSTRUCTORS
@@ -128,8 +128,8 @@ namespace dot
         /// This constructor is private. Use new_MethodInfo(...)
         /// function with matching signature instead.
         /// </summary>
-        MemberMethodInfoImpl(const string& name, type_t declaringType, type_t returnType, method_type p)
-            : MethodInfoImpl(name, declaringType, returnType)
+        member_method_info_impl(const string& name, type_t declaring_type, type_t return_type, method_type p)
+            : method_info_impl(name, declaring_type, return_type)
             , ptr_(p)
         {}
     };
@@ -137,11 +137,11 @@ namespace dot
     /// <summary>
     /// Obtains information about the attributes of a static method and provides access to method metadata.
     /// </summary>
-    template <class Return, class ... Args>
-    class StaticMethodInfoImpl : public MethodInfoImpl
+    template <class return_t, class ... args>
+    class static_method_info_impl : public method_info_impl
     {
-        friend class TypeBuilderImpl;
-        typedef Return (*method_type)(Args...);
+        friend class type_builder_impl;
+        typedef return_t (*method_type)(args...);
 
     private: // FIELDS
 
@@ -154,26 +154,26 @@ namespace dot
 
         /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
         template <int ... I>
-        object Invoke_impl(object obj, array<object> params, detail::index_sequence<I...>, std::false_type)
+        object invoke_impl(object obj, array<object> params, detail::index_sequence<I...>, std::false_type)
         {
             return (*ptr_)(params[I]...);
         }
 
         /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
         template <int ... I>
-        object Invoke_impl(object obj, array<object> params, detail::index_sequence<I...>, std::true_type)
+        object invoke_impl(object obj, array<object> params, detail::index_sequence<I...>, std::true_type)
         {
             (*ptr_)(params[I]...);
             return object();
         }
 
         /// <summary>Invokes the method reflected by this MethodInfo instance.</summary>
-        virtual object Invoke(object obj, array<object> params)
+        virtual object invoke(object obj, array<object> params)
         {
-            if (params->count() != Parameters->count())
-                throw exception("Wrong number of parameters for method " + this->DeclaringType->Name + "." + this->Name);
+            if (params->count() != parameters->count())
+                throw exception("Wrong number of parameters for method " + this->declaring_type->name + "." + this->name);
 
-            return Invoke_impl(obj, params, typename detail::make_index_sequence<sizeof...(Args)>::type(), typename std::is_same<Return, void>::type());
+            return invoke_impl(obj, params, typename detail::make_index_sequence<sizeof...(args)>::type(), typename std::is_same<return_t, void>::type());
         }
 
     private: // CONSTRUCTORS
@@ -184,8 +184,8 @@ namespace dot
         /// This constructor is private. Use new_MethodInfo(...)
         /// function with matching signature instead.
         /// </summary>
-        StaticMethodInfoImpl(const string& name, type_t declaringType, type_t returnType, method_type p)
-            : MethodInfoImpl(name, declaringType, returnType)
+        static_method_info_impl(const string& name, type_t declaring_type, type_t return_type, method_type p)
+            : method_info_impl(name, declaring_type, return_type)
             , ptr_(p)
         {}
     };

@@ -27,27 +27,27 @@ limitations under the License.
 
 namespace dot
 {
-    class ParameterInfoImpl; using ParameterInfo = ptr<ParameterInfoImpl>;
+    class parameter_info_impl; using parameter_info = ptr<parameter_info_impl>;
 
     /// <summary>
     /// Discovers the attributes of a parameter and provides access to parameter metadata.
     /// </summary>
-    class ParameterInfoImpl : public virtual object_impl
+    class parameter_info_impl : public virtual object_impl
     {
-        friend ParameterInfo new_ParameterInfo(string , type_t, int);
+        friend parameter_info make_parameter_info(string , type_t, int);
 
-        typedef ParameterInfoImpl self;
+        typedef parameter_info_impl self;
 
     public: // METHODS
 
         /// <summary>Gets the type of this parameter.</summary>
-        type_t ParameterType; // TODO - convert to method
+        type_t parameter_type; // TODO - convert to method
 
         /// <summary>Gets the name of this parameter.</summary>
-        string Name;  // TODO - convert to method
+        string name;  // TODO - convert to method
 
         /// <summary>Gets the zero-based position of the parameter in the formal parameter list.</summary>
-        int Position;  // TODO - convert to method
+        int position;  // TODO - convert to method
 
     private: // CONSTRUCTORS
 
@@ -57,19 +57,19 @@ namespace dot
         /// This constructor is private. Use new_ParameterInfo(...)
         /// function with matching signature instead.
         /// </summary>
-        ParameterInfoImpl(string name, type_t parameter_type, int position)
+        parameter_info_impl(string name, type_t parameter_type, int position)
         {
-            ParameterType = parameter_type;
-            Name = name;
-            Position = position;
+            this->parameter_type = parameter_type;
+            this->name = name;
+            this->position = position;
         }
     };
 
     /// <summary>
     /// Create from parameter name, parameter type, and parameter position.
     /// </summary>
-    inline ParameterInfo new_ParameterInfo(string name, type_t parameterType, int position)
+    inline parameter_info make_parameter_info(string name, type_t parameter_type, int position)
     {
-        return new ParameterInfoImpl(name, parameterType, position);
+        return new parameter_info_impl(name, parameter_type, position);
     }
 }

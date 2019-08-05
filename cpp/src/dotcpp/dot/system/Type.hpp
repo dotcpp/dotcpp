@@ -43,27 +43,27 @@ namespace dot
 {
     class string_impl; class string;
     class type_impl; using type_t = ptr<type_impl>;
-    class TypeBuilderImpl; using TypeBuilder = ptr<TypeBuilderImpl>;
+    class type_builder_impl; using type_builder = ptr<type_builder_impl>;
     class string_impl; class string;
-    class MethodInfoImpl; using MethodInfo = ptr<MethodInfoImpl>;
-    class ConstructorInfoImpl; using ConstructorInfo = ptr<ConstructorInfoImpl>;
+    class method_info_impl; using method_info = ptr<method_info_impl>;
+    class constructor_info_impl; using constqructor_info = ptr<constructor_info_impl>;
     template <class T> class list_impl; template <class T> using list = ptr<list_impl<T>>;
     template <class T> class array_impl; template <class T> using array = ptr<array_impl<T>>;
-    template <class Class, class ... Args> class MemberConstructorInfoImpl;
+    template <class class_t, class ... Args> class member_constructor_info_impl;
 
     template <class T> type_t typeof();
 
-    /// <summary>Builder for Type.</summary>
-    class DOT_CLASS TypeBuilderImpl final : public virtual object_impl
+    /// <summary>builder for Type.</summary>
+    class DOT_CLASS type_builder_impl final : public virtual object_impl
     {
         template <class>
-        friend TypeBuilder make_type_builder(string nspace, string name);
+        friend type_builder make_type_builder(string nspace, string name);
         friend class type_impl;
 
     private:
-        string fullName_;
-        list<MethodInfo> methods_;
-        list<ConstructorInfo> ctors_;
+        string full_name_;
+        list<method_info> methods_;
+        list<constructor_info> ctors_;
         list<field_info> fields_;
         type_t type_;
         type_t base_;
@@ -75,106 +75,106 @@ namespace dot
     public: // METHODS
 
         /// <summary>Add public field of the current Type.</summary>
-        template <class Class, class Prop>
-        TypeBuilder WithField(string name, Prop Class::*prop)
+        template <class class_t, class fld>
+        type_builder with_field(string name, fld class_t::*prop)
         {
             if (fields_.IsEmpty())
             {
                 fields_ = make_list<field_info>();
             }
-            fields_->add(make_field_info<Prop, Class>(name, type_, dot::typeof<Prop>(), prop));
+            fields_->add(make_field_info<fld, class_t>(name, type_, dot::typeof<fld>(), prop));
             return this;
         }
 
         /// <summary>Add public member method of the current Type.</summary>
-        template <class Class, class Return, class ... Args>
-        TypeBuilder WithMethod(string name, Return(Class::*mth) (Args ...), std::vector<string> const& names) // TODO Change to List? Make overload?
+        template <class class_t, class return_t, class ... args>
+        type_builder with_method(string name, return_t(class_t::*mth) (args ...), std::vector<string> const& names) // TODO Change to List? Make overload?
         {
-            const int argsCount = sizeof...(Args);
-            if (argsCount != names.size())
-                throw exception("Wrong number of parameters for method " + fullName_);
+            const int args_count = sizeof...(args);
+            if (args_count != names.size())
+                throw exception("Wrong number of parameters for method " + full_name_);
 
             if (methods_.IsEmpty())
             {
-                methods_ = make_list<MethodInfo>();
+                methods_ = make_list<method_info>();
             }
 
-            array<ParameterInfo> parameters = make_array<ParameterInfo>(sizeof...(Args));
-            std::vector<type_t> paramTypes = { dot::typeof<Args>()... };
+            array<parameter_info> parameters = make_array<parameter_info>(sizeof...(args));
+            std::vector<type_t> param_types = { dot::typeof<args>()... };
 
             for (int i = 0; i < argsCount; ++i)
             {
-                parameters[i] = new_ParameterInfo(names[i], paramTypes[i], i);
+                parameters[i] = make_parameter_info(names[i], param_types[i], i);
             }
 
-            MethodInfo methodInfo_ = new MemberMethodInfoImpl<Class, Return, Args...>(name, type_, dot::typeof<Return>(), mth);
-            methodInfo_->Parameters = parameters;
+            method_info method_info = new member_method_info_impl<class_t, return_t, args...>(name, type_, dot::typeof<return_t>(), mth);
+            method_info->parameters = parameters;
 
-            methods_->add(methodInfo_);
+            methods_->add(method_info);
 
             return this;
         }
 
         /// <summary>Add public static method of the current Type.</summary>
-        template <class Return, class ... Args>
-        TypeBuilder WithMethod(string name, Return(*mth) (Args ...), std::vector<string> const& names) // TODO Change to List? Make overload?
+        template <class return_t, class ... args>
+        type_builder with_method(string name, return_t(*mth) (args ...), std::vector<string> const& names) // TODO Change to List? Make overload?
         {
-            const int argsCount = sizeof...(Args);
-            if (argsCount != names.size())
-                throw exception("Wrong number of parameters for method " + fullName_);
+            const int args_count = sizeof...(args);
+            if (args_count != names.size())
+                throw exception("Wrong number of parameters for method " + full_name_);
 
             if (methods_.IsEmpty())
             {
-                methods_ = make_list<MethodInfo>();
+                methods_ = make_list<method_info>();
             }
 
-            array<ParameterInfo> parameters = make_array<ParameterInfo>(sizeof...(Args));
-            std::vector<type_t> paramTypes = { dot::typeof<Args>()... };
+            array<parameter_info> parameters = make_array<parameter_info>(sizeof...(args));
+            std::vector<type_t> param_types = { dot::typeof<args>()... };
 
-            for (int i = 0; i < argsCount; ++i)
+            for (int i = 0; i < args_count; ++i)
             {
-                parameters[i] = new_ParameterInfo(names[i], paramTypes[i], i);
+                parameters[i] = make_parameter_info(names[i], param_types[i], i);
             }
 
-            MethodInfo methodInfo_ = new StaticMethodInfoImpl<Return, Args...>(name, type_, dot::typeof<Return>(), mth);
-            methodInfo_->Parameters = parameters;
+            method_info method_info = new static_method_info_impl<return_t, args...>(name, type_, dot::typeof<return_t>(), mth);
+            method_info->parameters = parameters;
 
-            methods_->add(methodInfo_);
+            methods_->add(method_info);
 
             return this;
         }
 
         /// <summary>Add public constructor of the current Type.</summary>
-        template <class Class, class ... Args>
-        TypeBuilder WithConstructor(Class(*ctor)(Args...), std::vector<string> const& names) // TODO Change to List? Make overload?
+        template <class class_t, class ... args>
+        type_builder with_constructor(class_t(*ctor)(args...), std::vector<string> const& names) // TODO Change to List? Make overload?
         {
-            const int argsCount_ = sizeof...(Args);
-            if (argsCount_ != names.size())
-                throw exception("Wrong number of parameters for method " + fullName_);
+            const int args_count = sizeof...(args);
+            if (args_count != names.size())
+                throw exception("Wrong number of parameters for method " + full_name_);
 
             if (ctors_.IsEmpty())
             {
-                ctors_ = make_list<ConstructorInfo>();
+                ctors_ = make_list<constructor_info>();
             }
 
-            array<ParameterInfo> parameters = make_array<ParameterInfo>(sizeof...(Args));
-            std::vector<type_t> paramTypes = { dot::typeof<Args>()... };
+            array<parameter_info> parameters = make_array<parameter_info>(sizeof...(args));
+            std::vector<type_t> param_types = { dot::typeof<args>()... };
 
-            for (int i = 0; i < argsCount_; ++i)
+            for (int i = 0; i < args_count; ++i)
             {
-                parameters[i] = new_ParameterInfo(names[i], paramTypes[i], i);
+                parameters[i] = make_parameter_info(names[i], param_types[i], i);
             }
 
-            ConstructorInfo ctorInfo = new MemberConstructorInfoImpl<Class, Args...>(type_, ctor);
-            ctorInfo->Parameters = parameters;
+            constructor_info ctor_info = new member_constructor_info_impl<class_t, args...>(type_, ctor);
+            ctor_info->parameters = parameters;
 
-            ctors_->add(ctorInfo);
+            ctors_->add(ctor_info);
 
             return this;
         }
 
         /// <summary>Set IsEnum to true.</summary>
-        TypeBuilder IsEnum()
+        type_builder is_enum()
         {
             this->is_class_ = false;
             this->is_enum_ = true;
@@ -182,59 +182,59 @@ namespace dot
         }
 
         /// <summary>Add base type of the current Type.</summary>
-        template <class Class>
-        TypeBuilder WithBase()
+        template <class class_t>
+        type_builder with_base()
         {
             if (!(this->base_.IsEmpty()))
-                throw exception("Base already defined in class " + fullName_);
+                throw exception("Base already defined in class " + full_name_);
 
-            this->base_ = dot::typeof<Class>();
+            this->base_ = dot::typeof<class_t>();
             return this;
         }
 
         /// <summary>Add interface type of the current Type.</summary>
-        template <class Class>
-        TypeBuilder WithInterface()
+        template <class class_t>
+        type_builder with_interface()
         {
             if (this->interfaces_.IsEmpty())
                 this->interfaces_ = make_list<type_t>();
 
-            this->interfaces_->add(dot::typeof<Class>());
+            this->interfaces_->add(dot::typeof<class_t>());
             return this;
         }
 
         /// <summary>Add generic argument type of the current Type.</summary>
-        template <class Class>
-        TypeBuilder WithGenericArgument()
+        template <class class_t>
+        type_builder with_generic_argument()
         {
             if (this->generic_args_.IsEmpty())
                 this->generic_args_ = make_list<type_t>();
 
-            this->generic_args_->add(dot::typeof<Class>());
+            this->generic_args_->add(dot::typeof<class_t>());
             return this;
         }
 
 
         /// <summary>Built type_t from the current object.</summary>
-        type_t Build();
+        type_t build();
 
     private: // CONSTRUCTORS
 
         /// <summary>
-        /// Create an empty instance of TypeBuilder.
+        /// Create an empty instance of type_builder.
         ///
         /// This constructor is private. Use make_type_builder() function instead.
         /// </summary>
-        TypeBuilderImpl(string nspace, string name, string cppname);
+        type_builder_impl(string nspace, string name, string cppname);
     };
 
     /// <summary>
-    /// Create an empty instance of TypeBuilder.
+    /// Create an empty instance of type_builder.
     /// </summary>
     template <class T>
-    inline TypeBuilder make_type_builder(string nspace, string name)
+    inline type_builder make_type_builder(string nspace, string name)
     {
-        TypeBuilder td = new TypeBuilderImpl(nspace, name, typeid(T).name());
+        type_builder td = new type_builder_impl(nspace, name, typeid(T).name());
         td->is_class_ = std::is_base_of<object_impl, T>::value;
         return td;
     }
@@ -261,7 +261,7 @@ namespace dot
     /// </summary>
     class DOT_CLASS type_impl final : public virtual object_impl
     {
-        friend class TypeBuilderImpl;
+        friend class type_builder_impl;
         template <class T>
         friend struct typeof_impl;
 
@@ -269,8 +269,8 @@ namespace dot
 
     private: // FIELDS
 
-        array<MethodInfo> methods_;
-        array<ConstructorInfo> ctors_;
+        array<method_info> methods_;
+        array<constructor_info> ctors_;
         array<type_t> interfaces_;
         array<type_t> generic_args_;
         type_t base_;
@@ -278,54 +278,54 @@ namespace dot
     public: // PROPERTIES
 
         /// <summary>Gets the name of the current type, excluding namespace.</summary>
-        string Name; // TODO - replace by method
+        string name; // TODO - replace by method
 
         /// <summary>Gets the fully qualified name of the type, including its namespace but not its assembly.</summary>
-        string Namespace; // TODO - replace by method
+        string name_space; // TODO - replace by method
 
         /// <summary>Gets the fully qualified name of the type, including its namespace but not its assembly.</summary>
-        string FullName() const { return string::format("{0}.{1}", this->Namespace, this->Name); } // TODO - replace by string::Join
+        string full_name() const { return string::format("{0}.{1}", this->name_space, this->name); } // TODO - replace by string::Join
 
         /// <summary>Gets the base type if current type.</summary>
-        type_t BaseType() { return base_; }
+        type_t base_type() { return base_; }
 
         /// <summary>Gets a value indicating whether the System.type_t is a class or a delegate; that is, not a value type or interface.</summary>
-        bool IsClass; // TODO - replace by method
+        bool is_class; // TODO - replace by method
 
         /// <summary>Gets a value indicating whether the current System.type_t represents an enumeration.</summary>
-        bool IsEnum; // TODO - replace by method
+        bool is_enum; // TODO - replace by method
 
     public: // METHODS
 
         /// <summary>Returns methods of the current type.</summary>
-        array<MethodInfo> GetMethods() { return methods_; }
+        array<method_info> get_methods() { return methods_; }
 
         /// <summary>Returns constructors of the current type.</summary>
-        array<ConstructorInfo> GetConstructors() { return ctors_; }
+        array<constructor_info> get_constructors() { return ctors_; }
 
         /// <summary>Returns interfaces of the current type.</summary>
-        array<type_t> GetInterfaces() { return interfaces_; }
+        array<type_t> get_interfaces() { return interfaces_; }
 
         /// <summary>Returns interfaces of the current type.</summary>
-        array<type_t> GetGenericArguments() { return generic_args_; }
+        array<type_t> get_generic_arguments() { return generic_args_; }
 
         /// <summary>Searches for the public method with the specified name.</summary>
-        MethodInfo GetMethod(string name);
+        method_info get_method(string name);
 
         /// <summary>Searches for the interface with the specified name.</summary>
-        type_t GetInterface(string name);
+        type_t get_interface(string name);
 
         /// <summary>A string representing the name of the current type.</summary>
-        virtual string to_string() override { return FullName(); }
+        virtual string to_string() override { return full_name(); }
 
         /// <summary>Get type_t object for the name.</summary>
-        static type_t GetType(string name) { return GetTypeMap()[name]; }
+        static type_t get_type(string name) { return get_type_map()[name]; }
 
         /// <summary>Get derived types list for the name.</summary>
-        static list<type_t> GetDerivedTypes(string name) { return GetDerivedTypesMap()[name]; }
+        static list<type_t> get_derived_types(string name) { return get_derived_types_map()[name]; }
 
         /// <summary>Get derived types list for the type.</summary>
-        static list<type_t> GetDerivedTypes(type_t type) { return GetDerivedTypesMap()[type->FullName()]; }
+        static list<type_t> get_derived_types(type_t type) { return get_derived_types_map()[type->full_name()]; }
 
         bool equals(object obj) override;
 
@@ -336,15 +336,15 @@ namespace dot
         /// <summary>
         /// Fill data from builder.
         /// </summary>
-        void Fill(const TypeBuilder& data);
+        void fill(const type_builder& data);
 
-        static std::map<string, type_t>& GetTypeMap()
+        static std::map<string, type_t>& get_type_map()
         {
             static std::map<string, type_t> map_;
             return map_;
         }
 
-        static std::map<string, list<type_t>>& GetDerivedTypesMap()
+        static std::map<string, list<type_t>>& get_derived_types_map()
         {
             static std::map<string, list<type_t>> map_;
             return map_;
@@ -355,7 +355,7 @@ namespace dot
         /// <summary>
         /// Create from builder.
         ///
-        /// This constructor is private. Use TypeBuilder->Build() method instead.
+        /// This constructor is private. Use type_builder->build() method instead.
         /// </summary>
         type_impl(string nspace, string name);
     };
@@ -370,7 +370,7 @@ namespace dot
 
     inline type_t object_impl::typeof()
     {
-        static type_t type_ = make_type_builder<object_impl>("System", "object")->Build();
+        static type_t type_ = make_type_builder<object_impl>("System", "object")->build();
         return type_;
     }
 
@@ -378,18 +378,18 @@ namespace dot
     {
         static type_t type_ = make_type_builder<list_impl<T>>("System.Collections.Generic", "List`1")
             //DOT_TYPE_CTOR(make_list<T>)
-            ->WithConstructor(static_cast<list<T>(*)()>(&make_list<T>), { })
+            ->with_constructor(static_cast<list<T>(*)()>(&make_list<T>), { })
             DOT_TYPE_GENERIC_ARGUMENT(T)
-            ->Build();
+            ->build();
         return type_;
     }
 
     template <class T> type_t array_impl<T>::typeof()
     {
-        static type_t type_ = make_type_builder<array_impl<T>>(dot::typeof<T>()->Namespace, dot::typeof<T>()->Name +"[]")
+        static type_t type_ = make_type_builder<array_impl<T>>(dot::typeof<T>()->name_space, dot::typeof<T>()->name +"[]")
             //DOT_TYPE_CTOR(make_array<T>)
             DOT_TYPE_GENERIC_ARGUMENT(T)
-            ->Build();
+            ->build();
         return type_;
     }
 
@@ -399,8 +399,8 @@ namespace dot
         static type_t get_typeof()
         {
             string cppname = typeid(typename T::element_type).name(); // TODO - is it faster to use typeid rather than string as key?
-            auto p = type_impl::GetTypeMap().find(cppname);
-            if (p == type_impl::GetTypeMap().end())
+            auto p = type_impl::get_type_map().find(cppname);
+            if (p == type_impl::get_type_map().end())
             {
                 type_t type = T::element_type::typeof();
                 return type;
@@ -416,7 +416,7 @@ namespace dot
     {
         static type_t get_typeof()
     {
-        static type_t type_ = make_type_builder<double>("System", "Double")->Build();
+        static type_t type_ = make_type_builder<double>("System", "Double")->build();
         return type_;
     }
     };
@@ -426,7 +426,7 @@ namespace dot
     {
         static type_t get_typeof()
     {
-        static type_t type_ = make_type_builder<int64_t>("System", "Int64")->Build();
+        static type_t type_ = make_type_builder<int64_t>("System", "Int64")->build();
         return type_;
     }
     };
@@ -436,7 +436,7 @@ namespace dot
     {
         static type_t get_typeof()
     {
-        static type_t type_ = make_type_builder<int>("System", "Int32")->Build();
+        static type_t type_ = make_type_builder<int>("System", "Int32")->build();
         return type_;
     }
     };
@@ -446,7 +446,7 @@ namespace dot
     {
         static type_t get_typeof()
     {
-        static type_t type_ = make_type_builder<void>("System", "Void")->Build();
+        static type_t type_ = make_type_builder<void>("System", "Void")->build();
         return type_;
     }
     };
@@ -456,7 +456,7 @@ namespace dot
     {
         static type_t get_typeof()
     {
-        static type_t type_ = make_type_builder<bool>("System", "Bool")->Build();
+        static type_t type_ = make_type_builder<bool>("System", "Bool")->build();
         return type_;
     }
     };
@@ -466,7 +466,7 @@ namespace dot
     {
         static type_t get_typeof()
     {
-        static type_t type_ = make_type_builder<char>("System", "Char")->Build();
+        static type_t type_ = make_type_builder<char>("System", "Char")->build();
         return type_;
     }
     };
@@ -476,7 +476,7 @@ namespace dot
     {
         static type_t get_typeof()
     {
-        static type_t type_ = make_type_builder<local_date>("System", "LocalDate")->Build();
+        static type_t type_ = make_type_builder<local_date>("System", "LocalDate")->build();
         return type_;
     }
     };
@@ -486,7 +486,7 @@ namespace dot
     {
         static type_t get_typeof()
         {
-            static type_t type_ = make_type_builder<local_time>("System", "LocalTime")->Build();
+            static type_t type_ = make_type_builder<local_time>("System", "LocalTime")->build();
             return type_;
         }
     };
@@ -496,7 +496,7 @@ namespace dot
     {
         static type_t get_typeof()
         {
-            static type_t type_ = make_type_builder<local_time>("System", "LocalMinute")->Build();
+            static type_t type_ = make_type_builder<local_time>("System", "LocalMinute")->build();
         return type_;
     }
     };
@@ -506,7 +506,7 @@ namespace dot
     {
         static type_t get_typeof()
         {
-            static type_t type_ = make_type_builder<local_date_time>("System", "LocalDateTime")->Build();
+            static type_t type_ = make_type_builder<local_date_time>("System", "LocalDateTime")->build();
             return type_;
         }
     };
@@ -516,7 +516,7 @@ namespace dot
     {
         static type_t get_typeof()
         {
-            static type_t type_ = make_type_builder<local_date_time>("System", "Period")->Build();
+            static type_t type_ = make_type_builder<local_date_time>("System", "Period")->build();
             return type_;
         }
     };
@@ -528,7 +528,7 @@ namespace dot
         {
             static type_t type_ = make_type_builder<nullable<T>>("System", "nullable<" + dot::typeof<T>()->Name + ">")
                 ->template WithGenericArgument<T>()
-                ->Build();
+                ->build();
         return type_;
     }
     };
@@ -539,7 +539,7 @@ namespace dot
         static type_t get_typeof()
         {
             static type_t type_ = make_type_builder<std::tuple<>>("System", "Tuple<>")
-                ->Build();
+                ->build();
             return type_;
         }
 
@@ -550,24 +550,24 @@ namespace dot
     {
         static type_t get_typeof()
         {
-            static TypeBuilder type_builder =
+            static type_builder type_builder =
             []()
             {
-                TypeBuilder type_builder = make_type_builder<std::tuple<T...>>("System", "Tuple<" + get_name<T...>() + ">");
+                type_builder type_builder = make_type_builder<std::tuple<T...>>("System", "Tuple<" + get_name<T...>() + ">");
                 set_generic_args<T ...>(type_builder);
-                type_builder->WithMethod("GetItem", &GetItem, { "tuple", "index" })
-                    ->WithMethod("SetItem", &SetItem, { "tuple", "index", "value" })
-                    ->WithConstructor(&Contructor, {})
+                type_builder->with_method("GetItem", &get_item, { "tuple", "index" })
+                    ->with_method("SetItem", &set_item, { "tuple", "index", "value" })
+                    ->with_constructor(&contructor, {})
                     ;
                 return type_builder;
             }();
 
-            static type_t type_ = type_builder->Build();
+            static type_t type_ = type_builder->build();
             return type_;
         }
     private:
 
-        static object Contructor()
+        static object contructor()
         {
             return object(std::tuple<T...>());
         }
@@ -575,76 +575,76 @@ namespace dot
         struct dummy{};
 
         template <int I, typename Dummy = dummy>
-        struct GetItemImpl
+        struct get_item_impl
         {
-            static object Impl(object tuple, int index)
+            static object impl(object tuple, int index)
             {
                 if (I == index) return std::get<I>(*(struct_wrapper<std::tuple<T...>>)tuple);
-                    else return GetItemImpl<I + 1>::Impl(tuple, index);
+                    else return get_item_impl<I + 1>::Impl(tuple, index);
             }
         };
 
         template <typename Dummy>
-        struct GetItemImpl<sizeof...(T), Dummy>
+        struct get_item_impl<sizeof...(T), Dummy>
         {
-            static object Impl(object tuple, int index)
+            static object impl(object tuple, int index)
             {
                 throw exception("Tuple index out of bounds");
             }
         };
 
-        static object GetItem(object tuple, int index)
+        static object get_item(object tuple, int index)
         {
-            return GetItemImpl<0>::Impl(tuple, index);
+            return get_item_impl<0>::impl(tuple, index);
         }
 
         template <int I, typename Dummy = dummy>
-        struct SetItemImpl
+        struct set_item_impl
         {
-            static void Impl(object tuple, int index, object value)
+            static void impl(object tuple, int index, object value)
             {
                 if (I == index) std::get<I>(*(struct_wrapper<std::tuple<T...>>)tuple) = (std::tuple_element_t<I, std::tuple<T...>>)value;
-                else SetItemImpl<I + 1>::Impl(tuple, index, value);
+                else SetItemImpl<I + 1>::impl(tuple, index, value);
             }
         };
 
         template <typename Dummy>
-        struct SetItemImpl<sizeof...(T), Dummy>
+        struct set_item_impl<sizeof...(T), Dummy>
         {
-            static void Impl(object tuple, int index, object value)
+            static void impl(object tuple, int index, object value)
             {
                 throw exception("Tuple index out of bounds");
             }
         };
 
-        static void SetItem(object tuple, int index, object value)
+        static void set_item(object tuple, int index, object value)
         {
-            SetItemImpl<0>::Impl(tuple, index, value);
+            SetItemImpl<0>::impl(tuple, index, value);
         }
 
 
         template <class Head, class Second, class ... Tail>
         static string get_name()
         {
-            return dot::typeof<Head>()->Name + get_name<Second, Tail...>();
+            return dot::typeof<Head>()->name + get_name<Second, Tail...>();
         }
 
         template <class Head>
         static string get_name()
         {
-            return dot::typeof<Head>()->Name;
+            return dot::typeof<Head>()->name;
         }
 
         template <class Head, class Second, class ... Tail>
-        static TypeBuilder set_generic_args(TypeBuilder tb)
+        static type_builder set_generic_args(type_builder tb)
         {
-            return set_generic_args<Second, Tail ... >(tb->WithGenericArgument<Head>());
+            return set_generic_args<Second, Tail ... >(tb->with_generic_argument<Head>());
         }
 
         template <class Head>
-        static TypeBuilder set_generic_args(TypeBuilder tb)
+        static type_builder set_generic_args(type_builder tb)
         {
-            return tb->WithGenericArgument<Head>();
+            return tb->with_generic_argument<Head>();
         }
 
     };
