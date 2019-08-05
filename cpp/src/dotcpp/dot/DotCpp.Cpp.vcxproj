@@ -11,10 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="noda_time\LocalDate.cpp" />
-    <ClCompile Include="noda_time\LocalDateTime.cpp" />
-    <ClCompile Include="noda_time\LocalMinute.cpp" />
-    <ClCompile Include="noda_time\LocalTime.cpp" />
+    <ClCompile Include="noda_time\local_date.cpp" />
+    <ClCompile Include="noda_time\local_date_time.cpp" />
+    <ClCompile Include="noda_time\local_minute.cpp" />
+    <ClCompile Include="noda_time\local_time.cpp" />
     <ClCompile Include="noda_time\Period.cpp" />
     <ClCompile Include="precompiled.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -45,10 +45,10 @@
     <ClInclude Include="detail\traits.hpp" />
     <ClInclude Include="implement.hpp" />
     <ClInclude Include="import.hpp" />
-    <ClInclude Include="noda_time\LocalDate.hpp" />
-    <ClInclude Include="noda_time\LocalDateTime.hpp" />
-    <ClInclude Include="noda_time\LocalMinute.hpp" />
-    <ClInclude Include="noda_time\LocalTime.hpp" />
+    <ClInclude Include="noda_time\local_date.hpp" />
+    <ClInclude Include="noda_time\local_date_time.hpp" />
+    <ClInclude Include="noda_time\local_minute.hpp" />
+    <ClInclude Include="noda_time\local_time.hpp" />
     <ClInclude Include="noda_time\Period.hpp" />
     <ClInclude Include="precompiled.hpp" />
     <ClInclude Include="system\Array1D.hpp" />
@@ -69,12 +69,12 @@
     <ClInclude Include="system\ObjectImpl.hpp" />
     <ClInclude Include="system\Ptr.hpp" />
     <ClInclude Include="system\reflection\Activator.hpp" />
-    <ClInclude Include="system\reflection\BindingFlags.hpp" />
-    <ClInclude Include="system\reflection\ConstructorInfo.hpp" />
-    <ClInclude Include="system\reflection\FieldInfo.hpp" />
-    <ClInclude Include="system\reflection\MemberInfo.hpp" />
-    <ClInclude Include="system\reflection\MethodInfo.hpp" />
-    <ClInclude Include="system\reflection\ParameterInfo.hpp" />
+    <ClInclude Include="system\reflection\binding_flags.hpp" />
+    <ClInclude Include="system\reflection\constructor_info.hpp" />
+    <ClInclude Include="system\reflection\field_info.hpp" />
+    <ClInclude Include="system\reflection\member_info.hpp" />
+    <ClInclude Include="system\reflection\method_info.hpp" />
+    <ClInclude Include="system\reflection\parameter_info.hpp" />
     <ClInclude Include="system\String.hpp" />
     <ClInclude Include="system\StringSplitOptions.hpp" />
     <ClInclude Include="system\text\StringBuilder.hpp" />
