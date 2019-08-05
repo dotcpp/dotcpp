@@ -25,7 +25,7 @@ limitations under the License.
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <dot/system/string.hpp>
-#include <dot/system/array1d.hpp>
+#include <dot/system/array.hpp>
 #include <dot/system/object.hpp>
 
 namespace dot

@@ -25,7 +25,7 @@ limitations under the License.
 
 #include <unordered_set>
 #include <dot/system/exception.hpp>
-#include <dot/system/array1d.hpp>
+#include <dot/system/array.hpp>
 #include <dot/system/collections/generic/list.hpp>
 
 namespace dot

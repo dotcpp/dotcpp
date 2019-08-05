@@ -28,7 +28,7 @@ limitations under the License.
 #include <dot/system/object.hpp>
 #include <dot/system/string.hpp>
 #include <dot/system/nullable.hpp>
-#include <dot/system/array1d.hpp>
+#include <dot/system/array.hpp>
 #include <dot/system/collections/generic/list.hpp>
 #include <dot/system/reflection/constructor_info.hpp>
 #include <dot/system/reflection/method_info.hpp>

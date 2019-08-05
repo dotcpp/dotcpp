@@ -25,7 +25,7 @@ limitations under the License.
 #include <dot/implement.hpp>
 #include <dot/system/reflection/activator.hpp>
 #include <dot/system/objectimpl.hpp>
-#include <dot/system/array1d.hpp>
+#include <dot/system/array.hpp>
 #include <dot/system/exception.hpp>
 #include <dot/system/string.hpp>
 #include <dot/system/collections/generic/list.hpp>
