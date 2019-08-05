@@ -30,7 +30,7 @@ private:                                                                \
 public:                                                                 \
     typedef self element_type;                                          \
     typedef dot::struct_wrapper_impl<self>* pointer_type;                      \
-    using dot::Enum::Enum;                                                   \
+    using dot::enum_base::enum_base;                                                   \
                                                                         \
     operator dot::object() { return new dot::struct_wrapper_impl<self>(*this); }    \
     operator int() const { return value_; }                             \
@@ -42,10 +42,10 @@ public:                                                                 \
         static dot::type_t type = []()->dot::type_t                                   \
         {                                                               \
             dot::type_t type = dot::make_type_builder<self>(nspace, name)             \
-                ->IsEnum()                                              \
+                ->is_enum()                                              \
                 ->with_constructor(&self::new_Self, {})                  \
-                ->WithBase<Enum>()                                      \
-                ->Build();                                              \
+                ->with_base<enum_base>()                                      \
+                ->build();                                              \
             return type;                                                \
         }();                                                            \
         return type;                                                    \
@@ -54,7 +54,7 @@ public:                                                                 \
 protected:                                                              \
     virtual dot::dictionary<dot::string, int> get_enum_map() override               \
     {                                                                   \
-        static dot::dictionary<dot::string, int> enumMap_ = []()                  \
+        static dot::dictionary<dot::string, int> enum_map_ = []()                  \
         {                                                               \
             auto map_ = dot::make_dictionary<dot::string, int>();
 
@@ -66,5 +66,5 @@ protected:                                                              \
 #define DOT_ENUM_END()                                                  \
             return map_;                                                \
         }();                                                            \
-        return enumMap_;                                                \
+        return enum_map_;                                                \
     }
