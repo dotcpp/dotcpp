@@ -31,12 +31,12 @@ limitations under the License.
 namespace dot
 {
     /// <summary>
-    /// Enum wrapper for use in data structures.
+    /// enum_base wrapper for use in data structures.
     /// Provides the base class for enumerations.
     /// </summary>
-    class DOT_CLASS Enum
+    class DOT_CLASS enum_base
     {
-        typedef Enum self;
+        typedef enum_base self;
 
     public:
         typedef self element_type;
@@ -48,18 +48,18 @@ namespace dot
     public: // CONSTRUCTORS
 
         /// <summary>Default constructor.</summary>
-        Enum() = default;
+        enum_base() = default;
 
         /// <summary>Create from int.</summary>
-        Enum(int value) : value_(value) {}
+        enum_base(int value) : value_(value) {}
 
         /// <summary>Copy constructor.</summary>
-        Enum(const Enum& rhs) : value_(rhs.value_) {}
+        enum_base(const enum_base& rhs) : value_(rhs.value_) {}
 
         /// <summary>Constructor from object.</summary>
-        Enum(object rhs)
+        enum_base(object rhs)
         {
-            value_ = dynamic_cast<Enum&>(*rhs).value_;
+            value_ = dynamic_cast<enum_base&>(*rhs).value_;
         }
 
     public: // METHODS
@@ -79,22 +79,22 @@ namespace dot
         /// Converts the string representation of the name or numeric value of
         /// one or more enumerated constants to an equivalent enumerated object.
         /// </summary>
-        static object Parse(type_t enumType, string value);
+        static object parse(type_t enumType, string value);
 
     protected: // PROTECTED
 
-        virtual dictionary<string, int> GetEnumMap() = 0;
+        virtual dictionary<string, int> get_enum_map() = 0;
 
     public: // OPERATORS
 
         /// <summary>Convert to int.</summary>
         operator int() const { return value_; }
 
-        /// <summary>Assign int to Enum.</summary>
-        Enum& operator=(int rhs) { value_ = rhs; return *this; }
+        /// <summary>Assign int to enum_base.</summary>
+        enum_base& operator=(int rhs) { value_ = rhs; return *this; }
 
         /// <summary>Copy assign.</summary>
-        Enum& operator=(const Enum& rhs) { value_ = rhs.value_; return *this; }
+        enum_base& operator=(const enum_base& rhs) { value_ = rhs.value_; return *this; }
 
     public:
 

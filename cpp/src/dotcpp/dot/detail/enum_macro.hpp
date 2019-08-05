@@ -52,7 +52,7 @@ public:                                                                 \
     }                                                                   \
                                                                         \
 protected:                                                              \
-    virtual dot::dictionary<dot::string, int> GetEnumMap() override               \
+    virtual dot::dictionary<dot::string, int> get_enum_map() override               \
     {                                                                   \
         static dot::dictionary<dot::string, int> enumMap_ = []()                  \
         {                                                               \

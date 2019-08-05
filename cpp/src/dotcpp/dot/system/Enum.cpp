@@ -28,9 +28,9 @@ limitations under the License.
 
 namespace dot
 {
-    string Enum::to_string()
+    string enum_base::to_string()
     {
-        auto valuesMap = GetEnumMap();
+        auto valuesMap = get_enum_map();
 
         for (auto& x : valuesMap)
         {
@@ -42,26 +42,26 @@ namespace dot
         return std::to_string(value_);
     }
 
-    size_t Enum::hash_code()
+    size_t enum_base::hash_code()
     {
         return std::hash<int>()(value_);
     }
 
-    bool Enum::equals(object obj)
+    bool enum_base::equals(object obj)
     {
         if (obj->type()->equals(type()))
         {
-            Enum* en = dynamic_cast<Enum*>(obj.operator->());
+            enum_base* en = dynamic_cast<enum_base*>(obj.operator->());
             return en->value_ == value_;
         }
         return false;
     }
 
-    object Enum::Parse(type_t enumType, string value)
+    object enum_base::parse(type_t enumType, string value)
     {
         object enum_obj = Activator::CreateInstance(enumType);
-        Enum* en = dynamic_cast<Enum*>(enum_obj.operator->());
-        auto valuesMap = en->GetEnumMap();
+        enum_base* en = dynamic_cast<enum_base*>(enum_obj.operator->());
+        auto valuesMap = en->get_enum_map();
 
         int intValue = 0;
         if(!valuesMap->try_get_value(value, intValue))
