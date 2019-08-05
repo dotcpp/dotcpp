@@ -23,7 +23,7 @@ limitations under the License.
 
 #include <dot/precompiled.hpp>
 #include <dot/implement.hpp>
-#include <dot/system/Int.hpp>
+#include <dot/system/int.hpp>
 #include <dot/system/string.hpp>
 #include <dot/system/type.hpp>
 

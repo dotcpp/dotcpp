@@ -24,7 +24,7 @@ limitations under the License.
 #pragma once
 
 #include <unordered_map>
-#include <dot/system/Exception.hpp>
+#include <dot/system/exception.hpp>
 #include <dot/system/collections/generic/list.hpp>
 
 namespace dot

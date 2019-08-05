@@ -25,10 +25,10 @@ limitations under the License.
 
 #include <optional>
 #include <dot/declare.hpp>
-#include <dot/system/Bool.hpp>
-#include <dot/system/Int.hpp>
-#include <dot/system/Long.hpp>
-#include <dot/system/Double.hpp>
+#include <dot/system/bool.hpp>
+#include <dot/system/int.hpp>
+#include <dot/system/long.hpp>
+#include <dot/system/double.hpp>
 #include <dot/system/object.hpp>
 
 namespace dot

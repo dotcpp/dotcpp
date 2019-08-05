@@ -23,9 +23,9 @@ limitations under the License.
 
 #pragma once
 
-#include <dot/system/reflection/MemberInfo.hpp>
-#include <dot/system/reflection/ParameterInfo.hpp>
-#include <dot/system/Exception.hpp>
+#include <dot/system/reflection/member_info.hpp>
+#include <dot/system/reflection/parameter_info.hpp>
+#include <dot/system/exception.hpp>
 #include <dot/detail/traits.hpp>
 
 namespace dot

@@ -23,7 +23,7 @@ limitations under the License.
 
 #include <dot/precompiled.hpp>
 #include <dot/implement.hpp>
-#include <dot/system/Bool.hpp>
+#include <dot/system/bool.hpp>
 #include <dot/system/string.hpp>
 #include <dot/system/type.hpp>
 

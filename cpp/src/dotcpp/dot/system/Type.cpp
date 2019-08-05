@@ -25,8 +25,8 @@ limitations under the License.
 #include <dot/implement.hpp>
 #include <dot/system/type.hpp>
 #include <dot/system/objectimpl.hpp>
-#include <dot/system/reflection/MethodInfo.hpp>
-#include <dot/system/reflection/ConstructorInfo.hpp>
+#include <dot/system/reflection/method_info.hpp>
+#include <dot/system/reflection/constructor_info.hpp>
 #include <dot/system/array1d.hpp>
 #include <dot/system/collections/generic/list.hpp>
 #include <dot/system/string.hpp>

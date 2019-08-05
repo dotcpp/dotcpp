@@ -23,13 +23,13 @@ limitations under the License.
 
 #include <dot/precompiled.hpp>
 #include <dot/implement.hpp>
-#include <dot/system/Exception.hpp>
+#include <dot/system/exception.hpp>
 #include <dot/system/string.hpp>
 
 namespace dot
 {
     /// <summary>Create with default message.</summary>
-    exception::exception() : base("Exception of type 'System.Exception' was thrown.") {}
+    exception::exception() : base("exception of type 'System.exception' was thrown.") {}
 
     /// <summary>Create with a specified error message.</summary>
     exception::exception(const std::string& msg) : base(msg.c_str()) {}

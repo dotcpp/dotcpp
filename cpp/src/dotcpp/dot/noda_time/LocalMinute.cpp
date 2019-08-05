@@ -23,10 +23,10 @@ limitations under the License.
 
 #include <dot/precompiled.hpp>
 #include <dot/implement.hpp>
-#include <dot/noda_time/LocalMinute.hpp>
-#include <dot/noda_time/LocalTime.hpp>
+#include <dot/noda_time/local_minute.hpp>
+#include <dot/noda_time/local_time.hpp>
 #include <dot/system/string.hpp>
-#include <dot/system/Exception.hpp>
+#include <dot/system/exception.hpp>
 
 namespace dot
 {

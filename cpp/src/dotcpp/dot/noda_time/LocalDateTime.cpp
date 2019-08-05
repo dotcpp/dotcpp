@@ -25,10 +25,10 @@ limitations under the License.
 #include <dot/implement.hpp>
 #include <dot/system/object.hpp>
 #include <dot/detail/struct_wrapper.hpp>
-#include <dot/noda_time/LocalDateTime.hpp>
+#include <dot/noda_time/local_date_time.hpp>
 #include <dot/noda_time/period.hpp>
-#include <dot/noda_time/LocalTime.hpp>
-#include <dot/noda_time/LocalDate.hpp>
+#include <dot/noda_time/local_time.hpp>
+#include <dot/noda_time/local_date.hpp>
 #include <dot/system/string.hpp>
 
 namespace dot

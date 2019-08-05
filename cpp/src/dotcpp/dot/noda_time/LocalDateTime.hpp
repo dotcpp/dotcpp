@@ -26,8 +26,8 @@ limitations under the License.
 #include <dot/declare.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/date_time/gregorian/gregorian.hpp>
-#include <dot/noda_time/LocalTime.hpp>
-#include <dot/noda_time/LocalDate.hpp>
+#include <dot/noda_time/local_time.hpp>
+#include <dot/noda_time/local_date.hpp>
 
 namespace dot
 {

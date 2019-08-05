@@ -30,14 +30,14 @@ limitations under the License.
 #include <dot/system/nullable.hpp>
 #include <dot/system/array1d.hpp>
 #include <dot/system/collections/generic/list.hpp>
-#include <dot/system/reflection/ConstructorInfo.hpp>
-#include <dot/system/reflection/MethodInfo.hpp>
-#include <dot/system/reflection/ParameterInfo.hpp>
-#include <dot/system/reflection/FieldInfo.hpp>
-#include <dot/noda_time/LocalDate.hpp>
-#include <dot/noda_time/LocalTime.hpp>
-#include <dot/noda_time/LocalMinute.hpp>
-#include <dot/noda_time/LocalDateTime.hpp>
+#include <dot/system/reflection/constructor_info.hpp>
+#include <dot/system/reflection/method_info.hpp>
+#include <dot/system/reflection/parameter_info.hpp>
+#include <dot/system/reflection/field_info.hpp>
+#include <dot/noda_time/local_date.hpp>
+#include <dot/noda_time/local_time.hpp>
+#include <dot/noda_time/local_minute.hpp>
+#include <dot/noda_time/local_date_time.hpp>
 
 namespace dot
 {
@@ -483,7 +483,7 @@ namespace dot
     {
         static type_t get_typeof()
     {
-        static type_t type_ = make_type_builder<local_date>("System", "LocalDate")->build();
+        static type_t type_ = make_type_builder<local_date>("System", "local_date")->build();
         return type_;
     }
     };
@@ -493,7 +493,7 @@ namespace dot
     {
         static type_t get_typeof()
         {
-            static type_t type_ = make_type_builder<local_time>("System", "LocalTime")->build();
+            static type_t type_ = make_type_builder<local_time>("System", "local_time")->build();
             return type_;
         }
     };
@@ -503,7 +503,7 @@ namespace dot
     {
         static type_t get_typeof()
         {
-            static type_t type_ = make_type_builder<local_time>("System", "LocalMinute")->build();
+            static type_t type_ = make_type_builder<local_time>("System", "local_minute")->build();
         return type_;
     }
     };
@@ -513,7 +513,7 @@ namespace dot
     {
         static type_t get_typeof()
         {
-            static type_t type_ = make_type_builder<local_date_time>("System", "LocalDateTime")->build();
+            static type_t type_ = make_type_builder<local_date_time>("System", "local_date_time")->build();
             return type_;
         }
     };

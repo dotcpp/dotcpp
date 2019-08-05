@@ -23,8 +23,8 @@ limitations under the License.
 
 #pragma once
 
-#include <dot/system/Exception.hpp>
-#include <dot/system/reflection/MemberInfo.hpp>
+#include <dot/system/exception.hpp>
+#include <dot/system/reflection/member_info.hpp>
 
 namespace dot
 {

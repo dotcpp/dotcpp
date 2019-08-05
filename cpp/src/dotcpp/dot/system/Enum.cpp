@@ -25,7 +25,7 @@ limitations under the License.
 #include <dot/implement.hpp>
 #include <dot/system/Enum.hpp>
 #include <dot/system/type.hpp>
-#include <dot/system/reflection/Activator.hpp>
+#include <dot/system/reflection/activator.hpp>
 
 namespace dot
 {
