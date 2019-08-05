@@ -28,29 +28,19 @@ limitations under the License.
 namespace dot
 {
     /// <summary>Create with default message.</summary>
-    Exception::Exception() : base("Exception of type 'System.Exception' was thrown.") {}
+    exception::exception() : base("Exception of type 'System.Exception' was thrown.") {}
 
     /// <summary>Create with a specified error message.</summary>
-    Exception::Exception(const std::string& msg) : base(msg.c_str()) {}
+    exception::exception(const std::string& msg) : base(msg.c_str()) {}
 
     /// <summary>Create with a specified error message.</summary>
-    Exception::Exception(const char* msg) : base(msg ? msg : "") {}
+    exception::exception(const char* msg) : base(msg ? msg : "") {}
 
     /// <summary>Create with a specified error message.</summary>
-    Exception::Exception(string msg) : base(*msg) {}
+    exception::exception(string msg) : base(*msg) {}
 
     /// <summary>Message that describes the current exception.</summary>
-    string Exception::Message() const { return string(what()); }
+    string exception::message() const { return string(what()); }
 
-    /// <summary>Create with default message.</summary>
-    new_Exception::new_Exception() {}
 
-    /// <summary>Create with a specified error message.</summary>
-    new_Exception::new_Exception(const std::string& msg) : base(msg) {}
-
-    /// <summary>Create with a specified error message.</summary>
-    new_Exception::new_Exception(const char* msg) : base(msg) {}
-
-    /// <summary>Create with a specified error message.</summary>
-    new_Exception::new_Exception(string msg) : base(msg) {}
 }

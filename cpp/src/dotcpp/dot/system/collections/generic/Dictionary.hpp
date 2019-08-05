@@ -87,7 +87,7 @@ namespace dot
         {
             auto res = this->insert(key_value_pair);
             if (!res.second)
-                throw new_Exception("An element with the same key already exists in the dictionary");
+                throw exception("An element with the same key already exists in the dictionary");
         }
 
         /// <summary>Determines whether the dictionary contains the specified key.</summary>

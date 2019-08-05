@@ -31,53 +31,29 @@ namespace dot
     class string_impl;
 
     /// <summary>Represents errors that occur during application execution.</summary>
-    class DOT_CLASS Exception : public std::runtime_error
+    class DOT_CLASS exception : public std::runtime_error
     {
         typedef std::runtime_error base;
-
-    protected: // CONSTRUCTORS
-
-        /// <summary>Create with default message.</summary>
-        Exception();
-
-        /// <summary>Create with a specified error message.</summary>
-        Exception(const std::string& msg);
-
-        /// <summary>Create with a specified error message.</summary>
-        Exception(const char* msg);
-
-        /// <summary>Create with a specified error message.</summary>
-        Exception(string msg);
-
-    public: // METHODS
-
-        /// <summary>Message that describes the current exception.</summary>
-        virtual string Message() const;
-    };
-
-    /// <summary>
-    /// Represents errors that occur during application execution.
-    ///
-    /// For compatibility with both C++ and C\# style catch blocks,
-    /// this class is syntactic sugar on top of Exception class which
-    /// has value semantics.
-    /// </summary>
-    class DOT_CLASS new_Exception : public Exception
-    {
-        typedef Exception base;
 
     public: // CONSTRUCTORS
 
         /// <summary>Create with default message.</summary>
-        new_Exception();
+        exception();
 
         /// <summary>Create with a specified error message.</summary>
-        new_Exception(const std::string& msg);
+        exception(const std::string& msg);
 
         /// <summary>Create with a specified error message.</summary>
-        new_Exception(const char* msg);
+        exception(const char* msg);
 
         /// <summary>Create with a specified error message.</summary>
-        new_Exception(string msg);
+        exception(string msg);
+
+    public: // METHODS
+
+        /// <summary>Message that describes the current exception.</summary>
+        virtual string message() const;
     };
+
+
 }

@@ -115,7 +115,7 @@ namespace dot
         virtual object Invoke(object obj, array<object> params)
         {
             if (params->count() != Parameters->count())
-                throw new_Exception("Wrong number of parameters for method " + this->DeclaringType->Name + "." + this->Name);
+                throw exception("Wrong number of parameters for method " + this->DeclaringType->Name + "." + this->Name);
 
             return Invoke_impl(obj, params, typename detail::make_index_sequence<sizeof...(Args)>::type(), typename std::is_same<Return, void>::type());
         }
@@ -171,7 +171,7 @@ namespace dot
         virtual object Invoke(object obj, array<object> params)
         {
             if (params->count() != Parameters->count())
-                throw new_Exception("Wrong number of parameters for method " + this->DeclaringType->Name + "." + this->Name);
+                throw exception("Wrong number of parameters for method " + this->DeclaringType->Name + "." + this->Name);
 
             return Invoke_impl(obj, params, typename detail::make_index_sequence<sizeof...(Args)>::type(), typename std::is_same<Return, void>::type());
         }

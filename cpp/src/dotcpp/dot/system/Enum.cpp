@@ -66,7 +66,7 @@ namespace dot
         int intValue = 0;
         if(!valuesMap->try_get_value(value, intValue))
         {
-            throw new_Exception("value is outside the range of the underlying type of enumType.");
+            throw exception("value is outside the range of the underlying type of enumType.");
         }
 
         en->value_ = intValue;

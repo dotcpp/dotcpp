@@ -223,7 +223,7 @@ namespace dot
         template <class ... T>
         operator std::tuple<T...>() const { return *this->as<StructWrapper<std::tuple<T...>>>(); }
 
-        bool operator ==(object rhs) const { throw new_Exception("Not implemented"); return false; }
+        bool operator ==(object rhs) const { throw exception("Not implemented"); return false; }
 
     public: // STATIC
 

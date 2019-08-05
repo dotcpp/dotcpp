@@ -92,7 +92,7 @@ namespace dot
         {
             const int argsCount = sizeof...(Args);
             if (argsCount != names.size())
-                throw new_Exception("Wrong number of parameters for method " + fullName_);
+                throw exception("Wrong number of parameters for method " + fullName_);
 
             if (methods_.IsEmpty())
             {
@@ -121,7 +121,7 @@ namespace dot
         {
             const int argsCount = sizeof...(Args);
             if (argsCount != names.size())
-                throw new_Exception("Wrong number of parameters for method " + fullName_);
+                throw exception("Wrong number of parameters for method " + fullName_);
 
             if (methods_.IsEmpty())
             {
@@ -150,7 +150,7 @@ namespace dot
         {
             const int argsCount_ = sizeof...(Args);
             if (argsCount_ != names.size())
-                throw new_Exception("Wrong number of parameters for method " + fullName_);
+                throw exception("Wrong number of parameters for method " + fullName_);
 
             if (ctors_.IsEmpty())
             {
@@ -186,7 +186,7 @@ namespace dot
         TypeBuilder WithBase()
         {
             if (!(this->base_.IsEmpty()))
-                throw new_Exception("Base already defined in class " + fullName_);
+                throw exception("Base already defined in class " + fullName_);
 
             this->base_ = dot::typeof<Class>();
             return this;
@@ -589,7 +589,7 @@ namespace dot
         {
             static object Impl(object tuple, int index)
             {
-                throw new_Exception("Tuple index out of bounds");
+                throw exception("Tuple index out of bounds");
             }
         };
 
@@ -613,7 +613,7 @@ namespace dot
         {
             static void Impl(object tuple, int index, object value)
             {
-                throw new_Exception("Tuple index out of bounds");
+                throw exception("Tuple index out of bounds");
             }
         };
 

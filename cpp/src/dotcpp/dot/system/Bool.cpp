@@ -68,6 +68,6 @@ namespace dot
         if (s == bool_impl::false_string) return false;
         if (s == bool_impl::true_string) return true;
 
-        throw new_Exception("value is not equivalent to true_string or false_string.");
+        throw exception("value is not equivalent to true_string or false_string.");
     }
 }
