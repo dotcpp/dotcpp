@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright (C) 2015-present The DotCpp Authors.
 
 This file is part of .C++, a native C++ implementation of
@@ -21,43 +21,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include <dot/precompiled.hpp>
-#include <dot/implement.hpp>
-#include <dot/system/Int.hpp>
-#include <dot/system/string.hpp>
-#include <dot/system/type.hpp>
+#pragma once
 
-namespace dot
-{
-    bool char_impl::equals(object obj)
-    {
-        if (this == &(*obj)) return true;
-
-        if (obj.is<ptr<char_impl>>())
-        {
-            return value_ == obj.as<ptr<char_impl>>()->value_;
-        }
-
-        return false;
-    }
-
-    size_t char_impl::hash_code()
-    {
-        return std::hash<char>()(value_);
-    }
-
-    string char_impl::to_string()
-    {
-        return std::to_string(value_);
-    }
-
-    type_t char_impl::typeof()
-    {
-        return dot::typeof<char>();
-    }
-
-    type_t char_impl::type()
-    {
-        return typeof();
-    }
-}
+// Standard STL includes
+#include <string>
+#include <vector>
+#include <set>
+#include <memory>
+#include <limits>
+#include <stdexcept>
+#include <map>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <iomanip>
+#include <algorithm>
+#include <atomic>

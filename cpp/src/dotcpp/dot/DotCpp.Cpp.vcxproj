@@ -16,6 +16,10 @@
     <ClCompile Include="noda_time\LocalMinute.cpp" />
     <ClCompile Include="noda_time\LocalTime.cpp" />
     <ClCompile Include="noda_time\Period.cpp" />
+    <ClCompile Include="precompiled.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="system\Bool.cpp" />
     <ClCompile Include="system\Char.cpp" />
     <ClCompile Include="system\Double.cpp" />
@@ -46,6 +50,7 @@
     <ClInclude Include="noda_time\LocalMinute.hpp" />
     <ClInclude Include="noda_time\LocalTime.hpp" />
     <ClInclude Include="noda_time\Period.hpp" />
+    <ClInclude Include="precompiled.hpp" />
     <ClInclude Include="system\Array1D.hpp" />
     <ClInclude Include="system\Bool.hpp" />
     <ClInclude Include="system\Char.hpp" />
@@ -119,7 +124,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -128,6 +133,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeaderFile>dot/precompiled.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>NotSet</SubSystem>
@@ -139,7 +145,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -149,6 +155,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeaderFile>dot/precompiled.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>NotSet</SubSystem>

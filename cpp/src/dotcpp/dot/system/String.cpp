@@ -21,6 +21,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+#include <dot/precompiled.hpp>
 #define FMT_HEADER_ONLY
 #include <fmt/format.h>
 #include <dot/implement.hpp>

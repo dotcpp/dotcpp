@@ -21,6 +21,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+#include <dot/precompiled.hpp>
 #include <dot/implement.hpp>
 #include <dot/system/Int.hpp>
 #include <dot/system/string.hpp>
