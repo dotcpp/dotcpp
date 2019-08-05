@@ -274,6 +274,7 @@ namespace dot
         array<type_t> interfaces_;
         array<type_t> generic_args_;
         type_t base_;
+        array<field_info> fields_;
 
     public: // PROPERTIES
 
@@ -303,6 +304,9 @@ namespace dot
         /// <summary>Returns constructors of the current type.</summary>
         array<constructor_info> get_constructors() { return ctors_; }
 
+        /// <summary>Returns fields of the current type.</summary>
+        array<field_info> get_fields() { return fields_; }
+
         /// <summary>Returns interfaces of the current type.</summary>
         array<type_t> get_interfaces() { return interfaces_; }
 
@@ -314,6 +318,9 @@ namespace dot
 
         /// <summary>Searches for the interface with the specified name.</summary>
         type_t get_interface(string name);
+
+        /// <summary>Searches for the field with the specified name.</summary>
+        field_info get_field(string name);
 
         /// <summary>A string representing the name of the current type.</summary>
         virtual string to_string() override { return full_name(); }
@@ -526,8 +533,8 @@ namespace dot
     {
         static type_t get_typeof()
         {
-            static type_t type_ = make_type_builder<nullable<T>>("System", "nullable<" + dot::typeof<T>()->Name + ">")
-                ->template WithGenericArgument<T>()
+            static type_t type_ = make_type_builder<nullable<T>>("System", "nullable<" + dot::typeof<T>()->name + ">")
+                ->template with_generic_argument<T>()
                 ->build();
         return type_;
     }

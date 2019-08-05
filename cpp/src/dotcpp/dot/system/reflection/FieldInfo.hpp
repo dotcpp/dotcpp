@@ -118,7 +118,7 @@ namespace dot
     template <class field_type_t, class class_>
     field_info make_field_info(string name, type_t declaring_type, type_t field_type, field_type_t class_::* field)
     {
-        return new field_info_impl<field_type, class_>(name, declaring_type, field_type, field);
+        return new field_info_impl<field_type_t, class_>(name, declaring_type, field_type, field);
     }
 
     class type_builder_impl;

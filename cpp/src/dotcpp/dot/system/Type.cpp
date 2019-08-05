@@ -110,6 +110,18 @@ namespace dot
         else
             this->ctors_ = make_array<constructor_info>(0);
 
+        if (!data->fields_.is_empty())
+        {
+            this->fields_ = make_array<field_info>(data->fields_->count());
+            int i = 0;
+            for (field_info ctor_info_data : data->fields_)
+            {
+                this->fields_[i++] = ctor_info_data;
+            }
+        }
+        else
+            this->ctors_ = make_array<constructor_info>(0);
+
         if (!data->interfaces_.is_empty())
         {
             this->interfaces_ = make_array<type_t>(data->interfaces_->count());
@@ -184,6 +196,20 @@ namespace dot
         }
 
         return nullptr;
+    }
+
+    field_info type_impl::get_field(string name)
+    {
+        if (fields_.is_empty()) return nullptr;
+
+        for (auto field : fields_)
+        {
+            if (field->name == name)
+                return field;
+        }
+
+        return nullptr;
+
     }
 
     bool type_impl::equals(object obj)
