@@ -25,7 +25,7 @@ limitations under the License.
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <dot/system/string.hpp>
-#include <dot/noda_time/Period.hpp>
+#include <dot/noda_time/period.hpp>
 #include <dot/noda_time/LocalTime.hpp>
 #include <dot/noda_time/LocalDate.hpp>
 #include <dot/noda_time/LocalDateTime.hpp>
@@ -38,14 +38,14 @@ namespace dot
             local_date_time date1(2005, 1, 1, 0, 0);
             local_date_time date2(2006, 1, 1, 0, 0);
 
-            Period p = Period::Between(date1, date2);
+            period p = period::between(date1, date2);
             REQUIRE(p.days() == 365);
         }
 
         {
             local_date_time date1(2005, 1, 1, 1, 11, 11, 111);
             local_date_time date2(2005, 1, 10, 2, 22, 22, 222);
-            Period p = Period::Between(date1, date2);
+            period p = period::between(date1, date2);
             REQUIRE(p.days() == 9);
             REQUIRE(p.hours() == 1);
             REQUIRE(p.minutes() == 11);
@@ -56,7 +56,7 @@ namespace dot
         {
             local_date date1(2005, 1, 1);
             local_date date2(2005, 1, 10);
-            Period p = Period::Between(date1, date2);
+            period p = period::between(date1, date2);
             REQUIRE(p.days() == 9);
             REQUIRE(p.hours() == 0);
             REQUIRE(p.minutes() == 0);
@@ -68,7 +68,7 @@ namespace dot
         {
             local_time time1(1, 11, 11, 111);
             local_time time2(2, 22, 22, 222);
-            Period p = Period::Between(time2, time1);
+            period p = period::between(time2, time1);
             REQUIRE(p.days() == 0);
             REQUIRE(p.hours() == -1);
             REQUIRE(p.minutes() == -11);
@@ -78,22 +78,22 @@ namespace dot
         }
 
         {
-            Period p = Period::FromWeeks(1);
+            period p = period::FromWeeks(1);
             REQUIRE(p.days() == 7);
 
-            p = Period::FromDays(1);
+            p = period::FromDays(1);
             REQUIRE(p.days() == 1);
 
-            p = Period::FromHours(1);
+            p = period::FromHours(1);
             REQUIRE(p.hours() == 1);
 
-            p = Period::FromMinutes(1);
+            p = period::FromMinutes(1);
             REQUIRE(p.minutes() == 1);
 
-            p = Period::FromSeconds(1);
+            p = period::FromSeconds(1);
             REQUIRE(p.seconds() == 1);
 
-            p = Period::FromMilliseconds(1);
+            p = period::FromMilliseconds(1);
             REQUIRE(p.milliseconds() == 1);
         }
     }
@@ -103,9 +103,9 @@ namespace dot
         local_date_time date1(2005, 1, 1, 0, 0, 0, 0);
         local_date_time date2(2005, 1, 2, 1, 1, 1, 1);
         local_date_time date3(2005, 1, 3, 2, 2, 2, 2);
-        Period p1 = Period::Between(date1, date2);
-        Period p2 = Period::Between(date2, date3);
-        Period p3 = Period::Between(date1, date3);
+        period p1 = period::between(date1, date2);
+        period p2 = period::between(date2, date3);
+        period p3 = period::between(date1, date3);
 
         REQUIRE(p1 == p2);
         REQUIRE(p1 + p2 == p3);

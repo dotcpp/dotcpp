@@ -23,7 +23,7 @@ limitations under the License.
 
 #include <dot/precompiled.hpp>
 #include <dot/implement.hpp>
-#include <dot/noda_time/Period.hpp>
+#include <dot/noda_time/period.hpp>
 #include <dot/noda_time/LocalTime.hpp>
 #include <dot/noda_time/LocalDate.hpp>
 #include <dot/noda_time/LocalDateTime.hpp>

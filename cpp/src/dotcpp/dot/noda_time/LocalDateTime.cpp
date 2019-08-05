@@ -26,7 +26,7 @@ limitations under the License.
 #include <dot/system/object.hpp>
 #include <dot/detail/struct_wrapper.hpp>
 #include <dot/noda_time/LocalDateTime.hpp>
-#include <dot/noda_time/Period.hpp>
+#include <dot/noda_time/period.hpp>
 #include <dot/noda_time/LocalTime.hpp>
 #include <dot/noda_time/LocalDate.hpp>
 #include <dot/system/string.hpp>

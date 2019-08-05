@@ -25,7 +25,7 @@ limitations under the License.
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <dot/system/string.hpp>
-#include <dot/noda_time/Period.hpp>
+#include <dot/noda_time/period.hpp>
 #include <dot/noda_time/LocalTime.hpp>
 #include <dot/noda_time/LocalDate.hpp>
 #include <dot/noda_time/LocalDateTime.hpp>
@@ -83,8 +83,8 @@ namespace dot
         local_date_time d2(2005, 5, 15, 13, 1, 1, 1);
         local_date_time d3(2005, 5, 20, 14, 2, 2, 2);
 
-        Period p1 = Period::Between(d1, d2);
-        Period p2 = Period::Between(d2, d3);
+        period p1 = period::between(d1, d2);
+        period p2 = period::between(d2, d3);
 
         REQUIRE(d2 + p1 == d3);
         REQUIRE(d2 - d1 == p2);
