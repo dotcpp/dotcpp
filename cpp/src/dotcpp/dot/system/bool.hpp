@@ -24,7 +24,7 @@ limitations under the License.
 #pragma once
 
 #include <dot/declare.hpp>
-#include <dot/system/objectimpl.hpp>
+#include <dot/system/object_impl.hpp>
 
 namespace dot
 {

@@ -25,7 +25,7 @@ limitations under the License.
 
 #include <dot/declare.hpp>
 #include <dot/system/ptr.hpp>
-#include <dot/system/objectimpl.hpp>
+#include <dot/system/object_impl.hpp>
 #include <dot/system/exception.hpp>
 #include <dot/system/string.hpp>
 

@@ -23,7 +23,7 @@ limitations under the License.
 
 #include <dot/precompiled.hpp>
 #include <dot/implement.hpp>
-#include <dot/system/objectimpl.hpp>
+#include <dot/system/object_impl.hpp>
 #include <dot/system/object.hpp>
 #include <dot/system/string.hpp>
 #include <dot/system/type.hpp>

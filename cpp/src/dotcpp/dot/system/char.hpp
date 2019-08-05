@@ -25,7 +25,7 @@ limitations under the License.
 
 #include <dot/declare.hpp>
 #include <dot/detail/const_string_base.hpp>
-#include <dot/system/objectimpl.hpp>
+#include <dot/system/object_impl.hpp>
 
 namespace dot
 {
