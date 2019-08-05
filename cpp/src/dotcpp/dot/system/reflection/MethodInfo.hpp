@@ -105,7 +105,7 @@ namespace dot
 
         /// <summary>Invokes the method reflected by this method_info instance.</summary>
         template <int ... I>
-        object Invoke_impl(object obj, array<object> params, detail::index_sequence<I...>, std::true_type)
+        object invoke_impl(object obj, array<object> params, detail::index_sequence<I...>, std::true_type)
         {
             ((*ptr<class_>(obj)).*ptr_)(params[I]...);
             return object();
