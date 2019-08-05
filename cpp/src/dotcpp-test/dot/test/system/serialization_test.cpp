@@ -42,16 +42,16 @@ namespace dot
 {
     static std::stringstream received;
 
-    class SampleDataImpl; using SampleData = ptr<SampleDataImpl>;
-    class SampleData2Impl; using SampleData2 = ptr<SampleData2Impl>;
+    class sample_data_impl; using sample_data = ptr<sample_data_impl>;
+    class sample_data_2_impl; using sample_data_2 = ptr<sample_data_2_impl>;
 
-    class SampleData2Impl : public virtual object_impl
+    class sample_data_2_impl : public virtual object_impl
     {
-        typedef SampleData2Impl self;
+        typedef sample_data_2_impl self;
 
     public: // PROPERTIES
 
-        SampleData data_field;
+        sample_data data_field;
 
     public: // STATIC
 
@@ -59,7 +59,7 @@ namespace dot
         {
             static type_t type = []()-> type_t
             {
-                type_t type = make_type_builder<self>("System.Test", "SampleData2")
+                type_t type = make_type_builder<self>("System.Test", "sample_data_2")
                     ->with_field("data_field", &self::data_field)
                     ->build();
 
@@ -75,53 +75,55 @@ namespace dot
         }
     };
 
-    class SampleDataImpl; using SampleData = ptr<SampleDataImpl>;
-    SampleData new_SampleData();
+    class sample_data_impl; using sample_data = ptr<sample_data_impl>;
+    sample_data new_sample_data();
 
-    class SampleDataImpl : public virtual object_impl
+    class sample_data_impl : public virtual object_impl
     {
-        typedef SampleDataImpl self;  // This typedef will be used inside property macro and inside registration macro.
+        typedef sample_data_impl self;  // This typedef will be used inside property macro and inside registration macro.
 
     public:
 
         string string_field;
-        int IntegerProp;
-        double DoubleProp;
-        SampleData2 data_field;
+        int int_field;
+        double double_field;
+        sample_data_2 data_field;
         list<double> double_list_field;
 
-        double Foo(int dblArg, int intArg)
+        double foo(int dbl_arg, int int_arg)
         {
-            received << "Foo(" << dblArg << "," << intArg << ")" << std::endl;
-            return dblArg + intArg;
+            received << "foo(" << dbl_arg << "," << int_arg << ")" << std::endl;
+            return dbl_arg + int_arg;
         }
 
-        void Bar(int intArg)
+        void bar(int int_arg)
         {
-            received << "Bar(" << intArg << ")" << std::endl;
+            received << "bar(" << int_arg << ")" << std::endl;
         }
 
-        static void StaticFoo(int intArg)
+        static void static_foo(int int_arg)
         {
-            received << "StaticFoo(" << intArg << ")" << std::endl;
+            received << "static_foo(" << int_arg << ")" << std::endl;
         }
 
     public: // REFLECTION
 
-        DOT_TYPE_BEGIN("System.Test", "SampleData")
-            DOT_TYPE_CTOR(new_SampleData)
-            ->with_field("StringProp", &self::string_field)
+        DOT_TYPE_BEGIN("System.Test", "sample_data")
+            DOT_TYPE_CTOR(new_sample_data)
+            ->with_field("string_field", &self::string_field)
+            ->with_field("int_field", &self::int_field)
+            ->with_field("double_field", &self::double_field)
             ->with_field("data_field", &self::data_field)
             ->with_field("double_list_field", &self::double_list_field)
-            DOT_TYPE_METHOD(Foo, "dblArg", "intArg")
-            DOT_TYPE_METHOD(Bar, "intArg")
-            DOT_TYPE_METHOD(StaticFoo, "intArg")
+            DOT_TYPE_METHOD(foo, "dbl_arg", "int_arg")
+            DOT_TYPE_METHOD(bar, "int_arg")
+            DOT_TYPE_METHOD(static_foo, "int_arg")
         DOT_TYPE_END()
     };
 
-    SampleData new_SampleData() { return new SampleDataImpl; }
+    sample_data new_sample_data() { return new sample_data_impl; }
 
-    string Objto_string(object obj)
+    string obj_to_string(object obj)
     {
         if (obj.is_empty()) return "";
 
@@ -134,7 +136,7 @@ namespace dot
             list<double> vec = (list<double>)obj;
             for (object item : vec)
             {
-                ss << *(Objto_string(item));
+                ss << *(obj_to_string(item));
             }
 
         }
@@ -150,28 +152,27 @@ namespace dot
             ss << *(obj->to_string()) << "|";
         }
 
-
         return ss.str();
     }
 
 
-    TEST_CASE("SimpleSerialization")
+    TEST_CASE("simple_serialization")
     {
-        SampleData obj = new_SampleData();
+        sample_data obj = new_sample_data();
         obj->string_field = "str";
-        obj->data_field = new SampleData2Impl();
-        obj->data_field->data_field = new_SampleData();
+        obj->data_field = new sample_data_2_impl();
+        obj->data_field->data_field = new_sample_data();
         obj->data_field->data_field->string_field = "internal str";
         obj->double_list_field = make_list<double>();
         obj->double_list_field->add(1.);
         obj->double_list_field->add(3.);
         obj->double_list_field->add(2.);
 
-        string s = Objto_string(obj);
+        string s = obj_to_string(obj);
 
         type_t type = obj->type();
 
-        SampleData dt = (SampleData)activator::create_instance(obj->type());
+        sample_data dt = (sample_data)activator::create_instance(obj->type());
 
         array<dot::object> paramsFoo = make_array<object>(2);
         paramsFoo[0] = 15;

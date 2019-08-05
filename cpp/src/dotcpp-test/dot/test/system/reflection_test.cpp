@@ -36,9 +36,9 @@ namespace dot
 {
     static std::stringstream received;
 
-    class ReflectionBaseSampleImpl : public virtual object_impl
+    class reflection_base_sample_impl : public virtual object_impl
     {
-        typedef ReflectionBaseSampleImpl self;
+        typedef reflection_base_sample_impl self;
 
     public: // FIELDS
 
@@ -48,9 +48,9 @@ namespace dot
 
     public: // METHODS
 
-        int SampleMethod(int param)
+        int sample_method(int param)
         {
-            received << "Invoked ReflectionBaseSample.SampleMethod";
+            received << "Invoked reflection_base_sample.sample_method";
             return 42 + param;
         }
 
@@ -61,12 +61,12 @@ namespace dot
             {
                 received << "Creating type_t (this should run only once)." << std::endl;
 
-                return make_type_builder<ReflectionBaseSampleImpl>("System.Test", "ReflectionBaseSample")
+                return make_type_builder<reflection_base_sample_impl>("System.Test", "reflection_base_sample")
 
-                    //->WithProperty("IntFld", &ReflectionBaseSampleImpl::IntFld)
-                    //->WithProperty("PrivateIntFld", &ReflectionBaseSampleImpl::PrivateIntFld)
-                    //->WithProperty("Count", &ReflectionBaseSampleImpl::Count)
-                    //->WithProperty("Count2", &ReflectionBaseSampleImpl::Count2)
+                    //->WithProperty("IntFld", &reflection_base_sample_impl::IntFld)
+                    //->WithProperty("PrivateIntFld", &reflection_base_sample_impl::PrivateIntFld)
+                    //->WithProperty("Count", &reflection_base_sample_impl::Count)
+                    //->WithProperty("Count2", &reflection_base_sample_impl::Count2)
 
                     ->build();
             }();
@@ -75,32 +75,32 @@ namespace dot
         }
     };
 
-    using ReflectionBaseSample = ptr<ReflectionBaseSampleImpl>;
-    ReflectionBaseSample new_ReflectionBaseSample() { return new ReflectionBaseSampleImpl; }
+    using reflection_base_sample = ptr<reflection_base_sample_impl>;
+    reflection_base_sample new_reflection_base_sample() { return new reflection_base_sample_impl; }
 
-    class ReflectionDerivedSampleImpl : public ReflectionBaseSampleImpl
+    class reflection_derived_sample_impl : public reflection_base_sample_impl
     {
     public: // FIELDS
 
         int int_field_in_derived_class;
     };
 
-    using ReflectionDerivedSample = ptr<ReflectionDerivedSampleImpl>;
-    ReflectionDerivedSample new_ReflectionDerivedSample() { return new ReflectionDerivedSampleImpl; }
+    using reflection_derived_sample = ptr<reflection_derived_sample_impl>;
+    reflection_derived_sample new_reflection_derived_sample() { return new reflection_derived_sample_impl; }
 
-    TEST_CASE("PropertyInfo")
+    TEST_CASE("property_info")
     {
         // TODO - enable
         /*
-        ReflectionBaseSample obj = new_ReflectionBaseSample();
+        reflection_base_sample obj = new_reflection_base_sample();
         obj->IntFld = 15;
         obj->count() = 15;
 
         object x = obj->count();
 
         type_t type = obj->type();
-        array<PropertyInfo> props = type->GetProperties();
-        PropertyInfo int_prop = props[0];
+        array<property_info> props = type->get_properties();
+        property_info int_prop = props[0];
         REQUIRE(int_prop->Name == "IntFld");
         REQUIRE(int(int_prop->GetValue(obj)) == 15);
 
@@ -108,7 +108,7 @@ namespace dot
         REQUIRE(obj->IntFld == 19);
         REQUIRE(int(int_prop->GetValue(obj)) == 19);
 
-        PropertyInfo private_int_prop = props[1];
+        property_info private_int_prop = props[1];
         REQUIRE(private_int_prop->Name == "PrivateIntFld");
         REQUIRE(int(private_int_prop->GetValue(obj)) == 42);
 
@@ -116,7 +116,7 @@ namespace dot
         REQUIRE(obj->count() == 2384);
         REQUIRE(int(props[2]->GetValue(obj)) == 2384);
 
-        ReflectionDerivedSample obj2 = new_ReflectionDerivedSample();
+        reflection_derived_sample obj2 = new_reflection_derived_sample();
 
         props[2]->SetValue(obj2, -15);
         REQUIRE(obj2->count() == -15);
