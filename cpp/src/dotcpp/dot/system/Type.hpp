@@ -102,7 +102,7 @@ namespace dot
             array<parameter_info> parameters = make_array<parameter_info>(sizeof...(args));
             std::vector<type_t> param_types = { dot::typeof<args>()... };
 
-            for (int i = 0; i < argsCount; ++i)
+            for (int i = 0; i < args_count; ++i)
             {
                 parameters[i] = make_parameter_info(names[i], param_types[i], i);
             }

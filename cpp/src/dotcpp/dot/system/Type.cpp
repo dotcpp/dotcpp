@@ -154,7 +154,7 @@ namespace dot
     /// <summary>
     /// Create from builder.
     ///
-    /// This constructor is private. Use type_builder->Build() method instead.
+    /// This constructor is private. Use type_builder->build() method instead.
     /// </summary>
     type_impl::type_impl(string nspace, string name)
     {
