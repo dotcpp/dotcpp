@@ -26,9 +26,9 @@ limitations under the License.
 #include <approvals/Catch.hpp>
 #include <dot/system/string.hpp>
 #include <dot/noda_time/period.hpp>
-#include <dot/noda_time/LocalTime.hpp>
-#include <dot/noda_time/LocalDate.hpp>
-#include <dot/noda_time/LocalDateTime.hpp>
+#include <dot/noda_time/local_time.hpp>
+#include <dot/noda_time/local_date.hpp>
+#include <dot/noda_time/local_date_time.hpp>
 
 namespace dot
 {
