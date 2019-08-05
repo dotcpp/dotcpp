@@ -29,7 +29,7 @@ limitations under the License.
 namespace dot
 {
     /// <summary>Wrapper around int to make it convertible to object (boxing).</summary>
-    class IntImpl : public virtual object_impl
+    class int_impl : public virtual object_impl
     {
         friend object;
         int value_;
@@ -37,7 +37,17 @@ namespace dot
     public: // CONSTRUCTORS
 
         /// <summary>Create from value (box).</summary>
-        IntImpl(int value) : value_(value) {}
+        int_impl(int value) : value_(value) {}
+
+    public: //  CONSTANTS
+
+        /// <summary>Sentinel value representing uninitialized state.</summary>
+        static constexpr int empty = INT32_MIN;
+
+    public: // STATIC
+
+        /// <summary>Converts the string representation of a number to its 32-bit signed integer equivalent.</summary>
+        static int parse(string s);
 
     public: // METHODS
 
@@ -54,19 +64,4 @@ namespace dot
         virtual type_t type() override;
     };
 
-    /// <summary>
-    /// Provides constants and static methods for int type.
-    /// </summary>
-    class DOT_CLASS Int
-    {
-    public: //  CONSTANTS
-
-        /// <summary>Sentinel value representing uninitialized state.</summary>
-        static constexpr int Empty = INT32_MIN;
-
-    public: // STATIC
-
-        /// <summary>Converts the string representation of a number to its 32-bit signed integer equivalent.</summary>
-        static int Parse(string s);
-    };
 }

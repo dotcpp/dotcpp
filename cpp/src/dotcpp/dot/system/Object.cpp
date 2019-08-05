@@ -57,7 +57,7 @@ namespace dot
     object::object(double value) : base(new double_impl(value)) {}
 
     /// <summary>Construct object from int by boxing.</summary>
-    object::object(int value) : base(new IntImpl(value)) {}
+    object::object(int value) : base(new int_impl(value)) {}
 
     /// <summary>Construct object from int by boxing.</summary>
     object::object(int64_t value) : base(new LongImpl(value)) {}
@@ -102,7 +102,7 @@ namespace dot
     object& object::operator=(double value) { base::operator=(new double_impl(value)); return *this; }
 
     /// <summary>Assign int to object by boxing.</summary>
-    object& object::operator=(int value) { base::operator=(new IntImpl(value)); return *this; }
+    object& object::operator=(int value) { base::operator=(new int_impl(value)); return *this; }
 
     /// <summary>Assign int to object by boxing.</summary>
     object& object::operator=(int64_t value) { base::operator=(new LongImpl(value)); return *this; }
@@ -129,7 +129,7 @@ namespace dot
     object::operator double() const { return ptr<double_impl>(*this)->value_; }
 
     /// <summary>Convert object to int by unboxing. Error if object does is not a boxed int.</summary>
-    object::operator int() const { return ptr<IntImpl>(*this)->value_; }
+    object::operator int() const { return ptr<int_impl>(*this)->value_; }
 
     /// <summary>Convert object to long by unboxing. Error if object does is not a boxed long.</summary>
     object::operator int64_t() const { return ptr<LongImpl>(*this)->value_; }

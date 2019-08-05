@@ -28,39 +28,39 @@ limitations under the License.
 
 namespace dot
 {
-    bool IntImpl::equals(object obj)
+    bool int_impl::equals(object obj)
     {
         if (this == &(*obj)) return true;
 
-        if (obj.is<ptr<IntImpl>>())
+        if (obj.is<ptr<int_impl>>())
         {
-            return value_ == obj.as<ptr<IntImpl>>()->value_;
+            return value_ == obj.as<ptr<int_impl>>()->value_;
         }
 
         return false;
     }
 
-    size_t IntImpl::hash_code()
+    size_t int_impl::hash_code()
     {
         return std::hash<int>()(value_);
     }
 
-    string IntImpl::to_string()
+    string int_impl::to_string()
     {
         return std::to_string(value_);
     }
 
-    type_t IntImpl::typeof()
+    type_t int_impl::typeof()
     {
         return dot::typeof<int>();
     }
 
-    type_t IntImpl::type()
+    type_t int_impl::type()
     {
         return typeof();
     }
 
-    int Int::Parse(string s)
+    int int_impl::parse(string s)
     {
         return std::stoi(*s);
     }
