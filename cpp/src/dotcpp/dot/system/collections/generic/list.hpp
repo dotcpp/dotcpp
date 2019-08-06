@@ -42,6 +42,7 @@ namespace dot
         template <class R> friend list<R> make_list(const std::vector<R> & obj);
         template <class R> friend list<R> make_list(std::vector<R>&& obj);
         template <class R> friend list<R> make_list(const std::initializer_list<R> & obj);
+        template <class R> friend list<R> make_list(int size);
 
         typedef list_impl<T> self;
         typedef std::vector<T> base;
@@ -76,6 +77,13 @@ namespace dot
         /// </summary>
         explicit list_impl(const std::initializer_list<T>& obj) : base(obj) {}
 
+        /// <summary>
+       /// Construct from int.
+       ///
+       /// This constructor is private. Use make_list(...) function instead.
+       /// </summary>
+       explicit list_impl(int size) : base(size) {}
+
     public: // METHODS
 
         /// <summary>The number of items contained in the list.</summary>
@@ -107,9 +115,6 @@ namespace dot
             }
             return false;
         }
-
-        /// <summary>Copies the elements of the current List(T) to a new array.</summary>
-        array<T> to_array() const { return make_array(*this); }
 
     public: // VIRTUAL METHODS
 
@@ -160,4 +165,8 @@ namespace dot
     /// <summary>Construct from initializer list.</summary>
     template <class T>
     list<T> make_list(const std::initializer_list<T> & obj) { return new list_impl<T>(obj); }
+
+    /// <summary>Construct from int.</summary>
+    template <class T>
+    list<T> make_list(int size) { return new list_impl<T>(size); }
 }

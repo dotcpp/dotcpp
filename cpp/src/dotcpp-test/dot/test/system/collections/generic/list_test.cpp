@@ -24,7 +24,6 @@ limitations under the License.
 #include <dot/test/implement.hpp>
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
-#include <dot/system/array.hpp>
 #include <dot/system/collections/generic/list.hpp>
 #include <dot/system/string.hpp>
 #include <dot/system/type.hpp>
@@ -54,9 +53,6 @@ namespace dot
 
         REQUIRE(a->count() == 3);
 
-        auto b = a->to_array();
-        REQUIRE(b->count() == 3);
-        REQUIRE(b[2] == 2.0);
     }
 
     TEST_CASE("Interfaces")

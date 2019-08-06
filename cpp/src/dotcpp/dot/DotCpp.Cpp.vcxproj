@@ -61,7 +61,6 @@
     <ClInclude Include="noda_time\local_time_util.hpp" />
     <ClInclude Include="noda_time\period.hpp" />
     <ClInclude Include="precompiled.hpp" />
-    <ClInclude Include="system\array.hpp" />
     <ClInclude Include="system\bool.hpp" />
     <ClInclude Include="system\char.hpp" />
     <ClInclude Include="system\collections\collection_base.hpp" />

@@ -32,7 +32,7 @@ limitations under the License.
 namespace dot
 {
     class string_impl; class string;
-    template <class T> class array_impl; template <class T> using array = ptr<array_impl<T>>;
+    template <class T> class list_impl; template <class T> using list = ptr<list_impl<T>>;
     template <class T> class nullable;
     enum class string_split_options;
     class Char;
@@ -107,7 +107,7 @@ namespace dot
         /// Reports the zero-based index of the first occurrence in this instance of any
         /// character in a specified array of Unicode characters.
         /// </summary>
-        int index_of_any(array<char> anyOf);
+        int index_of_any(list<char> anyOf);
 
         /// <summary>
         /// Returns a new string in which all the characters in the current instance, beginning
@@ -137,14 +137,14 @@ namespace dot
         /// Returns a string array that contains the substrings of the current string
         /// that are delimited by any of the specified 8-bit characters.
         /// </summary>
-        array<string> split(char separator) const;  // TODO - implement
+        list<string> split(char separator) const;  // TODO - implement
 
         /// <summary>
         /// Returns a string array that contains the substrings in
         /// this string that are delimited by any of the specified strings.
         /// A parameter specifies whether to return empty array elements.
         /// </summary>
-        array<string> split(const array<string>& separator, const string_split_options& options) const; // TODO - implement
+        list<string> split(const list<string>& separator, const string_split_options& options) const; // TODO - implement
 
         ///<summary>Indicates whether the argument occurs within this string.</summary>
         bool contains(string const& s) const; // TODO - implement

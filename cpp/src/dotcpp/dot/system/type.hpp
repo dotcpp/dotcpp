@@ -28,7 +28,6 @@ limitations under the License.
 #include <dot/system/object.hpp>
 #include <dot/system/string.hpp>
 #include <dot/system/nullable.hpp>
-#include <dot/system/array.hpp>
 #include <dot/system/collections/generic/list.hpp>
 #include <dot/system/reflection/constructor_info.hpp>
 #include <dot/system/reflection/method_info.hpp>
@@ -48,7 +47,6 @@ namespace dot
     class method_info_impl; using method_info = ptr<method_info_impl>;
     class constructor_info_impl; using constqructor_info = ptr<constructor_info_impl>;
     template <class T> class list_impl; template <class T> using list = ptr<list_impl<T>>;
-    template <class T> class array_impl; template <class T> using array = ptr<array_impl<T>>;
     template <class class_t, class ... Args> class member_constructor_info_impl;
 
     template <class T> type_t typeof();
@@ -99,7 +97,7 @@ namespace dot
                 methods_ = make_list<method_info>();
             }
 
-            array<parameter_info> parameters = make_array<parameter_info>(sizeof...(args));
+            list<parameter_info> parameters = make_list<parameter_info>(sizeof...(args));
             std::vector<type_t> param_types = { dot::typeof<args>()... };
 
             for (int i = 0; i < args_count; ++i)
@@ -128,7 +126,7 @@ namespace dot
                 methods_ = make_list<method_info>();
             }
 
-            array<parameter_info> parameters = make_array<parameter_info>(sizeof...(args));
+            list<parameter_info> parameters = make_list<parameter_info>(sizeof...(args));
             std::vector<type_t> param_types = { dot::typeof<args>()... };
 
             for (int i = 0; i < args_count; ++i)
@@ -157,7 +155,7 @@ namespace dot
                 ctors_ = make_list<constructor_info>();
             }
 
-            array<parameter_info> parameters = make_array<parameter_info>(sizeof...(args));
+            list<parameter_info> parameters = make_list<parameter_info>(sizeof...(args));
             std::vector<type_t> param_types = { dot::typeof<args>()... };
 
             for (int i = 0; i < args_count; ++i)
@@ -269,12 +267,12 @@ namespace dot
 
     private: // FIELDS
 
-        array<method_info> methods_;
-        array<constructor_info> ctors_;
-        array<type_t> interfaces_;
-        array<type_t> generic_args_;
+        list<method_info> methods_;
+        list<constructor_info> ctors_;
+        list<type_t> interfaces_;
+        list<type_t> generic_args_;
         type_t base_;
-        array<field_info> fields_;
+        list<field_info> fields_;
 
     public: // PROPERTIES
 
@@ -299,19 +297,19 @@ namespace dot
     public: // METHODS
 
         /// <summary>Returns methods of the current type.</summary>
-        array<method_info> get_methods() { return methods_; }
+        list<method_info> get_methods() { return methods_; }
 
         /// <summary>Returns constructors of the current type.</summary>
-        array<constructor_info> get_constructors() { return ctors_; }
+        list<constructor_info> get_constructors() { return ctors_; }
 
         /// <summary>Returns fields of the current type.</summary>
-        array<field_info> get_fields() { return fields_; }
+        list<field_info> get_fields() { return fields_; }
 
         /// <summary>Returns interfaces of the current type.</summary>
-        array<type_t> get_interfaces() { return interfaces_; }
+        list<type_t> get_interfaces() { return interfaces_; }
 
         /// <summary>Returns interfaces of the current type.</summary>
-        array<type_t> get_generic_arguments() { return generic_args_; }
+        list<type_t> get_generic_arguments() { return generic_args_; }
 
         /// <summary>Searches for the public method with the specified name.</summary>
         method_info get_method(string name);
@@ -393,16 +391,17 @@ namespace dot
         return type_;
     }
 
-    template <class T> type_t array_impl<T>::typeof()
-    {
-        static type_t type_ = make_type_builder<array_impl<T>>(dot::typeof<T>()->name_space, dot::typeof<T>()->name +"[]")
-            //DOT_TYPE_CTOR(make_array<T>)
-            DOT_TYPE_GENERIC_ARGUMENT(T)
-            ->template with_interface<dot::collection_base>()
-            ->template with_interface<dot::enumerable_base>()
-            ->build();
-        return type_;
-    }
+    //template <class T> type_t array_impl<T>::typeof()
+    //{
+    //    static type_t type_ = make_type_builder<array_impl<T>>(dot::typeof<T>()->name_space, dot::typeof<T>()->name +"[]")
+    //        //DOT_TYPE_CTOR(make_list<T>)
+    //        ->with_constructor(static_cast<list<T>(*)()>(&make_list<T>), { })
+    //        DOT_TYPE_GENERIC_ARGUMENT(T)
+    //        ->template with_interface<dot::collection_base>()
+    //        ->template with_interface<dot::enumerable_base>()
+    //        ->build();
+    //    return type_;
+    //}
 
     template <class T>
     struct typeof_impl

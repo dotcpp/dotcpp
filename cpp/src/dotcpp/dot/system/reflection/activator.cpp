@@ -25,7 +25,6 @@ limitations under the License.
 #include <dot/implement.hpp>
 #include <dot/system/reflection/activator.hpp>
 #include <dot/system/object_impl.hpp>
-#include <dot/system/array.hpp>
 #include <dot/system/exception.hpp>
 #include <dot/system/string.hpp>
 #include <dot/system/collections/generic/list.hpp>
@@ -39,9 +38,9 @@ namespace dot
         return create_instance(type, nullptr);
     }
 
-    object activator::create_instance(type_t type, array<object> params)
+    object activator::create_instance(type_t type, list<object> params)
     {
-        array<constructor_info> ctors = type->get_constructors();
+        list<constructor_info> ctors = type->get_constructors();
 
         // If no constructors
         if (ctors.is_empty() || ctors->count() == 0)
@@ -98,7 +97,7 @@ namespace dot
         return create_instance(type_impl::get_type(type_name), nullptr);
     }
 
-    object activator::create_instance(string assembly_name, string type_name, array<object> params)
+    object activator::create_instance(string assembly_name, string type_name, list<object> params)
     {
         return create_instance(type_impl::get_type(type_name), params);
     }

@@ -46,12 +46,12 @@ namespace dot
         static object create_instance(type_t type);
 
         /// <summary>Creates an instance of the specified type using the constructor that best matches the specified parameters.</summary>
-        static object create_instance(type_t type, array<object> params);
+        static object create_instance(type_t type, list<object> params);
 
         /// <summary>Creates an instance of the type whose name is specified, using the named assembly and default constructor.</summary>
         static object create_instance(string assembly_name, string type_name);
 
         /// <summary>Creates an instance of the type whose name is specified, using the named assembly and default constructor.</summary>
-        static object create_instance(string assembly_name, string type_name, array<object> params);
+        static object create_instance(string assembly_name, string type_name, list<object> params);
     };
 }

@@ -27,7 +27,6 @@ limitations under the License.
 #include <dot/system/object_impl.hpp>
 #include <dot/system/reflection/method_info.hpp>
 #include <dot/system/reflection/constructor_info.hpp>
-#include <dot/system/array.hpp>
 #include <dot/system/collections/generic/list.hpp>
 #include <dot/system/string.hpp>
 
@@ -70,7 +69,7 @@ namespace dot
                 data->methods_ = make_list<method_info>();
             }
 
-            array<method_info> base_methods = data->base_->get_methods();
+            list<method_info> base_methods = data->base_->get_methods();
             list<method_info> new_methods = make_list<method_info>();
             for (method_info meth_info_data : base_methods)
             {
@@ -88,7 +87,7 @@ namespace dot
 
         if (!data->methods_.is_empty())
         {
-            this->methods_ = make_array<method_info>(data->methods_->count());
+            this->methods_ = make_list<method_info>(data->methods_->count());
             int i = 0;
             for (method_info meth_info_data : data->methods_)
             {
@@ -96,11 +95,11 @@ namespace dot
             }
         }
         else
-            this->methods_ = make_array<method_info>(0);
+            this->methods_ = make_list<method_info>(0);
 
         if (!data->ctors_.is_empty())
         {
-            this->ctors_ = make_array<constructor_info>(data->ctors_->count());
+            this->ctors_ = make_list<constructor_info>(data->ctors_->count());
             int i = 0;
             for (constructor_info ctor_info_data : data->ctors_)
             {
@@ -108,7 +107,7 @@ namespace dot
             }
         }
         else
-            this->ctors_ = make_array<constructor_info>(0);
+            this->ctors_ = make_list<constructor_info>(0);
 
         if (!data->base_.is_empty() && !data->base_->get_fields().is_empty() && data->base_->get_fields()->count())
         {
@@ -117,7 +116,7 @@ namespace dot
                 data->fields_ = make_list<field_info>();
             }
 
-            array<field_info> base_fields = data->base_->get_fields();
+            list<field_info> base_fields = data->base_->get_fields();
             list<field_info> new_fields = make_list<field_info>();
             for (field_info field_info_data : base_fields)
             {
@@ -135,7 +134,7 @@ namespace dot
 
         if (!data->fields_.is_empty())
         {
-            this->fields_ = make_array<field_info>(data->fields_->count());
+            this->fields_ = make_list<field_info>(data->fields_->count());
             int i = 0;
             for (field_info ctor_info_data : data->fields_)
             {
@@ -143,11 +142,11 @@ namespace dot
             }
         }
         else
-            this->fields_ = make_array<field_info>(0);
+            this->fields_ = make_list<field_info>(0);
 
         if (!data->interfaces_.is_empty())
         {
-            this->interfaces_ = make_array<type_t>(data->interfaces_->count());
+            this->interfaces_ = make_list<type_t>(data->interfaces_->count());
             int i = 0;
             for (type_t interface : data->interfaces_)
             {
@@ -155,11 +154,11 @@ namespace dot
             }
         }
         else
-            this->interfaces_ = make_array<type_t>(0);
+            this->interfaces_ = make_list<type_t>(0);
 
         if (!data->generic_args_.is_empty())
         {
-            this->generic_args_ = make_array<type_t>(data->generic_args_->count());
+            this->generic_args_ = make_list<type_t>(data->generic_args_->count());
             int i = 0;
             for (type_t arg : data->generic_args_)
             {
@@ -167,7 +166,7 @@ namespace dot
             }
         }
         else
-            this->generic_args_ = make_array<type_t>(0);
+            this->generic_args_ = make_list<type_t>(0);
 
         this->base_ = data->base_;
         this->is_class = data->is_class_;

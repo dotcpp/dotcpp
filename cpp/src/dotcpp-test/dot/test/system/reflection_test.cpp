@@ -24,7 +24,6 @@ limitations under the License.
 #include <dot/test/implement.hpp>
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
-#include <dot/system/array.hpp>
 #include <dot/system/string.hpp>
 #include <dot/system/Exception.hpp>
 #include <dot/system/reflection/method_info.hpp>
@@ -99,7 +98,7 @@ namespace dot
         object x = obj->count();
 
         type_t type = obj->type();
-        array<property_info> props = type->get_properties();
+        list<property_info> props = type->get_properties();
         property_info int_prop = props[0];
         REQUIRE(int_prop->Name == "IntFld");
         REQUIRE(int(int_prop->GetValue(obj)) == 15);
@@ -122,7 +121,7 @@ namespace dot
         REQUIRE(obj2->count() == -15);
         REQUIRE(int(props[2]->GetValue(obj2)) == -15);
 
-        array<object> params = make_array<object>(1);
+        list<object> params = make_list<object>(1);
         params[0] = 15;
         REQUIRE(int(type->GetMethods()[0]->Invoke(obj2, params)) == 42 + 15);
         */

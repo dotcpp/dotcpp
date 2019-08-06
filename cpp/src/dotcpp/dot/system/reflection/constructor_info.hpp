@@ -45,17 +45,17 @@ namespace dot
         virtual string to_string() override { return "ConstructorInfo"; }
 
         /// <summary>Gets the parameters of this constructor.</summary>
-        virtual array<parameter_info> get_parameters()
+        virtual list<parameter_info> get_parameters()
         {
             return parameters;
         }
 
         /// <summary>Invokes specified constructor with given parameters.</summary>
-        virtual object invoke(array<object>) = 0;
+        virtual object invoke(list<object>) = 0;
 
     protected: // CONSTRUCTORS
 
-        array<parameter_info> parameters;
+        list<parameter_info> parameters;
 
         /// <summary>
         /// Create from declaring type
@@ -88,13 +88,13 @@ namespace dot
 
         /// <summary>Invokes the constructor reflected by this ConstructorInfo instance.</summary>
         template <int ... I>
-        object invoke_impl(array<object> params, detail::index_sequence<I...>)
+        object invoke_impl(list<object> params, detail::index_sequence<I...>)
         {
             return (*ptr_)(params[I]...);
         }
 
         /// <summary>Invokes the constructor reflected by this ConstructorInfo instance.</summary>
-        virtual object invoke(array<object> params)
+        virtual object invoke(list<object> params)
         {
             if ((params.is_empty() && parameters->count() != 0) || (!params.is_empty() && (params->count() != parameters->count())))
                 throw exception("Wrong number of parameters for constructor " + this->declaring_type->name + "." + this->name);

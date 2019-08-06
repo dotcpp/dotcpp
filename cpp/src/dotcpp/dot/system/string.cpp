@@ -101,7 +101,7 @@ namespace dot
         return make_string(this->substr(startIndex, length));
     }
 
-    int string_impl::index_of_any(array<char> anyOf)
+    int string_impl::index_of_any(list<char> anyOf)
     {
         size_t pos = find_first_of(anyOf->data(), 0, anyOf->size());
         if (pos != std::string::npos)

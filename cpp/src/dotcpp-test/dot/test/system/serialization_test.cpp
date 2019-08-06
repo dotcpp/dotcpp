@@ -28,7 +28,6 @@ limitations under the License.
 #include <boost/core/demangle.hpp>
 #include <typeinfo>
 #include <iostream>
-#include <dot/system/array.hpp>
 #include <dot/system/string.hpp>
 #include <dot/system/Exception.hpp>
 #include <dot/system/reflection/method_info.hpp>
@@ -174,12 +173,12 @@ namespace dot
 
         sample_data dt = (sample_data)activator::create_instance(obj->type());
 
-        array<dot::object> paramsFoo = make_array<object>(2);
+        list<dot::object> paramsFoo = make_list<object>(2);
         paramsFoo[0] = 15;
         paramsFoo[1] = 42;
         double ret = obj->type()->get_methods()[0]->invoke(obj, paramsFoo);
 
-        array<dot::object> paramsBar = make_array<object>(1);
+        list<dot::object> paramsBar = make_list<object>(1);
         paramsBar[0] = 15;
         obj->type()->get_methods()[1]->invoke(obj, paramsBar);
 
