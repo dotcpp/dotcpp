@@ -24,7 +24,7 @@ limitations under the License.
 
 namespace dot
 {
-    dot::local_minute local_minute_util::Parse(dot::string value)
+    dot::local_minute local_minute_util::parse(dot::string value)
     {
         boost::posix_time::time_input_facet* facet = new boost::posix_time::time_input_facet();
         facet->format("%H:%M");
@@ -43,14 +43,14 @@ namespace dot
         return dot::local_minute(time.hours(), time.minutes());
     }
 
-    int local_minute_util::ToIsoInt(dot::local_minute value)
+    int local_minute_util::to_iso_int(dot::local_minute value)
     {
         // Serialized to one minute precision in ISO 8601 4 digit int hhmm format
         int result = value.hour() * 100 + value.minute();
         return result;
     }
 
-    dot::local_minute local_minute_util::ParseIsoInt(int value)
+    dot::local_minute local_minute_util::parse_iso_int(int value)
     {
         // Extract
         int hour = value / 100;

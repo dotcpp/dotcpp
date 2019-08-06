@@ -22,7 +22,7 @@ limitations under the License.
 
 namespace dot
 {
-    dot::local_date local_date_util::Parse(dot::string value)
+    dot::local_date local_date_util::parse(dot::string value)
     {
         boost::posix_time::time_input_facet* facet = new boost::posix_time::time_input_facet();
         facet->format("%Y-%m-%d");
@@ -40,13 +40,13 @@ namespace dot
         return ptime.date();
     }
 
-    int local_date_util::ToIsoInt(dot::local_date value)
+    int local_date_util::to_iso_int(dot::local_date value)
     {
         int result = value.year() * 10'000 + value.month() * 100 + value.day();
         return result;
     }
 
-    dot::local_date local_date_util::ParseIsoInt(int value)
+    dot::local_date local_date_util::parse_iso_int(int value)
     {
         // Extract year, month, day
         int year = value / 100'00;

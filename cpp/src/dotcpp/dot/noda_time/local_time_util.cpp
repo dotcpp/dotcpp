@@ -22,7 +22,7 @@ limitations under the License.
 
 namespace dot
 {
-    dot::local_time local_time_util::Parse(dot::string value)
+    dot::local_time local_time_util::parse(dot::string value)
     {
         boost::posix_time::time_input_facet* facet = new boost::posix_time::time_input_facet();
         facet->format("%H:%M:%S%f");
@@ -40,14 +40,14 @@ namespace dot
         return ptime;
     }
 
-    int local_time_util::ToIsoInt(dot::local_time value)
+    int local_time_util::to_iso_int(dot::local_time value)
     {
         // local_time is serialized to millisecond precision in ISO 8601 9 digit int hhmmssfff format
         int result = value.hour() * 100'00'000 + value.minute() * 100'000 + value.second() * 1000 + value.millisecond();
         return result;
     }
 
-    dot::local_time local_time_util::ParseIsoInt(int value)
+    dot::local_time local_time_util::parse_iso_int(int value)
     {
         // Extract year, month, day
         int hour = value / 100'00'000;

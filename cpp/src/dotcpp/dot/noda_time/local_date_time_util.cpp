@@ -22,7 +22,7 @@ limitations under the License.
 
 namespace dot
 {
-    dot::local_date_time local_date_time_util::Parse(dot::string value)
+    dot::local_date_time local_date_time_util::parse(dot::string value)
     {
         boost::posix_time::time_input_facet* facet = new boost::posix_time::time_input_facet();
         facet->format("%Y-%m-%d %H:%M:%S%f");
@@ -40,7 +40,7 @@ namespace dot
         return ptime;
     }
 
-    int64_t local_date_time_util::ToIsoLong(dot::local_date_time value)
+    int64_t local_date_time_util::to_iso_long(dot::local_date_time value)
     {
         // local_date_time is serialized as readable ISO int64 in yyyymmddhhmmsssss format
         int isoDate = value.year() * 10'000 + value.month() * 100 + value.day();
@@ -49,7 +49,7 @@ namespace dot
         return result;
     }
 
-    dot::local_date_time local_date_time_util::ParseIsoLong(int64_t value)
+    dot::local_date_time local_date_time_util::parse_iso_long(int64_t value)
     {
         // Split into date and time using int64 arithmetic
         int64_t isoDateLong = value / 100'00'00'000;
@@ -85,14 +85,14 @@ namespace dot
         return dot::local_date_time(year, month, day, hour, minute, second, millisecond);
     }
 
-    std::chrono::milliseconds local_date_time_util::ToStdChrono(dot::local_date_time value)
+    std::chrono::milliseconds local_date_time_util::to_std_chrono(dot::local_date_time value)
     {
         boost::posix_time::ptime epoch(boost::gregorian::date(1970, boost::date_time::Jan, 1));
         boost::posix_time::time_duration d = (boost::posix_time::ptime)value - epoch;
         return std::chrono::milliseconds(d.total_milliseconds());
     }
 
-    dot::local_date_time local_date_time_util::FromStdChrono(std::chrono::milliseconds value)
+    dot::local_date_time local_date_time_util::from_std_chrono(std::chrono::milliseconds value)
     {
         boost::posix_time::ptime epoch(boost::gregorian::date(1970, boost::date_time::Jan, 1));
         boost::posix_time::time_duration d = boost::posix_time::milliseconds(value.count());

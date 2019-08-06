@@ -28,12 +28,12 @@ namespace dot
         /// <summary>Parse string using standard ISO 8601 time pattern hh:mm:ss.fff, throw if invalid format.
         /// No variations from the standard format are accepted and no delimiters can be changed or omitted.
         /// Specifically, ISO int-like string using hhmmssfff format without delimiters is not accepted.</summary>
-        static dot::local_time Parse(dot::string value);
+        static dot::local_time parse(dot::string value);
 
         /// <summary>Convert local_time to ISO 8601 9 digit int hhmmssfff format.</summary>
-        static int ToIsoInt(dot::local_time value);
+        static int to_iso_int(dot::local_time value);
 
         /// <summary>Parse ISO 8601 9 digit int in hhmmssfff format, throw if invalid format.</summary>
-        static dot::local_time ParseIsoInt(int value);
+        static dot::local_time parse_iso_int(int value);
     };
 }

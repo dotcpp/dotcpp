@@ -28,12 +28,12 @@ namespace dot
         /// <summary>Parse string using standard ISO 8601 date pattern yyyy-mm-dd, throw if invalid format.
         /// No variations from the standard format are accepted and no delimiters can be changed or omitted.
         /// Specifically, ISO int-like string using yyyymmdd format without delimiters is not accepted.</summary>
-        static dot::local_date Parse(dot::string value);
+        static dot::local_date parse(dot::string value);
 
         /// <summary>Convert local_date to to ISO 8601 8 digit int in yyyymmdd format.</summary>
-        static int ToIsoInt(dot::local_date value);
+        static int to_iso_int(dot::local_date value);
 
         /// <summary>Parse ISO 8601 8 digit int in yyyymmdd format, throw if invalid format.</summary>
-        static dot::local_date ParseIsoInt(int value);
+        static dot::local_date parse_iso_int(int value);
     };
 }
