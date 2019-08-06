@@ -46,11 +46,11 @@ namespace dot
 
         /// <summary>Gets the value of the current nullable object
         /// if it has been assigned a valid underlying value.</summary>
-        T value() const { return this->value(); }
+        T value() const { return base::value(); }
 
         /// <summary>Gets a value indicating whether the current nullable
         /// object has a valid value of its underlying type.</summary>
-        bool has_value() const { return this->has_value(); }
+        bool has_value() const { return base::has_value(); }
 
     public: // CONSTRUCTORS
 
