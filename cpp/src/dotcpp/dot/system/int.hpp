@@ -29,7 +29,7 @@ limitations under the License.
 namespace dot
 {
     /// <summary>Wrapper around int to make it convertible to object (boxing).</summary>
-    class int_impl : public virtual object_impl
+    class DOT_CLASS int_impl : public virtual object_impl
     {
         friend object;
         int value_;

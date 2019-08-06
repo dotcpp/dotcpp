@@ -29,7 +29,7 @@ limitations under the License.
 namespace dot
 {
     /// <summary>Wrapper around bool to make it convertible to object (boxing).</summary>
-    class bool_impl : public virtual object_impl
+    class DOT_CLASS bool_impl : public virtual object_impl
     {
         friend object;
         bool value_;
