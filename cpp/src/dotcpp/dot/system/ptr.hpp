@@ -25,10 +25,12 @@ limitations under the License.
 
 #include <dot/declare.hpp>
 #include <dot/detail/reference_counter.hpp>
+#include <dot/system/exception.hpp>
 
 namespace dot
 {
     class Null;
+    class exception;
 
     /// <summary>
     /// Reference counted smart pointer based on std::shared_ptr
@@ -148,7 +150,8 @@ namespace dot
             T* p = dynamic_cast<T*>(rhs.ptr_);
 
             // Check that dynamic cast succeeded
-            if (!p) throw std::runtime_error("Cast cannot be performed."); // TODO Use typeof(...) and type() to provide specific types in the error message
+            if (!p)
+                throw dot::exception("Cast cannot be performed."); // TODO Use typeof(...) and type() to provide specific types in the error message
 
             // Current pointer now contains the result of dynamic_cast
             ptr_ = p;
@@ -164,13 +167,13 @@ namespace dot
     template <class T> T& ptr<T>::operator*() const
     {
         if (!ptr_)
-            throw std::runtime_error("Pointer is not initialized");
+            throw std::exception("Pointer is not initialized");
         return *ptr_;
     }
     template <class T> T* ptr<T>::operator->() const
     {
         if (!ptr_)
-            throw std::runtime_error("Pointer is not initialized");
+            throw std::exception("Pointer is not initialized");
         return ptr_;
     }
     template <class T> bool ptr<T>::operator==(const ptr<T>& rhs) const { return ptr_ == rhs.ptr_; } // TODO check when comparison is performed by value
