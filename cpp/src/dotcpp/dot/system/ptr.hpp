@@ -167,13 +167,13 @@ namespace dot
     template <class T> T& ptr<T>::operator*() const
     {
         if (!ptr_)
-            throw std::exception("Pointer is not initialized");
+            throw dot::exception("Pointer is not initialized");
         return *ptr_;
     }
     template <class T> T* ptr<T>::operator->() const
     {
         if (!ptr_)
-            throw std::exception("Pointer is not initialized");
+            throw dot::exception("Pointer is not initialized");
         return ptr_;
     }
     template <class T> bool ptr<T>::operator==(const ptr<T>& rhs) const { return ptr_ == rhs.ptr_; } // TODO check when comparison is performed by value
