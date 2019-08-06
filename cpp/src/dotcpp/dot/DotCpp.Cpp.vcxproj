@@ -13,8 +13,12 @@
   <ItemGroup>
     <ClCompile Include="noda_time\local_date.cpp" />
     <ClCompile Include="noda_time\local_date_time.cpp" />
+    <ClCompile Include="noda_time\local_date_time_util.cpp" />
+    <ClCompile Include="noda_time\local_date_util.cpp" />
     <ClCompile Include="noda_time\local_minute.cpp" />
+    <ClCompile Include="noda_time\local_minute_util.cpp" />
     <ClCompile Include="noda_time\local_time.cpp" />
+    <ClCompile Include="noda_time\local_time_util.cpp" />
     <ClCompile Include="noda_time\period.cpp" />
     <ClCompile Include="precompiled.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -47,8 +51,12 @@
     <ClInclude Include="import.hpp" />
     <ClInclude Include="noda_time\local_date.hpp" />
     <ClInclude Include="noda_time\local_date_time.hpp" />
+    <ClInclude Include="noda_time\local_date_time_util.hpp" />
+    <ClInclude Include="noda_time\local_date_util.hpp" />
     <ClInclude Include="noda_time\local_minute.hpp" />
+    <ClInclude Include="noda_time\local_minute_util.hpp" />
     <ClInclude Include="noda_time\local_time.hpp" />
+    <ClInclude Include="noda_time\local_time_util.hpp" />
     <ClInclude Include="noda_time\period.hpp" />
     <ClInclude Include="precompiled.hpp" />
     <ClInclude Include="system\array.hpp" />
