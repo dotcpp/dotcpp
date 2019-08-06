@@ -387,6 +387,8 @@ namespace dot
             //DOT_TYPE_CTOR(make_list<T>)
             ->with_constructor(static_cast<list<T>(*)()>(&make_list<T>), { })
             DOT_TYPE_GENERIC_ARGUMENT(T)
+            ->template with_interface<dot::collection_base>()
+            ->template with_interface<dot::enumerable_base>()
             ->build();
         return type_;
     }
@@ -396,6 +398,8 @@ namespace dot
         static type_t type_ = make_type_builder<array_impl<T>>(dot::typeof<T>()->name_space, dot::typeof<T>()->name +"[]")
             //DOT_TYPE_CTOR(make_array<T>)
             DOT_TYPE_GENERIC_ARGUMENT(T)
+            ->template with_interface<dot::collection_base>()
+            ->template with_interface<dot::enumerable_base>()
             ->build();
         return type_;
     }

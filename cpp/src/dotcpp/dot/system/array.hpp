@@ -36,7 +36,7 @@ namespace dot
     /// Provides methods to search, sort, and manipulate lists.
     /// </summary>
     template <class T>
-    class array_impl : public virtual object_impl, public std::vector<T>
+    class array_impl : public virtual object_impl, public std::vector<T>, public collection_base_impl, public enumerable_base_impl
     {
         typedef array_impl<T> self;
         typedef std::vector<T> base;
@@ -81,6 +81,26 @@ namespace dot
 
         /// <summary>Delete methods from the base class std::vector that modify array size.</summary>
         void resize(size_t size) = delete;
+
+    public: // VIRTUAL METHODS
+
+        /// <summary>Get object from collection by index.</summary>
+        virtual object item(int index) override
+        {
+            return this->operator[](index);
+        }
+
+        /// <summary>Get length of collection.</summary>
+        virtual int get_length() override
+        {
+            return this->size();
+        }
+
+        /// <summary>Add object to end of collection.</summary>
+        virtual void add_object(object item) override
+        {
+            base::push_back((T)item);
+        }
 
     public: // OPERATORS
 
