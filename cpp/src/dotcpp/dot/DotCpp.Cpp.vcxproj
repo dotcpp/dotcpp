@@ -26,6 +26,8 @@
     </ClCompile>
     <ClCompile Include="system\bool.cpp" />
     <ClCompile Include="system\char.cpp" />
+    <ClCompile Include="system\collections\collection_base.cpp" />
+    <ClCompile Include="system\collections\enumerable_base.cpp" />
     <ClCompile Include="system\double.cpp" />
     <ClCompile Include="system\enum.cpp" />
     <ClCompile Include="system\environment.cpp" />
@@ -62,6 +64,8 @@
     <ClInclude Include="system\array.hpp" />
     <ClInclude Include="system\bool.hpp" />
     <ClInclude Include="system\char.hpp" />
+    <ClInclude Include="system\collections\collection_base.hpp" />
+    <ClInclude Include="system\collections\enumerable_base.hpp" />
     <ClInclude Include="system\collections\generic\dictionary.hpp" />
     <ClInclude Include="system\collections\generic\hash_set.hpp" />
     <ClInclude Include="system\collections\generic\list.hpp" />
