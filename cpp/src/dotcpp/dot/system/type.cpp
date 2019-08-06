@@ -63,7 +63,7 @@ namespace dot
     /// </summary>
     void type_impl::fill(const type_builder& data)
     {
-        if (!data->base_.is_empty() && data->base_->get_methods()->count())
+        if (!data->base_.is_empty() && !data->base_->get_methods().is_empty() && data->base_->get_methods()->count())
         {
             if (data->methods_.is_empty())
             {
@@ -110,6 +110,29 @@ namespace dot
         else
             this->ctors_ = make_array<constructor_info>(0);
 
+        if (!data->base_.is_empty() && !data->base_->get_fields().is_empty() && data->base_->get_fields()->count())
+        {
+            if (data->fields_.is_empty())
+            {
+                data->fields_ = make_list<field_info>();
+            }
+
+            array<field_info> base_fields = data->base_->get_fields();
+            list<field_info> new_fields = make_list<field_info>();
+            for (field_info field_info_data : base_fields)
+            {
+
+                new_fields->add(field_info_data);
+            }
+
+            for (field_info field_info_data : data->fields_)
+            {
+                new_fields->add(field_info_data);
+            }
+
+            data->fields_ = new_fields;
+        }
+
         if (!data->fields_.is_empty())
         {
             this->fields_ = make_array<field_info>(data->fields_->count());
@@ -120,7 +143,7 @@ namespace dot
             }
         }
         else
-            this->ctors_ = make_array<constructor_info>(0);
+            this->fields_ = make_array<field_info>(0);
 
         if (!data->interfaces_.is_empty())
         {
