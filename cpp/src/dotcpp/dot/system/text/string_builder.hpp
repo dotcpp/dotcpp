@@ -85,7 +85,7 @@ namespace dot
         /// Appends the default line terminator, to the end of this instance.
         void append_line()
         {
-            *this += *environment::new_line;
+            *this += *environment::make_line;
         }
 
         /// Removes all characters from the current string_builder instance.

@@ -75,7 +75,7 @@ namespace dot
     };
 
     class sample_data_impl; using sample_data = ptr<sample_data_impl>;
-    sample_data new_sample_data();
+    sample_data make_sample_data();
 
     class sample_data_impl : public virtual object_impl
     {
@@ -108,7 +108,7 @@ namespace dot
     public: // REFLECTION
 
         DOT_TYPE_BEGIN("System.Test", "sample_data")
-            DOT_TYPE_CTOR(new_sample_data)
+            DOT_TYPE_CTOR(make_sample_data)
             ->with_field("string_field", &self::string_field)
             ->with_field("int_field", &self::int_field)
             ->with_field("double_field", &self::double_field)
@@ -120,7 +120,7 @@ namespace dot
         DOT_TYPE_END()
     };
 
-    sample_data new_sample_data() { return new sample_data_impl; }
+    sample_data make_sample_data() { return new sample_data_impl; }
 
     string obj_to_string(object obj)
     {
@@ -157,10 +157,10 @@ namespace dot
 
     TEST_CASE("simple_serialization")
     {
-        sample_data obj = new_sample_data();
+        sample_data obj = make_sample_data();
         obj->string_field = "str";
         obj->data_field = new sample_data_2_impl();
-        obj->data_field->data_field = new_sample_data();
+        obj->data_field->data_field = make_sample_data();
         obj->data_field->data_field->string_field = "internal str";
         obj->double_list_field = make_list<double>();
         obj->double_list_field->add(1.);

@@ -41,6 +41,6 @@ namespace dot
     public: // STATIC
 
         /// Gets the newline string defined for this environment.
-        static string new_line;
+        static string make_line;
     };
 }

@@ -121,9 +121,9 @@ namespace dot
 
     string string_impl::replace(const char oldChar, const char newChar) const
     {
-        string new_str = *this;
-        std::replace(new_str->begin(), new_str->end(), oldChar, newChar);
-        return new_str;
+        string make_str = *this;
+        std::replace(make_str->begin(), make_str->end(), oldChar, newChar);
+        return make_str;
     }
 
     bool string::is_null_or_empty(string value)

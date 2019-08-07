@@ -118,7 +118,7 @@ namespace dot
 
         /// Create from method name, declaring type, return type, and pointer to method.
         ///
-        /// This constructor is private. Use new_MethodInfo(...)
+        /// This constructor is private. Use make_MethodInfo(...)
         /// function with matching signature instead.
         member_method_info_impl(const string& name, type_t declaring_type, type_t return_type, method_type p)
             : method_info_impl(name, declaring_type, return_type)
@@ -170,7 +170,7 @@ namespace dot
 
         /// Create from method name, declaring type, return type, and pointer to method.
         ///
-        /// This constructor is private. Use new_MethodInfo(...)
+        /// This constructor is private. Use make_MethodInfo(...)
         /// function with matching signature instead.
         static_method_info_impl(const string& name, type_t declaring_type, type_t return_type, method_type p)
             : method_info_impl(name, declaring_type, return_type)

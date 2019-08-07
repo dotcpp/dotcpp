@@ -40,7 +40,7 @@ namespace dot
     };
 
     using base = ptr<base_impl>;
-    base new_base() { return new base_impl; }
+    base make_base() { return new base_impl; }
 
     class derived_impl : public base_impl
     {
@@ -54,25 +54,25 @@ namespace dot
     };
 
     using derived = ptr<derived_impl>;
-    derived new_derived() { return new derived_impl; }
+    derived make_derived() { return new derived_impl; }
 
     TEST_CASE("Smoke")
     {
-        base b = new_base();
+        base b = make_base();
         REQUIRE(b->foo() == "base");
 
         // Check assignment operator
-        b = new_derived();
+        b = make_derived();
         REQUIRE(b->foo() == "derived");
 
         // Check ctor from derived
-        base d = new_derived();
+        base d = make_derived();
         REQUIRE(d->foo() == "derived");
     }
 
     TEST_CASE("Cast")
     {
-        base b = new_base();
+        base b = make_base();
 
         REQUIRE(b.is<base>() == true);
         REQUIRE(b.is<derived>() == false);
@@ -84,7 +84,7 @@ namespace dot
         REQUIRE((base)b != nullptr);
         CHECK_THROWS_AS(derived(b), std::runtime_error);
 
-        base bd = new_derived();
+        base bd = make_derived();
 
         REQUIRE(bd.is<base>() == true);
         REQUIRE(bd.is<derived>() == true);
@@ -95,7 +95,7 @@ namespace dot
         REQUIRE((base)bd != nullptr);
         REQUIRE((derived)bd != nullptr);
 
-        derived d = new_derived();
+        derived d = make_derived();
 
         REQUIRE(d.is<base>() == true);
         REQUIRE(d.is<derived>() == true);

@@ -31,8 +31,8 @@ namespace dot
 {
     TEST_CASE("Clear object")
     {
-        object a = new_object();
-        object b = new_object();
+        object a = make_object();
+        object b = make_object();
 
         REQUIRE(a->equals(a) == true);
         REQUIRE(a->equals(b) == false);

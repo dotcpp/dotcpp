@@ -221,7 +221,7 @@ namespace dot
     };
 
     /// Initializes a new instance of object.
-    inline object new_object() { return object(new object_impl); }
+    inline object make_object() { return object(new object_impl); }
 
 }
 

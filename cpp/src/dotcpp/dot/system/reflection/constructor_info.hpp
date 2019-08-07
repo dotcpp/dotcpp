@@ -100,7 +100,7 @@ namespace dot
 
         /// Create from declaring type, and pointer to constructor.
         ///
-        /// This constructor is private. Use new_ConstructorInfo(...)
+        /// This constructor is private. Use make_ConstructorInfo(...)
         /// function with matching signature instead.
         member_constructor_info_impl(type_t declaring_type, ctor_type p)
             : constructor_info_impl(declaring_type)

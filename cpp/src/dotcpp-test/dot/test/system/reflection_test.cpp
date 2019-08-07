@@ -75,7 +75,7 @@ namespace dot
     };
 
     using reflection_base_sample = ptr<reflection_base_sample_impl>;
-    reflection_base_sample new_reflection_base_sample() { return new reflection_base_sample_impl; }
+    reflection_base_sample make_reflection_base_sample() { return new reflection_base_sample_impl; }
 
     class reflection_derived_sample_impl : public reflection_base_sample_impl
     {
@@ -85,13 +85,13 @@ namespace dot
     };
 
     using reflection_derived_sample = ptr<reflection_derived_sample_impl>;
-    reflection_derived_sample new_reflection_derived_sample() { return new reflection_derived_sample_impl; }
+    reflection_derived_sample make_reflection_derived_sample() { return new reflection_derived_sample_impl; }
 
     TEST_CASE("property_info")
     {
         // TODO - enable
         /*
-        reflection_base_sample obj = new_reflection_base_sample();
+        reflection_base_sample obj = make_reflection_base_sample();
         obj->IntFld = 15;
         obj->count() = 15;
 
@@ -115,7 +115,7 @@ namespace dot
         REQUIRE(obj->count() == 2384);
         REQUIRE(int(props[2]->GetValue(obj)) == 2384);
 
-        reflection_derived_sample obj2 = new_reflection_derived_sample();
+        reflection_derived_sample obj2 = make_reflection_derived_sample();
 
         props[2]->SetValue(obj2, -15);
         REQUIRE(obj2->count() == -15);

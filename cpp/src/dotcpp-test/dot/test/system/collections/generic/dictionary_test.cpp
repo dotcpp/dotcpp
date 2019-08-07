@@ -112,8 +112,8 @@ namespace dot
 
     TEST_CASE("object key")
     {
-        object obj0 = new_object();
-        object obj1 = new_object();
+        object obj0 = make_object();
+        object obj1 = make_object();
         object obj2 = object("str2");
         object obj3 = object("str2");
 

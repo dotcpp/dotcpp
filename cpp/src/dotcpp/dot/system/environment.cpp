@@ -28,5 +28,5 @@ limitations under the License.
 namespace dot
 {
     // TODO - detect OS type and change?
-    string environment::new_line = make_string("\n");
+    string environment::make_line = make_string("\n");
 }
