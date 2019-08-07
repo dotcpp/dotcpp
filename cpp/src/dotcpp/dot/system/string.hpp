@@ -158,7 +158,7 @@ namespace dot
     public: // CONSTANTS
 
         /// Empty string.
-        static string Empty;
+        static string empty;
 
     public: // CONSTRUCTORS
 

@@ -33,7 +33,7 @@ limitations under the License.
 namespace dot
 {
     /// Empty string.
-    string string::Empty = make_string("");
+    string string::empty = make_string("");
 
     dot::type_t string_impl::typeof()
     {
