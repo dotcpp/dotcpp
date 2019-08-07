@@ -24,8 +24,7 @@ limitations under the License.
 #pragma once
 
 #include <dot/system/ptr.hpp>
-#include <dot/system/collections/collection_base.hpp>
-#include <dot/system/collections/enumerable_base.hpp>
+#include <dot/system/collections/list_base.hpp>
 
 namespace dot
 {
@@ -36,7 +35,7 @@ namespace dot
     /// Represents a strongly typed collection of objects that can be accessed by index.
     /// </summary>
     template <class T>
-    class list_impl : public virtual object_impl, public std::vector<T>, public collection_base_impl, public enumerable_base_impl
+    class list_impl : public virtual object_impl, public std::vector<T>, public list_base_impl
     {
         template <class R> friend list<R> make_list();
         template <class R> friend list<R> make_list(const std::vector<R> & obj);
@@ -119,9 +118,15 @@ namespace dot
     public: // VIRTUAL METHODS
 
         /// <summary>Get object from collection by index.</summary>
-        virtual object item(int index) override
+        virtual object get_item(int index) override
         {
             return this->operator[](index);
+        }
+
+        /// <summary>Set object from collection by index.</summary>
+        virtual void set_item(int index, object value) override
+        {
+            this->operator[](index) = (T)value;
         }
 
         /// <summary>Get length of collection.</summary>

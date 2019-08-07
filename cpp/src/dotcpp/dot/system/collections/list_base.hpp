@@ -30,14 +30,23 @@ limitations under the License.
 namespace dot
 {
 
-    class collection_base_impl; using collection_base = ptr<collection_base_impl>;
+    class list_base_impl; using list_base = ptr<list_base_impl>;
 
-    class DOT_CLASS collection_base_impl : virtual public object_impl
+    class DOT_CLASS list_base_impl : virtual public object_impl
     {
     public:
 
         /// <summary>Add object to end of collection.</summary>
         virtual void add_object(object item) = 0;
+
+        /// <summary>Get object from collection by index.</summary>
+        virtual object get_item(int index) = 0;
+
+        /// <summary>Set object from collection by index.</summary>
+        virtual void set_item(int index, object value) = 0;
+
+        /// <summary>Get length of collection.</summary>
+        virtual int get_length() = 0;
 
         /// <summary>Gets the type_t of the current instance.</summary>
         virtual type_t type();

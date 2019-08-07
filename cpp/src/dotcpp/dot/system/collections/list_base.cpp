@@ -21,33 +21,23 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#pragma once
-
-#include <dot/declare.hpp>
-#include <dot/system/ptr.hpp>
-#include <dot/system/object_impl.hpp>
+#include <dot/precompiled.hpp>
+#include <dot/implement.hpp>
+#include <dot/system/collections/list_base.hpp>
 #include <dot/system/type.hpp>
 
 namespace dot
 {
-
-    class enumerable_base_impl; using enumerable_base = ptr<enumerable_base_impl>;
-
-    class DOT_CLASS enumerable_base_impl : virtual public object_impl
+    type_t list_base_impl::typeof()
     {
-    public:
+        static type_t type_ = make_type_builder<list_base_impl>("System.Collections", "ListBase")
+            ->build();
+        return type_;
+    }
 
-        /// <summary>Get object from collection by index.</summary>
-        virtual object item(int index) = 0;
-
-        /// <summary>Get length of collection.</summary>
-        virtual int get_length() = 0;
-
-        /// <summary>Gets the type_t of the current instance.</summary>
-        virtual type_t type();
-
-        /// <summary>Gets the type_t of the enumerable_base_impl.</summary>
-        static type_t typeof();
-    };
+    type_t list_base_impl::type()
+    {
+        return typeof();
+    }
 
 }
