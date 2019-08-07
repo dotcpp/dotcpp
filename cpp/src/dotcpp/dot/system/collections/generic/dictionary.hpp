@@ -46,11 +46,9 @@ namespace dot
 
     private: // CONSTRUCTORS
 
-        /// 
         /// Initializes a new instance of dictionary.
         ///
         /// This constructor is private. Use make_dictionary() function instead.
-        /// 
         dictionary_impl() : base() {}
 
     public: // PROPERTIES

@@ -38,22 +38,18 @@ namespace dot
     class local_date_time;
     class object;
 
-    /// 
     /// local_time is an immutable struct representing a time of day,
     /// with no reference to a particular calendar, time zone or date.
-    /// 
     class DOT_CLASS local_time : public ptime
     {
         typedef local_time self;
 
     public: // CONSTRUCTORS
 
-        /// 
         /// Because in C\# local_date_time is a struct, it has default constructor
         /// that initializes all backing variables to 0. This means that default
         /// constructed value corresponds to 0001-01-01 00:00:00. We will
         /// replicate this behavior here.
-        /// 
         local_time();
 
         /// Creates a local time at the given hour and minute, with second, millisecond-of-second and tick-of-millisecond values of zero.
@@ -97,10 +93,8 @@ namespace dot
         /// Indicates whether this time is earlier, later or the same as another one.
         int compare_to(const local_time& other) const;
 
-        /// 
         /// Compares this local time with the specified one for equality,
         /// by checking whether the two values represent the exact same local time, down to the tick.
-        /// 
         bool equals(const local_time& other) const;
 
         /// String that represents the current object.
@@ -137,10 +131,8 @@ namespace dot
         static local_time Subtract(const local_time& time, const period& period);
 
     public:
-        /// 
         /// Creates a new local time by adding a period to an existing time.
         /// The period must not contain any date-related units (days etc) with non-zero values.
-        /// 
         local_time operator+(const period& period) const;
 
         /// Compares two local times for equality, by checking whether they represent the exact same local time, down to the tick.
@@ -164,11 +156,9 @@ namespace dot
         /// Subtracts one time from another, returning the result as a period.
         period operator-(const local_time& other) const;
 
-        /// 
         /// Creates a new local time by subtracting a period from an existing time.
         /// The period must not contain any date-related units (days etc) with non-zero values.
         /// This is a convenience operator over the Minus(period) method.
-        /// 
         local_time operator-(const period& period) const;
 
     public:

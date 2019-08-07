@@ -24,10 +24,6 @@ limitations under the License.
 
 #pragma once
 
-/// 
-/// Methods typeof() and type() are thread safe because the implementation uses lambda
-/// 
-
 #define DOT_TYPE_BEGIN(nspace, name, ...)                                                         \
         public:                                                                                   \
         virtual dot::type_t type() { return typeof(); }                                               \

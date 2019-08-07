@@ -33,9 +33,7 @@ namespace dot
     class method_info_impl; using method_info = ptr<method_info_impl>;
     class type_impl; using type_t = ptr<type_impl>;
 
-    /// 
     /// Obtains information about the attributes of a method and provides access to method metadata.
-    /// 
     class method_info_impl : public member_info_impl
     {
         friend class type_builder_impl;
@@ -65,11 +63,9 @@ namespace dot
 
     protected: // CONSTRUCTORS
 
-        /// 
         /// Create from method name, declaring type, return type.
         ///
         /// This constructor is protected. It is used by derived classes only.
-        /// 
         method_info_impl(const string& name, type_t declaring_type, type_t return_type)
             : member_info_impl(name, declaring_type)
         {
@@ -77,9 +73,7 @@ namespace dot
         }
     };
 
-    /// 
     /// Obtains information about the attributes of a non-static method and provides access to method metadata.
-    /// 
     template <class class_, class return_t, class ... args>
     class member_method_info_impl : public method_info_impl
     {
@@ -122,21 +116,17 @@ namespace dot
 
     private: // CONSTRUCTORS
 
-        /// 
         /// Create from method name, declaring type, return type, and pointer to method.
         ///
         /// This constructor is private. Use new_MethodInfo(...)
         /// function with matching signature instead.
-        /// 
         member_method_info_impl(const string& name, type_t declaring_type, type_t return_type, method_type p)
             : method_info_impl(name, declaring_type, return_type)
             , ptr_(p)
         {}
     };
 
-    /// 
     /// Obtains information about the attributes of a static method and provides access to method metadata.
-    /// 
     template <class return_t, class ... args>
     class static_method_info_impl : public method_info_impl
     {
@@ -178,12 +168,10 @@ namespace dot
 
     private: // CONSTRUCTORS
 
-        /// 
         /// Create from method name, declaring type, return type, and pointer to method.
         ///
         /// This constructor is private. Use new_MethodInfo(...)
         /// function with matching signature instead.
-        /// 
         static_method_info_impl(const string& name, type_t declaring_type, type_t return_type, method_type p)
             : method_info_impl(name, declaring_type, return_type)
             , ptr_(p)

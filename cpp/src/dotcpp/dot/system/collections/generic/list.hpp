@@ -31,9 +31,7 @@ namespace dot
     template <class T> class list_impl; template <class T> using list = ptr<list_impl<T>>;
     class type_builder_impl; using type_builder = ptr<type_builder_impl>;
 
-    /// 
     /// Represents a strongly typed collection of objects that can be accessed by index.
-    /// 
     template <class T>
     class list_impl : public virtual object_impl, public std::vector<T>, public list_base_impl
     {
@@ -48,40 +46,30 @@ namespace dot
 
     private: // CONSTRUCTORS
 
-        /// 
         /// Create empty list with default initial capacity.
         ///
         /// This constructor is private. Use make_list(...) function instead.
-        /// 
         list_impl() {}
 
-        /// 
         /// Construct from vector using deep copy semantics.
         ///
         /// This constructor is private. Use make_list(...) function instead.
-        /// 
         explicit list_impl(const std::vector<T>& obj) : base(obj) {}
 
-        /// 
         /// Construct from vector using move semantics.
         ///
         /// This constructor is private. Use make_list(...) function instead.
-        /// 
         explicit list_impl(std::vector<T>&& obj) : base(obj) {}
 
-        /// 
         /// Construct from initializer list.
         ///
         /// This constructor is private. Use make_list(...) function instead.
-        /// 
         explicit list_impl(const std::initializer_list<T>& obj) : base(obj) {}
 
-        /// 
        /// Construct from int.
        ///
        /// This constructor is private. Use make_list(...) function instead.
-       /// 
-       explicit list_impl(int size) : base(size) {}
+          explicit list_impl(int size) : base(size) {}
 
     public: // METHODS
 

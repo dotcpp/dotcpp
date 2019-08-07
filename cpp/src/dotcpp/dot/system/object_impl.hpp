@@ -32,10 +32,8 @@ namespace dot
     class string_impl; class string;
     class type_impl; using type_t = ptr<type_impl>;
 
-    /// 
     /// All classes with reference semantics should derive from this type.
     /// It works with ptr to provide an emulation of reference semantics in C++.
-    /// 
     class DOT_CLASS object_impl : public reference_counter
     {
         template<typename T>
@@ -44,15 +42,12 @@ namespace dot
 
     public: // METHODS
 
-        /// 
         /// Determines whether the specified object is equal to the current object.
         ///
         /// Default implementation in object compares pointers. Derived classes
         /// can override this method to compare by value.
-        /// 
         virtual bool equals(object obj);
 
-        /// 
         /// Serves as the default hash function.
         ///
         /// Default implementation in object uses hash based on the pointer.
@@ -60,7 +55,6 @@ namespace dot
         ///
         /// Methods Equals() and hash_code() must always be overriden together
         /// to avoid the situation when objects are equal but hash is not.
-        /// 
         virtual size_t hash_code();
 
         /// Gets the type_t of the current instance.
@@ -69,14 +63,12 @@ namespace dot
         /// Gets the type_t of the object_impl.
         static type_t typeof();
 
-        /// 
         /// string that represents the current object.
         ///
         /// Default implementation in object returns full name
         /// of the class by calling type().FullName. Derived types
         /// can override this method to provide custom conversion
         /// to string.
-        /// 
         virtual string to_string();
     };
 }

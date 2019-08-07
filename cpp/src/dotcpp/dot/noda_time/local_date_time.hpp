@@ -37,7 +37,6 @@ namespace dot
     class period;
     class object;
 
-    /// 
     /// A date and time in a particular calendar system.
     /// A local_date_time value does not represent an instant on the global time line,
     /// because it has no associated time zone: "November 12th 2009 7pm, ISO calendar"
@@ -52,13 +51,11 @@ namespace dot
 
     public: // CONSTRUCTORS
 
-        /// 
         /// In C\# local datetime is a struct, and as all structs has default constructor
         /// that initializes all backing variables to 0. This means that default
         /// constructed value corresponds to 0001-01-01 00:00:00. Because Boost date_time
         /// library does not accept the date 0001-01-01, we will instead use the Unix epoch
         /// 1970-01-01 as default constructed value.
-        /// 
         local_date_time();
 
         /// Initializes a new instance of the local_date_time struct using the ISO calendar system.
@@ -137,7 +134,6 @@ namespace dot
         /// Subtracts a period from a local date/time. Fields are subtracted in the order provided by the period.
         local_date_time Minus(const period& period) const;
 
-        /// 
         /// Returns the next local_date_time falling on the specified IsoDayOfWeek, at the same time of day as this value.
         /// This is a strict "next" - if this value on already falls on the target day of the week,
         /// the returned value will be a week later.
@@ -171,11 +167,9 @@ namespace dot
         /// Returns a new local_date_time representing the current value with the given number of years added.
         local_date_time PlusYears(int years) const;
 
-        /// 
         /// Returns the previous local_date_time falling on the specified IsoDayOfWeek, at the same time of day as this value.
         /// This is a strict "previous" - if this value on already falls on the target day of the week,
         /// the returned value will be a week earlier.
-        /// 
         local_date_time Previous(int targetDayOfWeek) const;
 
         /// Subtracts one date/time from another, returning the result as a period.
@@ -185,10 +179,8 @@ namespace dot
         static local_date_time Subtract(const local_date_time& local_date_time, const period& period);
 
     public:
-        /// 
         /// Adds a period to a local date/time. Fields are added in the order provided by the period.
         /// This is a convenience operator over the Plus(period) method.
-        /// 
         local_date_time operator+(const period& period) const;
 
         /// Implements the operator == (equality).
@@ -212,11 +204,9 @@ namespace dot
         /// Subtracts one date/time from another, returning the result as a period.
         period operator-(const local_date_time& other) const;
 
-        /// 
         /// Subtracts a period from a local date/time.
         /// Fields are subtracted in the order provided by the period.
         /// This is a convenience operator over the Minus(period) method.
-        /// 
         local_date_time operator-(const period& period) const;
     };
 }

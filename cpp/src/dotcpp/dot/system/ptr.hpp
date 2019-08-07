@@ -32,11 +32,9 @@ namespace dot
     class Null;
     class exception;
 
-    /// 
     /// Reference counted smart pointer based on std::shared_ptr
     /// with emulation of selected features of .NET references including
     /// type conversion using 'is' and 'as'.
-    /// 
     template <class T>
     class ptr
     {
@@ -56,20 +54,16 @@ namespace dot
         /// Create empty pointer.
         ptr();
 
-        /// 
         /// Take ownership of raw pointer to template argument type.
         /// This also permits construction from null pointer.
-        /// 
         ptr(T* p);
 
         /// Implicit conversion from derived to base pointer (does not use dynamic cast).
         template <class R> ptr(const ptr<R>& rhs, typename std::enable_if<std::is_base_of<T, R>::value>::type* p = 0);
 
-        /// 
         /// Explicit conversion from base to derived or sibling pointer (uses dynamic cast).
         ///
         /// Error message if the cast fails because the two types are unrelated.
-        /// 
         template <class R> explicit ptr(const ptr<R>& rhs, typename std::enable_if<!std::is_base_of<T, R>::value>::type* p = 0);
 
         /// Copy constructor for the pointer (does not copy T).
@@ -115,15 +109,11 @@ namespace dot
         /// Supports ptr != nullptr.
         bool operator!=(nullptr_t) const;
 
-        /// 
         /// Take ownership of raw pointer to template argument type.
         /// This also permits assignment of pointer to type derived from T.
-        /// 
         ptr<T>& operator=(T* rhs);
 
-        /// 
         /// Assign pointer to template argument base type. // TODO - use SFINAE to detemine if dynamic cast is needed
-        /// 
         template <class R> ptr<T>& operator=(const ptr<R>& rhs);
 
         /// Assign pointer of the same type.

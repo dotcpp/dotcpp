@@ -36,10 +36,8 @@ namespace dot
         class dummy_no_to_string : public virtual object_impl
         {};
 
-        /// 
         /// objects inherit this structure in case their inner struct class has method to_string
         /// so object also have these method.
-        /// 
         template <class W, class T>
         class obj_to_string : public virtual object_impl
         {
@@ -72,10 +70,8 @@ namespace dot
         class dummy_no_get_hashcode : public virtual object_impl
         {};
 
-        /// 
         /// objects inherit this structure in case their inner struct class has method hash_code
         /// so object also have these method.
-        /// 
         template <class W, class T>
         class obj_get_hashcode : public virtual object_impl
         {
@@ -108,10 +104,8 @@ namespace dot
         class dummy_no_equals : public virtual object_impl
         {};
 
-        /// 
         /// objects inherit this structure in case their inner struct class has method Equals
         /// so object also have these method.
-        /// 
         template <class W, class T>
         class obj_equals : public virtual object_impl
         {

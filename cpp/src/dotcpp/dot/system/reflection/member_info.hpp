@@ -43,17 +43,13 @@ namespace dot
 
     protected: // CONSTRUCTORS
 
-        /// 
         /// Create an empty instance of MemberInfoData.
         ///
         /// This constructor is protected. It is used by derived classes only.
-        /// 
         member_info_data_impl() = default;
     };
 
-    /// 
     /// Obtains information about the attributes of a member and provides access to member metadata.
-    /// 
     class member_info_impl : public virtual object_impl
     {
         typedef member_info_impl self;
@@ -71,11 +67,9 @@ namespace dot
 
     protected: // CONSTRUCTORS
 
-        /// 
         /// Create from property name and declaring type.
         ///
         /// This constructor is protected. It is used by derived classes only.
-        /// 
         member_info_impl(const string& name, type_t declaring_type)
         {
             this->name = name;

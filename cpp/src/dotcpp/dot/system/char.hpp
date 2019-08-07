@@ -29,12 +29,10 @@ limitations under the License.
 
 namespace dot
 {
-    /// 
     /// Represents a single character of a UTF-8 string.
     ///
     /// It can be represented by a variable number of
     /// bytes and is stored in std::string rather than char. 
-    /// 
     class Char : detail::const_string_base
     {
         typedef detail::const_string_base base;

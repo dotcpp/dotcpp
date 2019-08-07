@@ -29,9 +29,7 @@ namespace dot
 {
     class parameter_info_impl; using parameter_info = ptr<parameter_info_impl>;
 
-    /// 
     /// Discovers the attributes of a parameter and provides access to parameter metadata.
-    /// 
     class parameter_info_impl : public virtual object_impl
     {
         friend parameter_info make_parameter_info(string , type_t, int);
@@ -51,12 +49,10 @@ namespace dot
 
     private: // CONSTRUCTORS
 
-        /// 
         /// Create from parameter name, parameter type, and parameter position.
         ///
         /// This constructor is private. Use new_ParameterInfo(...)
         /// function with matching signature instead.
-        /// 
         parameter_info_impl(string name, type_t parameter_type, int position)
         {
             this->parameter_type = parameter_type;
@@ -65,9 +61,7 @@ namespace dot
         }
     };
 
-    /// 
     /// Create from parameter name, parameter type, and parameter position.
-    /// 
     inline parameter_info make_parameter_info(string name, type_t parameter_type, int position)
     {
         return new parameter_info_impl(name, parameter_type, position);

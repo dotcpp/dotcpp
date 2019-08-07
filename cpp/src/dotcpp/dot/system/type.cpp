@@ -57,9 +57,7 @@ namespace dot
         return type_;
     }
 
-    /// 
     /// Fill data from builder.
-    /// 
     void type_impl::fill(const type_builder& data)
     {
         if (!data->base_.is_empty() && !data->base_->get_methods().is_empty() && data->base_->get_methods()->count())
@@ -173,11 +171,9 @@ namespace dot
         this->is_enum = data->is_enum_;
     }
 
-    /// 
     /// Create from builder.
     ///
     /// This constructor is private. Use type_builder->build() method instead.
-    /// 
     type_impl::type_impl(string nspace, string name)
     {
         this->name_space = nspace;

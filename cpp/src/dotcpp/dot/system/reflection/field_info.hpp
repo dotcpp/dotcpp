@@ -30,9 +30,7 @@ namespace dot
 {
     class field_info_base_impl; using field_info = ptr<field_info_base_impl>;
 
-    /// 
     /// Discovers the attributes of a field and provides access to field metadata.
-    /// 
     class field_info_base_impl : public member_info_impl
     {
         typedef field_info_base_impl self;
@@ -53,12 +51,10 @@ namespace dot
 
     protected: // CONSTRUCTORS
 
-        /// 
         /// Create from field name, declaring type, field type,
         /// and base class for the pointer to field.
         ///
         /// This constructor is protected. It is used by derived classes only.
-        /// 
         field_info_base_impl(string name, type_t declaring_type, type_t field_type)
             : member_info_impl(name, declaring_type)
         {
@@ -66,9 +62,7 @@ namespace dot
         }
     };
 
-    /// 
     /// Implementation of field_info for field defined as a field (member variable).
-    /// 
     template <class field_type_t, class class_>
     class field_info_impl : public field_info_base_impl
     {
@@ -84,13 +78,11 @@ namespace dot
 
     private: // CONSTRUCTORS
 
-        /// 
         /// Create from field name, declaring type, field type,
         /// and pointer to field defined as a field (member variable).
         ///
         /// This constructor is private. Use make_field_info(...)
         /// function with matching signature instead.
-        /// 
         field_info_impl(string name, type_t declaring_type, type_t field_type, field_ptr_type field)
             : field_info_base_impl(name, declaring_type, field_type)
             , field_(field)
@@ -111,10 +103,8 @@ namespace dot
         }
     };
 
-    /// 
     /// Create from field name, declaring type, field type,
     /// and pointer to field defined as a field (member variable).
-    /// 
     template <class field_type_t, class class_>
     field_info make_field_info(string name, type_t declaring_type, type_t field_type, field_type_t class_::* field)
     {

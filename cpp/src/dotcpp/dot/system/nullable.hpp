@@ -64,12 +64,10 @@ namespace dot
         /// structure to the specified value.
         nullable(T value) : base(value) {}
 
-        /// 
         /// Supports cast (explicit constructor) from object.
         ///
         /// Error if object does is not a boxed T.
         /// Null object becomes empty nullable.
-        /// 
         explicit nullable(object rhs) { if (!rhs.is_empty()) *this = (T) rhs; }
 
         /// Copy constructor.
@@ -100,14 +98,12 @@ namespace dot
         bool operator ==(nullable<T> rhs) { return value_or_default() == rhs.value_or_default(); }
     };
 
-    /// 
     /// Wrapper for bool where default constructor creates uninitialized
     /// value. Use this class to get an error message when the variable is
     /// used before being assigned to.
     ///
     /// This class uses sentinel to represent uninitialized (empty) state,
     /// ensuring no size overhead compared to the native bool type.
-    /// 
     template <>
     class nullable<bool>
     {
@@ -143,12 +139,10 @@ namespace dot
         /// Create from native bool.
         nullable(bool value) : value_(value ? 1 : 0) {}
 
-        /// 
         /// Supports cast (explicit constructor) from object.
         ///
         /// Error if object does is not a boxed boolean.
         /// Null object becomes empty nullable.
-        /// 
         explicit nullable(object rhs) { if (!rhs.is_empty()) *this = (bool) rhs; }
 
         /// Copy constructor.
@@ -173,14 +167,12 @@ namespace dot
         nullable& operator=(bool rhs) { value_ = rhs ? 1 : 0; return *this; }
     };
 
-    /// 
     /// Wrapper for int where default constructor creates uninitialized
     /// value. Use this class to get an error message when the variable is
     /// used before being assigned to.
     ///
     /// This class uses sentinel to represent uninitialized (empty) state,
     /// ensuring no size overhead compared to the native int type.
-    /// 
     template <>
     class nullable<int>
     {
@@ -204,20 +196,16 @@ namespace dot
         /// Creates in uninitialized (empty) state.
         nullable() : value_(int_impl::empty) {}
 
-        /// 
         /// Create from native int.
         ///
         /// If sentinel value for uninitialized state is passed to this constructor,
         /// no error occurs and the object is constructed in uninitialized state.
-        /// 
         nullable(int value) : value_(value) {}
 
-        /// 
         /// Supports cast (explicit constructor) from object.
         ///
         /// Error if object does is not a boxed int.
         /// Null object becomes empty nullable.
-        /// 
         explicit nullable(object rhs) { if (!rhs.is_empty()) *this = (int) rhs; }
 
         /// Copy constructor.
@@ -238,23 +226,19 @@ namespace dot
         /// Convert to native int, error if the object is in uninitialized (empty) state.
         explicit operator int() const { return value(); }
 
-        /// 
         /// Assign native int.
         ///
         /// If sentinel value for uninitialized state is passed to this operator,
         /// no error occurs and the object reverts to uninitialized (empty) state.
-        /// 
         nullable& operator=(int rhs) { value_ = rhs; return *this; }
     };
 
-    /// 
     /// Wrapper for int64_t where default constructor creates uninitialized
     /// value. Use this class to get an error message when the variable is
     /// used before being assigned to.
     ///
     /// This class uses sentinel to represent uninitialized (empty) state,
     /// ensuring no size overhead compared to the native long type.
-    /// 
     template <>
     class nullable<int64_t>
     {
@@ -278,20 +262,16 @@ namespace dot
         /// Creates in uninitialized (empty) state.
         nullable() : value_(long_impl::empty) {}
 
-        /// 
         /// Create from native long.
         ///
         /// If sentinel value for uninitialized state is passed to this constructor,
         /// no error occurs and the object is constructed in uninitialized state.
-        /// 
         nullable(int64_t value) : value_(value) {}
 
-        /// 
         /// Supports cast (explicit constructor) from object.
         ///
         /// Error if object does is not a boxed long.
         /// Null object becomes empty nullable.
-        /// 
         explicit nullable(object rhs) { if (!rhs.is_empty()) *this = (int64_t) rhs; }
 
         /// Copy constructor.
@@ -312,22 +292,18 @@ namespace dot
         /// Convert to native long, error if the object is in uninitialized (empty) state.
         explicit operator int64_t() const { return value(); }
 
-        /// 
         /// Assign native long.
         ///
         /// If sentinel value for uninitialized state is passed to this operator,
         /// no error occurs and the object reverts to uninitialized (empty) state.
-        /// 
         nullable& operator=(int64_t rhs) { value_ = rhs; return *this; }
     };
 
-    /// 
     /// nullable double is initialized to null (empty) by default ctor.
     /// Conversion to double when in null state results in an error.
     ///
     /// This class uses a sentinel to represent null (empty) state,
     /// ensuring no size overhead compared to the native double type.
-    /// 
     template <>
     class nullable<double>
     {
@@ -351,20 +327,16 @@ namespace dot
         /// Creates in uninitialized (empty) state.
         nullable() : value_(double_impl::empty) {}
 
-        /// 
         /// Create from native double.
         ///
         /// If sentinel value for null state is passed to this constructor,
         /// no error occurs and the object is constructed in null state.
-        /// 
         nullable(double value) : value_(value) {}
 
-        /// 
         /// Supports cast (explicit constructor) from object.
         ///
         /// Error if object does is not a boxed double.
         /// Null object becomes empty nullable.
-        /// 
         explicit nullable(object rhs) { if (!rhs.is_empty()) *this = (double) rhs; }
 
         /// Copy constructor.
@@ -385,12 +357,10 @@ namespace dot
         /// Convert to native double, error if the object is in null (empty) state.
         explicit operator double() const { return value(); }
 
-        /// 
         /// Assign native double.
         ///
         /// If sentinel value for null state is passed to this operator,
         /// no error occurs and the object reverts to null (empty) state.
-        /// 
         nullable& operator=(double rhs) { value_ = rhs; return *this; }
 
         bool operator ==(double rhs) const { return value_ == rhs; }

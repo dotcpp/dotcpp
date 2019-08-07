@@ -48,11 +48,9 @@ namespace dot
         /// and uses the default equality comparer for the set type.
         hash_set_impl() = default;
 
-        /// 
         /// Initializes a new instance of the HashSet class that uses the default
         /// equality comparer for the set type, contains elements copied from the specified
         /// collection, and has sufficient capacity to accommodate the number of elements copied.
-        /// 
         explicit hash_set_impl(list<T> collection)
         {
             for (T const & item : collection)

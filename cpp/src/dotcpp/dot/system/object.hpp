@@ -54,12 +54,10 @@ namespace dot
 
     public: // CONSTRUCTORS
 
-        /// 
         /// Default constructor to create untyped object.
         ///
         /// This constructor is used, among other things,
         /// as argument to lock(...) to provide thread safety.
-        /// 
         object() = default;
 
         /// Construct object from nullptr.

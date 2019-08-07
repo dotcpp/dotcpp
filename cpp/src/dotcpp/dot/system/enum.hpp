@@ -30,10 +30,8 @@ limitations under the License.
 
 namespace dot
 {
-    /// 
     /// enum_base wrapper for use in data structures.
     /// Provides the base class for enumerations.
-    /// 
     class DOT_CLASS enum_base
     {
         typedef enum_base self;
@@ -75,10 +73,8 @@ namespace dot
 
     public: // STATIC
 
-        /// 
         /// Converts the string representation of the name or numeric value of
         /// one or more enumerated constants to an equivalent enumerated object.
-        /// 
         static object parse(type_t enumType, string value);
 
     protected: // PROTECTED

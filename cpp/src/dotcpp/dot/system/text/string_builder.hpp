@@ -32,9 +32,7 @@ namespace dot
 {
     class string_builder_impl; using string_builder = ptr<string_builder_impl>;
 
-    /// 
     /// Builds a string incrementally.
-    /// 
     class string_builder_impl final : public virtual object_impl, public std::string
     {
         typedef std::string base;
@@ -42,12 +40,10 @@ namespace dot
 
     private: // CONSTRUCTORS
 
-        /// 
         /// Initializes an empty instance of the string_builder class.
         ///
         /// This constructor is private. Use make_string_builder(...)
         /// function with matching signature instead.
-        /// 
         string_builder_impl() = default;
 
     public: // METHODS
@@ -61,30 +57,24 @@ namespace dot
             return make_string(*this);
         }
 
-        /// 
         /// Appends the string returned by processing a composite format string, which contains
         /// zero or more format items, to this instance. Each format item is replaced by the
         /// string representation of a corresponding object argument.
-        /// 
         template <typename First, typename ...Args>
         void append_format(const string& format, const First& f, const Args& ...args)
         {
             *this += *string::format(format, f, args...);
         }
 
-        /// 
         /// Appends the string representation of a specified object to this instance.
-        /// 
         template <typename T>
         void append(const T& arg)
         {
             *this += *string::format("{0}", arg);
         }
 
-        /// 
         /// Appends a copy of a specified string and the default
         /// line terminator, to the end of this instance.
-        /// 
         template <typename ...Args>
         void append_line(const Args& ...args)
         {
@@ -92,25 +82,19 @@ namespace dot
             append_line();
         }
 
-        /// 
         /// Appends the default line terminator, to the end of this instance.
-        /// 
         void append_line()
         {
             *this += *environment::new_line;
         }
 
-        /// 
         /// Removes all characters from the current string_builder instance.
-        /// 
         void clear()
         {
             this->clear();
         }
     };
 
-    /// 
     /// Initializes an empty instance of the string_builder class.
-    /// 
     inline string_builder make_string_builder() { return new string_builder_impl(); }
 }

@@ -27,19 +27,15 @@ limitations under the License.
 
 namespace dot
 {
-    /// 
     /// Specifies flags that control binding and the way in which the
     /// search for members and types is conducted by reflection.
-    /// 
     enum class binding_flags : int
     {
         /// Specifies that no binding flags are defined.
         Default = 0,
 
-        /// 
         /// Specifies that only members declared at the level of the supplied type's
         /// hierarchy should be considered. Inherited members are not considered.
-        /// 
         DeclaredOnly = 2,
 
         /// Specifies that instance members are to be included in the search.

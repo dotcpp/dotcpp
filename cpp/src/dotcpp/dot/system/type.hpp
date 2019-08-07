@@ -218,17 +218,13 @@ namespace dot
 
     private: // CONSTRUCTORS
 
-        /// 
         /// Create an empty instance of type_builder.
         ///
         /// This constructor is private. Use make_type_builder() function instead.
-        /// 
         type_builder_impl(string nspace, string name, string cppname);
     };
 
-    /// 
     /// Create an empty instance of type_builder.
-    /// 
     template <class T>
     inline type_builder make_type_builder(string nspace, string name)
     {
@@ -237,7 +233,6 @@ namespace dot
         return td;
     }
 
-    /// 
     /// Represents type declarations: class types, interface types, array types, value types, enumeration types,
     /// type parameters, generic type definitions, and open or closed constructed generic types.
     ///
@@ -256,7 +251,6 @@ namespace dot
     /// \item The typeof method obtains the type_t object for the argument type.
     ///
     /// \end{itemize}
-    /// 
     class DOT_CLASS type_impl final : public virtual object_impl
     {
         friend class type_builder_impl;
@@ -338,9 +332,7 @@ namespace dot
 
     private: // METHODS
 
-        /// 
         /// Fill data from builder.
-        /// 
         void fill(const type_builder& data);
 
         static std::map<string, type_t>& get_type_map()
@@ -357,17 +349,13 @@ namespace dot
 
     private: // CONSTRUCTORS
 
-        /// 
         /// Create from builder.
         ///
         /// This constructor is private. Use type_builder->build() method instead.
-        /// 
         type_impl(string nspace, string name);
     };
 
-    /// 
     /// Initializes a new instance of the type_t class for untyped instance of object.
-    /// 
     inline type_t object_impl::type()
     {
         return typeof();

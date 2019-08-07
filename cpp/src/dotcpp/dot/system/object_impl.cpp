@@ -30,18 +30,15 @@ limitations under the License.
 
 namespace dot
 {
-    /// 
     /// Determines whether the specified object is equal to the current object.
     ///
     /// Default implementation in object compares pointers. Derived classes
     /// can override this method to compare by value.
-    /// 
     bool object_impl::equals(object obj)
     {
         return this == &(*obj);
     }
 
-    /// 
     /// Serves as the default hash function.
     ///
     /// Default implementation in object uses hash based on the pointer.
@@ -49,20 +46,17 @@ namespace dot
     ///
     /// Methods Equals() and hash_code() must always be overriden together
     /// to avoid the situation when objects are equal but hash is not.
-    /// 
     size_t object_impl::hash_code()
     {
         return size_t(this);
     }
 
-    /// 
     /// string that represents the current object.
     ///
     /// Default implementation in object returns full name
     /// of the class by calling type().FullName. Derived types
     /// can override this method to provide custom conversion
     /// to string.
-    /// 
     string object_impl::to_string()
     {
         return type()->full_name();

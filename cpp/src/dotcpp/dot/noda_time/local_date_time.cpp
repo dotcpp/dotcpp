@@ -33,13 +33,11 @@ limitations under the License.
 
 namespace dot
 {
-    /// 
     /// In C\# local datetime is a struct, and as all structs has default constructor
     /// that initializes all backing variables to 0. This means that default
     /// constructed value corresponds to 0001-01-01 00:00:00. Because Boost date_time
     /// library does not accept the date 0001-01-01, we will instead use the Unix epoch
     /// 1970-01-01 as default constructed value.
-    /// 
     local_date_time::local_date_time()
         : ptime(local_date{ 1970, 1, 1 }, { 0, 0, 0 })
     {

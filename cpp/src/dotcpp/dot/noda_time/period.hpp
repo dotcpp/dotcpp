@@ -37,10 +37,8 @@ namespace dot
     class local_date_time;
     class object;
 
-    /// 
     /// Represents a period of time expressed in human chronological terms:
     /// hours, days, weeks, months and so on.
-    /// 
     class DOT_CLASS period : public time_duration
     {
         typedef period self;

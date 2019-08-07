@@ -37,23 +37,19 @@ namespace dot
     class local_date_time;
     class object;
 
-    /// 
     /// local_date is an immutable struct representing a date within the calendar,
     /// with no reference to a particular time zone or time of day.
-    /// 
     class DOT_CLASS local_date : public gdate
     {
         typedef local_date self;
 
     public: // CONSTRUCTORS
 
-        /// 
         /// In C\# local date is a struct, and as all structs it has default constructor
         /// that initializes all backing variables to 0. This means that default
         /// constructed value corresponds to 0001-01-01. As Boost date_time library
         /// does not accept the date 0001-01-01, we will instead use the Unix epoch
         /// 1970-01-01 as default constructed value.
-        /// 
         local_date();
 
         /// Constructs an instance for the given year, month and day in the ISO calendar.
@@ -93,11 +89,9 @@ namespace dot
         /// Subtracts the specified period from this date. Fluent alternative to operator-().
         local_date minus(const period& period) const;
 
-        /// 
         /// Returns the next local_date falling on the specified IsoDayOfWeek.
         /// This is a strict "next" - if this date on already falls on the target day of the week,
         /// the returned value will be a week later.
-        /// 
         local_date next(int target_day_of_week) const;
 
         /// Adds the specified period to this date. Fluent alternative to operator+().
@@ -115,11 +109,9 @@ namespace dot
         /// Returns a new local_date representing the current value with the given number of years added.
         local_date plus_years(int years) const;
 
-        /// 
         /// Returns the previous local_date falling on the specified IsoDayOfWeek.
         /// This is a strict "previous" - if this date on already falls on the
         /// target day of the week, the returned value will be a week earlier.
-        /// 
         local_date previous(int target_day_of_week) const;
 
         /// Subtracts one date from another, returning the result as a period with units of years, months and days.

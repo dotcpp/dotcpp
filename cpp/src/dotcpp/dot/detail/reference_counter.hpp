@@ -25,10 +25,8 @@ limitations under the License.
 
 namespace dot
 {
-    /// 
     /// All classes with reference semantics should derive from this type.
     /// It works with ptr to provide an emulation of reference semantics in C++.
-    /// 
     class reference_counter
     {
     private: // FIELDS
@@ -38,10 +36,8 @@ namespace dot
 
     public: // DESTRUCTOR
 
-        /// 
         /// Virtual destructor to ensure that destructor
         /// of the derived type is called by ptr.
-        /// 
         virtual ~reference_counter() = default;
 
     public: // METHODS

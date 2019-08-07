@@ -28,10 +28,8 @@ limitations under the License.
 
 namespace dot
 {
-    /// 
     /// contains methods to create types of objects locally or remotely, or obtain
     /// references to existing remote objects. This class cannot be inherited.
-    /// 
     class DOT_CLASS activator final
     {
     private: // CONSTRUCTORS
