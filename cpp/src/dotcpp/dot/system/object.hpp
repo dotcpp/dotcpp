@@ -36,24 +36,15 @@ namespace dot
     class local_time;
     class local_date;
     class local_date_time;
-
-    template <class T>
-    class struct_wrapper_impl;
-    template <class T>
-    using struct_wrapper = ptr<struct_wrapper_impl<T>>;
-
-    template <class T>
-    type_t typeof();
-
+    template <class T> class struct_wrapper_impl;
+    template <class T> using struct_wrapper = ptr<struct_wrapper_impl<T>>;
+    template <class T> type_t typeof();
 
     namespace detail
     {
-        template<class W, class T>
-        class inherit_to_string;
-        template<class W, class T>
-        class inherit_get_hashcode;
-        template<class W, class T>
-        class inherit_equals;
+        template<class W, class T> class inherit_to_string;
+        template<class W, class T> class inherit_get_hashcode;
+        template<class W, class T> class inherit_equals;
     }
 
     /// <summary>Adds support for boxing value types to ptr(object_impl).</summary>
