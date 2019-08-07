@@ -27,18 +27,18 @@ namespace dot
 {
     namespace detail
     {
-        /// <summary>Helper class for MemberInfo.Invoke.</summary>
+        /// Helper class for MemberInfo.Invoke.
         template <int... I>
         struct index_sequence {};
 
-        /// <summary>Helper class for MemberInfo.Invoke.</summary>
+        /// Helper class for MemberInfo.Invoke.
         template <int N, int... I>
         struct make_index_sequence : public make_index_sequence<N - 1, N - 1, I...>
         {
             typedef typename make_index_sequence<N - 1, N - 1, I...>::type type;
         };
 
-        /// <summary>Helper class for MemberInfo.Invoke.</summary>
+        /// Helper class for MemberInfo.Invoke.
         template <int... I>
         struct make_index_sequence<0, I...> : public index_sequence<I...>
         {

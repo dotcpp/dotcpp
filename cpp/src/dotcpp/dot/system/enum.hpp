@@ -30,10 +30,10 @@ limitations under the License.
 
 namespace dot
 {
-    /// <summary>
+    /// 
     /// enum_base wrapper for use in data structures.
     /// Provides the base class for enumerations.
-    /// </summary>
+    /// 
     class DOT_CLASS enum_base
     {
         typedef enum_base self;
@@ -47,16 +47,16 @@ namespace dot
 
     public: // CONSTRUCTORS
 
-        /// <summary>Default constructor.</summary>
+        /// Default constructor.
         enum_base() = default;
 
-        /// <summary>Create from int.</summary>
+        /// Create from int.
         enum_base(int value) : value_(value) {}
 
-        /// <summary>Copy constructor.</summary>
+        /// Copy constructor.
         enum_base(const enum_base& rhs) : value_(rhs.value_) {}
 
-        /// <summary>Constructor from object.</summary>
+        /// Constructor from object.
         enum_base(object rhs)
         {
             value_ = dynamic_cast<enum_base&>(*rhs).value_;
@@ -64,21 +64,21 @@ namespace dot
 
     public: // METHODS
 
-        /// <summary>Converts the value of this instance to its equivalent string representation.</summary>
+        /// Converts the value of this instance to its equivalent string representation.
         string to_string();
 
-        /// <summary>Returns the hash code for the value of this instance.</summary>
+        /// Returns the hash code for the value of this instance.
         size_t hash_code();
 
-        /// <summary>Returns a value indicating whether this instance is equal to a specified object.</summary>
+        /// Returns a value indicating whether this instance is equal to a specified object.
         bool equals(object obj);
 
     public: // STATIC
 
-        /// <summary>
+        /// 
         /// Converts the string representation of the name or numeric value of
         /// one or more enumerated constants to an equivalent enumerated object.
-        /// </summary>
+        /// 
         static object parse(type_t enumType, string value);
 
     protected: // PROTECTED
@@ -87,13 +87,13 @@ namespace dot
 
     public: // OPERATORS
 
-        /// <summary>Convert to int.</summary>
+        /// Convert to int.
         operator int() const { return value_; }
 
-        /// <summary>Assign int to enum_base.</summary>
+        /// Assign int to enum_base.
         enum_base& operator=(int rhs) { value_ = rhs; return *this; }
 
-        /// <summary>Copy assign.</summary>
+        /// Copy assign.
         enum_base& operator=(const enum_base& rhs) { value_ = rhs.value_; return *this; }
 
     public:

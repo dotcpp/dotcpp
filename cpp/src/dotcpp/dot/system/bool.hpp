@@ -28,7 +28,7 @@ limitations under the License.
 
 namespace dot
 {
-    /// <summary>Wrapper around bool to make it convertible to object (boxing).</summary>
+    /// Wrapper around bool to make it convertible to object (boxing).
     class DOT_CLASS bool_impl : public virtual object_impl
     {
         friend object;
@@ -36,34 +36,34 @@ namespace dot
 
     public: // CONSTRUCTORS
 
-        /// <summary>Create from value (box).</summary>
+        /// Create from value (box).
         bool_impl(bool value) : value_(value) {}
 
     public: //  CONSTANTS
 
-        /// <summary>Sentinel value representing uninitialized state.</summary>
+        /// Sentinel value representing uninitialized state.
         static constexpr int empty = INT32_MIN;
 
-        /// <summary>Represents the Boolean value false as a string. This field is read-only.</summary>
+        /// Represents the Boolean value false as a string. This field is read-only.
         static const string false_string;
 
-        /// <summary>Represents the Boolean value true as a string. This field is read-only.</summary>
+        /// Represents the Boolean value true as a string. This field is read-only.
         static const string true_string;
 
     public: // STATIC
 
-        /// <summary>Converts the specified string representation of a logical value to its Boolean equivalent.</summary>
+        /// Converts the specified string representation of a logical value to its Boolean equivalent.
         static bool parse(string s);
 
     public: // METHODS
 
-        /// <summary>Returns a value indicating whether this instance is equal to a specified object.</summary>
+        /// Returns a value indicating whether this instance is equal to a specified object.
         bool equals(object obj) override;
 
-        /// <summary>Returns the hash code for this instance.</summary>
+        /// Returns the hash code for this instance.
         virtual size_t hash_code() override;
 
-        /// <summary>Converts the value of this instance to its equivalent string representation (either "True" or "False").</summary>
+        /// Converts the value of this instance to its equivalent string representation (either "True" or "False").
         virtual string to_string() override;
 
         static type_t typeof();

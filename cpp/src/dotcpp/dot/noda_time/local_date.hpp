@@ -37,126 +37,126 @@ namespace dot
     class local_date_time;
     class object;
 
-    /// <summary>
+    /// 
     /// local_date is an immutable struct representing a date within the calendar,
     /// with no reference to a particular time zone or time of day.
-    /// </summary>
+    /// 
     class DOT_CLASS local_date : public gdate
     {
         typedef local_date self;
 
     public: // CONSTRUCTORS
 
-        /// <summary>
+        /// 
         /// In C\# local date is a struct, and as all structs it has default constructor
         /// that initializes all backing variables to 0. This means that default
         /// constructed value corresponds to 0001-01-01. As Boost date_time library
         /// does not accept the date 0001-01-01, we will instead use the Unix epoch
         /// 1970-01-01 as default constructed value.
-        /// </summary>
+        /// 
         local_date();
 
-        /// <summary>Constructs an instance for the given year, month and day in the ISO calendar.</summary>
+        /// Constructs an instance for the given year, month and day in the ISO calendar.
         local_date(int year, int month, int day);
 
-        /// <summary>Create from Boost gregorian date.</summary>
+        /// Create from Boost gregorian date.
         local_date(gdate date);
 
-        /// <summary>Copy constructor.</summary>
+        /// Copy constructor.
         local_date(const local_date& other);
 
-        /// <summary>Create from object.</summary>
+        /// Create from object.
         local_date(object const& rhs);
 
     public:
-        /// <summary>Adds the specified period to the date. Friendly alternative to operator+().</summary>
+        /// Adds the specified period to the date. Friendly alternative to operator+().
         static local_date add(const local_date& date, const period& period);
 
-        /// <summary>Combines this local_date with the given local_time into a single local_date_time. Fluent alternative to operator+().</summary>
+        /// Combines this local_date with the given local_time into a single local_date_time. Fluent alternative to operator+().
         local_date_time at(const local_time& time) const;
 
-        /// <summary>Gets a local_date_time at midnight on the date represented by this local date.</summary>
+        /// Gets a local_date_time at midnight on the date represented by this local date.
         local_date_time at_midnight() const;
 
-        /// <summary>Indicates whether this date is earlier, later or the same as another one.</summary>
+        /// Indicates whether this date is earlier, later or the same as another one.
         int compare_to(const local_date& other) const;
 
-        /// <summary>Compares two local_date values for equality. This requires that the dates be the same, within the same calendar.</summary>
+        /// Compares two local_date values for equality. This requires that the dates be the same, within the same calendar.
         bool equals(const local_date& other) const;
 
-        /// <summary>String that represents the current object.</summary>
+        /// String that represents the current object.
         string to_string() const;
 
-        /// <summary>Subtracts the specified date from this date, returning the result as a period with units of years, months and days. Fluent alternative to operator-().</summary>
+        /// Subtracts the specified date from this date, returning the result as a period with units of years, months and days. Fluent alternative to operator-().
         period minus(const local_date& date) const;
 
-        /// <summary>Subtracts the specified period from this date. Fluent alternative to operator-().</summary>
+        /// Subtracts the specified period from this date. Fluent alternative to operator-().
         local_date minus(const period& period) const;
 
-        /// <summary>
+        /// 
         /// Returns the next local_date falling on the specified IsoDayOfWeek.
         /// This is a strict "next" - if this date on already falls on the target day of the week,
         /// the returned value will be a week later.
-        /// </summary>
+        /// 
         local_date next(int target_day_of_week) const;
 
-        /// <summary>Adds the specified period to this date. Fluent alternative to operator+().</summary>
+        /// Adds the specified period to this date. Fluent alternative to operator+().
         local_date plus(const period& period) const;
 
-        /// <summary>Returns a new local_date representing the current value with the given number of days added.</summary>
+        /// Returns a new local_date representing the current value with the given number of days added.
         local_date plus_days(int days) const;
 
-        /// <summary>Returns a new local_date representing the current value with the given number of months added.</summary>
+        /// Returns a new local_date representing the current value with the given number of months added.
         local_date plus_months(int months) const;
 
-        /// <summary>Returns a new local_date representing the current value with the given number of weeks added.</summary>
+        /// Returns a new local_date representing the current value with the given number of weeks added.
         local_date plus_weeks(int weeks) const;
 
-        /// <summary>Returns a new local_date representing the current value with the given number of years added.</summary>
+        /// Returns a new local_date representing the current value with the given number of years added.
         local_date plus_years(int years) const;
 
-        /// <summary>
+        /// 
         /// Returns the previous local_date falling on the specified IsoDayOfWeek.
         /// This is a strict "previous" - if this date on already falls on the
         /// target day of the week, the returned value will be a week earlier.
-        /// </summary>
+        /// 
         local_date previous(int target_day_of_week) const;
 
-        /// <summary>Subtracts one date from another, returning the result as a period with units of years, months and days.</summary>
+        /// Subtracts one date from another, returning the result as a period with units of years, months and days.
         static period subtract(const local_date& lhs, const local_date& rhs);
 
-        /// <summary>Subtracts the specified period from the date. Friendly alternative to operator-().</summary>
+        /// Subtracts the specified period from the date. Friendly alternative to operator-().
         static local_date subtract(const local_date& date, const period& period);
 
     public:
-        /// <summary>Combines the given local_date and local_time components into a single local_date_time.</summary>
+        /// Combines the given local_date and local_time components into a single local_date_time.
         local_date_time operator+(const local_time& time) const;
 
-        /// <summary>Adds the specified period to the date.</summary>
+        /// Adds the specified period to the date.
         local_date operator+(const period& period) const;
 
-        /// <summary>Compares two local_date values for equality. This requires that the dates be the same, within the same calendar.</summary>
+        /// Compares two local_date values for equality. This requires that the dates be the same, within the same calendar.
         bool operator==(const local_date& other) const;
 
-        /// <summary>Compares two local_date values for inequality.</summary>
+        /// Compares two local_date values for inequality.
         bool operator!=(const local_date& other) const;
 
-        /// <summary>Compares two dates to see if the left one is strictly later than the right one.</summary>
+        /// Compares two dates to see if the left one is strictly later than the right one.
         bool operator>(const local_date& other) const;
 
-        /// <summary>Compares two dates to see if the left one is later than or equal to the right one.</summary>
+        /// Compares two dates to see if the left one is later than or equal to the right one.
         bool operator>=(const local_date& other) const;
 
-        /// <summary>Compares two dates to see if the left one is strictly earlier than the right one.</summary>
+        /// Compares two dates to see if the left one is strictly earlier than the right one.
         bool operator<(const local_date& other) const;
 
-        /// <summary>Compares two dates to see if the left one is earlier than or equal to the right one.</summary>
+        /// Compares two dates to see if the left one is earlier than or equal to the right one.
         bool operator<=(const local_date& other) const;
 
-        /// <summary>Subtracts one date from another, returning the result as a period with units of years, months and days.</summary>
+        /// Subtracts one date from another, returning the result as a period with units of years, months and days.
         period operator-(const local_date& other) const;
 
-        /// <summary>Subtracts the specified period from the date. This is a convenience operator over the Minus(period) method.</summary>
+        /// Subtracts the specified period from the date. This is a convenience operator over the Minus(period) method.
         local_date operator-(const period& period) const;
     };
 }

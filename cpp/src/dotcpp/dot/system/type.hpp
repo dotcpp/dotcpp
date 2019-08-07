@@ -51,7 +51,7 @@ namespace dot
 
     template <class T> type_t typeof();
 
-    /// <summary>builder for Type.</summary>
+    /// builder for Type.
     class DOT_CLASS type_builder_impl final : public virtual object_impl
     {
         template <class>
@@ -72,7 +72,7 @@ namespace dot
 
     public: // METHODS
 
-        /// <summary>Add public field of the current Type.</summary>
+        /// Add public field of the current Type.
         template <class class_t, class fld>
         type_builder with_field(string name, fld class_t::*prop)
         {
@@ -84,7 +84,7 @@ namespace dot
             return this;
         }
 
-        /// <summary>Add public member method of the current Type.</summary>
+        /// Add public member method of the current Type.
         template <class class_t, class return_t, class ... args>
         type_builder with_method(string name, return_t(class_t::*mth) (args ...), std::vector<string> const& names) // TODO Change to List? Make overload?
         {
@@ -113,7 +113,7 @@ namespace dot
             return this;
         }
 
-        /// <summary>Add public static method of the current Type.</summary>
+        /// Add public static method of the current Type.
         template <class return_t, class ... args>
         type_builder with_method(string name, return_t(*mth) (args ...), std::vector<string> const& names) // TODO Change to List? Make overload?
         {
@@ -142,7 +142,7 @@ namespace dot
             return this;
         }
 
-        /// <summary>Add public constructor of the current Type.</summary>
+        /// Add public constructor of the current Type.
         template <class class_t, class ... args>
         type_builder with_constructor(class_t(*ctor)(args...), std::vector<string> const& names) // TODO Change to List? Make overload?
         {
@@ -171,7 +171,7 @@ namespace dot
             return this;
         }
 
-        /// <summary>Set IsEnum to true.</summary>
+        /// Set IsEnum to true.
         type_builder is_enum()
         {
             this->is_class_ = false;
@@ -179,7 +179,7 @@ namespace dot
             return this;
         }
 
-        /// <summary>Add base type of the current Type.</summary>
+        /// Add base type of the current Type.
         template <class class_t>
         type_builder with_base()
         {
@@ -190,7 +190,7 @@ namespace dot
             return this;
         }
 
-        /// <summary>Add interface type of the current Type.</summary>
+        /// Add interface type of the current Type.
         template <class class_t>
         type_builder with_interface()
         {
@@ -201,7 +201,7 @@ namespace dot
             return this;
         }
 
-        /// <summary>Add generic argument type of the current Type.</summary>
+        /// Add generic argument type of the current Type.
         template <class class_t>
         type_builder with_generic_argument()
         {
@@ -213,22 +213,22 @@ namespace dot
         }
 
 
-        /// <summary>Built type_t from the current object.</summary>
+        /// Built type_t from the current object.
         type_t build();
 
     private: // CONSTRUCTORS
 
-        /// <summary>
+        /// 
         /// Create an empty instance of type_builder.
         ///
         /// This constructor is private. Use make_type_builder() function instead.
-        /// </summary>
+        /// 
         type_builder_impl(string nspace, string name, string cppname);
     };
 
-    /// <summary>
+    /// 
     /// Create an empty instance of type_builder.
-    /// </summary>
+    /// 
     template <class T>
     inline type_builder make_type_builder(string nspace, string name)
     {
@@ -237,7 +237,7 @@ namespace dot
         return td;
     }
 
-    /// <summary>
+    /// 
     /// Represents type declarations: class types, interface types, array types, value types, enumeration types,
     /// type parameters, generic type definitions, and open or closed constructed generic types.
     ///
@@ -256,7 +256,7 @@ namespace dot
     /// \item The typeof method obtains the type_t object for the argument type.
     ///
     /// \end{itemize}
-    /// </summary>
+    /// 
     class DOT_CLASS type_impl final : public virtual object_impl
     {
         friend class type_builder_impl;
@@ -276,60 +276,60 @@ namespace dot
 
     public: // PROPERTIES
 
-        /// <summary>Gets the name of the current type, excluding namespace.</summary>
+        /// Gets the name of the current type, excluding namespace.
         string name; // TODO - replace by method
 
-        /// <summary>Gets the fully qualified name of the type, including its namespace but not its assembly.</summary>
+        /// Gets the fully qualified name of the type, including its namespace but not its assembly.
         string name_space; // TODO - replace by method
 
-        /// <summary>Gets the fully qualified name of the type, including its namespace but not its assembly.</summary>
+        /// Gets the fully qualified name of the type, including its namespace but not its assembly.
         string full_name() const { return string::format("{0}.{1}", this->name_space, this->name); } // TODO - replace by string::Join
 
-        /// <summary>Gets the base type if current type.</summary>
+        /// Gets the base type if current type.
         type_t base_type() { return base_; }
 
-        /// <summary>Gets a value indicating whether the System.type_t is a class or a delegate; that is, not a value type or interface.</summary>
+        /// Gets a value indicating whether the System.type_t is a class or a delegate; that is, not a value type or interface.
         bool is_class; // TODO - replace by method
 
-        /// <summary>Gets a value indicating whether the current System.type_t represents an enumeration.</summary>
+        /// Gets a value indicating whether the current System.type_t represents an enumeration.
         bool is_enum; // TODO - replace by method
 
     public: // METHODS
 
-        /// <summary>Returns methods of the current type.</summary>
+        /// Returns methods of the current type.
         list<method_info> get_methods() { return methods_; }
 
-        /// <summary>Returns constructors of the current type.</summary>
+        /// Returns constructors of the current type.
         list<constructor_info> get_constructors() { return ctors_; }
 
-        /// <summary>Returns fields of the current type.</summary>
+        /// Returns fields of the current type.
         list<field_info> get_fields() { return fields_; }
 
-        /// <summary>Returns interfaces of the current type.</summary>
+        /// Returns interfaces of the current type.
         list<type_t> get_interfaces() { return interfaces_; }
 
-        /// <summary>Returns interfaces of the current type.</summary>
+        /// Returns interfaces of the current type.
         list<type_t> get_generic_arguments() { return generic_args_; }
 
-        /// <summary>Searches for the public method with the specified name.</summary>
+        /// Searches for the public method with the specified name.
         method_info get_method(string name);
 
-        /// <summary>Searches for the interface with the specified name.</summary>
+        /// Searches for the interface with the specified name.
         type_t get_interface(string name);
 
-        /// <summary>Searches for the field with the specified name.</summary>
+        /// Searches for the field with the specified name.
         field_info get_field(string name);
 
-        /// <summary>A string representing the name of the current type.</summary>
+        /// A string representing the name of the current type.
         virtual string to_string() override { return full_name(); }
 
-        /// <summary>Get type_t object for the name.</summary>
+        /// Get type_t object for the name.
         static type_t get_type(string name) { return get_type_map()[name]; }
 
-        /// <summary>Get derived types list for the name.</summary>
+        /// Get derived types list for the name.
         static list<type_t> get_derived_types(string name) { return get_derived_types_map()[name]; }
 
-        /// <summary>Get derived types list for the type.</summary>
+        /// Get derived types list for the type.
         static list<type_t> get_derived_types(type_t type) { return get_derived_types_map()[type->full_name()]; }
 
         bool equals(object obj) override;
@@ -338,9 +338,9 @@ namespace dot
 
     private: // METHODS
 
-        /// <summary>
+        /// 
         /// Fill data from builder.
-        /// </summary>
+        /// 
         void fill(const type_builder& data);
 
         static std::map<string, type_t>& get_type_map()
@@ -357,17 +357,17 @@ namespace dot
 
     private: // CONSTRUCTORS
 
-        /// <summary>
+        /// 
         /// Create from builder.
         ///
         /// This constructor is private. Use type_builder->build() method instead.
-        /// </summary>
+        /// 
         type_impl(string nspace, string name);
     };
 
-    /// <summary>
+    /// 
     /// Initializes a new instance of the type_t class for untyped instance of object.
-    /// </summary>
+    /// 
     inline type_t object_impl::type()
     {
         return typeof();
@@ -647,7 +647,7 @@ namespace dot
     };
 
 
-    /// <summary>Get type_t object for the argument.</summary>
+    /// Get type_t object for the argument.
     template <class T>
     type_t typeof()
     {

@@ -29,23 +29,23 @@ limitations under the License.
 
 namespace dot
 {
-    /// <summary>
+    /// 
     /// Represents a single character of a UTF-8 string.
     ///
     /// It can be represented by a variable number of
     /// bytes and is stored in std::string rather than char. 
-    /// </summary>
+    /// 
     class Char : detail::const_string_base
     {
         typedef detail::const_string_base base;
 
     public: // CONSTRUCTORS
 
-        /// <summary>Create from a single ASCII character.</summary>
+        /// Create from a single ASCII character.
         Char(char c) : base(std::to_string(c)) {}
     };
 
-    /// <summary>Wrapper around char to make it convertible to object (boxing).</summary>
+    /// Wrapper around char to make it convertible to object (boxing).
     class char_impl : public virtual object_impl
     {
         friend object;
@@ -53,18 +53,18 @@ namespace dot
 
     public: // CONSTRUCTORS
 
-        /// <summary>Create from value (box).</summary>
+        /// Create from value (box).
         char_impl(char value) : value_(value) {}
 
     public: // METHODS
 
-        /// <summary>Returns a value indicating whether this instance is equal to a specified object.</summary>
+        /// Returns a value indicating whether this instance is equal to a specified object.
         bool equals(object obj) override;
 
-        /// <summary>Returns the hash code for this instance.</summary>
+        /// Returns the hash code for this instance.
         virtual size_t hash_code() override;
 
-        /// <summary>Converts the numeric value of this instance to its equivalent string representation.</summary>
+        /// Converts the numeric value of this instance to its equivalent string representation.
         virtual string to_string() override;
 
         static type_t typeof();

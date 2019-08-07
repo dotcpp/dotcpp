@@ -36,118 +36,118 @@ limitations under the License.
 namespace dot
 {
 
-    /// <summary>Construct object from nullptr.</summary>
+    /// Construct object from nullptr.
     object::object(nullptr_t) : base(nullptr) {}
 
-    /// <summary>Construct object from ptr(object_impl).</summary>
+    /// Construct object from ptr(object_impl).
     object::object(const ptr<object_impl>& p) : base(p) {}
 
-    /// <summary>Construct object from object_impl pointer.</summary>
+    /// Construct object from object_impl pointer.
     object::object(object_impl* value) : base(value) {}
 
-    /// <summary>Construct object from string.</summary>
+    /// Construct object from string.
     object::object(const string& value) : base(value) {}
 
-    /// <summary>Construct object from const string.</summary>
+    /// Construct object from const string.
     object::object(const char* value) : base(string(value)) {}
 
-    /// <summary>Construct object from bool by boxing.</summary>
+    /// Construct object from bool by boxing.
     object::object(bool value) : base(new bool_impl(value)) {}
 
-    /// <summary>Construct object from double by boxing.</summary>
+    /// Construct object from double by boxing.
     object::object(double value) : base(new double_impl(value)) {}
 
-    /// <summary>Construct object from int by boxing.</summary>
+    /// Construct object from int by boxing.
     object::object(int value) : base(new int_impl(value)) {}
 
-    /// <summary>Construct object from int by boxing.</summary>
+    /// Construct object from int by boxing.
     object::object(int64_t value) : base(new long_impl(value)) {}
 
-    /// <summary>Construct object from char by boxing.</summary>
+    /// Construct object from char by boxing.
     object::object(char value) : base(new char_impl(value)) {}
 
-    /// <summary>Construct object from local_minute by boxing.</summary>
+    /// Construct object from local_minute by boxing.
     object::object(const local_minute & value) : base(new struct_wrapper_impl<local_minute>(value)) {}
 
-    /// <summary>Construct object from local_time by boxing.</summary>
+    /// Construct object from local_time by boxing.
     object::object(const local_time & value) : base(new struct_wrapper_impl<local_time>(value)) {}
 
-    /// <summary>Construct object from local_date by boxing.</summary>
+    /// Construct object from local_date by boxing.
     object::object(const local_date & value) : base(new struct_wrapper_impl<local_date>(value)) {}
 
-    /// <summary>Construct object from local_date_time by boxing.</summary>
+    /// Construct object from local_date_time by boxing.
     object::object(const local_date_time & value) : base(new struct_wrapper_impl<local_date_time>(value)) {}
 
-    /// <summary>Forward to operator in type ptr(T).</summary>
+    /// Forward to operator in type ptr(T).
     bool object::operator==(nullptr_t) const { return base::operator==(nullptr); }
 
-    /// <summary>Forward to operator in type ptr(T).</summary>
+    /// Forward to operator in type ptr(T).
     bool object::operator!=(nullptr_t) const { return base::operator!=(nullptr); }
 
-    /// <summary>Assign nullptr to object.</summary>
+    /// Assign nullptr to object.
     object& object::operator=(nullptr_t) { base::operator=(nullptr); return *this; }
 
-    /// <summary>Assign ptr(T) to object.</summary>
+    /// Assign ptr(T) to object.
     object& object::operator=(const ptr<object_impl>& p) { base::operator=(p); return *this; }
 
-    /// <summary>Assign string to object by boxing.</summary>
+    /// Assign string to object by boxing.
     object& object::operator=(const string& value) { base::operator=(value); return *this; }
 
-    /// <summary>Assign const string to object by boxing.</summary>
+    /// Assign const string to object by boxing.
     object& object::operator=(const char* value) { base::operator=(string(value)); return *this; }
 
-    /// <summary>Assign bool to object by boxing.</summary>
+    /// Assign bool to object by boxing.
     object& object::operator=(bool value) { base::operator=(new bool_impl(value)); return *this; }
 
-    /// <summary>Assign double to object by boxing.</summary>
+    /// Assign double to object by boxing.
     object& object::operator=(double value) { base::operator=(new double_impl(value)); return *this; }
 
-    /// <summary>Assign int to object by boxing.</summary>
+    /// Assign int to object by boxing.
     object& object::operator=(int value) { base::operator=(new int_impl(value)); return *this; }
 
-    /// <summary>Assign int to object by boxing.</summary>
+    /// Assign int to object by boxing.
     object& object::operator=(int64_t value) { base::operator=(new long_impl(value)); return *this; }
 
-    /// <summary>Assign int to object by boxing.</summary>
+    /// Assign int to object by boxing.
     object& object::operator=(char value) { base::operator=(new char_impl(value)); return *this; }
 
-    /// <summary>Assign local_minute to object by boxing.</summary>
+    /// Assign local_minute to object by boxing.
     object& object::operator=(const local_minute& value) { base::operator=(new struct_wrapper_impl<local_minute>(value)); return *this; }
 
-    /// <summary>Assign local_time to object by boxing.</summary>
+    /// Assign local_time to object by boxing.
     object& object::operator=(const local_time& value) { base::operator=(new struct_wrapper_impl<local_time>(value)); return *this; }
 
-    /// <summary>Assign local_date to object by boxing.</summary>
+    /// Assign local_date to object by boxing.
     object& object::operator=(const local_date& value) { base::operator=(new struct_wrapper_impl<local_date>(value)); return *this; }
 
-    /// <summary>Assign local_date_time to object by boxing.</summary>
+    /// Assign local_date_time to object by boxing.
     object& object::operator=(const local_date_time& value) { base::operator=(new struct_wrapper_impl<local_date_time>(value)); return *this; }
 
-    /// <summary>Convert object to bool by unboxing. Error if object does is not a boxed double.</summary>
+    /// Convert object to bool by unboxing. Error if object does is not a boxed double.
     object::operator bool() const { return ptr<bool_impl>(*this)->value_; }
 
-    /// <summary>Convert object to double by unboxing. Error if object does is not a boxed double.</summary>
+    /// Convert object to double by unboxing. Error if object does is not a boxed double.
     object::operator double() const { return ptr<double_impl>(*this)->value_; }
 
-    /// <summary>Convert object to int by unboxing. Error if object does is not a boxed int.</summary>
+    /// Convert object to int by unboxing. Error if object does is not a boxed int.
     object::operator int() const { return ptr<int_impl>(*this)->value_; }
 
-    /// <summary>Convert object to long by unboxing. Error if object does is not a boxed long.</summary>
+    /// Convert object to long by unboxing. Error if object does is not a boxed long.
     object::operator int64_t() const { return ptr<long_impl>(*this)->value_; }
 
-    /// <summary>Convert object to long by unboxing. Error if object does is not a boxed long.</summary>
+    /// Convert object to long by unboxing. Error if object does is not a boxed long.
     object::operator char() const { return ptr<char_impl>(*this)->value_; }
 
-    /// <summary>Convert object to local_minute by unboxing. Error if object does is not a boxed local_minute.</summary>
+    /// Convert object to local_minute by unboxing. Error if object does is not a boxed local_minute.
     object::operator local_minute() const { return *ptr<struct_wrapper_impl<local_minute>>(*this); }
 
-    /// <summary>Convert object to local_time by unboxing. Error if object does is not a boxed local_time.</summary>
+    /// Convert object to local_time by unboxing. Error if object does is not a boxed local_time.
     object::operator local_time() const { return *ptr<struct_wrapper_impl<local_time>>(*this); }
 
-    /// <summary>Convert object to local_date by unboxing. Error if object does is not a boxed local_date.</summary>
+    /// Convert object to local_date by unboxing. Error if object does is not a boxed local_date.
     object::operator local_date() const { return *ptr<struct_wrapper_impl<local_date>>(*this); }
 
-    /// <summary>Convert object to local_date_time by unboxing. Error if object does is not a boxed local_date_time.</summary>
+    /// Convert object to local_date_time by unboxing. Error if object does is not a boxed local_date_time.
     object::operator local_date_time() const { return *ptr<struct_wrapper_impl<local_date_time>>(*this); }
 
     bool object::ReferenceEquals(object objA, object objB)

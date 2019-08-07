@@ -31,51 +31,51 @@ namespace dot
     class member_info_data_impl; using member_info_data = ptr<member_info_data_impl>;
     class type_impl; using type_t = ptr<type_impl>;
 
-    /// <summary>Data for MemberInfo.</summary>
+    /// Data for MemberInfo.
     class DOT_CLASS member_info_data_impl : public virtual object_impl
     {
         typedef member_info_data_impl self;
 
     public: // PROPERTIES
 
-        /// <summary>Gets the name of the current member.</summary>
+        /// Gets the name of the current member.
         string name; // TODO - replace by method
 
     protected: // CONSTRUCTORS
 
-        /// <summary>
+        /// 
         /// Create an empty instance of MemberInfoData.
         ///
         /// This constructor is protected. It is used by derived classes only.
-        /// </summary>
+        /// 
         member_info_data_impl() = default;
     };
 
-    /// <summary>
+    /// 
     /// Obtains information about the attributes of a member and provides access to member metadata.
-    /// </summary>
+    /// 
     class member_info_impl : public virtual object_impl
     {
         typedef member_info_impl self;
 
     public: // METHODS
 
-        /// <summary>Gets the name of the current member.</summary>
+        /// Gets the name of the current member.
         string name; // TODO - convert to method
 
-        /// <summary>Gets the class that declares this member.</summary>
+        /// Gets the class that declares this member.
         type_t declaring_type; // TODO - convert to method
 
-        /// <summary>A string representing the name of the current type.</summary>
+        /// A string representing the name of the current type.
         virtual string to_string() override { return "MemberInfo"; }
 
     protected: // CONSTRUCTORS
 
-        /// <summary>
+        /// 
         /// Create from property name and declaring type.
         ///
         /// This constructor is protected. It is used by derived classes only.
-        /// </summary>
+        /// 
         member_info_impl(const string& name, type_t declaring_type)
         {
             this->name = name;

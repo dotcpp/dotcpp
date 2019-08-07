@@ -32,9 +32,9 @@ namespace dot
 {
     class string_builder_impl; using string_builder = ptr<string_builder_impl>;
 
-    /// <summary>
+    /// 
     /// Builds a string incrementally.
-    /// </summary>
+    /// 
     class string_builder_impl final : public virtual object_impl, public std::string
     {
         typedef std::string base;
@@ -42,17 +42,17 @@ namespace dot
 
     private: // CONSTRUCTORS
 
-        /// <summary>
+        /// 
         /// Initializes an empty instance of the string_builder class.
         ///
         /// This constructor is private. Use make_string_builder(...)
         /// function with matching signature instead.
-        /// </summary>
+        /// 
         string_builder_impl() = default;
 
     public: // METHODS
 
-        /// <summary>A string representing the current type.</summary>
+        /// A string representing the current type.
         virtual string to_string() override
         {
             // Returns a copy of the string, not a reference to the same string
@@ -61,30 +61,30 @@ namespace dot
             return make_string(*this);
         }
 
-        /// <summary>
+        /// 
         /// Appends the string returned by processing a composite format string, which contains
         /// zero or more format items, to this instance. Each format item is replaced by the
         /// string representation of a corresponding object argument.
-        /// </summary>
+        /// 
         template <typename First, typename ...Args>
         void append_format(const string& format, const First& f, const Args& ...args)
         {
             *this += *string::format(format, f, args...);
         }
 
-        /// <summary>
+        /// 
         /// Appends the string representation of a specified object to this instance.
-        /// </summary>
+        /// 
         template <typename T>
         void append(const T& arg)
         {
             *this += *string::format("{0}", arg);
         }
 
-        /// <summary>
+        /// 
         /// Appends a copy of a specified string and the default
         /// line terminator, to the end of this instance.
-        /// </summary>
+        /// 
         template <typename ...Args>
         void append_line(const Args& ...args)
         {
@@ -92,25 +92,25 @@ namespace dot
             append_line();
         }
 
-        /// <summary>
+        /// 
         /// Appends the default line terminator, to the end of this instance.
-        /// </summary>
+        /// 
         void append_line()
         {
             *this += *environment::new_line;
         }
 
-        /// <summary>
+        /// 
         /// Removes all characters from the current string_builder instance.
-        /// </summary>
+        /// 
         void clear()
         {
             this->clear();
         }
     };
 
-    /// <summary>
+    /// 
     /// Initializes an empty instance of the string_builder class.
-    /// </summary>
+    /// 
     inline string_builder make_string_builder() { return new string_builder_impl(); }
 }

@@ -30,35 +30,35 @@ namespace dot
 {
     class field_info_base_impl; using field_info = ptr<field_info_base_impl>;
 
-    /// <summary>
+    /// 
     /// Discovers the attributes of a field and provides access to field metadata.
-    /// </summary>
+    /// 
     class field_info_base_impl : public member_info_impl
     {
         typedef field_info_base_impl self;
 
     public: // METHODS
 
-        /// <summary>Gets the type of this field.</summary>
+        /// Gets the type of this field.
         type_t field_type;
 
-        /// <summary>A string representing the name of the current type.</summary>
+        /// A string representing the name of the current type.
         virtual string to_string() override { return "field_info"; }
 
-        /// <summary>Returns the field value of a specified object.</summary>
+        /// Returns the field value of a specified object.
         virtual object get_value(object obj) = 0;
 
-        /// <summary>Sets the field value of a specified object.</summary>
+        /// Sets the field value of a specified object.
         virtual void set_value(object obj, object value) = 0;
 
     protected: // CONSTRUCTORS
 
-        /// <summary>
+        /// 
         /// Create from field name, declaring type, field type,
         /// and base class for the pointer to field.
         ///
         /// This constructor is protected. It is used by derived classes only.
-        /// </summary>
+        /// 
         field_info_base_impl(string name, type_t declaring_type, type_t field_type)
             : member_info_impl(name, declaring_type)
         {
@@ -66,9 +66,9 @@ namespace dot
         }
     };
 
-    /// <summary>
+    /// 
     /// Implementation of field_info for field defined as a field (member variable).
-    /// </summary>
+    /// 
     template <class field_type_t, class class_>
     class field_info_impl : public field_info_base_impl
     {
@@ -79,18 +79,18 @@ namespace dot
 
     public: // FIELDS
 
-        /// <summary>Pointer to field defined as a field.</summary>
+        /// Pointer to field defined as a field.
         field_ptr_type field_;
 
     private: // CONSTRUCTORS
 
-        /// <summary>
+        /// 
         /// Create from field name, declaring type, field type,
         /// and pointer to field defined as a field (member variable).
         ///
         /// This constructor is private. Use make_field_info(...)
         /// function with matching signature instead.
-        /// </summary>
+        /// 
         field_info_impl(string name, type_t declaring_type, type_t field_type, field_ptr_type field)
             : field_info_base_impl(name, declaring_type, field_type)
             , field_(field)
@@ -98,23 +98,23 @@ namespace dot
 
     private: // METHODS
 
-        /// <summary>Returns the field value of a specified object.</summary>
+        /// Returns the field value of a specified object.
         virtual object get_value(object obj) override
         {
             return (*ptr<class_>(obj)).*field_;
         }
 
-        /// <summary>Sets the field value of a specified object.</summary>
+        /// Sets the field value of a specified object.
         virtual void set_value(object obj, object value) override
         {
             (*ptr<class_>(obj)).*field_ = (field_type_t)value;
         }
     };
 
-    /// <summary>
+    /// 
     /// Create from field name, declaring type, field type,
     /// and pointer to field defined as a field (member variable).
-    /// </summary>
+    /// 
     template <class field_type_t, class class_>
     field_info make_field_info(string name, type_t declaring_type, type_t field_type, field_type_t class_::* field)
     {

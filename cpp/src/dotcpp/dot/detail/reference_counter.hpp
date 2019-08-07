@@ -25,34 +25,34 @@ limitations under the License.
 
 namespace dot
 {
-    /// <summary>
+    /// 
     /// All classes with reference semantics should derive from this type.
     /// It works with ptr to provide an emulation of reference semantics in C++.
-    /// </summary>
+    /// 
     class reference_counter
     {
     private: // FIELDS
 
-        /// <summary>Reference count for intrusive pointer.</summary>
+        /// Reference count for intrusive pointer.
         std::atomic<unsigned int> reference_count_ = 0;
 
     public: // DESTRUCTOR
 
-        /// <summary>
+        /// 
         /// Virtual destructor to ensure that destructor
         /// of the derived type is called by ptr.
-        /// </summary>
+        /// 
         virtual ~reference_counter() = default;
 
     public: // METHODS
 
-        /// <summary>Increment reference count.</summary>
+        /// Increment reference count.
         void increment_reference_count()
         {
             ++reference_count_;
         }
 
-        /// <summary>Decrement reference count, deletes if decremented count is zero.</summary>
+        /// Decrement reference count, deletes if decremented count is zero.
         void decrement_reference_count()
         {
             if (!--reference_count_)
@@ -63,17 +63,17 @@ namespace dot
 
     protected: // CONSTRUCTORS
 
-        /// <summary>Prevent construction on stack.</summary>
+        /// Prevent construction on stack.
         reference_counter() = default;
 
     private: // CONSTRUCTORS
 
-        /// <summary>Prevent copying object instead of copying pointer.</summary>
+        /// Prevent copying object instead of copying pointer.
         reference_counter(const reference_counter&) = delete;
 
     private: // OPERATORS
 
-        /// <summary>Prevent assignment of object instead of assignment of pointer.</summary>
+        /// Prevent assignment of object instead of assignment of pointer.
         reference_counter& operator=(const reference_counter& rhs) = delete;
     };
 }

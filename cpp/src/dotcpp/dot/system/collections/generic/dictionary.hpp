@@ -32,7 +32,7 @@ namespace dot
     template <class key_t, class value_t> class dictionary_impl;
     template <class key_t, class value_t> using dictionary = ptr<dictionary_impl<key_t, value_t>>;
 
-    /// <summary>Represents a collection of keys and values.</summary>
+    /// Represents a collection of keys and values.
     template <class key_t, class value_t>
     class dictionary_impl
         : public virtual object_impl
@@ -46,19 +46,19 @@ namespace dot
 
     private: // CONSTRUCTORS
 
-        /// <summary>
+        /// 
         /// Initializes a new instance of dictionary.
         ///
         /// This constructor is private. Use make_dictionary() function instead.
-        /// </summary>
+        /// 
         dictionary_impl() : base() {}
 
     public: // PROPERTIES
 
-        /// <summary>Gets the number of key/value pairs contained in the dictionary.</summary>
+        /// Gets the number of key/value pairs contained in the dictionary.
         int count() { return this->size(); }
 
-        /// <summary>Gets a collection containing the keys in the dictionary.</summary>
+        /// Gets a collection containing the keys in the dictionary.
         list<key_t> keys()
         {
             list<key_t> list = make_list<key_t>();
@@ -66,7 +66,7 @@ namespace dot
             return list;
         }
 
-        /// <summary>Gets a collection containing the values in the dictionary.</summary>
+        /// Gets a collection containing the values in the dictionary.
         list<value_t> values()
         {
             list<value_t> list = make_list<value_t>();
@@ -76,13 +76,13 @@ namespace dot
 
     public: // METHODS
 
-        /// <summary>Adds the specified key and value to the dictionary.</summary>
+        /// Adds the specified key and value to the dictionary.
         void add(const key_t& key, const value_t& value)
         {
             this->add(std::pair<key_t, value_t>(key, value));
         }
 
-        /// <summary>Adds the specified value to the ICollection with the specified key.</summary>
+        /// Adds the specified value to the ICollection with the specified key.
         void add(const std::pair<key_t, value_t>& key_value_pair)
         {
             auto res = this->insert(key_value_pair);
@@ -90,13 +90,13 @@ namespace dot
                 throw exception("An element with the same key already exists in the dictionary");
         }
 
-        /// <summary>Determines whether the dictionary contains the specified key.</summary>
+        /// Determines whether the dictionary contains the specified key.
         bool contains_key(const key_t& key)
         {
             return this->find(key) != end();
         }
 
-        /// <summary>Determines whether the dictionary contains a specific value.</summary>
+        /// Determines whether the dictionary contains a specific value.
         virtual bool contains_value(const value_t& value)
         {
             for (auto& x : *this)
@@ -107,13 +107,13 @@ namespace dot
             return false;
         }
 
-        /// <summary>Removes the value with the specified key from the dictionary.</summary>
+        /// Removes the value with the specified key from the dictionary.
         bool remove(const key_t& key)
         {
             return this->erase(key) != 0;
         }
 
-        /// <summary>Gets the value associated with the specified key.</summary>
+        /// Gets the value associated with the specified key.
         bool try_get_value(const key_t& key, value_t& value)
         {
             auto iter = this->find(key);
@@ -127,14 +127,14 @@ namespace dot
 
     public: // OPERATORS
 
-        /// <summary>Gets or sets the value associated with the specified key.</summary>
+        /// Gets or sets the value associated with the specified key.
         value_t& operator[](const key_t& key)
         {
             return base::operator[](key);
         }
     };
 
-    /// <summary>Initializes a new instance of dictionary.</summary>
+    /// Initializes a new instance of dictionary.
     template <class key_t, class value_t>
     inline dictionary<key_t, value_t> make_dictionary() { return new dictionary_impl<key_t, value_t>(); }
 }

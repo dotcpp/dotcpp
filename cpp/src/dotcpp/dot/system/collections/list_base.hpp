@@ -36,22 +36,22 @@ namespace dot
     {
     public:
 
-        /// <summary>Add object to end of collection.</summary>
+        /// Add object to end of collection.
         virtual void add_object(object item) = 0;
 
-        /// <summary>Get object from collection by index.</summary>
+        /// Get object from collection by index.
         virtual object get_item(int index) = 0;
 
-        /// <summary>Set object from collection by index.</summary>
+        /// Set object from collection by index.
         virtual void set_item(int index, object value) = 0;
 
-        /// <summary>Get length of collection.</summary>
+        /// Get length of collection.
         virtual int get_length() = 0;
 
-        /// <summary>Gets the type_t of the current instance.</summary>
+        /// Gets the type_t of the current instance.
         virtual type_t type();
 
-        /// <summary>Gets the type_t of the collection_base_impl.</summary>
+        /// Gets the type_t of the collection_base_impl.
         static type_t typeof();
 
     };

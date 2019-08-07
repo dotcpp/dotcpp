@@ -36,26 +36,26 @@ namespace dot
 
     public: // CONSTRUCTORS
 
-        /// <summary>Default constructor.</summary>
+        /// Default constructor.
         local_minute() = default;
 
-        /// <summary>
+        /// 
         /// Creates local time to one minute precision from the specified hour and minute.
-        /// </summary>
+        /// 
         local_minute(int hour, int minute);
 
-        /// <summary>Copy constructor.</summary>
+        /// Copy constructor.
         local_minute(const local_minute& other);
 
     public: // PROPERTIES
 
-        /// <summary>The hour of day, in the range 0 to 23 inclusive.</summary>
+        /// The hour of day, in the range 0 to 23 inclusive.
         int hour() const { return hour_; }
 
-        /// <summary>The minute of the hour, in the range 0 to 59 inclusive.</summary>
+        /// The minute of the hour, in the range 0 to 59 inclusive.
         int minute() const { return minute_; }
 
-        /// <summary>The minute of the day, in the range 0 to 59 inclusive.</summary>
+        /// The minute of the day, in the range 0 to 59 inclusive.
         int minute_of_day() const
         {
             return 60 * hour() + minute();
@@ -63,60 +63,60 @@ namespace dot
 
     public: // METHODS
 
-        /// <summary>Converts this local_minute to local_time.</summary>
+        /// Converts this local_minute to local_time.
         local_time to_local_time() const;
 
-        /// <summary>
+        /// 
         /// Indicates whether this time is earlier, later or the same as another one.
-        /// </summary>
+        /// 
         int compare_to(const local_minute& other) const;
 
-        /// <summary>Returns a hash code for this local time.</summary>
+        /// Returns a hash code for this local time.
         size_t hash_code() const;
 
-        /// <summary>
+        /// 
         /// Compares this local time with the specified one for equality,
         /// by checking whether the two values represent the exact same
         /// local minute.
-        /// </summary>
+        /// 
         bool equals(const local_minute& other) const;
 
-        /// <summary>Convert local_minute to ISO 8601 string in hh:mm format.</summary>
+        /// Convert local_minute to ISO 8601 string in hh:mm format.
         string to_string() const;
 
     public: // OPERATORS
 
-        /// <summary>
+        /// 
         /// Compares two local times for equality, by checking whether
         /// they represent the exact same local time, down to the tick.
-        /// </summary>
+        /// 
         bool operator==(const local_minute& other) const;
 
-        /// <summary>Compares two local times for inequality.</summary>
+        /// Compares two local times for inequality.
         bool operator!=(const local_minute& other) const;
 
-        /// <summary>
+        /// 
         /// Compares two local_minute values to see if the left one
         /// is strictly earlier than the right one.
-        /// </summary>
+        /// 
         bool operator<(const local_minute& other) const;
 
-        /// <summary>
+        /// 
         /// Compares two local_minute values to see if the left one
         /// is earlier than or equal to the right one.
-        /// </summary>
+        /// 
         bool operator<=(const local_minute& other) const;
 
-        /// <summary>
+        /// 
         /// Compares two local_minute values to see if the left one
         /// is strictly later than the right one.
-        /// </summary>
+        /// 
         bool operator>(const local_minute& other) const;
 
-        /// <summary>
+        /// 
         /// Compares two local_minute values to see if the left one
         /// is later than or equal to the right one.
-        /// </summary>
+        /// 
         bool operator>=(const local_minute& other) const;
 
     private:

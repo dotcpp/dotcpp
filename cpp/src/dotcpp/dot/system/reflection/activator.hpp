@@ -28,10 +28,10 @@ limitations under the License.
 
 namespace dot
 {
-    /// <summary>
+    /// 
     /// contains methods to create types of objects locally or remotely, or obtain
     /// references to existing remote objects. This class cannot be inherited.
-    /// </summary>
+    /// 
     class DOT_CLASS activator final
     {
     private: // CONSTRUCTORS
@@ -42,16 +42,16 @@ namespace dot
 
     public: // METHODS
 
-        /// <summary>Creates an instance of the specified type using that type's default constructor.</summary>
+        /// Creates an instance of the specified type using that type's default constructor.
         static object create_instance(type_t type);
 
-        /// <summary>Creates an instance of the specified type using the constructor that best matches the specified parameters.</summary>
+        /// Creates an instance of the specified type using the constructor that best matches the specified parameters.
         static object create_instance(type_t type, list<object> params);
 
-        /// <summary>Creates an instance of the type whose name is specified, using the named assembly and default constructor.</summary>
+        /// Creates an instance of the type whose name is specified, using the named assembly and default constructor.
         static object create_instance(string assembly_name, string type_name);
 
-        /// <summary>Creates an instance of the type whose name is specified, using the named assembly and default constructor.</summary>
+        /// Creates an instance of the type whose name is specified, using the named assembly and default constructor.
         static object create_instance(string assembly_name, string type_name, list<object> params);
     };
 }

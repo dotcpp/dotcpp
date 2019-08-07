@@ -28,7 +28,7 @@ limitations under the License.
 
 namespace dot
 {
-    /// <summary>Wrapper around double to make it convertible to object (boxing).</summary>
+    /// Wrapper around double to make it convertible to object (boxing).
     class DOT_CLASS double_impl : public virtual object_impl
     {
         friend object;
@@ -36,31 +36,31 @@ namespace dot
 
     public: // CONSTRUCTORS
 
-        /// <summary>Create from value (box).</summary>
+        /// Create from value (box).
         double_impl(double value) : value_(value) {}
 
     public: //  CONSTANTS
 
-        /// <summary>Sentinel value representing uninitialized state.</summary>
+        /// Sentinel value representing uninitialized state.
         static constexpr double empty = -1e100;
 
-        /// <summary>Tolerance used in comparison.</summary>
+        /// Tolerance used in comparison.
         static constexpr double tolerance = 1e-10;
 
     public: // STATIC
 
-        /// <summary>Converts the string representation of a number to its double-precision floating-point number equivalent.</summary>
+        /// Converts the string representation of a number to its double-precision floating-point number equivalent.
         static double parse(string s);
 
     public: // METHODS
 
-        /// <summary>Returns a value indicating whether this instance is equal to a specified object.</summary>
+        /// Returns a value indicating whether this instance is equal to a specified object.
         bool equals(object obj) override;
 
-        /// <summary>Returns the hash code for this instance.</summary>
+        /// Returns the hash code for this instance.
         virtual size_t hash_code() override;
 
-        /// <summary>Converts the numeric value of this instance to its equivalent string representation.</summary>
+        /// Converts the numeric value of this instance to its equivalent string representation.
         virtual string to_string() override;
 
     public: // REFLECTION

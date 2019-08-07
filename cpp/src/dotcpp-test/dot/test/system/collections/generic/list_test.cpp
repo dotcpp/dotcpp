@@ -32,7 +32,7 @@ namespace dot
 {
     static std::stringstream received;
 
-    /// <summary>Print double vector to received on one line in JSON format.</summary>
+    /// Print double vector to received on one line in JSON format.
     static void PrintList(string name, list<double> v)
     {
         received << "\"" << *name << "\" : [ ";

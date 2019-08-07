@@ -32,7 +32,7 @@ limitations under the License.
 
 namespace dot
 {
-    /// <summary>Built type_t from the current object.</summary>
+    /// Built type_t from the current object.
     type_t type_builder_impl::build()
     {
         type_->fill(this);
@@ -57,9 +57,9 @@ namespace dot
         return type_;
     }
 
-    /// <summary>
+    /// 
     /// Fill data from builder.
-    /// </summary>
+    /// 
     void type_impl::fill(const type_builder& data)
     {
         if (!data->base_.is_empty() && !data->base_->get_methods().is_empty() && data->base_->get_methods()->count())
@@ -173,11 +173,11 @@ namespace dot
         this->is_enum = data->is_enum_;
     }
 
-    /// <summary>
+    /// 
     /// Create from builder.
     ///
     /// This constructor is private. Use type_builder->build() method instead.
-    /// </summary>
+    /// 
     type_impl::type_impl(string nspace, string name)
     {
         this->name_space = nspace;

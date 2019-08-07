@@ -33,34 +33,34 @@ limitations under the License.
 
 namespace dot
 {
-    /// <summary>
+    /// 
     /// In C\# local datetime is a struct, and as all structs has default constructor
     /// that initializes all backing variables to 0. This means that default
     /// constructed value corresponds to 0001-01-01 00:00:00. Because Boost date_time
     /// library does not accept the date 0001-01-01, we will instead use the Unix epoch
     /// 1970-01-01 as default constructed value.
-    /// </summary>
+    /// 
     local_date_time::local_date_time()
         : ptime(local_date{ 1970, 1, 1 }, { 0, 0, 0 })
     {
     }
 
-    /// <summary>Initializes a new instance of the local_date_time struct using the ISO calendar system.</summary>
+    /// Initializes a new instance of the local_date_time struct using the ISO calendar system.
     local_date_time::local_date_time(int year, int month, int day, int hour, int minute)
         : ptime(local_date {year, month, day}, {hour, minute, 0})
     {}
 
-    /// <summary>Initializes a new instance of the local_date_time struct using the ISO calendar system.</summary>
+    /// Initializes a new instance of the local_date_time struct using the ISO calendar system.
     local_date_time::local_date_time(int year, int month, int day, int hour, int minute, int second)
         : ptime(local_date {year, month, day}, {hour, minute, second})
     {}
 
-    /// <summary>Initializes a new instance of the local_date_time struct using the ISO calendar system.</summary>
+    /// Initializes a new instance of the local_date_time struct using the ISO calendar system.
     local_date_time::local_date_time(int year, int month, int day, int hour, int minute, int second, int millisecond)
         : ptime(local_date {year, month, day}, {hour, minute, second, millisecond * 1000})
     {}
 
-    /// <summary>Create from Boost posix_time.</summary>
+    /// Create from Boost posix_time.
     local_date_time::local_date_time(const ptime& time)
         : ptime(time)
     {}

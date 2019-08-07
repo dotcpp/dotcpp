@@ -32,44 +32,44 @@ namespace dot
     class constructor_info_impl; using constructor_info = ptr<constructor_info_impl>;
     class type_impl; using type_t = ptr<type_impl>;
 
-    /// <summary>
+    /// 
     /// Obtains information about the attributes of a constructor and provides access to constructor metadata.
-    /// </summary>
+    /// 
     class constructor_info_impl : public member_info_impl
     {
         friend class type_builder_impl;
 
     public: // METHODS
 
-        /// <summary>A string representing the name of the current type.</summary>
+        /// A string representing the name of the current type.
         virtual string to_string() override { return "ConstructorInfo"; }
 
-        /// <summary>Gets the parameters of this constructor.</summary>
+        /// Gets the parameters of this constructor.
         virtual list<parameter_info> get_parameters()
         {
             return parameters;
         }
 
-        /// <summary>Invokes specified constructor with given parameters.</summary>
+        /// Invokes specified constructor with given parameters.
         virtual object invoke(list<object>) = 0;
 
     protected: // CONSTRUCTORS
 
         list<parameter_info> parameters;
 
-        /// <summary>
+        /// 
         /// Create from declaring type
         ///
         /// This constructor is protected. It is used by derived classes only.
-        /// </summary>
+        /// 
         constructor_info_impl(type_t declaring_type)
             : member_info_impl(".ctor", declaring_type)
         {}
     };
 
-    /// <summary>
+    /// 
     /// Obtains information about the attributes of a constructor and provides access to constructor metadata.
-    /// </summary>
+    /// 
     template <class class_, class ... args>
     class member_constructor_info_impl : public constructor_info_impl
     {
@@ -83,17 +83,17 @@ namespace dot
 
     public: // METHODS
 
-        /// <summary>A string representing the name of the current type.</summary>
+        /// A string representing the name of the current type.
         virtual string to_string() override { return "MemberConstructorInfo"; }
 
-        /// <summary>Invokes the constructor reflected by this ConstructorInfo instance.</summary>
+        /// Invokes the constructor reflected by this ConstructorInfo instance.
         template <int ... I>
         object invoke_impl(list<object> params, detail::index_sequence<I...>)
         {
             return (*ptr_)(params[I]...);
         }
 
-        /// <summary>Invokes the constructor reflected by this ConstructorInfo instance.</summary>
+        /// Invokes the constructor reflected by this ConstructorInfo instance.
         virtual object invoke(list<object> params)
         {
             if ((params.is_empty() && parameters->count() != 0) || (!params.is_empty() && (params->count() != parameters->count())))
@@ -104,12 +104,12 @@ namespace dot
 
     private: // CONSTRUCTORS
 
-        /// <summary>
+        /// 
         /// Create from declaring type, and pointer to constructor.
         ///
         /// This constructor is private. Use new_ConstructorInfo(...)
         /// function with matching signature instead.
-        /// </summary>
+        /// 
         member_constructor_info_impl(type_t declaring_type, ctor_type p)
             : constructor_info_impl(declaring_type)
             , ptr_(p)

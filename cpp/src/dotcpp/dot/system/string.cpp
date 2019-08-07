@@ -32,7 +32,7 @@ limitations under the License.
 
 namespace dot
 {
-    /// <summary>Empty string.</summary>
+    /// Empty string.
     string string::Empty = make_string("");
 
     dot::type_t string_impl::typeof()
@@ -74,8 +74,8 @@ namespace dot
         return this;
     }
 
-    /// <summary>Determines whether the end of this
-    /// string matches the specified string.</summary>
+    /// Determines whether the end of this
+    /// string matches the specified string.
     bool string_impl::ends_with(const string& value)
     {
         int p = length() - value->length();
@@ -84,8 +84,8 @@ namespace dot
         return false;
     }
 
-    /// <summary>Determines whether the beginning of this
-    /// string matches the specified string.</summary>
+    /// Determines whether the beginning of this
+    /// string matches the specified string.
     bool string_impl::starts_with(const string& value)
     {
         int p = length() - value->length();
@@ -94,8 +94,8 @@ namespace dot
         return false;
     }
 
-    /// <summary>Retrieves a substring which starts at the specified
-    /// character position and has the specified length.</summary>
+    /// Retrieves a substring which starts at the specified
+    /// character position and has the specified length.
     string string_impl::substring(int startIndex, int length)
     {
         return make_string(this->substr(startIndex, length));
@@ -133,7 +133,7 @@ namespace dot
         return false;
     }
 
-    /// <summary>Case sensitive comparison to object.</summary>
+    /// Case sensitive comparison to object.
     bool string::operator==(const object& rhs) const
     {
         // If rhs is null, return false. Otherwise, check if
@@ -151,7 +151,7 @@ namespace dot
         }
     }
 
-    /// <summary>Non-template implementation of string.Format.</summary>
+    /// Non-template implementation of string.Format.
     std::string string::format_impl(fmt::string_view format_str, fmt::format_args args)
     {
         return fmt::vformat(format_str, args);

@@ -37,10 +37,10 @@ namespace dot
     class local_date_time;
     class object;
 
-    /// <summary>
+    /// 
     /// Represents a period of time expressed in human chronological terms:
     /// hours, days, weeks, months and so on.
-    /// </summary>
+    /// 
     class DOT_CLASS period : public time_duration
     {
         typedef period self;
@@ -50,70 +50,70 @@ namespace dot
         period(const time_duration& d);
         period(const date_duration& d);
 
-        /// <summary>Copy constructor.</summary>
+        /// Copy constructor.
         period(const period& other);
 
     public:
-        /// <summary>Gets the number of days within this period.</summary>
+        /// Gets the number of days within this period.
         int days() const
         {
             return static_cast<int>(base::hours() / 24);
         }
 
-        /// <summary>Gets the number of hours within this period.</summary>
+        /// Gets the number of hours within this period.
         int64_t hours() const
         {
             return base::hours() % 24; // base::hours() returns total number of hours
         }
 
-        /// <summary>Gets the number of milliseconds within this period.</summary>
+        /// Gets the number of milliseconds within this period.
         int64_t milliseconds() const
         {
             return fractional_seconds() / 1000;
         }
 
     public:
-        /// <summary>Returns the exact difference between two dates.</summary>
+        /// Returns the exact difference between two dates.
         static period between(const local_date& start, const local_date& end);
 
-        /// <summary>Returns the exact difference between two date/times.</summary>
+        /// Returns the exact difference between two date/times.
         static period between(const local_date_time& start, const local_date_time& end);
 
-        /// <summary>Returns the exact difference between two times.</summary>
+        /// Returns the exact difference between two times.
         static period between(const local_time& start, const local_time& end);
 
-        /// <summary>Compares the given period for equality with this one.</summary>
+        /// Compares the given period for equality with this one.
         bool equals(const period& other) const;
 
-        /// <summary>Creates a period representing the specified number of days.</summary>
+        /// Creates a period representing the specified number of days.
         static period from_days(int days);
 
-        /// <summary>Creates a period representing the specified number of hours.</summary>
+        /// Creates a period representing the specified number of hours.
         static period from_hours(int64_t hours);
 
-        /// <summary>Creates a period representing the specified number of milliseconds.</summary>
+        /// Creates a period representing the specified number of milliseconds.
         static period from_milliseconds(int64_t milliseconds);
 
-        /// <summary>Creates a period representing the specified number of minutes.</summary>
+        /// Creates a period representing the specified number of minutes.
         static period from_minutes(int64_t minutes);
 
-        /// <summary>Creates a period representing the specified number of seconds.</summary>
+        /// Creates a period representing the specified number of seconds.
         static period from_seconds(int64_t seconds);
 
-        /// <summary>Creates a period representing the specified number of weeks.</summary>
+        /// Creates a period representing the specified number of weeks.
         static period from_weeks(int weeks);
 
     public:
-        /// <summary>Adds two periods together, by simply adding the values for each property.</summary>
+        /// Adds two periods together, by simply adding the values for each property.
         period operator+(const period& other) const;
 
-        /// <summary>Subtracts one period from another, by simply subtracting each property value.</summary>
+        /// Subtracts one period from another, by simply subtracting each property value.
         period operator-(const period& other) const;
 
-        /// <summary>Compares two periods for equality.</summary>
+        /// Compares two periods for equality.
         bool operator==(const period& other) const;
 
-        /// <summary>Compares two periods for inequality.</summary>
+        /// Compares two periods for inequality.
         bool operator!=(const period& other) const;
 
     public:

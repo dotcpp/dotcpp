@@ -32,14 +32,14 @@ namespace dot
 
     namespace detail
     {
-        /// <summary>Empty structure.</summary>
+        /// Empty structure.
         class dummy_no_to_string : public virtual object_impl
         {};
 
-        /// <summary>
+        /// 
         /// objects inherit this structure in case their inner struct class has method to_string
         /// so object also have these method.
-        /// </summary>
+        /// 
         template <class W, class T>
         class obj_to_string : public virtual object_impl
         {
@@ -47,7 +47,7 @@ namespace dot
             virtual string to_string() override { return static_cast<T*>(static_cast<W*>(this))->to_string(); }
         };
 
-        /// <summary>Detects existance of to_string method.</summary>
+        /// Detects existance of to_string method.
         template<class T>
         struct has_to_string
         {
@@ -59,7 +59,7 @@ namespace dot
             typedef std::integral_constant<bool, value> type;
         };
 
-        /// <summary>For inheritance of to_string method.</summary>
+        /// For inheritance of to_string method.
         template<class W, class T>
         class inherit_to_string : public std::conditional<
                 has_to_string<T>::value,
@@ -68,14 +68,14 @@ namespace dot
             >::type
         {};
 
-        /// <summary>Empty structure.</summary>
+        /// Empty structure.
         class dummy_no_get_hashcode : public virtual object_impl
         {};
 
-        /// <summary>
+        /// 
         /// objects inherit this structure in case their inner struct class has method hash_code
         /// so object also have these method.
-        /// </summary>
+        /// 
         template <class W, class T>
         class obj_get_hashcode : public virtual object_impl
         {
@@ -83,7 +83,7 @@ namespace dot
             virtual size_t hash_code() override { return static_cast<T*>(static_cast<W*>(this))->hash_code(); }
         };
 
-        /// <summary>Detects existance of hash_code method.</summary>
+        /// Detects existance of hash_code method.
         template<class T>
         struct has_get_hashcode
         {
@@ -95,7 +95,7 @@ namespace dot
             typedef std::integral_constant<bool, value> type;
         };
 
-        /// <summary>For inheritance of hash_code method.</summary>
+        /// For inheritance of hash_code method.
         template<class W, class T>
         class inherit_get_hashcode : public std::conditional<
             has_get_hashcode<T>::value,
@@ -104,14 +104,14 @@ namespace dot
         >::type
         {};
 
-        /// <summary>Empty structure.</summary>
+        /// Empty structure.
         class dummy_no_equals : public virtual object_impl
         {};
 
-        /// <summary>
+        /// 
         /// objects inherit this structure in case their inner struct class has method Equals
         /// so object also have these method.
-        /// </summary>
+        /// 
         template <class W, class T>
         class obj_equals : public virtual object_impl
         {
@@ -119,7 +119,7 @@ namespace dot
             bool equals(object obj) override { return static_cast<T*>(static_cast<W*>(this))->equals(obj); }
         };
 
-        /// <summary>Detects existance of Equals method.</summary>
+        /// Detects existance of Equals method.
         template<class T>
         struct has_equals
         {
@@ -131,7 +131,7 @@ namespace dot
             typedef std::integral_constant<bool, value> type;
         };
 
-        /// <summary>For inheritance of Equals method.</summary>
+        /// For inheritance of Equals method.
         template<class W, class T>
         class inherit_equals : public std::conditional<
             has_equals<T>::value,

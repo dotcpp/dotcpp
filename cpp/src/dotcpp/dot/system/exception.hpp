@@ -30,28 +30,28 @@ namespace dot
     class string;
     class string_impl;
 
-    /// <summary>Represents errors that occur during application execution.</summary>
+    /// Represents errors that occur during application execution.
     class DOT_CLASS exception : public std::runtime_error
     {
         typedef std::runtime_error base;
 
     public: // CONSTRUCTORS
 
-        /// <summary>Create with default message.</summary>
+        /// Create with default message.
         exception();
 
-        /// <summary>Create with a specified error message.</summary>
+        /// Create with a specified error message.
         exception(const std::string& msg);
 
-        /// <summary>Create with a specified error message.</summary>
+        /// Create with a specified error message.
         exception(const char* msg);
 
-        /// <summary>Create with a specified error message.</summary>
+        /// Create with a specified error message.
         exception(string msg);
 
     public: // METHODS
 
-        /// <summary>Message that describes the current exception.</summary>
+        /// Message that describes the current exception.
         virtual string message() const;
     };
 

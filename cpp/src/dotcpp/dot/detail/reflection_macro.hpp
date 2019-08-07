@@ -24,9 +24,9 @@ limitations under the License.
 
 #pragma once
 
-/// <summary>
+/// 
 /// Methods typeof() and type() are thread safe because the implementation uses lambda
-/// </summary>
+/// 
 
 #define DOT_TYPE_BEGIN(nspace, name, ...)                                                         \
         public:                                                                                   \

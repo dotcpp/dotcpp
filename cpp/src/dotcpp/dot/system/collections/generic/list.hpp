@@ -31,9 +31,9 @@ namespace dot
     template <class T> class list_impl; template <class T> using list = ptr<list_impl<T>>;
     class type_builder_impl; using type_builder = ptr<type_builder_impl>;
 
-    /// <summary>
+    /// 
     /// Represents a strongly typed collection of objects that can be accessed by index.
-    /// </summary>
+    /// 
     template <class T>
     class list_impl : public virtual object_impl, public std::vector<T>, public list_base_impl
     {
@@ -48,62 +48,62 @@ namespace dot
 
     private: // CONSTRUCTORS
 
-        /// <summary>
+        /// 
         /// Create empty list with default initial capacity.
         ///
         /// This constructor is private. Use make_list(...) function instead.
-        /// </summary>
+        /// 
         list_impl() {}
 
-        /// <summary>
+        /// 
         /// Construct from vector using deep copy semantics.
         ///
         /// This constructor is private. Use make_list(...) function instead.
-        /// </summary>
+        /// 
         explicit list_impl(const std::vector<T>& obj) : base(obj) {}
 
-        /// <summary>
+        /// 
         /// Construct from vector using move semantics.
         ///
         /// This constructor is private. Use make_list(...) function instead.
-        /// </summary>
+        /// 
         explicit list_impl(std::vector<T>&& obj) : base(obj) {}
 
-        /// <summary>
+        /// 
         /// Construct from initializer list.
         ///
         /// This constructor is private. Use make_list(...) function instead.
-        /// </summary>
+        /// 
         explicit list_impl(const std::initializer_list<T>& obj) : base(obj) {}
 
-        /// <summary>
+        /// 
        /// Construct from int.
        ///
        /// This constructor is private. Use make_list(...) function instead.
-       /// </summary>
+       /// 
        explicit list_impl(int size) : base(size) {}
 
     public: // METHODS
 
-        /// <summary>The number of items contained in the list.</summary>
+        /// The number of items contained in the list.
         int count() { return this->size(); }
 
-        /// <summary>Set total number of elements the internal data structure can hold without resizing.</summary>
+        /// Set total number of elements the internal data structure can hold without resizing.
         void set_capacity(int value) { this->reserve(value); }
 
-        /// <summary>Adds an object to the end of the list.</summary>
+        /// Adds an object to the end of the list.
         void add(const T& item) { this->push_back(item); }
 
-        /// <summary>Determines whether an element is in the list.</summary>
+        /// Determines whether an element is in the list.
         virtual bool contains(const T& item)
         {
             return std::find(begin(), end(), item) != end();
         }
 
-        /// <summary>Adds the elements of the specified collection to the end of the list.</summary>
+        /// Adds the elements of the specified collection to the end of the list.
         // TODO - implement void AddRange(const IEnumerable<T>& collection);
 
-        /// <summary>Removes the first occurrence of a specific object from the List.</summary>
+        /// Removes the first occurrence of a specific object from the List.
         bool remove(const T& item)
         {
             auto iter = std::find(begin(), end(), item);
@@ -117,25 +117,25 @@ namespace dot
 
     public: // VIRTUAL METHODS
 
-        /// <summary>Get object from collection by index.</summary>
+        /// Get object from collection by index.
         virtual object get_item(int index) override
         {
             return this->operator[](index);
         }
 
-        /// <summary>Set object from collection by index.</summary>
+        /// Set object from collection by index.
         virtual void set_item(int index, object value) override
         {
             this->operator[](index) = (T)value;
         }
 
-        /// <summary>Get length of collection.</summary>
+        /// Get length of collection.
         virtual int get_length() override
         {
             return this->size();
         }
 
-        /// <summary>Add object to end of collection.</summary>
+        /// Add object to end of collection.
         virtual void add_object(object item) override
         {
             add((T)item);
@@ -143,10 +143,10 @@ namespace dot
 
     public: // OPERATORS
 
-        /// <summary>Gets or sets the element at the specified index (const version).</summary>
+        /// Gets or sets the element at the specified index (const version).
         virtual const T& operator[](int i) const { return base::operator[](i); }
 
-        /// <summary>Gets or sets the element at the specified index (non-const version).</summary>
+        /// Gets or sets the element at the specified index (non-const version).
         virtual T& operator[](int i) { return base::operator[](i); }
 
     public: // REFLECTION
@@ -155,23 +155,23 @@ namespace dot
         static type_t typeof();
     };
 
-    /// <summary>Create empty list with default initial capacity.</summary>
+    /// Create empty list with default initial capacity.
     template <class T>
     list<T> make_list() { return new list_impl<T>(); }
 
-    /// <summary>Construct from vector using deep copy semantics.</summary>
+    /// Construct from vector using deep copy semantics.
     template <class T>
     list<T> make_list(const std::vector<T> & obj) { return new list_impl<T>(obj); }
 
-    /// <summary>Construct from vector using move semantics.</summary>
+    /// Construct from vector using move semantics.
     template <class T>
     list<T> make_list(std::vector<T>&& obj) { return new list_impl<T>(std::forward<std::vector<T>>(obj)); }
 
-    /// <summary>Construct from initializer list.</summary>
+    /// Construct from initializer list.
     template <class T>
     list<T> make_list(const std::initializer_list<T> & obj) { return new list_impl<T>(obj); }
 
-    /// <summary>Construct from int.</summary>
+    /// Construct from int.
     template <class T>
     list<T> make_list(int size) { return new list_impl<T>(size); }
 }

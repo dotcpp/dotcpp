@@ -47,170 +47,170 @@ namespace dot
         template<class W, class T> class inherit_equals;
     }
 
-    /// <summary>Adds support for boxing value types to ptr(object_impl).</summary>
+    /// Adds support for boxing value types to ptr(object_impl).
     class DOT_CLASS object : public ptr<object_impl>
     {
         typedef ptr<object_impl> base;
 
     public: // CONSTRUCTORS
 
-        /// <summary>
+        /// 
         /// Default constructor to create untyped object.
         ///
         /// This constructor is used, among other things,
         /// as argument to lock(...) to provide thread safety.
-        /// </summary>
+        /// 
         object() = default;
 
-        /// <summary>Construct object from nullptr.</summary>
+        /// Construct object from nullptr.
         object(nullptr_t);
 
-        /// <summary>Construct object from ptr(object_impl).</summary>
+        /// Construct object from ptr(object_impl).
         object(const ptr<object_impl>& p);
 
-        /// <summary>Construct object from ptr(T).</summary>
+        /// Construct object from ptr(T).
         template <class T>
         object(const ptr<T>& p) : base(p) {}
 
-        /// <summary>Construct object from object_impl pointer.</summary>
+        /// Construct object from object_impl pointer.
         object(object_impl* value);
 
-        /// <summary>Construct object from string.</summary>
+        /// Construct object from string.
         object(const string& value);
 
-        /// <summary>Construct object from const string.</summary>
+        /// Construct object from const string.
         object(const char* value);
 
-        /// <summary>Construct object from bool by boxing.</summary>
+        /// Construct object from bool by boxing.
         object(bool value);
 
-        /// <summary>Construct object from double by boxing.</summary>
+        /// Construct object from double by boxing.
         object(double value);
 
-        /// <summary>Construct object from int by boxing.</summary>
+        /// Construct object from int by boxing.
         object(int value);
 
-        /// <summary>Construct object from int by boxing.</summary>
+        /// Construct object from int by boxing.
         object(int64_t value);
 
-        /// <summary>Construct object from char by boxing.</summary>
+        /// Construct object from char by boxing.
         object(char value);
 
-        /// <summary>Construct object from nullable by boxing.</summary>
+        /// Construct object from nullable by boxing.
         template <class T>
         object(const nullable<T>& value) { if (value.has_value()) *this = value.value(); }
 
-        /// <summary>Construct object from local_minute by boxing.</summary>
+        /// Construct object from local_minute by boxing.
         object(const local_minute & value);
 
-        /// <summary>Construct object from local_time by boxing.</summary>
+        /// Construct object from local_time by boxing.
         object(const local_time& value);
 
-        /// <summary>Construct object from local_date by boxing.</summary>
+        /// Construct object from local_date by boxing.
         object(const local_date& value);
 
-        /// <summary>Construct object from local_date_time by boxing.</summary>
+        /// Construct object from local_date_time by boxing.
         object(const local_date_time& value);
 
-        /// <summary>Construct object from struct wrapper, boxing the value if necessary.</summary>
+        /// Construct object from struct wrapper, boxing the value if necessary.
         template <typename T>
         object(struct_wrapper<T> value) : base(value) {}
 
-        /// <summary>Construct object from tuple, boxing the value if necessary.</summary>
+        /// Construct object from tuple, boxing the value if necessary.
         template <typename ... T>
         object(const std::tuple<T...> & value) : object(new struct_wrapper_impl<std::tuple<T...>>(value)) {}
 
     public: // OPERATORS
 
-        /// <summary>Forward to operator in type ptr(T).</summary>
+        /// Forward to operator in type ptr(T).
         bool operator==(nullptr_t) const;
 
-        /// <summary>Forward to operator in type ptr(T).</summary>
+        /// Forward to operator in type ptr(T).
         bool operator!=(nullptr_t) const;
 
-        /// <summary>Assign nullptr to object.</summary>
+        /// Assign nullptr to object.
         object& operator=(nullptr_t);
 
-        /// <summary>Assign ptr(T) to object.</summary>
+        /// Assign ptr(T) to object.
         object& operator=(const ptr<object_impl>& p);
 
-        /// <summary>Assign string to object by boxing.</summary>
+        /// Assign string to object by boxing.
         object& operator=(const string& value);
 
-        /// <summary>Assign const string to object by boxing.</summary>
+        /// Assign const string to object by boxing.
         object& operator=(const char* value);
 
-        /// <summary>Assign bool to object by boxing.</summary>
+        /// Assign bool to object by boxing.
         object& operator=(bool value);
 
-        /// <summary>Assign double to object by boxing.</summary>
+        /// Assign double to object by boxing.
         object& operator=(double value);
 
-        /// <summary>Assign int to object by boxing.</summary>
+        /// Assign int to object by boxing.
         object& operator=(int value);
 
-        /// <summary>Assign long to object by boxing.</summary>
+        /// Assign long to object by boxing.
         object& operator=(int64_t value);
 
-        /// <summary>Assign char to object by boxing.</summary>
+        /// Assign char to object by boxing.
         object& operator=(char value);
 
-        /// <summary>Assign struct_wrapper to object by boxing.</summary>
+        /// Assign struct_wrapper to object by boxing.
         template <class T>
         object& operator=(const struct_wrapper<T>& value) { base::operator=(value); return *this; }
 
-        /// <summary>Assign tuple to object by boxing.</summary>
+        /// Assign tuple to object by boxing.
         template <typename ... T>
         object& operator=(const std::tuple<T...> & value) { base::operator=(new struct_wrapper_impl<std::tuple<T...>>(value)); return *this; }
 
-        /// <summary>Assign nullable to object by boxing.</summary>
+        /// Assign nullable to object by boxing.
         template <class T>
         object& operator=(const nullable<T>& value) { if (value.has_value()) *this = value.value(); else *this = nullptr; return *this; }
 
-        /// <summary>Assign local_minute to object by boxing.</summary>
+        /// Assign local_minute to object by boxing.
         object& operator=(const local_minute& value);
 
-        /// <summary>Assign local_time to object by boxing.</summary>
+        /// Assign local_time to object by boxing.
         object& operator=(const local_time& value);
 
-        /// <summary>Assign local_date to object by boxing.</summary>
+        /// Assign local_date to object by boxing.
         object& operator=(const local_date& value);
 
-        /// <summary>Assign local_date_time to object by boxing.</summary>
+        /// Assign local_date_time to object by boxing.
         object& operator=(const local_date_time& value);
 
-        /// <summary>Convert object to bool by unboxing. Error if object does is not a boxed double.</summary>
+        /// Convert object to bool by unboxing. Error if object does is not a boxed double.
         operator bool() const;
 
-        /// <summary>Convert object to double by unboxing. Error if object does is not a boxed double.</summary>
+        /// Convert object to double by unboxing. Error if object does is not a boxed double.
         operator double() const;
 
-        /// <summary>Convert object to int by unboxing. Error if object does is not a boxed int.</summary>
+        /// Convert object to int by unboxing. Error if object does is not a boxed int.
         operator int() const;
 
-        /// <summary>Convert object to long by unboxing. Error if object does is not a boxed long.</summary>
+        /// Convert object to long by unboxing. Error if object does is not a boxed long.
         operator int64_t() const;
 
-        /// <summary>Convert object to char by unboxing. Error if object does is not a boxed long.</summary>
+        /// Convert object to char by unboxing. Error if object does is not a boxed long.
         operator char() const;
 
-        /// <summary>Convert object to local_minute by unboxing. Error if object does is not a boxed local_minute.</summary>
+        /// Convert object to local_minute by unboxing. Error if object does is not a boxed local_minute.
         operator local_minute() const;
 
-        /// <summary>Convert object to local_time by unboxing. Error if object does is not a boxed local_time.</summary>
+        /// Convert object to local_time by unboxing. Error if object does is not a boxed local_time.
         operator local_time() const;
 
-        /// <summary>Convert object to local_date by unboxing. Error if object does is not a boxed local_date.</summary>
+        /// Convert object to local_date by unboxing. Error if object does is not a boxed local_date.
         operator local_date() const;
 
-        /// <summary>Convert object to local_date_time by unboxing. Error if object does is not a boxed local_date_time.</summary>
+        /// Convert object to local_date_time by unboxing. Error if object does is not a boxed local_date_time.
         operator local_date_time() const;
 
-        /// <summary>Convert object to struct_wrapper by unboxing. Error if object does is not a boxed T.</summary>
+        /// Convert object to struct_wrapper by unboxing. Error if object does is not a boxed T.
         template <class T>
         operator struct_wrapper<T>() const { return this->as<struct_wrapper<T>>(); }
 
-        /// <summary>Convert object to tuple by unboxing. Error if object does is not a boxed T.</summary>
+        /// Convert object to tuple by unboxing. Error if object does is not a boxed T.
         template <class ... T>
         operator std::tuple<T...>() const { return *this->as<struct_wrapper<std::tuple<T...>>>(); }
 
@@ -218,11 +218,11 @@ namespace dot
 
     public: // STATIC
 
-        /// <summary>Determines whether the specified System.object instances are the same instance.</summary>
+        /// Determines whether the specified System.object instances are the same instance.
         static bool ReferenceEquals(object objA, object objB);
     };
 
-    /// <summary>Initializes a new instance of object.</summary>
+    /// Initializes a new instance of object.
     inline object new_object() { return object(new object_impl); }
 
 }
@@ -231,7 +231,7 @@ namespace dot
 
 namespace dot
 {
-    /// <summary>Wraps struct into object.</summary>
+    /// Wraps struct into object.
     template <class T>
     class struct_wrapper_impl
         : public virtual object_impl
@@ -264,12 +264,12 @@ namespace dot
 
 namespace std
 {
-    /// <summary>Implements hash struct used by STL unordered_map for object.</summary>
+    /// Implements hash struct used by STL unordered_map for object.
     template <>
     struct hash<dot::object> : public hash<dot::ptr<dot::object_impl>>
     {};
 
-    /// <summary>Implements equal_to struct used by STL unordered_map for object.</summary>
+    /// Implements equal_to struct used by STL unordered_map for object.
     template <>
     struct equal_to<dot::object> : public equal_to<dot::ptr<dot::object_impl>>
     {};

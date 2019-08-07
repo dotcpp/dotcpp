@@ -29,10 +29,10 @@ limitations under the License.
 
 namespace dot
 {
-    /// <summary>
+    /// 
     /// Represents the standard input, output, and
     /// error streams for console applications.
-    /// </summary>
+    /// 
     class DOT_CLASS console final
     {
     private: // CONSTRUCTORS
@@ -43,31 +43,31 @@ namespace dot
 
     public: // STATIC
 
-        /// <summary>
+        /// 
         /// Writes the text representation of the argument array of objects 
         /// to the standard output stream using the specified format information.
-        /// </summary>
+        /// 
         template <typename First, typename ...Args>
         static void write(const string& format, const First& f, const Args& ...args)
         {
             std::cout << *string::format(format, f, args...);
         }
 
-        /// <summary>
+        /// 
         /// Writes the text representation of the specified object 
         /// to the standard output stream.
-        /// </summary>
+        /// 
         template <typename T>
         static void write(const T& arg)
         {
             std::cout << *string::format("{0}", arg);
         }
 
-        /// <summary>
+        /// 
         /// Writes the text representation of the specified array of objects,
         /// followed by the current line terminator, to the standard output
         /// stream using the specified format information.
-        /// </summary>
+        /// 
         template <typename ...Args>
         static void write_line(const Args& ...args)
         {

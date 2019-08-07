@@ -31,37 +31,37 @@ limitations under the License.
 
 namespace dot
 {
-    /// <summary>
+    /// 
     /// Because in C\# local_date_time is a struct, it has default constructor
     /// that initializes all backing variables to 0. This means that default
     /// constructed value corresponds to 0001-01-01 00:00:00. We will
     /// replicate this behavior here.
-    /// </summary>
+    /// 
     local_time::local_time()
         : ptime(boost::gregorian::date(1970, 1, 1), time_duration{ 0, 0, 0 })
     {}
 
-    /// <summary>Creates a local time at the given hour and minute, with second, millisecond-of-second and tick-of-millisecond values of zero.</summary>
+    /// Creates a local time at the given hour and minute, with second, millisecond-of-second and tick-of-millisecond values of zero.
     local_time::local_time(int hour, int minute)
         : ptime(boost::gregorian::date(1970, 1, 1), time_duration {hour, minute, 0})
     {}
 
-    /// <summary>Creates a local time at the given hour, minute and second, with millisecond-of-second and tick-of-millisecond values of zero.</summary>
+    /// Creates a local time at the given hour, minute and second, with millisecond-of-second and tick-of-millisecond values of zero.
     local_time::local_time(int hour, int minute, int second)
         : ptime(boost::gregorian::date(1970, 1, 1), time_duration {hour, minute, second})
     {}
 
-    /// <summary>Creates a local time at the given hour, minute, second and millisecond, with a tick-of-millisecond value of zero.</summary>
+    /// Creates a local time at the given hour, minute, second and millisecond, with a tick-of-millisecond value of zero.
     local_time::local_time(int hour, int minute, int second, int millisecond)
         : ptime(boost::gregorian::date(1970, 1, 1), time_duration {hour, minute, second, millisecond * 1000})
     {}
 
-    /// <summary>Create from Boost time_duration.</summary>
+    /// Create from Boost time_duration.
     local_time::local_time(const time_duration& time)
         : ptime(boost::gregorian::date(1970, 1, 1), time)
     {}
 
-    /// <summary>Create from Boost posix_time.</summary>
+    /// Create from Boost posix_time.
     local_time::local_time(const ptime& time)
         : ptime(time)
     {}

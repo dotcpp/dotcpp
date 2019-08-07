@@ -32,11 +32,11 @@ namespace dot
     class Null;
     class exception;
 
-    /// <summary>
+    /// 
     /// Reference counted smart pointer based on std::shared_ptr
     /// with emulation of selected features of .NET references including
     /// type conversion using 'is' and 'as'.
-    /// </summary>
+    /// 
     template <class T>
     class ptr
     {
@@ -53,87 +53,87 @@ namespace dot
 
     public: // CONSTRUCTORS
 
-        /// <summary>Create empty pointer.</summary>
+        /// Create empty pointer.
         ptr();
 
-        /// <summary>
+        /// 
         /// Take ownership of raw pointer to template argument type.
         /// This also permits construction from null pointer.
-        /// </summary>
+        /// 
         ptr(T* p);
 
-        /// <summary>Implicit conversion from derived to base pointer (does not use dynamic cast).</summary>
+        /// Implicit conversion from derived to base pointer (does not use dynamic cast).
         template <class R> ptr(const ptr<R>& rhs, typename std::enable_if<std::is_base_of<T, R>::value>::type* p = 0);
 
-        /// <summary>
+        /// 
         /// Explicit conversion from base to derived or sibling pointer (uses dynamic cast).
         ///
         /// Error message if the cast fails because the two types are unrelated.
-        /// </summary>
+        /// 
         template <class R> explicit ptr(const ptr<R>& rhs, typename std::enable_if<!std::is_base_of<T, R>::value>::type* p = 0);
 
-        /// <summary>Copy constructor for the pointer (does not copy T).</summary>
+        /// Copy constructor for the pointer (does not copy T).
         ptr(const ptr<T>& rhs);
 
     public: // DESTRUCTOR
 
-        /// <summary>Decrements reference count if not empty.</summary>
+        /// Decrements reference count if not empty.
         ~ptr();
 
     public: // METHODS
 
-        /// <summary>Dynamic cast to type R, returns 0 if the cast fails.</summary>
+        /// Dynamic cast to type R, returns 0 if the cast fails.
         template <class R>
         R as() const;
 
-        /// <summary>Returns true if pointer holds object of type R, and false otherwise.</summary>
+        /// Returns true if pointer holds object of type R, and false otherwise.
         template <class R>
         bool is() const;
 
-        /// <summary>Returns true if pointer holds object, and false otherwise.</summary>
+        /// Returns true if pointer holds object, and false otherwise.
         bool is_empty();
 
     public: // OPERATORS
 
-        /// <summary>Pointer dereference.</summary>
+        /// Pointer dereference.
         T& operator*() const;
 
-        /// <summary>Pointer dereference.</summary>
+        /// Pointer dereference.
         T* operator->() const;
 
-        /// <summary>Returns true if the argument contains
-        /// pointer to the same instance as self.</summary>
+        /// Returns true if the argument contains
+        /// pointer to the same instance as self.
         bool operator==(const ptr<T>& rhs) const;
 
-        /// <summary>Returns true if the argument does
-        /// not contain pointer to the same instance as self.</summary>
+        /// Returns true if the argument does
+        /// not contain pointer to the same instance as self.
         bool operator!=(const ptr<T>& rhs) const;
 
-        /// <summary>Supports ptr == nullptr.</summary>
+        /// Supports ptr == nullptr.
         bool operator==(nullptr_t) const;
 
-        /// <summary>Supports ptr != nullptr.</summary>
+        /// Supports ptr != nullptr.
         bool operator!=(nullptr_t) const;
 
-        /// <summary>
+        /// 
         /// Take ownership of raw pointer to template argument type.
         /// This also permits assignment of pointer to type derived from T.
-        /// </summary>
+        /// 
         ptr<T>& operator=(T* rhs);
 
-        /// <summary>
+        /// 
         /// Assign pointer to template argument base type. // TODO - use SFINAE to detemine if dynamic cast is needed
-        /// </summary>
+        /// 
         template <class R> ptr<T>& operator=(const ptr<R>& rhs);
 
-        /// <summary>Assign pointer of the same type.</summary>
+        /// Assign pointer of the same type.
         ptr<T>& operator=(const ptr<T>& rhs);
 
-        /// <summary>Const indexer operator for arrays.</summary>
+        /// Const indexer operator for arrays.
         template <class I>
         decltype(auto) operator[](I const& i) const;
 
-        /// <summary>Non-const indexer operator for arrays.</summary>
+        /// Non-const indexer operator for arrays.
         template <class I>
         decltype(auto) operator[](I const& i);
     };
@@ -187,28 +187,28 @@ namespace dot
     template <class T> template <class I> decltype(auto) ptr<T>::operator[](I const& i) { return (*ptr_)[i]; }
     template <class T> bool ptr<T>::is_empty() { return !ptr_; }
 
-    /// <summary>Implements begin() used by STL and similar algorithms.</summary>
+    /// Implements begin() used by STL and similar algorithms.
     template <class T>
     auto begin(dot::ptr<T> & obj)
     {
         return obj->begin();
     }
 
-    /// <summary>Implements end() used by STL and similar algorithms.</summary>
+    /// Implements end() used by STL and similar algorithms.
     template <class T>
     auto end(dot::ptr<T> & obj)
     {
         return obj->end();
     }
 
-    /// <summary>Implements begin() used by STL and similar algorithms.</summary>
+    /// Implements begin() used by STL and similar algorithms.
     template <class T>
     auto begin(dot::ptr<T> const& obj)
     {
         return obj->begin();
     }
 
-    /// <summary>Implements end() used by STL and similar algorithms.</summary>
+    /// Implements end() used by STL and similar algorithms.
     template <class T>
     auto end(dot::ptr<T> const& obj)
     {
@@ -218,7 +218,7 @@ namespace dot
 
 namespace std
 {
-    /// <summary>Implements hash struct used by STL unordered_map for ptr.</summary>
+    /// Implements hash struct used by STL unordered_map for ptr.
     template <typename T>
     struct hash<dot::ptr<T>>
     {
@@ -228,7 +228,7 @@ namespace std
         }
     };
 
-    /// <summary>Implements equal_to struct used by STL unordered_map for ptr.</summary>
+    /// Implements equal_to struct used by STL unordered_map for ptr.
     template <typename T>
     struct equal_to<dot::ptr<T>>
     {
