@@ -25,7 +25,7 @@ limitations under the License.
 
 #define DOT_ENUM_BEGIN(nspace, name)                                    \
 private:                                                                \
-    static dot::object make_Self() { return self(); }                         \
+    static dot::object make_self() { return self(); }                         \
                                                                         \
 public:                                                                 \
     typedef self element_type;                                          \
@@ -43,7 +43,7 @@ public:                                                                 \
         {                                                               \
             dot::type_t type = dot::make_type_builder<self>(nspace, name)             \
                 ->is_enum()                                              \
-                ->with_constructor(&self::make_Self, {})                  \
+                ->with_constructor(&self::make_self, {})                  \
                 ->with_base<enum_base>()                                      \
                 ->build();                                              \
             return type;                                                \
