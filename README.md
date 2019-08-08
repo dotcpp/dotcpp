@@ -1,64 +1,53 @@
-# DotCpp (.C++)
+# DotCpp
 
-DotCpp (.C++) project is a C++ implementation of popular .NET APIs including the .NET
-Standard Library, NodaTime, and others. Its purpose is to facilitate code reuse between
-C# and C++.
+DotCpp project is a partial port of popular .NET libraries including the .NET Standard Library, NodaTime, and others to native C++17. Its purpose is to facilitate code reuse between C# and C++.
 
-.C++ is developed and maintained by [CompatibL](http://www.compatibl.com "CompatibL"), a provider of custom software development services, market and credit risk solutions, and model validation consultancy for the financial industry.
-
+DotCpp is developed and maintained by [CompatibL](http://www.compatibl.com "CompatibL"), a provider of custom software development services, market and credit risk solutions, and model validation consultancy for the financial industry.
 
 ## Purpose
 
-When code is written in C# and has to be ported to C++, the fundamental differences
-between two distinct API styles, one represented by the .NET Standard Library and the othe
-by core C++ libraries such as STL and Boost, becomes major obstacle to code reuse.
+When code is written in C# and has to be ported to C++, the fundamental differences between two distinct API styles, one represented by the .NET Standard Library and the other by core C++ libraries such as STL and Boost, becomes major obstacle to code reuse.
 
-As an example, consider this code in C#:
-
+As an example, consider this code in C# to sort a structure of type Foo with two properties A and B using LINQ:
 ```
-myList.OrderBy(_ => _.x).ThenBy(_ => _.y).ToList();
+List<Foo> x = new List<Foo>();
+... populate the list here ...
+List<Foo> y = x.OrderBy(_ => _.A).ThenBy(_ => _.B).ToList();
 ```
-
 and this code in C++:
-
 ```
-std::sort(begin(my_list), end(my_list),
+std::vector<foo> x;
+... populate the list here ...
+std::sort(begin(x), end(x),
     [](auto const& l, auto const& r)
     {
-      return std::tie(l.y, l.x) < std::tie(r.y, r.x);
+      return std::tie(l.a, l.b) < std::tie(r.b, r.a);
     }
 );
 ```
-
-Both code snippets perform the same function. However translating from one to
-the other requires major changes in code structure, making the process of porting
-slower and more error-prone.
-
-The objective of the .C++ project is to provide .NET like API on top of STL and Boost.
-This is accomplished by defining classes that implement .NET APIs and are derived from
-STL and Boost classes. These classes work with STL algorithms as well as with C# like
-code that can for the most part be obtained from C# by replacing . operator by -> and
-new operator by new_ function prefix.
-
-## Example
-
-To illustrate the .C++ API style, we will use the following C# example that creates
-an empty list, adds an element, and prints the result:
-
+Both code snippets perform the same function. However translating from one to the other requires major changes in code structure, making the process of porting slower and more error prone. With DotCpp, the C++ code becomes more similar to the C# code:
 ```
-var myList = new List<double>();
-myList.Add(1.0);
-Console.WriteLine(myList);
+dot::list<foo> x = dot::make_list<foo>();
+... populate the list here ...
+dot::list<foo> y = x.order_by(foo_impl::a).then_by(foo_impl::b).to_list();
 ```
+The main difference is now mostly cosmetic - C# code uses the standard .NET naming convention, while DotCpp code uses the canonical snake_case naming convention of STL and Boost.
 
-In .C++, the same code would look as follows:
+## Reference semantics
 
+DotCpp types based on C# classes have reference semantics implemented using std::shared_ptr, with full support for System.Object (mapped to dot::object) and boxing/unboxing behavior for value types and support for C# like cast, is, and as operators.
+
+A DotCpp pointer has implicit conversion to a pointer to base, and explicit conversion (cast operator) to a pointer to derived, providing behavior that is similar to type conversion in .NET.
+
+## Reflection
+
+.NET reflection based on GetType() and typeof(T) methods is supported for classes and enums, providing support for serialization and invoking methods with parameters.
+
+## STL compatibility
+
+Because core DotCpp containers are either derived from the corresponding STL containers, or directly implement begin/end and iterators, they can be passed to methods expecting STL containers or specific STL types:
 ```
-auto myList = new_List<double>();
-myList->Add(1.0);
-Console->WriteLine(myList);
+dot::list<double> x = dot::make_list<double>();
+... populate the list here ...
+std::sort(*x);
 ```
-
-By making it possible to write boilerplate code in C++ that mirrors the C# original,
-the effort of porting from C# to C++ is simplified, reducing the need for complex code
-changes.
