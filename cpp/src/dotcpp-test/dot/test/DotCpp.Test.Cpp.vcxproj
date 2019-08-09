@@ -22,6 +22,7 @@
     <ClCompile Include="system\collections\generic\list_test.cpp" />
     <ClCompile Include="system\console_test.cpp" />
     <ClCompile Include="system\double_test.cpp" />
+    <ClCompile Include="system\enum_test.cpp" />
     <ClCompile Include="system\exception_test.cpp" />
     <ClCompile Include="system\object_test.cpp" />
     <ClCompile Include="system\ptr_test.cpp" />
