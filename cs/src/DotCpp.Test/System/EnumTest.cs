@@ -58,12 +58,35 @@ namespace DotCpp
             received.WriteLine("Serialization");
             received.Indent++;
 
-            // Serialize
-            EnumSample value = EnumSample.First;
-            string serializedValue = value.ToString();
-            received.WriteLine($"Serialized={serializedValue}");
+            // Serialize enum
+            if (true)
+            {
+                EnumSample value = EnumSample.First;
+                string serializedValue = value.ToString();
+                received.WriteLine($"Serialized(First)={serializedValue}");
+            }
 
-            // Deserialize
+            // Serialize nullable enum
+            if (true)
+            {
+                // Establish that null.ToString() is String.Empty, not null
+                EnumSample? nullableValue = null;
+                string serializedValue = nullableValue.ToString();
+                received.WriteLine($"NullableSerialized(null).IsNull={serializedValue == null}");
+                received.WriteLine($"NullableSerialized(null).IsEmpty={serializedValue == String.Empty}");
+            }
+            if (true)
+            {
+                EnumSample? nullableValue = EnumSample.First;
+                string serializedValue = nullableValue.ToString();
+                received.WriteLine($"NullableSerialized(First)={serializedValue}");
+            }
+
+            // Deserialization
+            received.Indent = 0;
+            received.WriteLine("TryParse");
+            received.Indent++;
+
             bool result1 = Enum.TryParse("First", out EnumSample value1);
             received.WriteLine($"Result={result1} Value={value1}");
             bool result2 = Enum.TryParse("UnknownValue", out EnumSample value2);

@@ -1,5 +1,9 @@
 ﻿Serialization
-    Serialized=First
+    Serialized(First)=First
+    NullableSerialized(null).IsNull=False
+    NullableSerialized(null).IsEmpty=True
+    NullableSerialized(First)=First
+TryParse
     Result=True Value=First
     Result=False Value=Empty
 Reflection
