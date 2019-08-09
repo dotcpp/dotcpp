@@ -42,26 +42,33 @@ namespace dot
         second
     };
 
+    /*
     /// Get type_t object for the argument.
-    type_t typeof(enum_sample value)
+    type_t typeof()
     {
         static type_t result = make_type_builder<enum_sample>("dot", "enum_sample")
             ->is_enum()
             ->build();
         return result;
     }
+    */
 
-    /// Convert to string, applying enum case conversion settings to the result
-    dot::string to_string(enum_sample value)
+    /// Helper class to provide provides to_string(value)
+    template <>
+    class to_string_impl<enum_sample>
     {
-        switch (value)
+    public:
+        static string to_string(const enum_sample& value)
         {
-        case enum_sample::empty: return "empty";
-        case enum_sample::first: return "first";
-        case enum_sample::second: return "second";
-        default: throw exception("Unknown enum value in to_string(enum_sample).");
+            switch (value)
+            {
+            case enum_sample::empty: return "empty";
+            case enum_sample::first: return "first";
+            case enum_sample::second: return "second";
+            default: throw exception("Unknown enum value in to_string(enum_sample).");
+            }
         }
-    }
+    };
 
     TEST_CASE("smoke")
     {
@@ -72,9 +79,28 @@ namespace dot
         //received->indent++;
 
         // Serialize
-        enum_sample value = enum_sample::first;
-        string serialized_value = to_string(value);
-        received->append_line(dot::string::format("Serialized={0}", serialized_value));
+        if (true)
+        {
+            enum_sample value = enum_sample::first;
+            string serialized_value = to_string(value);
+            received->append_line(dot::string::format("Serialized={0}", serialized_value));
+        }
+
+        // Serialize nullable enum
+        if (true)
+        {
+            // Establish that null.ToString() is String.Empty, not null
+            nullable<enum_sample> nullable_value = nullptr;
+            string serialized_value = to_string(nullable_value);
+            received->append_line(string::format("NullableSerialized(null).IsNull={0}", serialized_value == nullptr));
+            received->append_line(string::format("NullableSerialized(null).IsEmpty={0}", serialized_value == string::empty));
+        }
+        if (true)
+        {
+            nullable<enum_sample> nullable_value = enum_sample::first;
+            string serializedValue = to_string(nullable_value);
+            received->append_line(string::format("NullableSerialized(First)={0}", serializedValue));
+        }
 
         Approvals::verify(*received);
     }

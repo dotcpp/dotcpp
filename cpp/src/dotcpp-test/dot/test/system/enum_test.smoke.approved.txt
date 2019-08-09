@@ -1,3 +1,6 @@
 Serialization
 Serialized=first
+NullableSerialized(null).IsNull=false
+NullableSerialized(null).IsEmpty=true
+NullableSerialized(First)=first
 
