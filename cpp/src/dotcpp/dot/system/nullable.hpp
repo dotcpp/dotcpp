@@ -30,6 +30,7 @@ limitations under the License.
 #include <dot/system/long.hpp>
 #include <dot/system/double.hpp>
 #include <dot/system/object.hpp>
+#include <dot/system/to_string.hpp>
 
 namespace dot
 {
@@ -62,7 +63,7 @@ namespace dot
 
         /// Initializes a new instance of the nullable
         /// structure to the specified value.
-        nullable(T value) : base(value) {}
+        nullable(const T& value) : base(value) {}
 
         /// Supports cast (explicit constructor) from object.
         ///
@@ -91,11 +92,30 @@ namespace dot
 
         nullable& operator=(nullptr_t) { this->reset(); return *this; }
 
-        bool operator==(nullptr_t) { return !this->has_value(); }
-        bool operator!=(nullptr_t) { return this->has_value(); }
+        bool operator==(nullptr_t) const { return !this->has_value(); }
+        bool operator!=(nullptr_t) const { return this->has_value(); }
 
-        bool operator ==(T rhs) { return value_or_default() == rhs; }
-        bool operator ==(nullable<T> rhs) { return value_or_default() == rhs.value_or_default(); }
+        bool operator==(T rhs) const { return value_or_default() == rhs; }
+        bool operator==(nullable<T> rhs) const { return value_or_default() == rhs.value_or_default(); }
+    };
+
+    /// Helper class to provide provides to_string(value)
+    template <class T>
+    class to_string_impl<nullable<T>>
+    {
+    public:
+        static string to_string(const nullable<T>& value)
+        {
+            if (value == nullptr)
+            {
+                return string::empty;
+            }
+            else
+            {
+                T inner_value = value.value();
+                return to_string_impl<T>::to_string(inner_value);
+            }
+        }
     };
 
     /// Wrapper for bool where default constructor creates uninitialized
