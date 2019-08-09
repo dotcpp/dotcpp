@@ -1,0 +1,9 @@
+﻿Serialization
+    Serialized=First
+    Result=True Value=First
+    Result=False Value=Empty
+Reflection
+    Name=EnumSample
+    Namespace=DotCpp
+    FullName=DotCpp.EnumSample
+    IsEnum=True
