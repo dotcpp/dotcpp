@@ -42,23 +42,20 @@ namespace dot
         second
     };
 
-    /*
-    /// Get type_t object for the argument.
-    type_t typeof()
-    {
-        static type_t result = make_type_builder<enum_sample>("dot", "enum_sample")
-            ->is_enum()
-            ->build();
-        return result;
-    }
-    */
-
-    /// Template specialization to provide to_string(enum)
     template <>
-    class to_string_impl<enum_sample>
+    struct typeof_impl<enum_sample>
     {
-    public:
+        static type_t get_typeof()
+        {
+            static type_t result = make_type_builder<char>("dot", "enum_sample")->is_enum()->build();
+            return result;
+        }
+    };
 
+    /// Helper class to implement to_string(value) via template specialization
+    template <>
+    struct to_string_impl<enum_sample>
+    {
         /// Convert value to string; for empty or null values, return string::empty.
         static string to_string(const enum_sample& value)
         {

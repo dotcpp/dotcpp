@@ -36,10 +36,8 @@ namespace dot
     /// defining to_string for a type that is itself a template, for example
     /// nullable.
     template <class T>
-    class to_string_impl
+    struct to_string_impl
     {
-    public:
-
         /// Convert value to string; for empty or null values, return string::empty.
         ///
         /// The purpose of making this a deleted method here is to generate the

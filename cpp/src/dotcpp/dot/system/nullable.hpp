@@ -99,11 +99,11 @@ namespace dot
         bool operator==(nullable<T> rhs) const { return value_or_default() == rhs.value_or_default(); }
     };
 
-    /// Helper class to provide provides to_string(value)
+    /// Helper class to implement to_string(value) via template specialization
     template <class T>
-    class to_string_impl<nullable<T>>
+    struct to_string_impl<nullable<T>>
     {
-    public:
+        /// Convert value to string; for empty or null values, return string::empty.
         static string to_string(const nullable<T>& value)
         {
             if (value == nullptr)
