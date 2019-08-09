@@ -53,11 +53,13 @@ namespace dot
     }
     */
 
-    /// Helper class to provide provides to_string(value)
+    /// Template specialization to provide to_string(enum)
     template <>
     class to_string_impl<enum_sample>
     {
     public:
+
+        /// Convert value to string; for empty or null values, return string::empty.
         static string to_string(const enum_sample& value)
         {
             switch (value)
