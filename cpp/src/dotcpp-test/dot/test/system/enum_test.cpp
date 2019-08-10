@@ -26,6 +26,7 @@ limitations under the License.
 #include <approvals/Catch.hpp>
 #include <dot/system/object.hpp>
 #include "dot/system/text/string_builder.hpp"
+#include "dot/system/collections/generic/dictionary.hpp"
 
 namespace dot
 {
@@ -56,6 +57,22 @@ namespace dot
     template <>
     struct to_string_impl<enum_sample>
     {
+        static dot::dictionary<dot::string, int> get_enum_map(int size)
+        {
+            static dot::dictionary<dot::string, int> func = [size]()
+            {
+                auto result = dot::make_dictionary<dot::string, int>();
+                for (int i = 0; i < size; i++)
+                {
+                    enum_sample enum_value = (enum_sample)i;
+                    string string_value = to_string(enum_value);
+                    result[string_value] = i;
+                }
+                return result;
+            }();
+            return func;
+        }
+
         /// Convert value to string; for empty or null values, return string::empty.
         static string to_string(const enum_sample& value)
         {
@@ -65,6 +82,23 @@ namespace dot
             case enum_sample::first: return "first";
             case enum_sample::second: return "second";
             default: throw exception("Unknown enum value in to_string(enum_sample).");
+            }
+        }
+
+        /// Convert value to string; for empty or null values, return string::empty.
+        static bool try_parse(string value, enum_sample& result)
+        {
+            dot::dictionary<dot::string, int> dict = get_enum_map(3);
+            int int_result;
+            if (dict->try_get_value(value, int_result))
+            {
+                result = (enum_sample)int_result;
+                return true;
+            }
+            else
+            {
+                result = (enum_sample)0;
+                return false;
             }
         }
     };
@@ -99,6 +133,14 @@ namespace dot
             nullable<enum_sample> nullable_value = enum_sample::first;
             string serializedValue = to_string(nullable_value);
             received->append_line(string::format("NullableSerialized(First)={0}", serializedValue));
+        }
+
+        // Deserialization
+        if (true)
+        {
+            enum_sample result;
+            bool success = to_string_impl<enum_sample>::try_parse("first", result);
+            received->append_line(dot::string::format("TryParse={0} Value={1}", success, to_string(result)));
         }
 
         Approvals::verify(*received);
