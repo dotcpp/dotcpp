@@ -39,8 +39,7 @@ namespace dot
                 return x.first;
         }
 
-        // returns int value_ converted to string
-        return std::to_string(value_);
+        throw exception("Unknown enum value in to_string().");
     }
 
     size_t enum_base::hash_code()
