@@ -31,31 +31,44 @@ limitations under the License.
 namespace dot
 {
     /// Enum sample.
-    enum class enum_sample
+    enum class apples_sample
     {
         /// Empty value.
         empty,
 
         /// First value.
-        first,
+        red,
 
         /// Second value.
-        second
+        gala
+    };
+
+    /// Enum sample.
+    enum class colors_sample
+    {
+        /// Empty value.
+        empty,
+
+        /// First value.
+        blue,
+
+        /// Second value.
+        red
     };
 
     template <>
-    struct typeof_impl<enum_sample>
+    struct typeof_impl<apples_sample>
     {
         static type_t get_typeof()
         {
-            static type_t result = make_type_builder<char>("dot", "enum_sample")->is_enum()->build();
+            static type_t result = make_type_builder<char>("dot", "apples_sample")->is_enum()->build();
             return result;
         }
     };
 
     /// Helper class to implement to_string(value) via template specialization
     template <>
-    struct to_string_impl<enum_sample>
+    struct to_string_impl<apples_sample>
     {
         static dot::dictionary<dot::string, int> get_enum_map(int size)
         {
@@ -64,7 +77,7 @@ namespace dot
                 auto result = dot::make_dictionary<dot::string, int>();
                 for (int i = 0; i < size; i++)
                 {
-                    enum_sample enum_value = (enum_sample)i;
+                    apples_sample enum_value = (apples_sample)i;
                     string string_value = to_string(enum_value);
                     result[string_value] = i;
                 }
@@ -74,30 +87,30 @@ namespace dot
         }
 
         /// Convert value to string; for empty or null values, return string::empty.
-        static string to_string(const enum_sample& value)
+        static string to_string(const apples_sample& value)
         {
             switch (value)
             {
-            case enum_sample::empty: return "empty";
-            case enum_sample::first: return "first";
-            case enum_sample::second: return "second";
-            default: throw exception("Unknown enum value in to_string(enum_sample).");
+            case apples_sample::empty: return "empty";
+            case apples_sample::red: return "red";
+            case apples_sample::gala: return "gala";
+            default: throw exception("Unknown enum value in to_string(...).");
             }
         }
 
         /// Convert value to string; for empty or null values, return string::empty.
-        static bool try_parse(string value, enum_sample& result)
+        static bool try_parse(string value, apples_sample& result)
         {
-            dot::dictionary<dot::string, int> dict = get_enum_map(3);
+            dot::dictionary<dot::string, int> dict = get_enum_map(3); // TODO - size hardcoded, improve
             int int_result;
             if (dict->try_get_value(value, int_result))
             {
-                result = (enum_sample)int_result;
+                result = (apples_sample)int_result;
                 return true;
             }
             else
             {
-                result = (enum_sample)0;
+                result = (apples_sample)0;
                 return false;
             }
         }
@@ -114,7 +127,7 @@ namespace dot
         // Serialize
         if (true)
         {
-            enum_sample value = enum_sample::first;
+            apples_sample value = apples_sample::red;
             string serialized_value = to_string(value);
             received->append_line(dot::string::format("Serialized={0}", serialized_value));
         }
@@ -123,25 +136,37 @@ namespace dot
         if (true)
         {
             // Establish that null.ToString() is String.Empty, not null
-            nullable<enum_sample> nullable_value = nullptr;
+            nullable<apples_sample> nullable_value = nullptr;
             string serialized_value = to_string(nullable_value);
             received->append_line(string::format("NullableSerialized(null).IsNull={0}", serialized_value == nullptr));
             received->append_line(string::format("NullableSerialized(null).IsEmpty={0}", serialized_value == string::empty));
         }
         if (true)
         {
-            nullable<enum_sample> nullable_value = enum_sample::first;
+            nullable<apples_sample> nullable_value = apples_sample::red;
             string serializedValue = to_string(nullable_value);
-            received->append_line(string::format("NullableSerialized(First)={0}", serializedValue));
+            received->append_line(string::format("NullableSerialized(red)={0}", serializedValue));
         }
 
         // Deserialization
         if (true)
         {
-            enum_sample result;
-            bool success = to_string_impl<enum_sample>::try_parse("first", result);
-            received->append_line(dot::string::format("TryParse={0} Value={1}", success, to_string(result)));
+            dot::string str = "red";
+            apples_sample result;
+            bool success = to_string_impl<apples_sample>::try_parse(str, result);
+            received->append_line(dot::string::format("String={0} TryParse={1} Value={2}", str, success, to_string(result)));
         }
+
+        if (true)
+        {
+            dot::string str = "blue";
+            apples_sample result;
+            bool success = to_string_impl<apples_sample>::try_parse(str, result);
+            received->append_line(dot::string::format("String={0} TryParse={1} Value={2}", str, success, to_string(result)));
+        }
+
+        // Boxing
+
 
         Approvals::verify(*received);
     }

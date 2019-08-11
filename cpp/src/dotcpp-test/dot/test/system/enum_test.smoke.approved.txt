@@ -1,7 +1,8 @@
 Serialization
-Serialized=first
+Serialized=red
 NullableSerialized(null).IsNull=false
 NullableSerialized(null).IsEmpty=true
-NullableSerialized(First)=first
-TryParse=true Value=first
+NullableSerialized(red)=red
+String=red TryParse=true Value=red
+String=blue TryParse=false Value=empty
 
