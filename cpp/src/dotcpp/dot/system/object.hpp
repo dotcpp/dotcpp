@@ -36,6 +36,7 @@ namespace dot
     class local_time;
     class local_date;
     class local_date_time;
+    template <class T> class enum_impl;
     template <class T> class struct_wrapper_impl;
     template <class T> using struct_wrapper = ptr<struct_wrapper_impl<T>>;
     template <class T> type_t typeof();
@@ -69,6 +70,10 @@ namespace dot
         /// Construct object from ptr(T).
         template <class T>
         object(const ptr<T>& p) : base(p) {}
+
+        /// Construct object from enum by wrapping it in enum_impl(T).
+        template <class T>
+        object(T value, typename std::enable_if<std::is_enum<T>::value>::type* enableif = 0) : base(new enum_impl<T>(value)) {}
 
         /// Construct object from object_impl pointer.
         object(object_impl* value);

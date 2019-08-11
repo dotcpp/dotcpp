@@ -25,8 +25,9 @@ limitations under the License.
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <dot/system/object.hpp>
-#include "dot/system/text/string_builder.hpp"
-#include "dot/system/collections/generic/dictionary.hpp"
+#include <dot/system/enum_impl.hpp>
+#include <dot/system/text/string_builder.hpp>
+#include <dot/system/collections/generic/dictionary.hpp>
 
 namespace dot
 {
@@ -166,7 +167,23 @@ namespace dot
         }
 
         // Boxing
+        received->append_line("Boxing");
+        //received->indent++;
+        
+        // Check type of boxed enum
+        dot::object boxed = apples_sample::red;
+        // received->append_line(dot::string::format("Type(Boxed)={0}", boxed->type()));
 
+        // Unbox to the correct type
+        apples_sample unboxed = (enum_impl<apples_sample>)boxed;
+        received->append_line(dot::string::format("Boxed={0} Unboxed={1}", boxed->to_string(), to_string(unboxed)));
+
+        // Establish that unboxing DOES enforce enum type, unlike in C#.
+        //
+        // For added safety, this behavior has been intentionally made different
+        // from C# where unboxing DOES NOT enforce enum type. Similar code in
+        // C# would have converted the enum based on its integer value.
+        CHECK_THROWS((enum_impl<colors_sample>)boxed);
 
         Approvals::verify(*received);
     }
