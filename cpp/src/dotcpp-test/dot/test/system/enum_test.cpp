@@ -67,6 +67,16 @@ namespace dot
         }
     };
 
+    template <>
+    struct typeof_impl<colors_sample>
+    {
+        static type_t get_typeof()
+        {
+            static type_t result = make_type_builder<char>("dot", "colors_sample")->is_enum()->build();
+            return result;
+        }
+    };
+
     /// Helper class to implement to_string(value) via template specialization
     template <>
     struct to_string_impl<apples_sample>
@@ -112,6 +122,56 @@ namespace dot
             else
             {
                 result = (apples_sample)0;
+                return false;
+            }
+        }
+    };
+
+    /// Helper class to implement to_string(value) via template specialization
+    template <>
+    struct to_string_impl<colors_sample>
+    {
+        static dot::dictionary<dot::string, int> get_enum_map(int size)
+        {
+            static dot::dictionary<dot::string, int> func = [size]()
+            {
+                auto result = dot::make_dictionary<dot::string, int>();
+                for (int i = 0; i < size; i++)
+                {
+                    colors_sample enum_value = (colors_sample)i;
+                    string string_value = to_string(enum_value);
+                    result[string_value] = i;
+                }
+                return result;
+            }();
+            return func;
+        }
+
+        /// Convert value to string; for empty or null values, return string::empty.
+        static string to_string(const colors_sample& value)
+        {
+            switch (value)
+            {
+            case colors_sample::empty: return "empty";
+            case colors_sample::blue: return "blue";
+            case colors_sample::red: return "red";
+            default: throw exception("Unknown enum value in to_string(...).");
+            }
+        }
+
+        /// Convert value to string; for empty or null values, return string::empty.
+        static bool try_parse(string value, colors_sample& result)
+        {
+            dot::dictionary<dot::string, int> dict = get_enum_map(3); // TODO - size hardcoded, improve
+            int int_result;
+            if (dict->try_get_value(value, int_result))
+            {
+                result = (colors_sample)int_result;
+                return true;
+            }
+            else
+            {
+                result = (colors_sample)0;
                 return false;
             }
         }
@@ -175,7 +235,7 @@ namespace dot
         // received->append_line(dot::string::format("Type(Boxed)={0}", boxed->type()));
 
         // Unbox to the correct type
-        apples_sample unboxed = (enum_impl<apples_sample>)boxed;
+        apples_sample unboxed = boxed.to_enum<apples_sample>();
         received->append_line(dot::string::format("Boxed={0} Unboxed={1}", boxed->to_string(), to_string(unboxed)));
 
         // Establish that unboxing DOES enforce enum type, unlike in C#.

@@ -5,4 +5,6 @@ NullableSerialized(null).IsEmpty=true
 NullableSerialized(red)=red
 String=red TryParse=true Value=red
 String=blue TryParse=false Value=empty
+Boxing
+Boxed=red Unboxed=red
 
