@@ -24,6 +24,7 @@ limitations under the License.
 using System;
 using System.CodeDom.Compiler;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Xunit;
 using Xunit.Sdk;
@@ -34,16 +35,29 @@ using ApprovalUtilities.SimpleLogger;
 namespace DotCpp
 {
     /// <summary>Enum sample.</summary>
-    public enum EnumSample
+    public enum ApplesSample
     {
         /// <summary>Empty value.</summary>
         Empty,
 
         /// <summary>First value.</summary>
-        First,
+        Red,
 
         /// <summary>Second value.</summary>
-        Second
+        White
+    }
+
+    /// <summary>Enum sample.</summary>
+    public enum OrangesSample
+    {
+        /// <summary>Empty value.</summary>
+        Empty,
+
+        /// <summary>First value.</summary>
+        Mandarin,
+
+        /// <summary>Second value.</summary>
+        Tangerine
     }
 
     [UseReporter(typeof(DiffReporter))]
@@ -61,25 +75,25 @@ namespace DotCpp
             // Serialize enum
             if (true)
             {
-                EnumSample value = EnumSample.First;
+                ApplesSample value = ApplesSample.Red;
                 string serializedValue = value.ToString();
-                received.WriteLine($"Serialized(First)={serializedValue}");
+                received.WriteLine($"Serialized(Red)={serializedValue}");
             }
 
             // Serialize nullable enum
             if (true)
             {
                 // Establish that null.ToString() is String.Empty, not null
-                EnumSample? nullableValue = null;
+                ApplesSample? nullableValue = null;
                 string serializedValue = nullableValue.ToString();
                 received.WriteLine($"NullableSerialized(null).IsNull={serializedValue == null}");
                 received.WriteLine($"NullableSerialized(null).IsEmpty={serializedValue == String.Empty}");
             }
             if (true)
             {
-                EnumSample? nullableValue = EnumSample.First;
+                ApplesSample? nullableValue = ApplesSample.Red;
                 string serializedValue = nullableValue.ToString();
-                received.WriteLine($"NullableSerialized(First)={serializedValue}");
+                received.WriteLine($"NullableSerialized(Red)={serializedValue}");
             }
 
             // Deserialization
@@ -87,9 +101,9 @@ namespace DotCpp
             received.WriteLine("TryParse");
             received.Indent++;
 
-            bool result1 = Enum.TryParse("First", out EnumSample value1);
+            bool result1 = Enum.TryParse("Red", out ApplesSample value1);
             received.WriteLine($"Result={result1} Value={value1}");
-            bool result2 = Enum.TryParse("UnknownValue", out EnumSample value2);
+            bool result2 = Enum.TryParse("UnknownValue", out ApplesSample value2);
             received.WriteLine($"Result={result2} Value={value2}");
 
             // Reflection
@@ -97,11 +111,24 @@ namespace DotCpp
             received.WriteLine("Reflection");
             received.Indent++;
 
-            Type type = typeof(EnumSample);
+            Type type = typeof(ApplesSample);
             received.WriteLine($"Name={type.Name}");
             received.WriteLine($"Namespace={type.Namespace}");
             received.WriteLine($"FullName={type.FullName}");
             received.WriteLine($"IsEnum={type.IsEnum}");
+
+            // Boxing
+            received.Indent = 0;
+            received.WriteLine("Boxing");
+            received.Indent++;
+
+            // Check type of boxed enum
+            object boxed = ApplesSample.Red;
+            received.WriteLine($"Type(Boxed)={boxed.GetType()}");
+
+            //  This test establishes that boxing does not enforce enum type
+            OrangesSample unboxedIntoAnotherEnum = (OrangesSample)boxed;
+            received.WriteLine($"Boxed={boxed} Unboxed={unboxedIntoAnotherEnum}");
 
             Approvals.Verify(received.InnerWriter.ToString());
         }

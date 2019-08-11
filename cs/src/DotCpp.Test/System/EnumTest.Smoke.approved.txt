@@ -1,13 +1,16 @@
 ﻿Serialization
-    Serialized(First)=First
+    Serialized(Red)=Red
     NullableSerialized(null).IsNull=False
     NullableSerialized(null).IsEmpty=True
-    NullableSerialized(First)=First
+    NullableSerialized(Red)=Red
 TryParse
-    Result=True Value=First
+    Result=True Value=Red
     Result=False Value=Empty
 Reflection
-    Name=EnumSample
+    Name=ApplesSample
     Namespace=DotCpp
-    FullName=DotCpp.EnumSample
+    FullName=DotCpp.ApplesSample
     IsEnum=True
+Boxing
+    Type(Boxed)=DotCpp.ApplesSample
+    Boxed=Red Unboxed=Mandarin
