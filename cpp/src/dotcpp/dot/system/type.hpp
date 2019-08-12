@@ -280,7 +280,7 @@ namespace dot
         string full_name() const { return string::format("{0}.{1}", this->name_space, this->name); } // TODO - replace by string::Join
 
         /// Gets the base type if current type.
-        type base_get_type() { return base_; }
+        type get_base_type() { return base_; }
 
         /// Gets a value indicating whether the System.type_t is a class or a delegate; that is, not a value type or interface.
         bool is_class; // TODO - replace by method
