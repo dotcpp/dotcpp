@@ -68,7 +68,7 @@ namespace dot
             return result;
         }
 
-        virtual type_t get_type()
+        type_t get_type() override
         {
             return typeof();
         }

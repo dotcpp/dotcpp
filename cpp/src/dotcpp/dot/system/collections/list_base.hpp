@@ -49,7 +49,7 @@ namespace dot
         virtual int get_length() = 0;
 
         /// Gets the type_t of the current instance.
-        virtual type_t get_type();
+        type_t get_type() override;
 
         /// Gets the type_t of the collection_base_impl.
         static type_t typeof();

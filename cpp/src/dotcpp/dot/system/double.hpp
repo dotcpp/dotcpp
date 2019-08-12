@@ -66,7 +66,7 @@ namespace dot
     public: // REFLECTION
 
         static type_t typeof();
-        virtual type_t get_type() override;
+        type_t get_type() override;
     };
 
 }

@@ -60,7 +60,7 @@ namespace dot
         /// Gets the type_t of the current instance.
         virtual type_t get_type();
 
-        /// Gets the type_t of the object_impl.
+        /// Gets the type_t of the class.
         static type_t typeof();
 
         /// string that represents the current object.

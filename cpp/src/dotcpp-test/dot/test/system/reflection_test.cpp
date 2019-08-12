@@ -53,7 +53,7 @@ namespace dot
             return 42 + param;
         }
 
-        virtual type_t get_type()
+        type_t get_type() override
         {
             // Converts to type_t with thread safety guarantee as per C++ Standard
             static type_t result = []()->type_t
