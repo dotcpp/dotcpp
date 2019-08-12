@@ -37,13 +37,13 @@ namespace dot
 
     dot::type_t string_impl::typeof()
     {
-        static dot::type_t type = []()->dot::type_t
+        static dot::type_t result = []()->dot::type_t
         {
-            dot::type_t type = dot::make_type_builder<string_impl>("System", "string")
+            dot::type_t t = dot::make_type_builder<string_impl>("System", "string")
                 ->build();
-            return type;
+            return t;
         }();
-        return type;
+        return result;
     }
 
     dot::type_t string_impl::type()

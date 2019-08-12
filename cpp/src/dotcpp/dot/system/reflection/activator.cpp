@@ -33,19 +33,19 @@ limitations under the License.
 
 namespace dot
 {
-    object activator::create_instance(type_t type)
+    object activator::create_instance(type_t t)
     {
-        return create_instance(type, nullptr);
+        return create_instance(t, nullptr);
     }
 
-    object activator::create_instance(type_t type, list<object> params)
+    object activator::create_instance(type_t t, list<object> params)
     {
-        list<constructor_info> ctors = type->get_constructors();
+        list<constructor_info> ctors = t->get_constructors();
 
         // If no constructors
         if (ctors.is_empty() || ctors->count() == 0)
         {
-            throw exception(string::format("type_t {0}.{1} does not have registered constructors", type->name_space, type->name));
+            throw exception(string::format("type_t {0}.{1} does not have registered constructors", t->name_space, t->name));
         }
 
         // Search for best matched constructor

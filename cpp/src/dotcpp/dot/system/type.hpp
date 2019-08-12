@@ -324,7 +324,7 @@ namespace dot
         static list<type_t> get_derived_types(string name) { return get_derived_types_map()[name]; }
 
         /// Get derived types list for the type.
-        static list<type_t> get_derived_types(type_t type) { return get_derived_types_map()[type->full_name()]; }
+        static list<type_t> get_derived_types(type_t t) { return get_derived_types_map()[t->full_name()]; }
 
         bool equals(object obj) override;
 
@@ -387,8 +387,7 @@ namespace dot
             auto p = type_impl::get_type_map().find(cppname);
             if (p == type_impl::get_type_map().end())
             {
-                type_t type = T::element_type::typeof();
-                return type;
+                return T::element_type::typeof();
             }
 
             return p->second;

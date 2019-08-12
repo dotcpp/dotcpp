@@ -56,16 +56,16 @@ namespace dot
 
         static type_t typeof()
         {
-            static type_t type = []()-> type_t
+            static type_t result = []()-> type_t
             {
-                type_t type = make_type_builder<self>("System.Test", "sample_data_2")
+                type_t t = make_type_builder<self>("System.Test", "sample_data_2")
                     ->with_field("data_field", &self::data_field)
                     ->build();
 
-                return type;
+                return t;
             }();
 
-            return type;
+            return result;
         }
 
         virtual type_t type()
@@ -126,11 +126,11 @@ namespace dot
     {
         if (obj.is_empty()) return "";
 
-        type_t type = obj->type();
+        type_t t = obj->type();
 
         std::stringstream ss;
 
-        if (type->name == "List`1")
+        if (t->name == "List`1")
         {
             list<double> vec = (list<double>)obj;
             for (object item : vec)
@@ -139,11 +139,11 @@ namespace dot
             }
 
         }
-        else if (type == typeof<string>())
+        else if (t == typeof<string>())
         {
             ss << *(string)obj << "|";
         }
-        else if (type->is_class)
+        else if (t->is_class)
         {
         }
         else
@@ -153,7 +153,6 @@ namespace dot
 
         return ss.str();
     }
-
 
     TEST_CASE("simple_serialization")
     {
@@ -169,7 +168,7 @@ namespace dot
 
         string s = obj_to_string(obj);
 
-        type_t type = obj->type();
+        type_t t = obj->type();
 
         sample_data dt = (sample_data)activator::create_instance(obj->type());
 

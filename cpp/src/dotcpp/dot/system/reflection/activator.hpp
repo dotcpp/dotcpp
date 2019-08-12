@@ -41,10 +41,10 @@ namespace dot
     public: // METHODS
 
         /// Creates an instance of the specified type using that type's default constructor.
-        static object create_instance(type_t type);
+        static object create_instance(type_t t);
 
         /// Creates an instance of the specified type using the constructor that best matches the specified parameters.
-        static object create_instance(type_t type, list<object> params);
+        static object create_instance(type_t t, list<object> params);
 
         /// Creates an instance of the type whose name is specified, using the named assembly and default constructor.
         static object create_instance(string assembly_name, string type_name);

@@ -56,7 +56,7 @@ namespace dot
         virtual type_t type()
         {
             // Converts to type_t with thread safety guarantee as per C++ Standard
-            static type_t type = []()->type_t
+            static type_t result = []()->type_t
             {
                 received << "Creating type_t (this should run only once)." << std::endl;
 
@@ -70,7 +70,7 @@ namespace dot
                     ->build();
             }();
 
-            return type;
+            return result;
         }
     };
 
@@ -97,7 +97,7 @@ namespace dot
 
         object x = obj->count();
 
-        type_t type = obj->type();
+        type_t result = obj->type();
         list<property_info> props = type->get_properties();
         property_info int_prop = props[0];
         REQUIRE(int_prop->Name == "IntFld");
