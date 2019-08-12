@@ -35,14 +35,14 @@ namespace dot
         template <int N, int... I>
         struct make_index_sequence : public make_index_sequence<N - 1, N - 1, I...>
         {
-            typedef typename make_index_sequence<N - 1, N - 1, I...>::type type;
+            typedef typename make_index_sequence<N - 1, N - 1, I...>::index_type index_type;
         };
 
         /// Helper class for MemberInfo.Invoke.
         template <int... I>
         struct make_index_sequence<0, I...> : public index_sequence<I...>
         {
-            typedef index_sequence<I...> type;
+            typedef index_sequence<I...> index_type;
         };
     }
 }

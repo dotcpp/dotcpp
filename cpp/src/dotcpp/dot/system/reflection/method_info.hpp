@@ -111,7 +111,7 @@ namespace dot
             if (params->count() != parameters->count())
                 throw exception("Wrong number of parameters for method " + this->declaring_type->name + "." + this->name);
 
-            return invoke_impl(obj, params, typename detail::make_index_sequence<sizeof...(args)>::type(), typename std::is_same<return_t, void>::type());
+            return invoke_impl(obj, params, typename detail::make_index_sequence<sizeof...(args)>::index_type(), typename std::is_same<return_t, void>::type());
         }
 
     private: // CONSTRUCTORS
@@ -163,7 +163,7 @@ namespace dot
             if (params->count() != parameters->count())
                 throw exception("Wrong number of parameters for method " + this->declaring_type->name + "." + this->name);
 
-            return invoke_impl(obj, params, typename detail::make_index_sequence<sizeof...(args)>::type(), typename std::is_same<return_t, void>::type());
+            return invoke_impl(obj, params, typename detail::make_index_sequence<sizeof...(args)>::index_type(), typename std::is_same<return_t, void>::type());
         }
 
     private: // CONSTRUCTORS
