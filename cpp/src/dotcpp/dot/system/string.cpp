@@ -35,18 +35,18 @@ namespace dot
     /// Empty string.
     string string::empty = make_string("");
 
-    dot::type_t string_impl::typeof()
+    dot::type string_impl::typeof()
     {
-        static dot::type_t result = []()->dot::type_t
+        static dot::type result = []()->dot::type
         {
-            dot::type_t t = dot::make_type_builder<string_impl>("System", "string")
+            dot::type t = dot::make_type_builder<string_impl>("System", "string")
                 ->build();
             return t;
         }();
         return result;
     }
 
-    dot::type_t string_impl::get_type()
+    dot::type string_impl::get_type()
     {
         return typeof();
     }

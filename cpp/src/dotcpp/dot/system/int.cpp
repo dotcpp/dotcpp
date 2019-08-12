@@ -51,12 +51,12 @@ namespace dot
         return std::to_string(value_);
     }
 
-    type_t int_impl::typeof()
+    type int_impl::typeof()
     {
         return dot::typeof<int>();
     }
 
-    type_t int_impl::get_type()
+    type int_impl::get_type()
     {
         return typeof();
     }

@@ -146,8 +146,8 @@ namespace dot
 
     public: // REFLECTION
 
-        virtual type_t get_type();
-        static type_t typeof();
+        virtual type get_type();
+        static type typeof();
     };
 
     /// Pointer to string_impl that has additional constructors compared to ptr(string)

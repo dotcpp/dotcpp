@@ -29,7 +29,7 @@ namespace dot
 {
     class member_info_impl; using member_info = ptr<member_info_impl>;
     class member_info_data_impl; using member_info_data = ptr<member_info_data_impl>;
-    class type_impl; using type_t = ptr<type_impl>;
+    class type_impl; using type = ptr<type_impl>;
 
     /// Data for MemberInfo.
     class DOT_CLASS member_info_data_impl : public virtual object_impl
@@ -60,7 +60,7 @@ namespace dot
         string name; // TODO - convert to method
 
         /// Gets the class that declares this member.
-        type_t declaring_type; // TODO - convert to method
+        type declaring_type; // TODO - convert to method
 
         /// A string representing the name of the current type.
         virtual string to_string() override { return "MemberInfo"; }
@@ -70,7 +70,7 @@ namespace dot
         /// Create from property name and declaring type.
         ///
         /// This constructor is protected. It is used by derived classes only.
-        member_info_impl(const string& name, type_t declaring_type)
+        member_info_impl(const string& name, type declaring_type)
         {
             this->name = name;
             this->declaring_type = declaring_type;

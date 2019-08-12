@@ -33,22 +33,22 @@ limitations under the License.
 namespace dot
 {
     /// Built type_t from the current object.
-    type_t type_builder_impl::build()
+    type type_builder_impl::build()
     {
         type_->fill(this);
 
         // Fill derived types map
-        type_t base_type = base_;
+        type base_type = base_;
         while (base_type != nullptr)
         {
             auto iter = type_impl::get_derived_types_map().find(base_type->full_name());
             if (iter == type_impl::get_derived_types_map().end())
             {
-                iter = type_impl::get_derived_types_map().insert({base_type->full_name(), make_list<type_t>()}).first;
+                iter = type_impl::get_derived_types_map().insert({base_type->full_name(), make_list<type>()}).first;
             }
             else if (iter->second == nullptr)
             {
-                iter->second = make_list<type_t>();
+                iter->second = make_list<type>();
             }
             iter->second->add(type_);
             base_type = base_type->base_get_type();
@@ -144,27 +144,27 @@ namespace dot
 
         if (!data->interfaces_.is_empty())
         {
-            this->interfaces_ = make_list<type_t>(data->interfaces_->count());
+            this->interfaces_ = make_list<type>(data->interfaces_->count());
             int i = 0;
-            for (type_t interface : data->interfaces_)
+            for (type interface : data->interfaces_)
             {
                 this->interfaces_[i++] = interface;
             }
         }
         else
-            this->interfaces_ = make_list<type_t>(0);
+            this->interfaces_ = make_list<type>(0);
 
         if (!data->generic_args_.is_empty())
         {
-            this->generic_args_ = make_list<type_t>(data->generic_args_->count());
+            this->generic_args_ = make_list<type>(data->generic_args_->count());
             int i = 0;
-            for (type_t arg : data->generic_args_)
+            for (type arg : data->generic_args_)
             {
                 this->generic_args_[i++] = arg;
             }
         }
         else
-            this->generic_args_ = make_list<type_t>(0);
+            this->generic_args_ = make_list<type>(0);
 
         this->base_ = data->base_;
         this->is_class = data->is_class_;
@@ -203,7 +203,7 @@ namespace dot
         return nullptr;
     }
 
-    type_t type_impl::get_interface(string name)
+    type type_impl::get_interface(string name)
     {
         if (interfaces_.is_empty()) return nullptr;
 
@@ -232,8 +232,8 @@ namespace dot
 
     bool type_impl::equals(object obj)
     {
-        if (obj.is<type_t>())
-            return this->full_name() == ((type_t)obj)->full_name();
+        if (obj.is<type>())
+            return this->full_name() == ((type)obj)->full_name();
 
         return false;
     }

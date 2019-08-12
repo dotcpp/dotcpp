@@ -139,8 +139,8 @@ namespace dot
 
     public: // REFLECTION
 
-        virtual type_t get_type() { return typeof(); }
-        static type_t typeof();
+        virtual type get_type() { return typeof(); }
+        static type typeof();
     };
 
     /// Create empty list with default initial capacity.

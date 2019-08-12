@@ -74,7 +74,7 @@ namespace dot
 
     public: // REFLECTION
 
-        static type_t typeof() { return dot::typeof<T>(); }
-        type_t get_type() override { return typeof(); }
+        static type typeof() { return dot::typeof<T>(); }
+        type get_type() override { return typeof(); }
     };
 }

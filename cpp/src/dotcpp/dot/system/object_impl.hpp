@@ -30,7 +30,7 @@ namespace dot
 {
     class object;
     class string_impl; class string;
-    class type_impl; using type_t = ptr<type_impl>;
+    class type_impl; using type = ptr<type_impl>;
 
     /// All classes with reference semantics should derive from this type.
     /// It works with ptr to provide an emulation of reference semantics in C++.
@@ -58,10 +58,10 @@ namespace dot
         virtual size_t hash_code();
 
         /// Gets the type_t of the current instance.
-        virtual type_t get_type();
+        virtual type get_type();
 
         /// Gets the type_t of the class.
-        static type_t typeof();
+        static type typeof();
 
         /// string that represents the current object.
         ///

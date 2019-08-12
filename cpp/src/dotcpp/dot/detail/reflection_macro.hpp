@@ -26,12 +26,12 @@ limitations under the License.
 
 #define DOT_TYPE_BEGIN(nspace, name, ...)                                                         \
         public:                                                                                   \
-        virtual dot::type_t get_type() { return typeof(); }                                               \
-        static dot::type_t typeof()                                                                      \
+        virtual dot::type get_type() { return typeof(); }                                               \
+        static dot::type typeof()                                                                      \
         {                                                                                         \
-            static dot::type_t result = []()-> dot::type_t                                                        \
+            static dot::type result = []()-> dot::type                                                        \
             {                                                                                     \
-                dot::type_t t = dot::make_type_builder<self>(nspace, name)
+                dot::type t = dot::make_type_builder<self>(nspace, name)
 
 #define DOT_TYPE_END()                                                                         \
                     ->build();                                                                    \

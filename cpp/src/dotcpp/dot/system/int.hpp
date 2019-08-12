@@ -60,8 +60,8 @@ namespace dot
         /// Converts the numeric value of this instance to its equivalent string representation.
         virtual string to_string() override;
 
-        static type_t typeof();
-        type_t get_type() override;
+        static type typeof();
+        type get_type() override;
     };
 
 }

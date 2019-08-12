@@ -33,12 +33,12 @@ limitations under the License.
 
 namespace dot
 {
-    object activator::create_instance(type_t t)
+    object activator::create_instance(type t)
     {
         return create_instance(t, nullptr);
     }
 
-    object activator::create_instance(type_t t, list<object> params)
+    object activator::create_instance(type t, list<object> params)
     {
         list<constructor_info> ctors = t->get_constructors();
 

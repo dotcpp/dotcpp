@@ -44,9 +44,9 @@ namespace dot
     template <>
     struct type_traits<colors_sample>
     {
-        static type_t typeof()
+        static type typeof()
         {
-            static type_t result = make_type_builder<char>("dot", "colors_sample")->is_enum()->build();
+            static type result = make_type_builder<char>("dot", "colors_sample")->is_enum()->build();
             return result;
         }
     };

@@ -32,14 +32,14 @@ namespace dot
     /// Discovers the attributes of a parameter and provides access to parameter metadata.
     class parameter_info_impl : public virtual object_impl
     {
-        friend parameter_info make_parameter_info(string , type_t, int);
+        friend parameter_info make_parameter_info(string , type, int);
 
         typedef parameter_info_impl self;
 
     public: // METHODS
 
         /// Gets the type of this parameter.
-        type_t parameter_type; // TODO - convert to method
+        type parameter_type; // TODO - convert to method
 
         /// Gets the name of this parameter.
         string name;  // TODO - convert to method
@@ -53,7 +53,7 @@ namespace dot
         ///
         /// This constructor is private. Use make_ParameterInfo(...)
         /// function with matching signature instead.
-        parameter_info_impl(string name, type_t parameter_type, int position)
+        parameter_info_impl(string name, type parameter_type, int position)
         {
             this->parameter_type = parameter_type;
             this->name = name;
@@ -62,7 +62,7 @@ namespace dot
     };
 
     /// Create from parameter name, parameter type, and parameter position.
-    inline parameter_info make_parameter_info(string name, type_t parameter_type, int position)
+    inline parameter_info make_parameter_info(string name, type parameter_type, int position)
     {
         return new parameter_info_impl(name, parameter_type, position);
     }

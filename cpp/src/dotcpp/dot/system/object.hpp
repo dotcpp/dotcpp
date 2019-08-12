@@ -39,7 +39,7 @@ namespace dot
     template <class T> class enum_impl;
     template <class T> class struct_wrapper_impl;
     template <class T> using struct_wrapper = ptr<struct_wrapper_impl<T>>;
-    template <class T> type_t typeof();
+    template <class T> type typeof();
 
     namespace detail
     {
@@ -256,12 +256,12 @@ namespace dot
         struct_wrapper_impl(const T& value) : T(value) {}
 
     public:
-        static type_t typeof()
+        static type typeof()
         {
             return ::dot::typeof<T>();
         }
 
-        type_t get_type() override
+        type get_type() override
         {
             return typeof();
         }

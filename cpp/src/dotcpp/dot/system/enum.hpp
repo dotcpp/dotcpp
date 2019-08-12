@@ -75,7 +75,7 @@ namespace dot
 
         /// Converts the string representation of the name or numeric value of
         /// one or more enumerated constants to an equivalent enumerated object.
-        static object parse(type_t enumType, string value);
+        static object parse(type enumType, string value);
 
     protected: // PROTECTED
 
