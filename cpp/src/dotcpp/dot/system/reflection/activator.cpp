@@ -94,11 +94,11 @@ namespace dot
 
     object activator::create_instance(string assembly_name, string type_name)
     {
-        return create_instance(type_impl::get_type(type_name), nullptr);
+        return create_instance(type_impl::get_type_of(type_name), nullptr);
     }
 
     object activator::create_instance(string assembly_name, string type_name, list<object> params)
     {
-        return create_instance(type_impl::get_type(type_name), params);
+        return create_instance(type_impl::get_type_of(type_name), params);
     }
 }

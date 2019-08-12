@@ -318,7 +318,7 @@ namespace dot
         virtual string to_string() override { return full_name(); }
 
         /// Get type_t object for the name.
-        static type_t get_type(string name) { return get_type_map()[name]; }
+        static type_t get_type_of(string name) { return get_type_map()[name]; }
 
         /// Get derived types list for the name.
         static list<type_t> get_derived_types(string name) { return get_derived_types_map()[name]; }
