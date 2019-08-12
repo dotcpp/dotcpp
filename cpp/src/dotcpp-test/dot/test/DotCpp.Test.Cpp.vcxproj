@@ -35,6 +35,8 @@
     <ClInclude Include="declare.hpp" />
     <ClInclude Include="implement.hpp" />
     <ClInclude Include="import.hpp" />
+    <ClInclude Include="system\enum_test_apples_sample.hpp" />
+    <ClInclude Include="system\enum_test_colors_sample.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{04199C2F-0C9B-43F1-968F-5D7329204EF6}</ProjectGuid>
