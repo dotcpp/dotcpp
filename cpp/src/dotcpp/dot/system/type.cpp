@@ -32,7 +32,6 @@ limitations under the License.
 
 namespace dot
 {
-    /// Built type_t from the current object.
     type type_builder_impl::build()
     {
         type_->fill(this);
@@ -57,7 +56,6 @@ namespace dot
         return type_;
     }
 
-    /// Fill data from builder.
     void type_impl::fill(const type_builder& data)
     {
         if (!data->base_.is_empty() && !data->base_->get_methods().is_empty() && data->base_->get_methods()->count())
@@ -93,7 +91,9 @@ namespace dot
             }
         }
         else
+        {
             this->methods_ = make_list<method_info>(0);
+        }
 
         if (!data->ctors_.is_empty())
         {
@@ -105,7 +105,9 @@ namespace dot
             }
         }
         else
+        {
             this->ctors_ = make_list<constructor_info>(0);
+        }
 
         if (!data->base_.is_empty() && !data->base_->get_fields().is_empty() && data->base_->get_fields()->count())
         {
@@ -140,7 +142,9 @@ namespace dot
             }
         }
         else
+        {
             this->fields_ = make_list<field_info>(0);
+        }
 
         if (!data->interfaces_.is_empty())
         {
@@ -152,7 +156,9 @@ namespace dot
             }
         }
         else
+        {
             this->interfaces_ = make_list<type>(0);
+        }
 
         if (!data->generic_args_.is_empty())
         {
@@ -164,16 +170,15 @@ namespace dot
             }
         }
         else
+        {
             this->generic_args_ = make_list<type>(0);
+        }
 
         this->base_ = data->base_;
         this->is_class = data->is_class_;
         this->is_enum = data->is_enum_;
     }
 
-    /// Create from builder.
-    ///
-    /// This constructor is private. Use type_builder->build() method instead.
     type_impl::type_impl(string nspace, string name)
     {
         this->name_space = nspace;
