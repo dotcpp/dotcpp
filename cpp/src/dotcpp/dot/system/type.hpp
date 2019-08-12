@@ -255,7 +255,7 @@ namespace dot
     {
         friend class type_builder_impl;
         template <class T>
-        friend struct typeof_impl;
+        friend struct type_traits;
 
         typedef type_impl self;
 
@@ -379,9 +379,9 @@ namespace dot
     }
 
     template <class T>
-    struct typeof_impl
+    struct type_traits
     {
-        static type_t get_typeof()
+        static type_t typeof()
         {
             string cppname = typeid(typename T::element_type).name(); // TODO - is it faster to use typeid rather than string as key?
             auto p = type_impl::get_type_map().find(cppname);
@@ -393,13 +393,12 @@ namespace dot
 
             return p->second;
         }
-
     };
 
     template <>
-    struct typeof_impl<double>
+    struct type_traits<double>
     {
-        static type_t get_typeof()
+        static type_t typeof()
     {
         static type_t type_ = make_type_builder<double>("System", "Double")->build();
         return type_;
@@ -407,9 +406,9 @@ namespace dot
     };
 
     template <>
-    struct typeof_impl<int64_t>
+    struct type_traits<int64_t>
     {
-        static type_t get_typeof()
+        static type_t typeof()
     {
         static type_t type_ = make_type_builder<int64_t>("System", "Int64")->build();
         return type_;
@@ -417,9 +416,9 @@ namespace dot
     };
 
     template <>
-    struct typeof_impl<int>
+    struct type_traits<int>
     {
-        static type_t get_typeof()
+        static type_t typeof()
     {
         static type_t type_ = make_type_builder<int>("System", "Int32")->build();
         return type_;
@@ -427,9 +426,9 @@ namespace dot
     };
 
     template <>
-    struct typeof_impl<void>
+    struct type_traits<void>
     {
-        static type_t get_typeof()
+        static type_t typeof()
     {
         static type_t type_ = make_type_builder<void>("System", "Void")->build();
         return type_;
@@ -437,9 +436,9 @@ namespace dot
     };
 
     template <>
-    struct typeof_impl<bool>
+    struct type_traits<bool>
     {
-        static type_t get_typeof()
+        static type_t typeof()
     {
         static type_t type_ = make_type_builder<bool>("System", "Bool")->build();
         return type_;
@@ -447,9 +446,9 @@ namespace dot
     };
 
     template <>
-    struct typeof_impl<char>
+    struct type_traits<char>
     {
-        static type_t get_typeof()
+        static type_t typeof()
     {
         static type_t type_ = make_type_builder<char>("System", "Char")->build();
         return type_;
@@ -457,9 +456,9 @@ namespace dot
     };
 
     template <>
-    struct typeof_impl<local_date>
+    struct type_traits<local_date>
     {
-        static type_t get_typeof()
+        static type_t typeof()
     {
         static type_t type_ = make_type_builder<local_date>("System", "local_date")->build();
         return type_;
@@ -467,9 +466,9 @@ namespace dot
     };
 
     template <>
-    struct typeof_impl<local_time>
+    struct type_traits<local_time>
     {
-        static type_t get_typeof()
+        static type_t typeof()
         {
             static type_t type_ = make_type_builder<local_time>("System", "local_time")->build();
             return type_;
@@ -477,9 +476,9 @@ namespace dot
     };
 
     template <>
-    struct typeof_impl<local_minute>
+    struct type_traits<local_minute>
     {
-        static type_t get_typeof()
+        static type_t typeof()
         {
             static type_t type_ = make_type_builder<local_time>("System", "local_minute")->build();
         return type_;
@@ -487,9 +486,9 @@ namespace dot
     };
 
     template <>
-    struct typeof_impl<local_date_time>
+    struct type_traits<local_date_time>
     {
-        static type_t get_typeof()
+        static type_t typeof()
         {
             static type_t type_ = make_type_builder<local_date_time>("System", "local_date_time")->build();
             return type_;
@@ -497,9 +496,9 @@ namespace dot
     };
 
     template <>
-    struct typeof_impl<period>
+    struct type_traits<period>
     {
-        static type_t get_typeof()
+        static type_t typeof()
         {
             static type_t type_ = make_type_builder<local_date_time>("System", "Period")->build();
             return type_;
@@ -507,9 +506,9 @@ namespace dot
     };
 
     template <class T>
-    struct typeof_impl<nullable<T>>
+    struct type_traits<nullable<T>>
     {
-        static type_t get_typeof()
+        static type_t typeof()
         {
             static type_t type_ = make_type_builder<nullable<T>>("System", "nullable<" + dot::typeof<T>()->name + ">")
                 ->template with_generic_argument<T>()
@@ -519,9 +518,9 @@ namespace dot
     };
 
     template <>
-    struct typeof_impl<std::tuple<>>
+    struct type_traits<std::tuple<>>
     {
-        static type_t get_typeof()
+        static type_t typeof()
         {
             static type_t type_ = make_type_builder<std::tuple<>>("System", "Tuple<>")
                 ->build();
@@ -531,9 +530,9 @@ namespace dot
     };
 
     template <class ... T>
-    struct typeof_impl<std::tuple<T...>>
+    struct type_traits<std::tuple<T...>>
     {
-        static type_t get_typeof()
+        static type_t typeof()
         {
             static type_builder type_builder =
             []()
@@ -634,12 +633,10 @@ namespace dot
 
     };
 
-
     /// Get type_t object for the argument.
     template <class T>
     type_t typeof()
     {
-        return typeof_impl<T>::get_typeof();
+        return type_traits<T>::typeof();
     }
-
 }

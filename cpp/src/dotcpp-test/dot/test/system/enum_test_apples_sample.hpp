@@ -42,9 +42,9 @@ namespace dot
     };
 
     template <>
-    struct typeof_impl<apples_sample>
+    struct type_traits<apples_sample>
     {
-        static type_t get_typeof()
+        static type_t typeof()
         {
             static type_t result = make_type_builder<char>("dot", "apples_sample")->is_enum()->build();
             return result;
