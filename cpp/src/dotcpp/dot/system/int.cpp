@@ -56,7 +56,7 @@ namespace dot
         return dot::typeof<int>();
     }
 
-    type_t int_impl::type()
+    type_t int_impl::get_type()
     {
         return typeof();
     }

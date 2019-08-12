@@ -56,7 +56,7 @@ namespace dot
         return dot::typeof<char>();
     }
 
-    type_t char_impl::type()
+    type_t char_impl::get_type()
     {
         return typeof();
     }

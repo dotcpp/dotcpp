@@ -139,7 +139,7 @@ namespace dot
 
     public: // REFLECTION
 
-        virtual type_t type() { return typeof(); }
+        virtual type_t get_type() { return typeof(); }
         static type_t typeof();
     };
 

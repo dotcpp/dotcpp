@@ -68,7 +68,7 @@ namespace dot
             return result;
         }
 
-        virtual type_t type()
+        virtual type_t get_type()
         {
             return typeof();
         }
@@ -126,7 +126,7 @@ namespace dot
     {
         if (obj.is_empty()) return "";
 
-        type_t t = obj->type();
+        type_t t = obj->get_type();
 
         std::stringstream ss;
 
@@ -168,19 +168,19 @@ namespace dot
 
         string s = obj_to_string(obj);
 
-        type_t t = obj->type();
+        type_t t = obj->get_type();
 
-        sample_data dt = (sample_data)activator::create_instance(obj->type());
+        sample_data dt = (sample_data)activator::create_instance(obj->get_type());
 
         list<dot::object> paramsFoo = make_list<object>(2);
         paramsFoo[0] = 15;
         paramsFoo[1] = 42;
-        double ret = obj->type()->get_methods()[0]->invoke(obj, paramsFoo);
+        double ret = obj->get_type()->get_methods()[0]->invoke(obj, paramsFoo);
 
         list<dot::object> paramsBar = make_list<object>(1);
         paramsBar[0] = 15;
-        obj->type()->get_methods()[1]->invoke(obj, paramsBar);
+        obj->get_type()->get_methods()[1]->invoke(obj, paramsBar);
 
-        object o2 = obj->type()->get_constructors()[0]->invoke({});
+        object o2 = obj->get_type()->get_constructors()[0]->invoke({});
     }
 }

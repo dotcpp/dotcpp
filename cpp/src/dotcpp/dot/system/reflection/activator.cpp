@@ -68,7 +68,7 @@ namespace dot
             // Compare all parameters types
             for (int i = 0; i < params_count; ++i)
             {
-                if ((string)ctor_params[i]->parameter_type->name != params[i]->type()->name)
+                if ((string)ctor_params[i]->parameter_type->name != params[i]->get_type()->name)
                 {
                     matches = false;
                     break;

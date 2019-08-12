@@ -146,7 +146,7 @@ namespace dot
 
     public: // REFLECTION
 
-        virtual type_t type();
+        virtual type_t get_type();
         static type_t typeof();
     };
 

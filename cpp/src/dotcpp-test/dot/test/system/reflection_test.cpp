@@ -53,7 +53,7 @@ namespace dot
             return 42 + param;
         }
 
-        virtual type_t type()
+        virtual type_t get_type()
         {
             // Converts to type_t with thread safety guarantee as per C++ Standard
             static type_t result = []()->type_t
@@ -97,7 +97,7 @@ namespace dot
 
         object x = obj->count();
 
-        type_t result = obj->type();
+        type_t result = obj->get_type();
         list<property_info> props = type->get_properties();
         property_info int_prop = props[0];
         REQUIRE(int_prop->Name == "IntFld");

@@ -56,7 +56,7 @@ namespace dot
         return dot::typeof<double>();
     }
 
-    type_t double_impl::type()
+    type_t double_impl::get_type()
     {
         return typeof();
     }

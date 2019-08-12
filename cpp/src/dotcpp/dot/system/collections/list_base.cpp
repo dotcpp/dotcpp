@@ -35,7 +35,7 @@ namespace dot
         return type_;
     }
 
-    type_t list_base_impl::type()
+    type_t list_base_impl::get_type()
     {
         return typeof();
     }

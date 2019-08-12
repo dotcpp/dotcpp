@@ -58,7 +58,7 @@ namespace dot
         virtual size_t hash_code();
 
         /// Gets the type_t of the current instance.
-        virtual type_t type();
+        virtual type_t get_type();
 
         /// Gets the type_t of the object_impl.
         static type_t typeof();
@@ -66,7 +66,7 @@ namespace dot
         /// string that represents the current object.
         ///
         /// Default implementation in object returns full name
-        /// of the class by calling type().FullName. Derived types
+        /// of the class by calling get_type().FullName. Derived types
         /// can override this method to provide custom conversion
         /// to string.
         virtual string to_string();

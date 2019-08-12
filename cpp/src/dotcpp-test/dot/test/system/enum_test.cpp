@@ -87,7 +87,7 @@ namespace dot
         
         // Check type of boxed enum
         dot::object boxed = apples_sample::red;
-        // received->append_line(dot::string::format("Type(Boxed)={0}", boxed->type()));
+        // received->append_line(dot::string::format("Type(Boxed)={0}", boxed->get_type()));
 
         // Unbox to the correct type
         apples_sample unboxed = boxed.to_enum<apples_sample>();

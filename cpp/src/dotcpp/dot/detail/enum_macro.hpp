@@ -36,7 +36,7 @@ public:                                                                 \
     operator int() const { return value_; }                             \
     self& operator=(int rhs) { value_ = rhs; return *this; }            \
     self& operator=(const self& other) { value_ = other.value_; return *this; } \
-    virtual dot::type_t type() { return typeof(); }                         \
+    virtual dot::type_t get_type() { return typeof(); }                         \
     static dot::type_t typeof()                                                \
     {                                                                   \
         static dot::type_t result = []()->dot::type_t                                   \

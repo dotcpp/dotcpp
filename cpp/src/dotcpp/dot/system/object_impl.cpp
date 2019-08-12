@@ -54,11 +54,11 @@ namespace dot
     /// string that represents the current object.
     ///
     /// Default implementation in object returns full name
-    /// of the class by calling type().FullName. Derived types
+    /// of the class by calling get_type().FullName. Derived types
     /// can override this method to provide custom conversion
     /// to string.
     string object_impl::to_string()
     {
-        return type()->full_name();
+        return get_type()->full_name();
     }
 }

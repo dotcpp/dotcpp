@@ -141,7 +141,7 @@ namespace dot
 
             // Check that dynamic cast succeeded
             if (!p)
-                throw dot::exception("Cast cannot be performed."); // TODO Use typeof(...) and type() to provide specific types in the error message
+                throw dot::exception("Cast cannot be performed."); // TODO Use typeof(...) and get_type() to provide specific types in the error message
 
             // Current pointer now contains the result of dynamic_cast
             ptr_ = p;

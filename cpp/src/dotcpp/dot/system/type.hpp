@@ -280,7 +280,7 @@ namespace dot
         string full_name() const { return string::format("{0}.{1}", this->name_space, this->name); } // TODO - replace by string::Join
 
         /// Gets the base type if current type.
-        type_t base_type() { return base_; }
+        type_t base_get_type() { return base_; }
 
         /// Gets a value indicating whether the System.type_t is a class or a delegate; that is, not a value type or interface.
         bool is_class; // TODO - replace by method
@@ -356,7 +356,7 @@ namespace dot
     };
 
     /// Initializes a new instance of the type_t class for untyped instance of object.
-    inline type_t object_impl::type()
+    inline type_t object_impl::get_type()
     {
         return typeof();
     }

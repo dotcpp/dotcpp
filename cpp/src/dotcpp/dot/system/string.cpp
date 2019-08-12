@@ -46,7 +46,7 @@ namespace dot
         return result;
     }
 
-    dot::type_t string_impl::type()
+    dot::type_t string_impl::get_type()
     {
         return typeof();
     }

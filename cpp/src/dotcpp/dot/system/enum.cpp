@@ -49,7 +49,7 @@ namespace dot
 
     bool enum_base::equals(object obj)
     {
-        if (obj->type()->equals(type()))
+        if (obj->get_type()->equals(get_type()))
         {
             enum_base* en = dynamic_cast<enum_base*>(obj.operator->());
             return en->value_ == value_;

@@ -261,7 +261,7 @@ namespace dot
             return ::dot::typeof<T>();
         }
 
-        virtual type_t type() override
+        virtual type_t get_type() override
         {
             return typeof();
         }

@@ -61,7 +61,7 @@ namespace dot
         virtual string to_string() override;
 
         static type_t typeof();
-        virtual type_t type() override;
+        virtual type_t get_type() override;
     };
 
 }

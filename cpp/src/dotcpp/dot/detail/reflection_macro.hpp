@@ -26,7 +26,7 @@ limitations under the License.
 
 #define DOT_TYPE_BEGIN(nspace, name, ...)                                                         \
         public:                                                                                   \
-        virtual dot::type_t type() { return typeof(); }                                               \
+        virtual dot::type_t get_type() { return typeof(); }                                               \
         static dot::type_t typeof()                                                                      \
         {                                                                                         \
             static dot::type_t result = []()-> dot::type_t                                                        \

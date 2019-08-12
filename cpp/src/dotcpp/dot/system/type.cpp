@@ -51,7 +51,7 @@ namespace dot
                 iter->second = make_list<type_t>();
             }
             iter->second->add(type_);
-            base_type = base_type->base_type();
+            base_type = base_type->base_get_type();
         }
 
         return type_;

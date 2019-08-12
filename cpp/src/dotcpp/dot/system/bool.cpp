@@ -59,7 +59,7 @@ namespace dot
         return dot::typeof<bool>();
     }
 
-    type_t bool_impl::type()
+    type_t bool_impl::get_type()
     {
         return typeof();
     }
