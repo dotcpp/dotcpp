@@ -150,6 +150,9 @@ namespace dot
     /// Convert object to local_date_time by unboxing. Error if object does is not a boxed local_date_time.
     object::operator local_date_time() const { return *ptr<struct_wrapper_impl<local_date_time>>(*this); }
 
+    /// Convert object to string by unboxing. Error if object does is not a boxed string.
+    object::operator string() const { return *ptr<string_impl>(*this); }
+
     bool object::ReferenceEquals(object objA, object objB)
     {
         return &(*objA) == &(*objB);

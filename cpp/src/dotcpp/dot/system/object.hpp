@@ -28,6 +28,7 @@ limitations under the License.
 #include <dot/system/object_impl.hpp>
 #include <dot/system/exception.hpp>
 #include <dot/system/string.hpp>
+#include <dot/system/enum_impl.hpp>
 
 namespace dot
 {
@@ -225,6 +226,12 @@ namespace dot
         /// Convert object to tuple by unboxing. Error if object does is not a boxed T.
         template <class ... T>
         operator std::tuple<T...>() const { return *this->as<struct_wrapper<std::tuple<T...>>>(); } // TODO - replace as by cast_to?
+
+        template <class T, class enabled = typename std::enable_if<std::is_enum<T>::value>::type* >
+        operator T() const { return ptr<enum_impl<T>>(*this)->value(); }
+
+        /// Convert object to string by unboxing. Error if object does is not a boxed string.
+        operator string() const;
 
         bool operator ==(object rhs) const { throw exception("Not implemented"); return false; }
 
