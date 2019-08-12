@@ -57,10 +57,10 @@ namespace dot
         /// to avoid the situation when objects are equal but hash is not.
         virtual size_t hash_code();
 
-        /// Gets the type_t of the current instance.
+        /// Gets the type of the current instance.
         virtual type get_type();
 
-        /// Gets the type_t of the class.
+        /// Gets the type of the class.
         static type typeof();
 
         /// string that represents the current object.

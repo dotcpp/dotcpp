@@ -55,10 +55,10 @@ namespace dot
 
         type get_type() override
         {
-            // Converts to type_t with thread safety guarantee as per C++ Standard
+            // Create type object with thread safety guarantee as per C++ Standard
             static type result = []()->type
             {
-                received << "Creating type_t (this should run only once)." << std::endl;
+                received << "Creating type object (this should run only once)." << std::endl;
 
                 return make_type_builder<reflection_base_sample_impl>("System.Test", "reflection_base_sample")
 

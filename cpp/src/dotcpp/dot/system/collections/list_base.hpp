@@ -48,10 +48,10 @@ namespace dot
         /// Get length of collection.
         virtual int get_length() = 0;
 
-        /// Gets the type_t of the current instance.
+        /// Gets the type of the current instance.
         type get_type() override;
 
-        /// Gets the type_t of the collection_base_impl.
+        /// Gets the type of the collection_base_impl.
         static type typeof();
 
     };

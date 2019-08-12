@@ -213,7 +213,7 @@ namespace dot
         }
 
 
-        /// Built type_t from the current object.
+        /// Build type object from this type builder.
         type build();
 
     private: // CONSTRUCTORS
@@ -632,7 +632,7 @@ namespace dot
 
     };
 
-    /// Get type_t object for the argument.
+    /// Get type object for the argument.
     template <class T>
     type typeof()
     {
