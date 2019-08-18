@@ -29,8 +29,6 @@ limitations under the License.
 
 namespace dot
 {
-    using gdate = boost::gregorian::date;
-
     class string;
     class period;
     class local_time;
@@ -39,7 +37,7 @@ namespace dot
 
     /// local_date is an immutable struct representing a date within the calendar,
     /// with no reference to a particular time zone or time of day.
-    class DOT_CLASS local_date : public gdate
+    class DOT_CLASS local_date : public boost::gregorian::date
     {
         typedef local_date self;
 
@@ -56,7 +54,7 @@ namespace dot
         local_date(int year, int month, int day);
 
         /// Create from Boost gregorian date.
-        local_date(gdate date);
+        local_date(boost::gregorian::date date);
 
         /// Copy constructor.
         local_date(const local_date& other);

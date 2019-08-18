@@ -29,9 +29,6 @@ limitations under the License.
 
 namespace dot
 {
-    using boost::posix_time::time_duration;
-    using boost::gregorian::date_duration;
-
     class local_time;
     class local_date;
     class local_date_time;
@@ -39,14 +36,14 @@ namespace dot
 
     /// Represents a period of time expressed in human chronological terms:
     /// hours, days, weeks, months and so on.
-    class DOT_CLASS period : public time_duration
+    class DOT_CLASS period : public boost::posix_time::time_duration
     {
         typedef period self;
-        typedef time_duration base;
+        typedef boost::posix_time::time_duration base;
 
     public:
-        period(const time_duration& d);
-        period(const date_duration& d);
+        period(const boost::posix_time::time_duration& d);
+        period(const boost::gregorian::date_duration& d);
 
         /// Copy constructor.
         period(const period& other);
@@ -115,6 +112,6 @@ namespace dot
         bool operator!=(const period& other) const;
 
     public:
-        operator date_duration() const;
+        operator boost::gregorian::date_duration() const;
     };
 }

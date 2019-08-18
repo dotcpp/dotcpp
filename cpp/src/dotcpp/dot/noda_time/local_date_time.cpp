@@ -39,28 +39,28 @@ namespace dot
     /// library does not accept the date 0001-01-01, we will instead use the Unix epoch
     /// 1970-01-01 as default constructed value.
     local_date_time::local_date_time()
-        : ptime(local_date{ 1970, 1, 1 }, { 0, 0, 0 })
+        : boost::posix_time::ptime(local_date{ 1970, 1, 1 }, { 0, 0, 0 })
     {
     }
 
     /// Initializes a new instance of the local_date_time struct using the ISO calendar system.
     local_date_time::local_date_time(int year, int month, int day, int hour, int minute)
-        : ptime(local_date {year, month, day}, {hour, minute, 0})
+        : boost::posix_time::ptime(local_date {year, month, day}, {hour, minute, 0})
     {}
 
     /// Initializes a new instance of the local_date_time struct using the ISO calendar system.
     local_date_time::local_date_time(int year, int month, int day, int hour, int minute, int second)
-        : ptime(local_date {year, month, day}, {hour, minute, second})
+        : boost::posix_time::ptime(local_date {year, month, day}, {hour, minute, second})
     {}
 
     /// Initializes a new instance of the local_date_time struct using the ISO calendar system.
     local_date_time::local_date_time(int year, int month, int day, int hour, int minute, int second, int millisecond)
-        : ptime(local_date {year, month, day}, {hour, minute, second, millisecond * 1000})
+        : boost::posix_time::ptime(local_date {year, month, day}, {hour, minute, second, millisecond * 1000})
     {}
 
     /// Create from Boost posix_time.
-    local_date_time::local_date_time(const ptime& time)
-        : ptime(time)
+    local_date_time::local_date_time(const boost::posix_time::ptime& time)
+        : boost::posix_time::ptime(time)
     {}
 
     local_date_time::local_date_time(const local_date_time& other)
@@ -69,7 +69,7 @@ namespace dot
     }
 
     local_date_time::local_date_time(const local_date& date, const local_time& time) :
-        ptime(date, time)
+        boost::posix_time::ptime(date, time)
     {}
 
     local_date_time::local_date_time(object const& rhs) { *this = rhs.operator local_date_time(); }
@@ -179,46 +179,46 @@ namespace dot
 
     local_date_time local_date_time::operator+(const period& period) const
     {
-        return static_cast<ptime>(*this) + static_cast<time_duration>(period);
+        return static_cast<boost::posix_time::ptime>(*this) + static_cast<boost::posix_time::time_duration>(period);
     }
 
     bool local_date_time::operator==(const local_date_time& other) const
     {
-        return static_cast<ptime>(*this) == static_cast<ptime>(other);
+        return static_cast<boost::posix_time::ptime>(*this) == static_cast<boost::posix_time::ptime>(other);
     }
 
     bool local_date_time::operator!=(const local_date_time& other) const
     {
-        return static_cast<ptime>(*this) != static_cast<ptime>(other);
+        return static_cast<boost::posix_time::ptime>(*this) != static_cast<boost::posix_time::ptime>(other);
     }
 
     bool local_date_time::operator>(const local_date_time& other) const
     {
-        return static_cast<ptime>(*this) > static_cast<ptime>(other);
+        return static_cast<boost::posix_time::ptime>(*this) > static_cast<boost::posix_time::ptime>(other);
     }
 
     bool local_date_time::operator>=(const local_date_time& other) const
     {
-        return static_cast<ptime>(*this) >= static_cast<ptime>(other);
+        return static_cast<boost::posix_time::ptime>(*this) >= static_cast<boost::posix_time::ptime>(other);
     }
 
     bool local_date_time::operator<(const local_date_time& other) const
     {
-        return static_cast<ptime>(*this) < static_cast<ptime>(other);
+        return static_cast<boost::posix_time::ptime>(*this) < static_cast<boost::posix_time::ptime>(other);
     }
 
     bool local_date_time::operator<=(const local_date_time& other) const
     {
-        return static_cast<ptime>(*this) <= static_cast<ptime>(other);
+        return static_cast<boost::posix_time::ptime>(*this) <= static_cast<boost::posix_time::ptime>(other);
     }
 
     period local_date_time::operator-(const local_date_time& other) const
     {
-        return static_cast<ptime>(*this) - static_cast<ptime>(other);
+        return static_cast<boost::posix_time::ptime>(*this) - static_cast<boost::posix_time::ptime>(other);
     }
 
     local_date_time local_date_time::operator-(const period& period) const
     {
-        return static_cast<ptime>(*this) - static_cast<time_duration>(period);
+        return static_cast<boost::posix_time::ptime>(*this) - static_cast<boost::posix_time::time_duration>(period);
     }
 }

@@ -38,18 +38,18 @@ namespace dot
     /// does not accept the date 0001-01-01, we will instead use the Unix epoch
     /// 1970-01-01 as default constructed value.
     local_date::local_date()
-        : gdate(1970, 1, 1)
+        : boost::gregorian::date(1970, 1, 1)
     {
     }
 
     /// Constructs an instance for the given year, month and day in the ISO calendar.
     local_date::local_date(int year, int month, int day)
-        : gdate(year, month, day)
+        : boost::gregorian::date(year, month, day)
     {}
 
     /// Create from Boost gregorian date.
-    local_date::local_date(gdate date)
-        : gdate(date)
+    local_date::local_date(boost::gregorian::date date)
+        : boost::gregorian::date(date)
     {}
 
     local_date::local_date(const local_date& other)
@@ -165,46 +165,46 @@ namespace dot
 
     local_date local_date::operator+(const period& period) const
     {
-        return static_cast<gdate>(*this) + static_cast<date_duration>(period);
+        return static_cast<boost::gregorian::date>(*this) + static_cast<boost::gregorian::date_duration>(period);
     }
 
     bool local_date::operator==(const local_date& other) const
     {
-        return static_cast<gdate>(*this) == static_cast<gdate>(other);
+        return static_cast<boost::gregorian::date>(*this) == static_cast<boost::gregorian::date>(other);
     }
 
     bool local_date::operator!=(const local_date& other) const
     {
-        return static_cast<gdate>(*this) != static_cast<gdate>(other);
+        return static_cast<boost::gregorian::date>(*this) != static_cast<boost::gregorian::date>(other);
     }
 
     bool local_date::operator>(const local_date& other) const
     {
-        return static_cast<gdate>(*this) > static_cast<gdate>(other);
+        return static_cast<boost::gregorian::date>(*this) > static_cast<boost::gregorian::date>(other);
     }
 
     bool local_date::operator>=(const local_date& other) const
     {
-        return static_cast<gdate>(*this) >= static_cast<gdate>(other);
+        return static_cast<boost::gregorian::date>(*this) >= static_cast<boost::gregorian::date>(other);
     }
 
     bool local_date::operator<(const local_date& other) const
     {
-        return static_cast<gdate>(*this) < static_cast<gdate>(other);
+        return static_cast<boost::gregorian::date>(*this) < static_cast<boost::gregorian::date>(other);
     }
 
     bool local_date::operator<=(const local_date& other) const
     {
-        return static_cast<gdate>(*this) <= static_cast<gdate>(other);
+        return static_cast<boost::gregorian::date>(*this) <= static_cast<boost::gregorian::date>(other);
     }
 
     period local_date::operator-(const local_date& other) const
     {
-        return static_cast<gdate>(*this) - static_cast<gdate>(other);
+        return static_cast<boost::gregorian::date>(*this) - static_cast<boost::gregorian::date>(other);
     }
 
     local_date local_date::operator-(const period& period) const
     {
-        return static_cast<gdate>(*this) - static_cast<date_duration>(period);
+        return static_cast<boost::gregorian::date>(*this) - static_cast<boost::gregorian::date_duration>(period);
     }
 }

@@ -29,9 +29,6 @@ limitations under the License.
 
 namespace dot
 {
-    using boost::posix_time::ptime;
-    using boost::posix_time::time_duration;
-
     class string;
     class period;
     class local_date;
@@ -40,7 +37,7 @@ namespace dot
 
     /// local_time is an immutable struct representing a time of day,
     /// with no reference to a particular calendar, time zone or date.
-    class DOT_CLASS local_time : public ptime
+    class DOT_CLASS local_time : public boost::posix_time::ptime
     {
         typedef local_time self;
 
@@ -62,10 +59,10 @@ namespace dot
         local_time(int hour, int minute, int second, int millisecond);
 
         /// Create from Boost time_duration.
-        local_time(const time_duration& time);
+        local_time(const boost::posix_time::time_duration& time);
 
         /// Create from Boost posix_time.
-        local_time(const ptime& time);
+        local_time(const boost::posix_time::ptime& time);
 
         /// Create from object.
         local_time(object const& rhs);
@@ -162,6 +159,6 @@ namespace dot
         local_time operator-(const period& period) const;
 
     public:
-        operator time_duration() const;
+        operator boost::posix_time::time_duration() const;
     };
 }

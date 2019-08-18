@@ -30,12 +30,12 @@ limitations under the License.
 
 namespace dot
 {
-    period::period(const time_duration& d)
-        : time_duration(d)
+    period::period(const boost::posix_time::time_duration& d)
+        : boost::posix_time::time_duration(d)
     {}
 
-    period::period(const date_duration& d)
-        : time_duration(24 * d.days(), 0, 0)
+    period::period(const boost::gregorian::date_duration& d)
+        : boost::posix_time::time_duration(24 * d.days(), 0, 0)
     {}
 
     period::period(const period& other)
@@ -65,7 +65,7 @@ namespace dot
 
     period period::from_days(int days)
     {
-        return date_duration(days);
+        return boost::gregorian::date_duration(days);
     }
 
     period period::from_hours(int64_t hours)
@@ -95,26 +95,26 @@ namespace dot
 
     period period::operator+(const period& other) const
     {
-        return static_cast<time_duration>(*this) + static_cast<time_duration>(other);
+        return static_cast<boost::posix_time::time_duration>(*this) + static_cast<boost::posix_time::time_duration>(other);
     }
 
     bool period::operator==(const period & other) const
     {
-        return static_cast<time_duration>(*this) == static_cast<time_duration>(other);;
+        return static_cast<boost::posix_time::time_duration>(*this) == static_cast<boost::posix_time::time_duration>(other);;
     }
 
     bool period::operator!=(const period & other) const
     {
-        return static_cast<time_duration>(*this) != static_cast<time_duration>(other);;
+        return static_cast<boost::posix_time::time_duration>(*this) != static_cast<boost::posix_time::time_duration>(other);;
     }
 
     period period::operator-(const period & other) const
     {
-        return static_cast<time_duration>(*this) - static_cast<time_duration>(other);
+        return static_cast<boost::posix_time::time_duration>(*this) - static_cast<boost::posix_time::time_duration>(other);
     }
 
-    period::operator date_duration() const
+    period::operator boost::gregorian::date_duration() const
     {
-        return date_duration(base::hours() / 24);
+        return boost::gregorian::date_duration(base::hours() / 24);
     }
 }

@@ -31,8 +31,6 @@ limitations under the License.
 
 namespace dot
 {
-    using boost::posix_time::ptime;
-
     class string;
     class period;
     class object;
@@ -42,10 +40,10 @@ namespace dot
     /// because it has no associated time zone: "November 12th 2009 7pm, ISO calendar"
     /// occurred at different instants for different people around the world.
     ///
-    class DOT_CLASS local_date_time : public ptime
+    class DOT_CLASS local_date_time : public boost::posix_time::ptime
     {
         typedef local_date_time self;
-        typedef ptime base;
+        typedef boost::posix_time::ptime base;
         friend local_date;
         friend local_time;
 
@@ -68,7 +66,7 @@ namespace dot
         local_date_time(int year, int month, int day, int hour, int minute, int second, int millisecond);
 
         /// Create from Boost posix_time.
-        local_date_time(const ptime& time);
+        local_date_time(const boost::posix_time::ptime& time);
 
         /// Create from object.
         local_date_time(object const& rhs);

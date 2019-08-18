@@ -36,32 +36,32 @@ namespace dot
     /// constructed value corresponds to 0001-01-01 00:00:00. We will
     /// replicate this behavior here.
     local_time::local_time()
-        : ptime(boost::gregorian::date(1970, 1, 1), time_duration{ 0, 0, 0 })
+        : boost::posix_time::ptime(boost::gregorian::date(1970, 1, 1), boost::posix_time::time_duration{ 0, 0, 0 })
     {}
 
     /// Creates a local time at the given hour and minute, with second, millisecond-of-second and tick-of-millisecond values of zero.
     local_time::local_time(int hour, int minute)
-        : ptime(boost::gregorian::date(1970, 1, 1), time_duration {hour, minute, 0})
+        : boost::posix_time::ptime(boost::gregorian::date(1970, 1, 1), boost::posix_time::time_duration {hour, minute, 0})
     {}
 
     /// Creates a local time at the given hour, minute and second, with millisecond-of-second and tick-of-millisecond values of zero.
     local_time::local_time(int hour, int minute, int second)
-        : ptime(boost::gregorian::date(1970, 1, 1), time_duration {hour, minute, second})
+        : boost::posix_time::ptime(boost::gregorian::date(1970, 1, 1), boost::posix_time::time_duration {hour, minute, second})
     {}
 
     /// Creates a local time at the given hour, minute, second and millisecond, with a tick-of-millisecond value of zero.
     local_time::local_time(int hour, int minute, int second, int millisecond)
-        : ptime(boost::gregorian::date(1970, 1, 1), time_duration {hour, minute, second, millisecond * 1000})
+        : boost::posix_time::ptime(boost::gregorian::date(1970, 1, 1), boost::posix_time::time_duration {hour, minute, second, millisecond * 1000})
     {}
 
     /// Create from Boost time_duration.
-    local_time::local_time(const time_duration& time)
-        : ptime(boost::gregorian::date(1970, 1, 1), time)
+    local_time::local_time(const boost::posix_time::time_duration& time)
+        : boost::posix_time::ptime(boost::gregorian::date(1970, 1, 1), time)
     {}
 
     /// Create from Boost posix_time.
-    local_time::local_time(const ptime& time)
-        : ptime(time)
+    local_time::local_time(const boost::posix_time::ptime& time)
+        : boost::posix_time::ptime(time)
     {}
 
     local_time::local_time(object const& rhs) { *this = rhs.operator local_time(); }
@@ -151,7 +151,7 @@ namespace dot
 
     local_time local_time::operator+(const period& period) const
     {
-        return static_cast<ptime>(*this) + static_cast<time_duration>(period);
+        return static_cast<boost::posix_time::ptime>(*this) + static_cast<boost::posix_time::time_duration>(period);
     }
 
     bool local_time::operator==(const local_time& other) const
@@ -186,15 +186,15 @@ namespace dot
 
     period local_time::operator-(const local_time& other) const
     {
-        return static_cast<ptime>(*this) - static_cast<ptime>(other);
+        return static_cast<boost::posix_time::ptime>(*this) - static_cast<boost::posix_time::ptime>(other);
     }
 
     local_time local_time::operator-(const period& period) const
     {
-        return static_cast<ptime>(*this) - static_cast<time_duration>(period);
+        return static_cast<boost::posix_time::ptime>(*this) - static_cast<boost::posix_time::time_duration>(period);
     }
 
-    local_time::operator time_duration() const
+    local_time::operator boost::posix_time::time_duration() const
     {
         return time_of_day();
     }
