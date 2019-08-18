@@ -23,7 +23,7 @@ limitations under the License.
 
 #include <dot/precompiled.hpp>
 #include <dot/implement.hpp>
-#include <dot/system/Enum.hpp>
+#include <dot/system/enum.hpp>
 #include <dot/system/type.hpp>
 #include <dot/system/reflection/activator.hpp>
 

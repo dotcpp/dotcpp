@@ -25,7 +25,7 @@ limitations under the License.
 #include <approvals/ApprovalTests.hpp>
 #include <approvals/Catch.hpp>
 #include <dot/system/string.hpp>
-#include <dot/system/Exception.hpp>
+#include <dot/system/exception.hpp>
 #include <dot/system/reflection/method_info.hpp>
 #include <dot/system/reflection/constructor_info.hpp>
 #include <dot/system/type.hpp>

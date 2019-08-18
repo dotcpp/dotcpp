@@ -27,7 +27,7 @@ limitations under the License.
 #include <fmt/core.h>
 #include <dot/detail/const_string_base.hpp>
 #include <dot/system/ptr.hpp>
-#include <dot/system/Char.hpp>
+#include <dot/system/char.hpp>
 
 namespace dot
 {

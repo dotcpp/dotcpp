@@ -29,10 +29,10 @@ limitations under the License.
 #include <typeinfo>
 #include <iostream>
 #include <dot/system/string.hpp>
-#include <dot/system/Exception.hpp>
+#include <dot/system/exception.hpp>
 #include <dot/system/reflection/method_info.hpp>
 #include <dot/system/reflection/constructor_info.hpp>
-#include <dot/system/reflection/Activator.hpp>
+#include <dot/system/reflection/activator.hpp>
 #include <dot/system/type.hpp>
 #include <dot/system/collections/generic/list.hpp>
 
