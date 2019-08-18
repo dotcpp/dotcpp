@@ -85,7 +85,7 @@ namespace dot
         /// Determines whether an element is in the list.
         virtual bool contains(const T& item)
         {
-            return std::find(begin(), end(), item) != end();
+            return std::find(this->begin(), this->end(), item) != this->end();
         }
 
         /// Adds the elements of the specified collection to the end of the list.
@@ -94,8 +94,8 @@ namespace dot
         /// Removes the first occurrence of a specific object from the List.
         bool remove(const T& item)
         {
-            auto iter = std::find(begin(), end(), item);
-            if (iter != end())
+            auto iter = std::find(this->begin(), this->end(), item);
+            if (iter != this->end())
             {
                 this->erase(iter);
                 return true;

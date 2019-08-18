@@ -91,7 +91,7 @@ namespace dot
         /// Determines whether the dictionary contains the specified key.
         bool contains_key(const key_t& key)
         {
-            return this->find(key) != end();
+            return this->find(key) != this->end();
         }
 
         /// Determines whether the dictionary contains a specific value.
@@ -115,7 +115,7 @@ namespace dot
         bool try_get_value(const key_t& key, value_t& value)
         {
             auto iter = this->find(key);
-            if (iter != end())
+            if (iter != this->end())
             {
                 value = iter->second;
                 return true;

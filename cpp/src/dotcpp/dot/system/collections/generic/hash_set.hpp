@@ -97,7 +97,7 @@ namespace dot
             auto iter = this->find(equal_value);
             if (iter != this->end())
             {
-                actualValue = *iter;
+                actual_value = *iter;
                 return true;
             }
             return false;
