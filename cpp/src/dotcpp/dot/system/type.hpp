@@ -533,7 +533,7 @@ namespace dot
     {
         static type typeof()
         {
-            static type_builder type_builder =
+            static type_builder builder =
             []()
             {
                 type_builder type_builder = make_type_builder<std::tuple<T...>>("System", "Tuple<" + get_name<T...>() + ">");
@@ -545,7 +545,7 @@ namespace dot
                 return type_builder;
             }();
 
-            static type type_ = type_builder->build();
+            static type type_ = builder->build();
             return type_;
         }
     private:
@@ -587,7 +587,7 @@ namespace dot
             static void impl(object tuple, int index, object value)
             {
                 if (I == index) std::get<I>(*(struct_wrapper<std::tuple<T...>>)tuple) = (std::tuple_element_t<I, std::tuple<T...>>)value;
-                else SetItemImpl<I + 1>::impl(tuple, index, value);
+                else set_item_impl<I + 1>::impl(tuple, index, value);
             }
         };
 
@@ -602,7 +602,7 @@ namespace dot
 
         static void set_item(object tuple, int index, object value)
         {
-            SetItemImpl<0>::impl(tuple, index, value);
+            set_item_impl<0>::impl(tuple, index, value);
         }
 
 
